@@ -8,8 +8,8 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 public class JamiesModSoundEvents
 {
-    public static final Identifier AMBIENT_ANCIENTFOREST_ADDITIONS = JamiesMod.getModId("ambient.ancient_forest.additions");
-    public static final Identifier MUSIC_ANCIENTFOREST_ADDITIONS = JamiesMod.getModId("music.bygone.ancient_forest");
+    public static final Identifier AMBIENT_ANCIENTFOREST_ADDITIONS = JamiesMod.getModId("ambient.underhang.additions");
+    public static final Identifier MUSIC_ANCIENTFOREST_ADDITIONS = JamiesMod.getModId("music.bygone.underhang");
      public static SoundEvent AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.of(AMBIENT_ANCIENTFOREST_ADDITIONS);
      public static SoundEvent MUSIC_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.of(MUSIC_ANCIENTFOREST_ADDITIONS);
     public static final SoundEvent BLOCK_JAMIESBLOCK_BREAK = register("block.jamiesblock.break");

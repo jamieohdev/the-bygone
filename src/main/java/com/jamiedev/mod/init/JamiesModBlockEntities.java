@@ -1,13 +1,11 @@
 package com.jamiedev.mod.init;
 
 import com.jamiedev.mod.JamiesMod;
-import com.jamiedev.mod.blocks.entity.ModHangingSignBlockEntity;
-import com.jamiedev.mod.blocks.entity.ModSignBlockEntity;
-import com.jamiedev.mod.blocks.entity.PrimordialUrchinEntity;
-import com.jamiedev.mod.blocks.entity.PrimordialVentEntity;
+import com.jamiedev.mod.blocks.entity.*;
 import com.jamiedev.mod.worldgen.structure.AncientRootStructure;
 import com.jamiedev.mod.worldgen.structure.TestRootStructure;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
@@ -26,11 +24,15 @@ public class JamiesModBlockEntities <T extends BlockEntity>
 
     public static BlockEntityType<PrimordialVentEntity> PRIMORDIAL_VENT;
 
+    public static BlockEntityType<CasterBlockEntity> CASTER;
+
     public static BlockEntityType<PrimordialUrchinEntity> PRIMORDIAL_URCHIN;
 
     public static BlockEntityType<ModSignBlockEntity> MOD_SIGN_BLOCK_ENTITY;
 
     public static BlockEntityType<ModHangingSignBlockEntity> MOD_HANGING_SIGN_BLOCK_ENTITY;
+
+    public static BlockEntityType<BlemishCatalystBlockEntity> BLEMISH_CATALYST;
 
     public static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> type) {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, JamiesMod.getModId(name), type);
@@ -38,6 +40,12 @@ public class JamiesModBlockEntities <T extends BlockEntity>
 
     public static void init()
     {
+        BLEMISH_CATALYST = register("caster",
+                BlockEntityType.Builder.create(BlemishCatalystBlockEntity::new, JamiesModBlocks.BLEMISH_CATALYST)
+                        .build());
+        CASTER = register("caster",
+                BlockEntityType.Builder.create(CasterBlockEntity::new, JamiesModBlocks.CASTER)
+                        .build());
         PRIMORDIAL_VENT = register("primordial_vent",
                 BlockEntityType.Builder.create(PrimordialVentEntity::new, JamiesModBlocks.PRIMORDIAL_VENT)
                         .build());

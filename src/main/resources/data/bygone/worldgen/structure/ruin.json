@@ -1,0 +1,19 @@
+{
+  "type": "bygone:ruin",
+  "start_pool": "bygone:ruin",
+  "size": 1,
+  "max_distance_from_center": 80,
+  "biomes": "#bygone:has_structure/ruin",
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_box",
+  "start_height": {
+    "type": "minecraft:uniform",
+    "max_inclusive": {
+      "absolute": 210
+    },
+    "min_inclusive": {
+      "absolute": -15
+    }
+  }
+}

@@ -12,19 +12,16 @@ import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import static net.minecraft.block.Blocks.DIRT;
-import static net.minecraft.block.Blocks.createLightLevelFromLitBlockState;
 
 public class JamiesModBlocks {
 
@@ -66,7 +63,8 @@ public class JamiesModBlocks {
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.DEEPSLATE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 6.0F).sounds(BlockSoundGroup.DEEPSLATE)),  JamiesModItemGroup.JAMIES_MOD);
 
     public static final Block CLOUD = registerBlock("cloud",
-            new TranslucentBlock(AbstractBlock.Settings.create().mapColor(MapColor.OFF_WHITE).strength(0.001F).slipperiness(0.989F).sounds(BlockSoundGroup.WOOL)), JamiesModItemGroup.JAMIES_MOD);
+            new TranslucentBlock(AbstractBlock.Settings.create().mapColor(MapColor.OFF_WHITE).strength(0.001F).slipperiness(0.989F)
+                    .sounds(BlockSoundGroup.WOOL).nonOpaque().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never).blockVision(Blocks::never)), JamiesModItemGroup.JAMIES_MOD);
 
     // Start of the Ancient Forests unique Blocks
 
@@ -162,6 +160,10 @@ public class JamiesModBlocks {
 
     public static final Block ANCIENT_WALL_HANGING_SIGN = registerBlockWithoutBlockItem("ancient_wall_hanging_sign",
             new ModWallHangingSignBlock(JamiesModWoodType.ANCIENT, AbstractBlock.Settings.copy(Blocks.OAK_WALL_HANGING_SIGN).strength(1.0f).dropsLike(ANCIENT_HANGING_SIGN).solid()), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block CASTER = registerBlock("caster",
+            new CasterBlock(AbstractBlock.Settings.create().mapColor(MapColor.WATER_BLUE).instrument(NoteBlockInstrument.XYLOPHONE).requiresTool()
+                    .strength(2.8F)), JamiesModItemGroup.JAMIES_MOD);
 
 // Start of the Primordial Ocean blockset
 
@@ -300,6 +302,10 @@ public class JamiesModBlocks {
 
 // Start of Blemish biome blocksets!
     public static final Block BLEMISH = registerBlock("blemish", new BlemishBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_PURPLE).breakInstantly().sounds(BlockSoundGroup.WET_GRASS)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block BLEMISH_CATALYST = registerBlock("blemish_catalyst", new BlemishCatalystBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_PURPLE).breakInstantly().sounds(BlockSoundGroup.WET_GRASS)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block BLEMISH_VEIN = registerBlock("blemish_vein", new BlemishVeinBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_PURPLE).solid().noCollision().strength(0.2F).sounds(BlockSoundGroup.SCULK_VEIN).pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+
+
 
     private static Block registerBlock(String name, Block block, RegistryKey<ItemGroup> group) {
         registerBlockItem(name, block, group);

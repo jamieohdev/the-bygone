@@ -2,10 +2,12 @@ package com.jamiedev.mod.init;
 
 import com.jamiedev.mod.JamiesMod;
 import com.jamiedev.mod.entities.*;
+import com.jamiedev.mod.entities.projectile.ExoticArrowEntity;
 import com.jamiedev.mod.entities.projectile.HookEntity;
 import com.jamiedev.mod.entities.projectile.ScuttleSpikeEntity;
 import com.jamiedev.mod.mixin.SpawnRestrictMixin;
 import net.minecraft.entity.*;
+import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.registry.Registry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -65,6 +67,16 @@ public class JamiesModEntityTypes {
             JamiesMod.getModId( "brungle"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, BrungleEntity::new)
                     .dimensions(EntityDimensions.fixed(1.5F, 1.0F)).build());
+
+    public static final EntityType<ExoticArrowEntity> EXOTIC_ARROW = Registry.register(Registries.ENTITY_TYPE,
+            JamiesMod.getModId( "exotic_arrow"),
+            FabricEntityTypeBuilder.<ExoticArrowEntity>create(SpawnGroup.MISC, ExoticArrowEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.5F, 0.5F))
+
+                    .trackRangeChunks(4)
+                    .trackedUpdateRate(20)
+                    .build()
+    );
 
     public static final EntityType<GlareEntity> GLARE = Registry.register(Registries.ENTITY_TYPE,
             JamiesMod.getModId( "glare"),

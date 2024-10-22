@@ -16,6 +16,8 @@ public class JamiesModTag
     public static final TagKey<Block>  WALL_CORALS = Blocks.createTag("wall_coral");
 
     public static final TagKey<Block>  CORAL_PLANTS = Blocks.createTag("coral_plants");
+    public static final TagKey<Block>  BLEMISH_REPLACEABLE = Blocks.createTag("blemish_replaceable");
+    public static final TagKey<Block>  BLEMISH_REPLACEABLE_WORLD_GEN = Blocks.createTag("blemish_replaceable_world_gen");
 
     public static class Blocks {
 

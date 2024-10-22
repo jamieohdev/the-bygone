@@ -16,18 +16,7 @@ public class JamiesModBlockTagProvider extends FabricTagProvider.BlockTagProvide
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        getOrCreateTagBuilder(BlockTags.STANDING_SIGNS)
-                .add(JamiesModBlocks.ANCIENT_SIGN);
 
-        getOrCreateTagBuilder(BlockTags.WALL_SIGNS)
-                .add(JamiesModBlocks.ANCIENT_WALL_SIGN);
-
-        getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS)
-                .add(JamiesModBlocks.ANCIENT_HANGING_SIGN);
-
-
-        getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS)
-                .add(JamiesModBlocks.ANCIENT_WALL_HANGING_SIGN);
     }
 
 

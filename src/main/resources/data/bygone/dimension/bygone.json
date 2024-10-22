@@ -7,7 +7,7 @@
       "type": "minecraft:multi_noise",
       "biomes": [
         {
-          "biome": "bygone:ancient_forest",
+          "biome": "bygone:underhang",
           "parameters": {
             "temperature": [0.5, 1],
             "humidity": [-1, 1],
@@ -19,7 +19,7 @@
           }
         },
         {
-          "biome": "bygone:ancient_forest",
+          "biome": "bygone:underhang",
           "parameters": {
             "temperature": [-1, -0.5],
             "humidity": [-1, 1],
@@ -31,7 +31,7 @@
           }
         },
         {
-          "biome": "bygone:ancient_forest",
+          "biome": "bygone:underhang",
           "parameters": {
             "temperature": [-0.5, 0.5],
             "humidity": [-1, 0],
@@ -43,7 +43,7 @@
           }
         },
         {
-          "biome": "bygone:ancient_forest",
+          "biome": "bygone:underhang",
           "parameters": {
             "temperature": [-0.5, 0.5],
             "humidity": [-1, 0],
@@ -55,7 +55,7 @@
           }
         },
         {
-          "biome": "bygone:ancient_forest",
+          "biome": "bygone:underhang",
           "parameters": {
             "temperature": [-0.5, 0.5],
             "humidity": [0, 1],
@@ -67,7 +67,7 @@
           }
         },
         {
-          "biome": "bygone:ancient_forest",
+          "biome": "bygone:underhang",
           "parameters": {
             "temperature": [-0.5, 0.5],
             "humidity": [0, 1],
@@ -79,7 +79,7 @@
           }
         },
         {
-          "biome": "bygone:ancient_forest",
+          "biome": "bygone:amber_desert",
           "parameters": {
             "temperature": [-1, 1],
             "humidity": [-1, 1],

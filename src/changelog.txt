@@ -1,16 +1,30 @@
-# **Updates in 0.0.x**
+# **Updates in 0.0.6a**
 
-**New Features:**
-Text
+Before opening up the world in this update, PLEASE remember to delete the bygone dimension folder!
 
+**New features:**
+Added Exotic Arrows! A short range  arrow that'll return to the player if it misses its target! Made with a new drop from the Big Beak!
+Added 'Cooked' Coelacanth, a new 'food' source that you should probably stick to giving to your friends.
+
+EXPERIMENTAL:
+Added the "Ruins", an experimental new structure that introduces the Blemish.
+Added the Blemish  "Catalyst" and "Vein".
 
 **Changes to existing features:**
 Upgraded the Biome Map, it's highly recommended to delete/reset the dimension folder prior to opening the world.
-
+Updated the Underhangs internal ID being "ancient_forest" to "underhang"!
+Updated the internal ID / jar name to the Bygone!!
+Updated the Primordial Sand texture! (Hopefully for the last time)
 
 **Bugs fixed:**
+Fixed Clouds being "see through" when placed on solid blocks.
 Fixed Glares/Big Beaks spawning too often.
+Fixed Ancient Roots not generating correctly.
+Fixed internal version number being "1.0.0"
+Fixed Overworld features such as Azalea Trees generating in the Underhangst
 
+KNOWN BUGS:
+Entering/Exiting Bygone text is bugged!
 
 # **Updates in 0.0.5c**
 

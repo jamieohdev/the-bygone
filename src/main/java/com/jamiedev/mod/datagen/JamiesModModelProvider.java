@@ -27,6 +27,11 @@ public class JamiesModModelProvider  extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-
+        itemModelGenerator.register(JamiesModItems.COELECANTH, Models.GENERATED);
+        itemModelGenerator.register(JamiesModItems.COELECANTH_COOKED, Models.GENERATED);
+        itemModelGenerator.register(JamiesModItems.EXOTIC_ARROW, Models.GENERATED);
+        itemModelGenerator.register(JamiesModItems.EXOTIC_PLUMAGE, Models.GENERATED);
+        itemModelGenerator.register(JamiesModItems.GLOW_CHITIN, Models.GENERATED);
+        itemModelGenerator.register(JamiesModItems.SCUTTLE_SPIKE, Models.GENERATED);
     }
 }

@@ -175,7 +175,9 @@ public class BigBeakEntity  extends AbstractHorseEntity
             return bl ? ActionResult.SUCCESS : ActionResult.PASS;
         }
     }
-
+    public int getLimitPerChunk() {
+        return 2;
+    }
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
         if (!this.hasPassengers() && !bl) {

@@ -1,5 +1,5 @@
 {
-  "music.bygone.ancient_forest": {
+  "music.bygone.underhang": {
     "category":"music",
     "sounds": [
       {
@@ -29,7 +29,7 @@
       }
     ]
   },
-  "ambient.ancient_forest.additions": {
+  "ambient.underhang.additions": {
     "sounds":  [
       "bygone:ambience/ancient_creak1",
       "bygone:ambience/ancient_creak2",
@@ -38,7 +38,7 @@
       "bygone:ambience/ancient_wind3",
       "bygone:ambience/ancient_wind4"
     ],
-    "subtitle": "subtitles.ambient.ancient_forest.additions"
+    "subtitle": "subtitles.ambient.underhang.additions"
   },
   "ambience.volcanic1": {
     "category": "ambient",

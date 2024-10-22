@@ -1,5 +1,6 @@
 package com.jamiedev.mod.init;
 import com.jamiedev.mod.JamiesMod;
+import com.jamiedev.mod.items.ExoticArrowItem;
 import com.jamiedev.mod.items.HookItem;
 import com.jamiedev.mod.items.JamiesModItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -38,9 +39,12 @@ public class JamiesModItems
     public static final Item GOURD_FLESH = registerItem("gourd_flesh", new Item((new Item.Settings()).food(FoodComponents.GOLDEN_CARROT)));
     public static final Item GOURD_SEEDS = registerItem("gourd_seeds", (Item)(new AliasedBlockItem(JamiesModBlocks.GOURD_LANTERN, new Item.Settings())));
 
-//    public static final Item MUSIC_DISC_MOLTEN = registerItem("music_disc_molten", new Item(new Item.Settings().rarity(Rarity.RARE).jukeboxPlayable(JukeboxSongs.CREATOR_MUSIC_BOX).maxCount(1)));
-//    public static final Item DISC_FRAGMENT_MOLTEN = registerItem("disc_fragment_molten", new DiscFragmentItem(new Item.Settings()));
-
+    public static final Item COELECANTH = registerItem("coelacanth", new Item(new Item.Settings().food(FoodComponents.CHICKEN)));
+    public static final Item COELECANTH_COOKED = registerItem("cooked_coelacanth", new Item(new Item.Settings().food(FoodComponents.POISONOUS_POTATO)));
+    public static final Item EXOTIC_ARROW = registerItem("exotic_arrow", new ExoticArrowItem(new Item.Settings().fireproof()));
+    public static final Item EXOTIC_PLUMAGE = registerItem("exotic_plumage", new Item(new Item.Settings().fireproof()));
+    public static final Item GLOW_CHITIN = registerItem("glow_chitin", new Item(new Item.Settings().fireproof()));
+    public static final Item SCUTTLE_SPIKE = registerItem("scuttle_spike", new Item(new Item.Settings().fireproof()));
     ArmorMaterials mat;
 
     public static final Item SCALE_HELMET = registerItem("scale_helmet",
@@ -63,6 +67,10 @@ public class JamiesModItems
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, ANCIENT_HANGING_SIGN);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, HOOK);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, SCALE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, EXOTIC_ARROW);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, EXOTIC_PLUMAGE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, COELECANTH);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, COELECANTH_COOKED);
     }
 
 
