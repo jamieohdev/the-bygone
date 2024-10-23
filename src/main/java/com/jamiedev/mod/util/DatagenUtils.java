@@ -1,21 +1,17 @@
 package com.jamiedev.mod.util;
 
-import com.google.gson.JsonElement;
 import com.jamiedev.mod.init.JamiesModBlocks;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
-import static net.minecraft.data.client.BlockStateModelGenerator.createSingletonBlockState;
+import java.util.Optional;
 
 public class DatagenUtils {
+
+    public static final Model ORIENTABLE_VERTICAL_WITH_BOTTOM = block("orientable_vertical", "_vertical", TextureKey.FRONT, TextureKey.SIDE, TextureKey.BOTTOM, TextureKey.DOWN);
+
     //
     public static void registerCasterModel(Block block, BlockStateModelGenerator blockStateModelGenerator) {
         TextureMap textureMap = new TextureMap()
@@ -26,11 +22,13 @@ public class DatagenUtils {
                 .put(TextureKey.BOTTOM, TextureMap.getSubId(JamiesModBlocks.CASTER, "_bottom"));
 
         TextureMap textureMap2 = new TextureMap()
-                .put(TextureKey.SIDE, TextureMap.getSubId(Blocks.FURNACE, "_top"))
-                .put(TextureKey.FRONT, TextureMap.getSubId(block, "_front_vertical"));
+                .put(TextureKey.SIDE, TextureMap.getSubId(block, "_side"))
+                .put(TextureKey.FRONT, TextureMap.getSubId(block, "_front"))
+                .put(TextureKey.DOWN, TextureMap.getSubId(JamiesModBlocks.CASTER, "_bottom"))
+                .put(TextureKey.BOTTOM, TextureMap.getSubId(JamiesModBlocks.CASTER, "_bottom"));
 
         Identifier identifier = Models.ORIENTABLE_WITH_BOTTOM.upload(block, textureMap, blockStateModelGenerator.modelCollector);
-        Identifier identifier2 = Models.ORIENTABLE_VERTICAL.upload(block, textureMap2, blockStateModelGenerator.modelCollector);
+        Identifier identifier2 = ORIENTABLE_VERTICAL_WITH_BOTTOM.upload(block, textureMap2, blockStateModelGenerator.modelCollector);
 
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(
                 BlockStateVariantMap.create(Properties.FACING)
@@ -42,5 +40,9 @@ public class DatagenUtils {
                     .register(Direction.WEST, BlockStateVariant.create().put(VariantSettings.MODEL, identifier).put(VariantSettings.Y, VariantSettings.Rotation.R270))
                 )
         );
+    }
+
+    private static Model block(String parent, String variant, TextureKey... requiredTextureKeys) {
+        return new Model(Optional.of(Identifier.ofVanilla("block/" + parent)), Optional.of(variant), requiredTextureKeys);
     }
 }
