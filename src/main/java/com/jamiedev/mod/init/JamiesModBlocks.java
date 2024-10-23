@@ -38,6 +38,13 @@ public class JamiesModBlocks {
 
     public static final Block CASTER = registerBlock("caster",
             new CasterBlock(AbstractBlock.Settings.copy(Blocks.DISPENSER)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block BLAZE_CASTER = registerBlock("blaze_caster",
+            new CasterBlock(AbstractBlock.Settings.copy(Blocks.DISPENSER)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block BREEZE_CASTER = registerBlock("breeze_caster",
+            new CasterBlock(AbstractBlock.Settings.copy(Blocks.DISPENSER)), JamiesModItemGroup.JAMIES_MOD);
+
     public static final CustomPortalBlock BYGONE_PORTAL = (CustomPortalBlock) registerBlockWithoutBlockItem("bygone_portal",
             new CustomPortalBlock(AbstractBlock.Settings.copy(Blocks.NETHER_PORTAL).luminance((state) -> 6).dropsNothing().noCollision().strength(-1.0f,3600000.0f)), JamiesModItemGroup.JAMIES_MOD );
 

@@ -1,5 +1,7 @@
 package com.jamiedev.mod.blocks.entity;
 
+import com.jamiedev.mod.JamiesMod;
+import com.jamiedev.mod.init.JamiesModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -8,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.util.BlockMirror;
@@ -19,12 +22,36 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
+import java.util.HashMap;
+
+import static net.minecraft.item.Items.BLAZE_ROD;
+import static net.minecraft.item.Items.BREEZE_ROD;
+
 public class CasterBlock extends Block {
     public static final DirectionProperty FACING = FacingBlock.FACING;
 
     public CasterBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (world.isClient) return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        Item item = player.getStackInHand(hand).getItem();
+        Block block = null;
+
+        if (item == BLAZE_ROD) {
+            block = JamiesModBlocks.BLAZE_CASTER;
+        } else if (item == BREEZE_ROD) {
+            block = JamiesModBlocks.BREEZE_CASTER;
+        }
+
+        if(block != null) {
+            world.setBlockState(pos, block.getDefaultState());
+        }
+
+        return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     @Override
@@ -45,17 +72,5 @@ public class CasterBlock extends Block {
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING);
-    }
-
-    @Override
-    protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.isClient) return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-        Item item = stack.getItem();
-
-        // Just a test
-        if (item != ItemStack.EMPTY.getItem()) {
-            world.setBlockState(pos, Blocks.DIAMOND_BLOCK.getDefaultState());
-        }
-        return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 }

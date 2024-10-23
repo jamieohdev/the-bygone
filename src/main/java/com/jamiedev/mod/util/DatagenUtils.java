@@ -1,6 +1,7 @@
 package com.jamiedev.mod.util;
 
 import com.google.gson.JsonElement;
+import com.jamiedev.mod.init.JamiesModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
@@ -22,7 +23,7 @@ public class DatagenUtils {
                 .put(TextureKey.SIDE, TextureMap.getSubId(block, "_side"))
                 .put(TextureKey.FRONT, TextureMap.getSubId(block, "_front"))
                 .put(TextureKey.DOWN, TextureMap.getSubId(block, "_bottom"))
-                .put(TextureKey.BOTTOM, TextureMap.getSubId(block, "_bottom"));
+                .put(TextureKey.BOTTOM, TextureMap.getSubId(JamiesModBlocks.CASTER, "_bottom"));
 
         TextureMap textureMap2 = new TextureMap()
                 .put(TextureKey.SIDE, TextureMap.getSubId(Blocks.FURNACE, "_top"))
