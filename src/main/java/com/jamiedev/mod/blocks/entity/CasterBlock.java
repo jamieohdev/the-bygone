@@ -48,7 +48,7 @@ public class CasterBlock extends Block {
         }
 
         if(block != null) {
-            world.setBlockState(pos, block.getDefaultState());
+            world.setBlockState(pos, block.getStateWithProperties(state));
         }
 
         return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
