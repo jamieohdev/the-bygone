@@ -4,6 +4,7 @@ import java.util.Optional;
 import com.jamiedev.mod.*;
 
 import com.jamiedev.mod.blocks.*;
+import com.jamiedev.mod.blocks.entity.CasterBlock;
 import com.jamiedev.mod.items.JamiesModItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.kyrptonaught.customportalapi.CustomPortalBlock;
@@ -12,19 +13,16 @@ import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import static net.minecraft.block.Blocks.DIRT;
-import static net.minecraft.block.Blocks.createLightLevelFromLitBlockState;
 
 public class JamiesModBlocks {
 
@@ -37,6 +35,9 @@ public class JamiesModBlocks {
         return Registry.register(Registries.BLOCK, JamiesMod.getModId(blockID), block);
     }
     Blocks blocks; // using this as a reference
+
+    public static final Block CASTER = registerBlock("caster",
+            new CasterBlock(AbstractBlock.Settings.copy(Blocks.DISPENSER)), JamiesModItemGroup.JAMIES_MOD);
     public static final CustomPortalBlock BYGONE_PORTAL = (CustomPortalBlock) registerBlockWithoutBlockItem("bygone_portal",
             new CustomPortalBlock(AbstractBlock.Settings.copy(Blocks.NETHER_PORTAL).luminance((state) -> 6).dropsNothing().noCollision().strength(-1.0f,3600000.0f)), JamiesModItemGroup.JAMIES_MOD );
 
