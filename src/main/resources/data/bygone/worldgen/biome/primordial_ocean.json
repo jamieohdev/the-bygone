@@ -8,6 +8,16 @@
   },
   "downfall": 0.5,
   "effects": {
+    "additions_sound": {
+      "sound": "bygone:ambient.primordial_ocean.additions",
+      "tick_chance": 0.0007
+    },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "bygone:music.bygone.primordial_ocean"
+    },
     "fog_color": 488284,
     "mood_sound": {
       "block_search_extent": 8,

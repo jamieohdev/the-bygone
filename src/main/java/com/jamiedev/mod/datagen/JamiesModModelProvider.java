@@ -22,16 +22,15 @@ public class JamiesModModelProvider  extends FabricModelProvider {
 
         //malachite.family(BlockFamilies.register(JamiesModBlocks.MALACHITE).slab(JamiesModBlocks.MALACHITE_SLAB).stairs(JamiesModBlocks.MALACHITE_STAIRS).wall(JamiesModBlocks.MALACHITE_WALL).build());
         //tiles.family(BlockFamilies.register(JamiesModBlocks.MALACHITE_TILE).slab(JamiesModBlocks.MALACHITE_TILE_SLAB).stairs(JamiesModBlocks.MALACHITE_TILE_STAIRS).wall(JamiesModBlocks.MALACHITE_TILE_WALL).build());
+        blockStateModelGenerator.registerGeneric(JamiesModBlocks.AMBER);
+        blockStateModelGenerator.registerGeneric(JamiesModBlocks.AMBER_FOSSILIZED);
+        blockStateModelGenerator.registerGeneric(JamiesModBlocks.AMBER_BRICKS);
+        blockStateModelGenerator.registerGeneric(JamiesModBlocks.COBBLED_AMBER);
 
     }
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        itemModelGenerator.register(JamiesModItems.COELECANTH, Models.GENERATED);
-        itemModelGenerator.register(JamiesModItems.COELECANTH_COOKED, Models.GENERATED);
-        itemModelGenerator.register(JamiesModItems.EXOTIC_ARROW, Models.GENERATED);
-        itemModelGenerator.register(JamiesModItems.EXOTIC_PLUMAGE, Models.GENERATED);
-        itemModelGenerator.register(JamiesModItems.GLOW_CHITIN, Models.GENERATED);
-        itemModelGenerator.register(JamiesModItems.SCUTTLE_SPIKE, Models.GENERATED);
+     //   itemModelGenerator.register(JamiesModItems.COELECANTH, Models.GENERATED);
     }
 }

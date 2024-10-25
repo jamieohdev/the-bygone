@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "bottom": "bygone:block/blemish_catalyst",
-    "side": "bygone:block/blemish_catalyst",
-    "top": "bygone:block/blemish_catalyst"
+    "bottom": "bygone:block/blemish_catalyst_top",
+    "side": "bygone:block/blemish_catalyst_on",
+    "top": "bygone:block/blemish_catalyst_top"
   }
 }

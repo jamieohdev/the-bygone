@@ -1,7 +1,13 @@
-// 1.21.1	2024-10-17T19:30:57.597865	bygone/Model Definitions
-2eb0ad21d4e7d7818df4e47f985fb4fb3771d283 assets\bygone\models\item\scuttle_spike.json
-0602ddf83c9e13b2517dac629847ea5f47044d99 assets\bygone\models\item\glow_chitin.json
-49e24565985ca395dcb4d41b116ecf036702a074 assets\bygone\models\item\exotic_arrow.json
-9cb7222f614e922b4698c89824a1535cd0aa77e5 assets\bygone\models\item\coelacanth.json
-99525fb88c00046589c0b3e0ae84f9bf966ca2c9 assets\bygone\models\item\cooked_coelacanth.json
-540d8a55d2342fc67badfb51d32d7ed01d49c799 assets\bygone\models\item\exotic_plumage.json
+// 1.21.1	2024-10-24T16:33:55.7362689	bygone/Model Definitions
+f60d758b41f22e3cb16b15561752a2ab791ff4fe assets\bygone\models\block\cobbled_amber.json
+13e5c6a3b7dd68fe27e8cf1fa2b056c631a28a25 assets\bygone\models\item\amber.json
+3e8db6210225cc271b4baa6739859b6ed8636bd5 assets\bygone\blockstates\amber_bricks.json
+a9695263c8cc1fc19f50b34f78cf8e9605527f2d assets\bygone\blockstates\cobbled_amber.json
+c1f395c5e220e4feac215b56458bceb893043ac0 assets\bygone\models\block\amber_bricks.json
+0acb190af03f01d459d05fd015f63d4317a0d0ce assets\bygone\models\block\amber_fossilized.json
+c93ab44aac7e9b08591f27b35ccbafcedad71242 assets\bygone\models\item\amber_fossilized.json
+daa8b2b5edb28201666611cdca43056018285b3d assets\bygone\blockstates\amber_fossilized.json
+20a7ccbd5c93d4c4cb4034737e4d5db5deebceb1 assets\bygone\models\item\cobbled_amber.json
+31042d1db756b5efd557d92b0d4f5133fc7ff17e assets\bygone\models\item\amber_bricks.json
+ce847dd8d1392fdcaff71de1aa73ade23502e92b assets\bygone\blockstates\amber.json
+cca57e34ccba434553b72c01881fdde26db4b5d4 assets\bygone\models\block\amber.json

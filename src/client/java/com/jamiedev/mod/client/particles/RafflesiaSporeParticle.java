@@ -53,7 +53,6 @@ public class RafflesiaSporeParticle extends SpriteBillboardParticle {
         return ParticleTextureSheet.PARTICLE_SHEET_OPAQUE;
     }
 
-
     public static class SporeBlossomAirFactory implements ParticleFactory<SimpleParticleType> {
         private final SpriteProvider spriteProvider;
 

@@ -3,15 +3,11 @@
     "category":"music",
     "sounds": [
       {
-        "name": "bygone:music/coda",
+        "name": "bygone:music/changing",
         "stream": true
       },
       {
         "name": "bygone:music/gelida",
-        "stream": true
-      },
-      {
-        "name": "bygone:music/rodhim",
         "stream": true
       },
       {
@@ -39,6 +35,19 @@
       "bygone:ambience/ancient_wind4"
     ],
     "subtitle": "subtitles.ambient.underhang.additions"
+  },
+  "ambient.amber_desert.additions": {
+    "sounds":  [
+      "bygone:ambience/upsidedown3"
+    ],
+    "subtitle": "subtitles.ambient.amber_desert.additions"
+  },
+  "ambient.primordial_ocean.additions": {
+    "sounds":  [
+
+      "bygone:ambience/frozen3"
+    ],
+    "subtitle": "subtitles.ambient.primordial_ocean.additions"
   },
   "ambience.volcanic1": {
     "category": "ambient",
@@ -183,20 +192,11 @@
       }
     ]
   },
-  "music.coda": {
+  "music.changing": {
     "category": "music",
     "sounds":[
       {
-        "name": "bygone:music/coda",
-        "stream": true
-      }
-    ]
-  },
-  "music.rodhim": {
-    "category": "music",
-    "sounds":[
-      {
-        "name": "bygone:music/rodhim",
+        "name": "bygone:music/changing",
         "stream": true
       }
     ]

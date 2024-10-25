@@ -1,1 +1,5 @@
-// 1.21.1	2024-10-17T19:30:57.596864	bygone/Block Loot Tables
+// 1.21.1	2024-10-24T16:33:55.73526	bygone/Block Loot Tables
+717243da994d2fc39fcc8a6404626ae9d4792efd data\bygone\loot_table\blocks\amber_fossilized.json
+788a9d799f8b7c23b4c480acc1e0726e12179d22 data\bygone\loot_table\blocks\amber.json
+3d8a02a114d0cb748b8aa2a1ecef172c1b5d5ff5 data\bygone\loot_table\blocks\amber_bricks.json
+018a876c94d1874c4a284bc16fb3143b18cc63c2 data\bygone\loot_table\blocks\cobbled_amber.json

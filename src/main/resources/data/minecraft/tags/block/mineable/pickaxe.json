@@ -38,6 +38,11 @@
     "bygone:malachite_wall",
     "bygone:malachite_tile_slab",
     "bygone:malachite_tile_stairs",
-    "bygone:malachite_tile_wall"
+    "bygone:malachite_tile_wall",
+    "bygone:amber",
+    "bygone:amber_bricks",
+    "bygone:amber_fossilized",
+    "bygone:cobbled_amber",
+    "bygone:flowing_amber"
   ]
 }

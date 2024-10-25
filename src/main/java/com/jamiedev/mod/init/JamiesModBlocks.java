@@ -306,6 +306,42 @@ public class JamiesModBlocks {
     public static final Block BLEMISH_VEIN = registerBlock("blemish_vein", new BlemishVeinBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_PURPLE).solid().noCollision().strength(0.2F).sounds(BlockSoundGroup.SCULK_VEIN).pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
 
 
+// Start of Amber Desert blocksets!
+    public static final Block UMBER = registerBlock("umber",
+        new Block(AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).strength(1.0F)
+                .sounds(BlockSoundGroup.GRAVEL)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block AMBER = registerBlock("amber",
+        new TranslucentBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).strength(1.0F)
+                .sounds(BlockSoundGroup.GLASS).nonOpaque().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never)
+                .blockVision(Blocks::never).luminance((state) -> {
+                    return 4;
+                })), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block AMBER_FOSSILIZED = registerBlock("amber_fossilized", new Block(
+            AbstractBlock.Settings.create().sounds(BlockSoundGroup.GLASS).luminance((state) -> {
+                return 4;
+            }).mapColor(MapColor.ORANGE).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F,
+                    6.0F)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block AMBER_BRICKS = registerBlock("amber_bricks", new Block(
+            AbstractBlock.Settings.create().sounds(BlockSoundGroup.GLASS).mapColor(MapColor.ORANGE).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F,
+                    6.0F).luminance((state) -> {
+                return 4;
+            })), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block FLOWING_AMBER = registerBlock("flowing_amber", new Block(
+            AbstractBlock.Settings.create().sounds(BlockSoundGroup.GLASS).mapColor(MapColor.ORANGE).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F,
+                    6.0F).luminance((state) -> {
+                return 15;
+            })), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block COBBLED_AMBER = registerBlock("cobbled_amber", new Block(
+            AbstractBlock.Settings.create().sounds(BlockSoundGroup.GLASS).mapColor(MapColor.ORANGE).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F,
+                    6.0F).luminance((state) -> {
+                return 6;
+            })), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block CREOSOTE = registerBlock("creosote", new DeadBushBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).replaceable()
+            .noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).burnable().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block CREOSOTE_SPROUTS = registerBlock("creosote_sprouts", new DeadBushBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).replaceable()
+            .noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).burnable().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+
+
 
     private static Block registerBlock(String name, Block block, RegistryKey<ItemGroup> group) {
         registerBlockItem(name, block, group);

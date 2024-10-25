@@ -121,6 +121,15 @@
   "block.bygone.blemish_vein": "Blemish Vein (WIP!)",
   "block.bygone.blemish_catalyst": "Blemished Catalyst (WIP!)",
 
+  "block.bygone.amber": "Amber",
+  "block.bygone.umber": "Umber",
+  "block.bygone.amber_fossilized": "Fossilized Amber",
+  "block.bygone.amber_bricks": "Amber Bricks",
+  "block.bygone.flowing_amber": "Flowing Amber",
+  "block.bygone.cobbled_amber": "Cobbled Amber",
+  "block.bygone.creosote": "Creosote",
+  "block.bygone.creosote_sprouts": "Creosote Sprouts",
+
   "entity.bygone.ammonite": "Ammonite",
   "entity.bygone.big_beak": "Big Beak",
   "entity.bygone.coelacanth": "Coelacanth",
@@ -135,11 +144,10 @@
 
   "dimension.bygone.bygone":"The Bygone",
 
-  "biome.bygone.amber_desert": "The Amber Desert (Soon!)",
-  "biome.bygone.underhang":"The Underhang",
-  "biome.bygone.blemish": "The Blemished (Soon!!)",
+  "biome.bygone.amber_desert": "Amber Desert",
+  "biome.bygone.underhang":"Underhang",
   "biome.bygone.calm":"The Calmlands (Not added yet)",
-  "biome.bygone.primordial_ocean":"The Primordial Ocean",
+  "biome.bygone.primordial_ocean":"Primordial Ocean",
   "biome.bygone.tar_pits":"The Cess Pools (Not added yet)",
 
   "": "",

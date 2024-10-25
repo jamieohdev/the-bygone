@@ -1,5 +1,6 @@
 package com.jamiedev.mod.worldgen.feature;
 
+import com.jamiedev.mod.init.JamiesModBlocks;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -119,9 +120,9 @@ public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
                 if (e < 0.0) {
                     BlockPos blockPos2 = pos.add(n, y, o);
                     BlockState blockState = world.getBlockState(blockPos2);
-                    if (isSnowOrHONEY_BLOCK(blockState) || blockState.isOf(Blocks.YELLOW_CONCRETE)) {
+                    if (isSnowOrHONEY_BLOCK(blockState) || blockState.isOf(JamiesModBlocks.COBBLED_AMBER)) {
                         if (placeWater) {
-                            this.setBlockState(world, blockPos2, Blocks.SAND.getDefaultState());
+                            this.setBlockState(world, blockPos2, JamiesModBlocks.UMBER.getDefaultState());
                         } else {
                             this.setBlockState(world, blockPos2, Blocks.AIR.getDefaultState());
                             this.clearSnowAbove(world, blockPos2);
@@ -156,11 +157,11 @@ public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
 
     private void placeBlockOrSnow(BlockPos pos, WorldAccess world, Random random, int heightRemaining, int height, boolean lessSnow, boolean placeSnow, BlockState state) {
         BlockState blockState = world.getBlockState(pos);
-        if (blockState.isAir() || blockState.isOf(Blocks.YELLOW_CONCRETE) || blockState.isOf(Blocks.HONEY_BLOCK) || blockState.isOf(Blocks.SAND)) {
+        if (blockState.isAir() || blockState.isOf(JamiesModBlocks.COBBLED_AMBER) || blockState.isOf(JamiesModBlocks.AMBER) || blockState.isOf(JamiesModBlocks.UMBER)) {
             boolean bl = !lessSnow || random.nextDouble() > 0.05;
             int i = lessSnow ? 3 : 2;
-            if (placeSnow && !blockState.isOf(Blocks.SAND) && (double)heightRemaining <= (double)random.nextInt(Math.max(1, height / i)) + (double)height * 0.6 && bl) {
-                this.setBlockState(world, pos, Blocks.YELLOW_CONCRETE.getDefaultState());
+            if (placeSnow && !blockState.isOf(JamiesModBlocks.UMBER) && (double)heightRemaining <= (double)random.nextInt(Math.max(1, height / i)) + (double)height * 0.6 && bl) {
+                this.setBlockState(world, pos, JamiesModBlocks.COBBLED_AMBER.getDefaultState());
             } else {
                 this.setBlockState(world, pos, state);
             }
@@ -210,7 +211,7 @@ public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
     }
 
     private static boolean isSnowOrHONEY_BLOCK(BlockState state) {
-        return state.isOf(Blocks.YELLOW_WOOL) || state.isOf(Blocks.YELLOW_CONCRETE) || state.isOf(Blocks.YELLOW_STAINED_GLASS);
+        return state.isOf(Blocks.YELLOW_WOOL) || state.isOf(JamiesModBlocks.COBBLED_AMBER) || state.isOf(Blocks.YELLOW_STAINED_GLASS) || state.isOf(JamiesModBlocks.AMBER);
     }
 
     private boolean isAirBelow(BlockView world, BlockPos pos) {

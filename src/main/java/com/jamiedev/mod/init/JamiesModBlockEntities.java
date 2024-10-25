@@ -40,7 +40,7 @@ public class JamiesModBlockEntities <T extends BlockEntity>
 
     public static void init()
     {
-        BLEMISH_CATALYST = register("caster",
+        BLEMISH_CATALYST = register("blemish_catalyst",
                 BlockEntityType.Builder.create(BlemishCatalystBlockEntity::new, JamiesModBlocks.BLEMISH_CATALYST)
                         .build());
         CASTER = register("caster",

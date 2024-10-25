@@ -11,9 +11,10 @@ import net.minecraft.util.Identifier;
 
 public class JamiesModCriteria
 {
-    public static final OnKilledCriterion KILLED_BY_BLEMISH_CRITERION = register("killed_by_blemish", new OnKilledCriterion());
+    public static final OnKilledCriterion KILLED_BY_BLEMISH_CRITERION = new OnKilledCriterion();
 
-    public static void registerCriteria() {
+    public static void init() {
+        Registry.register(Registries.CRITERION, JamiesMod.getModId("killed_by_blemish"), KILLED_BY_BLEMISH_CRITERION);
     }
 
     public static <T extends Criterion<?>> T register(String id, T criterion) {

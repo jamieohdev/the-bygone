@@ -30,6 +30,7 @@ public class JamiesMod implements ModInitializer {
 		JamiesModPortals.init();
 		JamiesModSoundEvents.init();
 		JamiesModMisc.init();
+		JamiesModCriteria.init();
 
 		JamiesMod.LOGGER.info("Registering Entities for " + JamiesMod.MOD_ID);
 

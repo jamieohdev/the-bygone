@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "bygone:creosote"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "bygone:creosote_sprouts"
+          },
+          "weight": 2
+        }
+      ]
+    }
+  }
+}

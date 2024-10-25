@@ -5,10 +5,15 @@ Before opening up the world in this update, PLEASE remember to delete the bygone
 **New features:**
 Added Exotic Arrows! A short range  arrow that'll return to the player if it misses its target! Made with a new drop from the Big Beak!
 Added 'Cooked' Coelacanth, a new 'food' source that you should probably stick to giving to your friends.
+New "ambience" in the Primordial Oceans!
+A new song from LudoCrypt has been added to the Underhang, titled "Changing"!
 
 EXPERIMENTAL:
 Added the "Ruins", an experimental new structure that introduces the Blemish.
 Added the Blemish  "Catalyst" and "Vein".
+Added the "Amber Desert" biome! A new environment filled with massive amber chunks and fossils.
+Added the Amber blockset!
+Added Creosote and Creosote Sprouts, two new decorative plants found in the Amber Desert!
 
 **Changes to existing features:**
 Upgraded the Biome Map, it's highly recommended to delete/reset the dimension folder prior to opening the world.
@@ -21,7 +26,8 @@ Fixed Clouds being "see through" when placed on solid blocks.
 Fixed Glares/Big Beaks spawning too often.
 Fixed Ancient Roots not generating correctly.
 Fixed internal version number being "1.0.0"
-Fixed Overworld features such as Azalea Trees generating in the Underhangst
+Fixed Overworld features such as Azalea Trees generating in the Underhang
+Fixed Overworld giant ore veins generating in the Bygone
 
 KNOWN BUGS:
 Entering/Exiting Bygone text is bugged!
