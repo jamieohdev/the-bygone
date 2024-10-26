@@ -24,6 +24,7 @@ Fixed Patchouli not being in the credits!
 Fixed Ancient Wood/Logs not properly being in the Wood tag! (Which meant stuff like campfires weren't craftable!)
 Fixed Coarse Claystone having a space before its display name!
 Fixed *too many* mobs spawning in the Primordial Ocean.
+Fixed the jar name being "jamiesmod" instead of "bygone"
 
 KNOWN BUGS:
 Scuttles spawn-- In the air sometimes??
