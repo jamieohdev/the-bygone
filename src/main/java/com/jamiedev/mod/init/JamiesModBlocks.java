@@ -17,6 +17,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
@@ -36,31 +37,40 @@ public class JamiesModBlocks {
     Blocks blocks; // using this as a reference
     public static final CustomPortalBlock BYGONE_PORTAL = (CustomPortalBlock) registerBlockWithoutBlockItem("bygone_portal",
             new CustomPortalBlock(AbstractBlock.Settings.copy(Blocks.NETHER_PORTAL).luminance((state) -> 6).dropsNothing().noCollision().strength(-1.0f,3600000.0f)), JamiesModItemGroup.JAMIES_MOD );
+    public static final Block BYGONE_PORTAL_FRAME = registerBlockWithoutBlockItem("bygone_portal_frame",
+            new Block(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1000000.8F)), JamiesModItemGroup.JAMIES_MOD);
 
-    public static final Block BYGONESTONE_IRON_ORE = registerBlock("bygonestone_iron_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
+    public static final Block BYGONESTONE_IRON_ORE = registerBlock("bystone_iron_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
             AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 3.0F)), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block  BYGONESLATE_IRON_ORE = registerBlock("bygoneslate_iron_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
+    public static final Block  BYGONESLATE_IRON_ORE = registerBlock("byslate_iron_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
             AbstractBlock.Settings.copyShallow(BYGONESTONE_IRON_ORE).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5F, 3.0F).sounds(BlockSoundGroup.DEEPSLATE)), JamiesModItemGroup.JAMIES_MOD);
 
-    public static final Block  BYGONESTONE_COAL_ORE = registerBlock("bygonestone_coal_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
+    public static final Block  BYGONESTONE_COAL_ORE = registerBlock("bystone_coal_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
             AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 3.0F)), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block BYGONESLATE_COAL_ORE = registerBlock("bygoneslate_coal_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
+    public static final Block BYGONESLATE_COAL_ORE = registerBlock("byslate_coal_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
             AbstractBlock.Settings.copyShallow(BYGONESTONE_COAL_ORE).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5F, 3.0F).sounds(BlockSoundGroup.DEEPSLATE)), JamiesModItemGroup.JAMIES_MOD);
 
-    public static final Block  BYGONESTONE_COPPER_ORE = registerBlock("bygonestone_copper_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
+    public static final Block  BYGONESTONE_COPPER_ORE = registerBlock("bystone_copper_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
             AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 3.0F)), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block BYGONESLATE_COPPER_ORE = registerBlock("bygoneslate_copper_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
+    public static final Block BYGONESLATE_COPPER_ORE = registerBlock("byslate_copper_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
             AbstractBlock.Settings.copyShallow(BYGONESTONE_COPPER_ORE).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5F, 3.0F).sounds(BlockSoundGroup.DEEPSLATE)), JamiesModItemGroup.JAMIES_MOD);
 
 
     public static final Block JAMIES_BLOCK = createBlockWithItem("jamies_block", new ExperienceDroppingBlock(UniformIntProvider.create(3, 7),
             AbstractBlock.Settings.copy(Blocks.OBSIDIAN).strength(52.0F, 1200.0F).instrument(NoteBlockInstrument.BANJO).pistonBehavior(PistonBehavior.NORMAL)));
 
-    public static final Block LIMBOSTONE = registerBlock("bygonestone",
+    public static final Block LIMBOSTONE = registerBlock("bystone",
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(0.8F)), JamiesModItemGroup.JAMIES_MOD);
 
-    public static final Block LIMBOSLATE = registerBlock("bygoneslate",
+    public static final Block LIMBOSLATE = registerBlock("byslate",
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.DEEPSLATE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 6.0F).sounds(BlockSoundGroup.DEEPSLATE)),  JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block COBBLED_BYSTONE = registerBlock("cobbled_bystone",
+            new Block(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(0.4F)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block COBBLED_BYSLATE = registerBlock("cobbled_byslate",
+            new Block(AbstractBlock.Settings.create().mapColor(MapColor.DEEPSLATE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.0F, 2.0F).sounds(BlockSoundGroup.DEEPSLATE)),  JamiesModItemGroup.JAMIES_MOD);
+
 
     public static final Block CLOUD = registerBlock("cloud",
             new TranslucentBlock(AbstractBlock.Settings.create().mapColor(MapColor.OFF_WHITE).strength(0.001F).slipperiness(0.989F)
@@ -95,8 +105,7 @@ public class JamiesModBlocks {
         return 15;
     }).nonOpaque().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
 
-    public static final Block BYSTONE = registerBlock("bystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(2.0F, 3.0F).sounds(BlockSoundGroup.DRIPSTONE_BLOCK)), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block CLAYSTONE = registerBlock("claystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
+   public static final Block CLAYSTONE = registerBlock("claystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block COARSE_CLAYSTONE = registerBlock("coarse_claystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block MOSSY_CLAYSTONE = registerBlock((String)"mossy_claystone", new GrassBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block GRASSY_CLAYSTONE = registerBlockWithoutBlockItem((String)"grassy_claystone", new GrassBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);
@@ -208,7 +217,7 @@ public class JamiesModBlocks {
             new DoorBlock(JamiesModBlockSetType.ANCIENT, AbstractBlock.Settings.copy(Blocks.OAK_DOOR).sounds(BlockSoundGroup.AMETHYST_BLOCK).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
 
     public static final Block MALACHITE_STAIRS = registerBlock("malachite_stairs",
-            new StairsBlock(JamiesModBlocks.MALACHITE.getDefaultState(), AbstractBlock.Settings.copy(Blocks.OAK_STAIRS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+            new StairsBlock(JamiesModBlocks.MALACHITE.getDefaultState(), AbstractBlock.Settings.copy(Blocks.QUARTZ_STAIRS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
 
     public static final Block MALACHITE_SLAB = registerBlock("malachite_slab",
             new SlabBlock(AbstractBlock.Settings.copy(JamiesModBlocks.MALACHITE).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
@@ -217,7 +226,7 @@ public class JamiesModBlocks {
             new WallBlock(AbstractBlock.Settings.copy(JamiesModBlocks.MALACHITE).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
 
     public static final Block MALACHITE_TILE_STAIRS = registerBlock("malachite_tile_stairs",
-            new StairsBlock(JamiesModBlocks.MALACHITE.getDefaultState(), AbstractBlock.Settings.copy(Blocks.OAK_STAIRS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+            new StairsBlock(JamiesModBlocks.MALACHITE.getDefaultState(), AbstractBlock.Settings.copy(Blocks.QUARTZ_STAIRS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
 
     public static final Block MALACHITE_TILE_SLAB = registerBlock("malachite_tile_slab",
             new SlabBlock(AbstractBlock.Settings.copy(JamiesModBlocks.MALACHITE).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
@@ -308,8 +317,12 @@ public class JamiesModBlocks {
 
 // Start of Amber Desert blocksets!
     public static final Block UMBER = registerBlock("umber",
-        new Block(AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).strength(1.0F)
+        new Block(AbstractBlock.Settings.create().mapColor(MapColor.DARK_RED).strength(0.35F)
                 .sounds(BlockSoundGroup.GRAVEL)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block SUSPICIOUS_UMBER = registerBlock("suspicious_umber",
+            new BygoneBrushableBlock(UMBER, SoundEvents.ITEM_BRUSH_BRUSHING_GRAVEL, SoundEvents.ITEM_BRUSH_BRUSHING_GRAVEL_COMPLETE,
+                    AbstractBlock.Settings.create().mapColor(MapColor.DARK_RED).instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.25F).sounds(BlockSoundGroup.SUSPICIOUS_GRAVEL).pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block AMBER = registerBlock("amber",
         new TranslucentBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).strength(1.0F)
                 .sounds(BlockSoundGroup.GLASS).nonOpaque().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never)
@@ -326,7 +339,7 @@ public class JamiesModBlocks {
                     6.0F).luminance((state) -> {
                 return 4;
             })), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block FLOWING_AMBER = registerBlock("flowing_amber", new Block(
+    public static final Block FLOWING_AMBER = registerBlock("glowing_amber", new Block(
             AbstractBlock.Settings.create().sounds(BlockSoundGroup.GLASS).mapColor(MapColor.ORANGE).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F,
                     6.0F).luminance((state) -> {
                 return 15;

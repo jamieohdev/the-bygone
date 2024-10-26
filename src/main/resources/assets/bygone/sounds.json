@@ -38,13 +38,17 @@
   },
   "ambient.amber_desert.additions": {
     "sounds":  [
-      "bygone:ambience/upsidedown3"
+      "bygone:ambience/amber_desert1",
+      "bygone:ambience/amber_desert3",
+      "bygone:ambience/amber_desert4",
+      "bygone:ambience/amber_desert5"
     ],
     "subtitle": "subtitles.ambient.amber_desert.additions"
   },
   "ambient.primordial_ocean.additions": {
     "sounds":  [
-
+      "bygone:ambience/primordial_ocean1",
+      "bygone:ambience/primordial_ocean2",
       "bygone:ambience/frozen3"
     ],
     "subtitle": "subtitles.ambient.primordial_ocean.additions"

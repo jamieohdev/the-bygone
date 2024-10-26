@@ -88,4 +88,12 @@ public class CoelacanthEntity extends SchoolingFishEntity
             return super.damage(source, amount);
         }
     }
+
+    public boolean canImmediatelyDespawn(double distanceSquared) {
+        return true;
+    }
+
+    public int getLimitPerChunk() {
+        return 1;
+    }
 }

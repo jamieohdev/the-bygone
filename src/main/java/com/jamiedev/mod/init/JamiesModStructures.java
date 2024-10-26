@@ -17,13 +17,16 @@ public class JamiesModStructures
     public static StructurePieceType ANCIENT_ROOTS_PIECES = Registry.register(Registries.STRUCTURE_PIECE,
             JamiesMod.getModId("ancient_roots"),  AncientRootGenerator.Piece::new);
 
-    public static StructureType<RuinStructure> RUIN;
+    public static StructureType<RuinStructure> BLEMISH_RUINS;
+    public static StructureType<AmberRuinsStructure> AMBER_RUINS;
 
     public static StructureType<BygoneFossilStructure> BYGONE_FOSSIL;
     public static StructurePieceType FOSSIL_PIECES = Registry.register(Registries.STRUCTURE_PIECE,
             JamiesMod.getModId("bygone_fossil"), BygoneFossilGenerator.Piece::new);
-    public static StructurePieceType RUIN_PIECES = Registry.register(Registries.STRUCTURE_PIECE,
+    public static StructurePieceType AMBER_RUIN_PIECES = Registry.register(Registries.STRUCTURE_PIECE,
             JamiesMod.getModId("ruin"),  RuinGenerator.Piece::new);
+    public static StructurePieceType RUIN_PIECES = Registry.register(Registries.STRUCTURE_PIECE,
+            JamiesMod.getModId("amber_ruins"),  AmberRuinsGenerator.Piece::new);
 
    // public static StructureType<BlemishRuinStructure> BLEMISH_RUIN;
     //public static StructurePieceType BLEMISH_RUIN_PIECES = Registry.register(Registries.STRUCTURE_PIECE,
@@ -47,6 +50,7 @@ public class JamiesModStructures
         ANCIENT_ROOTS = Registry.register(Registries.STRUCTURE_TYPE, Identifier.of(JamiesMod.MOD_ID, "ancient_roots"), () -> AncientRootStructure.CODEC);
         BYGONE_FOSSIL = Registry.register(Registries.STRUCTURE_TYPE, Identifier.of(JamiesMod.MOD_ID , "bygone_fossil"), () -> BygoneFossilStructure.CODEC);
         TEST_ROOTS = Registry.register(Registries.STRUCTURE_TYPE, Identifier.of(JamiesMod.MOD_ID, "test_roots"), () -> TestRootStructure.CODEC);
-        RUIN = Registry.register(Registries.STRUCTURE_TYPE, Identifier.of(JamiesMod.MOD_ID, "ruin"), () -> RuinStructure.CODEC);
+        BLEMISH_RUINS = Registry.register(Registries.STRUCTURE_TYPE, Identifier.of(JamiesMod.MOD_ID, "ruin"), () -> RuinStructure.CODEC);
+        AMBER_RUINS = Registry.register(Registries.STRUCTURE_TYPE, Identifier.of(JamiesMod.MOD_ID, "amber_ruins"), () -> AmberRuinsStructure.CODEC);
     }
 }

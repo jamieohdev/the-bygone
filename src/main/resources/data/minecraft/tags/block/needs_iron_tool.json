@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "bygone:bygoneslate",
-    "bygone:bygoneslate_iron_ore",
-    "bygone:bygoneslate_copper_ore",
-    "bygone:bygoneslate_coal_ore"
+    "bygone:byslate",
+    "bygone:byslate_iron_ore",
+    "bygone:byslate_copper_ore",
+    "bygone:byslate_coal_ore"
   ]
 }

@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "bygone:bygonestone_iron_ore"
+          "Name": "bygone:bystone_iron_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",
@@ -15,7 +15,7 @@
       },
       {
         "state": {
-          "Name": "bygone:bygoneslate_iron_ore"
+          "Name": "bygone:byslate_iron_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",

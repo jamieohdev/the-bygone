@@ -1,3 +1,34 @@
+# *Updates in 0.0.6b**
+
+Before opening up the world in this update, PLEASE remember to delete the bygone dimension folder!
+
+**New features:**
+Added Cobbled Bystone and Cobbled Byslate!
+
+EXPERIMENTAL:
+Added the "Amber Ruins"!
+
+**Changes to existing features:**
+Renamed "Flowing Amber" to "Glowing Amber"
+Renamed "Bygonestone" to "Bystone"
+Renamed "Bygoneslate" to "Byslate"
+Tweaked "Malachite Pillar" texture
+Added an actual bottom to the Primordial Vent model
+Added -additional- Creosote Sprouts generation to the Amber Desert!
+Reduced the amount of Primordial Vents that generate
+
+**Bugs fixed:**
+Fixed Amber Desert water being the wrong color.
+Fixed Primordial Urchins "flickering"
+Fixed Patchouli not being in the credits!
+Fixed Ancient Wood/Logs not properly being in the Wood tag! (Which meant stuff like campfires weren't craftable!)
+Fixed Coarse Claystone having a space before its display name!
+Fixed *too many* mobs spawning in the Primordial Ocean.
+
+KNOWN BUGS:
+Scuttles spawn-- In the air sometimes??
+EXPERIMENTAL Suspicious Umber doesn't work right now!!
+
 # **Updates in 0.0.6a**
 
 Before opening up the world in this update, PLEASE remember to delete the bygone dimension folder!

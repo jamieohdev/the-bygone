@@ -35,7 +35,7 @@
       },
       "allowed_search_condition": {
         "type": "minecraft:matching_blocks",
-        "blocks": "bygone:flowing_amber"
+        "blocks": "bygone:glowing_amber"
       }
     },
     {

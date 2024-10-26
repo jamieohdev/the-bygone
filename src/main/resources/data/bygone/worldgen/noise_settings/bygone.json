@@ -5,7 +5,7 @@
   "aquifers_enabled": true,
   "legacy_random_source": true,
   "default_block": {
-    "Name": "bygone:bygonestone"
+    "Name": "bygone:bystone"
   },
   "default_fluid": {
     "Name": "minecraft:water",
@@ -96,7 +96,7 @@
 
           "type": "minecraft:block",
           "result_state": {
-            "Name": "bygone:bygoneslate"
+            "Name": "bygone:byslate"
           }
         }
       },
@@ -172,7 +172,7 @@
                 "then_run": {
                   "type": "minecraft:block",
                   "result_state": {
-                    "Name": "bygone:flowing_amber"
+                    "Name": "bygone:glowing_amber"
                   }
                 }
               },
@@ -1346,7 +1346,7 @@
       {
         "type": "minecraft:block",
         "result_state": {
-          "Name": "bygone:bygonestone"
+          "Name": "bygone:bystone"
         }
       }
     ]

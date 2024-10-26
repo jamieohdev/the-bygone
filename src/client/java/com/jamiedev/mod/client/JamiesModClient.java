@@ -26,6 +26,7 @@ import com.jamiedev.mod.client.renderer.*;
 import com.jamiedev.mod.client.models.*;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.block.entity.BrushableBlockEntityRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
@@ -128,6 +129,7 @@ public class JamiesModClient implements ClientModInitializer {
         TexturedRenderLayers.SIGN_TYPE_TEXTURES.put(JamiesModWoodType.ANCIENT, TexturedRenderLayers.getSignTextureId(JamiesModWoodType.ANCIENT));
         BlockEntityRendererFactories.register(JamiesModBlockEntities.MOD_SIGN_BLOCK_ENTITY, SignBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(JamiesModBlockEntities.MOD_HANGING_SIGN_BLOCK_ENTITY, HangingSignBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(JamiesModBlockEntities.BRUSHABLE_BLOCK, BygoneBrushableBlockEntityRenderer::new);
     }
     public static void registerModelPredicateProviders() {
         ModelPredicateProviderRegistry.register(JamiesModItems.HOOK, JamiesMod.getModId("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {

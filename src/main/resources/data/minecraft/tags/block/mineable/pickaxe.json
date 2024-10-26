@@ -1,14 +1,16 @@
 {
   "replace": false,
   "values": [
-    "bygone:bygonestone",
-    "bygone:bygoneslate",
-    "bygone:bygonestone_iron_ore",
-    "bygone:bygonestone_copper_ore",
-    "bygone:bygonestone_coal_ore",
-    "bygone:bygoneslate_iron_ore",
-    "bygone:bygoneslate_copper_ore",
-    "bygone:bygoneslate_coal_ore",
+    "bygone:bystone",
+    "bygone:byslate",
+    "bygone:cobbled_bystone",
+    "bygone:cobbled_byslate",
+    "bygone:bystone_iron_ore",
+    "bygone:bystone_copper_ore",
+    "bygone:bystone_coal_ore",
+    "bygone:byslate_iron_ore",
+    "bygone:byslate_copper_ore",
+    "bygone:byslate_coal_ore",
     "bygone:oceanstone",
     "bygone:malachite",
     "bygone:malachite_chiseled",
@@ -43,6 +45,6 @@
     "bygone:amber_bricks",
     "bygone:amber_fossilized",
     "bygone:cobbled_amber",
-    "bygone:flowing_amber"
+    "bygone:glowing_amber"
   ]
 }

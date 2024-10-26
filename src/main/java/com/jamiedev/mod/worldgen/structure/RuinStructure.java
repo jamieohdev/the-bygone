@@ -31,8 +31,7 @@ import java.util.Optional;
 
 public class RuinStructure extends Structure {
 
-    // A custom codec that changes the size limit for our code_structure_sky_fan.json's config to not be capped at 7.
-    // With this, we can have a structure with a size limit up to 30 if we want to have extremely long branches of pieces in the structure.
+
     public static final MapCodec<RuinStructure> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(RuinStructure.configCodecBuilder(instance),
                     StructurePool.REGISTRY_CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
@@ -127,6 +126,6 @@ public class RuinStructure extends Structure {
     }
 
     public StructureType<?> getType() {
-        return JamiesModStructures.RUIN;
+        return JamiesModStructures.BLEMISH_RUINS;
     }
 }

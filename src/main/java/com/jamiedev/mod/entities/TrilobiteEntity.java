@@ -77,6 +77,14 @@ public class TrilobiteEntity extends FishEntity
         return (Integer)this.dataTracker.get(DARK_TICKS_REMAINING1);
     }
 
+    public boolean canImmediatelyDespawn(double distanceSquared) {
+        return true;
+    }
+
+    public int getLimitPerChunk() {
+        return 1;
+    }
+
     static {
         DARK_TICKS_REMAINING1 = DataTracker.registerData(TrilobiteEntity.class, TrackedDataHandlerRegistry.INTEGER);
     }

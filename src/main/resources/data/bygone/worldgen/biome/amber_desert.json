@@ -21,12 +21,7 @@
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
-    "music": {
-      "max_delay": 24000,
-      "min_delay": 12000,
-      "replace_current_music": false,
-      "sound": "bygone:music.bygone.underhang"
-    },
+
     "particle": {
       "options": {
         "type": "bygone:amber_dust"
@@ -34,8 +29,8 @@
       "probability": 0.025
     },
     "sky_color": 16772474,
-    "water_color": 13688571,
-    "water_fog_color": 329011
+    "water_color": 4445678,
+    "water_fog_color": 270131
   },
   "features": [
     [],
@@ -65,6 +60,7 @@
     ],
     [
       "minecraft:glow_lichen",
+      "bygone:creosote_sprouts",
       "minecraft:flower_default",
       "minecraft:patch_grass_badlands",
       "bygone:amber_desert_vegetation"

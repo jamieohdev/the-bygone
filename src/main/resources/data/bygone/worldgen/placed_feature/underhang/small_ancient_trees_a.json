@@ -13,7 +13,7 @@
             "ground_state": {
                 "type": "minecraft:simple_state_provider",
                 "state": {
-                    "Name": "bygone:bygonestone"
+                    "Name": "bygone:bystone"
                 }
             },
             "vegetation_feature": {

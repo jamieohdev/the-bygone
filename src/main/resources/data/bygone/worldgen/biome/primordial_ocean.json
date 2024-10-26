@@ -114,8 +114,8 @@
       },
       {
         "type": "bygone:trilobite",
-        "maxCount": 6,
-        "minCount": 4,
+        "maxCount": 2,
+        "minCount": 1,
         "weight": 4
       }
     ],

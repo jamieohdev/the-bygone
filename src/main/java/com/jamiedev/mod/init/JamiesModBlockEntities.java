@@ -6,8 +6,10 @@ import com.jamiedev.mod.worldgen.structure.AncientRootStructure;
 import com.jamiedev.mod.worldgen.structure.TestRootStructure;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.BrushableBlockEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.structure.StructurePieceType;
@@ -33,6 +35,8 @@ public class JamiesModBlockEntities <T extends BlockEntity>
     public static BlockEntityType<ModHangingSignBlockEntity> MOD_HANGING_SIGN_BLOCK_ENTITY;
 
     public static BlockEntityType<BlemishCatalystBlockEntity> BLEMISH_CATALYST;
+
+    public static BlockEntityType<BygoneBrushableBlockEntity> BRUSHABLE_BLOCK;
 
     public static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> type) {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, JamiesMod.getModId(name), type);
@@ -60,5 +64,9 @@ public class JamiesModBlockEntities <T extends BlockEntity>
         MOD_HANGING_SIGN_BLOCK_ENTITY = register("mod_hanging_sign_entity",
                 BlockEntityType.Builder.create(ModHangingSignBlockEntity::new, JamiesModBlocks.ANCIENT_HANGING_SIGN, JamiesModBlocks.ANCIENT_WALL_HANGING_SIGN).build()
         );
+        BRUSHABLE_BLOCK = register("brushable_block",
+                BlockEntityType.Builder.create(BygoneBrushableBlockEntity::new, SUSPICIOUS_UMBER)
+                        .build());
+
     }
 }

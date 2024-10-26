@@ -395,6 +395,14 @@ public class ScuttleEntity extends WaterCreatureEntity implements RangedAttackMo
             }
         }
     }
+    public boolean canImmediatelyDespawn(double distanceSquared) {
+        return true;
+    }
+
+    public int getLimitPerChunk() {
+        return 1;
+    }
+
 
     static {
         TARGET_ID = DataTracker.registerData(ScuttleEntity.class, TrackedDataHandlerRegistry.INTEGER);

@@ -146,6 +146,7 @@ public class BigBeakEntity  extends AbstractHorseEntity
         return this.hasVehicle();
     }
 
+
     protected SoundEvent getAmbientSound() {
         return SoundEvents.ENTITY_PARROT_AMBIENT;
     }

@@ -40,7 +40,7 @@ public class JamiesModItems
     public static final Item GOURD_SEEDS = registerItem("gourd_seeds", (Item)(new AliasedBlockItem(JamiesModBlocks.GOURD_LANTERN, new Item.Settings())));
 
     public static final Item COELECANTH = registerItem("coelacanth", new Item(new Item.Settings().food(FoodComponents.CHICKEN)));
-    public static final Item COELECANTH_COOKED = registerItem("cooked_coelacanth", new Item(new Item.Settings().food(FoodComponents.POISONOUS_POTATO)));
+    public static final Item COELECANTH_COOKED = registerItem("cooked_coelacanth", new Item(new Item.Settings().food(FoodComponents.PUFFERFISH)));
     public static final Item EXOTIC_ARROW = registerItem("exotic_arrow", new ExoticArrowItem(new Item.Settings().fireproof()));
     public static final Item EXOTIC_PLUMAGE = registerItem("exotic_plumage", new Item(new Item.Settings().fireproof()));
     public static final Item GLOW_CHITIN = registerItem("glow_chitin", new Item(new Item.Settings().fireproof()));
