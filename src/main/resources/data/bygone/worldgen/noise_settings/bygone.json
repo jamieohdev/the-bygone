@@ -156,7 +156,7 @@
             "add_surface_depth": true,
             "offset": 0,
             "secondary_depth_range": 6,
-            "surface_type": "floor"
+            "surface_type": "ceiling"
           },
           "then_run": {
             "type": "minecraft:sequence",
@@ -172,7 +172,7 @@
                 "then_run": {
                   "type": "minecraft:block",
                   "result_state": {
-                    "Name": "bygone:glowing_amber"
+                    "Name": "bygone:amberstone"
                   }
                 }
               },
@@ -186,6 +186,7 @@
           }
         }
       },
+
       {
         "type": "minecraft:condition",
         "if_true": {

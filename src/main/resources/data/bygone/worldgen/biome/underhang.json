@@ -70,6 +70,7 @@
       "bygone:underhang/medium_ancient_trees",
       "bygone:underhang/small_ancient_trees",
       "minecraft:glow_lichen",
+      "bygone:gourds",
       "bygone:cave_vines",
       "minecraft:patch_tall_grass_2",
       "bygone:patch_grass_underhang",
@@ -90,23 +91,23 @@
 
     ],
     "creature": [
-
-    ],
-    "misc": [],
-    "monster": [
       {
         "type": "bygone:big_beak",
-        "maxCount": 1,
-        "minCount": 1,
+        "maxCount": 4,
+        "minCount": 2,
         "weight": 3
       },
 
       {
         "type": "bygone:glare",
-        "maxCount": 1,
-        "minCount": 1,
+        "maxCount": 5,
+        "minCount": 2,
         "weight": 5
       }
+    ],
+    "misc": [],
+    "monster": [
+
     ],
     "underground_water_creature": [
 

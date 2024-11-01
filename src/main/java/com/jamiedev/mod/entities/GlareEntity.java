@@ -110,9 +110,7 @@ public class GlareEntity extends AnimalEntity implements Flutterer
 
         super.onTrackedDataSet(data);
     }
-    public int getLimitPerChunk() {
-        return 1;
-    }
+
     protected void initGoals() {
 
         this.goalSelector.add(1, new AnimalMateGoal(this, 1.0));

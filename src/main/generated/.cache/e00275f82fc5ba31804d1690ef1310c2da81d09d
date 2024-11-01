@@ -1,5 +1,4 @@
-// 1.21.1	2024-10-24T16:33:55.73526	bygone/Block Loot Tables
-717243da994d2fc39fcc8a6404626ae9d4792efd data\bygone\loot_table\blocks\amber_fossilized.json
-788a9d799f8b7c23b4c480acc1e0726e12179d22 data\bygone\loot_table\blocks\amber.json
-3d8a02a114d0cb748b8aa2a1ecef172c1b5d5ff5 data\bygone\loot_table\blocks\amber_bricks.json
-018a876c94d1874c4a284bc16fb3143b18cc63c2 data\bygone\loot_table\blocks\cobbled_amber.json
+// 1.21.1	2024-10-28T17:18:07.7808696	bygone/Block Loot Tables
+485b1a99eec10138916255cd68561a30a0bc2347 data\bygone\loot_table\blocks\cobbled_amberstone.json
+b5218208731c04d61868867a4098220b2333ccde data\bygone\loot_table\blocks\amberstone.json
+260c54a5b36a831931a92c1461a7b0b48a083fb0 data\bygone\loot_table\blocks\umber_bricks.json

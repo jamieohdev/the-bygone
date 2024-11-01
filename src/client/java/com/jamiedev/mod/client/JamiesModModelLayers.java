@@ -32,4 +32,6 @@ public class JamiesModModelLayers {
     public static final EntityModelLayer BIG_BEAK = new EntityModelLayer(JamiesMod.getModId("big_beak"), "main");
     public static final EntityModelLayer BIG_BEAK_SADDLE =  new EntityModelLayer(JamiesMod.getModId("big_beak"), "saddle");
 
+    public static final EntityModelLayer BIG_BEAK_ARMOR =  new EntityModelLayer(JamiesMod.getModId("big_beak"), "armor");
+
 }

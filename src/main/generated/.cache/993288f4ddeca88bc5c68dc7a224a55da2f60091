@@ -1,13 +1,10 @@
-// 1.21.1	2024-10-24T16:33:55.7362689	bygone/Model Definitions
-f60d758b41f22e3cb16b15561752a2ab791ff4fe assets\bygone\models\block\cobbled_amber.json
-13e5c6a3b7dd68fe27e8cf1fa2b056c631a28a25 assets\bygone\models\item\amber.json
-3e8db6210225cc271b4baa6739859b6ed8636bd5 assets\bygone\blockstates\amber_bricks.json
-a9695263c8cc1fc19f50b34f78cf8e9605527f2d assets\bygone\blockstates\cobbled_amber.json
-c1f395c5e220e4feac215b56458bceb893043ac0 assets\bygone\models\block\amber_bricks.json
-0acb190af03f01d459d05fd015f63d4317a0d0ce assets\bygone\models\block\amber_fossilized.json
-c93ab44aac7e9b08591f27b35ccbafcedad71242 assets\bygone\models\item\amber_fossilized.json
-daa8b2b5edb28201666611cdca43056018285b3d assets\bygone\blockstates\amber_fossilized.json
-20a7ccbd5c93d4c4cb4034737e4d5db5deebceb1 assets\bygone\models\item\cobbled_amber.json
-31042d1db756b5efd557d92b0d4f5133fc7ff17e assets\bygone\models\item\amber_bricks.json
-ce847dd8d1392fdcaff71de1aa73ade23502e92b assets\bygone\blockstates\amber.json
-cca57e34ccba434553b72c01881fdde26db4b5d4 assets\bygone\models\block\amber.json
+// 1.21.1	2024-10-28T17:18:07.7818707	bygone/Model Definitions
+0b0b10c0da3121a417fad5adbe3622593c35fa47 assets\bygone\models\item\amberstone.json
+b017aebd46632d55d438ea9eea139f44b772f16f assets\bygone\blockstates\amberstone.json
+a984b307210058fed0968dffe9e3d4e6c02f0a7c assets\bygone\models\item\umber_bricks.json
+b36c883ae6152280133470f68f64e722c7d00f6d assets\bygone\models\block\amberstone.json
+31d1e7cbb54f3db205d2b3360b90320d55cd6516 assets\bygone\models\block\umber_bricks.json
+1d7d2f7bbac3b5c255ddbc248b89012bb3374ecc assets\bygone\models\block\cobbled_amberstone.json
+928587f3c0f4b97ecb9c0fe896de36c7ec0e524f assets\bygone\blockstates\cobbled_amberstone.json
+8bc7939e487866f269f0fa9e67d0c670dde6c8c1 assets\bygone\blockstates\umber_bricks.json
+d05785bdbca2f46b4eb2d97f213e6681b329cb00 assets\bygone\models\item\cobbled_amberstone.json

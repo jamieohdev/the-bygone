@@ -112,8 +112,6 @@ public class JamiesModEntityTypes {
 
     public static void init()
     {
-        SpawnRestriction.register(GLARE, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, GlareEntity::canSpawn);
-        SpawnRestrictMixin.callRegister(BIG_BEAK, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BigBeakEntity::canSpawn);
         FabricDefaultAttributeRegistry.register(DUCK, DuckEntity.createDuckAttributes());
         FabricDefaultAttributeRegistry.register(BIG_BEAK, BigBeakEntity.createBigBeakAttributes());
         FabricDefaultAttributeRegistry.register(GLARE, GlareEntity.createGlareAttributes());
@@ -128,15 +126,7 @@ public class JamiesModEntityTypes {
     }
 
     public static void initSpawnRestrictions() {
-        SpawnRestrictMixin.callRegister(COELACANTH, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CoelacanthEntity::canSpawn);
-        SpawnRestrictMixin.callRegister(TRILOBITE, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TrilobiteEntity::canSpawn);
-        SpawnRestrictMixin.callRegister(SCUTTLE, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ScuttleEntity::canSpawn);
-        SpawnRestrictMixin.callRegister(GLARE, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, GlareEntity::canSpawn);
-        SpawnRestrictMixin.callRegister(BIG_BEAK, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BigBeakEntity::canSpawn);
-        SpawnRestriction.register(SCUTTLE, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ScuttleEntity::canSpawn);
-        SpawnRestriction.register(GLARE, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, GlareEntity::canSpawn);
-        SpawnRestriction.register(BIG_BEAK, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, BigBeakEntity::canSpawn);
-        SpawnRestriction.register(COELACANTH, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, CoelacanthEntity::canSpawn);
-        SpawnRestriction.register(TRILOBITE, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, TrilobiteEntity::canSpawn);
-   }
+
+
+    }
 }

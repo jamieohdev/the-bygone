@@ -39,10 +39,9 @@ public class JamiesModLootTableProvider  extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
-        addDrop(JamiesModBlocks.AMBER);
-        addDrop(JamiesModBlocks.AMBER_BRICKS);
-        addDrop(JamiesModBlocks.AMBER_FOSSILIZED);
-        addDrop(JamiesModBlocks.COBBLED_AMBER);
+        addDrop(JamiesModBlocks.AMBERSTONE);
+        addDrop(JamiesModBlocks.COBBLED_AMBERSTONE);
+        addDrop(JamiesModBlocks.UMBER_BRICKS);
     }
 
     public LootTable.Builder mushroomBlockDrops(Block withSilkTouch, ItemConvertible withoutSilkTouch) {

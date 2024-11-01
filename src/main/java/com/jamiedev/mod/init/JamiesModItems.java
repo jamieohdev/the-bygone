@@ -37,7 +37,7 @@ public class JamiesModItems
 
     public static final Item GOURD_ON_A_STICK =  registerItem("gourd_on_a_stick", (Item)(new OnAStickItem((new Item.Settings()).maxDamage(100), JamiesModEntityTypes.BRUNGLE, 1)));
     public static final Item GOURD_FLESH = registerItem("gourd_flesh", new Item((new Item.Settings()).food(FoodComponents.GOLDEN_CARROT)));
-    public static final Item GOURD_SEEDS = registerItem("gourd_seeds", (Item)(new AliasedBlockItem(JamiesModBlocks.GOURD_LANTERN, new Item.Settings())));
+   // public static final Item GOURD_SEEDS = registerItem("gourd_seeds", (Item)(new AliasedBlockItem(JamiesModBlocks.GOURD_LANTERN_VERDANT, new Item.Settings())));
 
     public static final Item COELECANTH = registerItem("coelacanth", new Item(new Item.Settings().food(FoodComponents.CHICKEN)));
     public static final Item COELECANTH_COOKED = registerItem("cooked_coelacanth", new Item(new Item.Settings().food(FoodComponents.PUFFERFISH)));
@@ -46,6 +46,10 @@ public class JamiesModItems
     public static final Item GLOW_CHITIN = registerItem("glow_chitin", new Item(new Item.Settings().fireproof()));
     public static final Item SCUTTLE_SPIKE = registerItem("scuttle_spike", new Item(new Item.Settings().fireproof()));
     ArmorMaterials mat;
+
+    public static final Item BEIGE_SLICE = registerItem("glow_gourd_beige_slice", new Item(new Item.Settings().food(FoodComponents.GOLDEN_CARROT)));
+    public static final Item MUAVE_SLICE = registerItem("glow_gourd_muave_slice", new Item(new Item.Settings().food(FoodComponents.GOLDEN_CARROT)));
+    public static final Item VERDANT_SLICE = registerItem("glow_gourd_verdant_slice", new Item(new Item.Settings().food(FoodComponents.GOLDEN_CARROT)));
 
     public static final Item SCALE_HELMET = registerItem("scale_helmet",
             new ArmorItem(JamiesModArmorMaterials.SCALE, ArmorItem.Type.HELMET,
@@ -59,6 +63,8 @@ public class JamiesModItems
     public static final Item SCALE_BOOTS = registerItem("scale_boots",
             new ArmorItem(JamiesModArmorMaterials.SCALE, ArmorItem.Type.BOOTS,
                     new Item.Settings().fireproof()));
+    public static final Item DIAMOND_BIG_BEAK_ARMOR = registerItem("diamond_beak_armor", (Item)(new AnimalArmorItem(ArmorMaterials.DIAMOND, net.minecraft.item.AnimalArmorItem.Type.EQUESTRIAN, false, (new Item.Settings()).maxCount(1))));
+    public static final Item BIG_BEAK_SPAWN_EGG = registerItem("big_beak_spawn_egg", (Item)(new SpawnEggItem(JamiesModEntityTypes.BIG_BEAK, 8767242, 16756224, new Item.Settings())));
 
     public static void addItemsToItemGroup() {
 
@@ -71,6 +77,9 @@ public class JamiesModItems
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, EXOTIC_PLUMAGE);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, COELECANTH);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, COELECANTH_COOKED);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, BEIGE_SLICE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, MUAVE_SLICE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, VERDANT_SLICE);
     }
 
 

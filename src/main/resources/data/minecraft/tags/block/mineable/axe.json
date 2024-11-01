@@ -13,6 +13,9 @@
     "bygone:ancient_door",
     "bygone:ancient_trapdoor",
     "bygone:ancient_pressure_plate",
-    "bygone:ancient_button"
+    "bygone:ancient_button",
+    "bygone:glow_gourd_beige",
+    "bygone:glow_gourd_muave",
+    "bygone:glow_gourd_verdant"
   ]
 }

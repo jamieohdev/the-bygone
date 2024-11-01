@@ -1,3 +1,23 @@
+# **Updates in 0.0.6d**
+
+**New features:**
+Added Glow Gourds! It has three variants, and is found  naturally on the roof of the Underhang!
+Added Umber Bricks, Amberstone, and Cobbled Amberstone!
+
+TODO:
+Cobbled Bystone/slate slabs, stairs, walls!
+
+**Experimental features:**
+More Amber Ruin variants
+
+**Changes to existing features:**
+Replaced Glowing Amber strips  in Amber Deserts with Amberstone!
+Added Flowing Amber to the bottom of Amber Chunks!
+Tweaked Ambient sounds in the Amber Desert!
+
+**Bugs fixed:**
+Fixed more mob spawning bugs!
+
 # *Updates in 0.0.6b**
 
 Before opening up the world in this update, PLEASE remember to delete the bygone dimension folder!

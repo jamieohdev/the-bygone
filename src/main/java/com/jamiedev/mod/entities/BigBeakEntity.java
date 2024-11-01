@@ -1,49 +1,38 @@
 package com.jamiedev.mod.entities;
 
-import com.google.common.collect.UnmodifiableIterator;
 import com.jamiedev.mod.init.JamiesModBlocks;
 import com.jamiedev.mod.init.JamiesModEntityTypes;
-import com.jamiedev.mod.init.JamiesModTag;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.AnimalArmorItem;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
-import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
 public class BigBeakEntity  extends AbstractHorseEntity
 {
+
+    HorseEntity ref;
 
     private static final EntityDimensions BABY_BASE_DIMENSIONS;
     public float flapProgress;
@@ -60,18 +49,21 @@ public class BigBeakEntity  extends AbstractHorseEntity
     protected void initAttributes(Random random) {
         EntityAttributeInstance var10000 = this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
         Objects.requireNonNull(random);
+        assert var10000 != null;
         var10000.setBaseValue((double)getChildHealthBonus(random::nextInt));
         var10000 = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         Objects.requireNonNull(random);
+        assert var10000 != null;
         var10000.setBaseValue(getChildMovementSpeedBonus(random::nextDouble));
         var10000 = this.getAttributeInstance(EntityAttributes.GENERIC_JUMP_STRENGTH);
         Objects.requireNonNull(random);
+        assert var10000 != null;
         var10000.setBaseValue(getChildJumpStrengthBonus(random::nextDouble));
     }
 
     public static DefaultAttributeContainer.Builder createBigBeakAttributes() {
         return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_JUMP_STRENGTH, 2.0)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 53.0)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
                 .add(EntityAttributes.GENERIC_STEP_HEIGHT, 2.0)
                 .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 100.0)
@@ -176,9 +168,7 @@ public class BigBeakEntity  extends AbstractHorseEntity
             return bl ? ActionResult.SUCCESS : ActionResult.PASS;
         }
     }
-    public int getLimitPerChunk() {
-        return 2;
-    }
+
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
         if (!this.hasPassengers() && !bl) {
@@ -231,8 +221,8 @@ public class BigBeakEntity  extends AbstractHorseEntity
     public boolean isBigBeakArmor(ItemStack stack) {
         Item var3 = stack.getItem();
         boolean var10000;
-        if (var3 instanceof AnimalArmorItem animalArmorItem) {
-            if (animalArmorItem.getType() == AnimalArmorItem.Type.EQUESTRIAN) {
+        if (var3 instanceof ArmorItem animalArmorItem) {
+            if (animalArmorItem.getType() == ArmorItem.Type.BODY) {
                 var10000 = true;
                 return var10000;
             }

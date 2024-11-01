@@ -59,10 +59,10 @@ public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
         for(p = -o; p < o; ++p) {
             for(q = -o; q < o; ++q) {
                 for(r = -1; r > -m; --r) {
-                    s = bl2 ? MathHelper.ceil((float)o * (1.0F - (float)Math.pow((double)r, 2.0) / ((float)m * 8.0F))) : o;
+                    s = bl2 ? MathHelper.ceil((float)o * (1.0F - (float)Math.pow((double)r, 2.0) / ((float)m * 16.0F))) : o;
                     int t = this.method_13427(random, -r, m, n);
                     if (p < t) {
-                        this.placeAt(structureWorldAccess, random, blockPos, m, p, r, q, t, s, bl2, j, d, bl, blockState);
+                        this.placeAt(structureWorldAccess, random, blockPos, m, p, r , q , t -1, s, bl2, j, d, bl, JamiesModBlocks.FLOWING_AMBER.getDefaultState());
                     }
                 }
             }

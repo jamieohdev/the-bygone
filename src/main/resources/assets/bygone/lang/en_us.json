@@ -26,6 +26,9 @@
   "item.bygone.exotic_plumage": "Exotic Plumage",
   "item.bygone.glow_chitin": "Glow Chitin",
   "item.bygone.scuttle_spike": "Scuttle Spike",
+  "item.bygone.glow_gourd_beige_slice": "Beige Glow Gourd Slice",
+  "item.bygone.glow_gourd_muave_slice": "Muave Glow Gourd Slice",
+  "item.bygone.glow_gourd_verdant_slice": "Verdant Glow Gourd Slice",
 
   "itemgroup.jamies_mod": "The Bygone",
 
@@ -50,6 +53,10 @@
 
   "block.bygone.cloud": "Cloud Block",
 
+  "block.bygone.goud_vine": "Gourd Vines",
+  "block.bygone.glow_gourd_beige": "Beige Glow Gourd",
+  "block.bygone.glow_gourd_muave": "Muave Glow Gourd",
+  "block.bygone.glow_gourd_verdant": "Verdant Glow Gourd",
   "block.bygone.cave_vines": "Byvine",
   "block.bygone.cave_vines_plant": "Byvine",
   "block.bygone.short_grass": "Ancient Grass",
@@ -129,7 +136,10 @@
   "block.bygone.blemish_catalyst": "Blemished Catalyst (WIP!)",
 
   "block.bygone.amber": "Amber",
+  "block.bygone.amberstone": "Amberstone",
+  "block.bygone.cobbled_amberstone": "Cobbled Amberstone",
   "block.bygone.umber": "Umber",
+  "block.bygone.umber_bricks": "Umber Bricks",
   "block.bygone.suspicious_umber": "Suspicious Umber (WIP!!)",
   "block.bygone.amber_fossilized": "Fossilized Amber",
   "block.bygone.amber_bricks": "Amber Bricks",
