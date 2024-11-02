@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cobbled_bystone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "bygone:cobbled_bystone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:cobbled_bystone_wall"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cobbled_bystone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:cobbled_bystone_wall"
+    ]
+  }
+}

@@ -45,6 +45,12 @@
     "bygone:amber_bricks",
     "bygone:amber_fossilized",
     "bygone:cobbled_amber",
-    "bygone:glowing_amber"
+    "bygone:glowing_amber",
+    "bygone:cobbled_byslate_slab",
+    "bygone:cobbled_byslate_stairs",
+    "bygone:cobbled_byslate_wall",
+    "bygone:cobbled_bystone_slab",
+    "bygone:cobbled_bystone_stairs",
+    "bygone:cobbled_bystone_wall"
   ]
 }

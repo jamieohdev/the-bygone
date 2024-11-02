@@ -68,11 +68,26 @@ public class JamiesModBlocks {
 
     public static final Block COBBLED_BYSTONE = registerBlock("cobbled_bystone",
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(0.4F)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block COBBLED_BYSTONE_STAIRS = registerBlock("cobbled_bystone_stairs",
+            new StairsBlock(JamiesModBlocks.COBBLED_BYSTONE.getDefaultState(), AbstractBlock.Settings.copy(Blocks.QUARTZ_STAIRS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
 
+    public static final Block COBBLED_BYSTONE_SLAB = registerBlock("cobbled_bystone_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(JamiesModBlocks.COBBLED_BYSTONE).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block COBBLED_BYSTONE_WALL = registerBlock("cobbled_bystone_wall",
+            new WallBlock(AbstractBlock.Settings.copy(JamiesModBlocks.COBBLED_BYSTONE).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block COBBLED_BYSLATE = registerBlock("cobbled_byslate",
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.DEEPSLATE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.0F, 2.0F).sounds(BlockSoundGroup.DEEPSLATE)),  JamiesModItemGroup.JAMIES_MOD);
 
+    public static final Block COBBLED_BYSLATE_STAIRS = registerBlock("cobbled_byslate_stairs",
+            new StairsBlock(JamiesModBlocks.COBBLED_BYSLATE.getDefaultState(), AbstractBlock.Settings.copy(Blocks.QUARTZ_STAIRS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
 
+    public static final Block COBBLED_BYSLATE_SLAB = registerBlock("cobbled_byslate_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(JamiesModBlocks.COBBLED_BYSLATE).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block COBBLED_BYSLATE_WALL = registerBlock("cobbled_byslate_wall",
+            new WallBlock(AbstractBlock.Settings.copy(JamiesModBlocks.COBBLED_BYSLATE).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+    
     public static final Block CLOUD = registerBlock("cloud",
             new TranslucentBlock(AbstractBlock.Settings.create().mapColor(MapColor.OFF_WHITE).strength(0.001F).slipperiness(0.989F)
                     .sounds(BlockSoundGroup.WOOL).nonOpaque().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never).blockVision(Blocks::never)), JamiesModItemGroup.JAMIES_MOD);
@@ -341,11 +356,7 @@ public class JamiesModBlocks {
                 .blockVision(Blocks::never).luminance((state) -> {
                     return 4;
                 })), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block AMBER_FOSSILIZED = registerBlock("amber_fossilized", new Block(
-            AbstractBlock.Settings.create().sounds(BlockSoundGroup.GLASS).luminance((state) -> {
-                return 4;
-            }).mapColor(MapColor.ORANGE).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F,
-                    6.0F)), JamiesModItemGroup.JAMIES_MOD);
+
     public static final Block AMBER_BRICKS = registerBlock("amber_bricks", new Block(
             AbstractBlock.Settings.create().sounds(BlockSoundGroup.GLASS).mapColor(MapColor.ORANGE).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F,
                     6.0F).luminance((state) -> {

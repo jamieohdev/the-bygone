@@ -29,8 +29,16 @@
   "item.bygone.glow_gourd_beige_slice": "Beige Glow Gourd Slice",
   "item.bygone.glow_gourd_muave_slice": "Muave Glow Gourd Slice",
   "item.bygone.glow_gourd_verdant_slice": "Verdant Glow Gourd Slice",
+  "item.bygone.gold_beak_armor": "Golden Big Beak Armor",
+  "item.bygone.iron_beak_armor": "Iron Big Beak Armor",
+  "item.bygone.diamond_beak_armor": "Diamond Big Beak Armor",
+  "item.bygone.big_beak_spawn_egg": "Big Beak Spawn Egg",
+  "item.bygone.coelacanth_spawn_egg": "Coelacanth Spawn Egg",
+  "item.bygone.mooboo_spawn_egg": "Mooboo Spawn Egg",
+  "item.bygone.scuttle_spawn_egg": "Scuttle Spawn Egg",
+  "item.bygone.trilobite_spawn_egg": "Trilobite Spawn Egg",
 
-  "itemgroup.jamies_mod": "The Bygone",
+  "itemgroup.bygone": "The Bygone",
 
   "block.bygone.jamiesblock": "",
   "block.bygone.bystone": "Bystone",

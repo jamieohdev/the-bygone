@@ -4,8 +4,10 @@
 Added Glow Gourds! It has three variants, and is found  naturally on the roof of the Underhang!
 Added Umber Bricks, Amberstone, and Cobbled Amberstone!
 
-TODO:
-Cobbled Bystone/slate slabs, stairs, walls!
+Added Cobbled Bystone and Byslate slabs, stairs, walls!
+
+**Experimental features:**
+Added Mineshafts to the Underhang biome!
 
 **Experimental features:**
 More Amber Ruin variants

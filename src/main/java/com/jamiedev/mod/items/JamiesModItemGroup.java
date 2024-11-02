@@ -12,12 +12,12 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 public class JamiesModItemGroup
 {
-    public static final RegistryKey<ItemGroup> JAMIES_MOD = RegistryKey.of(RegistryKeys.ITEM_GROUP, JamiesMod.getModId("jamies_mod"));
+    public static final RegistryKey<ItemGroup> JAMIES_MOD = RegistryKey.of(RegistryKeys.ITEM_GROUP, JamiesMod.getModId("bygone"));
 
     public static void registerItemgroups() {
         Registry.register(Registries.ITEM_GROUP, JAMIES_MOD, FabricItemGroup.builder()
-                .icon(() -> new ItemStack(JamiesModBlocks.MOSSY_CLAYSTONE))
-                .displayName(Text.translatable("itemgroup.jamies_mod"))
+                .icon(() -> new ItemStack(JamiesModBlocks.AMBER))
+                .displayName(Text.translatable("itemgroup.bygone"))
                 .build());
     }
 }

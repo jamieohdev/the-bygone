@@ -30,7 +30,12 @@ public class JamiesModRecipeProvider  extends FabricRecipeProvider {
 
     @Override
     public void generate(RecipeExporter exporter) {
-
+        this.SlabRecipe(exporter, JamiesModBlocks.COBBLED_BYSLATE, JamiesModBlocks.COBBLED_BYSLATE_SLAB);
+        this.StairsRecipe(exporter, JamiesModBlocks.COBBLED_BYSLATE, JamiesModBlocks.COBBLED_BYSLATE_STAIRS);
+        this.WallsRecipe(exporter, JamiesModBlocks.COBBLED_BYSLATE, JamiesModBlocks.COBBLED_BYSLATE_WALL);
+        this.SlabRecipe(exporter, JamiesModBlocks.COBBLED_BYSTONE, JamiesModBlocks.COBBLED_BYSTONE_SLAB);
+        this.StairsRecipe(exporter, JamiesModBlocks.COBBLED_BYSTONE, JamiesModBlocks.COBBLED_BYSTONE_STAIRS);
+        this.WallsRecipe(exporter, JamiesModBlocks.COBBLED_BYSTONE, JamiesModBlocks.COBBLED_BYSTONE_WALL);
     }
 
     void SlabRecipe(RecipeExporter exporter, Block input, Block output){

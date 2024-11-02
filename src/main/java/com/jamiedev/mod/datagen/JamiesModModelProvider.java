@@ -25,6 +25,12 @@ public class JamiesModModelProvider  extends FabricModelProvider {
         blockStateModelGenerator.registerGeneric(JamiesModBlocks.AMBERSTONE);
         blockStateModelGenerator.registerGeneric(JamiesModBlocks.COBBLED_AMBERSTONE);
         blockStateModelGenerator.registerGeneric(JamiesModBlocks.UMBER_BRICKS);
+
+        BlockStateModelGenerator.BlockTexturePool stone = blockStateModelGenerator.registerCubeAllModelTexturePool(JamiesModBlocks.COBBLED_BYSTONE);
+        BlockStateModelGenerator.BlockTexturePool slate = blockStateModelGenerator.registerCubeAllModelTexturePool(JamiesModBlocks.COBBLED_BYSLATE);
+
+        stone.family(BlockFamilies.register(JamiesModBlocks.COBBLED_BYSTONE).slab(JamiesModBlocks.COBBLED_BYSTONE_SLAB).stairs(JamiesModBlocks.COBBLED_BYSTONE_STAIRS).wall(JamiesModBlocks.COBBLED_BYSTONE_WALL).build());
+        slate.family(BlockFamilies.register(JamiesModBlocks.COBBLED_BYSLATE).slab(JamiesModBlocks.COBBLED_BYSLATE_SLAB).stairs(JamiesModBlocks.COBBLED_BYSLATE_STAIRS).wall(JamiesModBlocks.COBBLED_BYSLATE_WALL).build());
     }
 
     @Override
