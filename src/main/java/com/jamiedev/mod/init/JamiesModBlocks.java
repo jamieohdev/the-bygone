@@ -56,10 +56,6 @@ public class JamiesModBlocks {
     public static final Block BYGONESLATE_COPPER_ORE = registerBlock("byslate_copper_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
             AbstractBlock.Settings.copyShallow(BYGONESTONE_COPPER_ORE).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5F, 3.0F).sounds(BlockSoundGroup.DEEPSLATE)), JamiesModItemGroup.JAMIES_MOD);
 
-
-    public static final Block JAMIES_BLOCK = createBlockWithItem("jamies_block", new ExperienceDroppingBlock(UniformIntProvider.create(3, 7),
-            AbstractBlock.Settings.copy(Blocks.OBSIDIAN).strength(52.0F, 1200.0F).instrument(NoteBlockInstrument.BANJO).pistonBehavior(PistonBehavior.NORMAL)));
-
     public static final Block LIMBOSTONE = registerBlock("bystone",
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(0.8F)), JamiesModItemGroup.JAMIES_MOD);
 
@@ -425,6 +421,6 @@ public class JamiesModBlocks {
     public static void init()
     {
         JamiesModStrippableBlocks.registerStrippables();
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> entries.addAfter(Items.LILY_OF_THE_VALLEY, JAMIES_BLOCK));
+        //ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> entries.addAfter(Items.LILY_OF_THE_VALLEY, JAMIES_BLOCK));
     }
 }

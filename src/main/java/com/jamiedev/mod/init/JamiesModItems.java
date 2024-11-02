@@ -110,7 +110,7 @@ public class JamiesModItems
 
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
-            entries.add(JamiesModBlocks.JAMIES_BLOCK.asItem());
+
 
         });
 

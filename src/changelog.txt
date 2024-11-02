@@ -1,16 +1,14 @@
 # **Updates in 0.0.6d**
 
 **New features:**
-Added Glow Gourds! It has three variants, and is found  naturally on the roof of the Underhang!
+Added Glow Gourds! There are three variants, and each have their own food item! It is found naturally on the roof of the Underhang!
 Added Umber Bricks, Amberstone, and Cobbled Amberstone!
-
-Added Cobbled Bystone and Byslate slabs, stairs, walls!
-
-**Experimental features:**
-Added Mineshafts to the Underhang biome!
+Added Cobbled Bystone and Byslate slabs, stairs, walls! (Texture still a WIP!)
+Added spawn eggs for multiple new mobs!
 
 **Experimental features:**
-More Amber Ruin variants
+Added Mineshaft'=s to the Underhang biome!
+More Amber Ruin variants!
 
 **Changes to existing features:**
 Replaced Glowing Amber strips  in Amber Deserts with Amberstone!
@@ -19,6 +17,16 @@ Tweaked Ambient sounds in the Amber Desert!
 
 **Bugs fixed:**
 Fixed more mob spawning bugs!
+Fixed Ancient Vines block model not existing!
+Fixed Ancient Vines not having a drop!
+Removed "Fossilized Amber" and another block used for testing!
+
+Coming up in 0.0.7a:
+BIG BEAK ARMOR + TWEAKS
+CASTER HAVING A USE
+MORE AMBER DESERT ITERATIONS
+A UNIQUE SKY TEXTURE
+A NEW PAINTING
 
 # *Updates in 0.0.6b**
 
