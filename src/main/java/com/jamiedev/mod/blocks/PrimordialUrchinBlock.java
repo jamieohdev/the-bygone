@@ -31,6 +31,9 @@ import net.minecraft.world.*;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Iterator;
+import java.util.List;
+
 public class PrimordialUrchinBlock extends BlockWithEntity implements Waterloggable
 {
     public static final MapCodec<PrimordialUrchinBlock> CODEC = createCodec(PrimordialUrchinBlock::new);
@@ -91,14 +94,7 @@ public class PrimordialUrchinBlock extends BlockWithEntity implements Waterlogga
 
         boolean bl = (Boolean)state.get(ACTIVATEDBOOL);
 
-        if (world.random.nextInt(1000) == 1)
-        {
-            world.setBlockState(pos, (BlockState)state.with(ACTIVATED, 0), 3);
-        }
 
-        if (test) {
-            world.setBlockState(pos, (BlockState)state.with(ACTIVATED, 1), 3);
-        }
 
     }
 
@@ -112,9 +108,37 @@ public class PrimordialUrchinBlock extends BlockWithEntity implements Waterlogga
         return blockState;
     }
 
+    private void updatePowered(World world, BlockPos pos) {
+        BlockState blockState = world.getBlockState(pos);
+        boolean bl = (Boolean)blockState.get(ACTIVATEDBOOL);
+        boolean bl2 = false;
+        List<? extends Entity> list = world.getOtherEntities((Entity)null, blockState.getOutlineShape(world, pos).getBoundingBox().offset(pos));
+        if (!list.isEmpty()) {
+            Iterator var7 = list.iterator();
+
+            while(var7.hasNext()) {
+                Entity entity = (Entity)var7.next();
+                if (!entity.canAvoidTraps()) {
+                    bl2 = true;
+                    break;
+                }
+            }
+        }
+
+        if (bl2 != bl) {
+            blockState = (BlockState)blockState.with(ACTIVATEDBOOL, bl2);
+            world.setBlockState(pos, blockState, 3);
+        }
+
+        if (bl2) {
+            world.scheduleBlockTick(new BlockPos(pos), this, 10);
+        }
+
+    }
+
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (!world.isClient && world.getDifficulty() != Difficulty.PEACEFUL) {
-            if (entity instanceof LivingEntity livingEntity) {
+            if (entity instanceof LivingEntity livingEntity && !(Boolean)state.get(ACTIVATEDBOOL)) {
                 if (!livingEntity.isInvulnerableTo(world.getDamageSources().cactus()) && !livingEntity.isInCreativeMode()) {
                     world.playSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.ENTITY_PUFFER_FISH_BLOW_UP,
                             SoundCategory.BLOCKS, 0.5F + world.random.nextFloat(), world.random.nextFloat() * 0.7F + 0.6F, false);
@@ -130,6 +154,7 @@ public class PrimordialUrchinBlock extends BlockWithEntity implements Waterlogga
             }
 
         }
+        super.onEntityCollision(state, world, pos, entity);
     }
 
     @Nullable

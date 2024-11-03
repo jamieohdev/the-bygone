@@ -1,0 +1,7 @@
+{
+  "type": "bygone:bygone_mineshaft",
+  "biomes": "#bygone:has_structure/bygone_mineshaft",
+  "mineshaft_type": "ancient",
+  "spawn_overrides": {},
+  "step": "underground_structures"
+}

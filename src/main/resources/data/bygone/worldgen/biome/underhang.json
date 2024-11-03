@@ -1,0 +1,118 @@
+{
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
+  "downfall": 0.5,
+  "effects": {
+    "additions_sound": {
+      "sound": "bygone:ambient.underhang.additions",
+      "tick_chance": 0.0007
+    },
+
+    "fog_color": 8436873,
+    "foliage_color": 11851346,
+    "grass_color": 11851346,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000
+    },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "bygone:music.bygone.underhang"
+    },
+    "particle": {
+      "options": {
+        "type": "minecraft:spore_blossom_air"
+      },
+      "probability": 0.025
+    },
+    "sky_color": 8060852,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [
+    ],
+    [
+    ],
+    [
+      "minecraft:forest_rock"
+    ],
+    [
+
+      "minecraft:monster_room",
+      "minecraft:monster_room_deep",
+      "bygone:small_cloud"
+    ],
+    [],
+    [],
+    [
+      "bygone:ore_coal_upper",
+      "bygone:ore_coal_lower",
+      "bygone:ore_iron_upper",
+      "bygone:ore_iron_middle",
+      "bygone:ore_iron_small",
+      "bygone:ore_copper"
+    ],
+    [],
+    [
+    ],
+    [
+      "bygone:ancient_flowers",
+      "bygone:underhang/medium_ancient_trees",
+      "bygone:underhang/small_ancient_trees",
+      "minecraft:glow_lichen",
+      "bygone:gourds",
+      "bygone:cave_vines",
+      "minecraft:patch_tall_grass_2",
+      "bygone:patch_grass_underhang",
+      "bygone:patch_tall_grass",
+      "bygone:underhang_vegetation"
+    ],
+    [
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [
+    ],
+    "axolotls": [
+
+    ],
+    "creature": [
+      {
+        "type": "bygone:big_beak",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 3
+      },
+
+      {
+        "type": "bygone:glare",
+        "maxCount": 5,
+        "minCount": 2,
+        "weight": 5
+      }
+    ],
+    "misc": [],
+    "monster": [
+
+    ],
+    "underground_water_creature": [
+
+    ],
+    "water_creature": []
+  },
+  "temperature": 0.5
+}

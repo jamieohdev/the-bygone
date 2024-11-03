@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cobbled_byslate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "bygone:cobbled_byslate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:cobbled_byslate_slab"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cobbled_byslate"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:cobbled_byslate_slab"
+    ]
+  }
+}

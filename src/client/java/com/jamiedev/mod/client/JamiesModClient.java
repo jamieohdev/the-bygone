@@ -2,6 +2,7 @@ package com.jamiedev.mod.client;
 
 import com.jamiedev.mod.JamiesMod;
 import com.jamiedev.mod.blocks.JamiesModWoodType;
+import com.jamiedev.mod.client.particles.AmberDustParticle;
 import com.jamiedev.mod.client.particles.BlemishParticle;
 import com.jamiedev.mod.client.particles.RafflesiaSporeParticle;
 import com.jamiedev.mod.init.*;
@@ -16,12 +17,16 @@ import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.particle.CherryLeavesParticle;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.SoulParticle;
+import net.minecraft.client.particle.WaterSuspendParticle;
 import net.minecraft.client.render.RenderLayer;
 import com.jamiedev.mod.client.renderer.*;
 import com.jamiedev.mod.client.models.*;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.block.entity.BrushableBlockEntityRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
@@ -33,6 +38,7 @@ public class JamiesModClient implements ClientModInitializer {
     public static Identifier BYGONE = JamiesMod.getModId("bygone");
     @Override
     public void onInitializeClient() {
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.AMBER, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CLOUD, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BYGONE_PORTAL, RenderLayer.getTranslucent());
 
@@ -40,7 +46,10 @@ public class JamiesModClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_ROOTS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_VINE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CHARNIA, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_BEIGE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_MUAVE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_VERDANT, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_VINE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.RAFFLESIA, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CAVE_VINES, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CAVE_VINES_PLANT, RenderLayer.getCutout());
@@ -55,11 +64,11 @@ public class JamiesModClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_ALGAE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.MALACHITE_DOOR, RenderLayer.getCutout());
 
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLEMISH_VEIN, RenderLayer.getCutoutMipped());
 
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CRINOID, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PRIMORDIAL_URCHIN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PRIMORDIAL_VENT, RenderLayer.getCutout());
-
 
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_ORANGE_CORAL, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_ORANGE_CORAL_WALL_FAN, RenderLayer.getCutout());
@@ -73,6 +82,10 @@ public class JamiesModClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL_FAN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL_WALL_FAN, RenderLayer.getCutout());
+
+
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CREOSOTE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CREOSOTE_SPROUTS, RenderLayer.getCutout());
 
         EntityRendererRegistry.register(JamiesModEntityTypes.COELACANTH, CoelacanthRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.COELACANTH, CoelacanthModel::getTexturedModelData);
@@ -90,6 +103,7 @@ public class JamiesModClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.SCUTTLE, ScuttleModel::getTexturedModelData);
 
         EntityRendererRegistry.register(JamiesModEntityTypes.HOOK, HookRenderer::new);
+        EntityRendererRegistry.register(JamiesModEntityTypes.EXOTIC_ARROW, ExoticArrowRenderer::new);
 
         EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.SCUTTLE_SPIKE, ScuttleSpikeModel::getTexturedModelData);
         EntityRendererRegistry.register(JamiesModEntityTypes.SCUTTLE_SPIKE, ScuttleSpikeRenderer::new);
@@ -100,10 +114,13 @@ public class JamiesModClient implements ClientModInitializer {
         EntityRendererRegistry.register(JamiesModEntityTypes.BIG_BEAK, BigBeakRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.BIG_BEAK, BigBeakModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.BIG_BEAK_SADDLE, BigBeakModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.BIG_BEAK_ARMOR, BigBeakModel::getTexturedModelData);
 
         ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.BLEMISH, BlemishParticle.BlemishBlockProvider::new);
         ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.RAFFLESIA_SPORES, RafflesiaSporeParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.ALGAE_BLOOM, SoulParticle.SculkSoulFactory::new);
+
+        ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.AMBER_DUST, AmberDustParticle.Factory::new);
 
         DimensionRenderingRegistry.registerDimensionEffects(BYGONE, BygoneDimensionEffects.INSTANCE);
 
@@ -116,6 +133,7 @@ public class JamiesModClient implements ClientModInitializer {
         TexturedRenderLayers.SIGN_TYPE_TEXTURES.put(JamiesModWoodType.ANCIENT, TexturedRenderLayers.getSignTextureId(JamiesModWoodType.ANCIENT));
         BlockEntityRendererFactories.register(JamiesModBlockEntities.MOD_SIGN_BLOCK_ENTITY, SignBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(JamiesModBlockEntities.MOD_HANGING_SIGN_BLOCK_ENTITY, HangingSignBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(JamiesModBlockEntities.BRUSHABLE_BLOCK, BygoneBrushableBlockEntityRenderer::new);
     }
     public static void registerModelPredicateProviders() {
         ModelPredicateProviderRegistry.register(JamiesModItems.HOOK, JamiesMod.getModId("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {

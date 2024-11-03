@@ -1,0 +1,50 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 2,
+      "element": {
+        "location": "bygone:amber_ruins/amber_ruins_1",
+        "projection": "rigid",
+        "processors": "bygone:randomize_roots",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "bygone:amber_ruins/amber_ruins_2",
+        "projection": "rigid",
+        "processors": "bygone:randomize_roots",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "bygone:amber_ruins/amber_ruins_3",
+        "projection": "rigid",
+        "processors": "bygone:randomize_roots",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "location": "bygone:amber_ruins/amber_ruins_4",
+        "projection": "rigid",
+        "processors": "bygone:randomize_roots",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 6,
+      "element": {
+        "location": "bygone:amber_ruins/amber_ruins_5",
+        "projection": "rigid",
+        "processors": "bygone:randomize_roots",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

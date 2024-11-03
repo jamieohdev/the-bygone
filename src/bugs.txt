@@ -2,6 +2,7 @@
 
 spawn rates  for everything is too high
 FIX ROOTS
+FIX HOOK TEXTURES + reported bugs
 
 Big Beaks:
 ARMOR

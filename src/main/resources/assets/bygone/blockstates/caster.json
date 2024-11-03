@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "facing=down,powered=false": {
+      "model": "bygone:block/caster",
+      "x": 90
+    },
+    "facing=down,powered=true": {
+      "model": "bygone:block/caster_on",
+      "x": 90
+    },
+    "facing=east,powered=false": {
+      "model": "bygone:block/caster",
+      "y": 90
+    },
+    "facing=east,powered=true": {
+      "model": "bygone:block/caster_on",
+      "y": 90
+    },
+    "facing=north,powered=false": {
+      "model": "bygone:block/caster"
+    },
+    "facing=north,powered=true": {
+      "model": "bygone:block/caster_on"
+    },
+    "facing=south,powered=false": {
+      "model": "bygone:block/caster",
+      "y": 180
+    },
+    "facing=south,powered=true": {
+      "model": "bygone:block/caster_on",
+      "y": 180
+    },
+    "facing=up,powered=false": {
+      "model": "bygone:block/caster",
+      "x": 270
+    },
+    "facing=up,powered=true": {
+      "model": "bygone:block/caster_on",
+      "x": 270
+    },
+    "facing=west,powered=false": {
+      "model": "bygone:block/caster",
+      "y": 270
+    },
+    "facing=west,powered=true": {
+      "model": "bygone:block/caster_on",
+      "y": 270
+    }
+  }
+}

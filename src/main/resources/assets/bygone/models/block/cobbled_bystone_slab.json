@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "bygone:block/cobbled_bystone",
+    "side": "bygone:block/cobbled_bystone",
+    "top": "bygone:block/cobbled_bystone"
+  }
+}

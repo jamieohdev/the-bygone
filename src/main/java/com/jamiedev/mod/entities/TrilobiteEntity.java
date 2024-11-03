@@ -2,6 +2,7 @@ package com.jamiedev.mod.entities;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -56,8 +57,12 @@ public class TrilobiteEntity extends FishEntity
     public static boolean canSpawn(EntityType<? extends WaterCreatureEntity> type, WorldAccess world, SpawnReason reason, BlockPos pos, Random random) {
         int i = world.getSeaLevel();
         int j = i - 13;
-        return pos.getY() >= j && pos.getY() <= i && world.getFluidState(pos.down()).isIn(FluidTags.WATER) && world.getBlockState(pos.up()).isOf(Blocks.WATER);
+
+        return  world.getBlockState(pos).getFluidState().isIn(FluidTags.WATER)
+                    && world.getBlockState(pos.up()).isOf(Blocks.WATER);
     }
+
+
 
     @Override
     protected SoundEvent getFlopSound() {
@@ -76,6 +81,8 @@ public class TrilobiteEntity extends FishEntity
     public int getDarkTicksRemaining() {
         return (Integer)this.dataTracker.get(DARK_TICKS_REMAINING1);
     }
+
+
 
     static {
         DARK_TICKS_REMAINING1 = DataTracker.registerData(TrilobiteEntity.class, TrackedDataHandlerRegistry.INTEGER);

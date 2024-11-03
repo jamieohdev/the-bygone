@@ -1,5 +1,6 @@
 package com.jamiedev.mod.init;
 import com.jamiedev.mod.JamiesMod;
+import com.jamiedev.mod.items.ExoticArrowItem;
 import com.jamiedev.mod.items.HookItem;
 import com.jamiedev.mod.items.JamiesModItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -36,12 +37,19 @@ public class JamiesModItems
 
     public static final Item GOURD_ON_A_STICK =  registerItem("gourd_on_a_stick", (Item)(new OnAStickItem((new Item.Settings()).maxDamage(100), JamiesModEntityTypes.BRUNGLE, 1)));
     public static final Item GOURD_FLESH = registerItem("gourd_flesh", new Item((new Item.Settings()).food(FoodComponents.GOLDEN_CARROT)));
-    public static final Item GOURD_SEEDS = registerItem("gourd_seeds", (Item)(new AliasedBlockItem(JamiesModBlocks.GOURD_LANTERN, new Item.Settings())));
+   // public static final Item GOURD_SEEDS = registerItem("gourd_seeds", (Item)(new AliasedBlockItem(JamiesModBlocks.GOURD_LANTERN_VERDANT, new Item.Settings())));
 
-//    public static final Item MUSIC_DISC_MOLTEN = registerItem("music_disc_molten", new Item(new Item.Settings().rarity(Rarity.RARE).jukeboxPlayable(JukeboxSongs.CREATOR_MUSIC_BOX).maxCount(1)));
-//    public static final Item DISC_FRAGMENT_MOLTEN = registerItem("disc_fragment_molten", new DiscFragmentItem(new Item.Settings()));
-
+    public static final Item COELECANTH = registerItem("coelacanth", new Item(new Item.Settings().food(FoodComponents.CHICKEN)));
+    public static final Item COELECANTH_COOKED = registerItem("cooked_coelacanth", new Item(new Item.Settings().food(FoodComponents.PUFFERFISH)));
+    public static final Item EXOTIC_ARROW = registerItem("exotic_arrow", new ExoticArrowItem(new Item.Settings().fireproof()));
+    public static final Item EXOTIC_PLUMAGE = registerItem("exotic_plumage", new Item(new Item.Settings().fireproof()));
+    public static final Item GLOW_CHITIN = registerItem("glow_chitin", new Item(new Item.Settings().fireproof()));
+    public static final Item SCUTTLE_SPIKE = registerItem("scuttle_spike", new Item(new Item.Settings().fireproof()));
     ArmorMaterials mat;
+
+    public static final Item BEIGE_SLICE = registerItem("glow_gourd_beige_slice", new Item(new Item.Settings().food(FoodComponents.GOLDEN_CARROT)));
+    public static final Item MUAVE_SLICE = registerItem("glow_gourd_muave_slice", new Item(new Item.Settings().food(FoodComponents.GOLDEN_CARROT)));
+    public static final Item VERDANT_SLICE = registerItem("glow_gourd_verdant_slice", new Item(new Item.Settings().food(FoodComponents.GOLDEN_CARROT)));
 
     public static final Item SCALE_HELMET = registerItem("scale_helmet",
             new ArmorItem(JamiesModArmorMaterials.SCALE, ArmorItem.Type.HELMET,
@@ -55,6 +63,12 @@ public class JamiesModItems
     public static final Item SCALE_BOOTS = registerItem("scale_boots",
             new ArmorItem(JamiesModArmorMaterials.SCALE, ArmorItem.Type.BOOTS,
                     new Item.Settings().fireproof()));
+    public static final Item DIAMOND_BIG_BEAK_ARMOR = registerItem("diamond_beak_armor", (Item)(new AnimalArmorItem(ArmorMaterials.DIAMOND, net.minecraft.item.AnimalArmorItem.Type.EQUESTRIAN, false, (new Item.Settings()).maxCount(1))));
+    public static final Item BIG_BEAK_SPAWN_EGG = registerItem("big_beak_spawn_egg", (Item)(new SpawnEggItem(JamiesModEntityTypes.BIG_BEAK, 8767242, 16756224, new Item.Settings())));
+    public static final Item COELACANTH_SPAWN_EGG = registerItem("coelacanth_spawn_egg", (Item)(new SpawnEggItem(JamiesModEntityTypes.COELACANTH, 2517624, 2327369, new Item.Settings())));
+    //public static final Item MOOBOO_SPAWN_EGG = registerItem("mooboo_spawn_egg", (Item)(new SpawnEggItem(JamiesModEntityTypes.MOOBOO, 6022120, 11716552, new Item.Settings())));
+    public static final Item SCUTTLE_SPAWN_EGG = registerItem("scuttle_spawn_egg", (Item)(new SpawnEggItem(JamiesModEntityTypes.SCUTTLE, 2574194, 15380531, new Item.Settings())));
+    public static final Item TRILOBITE_SPAWN_EGG = registerItem("trilobite_spawn_egg", (Item)(new SpawnEggItem(JamiesModEntityTypes.TRILOBITE, 2309206, 1352874, new Item.Settings())));
 
     public static void addItemsToItemGroup() {
 
@@ -63,6 +77,17 @@ public class JamiesModItems
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, ANCIENT_HANGING_SIGN);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, HOOK);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, SCALE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, EXOTIC_ARROW);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, EXOTIC_PLUMAGE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, COELECANTH);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, COELECANTH_COOKED);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, BEIGE_SLICE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, MUAVE_SLICE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, VERDANT_SLICE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, BIG_BEAK_SPAWN_EGG);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, COELACANTH_SPAWN_EGG);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, SCUTTLE_SPAWN_EGG);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, TRILOBITE_SPAWN_EGG);
     }
 
 

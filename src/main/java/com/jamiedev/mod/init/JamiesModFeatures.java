@@ -17,10 +17,12 @@ public class JamiesModFeatures
     public static final Feature<AncientTreeFeatureConfig> ANCIENT_TREE = register("ancient_tree", new AncientTreeFeature(AncientTreeFeatureConfig.CODEC));
 
     public static final Feature<RandomPatchFeatureConfig>  FLOWER = register("ancient_flowers", new RandomPatchFeature(RandomPatchFeatureConfig.CODEC));
-    public static final Feature<AncientForestVegetationFeatureConfig> ANCIENT_FOREST_VEGATATION = register("ancient_forest_vegetation", new AncientForestVegetationFeature(AncientForestVegetationFeatureConfig.VEGETATION_CODEC));
+    public static final Feature<AncientForestVegetationFeatureConfig> ANCIENT_FOREST_VEGATATION = register("underhang_vegetation", new AncientForestVegetationFeature(AncientForestVegetationFeatureConfig.VEGETATION_CODEC));
 
     public static final Feature<SmallCloudConfig> SMALL_CLOUD = register("small_cloud", new SmallCloudFeature(SmallCloudConfig.CODEC));
 
+    public static final Feature<SingleStateFeatureConfig> AMBER = register("amber", new AmberFeature(SingleStateFeatureConfig.CODEC));
+    public static  final Feature<DefaultFeatureConfig> AMBER_UNDER = register("amber_under", new AmberUnderFeature(DefaultFeatureConfig.CODEC));
 
     public static  final Feature<DefaultFeatureConfig> PRIMORDIAL_CORAL_CLAW = register("primordial_coral_claw", new PrimordialCoralClawFeature(DefaultFeatureConfig.CODEC));
     public static  final Feature<DefaultFeatureConfig> PRIMORDIAL_CORAL_MUSHROOM = register("primordial_coral_mushroom", new PrimordialCoralMushroomFeature(DefaultFeatureConfig.CODEC));
@@ -32,9 +34,11 @@ public class JamiesModFeatures
 
     public static void init() {
         Registry.register(Registries.FEATURE, JamiesMod.getModId("ancient_tree"), ANCIENT_TREE);
-        Registry.register(Registries.FEATURE, JamiesMod.getModId("ancient_forest_vegetation"), ANCIENT_FOREST_VEGATATION);
+        Registry.register(Registries.FEATURE, JamiesMod.getModId("underhang_vegetation"), ANCIENT_FOREST_VEGATATION);
         Registry.register(Registries.FEATURE, JamiesMod.getModId("ancient_flowers"), FLOWER);
         Registry.register(Registries.FEATURE, JamiesMod.getModId("small_cloud"), SMALL_CLOUD);
+        Registry.register(Registries.FEATURE, JamiesMod.getModId("amber"), AMBER);
+        Registry.register(Registries.FEATURE, JamiesMod.getModId("amber_under"), AMBER_UNDER);
 
         Registry.register(Registries.FEATURE, JamiesMod.getModId("primordial_coral_claw"), PRIMORDIAL_CORAL_CLAW);
         Registry.register(Registries.FEATURE, JamiesMod.getModId("primordial_coral_mushroom"), PRIMORDIAL_CORAL_MUSHROOM);

@@ -396,6 +396,8 @@ public class ScuttleEntity extends WaterCreatureEntity implements RangedAttackMo
         }
     }
 
+
+
     static {
         TARGET_ID = DataTracker.registerData(ScuttleEntity.class, TrackedDataHandlerRegistry.INTEGER);
     }
