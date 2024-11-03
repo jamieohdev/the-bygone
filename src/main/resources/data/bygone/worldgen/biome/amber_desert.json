@@ -1,0 +1,97 @@
+{
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
+  "downfall": 0.0,
+  "effects": {
+    "additions_sound": {
+      "sound": "bygone:ambient.amber_desert.additions",
+      "tick_chance": 0.0007
+    },
+    "fog_color": 12672002,
+    "foliage_color": 11851346,
+    "grass_color": 11851346,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000
+    },
+
+    "particle": {
+      "options": {
+        "type": "bygone:amber_dust"
+      },
+      "probability": 0.025
+    },
+    "sky_color": 16772474,
+    "water_color": 4445678,
+    "water_fog_color": 270131
+  },
+  "features": [
+    [],
+    [
+    ],
+    [
+      "bygone:amber",
+      "bygone:amber_2",
+      "bygone:amber_blob"
+    ],
+    [
+      "bygone:small_cloud"
+    ],
+    [],
+    [],
+    [
+      "bygone:ore_coal_upper",
+      "bygone:ore_coal_lower",
+      "bygone:ore_iron_upper",
+      "bygone:ore_iron_middle",
+      "bygone:ore_iron_small",
+      "bygone:ore_copper"
+    ],
+    [],
+    [
+      "minecraft:spring_water",
+      "minecraft:spring_lava"
+    ],
+    [
+      "minecraft:glow_lichen",
+      "bygone:creosote_sprouts",
+      "minecraft:flower_default",
+      "minecraft:patch_grass_badlands",
+      "bygone:amber_desert_vegetation"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [
+    ],
+    "axolotls": [],
+    "creature": [
+    ],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:husk",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 80
+      }
+    ],
+    "underground_water_creature": [
+
+    ],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 2.0
+}

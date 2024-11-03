@@ -1,6 +1,7 @@
 package com.jamiedev.mod.init;
 
 import com.jamiedev.mod.JamiesMod;
+import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
@@ -30,10 +31,10 @@ public class JamiesModArmorMaterials
         map.put(ArmorItem.Type.BODY, 11);
     }), 9, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, 0.3F, () -> Ingredient.ofItems(JamiesModItems.SCALE));
 
-    public void JamiesModArmorMaterials()
-    {
 
-    }
+    public static RegistryEntry<ArmorMaterial> BIG_BEAK = register("big_beak", Util.make(new EnumMap(AnimalArmorItem.Type.class), map -> {
+        map.put(AnimalArmorItem.Type.EQUESTRIAN, 1);
+    }), 9, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, 0.3F, () -> Ingredient.ofItems(JamiesModItems.SCALE));
 
     private static RegistryEntry<ArmorMaterial> register(
             String id,

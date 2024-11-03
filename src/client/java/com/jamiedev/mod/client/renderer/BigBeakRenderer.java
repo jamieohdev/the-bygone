@@ -5,7 +5,9 @@ import com.jamiedev.mod.client.JamiesModModelLayers;
 import com.jamiedev.mod.client.models.BigBeakModel;
 import com.jamiedev.mod.entities.BigBeakEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.HorseEntityRenderer;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.feature.HorseArmorFeatureRenderer;
 import net.minecraft.client.render.entity.feature.SaddleFeatureRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.PigEntityModel;
@@ -14,11 +16,12 @@ import net.minecraft.util.math.MathHelper;
 
 public class BigBeakRenderer  extends MobEntityRenderer<BigBeakEntity, BigBeakModel<BigBeakEntity>> {
     private static final Identifier TEXTURE = JamiesMod.getModId("textures/entity/big_beak.png");
-
+    HorseEntityRenderer ref;
+    HorseArmorFeatureRenderer ref2;
     public BigBeakRenderer(EntityRendererFactory.Context context) {
-        super(context, new BigBeakModel(context.getPart(JamiesModModelLayers.BIG_BEAK)), 0.6F);
-        this.addFeature(new SaddleFeatureRenderer(this, new BigBeakModel<>(context.getPart(JamiesModModelLayers.BIG_BEAK_SADDLE)), JamiesMod.getModId("textures/entity/big_beak_saddled.png")));
-
+        super(context, new BigBeakModel<>(context.getPart(JamiesModModelLayers.BIG_BEAK)), 0.6F);
+        this.addFeature(new SaddleFeatureRenderer<>(this, new BigBeakModel<>(context.getPart(JamiesModModelLayers.BIG_BEAK_SADDLE)), JamiesMod.getModId("textures/entity/big_beak_saddled.png")));
+        this.addFeature(new BigBeakArmorFeatureRenderer(this, context.getModelLoader()));
     }
 
     public Identifier getTexture(BigBeakEntity chickenEntity) {

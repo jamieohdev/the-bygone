@@ -8,6 +8,8 @@ import net.minecraft.registry.Registry;
 import com.jamiedev.mod.JamiesMod;
 public class JamiesModParticleTypes
 {
+
+    public static final ParticleType<SimpleParticleType> AMBER_DUST = FabricParticleTypes.simple();
     public static final ParticleType<SimpleParticleType> RAFFLESIA_SPORES = FabricParticleTypes.simple();
     public static final ParticleType<SimpleParticleType> ALGAE_BLOOM = FabricParticleTypes.simple();
 
@@ -17,5 +19,6 @@ public class JamiesModParticleTypes
         Registry.register(Registries.PARTICLE_TYPE, JamiesMod.getModId( "rafflesia_spores"), RAFFLESIA_SPORES);
         Registry.register(Registries.PARTICLE_TYPE, JamiesMod.getModId( "algae_bloom"), ALGAE_BLOOM);
         Registry.register(Registries.PARTICLE_TYPE, JamiesMod.getModId( "blemish_bubble"), BLEMISH);
+        Registry.register(Registries.PARTICLE_TYPE, JamiesMod.getModId( "amber_dust"), AMBER_DUST);
     }
 }

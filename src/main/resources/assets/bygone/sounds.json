@@ -1,17 +1,13 @@
 {
-  "music.bygone.ancient_forest": {
+  "music.bygone.underhang": {
     "category":"music",
     "sounds": [
       {
-        "name": "bygone:music/coda",
+        "name": "bygone:music/changing",
         "stream": true
       },
       {
         "name": "bygone:music/gelida",
-        "stream": true
-      },
-      {
-        "name": "bygone:music/rodhim",
         "stream": true
       },
       {
@@ -29,7 +25,7 @@
       }
     ]
   },
-  "ambient.ancient_forest.additions": {
+  "ambient.underhang.additions": {
     "sounds":  [
       "bygone:ambience/ancient_creak1",
       "bygone:ambience/ancient_creak2",
@@ -38,7 +34,24 @@
       "bygone:ambience/ancient_wind3",
       "bygone:ambience/ancient_wind4"
     ],
-    "subtitle": "subtitles.ambient.ancient_forest.additions"
+    "subtitle": "subtitles.ambient.underhang.additions"
+  },
+  "ambient.amber_desert.additions": {
+    "sounds":  [
+      "bygone:ambience/amber_desert1",
+      "bygone:ambience/amber_desert3",
+      "bygone:ambience/amber_desert4",
+      "bygone:ambience/amber_desert5"
+    ],
+    "subtitle": "subtitles.ambient.amber_desert.additions"
+  },
+  "ambient.primordial_ocean.additions": {
+    "sounds":  [
+      "bygone:ambience/primordial_ocean1",
+      "bygone:ambience/primordial_ocean2",
+      "bygone:ambience/frozen3"
+    ],
+    "subtitle": "subtitles.ambient.primordial_ocean.additions"
   },
   "ambience.volcanic1": {
     "category": "ambient",
@@ -183,20 +196,11 @@
       }
     ]
   },
-  "music.coda": {
+  "music.changing": {
     "category": "music",
     "sounds":[
       {
-        "name": "bygone:music/coda",
-        "stream": true
-      }
-    ]
-  },
-  "music.rodhim": {
-    "category": "music",
-    "sounds":[
-      {
-        "name": "bygone:music/rodhim",
+        "name": "bygone:music/changing",
         "stream": true
       }
     ]

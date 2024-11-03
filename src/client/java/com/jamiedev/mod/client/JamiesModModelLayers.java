@@ -26,7 +26,12 @@ public class JamiesModModelLayers {
     public static final EntityModelLayer GLARE =
             new EntityModelLayer(JamiesMod.getModId("glare"), "main");
 
+    public static final EntityModelLayer EXOTIC_ARROW =
+            new EntityModelLayer(JamiesMod.getModId("exotic_arrow"), "main");
+
     public static final EntityModelLayer BIG_BEAK = new EntityModelLayer(JamiesMod.getModId("big_beak"), "main");
     public static final EntityModelLayer BIG_BEAK_SADDLE =  new EntityModelLayer(JamiesMod.getModId("big_beak"), "saddle");
+
+    public static final EntityModelLayer BIG_BEAK_ARMOR =  new EntityModelLayer(JamiesMod.getModId("big_beak"), "armor");
 
 }

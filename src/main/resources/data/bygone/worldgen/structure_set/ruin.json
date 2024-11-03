@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1604261006,
+    "separation": 9,
+    "spacing": 22
+  },
+  "structures": [
+    {
+      "structure": "bygone:ruin",
+      "weight": 1
+    }
+  ]
+}

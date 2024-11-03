@@ -21,7 +21,7 @@ public class JamiesModBiomes
         return registryKey;
     }
 
-    public static final RegistryKey<Biome> ANCIENT_FOREST = createBiomeKey("ancient_forest");
+    public static final RegistryKey<Biome> ANCIENT_FOREST = createBiomeKey("underhang");
     public static final RegistryKey<Biome> CALM = createBiomeKey("calm");
     public static final RegistryKey<Biome> PILLARS = createBiomeKey("pillars");
     public static final RegistryKey<Biome> PRIMORDIAL_OCEAN = createBiomeKey("primordial_ocean");

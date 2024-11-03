@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "bygone:block/glow_gourd_beige"
+    },
+    "hanging=true": {
+      "model": "bygone:block/glow_gourd_beige"
+    }
+  }
+}

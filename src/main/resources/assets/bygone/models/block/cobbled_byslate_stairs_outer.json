@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "bygone:block/cobbled_byslate",
+    "side": "bygone:block/cobbled_byslate",
+    "top": "bygone:block/cobbled_byslate"
+  }
+}

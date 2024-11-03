@@ -8,6 +8,16 @@
   },
   "downfall": 0.5,
   "effects": {
+    "additions_sound": {
+      "sound": "bygone:ambient.primordial_ocean.additions",
+      "tick_chance": 0.0007
+    },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "bygone:music.bygone.primordial_ocean"
+    },
     "fog_color": 488284,
     "mood_sound": {
       "block_search_extent": 8,
@@ -84,41 +94,30 @@
 
     ],
     "underground_water_creature": [
-      {
-        "type": "minecraft:glow_squid",
-        "maxCount": 6,
-        "minCount": 4,
-        "weight": 15
-      },
+
+    ],
+    "water_ambient": [
+
+    ],
+    "water_creature": [
       {
         "type": "bygone:scuttle",
         "maxCount": 1,
         "minCount": 1,
-        "weight": 2
+        "weight": 20
       },
       {
         "type": "bygone:coelacanth",
-        "maxCount": 2,
+        "maxCount": 3,
         "minCount": 1,
-        "weight": 1
+        "weight": 15
       },
       {
         "type": "bygone:trilobite",
-        "maxCount": 6,
-        "minCount": 4,
-        "weight": 4
-      }
-    ],
-    "water_ambient": [
-      {
-        "type": "minecraft:tropical_fish",
         "maxCount": 8,
-        "minCount": 8,
-        "weight": 25
+        "minCount": 4,
+        "weight": 20
       }
-    ],
-    "water_creature": [
-
     ]
   },
   "temperature": 0.5
