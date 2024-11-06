@@ -24,6 +24,11 @@
                       ]
                     }
                   }
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {}
                 }
               ],
               "name": "bygone:glow_gourd_muave"

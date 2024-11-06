@@ -1,9 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:cobblestone",
-    "minecraft:blackstone",
-    "minecraft:cobbled_deepslate",
+
     "bygone:cobbled_bystone",
     "bygone:cobbled_byslate",
     "bygone:oceanstone"

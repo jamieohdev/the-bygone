@@ -14,6 +14,7 @@ import net.minecraft.client.render.entity.feature.HorseArmorFeatureRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.DyedColorComponent;
+import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,7 +25,6 @@ import net.minecraft.util.math.ColorHelper;
 public class BigBeakArmorFeatureRenderer extends FeatureRenderer<BigBeakEntity, BigBeakModel<BigBeakEntity>> {
     private final BigBeakModel<BigBeakEntity> model;
 
-    Identifier TEXTURE = JamiesMod.getModId("diamond");
 
     HorseArmorFeatureRenderer ref;
 
@@ -36,8 +36,8 @@ public class BigBeakArmorFeatureRenderer extends FeatureRenderer<BigBeakEntity, 
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, BigBeakEntity BigBeakEntity, float f, float g, float h, float j, float k, float l) {
         ItemStack itemStack = BigBeakEntity.getBodyArmor();
         Item var13 = itemStack.getItem();
-        if (var13 instanceof ArmorItem animalArmorItem) {
-            if (animalArmorItem.getType() == ArmorItem.Type.BODY) {
+        if (var13 instanceof AnimalArmorItem animalArmorItem) {
+            if (animalArmorItem.getType() == JamiesMod.BIG_BEAK_ARMOR) {
                 ((BigBeakModel)this.getContextModel()).copyStateTo(this.model);
                 this.model.animateModel(BigBeakEntity, f, g, h);
                 this.model.setAngles(BigBeakEntity, f, g, j, k, l);
@@ -48,7 +48,7 @@ public class BigBeakArmorFeatureRenderer extends FeatureRenderer<BigBeakEntity, 
                     m = -1;
                 }
 
-                VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE));
+                VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getEntityTexture()));
                 this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, m);
                 return;
             }

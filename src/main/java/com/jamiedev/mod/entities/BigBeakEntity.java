@@ -1,10 +1,12 @@
 package com.jamiedev.mod.entities;
 
+import com.jamiedev.mod.JamiesMod;
 import com.jamiedev.mod.init.JamiesModBlocks;
 import com.jamiedev.mod.init.JamiesModEntityTypes;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -12,29 +14,37 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SingleStackInventory;
+import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
+import java.util.function.IntUnaryOperator;
 
 public class BigBeakEntity  extends AbstractHorseEntity
 {
 
     HorseEntity ref;
 
+    private static final float MIN_HEALTH_BONUS = getChildHealthBonus((max) -> {
+        return 0;
+    });
+    private static final float MAX_HEALTH_BONUS = getChildHealthBonus((max) -> {
+        return 0;
+    });
     private static final EntityDimensions BABY_BASE_DIMENSIONS;
     public float flapProgress;
     public float maxWingDeviation;
@@ -42,6 +52,24 @@ public class BigBeakEntity  extends AbstractHorseEntity
     public float prevFlapProgress;
     public float flapSpeed = 1.0F;
     private float field_28639 = 1.0F;
+
+    private final Inventory inventory = new SingleStackInventory() {
+        public ItemStack getStack() {
+            return BigBeakEntity.this.getBodyArmor();
+        }
+
+        public void setStack(ItemStack stack) {
+            BigBeakEntity.this.equipBodyArmor(stack);
+        }
+
+        public void markDirty() {
+        }
+
+        public boolean canPlayerUse(PlayerEntity player) {
+            return player.getVehicle() == BigBeakEntity.this || player.canInteractWithEntity(
+                    BigBeakEntity.this, 4.0);
+        }
+    };
 
     public BigBeakEntity(EntityType<? extends BigBeakEntity> entityType, World world) {
         super(entityType, world);
@@ -61,6 +89,7 @@ public class BigBeakEntity  extends AbstractHorseEntity
         assert var10000 != null;
         var10000.setBaseValue(getChildJumpStrengthBonus(random::nextDouble));
     }
+
 
     public static DefaultAttributeContainer.Builder createBigBeakAttributes() {
         return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_JUMP_STRENGTH, 2.0)
@@ -104,6 +133,11 @@ public class BigBeakEntity  extends AbstractHorseEntity
             this.walkToParent();
         }
     }
+
+    protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
+        return 0F;
+    }
+
 
     public float getBrightnessAtEyes() {
         return 1.0F;
@@ -183,6 +217,11 @@ public class BigBeakEntity  extends AbstractHorseEntity
                     this.playAngrySound();
                     return ActionResult.success(this.getWorld().isClient);
                 }
+
+                if (this.canUseSlot(EquipmentSlot.BODY) && this.isBigBeakArmor(itemStack) && !this.isWearingBodyArmor()) {
+                    this.equipBigBeakArmor(player, itemStack);
+                    return ActionResult.success(this.getWorld().isClient);
+                }
             }
 
             return super.interactMob(player, hand);
@@ -190,6 +229,15 @@ public class BigBeakEntity  extends AbstractHorseEntity
             return super.interactMob(player, hand);
         }
     }
+
+    public void equipBigBeakArmor(PlayerEntity player, ItemStack stack) {
+        if (this.isBigBeakArmor(stack)) {
+            this.equipBodyArmor(stack.copyWithCount(1));
+            stack.decrementUnlessCreative(1, player);
+        }
+
+    }
+
 
     public boolean canBreedWith(AnimalEntity other) {
         if (other == this) {
@@ -222,8 +270,8 @@ public class BigBeakEntity  extends AbstractHorseEntity
     public boolean isBigBeakArmor(ItemStack stack) {
         Item var3 = stack.getItem();
         boolean var10000;
-        if (var3 instanceof ArmorItem animalArmorItem) {
-            if (animalArmorItem.getType() == ArmorItem.Type.BODY) {
+        if (var3 instanceof AnimalArmorItem animalArmorItem) {
+            if (animalArmorItem.getType() == JamiesMod.BIG_BEAK_ARMOR) {
                 var10000 = true;
                 return var10000;
             }
@@ -231,6 +279,40 @@ public class BigBeakEntity  extends AbstractHorseEntity
 
         var10000 = false;
         return var10000;
+    }
+
+    static double calculateAttributeBaseValue(double parentBase, double otherParentBase, double min, double max, Random random) {
+        if (max <= min) {
+            throw new IllegalArgumentException("Incorrect range for an attribute");
+        } else {
+            parentBase = MathHelper.clamp(parentBase, min, max);
+            otherParentBase = MathHelper.clamp(otherParentBase, min, max);
+            double d = 0.15 * (max - min);
+            double e = Math.abs(parentBase - otherParentBase) + d * 2.0;
+            double f = (parentBase + otherParentBase) / 2.0;
+            double g = (random.nextDouble() + random.nextDouble() + random.nextDouble()) / 3.0 - 0.5;
+            double h = f + e * g;
+            double i;
+            if (h > max) {
+                i = h - max;
+                return max - i;
+            } else if (h < min) {
+                i = min - h;
+                return min + i;
+            } else {
+                return h;
+            }
+        }
+    }
+
+
+    protected void setChildAttributes(PassiveEntity other, AbstractHorseEntity child) {
+        this.setChildAttribute(other, child, EntityAttributes.GENERIC_MAX_HEALTH, (double)MIN_HEALTH_BONUS, (double)MAX_HEALTH_BONUS);
+    }
+
+    private void setChildAttribute(PassiveEntity other, AbstractHorseEntity child, RegistryEntry<EntityAttribute> attribute, double min, double max) {
+        double d = calculateAttributeBaseValue(this.getAttributeBaseValue(attribute), other.getAttributeBaseValue(attribute), min, max, this.random);
+        child.getAttributeInstance(attribute).setBaseValue(d);
     }
 
     public static boolean isValidNaturalSpawn(EntityType<? extends AnimalEntity> type, WorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
@@ -254,7 +336,7 @@ public class BigBeakEntity  extends AbstractHorseEntity
     }
 
     static {
-        BABY_BASE_DIMENSIONS = EntityType.HORSE.getDimensions().withAttachments(EntityAttachments.builder().add(EntityAttachmentType.PASSENGER, 0.0F,
+        BABY_BASE_DIMENSIONS = JamiesModEntityTypes.BIG_BEAK.getDimensions().withAttachments(EntityAttachments.builder().add(EntityAttachmentType.PASSENGER, 0.0F,
                 JamiesModEntityTypes.BIG_BEAK.getHeight() + 0.125F, 0.0F)).scaled(0.5F);
     }
     public static boolean canSpawn(

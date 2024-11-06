@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "bygone:primordial_ocean",
-    "minecraft:swamp",
-    "minecraft:mangrove_swamp"
+    "bygone:primordial_ocean"
   ]
 }

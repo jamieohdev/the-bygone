@@ -14,8 +14,8 @@ import net.minecraft.world.gen.feature.*;
 public class JamiesModFeatures
 {
     public static final Feature<AncientTreeFeatureConfig> ANCIENT_TREE = register("ancient_tree", new AncientTreeFeature(AncientTreeFeatureConfig.CODEC));
-
-    public static final Feature<RandomPatchFeatureConfig>  FLOWER = register("ancient_flowers", new RandomPatchFeature(RandomPatchFeatureConfig.CODEC));
+    public static  final Feature<DefaultFeatureConfig> ANCIENT_VINES = register("ancient_vines", new AncientVinesFeature(DefaultFeatureConfig.CODEC));
+    public static final Feature<RandomPatchFeatureConfig> ANCIENT_FLOWERS = register("ancient_flowers", new RandomPatchFeature(RandomPatchFeatureConfig.CODEC));
     public static final Feature<AncientForestVegetationFeatureConfig> ANCIENT_FOREST_VEGATATION = register("underhang_vegetation", new AncientForestVegetationFeature(AncientForestVegetationFeatureConfig.VEGETATION_CODEC));
 
     public static final Feature<SmallCloudConfig> SMALL_CLOUD = register("small_cloud", new SmallCloudFeature(SmallCloudConfig.CODEC));
@@ -33,8 +33,9 @@ public class JamiesModFeatures
 
     public static void init() {
         Registry.register(Registries.FEATURE, JamiesMod.getModId("ancient_tree"), ANCIENT_TREE);
+        Registry.register(Registries.FEATURE, JamiesMod.getModId("ancient_vines"), ANCIENT_VINES);
         Registry.register(Registries.FEATURE, JamiesMod.getModId("underhang_vegetation"), ANCIENT_FOREST_VEGATATION);
-        Registry.register(Registries.FEATURE, JamiesMod.getModId("ancient_flowers"), FLOWER);
+        Registry.register(Registries.FEATURE, JamiesMod.getModId("ancient_flowers"), ANCIENT_FLOWERS);
         Registry.register(Registries.FEATURE, JamiesMod.getModId("small_cloud"), SMALL_CLOUD);
         Registry.register(Registries.FEATURE, JamiesMod.getModId("amber"), AMBER);
         Registry.register(Registries.FEATURE, JamiesMod.getModId("amber_under"), AMBER_UNDER);

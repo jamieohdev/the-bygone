@@ -9,6 +9,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.entity.SpawnLocationTypes;
 import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +19,8 @@ import static com.jamiedev.mod.init.JamiesModEntityTypes.*;
 
 public class JamiesMod implements ModInitializer {
 	public static String MOD_ID = "bygone";
+
+	public static AnimalArmorItem.Type BIG_BEAK_ARMOR;
 
 	@Override
 	public void onInitialize() {
