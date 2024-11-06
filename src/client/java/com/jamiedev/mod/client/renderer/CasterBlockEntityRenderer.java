@@ -1,14 +1,10 @@
 package com.jamiedev.mod.client.renderer;
 
-import com.jamiedev.mod.blocks.CasterBlock;
 import com.jamiedev.mod.blocks.entity.CasterBlockEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.Vec3i;
 
 public class CasterBlockEntityRenderer implements BlockEntityRenderer<CasterBlockEntity> {
 

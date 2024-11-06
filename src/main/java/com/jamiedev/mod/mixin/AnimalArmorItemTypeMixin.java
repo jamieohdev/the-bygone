@@ -1,4 +1,5 @@
 package com.jamiedev.mod.mixin;
+
 import com.jamiedev.mod.JamiesMod;
 import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.sound.SoundEvent;
@@ -10,7 +11,9 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Function;
-import static net.minecraft.item.AnimalArmorItem.Type.*;
+
+import static net.minecraft.item.AnimalArmorItem.Type.CANINE;
+import static net.minecraft.item.AnimalArmorItem.Type.EQUESTRIAN;
 
 
 @Unique

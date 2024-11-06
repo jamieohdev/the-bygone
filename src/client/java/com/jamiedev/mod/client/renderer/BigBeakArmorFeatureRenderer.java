@@ -15,11 +15,9 @@ import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.item.AnimalArmorItem;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 
 public class BigBeakArmorFeatureRenderer extends FeatureRenderer<BigBeakEntity, BigBeakModel<BigBeakEntity>> {

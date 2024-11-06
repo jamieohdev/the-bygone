@@ -1,8 +1,6 @@
 package com.jamiedev.mod.init;
 
-import java.util.Optional;
-import com.jamiedev.mod.*;
-
+import com.jamiedev.mod.JamiesMod;
 import com.jamiedev.mod.blocks.*;
 import com.jamiedev.mod.blocks.gourds.GourdDangoBlock;
 import com.jamiedev.mod.blocks.gourds.GourdDangoWallBlock;
@@ -15,7 +13,9 @@ import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -24,7 +24,8 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
+
+import java.util.Optional;
 
 import static net.minecraft.block.Blocks.DIRT;
 

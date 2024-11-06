@@ -3,7 +3,6 @@ package com.jamiedev.mod.client.mixin;
 import com.jamiedev.mod.JamiesMod;
 import com.jamiedev.mod.client.JamiesModClient;
 import net.minecraft.client.render.DimensionEffects;
-import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
