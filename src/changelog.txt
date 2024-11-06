@@ -1,3 +1,25 @@
+# **Updates in 0.0.7a**
+
+**New Features:**
+Added Iron, Gold, and Diamond Big Beak Armor! TODO: ADD A PLACE FOR THEM TO GENERATE
+Added Glow Gourd Dangos! A edible light source that can be placed like a torch!
+Added Glow Gourd Soup!
+TODO:
+
+**Experimental Features:**
+TODO: Ruins, maybe a new structure (everything mentioned last week)
+
+**Changes to existing Features:**
+Ancient Vines now naturally generate in the Underhang!
+Gourds now break when their vines break, and can be broken by arrows!
+Glow Gourd Slices give less saturation and hunger.
+Changed Cobbled Byslate & Cobbled Bystone Textures!
+TODO:
+
+**Bugs fixed:**
+Fixed multiple blocks/items being improperly tagged!
+TODO: FIX SUSSY UMBER
+
 # **Updates in 0.0.6d**
 
 **New features:**

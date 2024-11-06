@@ -21,6 +21,7 @@ import net.minecraft.client.particle.CherryLeavesParticle;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.SoulParticle;
 import net.minecraft.client.particle.WaterSuspendParticle;
+import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.client.render.RenderLayer;
 import com.jamiedev.mod.client.renderer.*;
 import com.jamiedev.mod.client.models.*;
@@ -36,6 +37,9 @@ import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 
 public class JamiesModClient implements ClientModInitializer {
     public static Identifier BYGONE = JamiesMod.getModId("bygone");
+
+    public  static DimensionEffects.SkyType BYGONE_SKY;
+
     @Override
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.AMBER, RenderLayer.getTranslucent());
@@ -50,6 +54,8 @@ public class JamiesModClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_MUAVE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_VERDANT, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_VINE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_DANGO, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_DANGO_WALL, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.RAFFLESIA, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CAVE_VINES, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CAVE_VINES_PLANT, RenderLayer.getCutout());
@@ -123,6 +129,7 @@ public class JamiesModClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.AMBER_DUST, AmberDustParticle.Factory::new);
 
         DimensionRenderingRegistry.registerDimensionEffects(BYGONE, BygoneDimensionEffects.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(JamiesModDimension.BYGONE_LEVEL_KEY, BygoneSkyRenderer.INSTANCE);
 
         registerModelPredicateProviders();
 

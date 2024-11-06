@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "food",
+  "ingredients": [
+    {
+      "item": "bygone:glow_gourd_beige_slice"
+    },
+    {
+      "item": "bygone:glow_gourd_muave_slice"
+    },
+    {
+      "item": "bygone:glow_gourd_verdant_slice"
+    }
+  ],
+  "result": {
+    "count": 3,
+    "id": "bygone:glow_gourd_dango"
+  }
+}

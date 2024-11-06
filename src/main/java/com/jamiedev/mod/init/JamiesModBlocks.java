@@ -4,6 +4,9 @@ import java.util.Optional;
 import com.jamiedev.mod.*;
 
 import com.jamiedev.mod.blocks.*;
+import com.jamiedev.mod.blocks.gourds.GourdDangoBlock;
+import com.jamiedev.mod.blocks.gourds.GourdDangoWallBlock;
+import com.jamiedev.mod.blocks.gourds.GourdLanternBlock;
 import com.jamiedev.mod.blocks.gourds.GourdVineBlock;
 import com.jamiedev.mod.items.JamiesModItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -115,16 +118,29 @@ public class JamiesModBlocks {
 
     public static final Block GOURD_VINE = registerBlockWithoutBlockItem("gourd_vine", new GourdVineBlock(AbstractBlock.Settings.create().replaceable().noCollision()
             .ticksRandomly().breakInstantly().sounds(BlockSoundGroup.VINE).burnable().pistonBehavior(PistonBehavior.DESTROY)),  JamiesModItemGroup.JAMIES_MOD);
-    public static final Block GOURD_LANTERN_VERDANT = registerBlock("glow_gourd_verdant", new LanternBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_DULL_PINK).replaceable().noCollision()
-            .ticksRandomly().breakInstantly().sounds(BlockSoundGroup.SHROOMLIGHT).luminance((state) -> {
+    public static final Block GOURD_LANTERN_VERDANT = registerBlock("glow_gourd_verdant", new GourdLanternBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN)
+            .solid().breakInstantly().strength(0.1F).sounds(BlockSoundGroup.SHROOMLIGHT).luminance((state) -> {
         return 15;
     }).nonOpaque().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block GOURD_LANTERN_BEIGE = registerBlock("glow_gourd_beige", new LanternBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_DULL_PINK).solid().requiresTool().strength(0.1F).sounds(BlockSoundGroup.SHROOMLIGHT).luminance((state) -> {
+    public static final Block GOURD_LANTERN_BEIGE = registerBlock("glow_gourd_beige", new GourdLanternBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW)
+            .solid().breakInstantly().strength(0.1F).sounds(BlockSoundGroup.SHROOMLIGHT).luminance((state) -> {
         return 15;
     }).nonOpaque().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block GOURD_LANTERN_MUAVE = registerBlock("glow_gourd_muave", new LanternBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_DULL_PINK).solid().requiresTool().strength(0.1F).sounds(BlockSoundGroup.SHROOMLIGHT).luminance((state) -> {
+    public static final Block GOURD_LANTERN_MUAVE = registerBlock("glow_gourd_muave", new GourdLanternBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_PURPLE)
+            .solid().breakInstantly().strength(0.1F).sounds(BlockSoundGroup.SHROOMLIGHT).luminance((state) -> {
         return 15;
     }).nonOpaque().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block GOURD_DANGO = registerBlockWithoutBlockItem("glow_gourd_dango", new GourdDangoBlock(AbstractBlock.Settings.create().breakInstantly()
+            .sounds(BlockSoundGroup.BAMBOO).luminance((state) -> {
+                return 15;
+            })), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block GOURD_DANGO_WALL = registerBlockWithoutBlockItem("glow_gourd_dango_wall", new GourdDangoWallBlock(AbstractBlock.Settings.create().breakInstantly()
+            .sounds(BlockSoundGroup.BAMBOO).luminance((state) -> {
+                return 15;
+            })), JamiesModItemGroup.JAMIES_MOD);
+
    public static final Block CLAYSTONE = registerBlock("claystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block COARSE_CLAYSTONE = registerBlock("coarse_claystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block MOSSY_CLAYSTONE = registerBlock((String)"mossy_claystone", new GrassBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);

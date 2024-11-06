@@ -1,9 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:sand",
-    "minecraft:red_sand",
-    "minecraft:suspicious_sand",
+    "bygone:suspicious_umber",
     "bygone:primordial_sand",
     "bygone:umber"
   ]
