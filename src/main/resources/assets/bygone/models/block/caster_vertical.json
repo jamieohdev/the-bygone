@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_vertical",
+  "textures": {
+    "bottom": "bygone:block/caster_bottom",
+    "down": "bygone:block/caster_bottom",
+    "front": "bygone:block/caster_front",
+    "side": "bygone:block/caster_side"
+  }
+}

@@ -1,7 +1,7 @@
 package com.jamiedev.mod.init;
+
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Items;
 
 public class JamiesModMisc {

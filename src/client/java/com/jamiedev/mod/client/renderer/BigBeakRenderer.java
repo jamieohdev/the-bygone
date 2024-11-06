@@ -9,8 +9,6 @@ import net.minecraft.client.render.entity.HorseEntityRenderer;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.feature.HorseArmorFeatureRenderer;
 import net.minecraft.client.render.entity.feature.SaddleFeatureRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.PigEntityModel;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 

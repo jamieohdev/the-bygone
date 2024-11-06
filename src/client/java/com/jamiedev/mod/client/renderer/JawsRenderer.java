@@ -2,20 +2,15 @@ package com.jamiedev.mod.client.renderer;
 
 import com.jamiedev.mod.JamiesMod;
 import com.jamiedev.mod.client.JamiesModModelLayers;
-import com.jamiedev.mod.client.models.GlareModel;
 import com.jamiedev.mod.client.models.JawsEntityModel;
 import com.jamiedev.mod.entities.JawsEntity;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 
 public class JawsRenderer extends MobEntityRenderer<JawsEntity, JawsEntityModel>

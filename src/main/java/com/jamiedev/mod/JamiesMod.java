@@ -7,7 +7,6 @@ import com.jamiedev.mod.mixin.SpawnRestrictMixin;
 import com.jamiedev.mod.network.SyncPlayerHookS2C;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.SpawnLocationTypes;
 import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.item.AnimalArmorItem;
@@ -50,7 +49,6 @@ public class JamiesMod implements ModInitializer {
 		JamiesMod.LOGGER.info("Registering Entities for " + JamiesMod.MOD_ID);
 
 		PayloadTypeRegistry.playS2C().register(SyncPlayerHookS2C.PACkET_ID, SyncPlayerHookS2C.CODEC);
-
 	}
 
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);

@@ -1,21 +1,18 @@
 package com.jamiedev.mod.client.models;
 
 import com.jamiedev.mod.JamiesMod;
-import com.jamiedev.mod.entities.JawsEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 
 // Made with Blockbench 4.11.1
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
 public class ScuttleSpikeModel extends Model
 {
-	private final ModelPart body;
+	public final ModelPart body;
 
 	public static final Identifier TEXTURE = JamiesMod.getModId("textures/entity/scuttlespike.png");
 

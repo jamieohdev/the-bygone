@@ -8,7 +8,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class PrimordialCoralTreeFeature extends PrimordialCoralFeature {

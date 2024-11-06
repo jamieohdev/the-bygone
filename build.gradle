@@ -14,6 +14,12 @@ repositories {
 	maven {
 		url = "https://maven.kyrptonaught.dev"
 	}
+	repositories {
+		maven {
+			name = "Ladysnake Mods"
+			url = 'https://maven.ladysnake.org/releases'
+		}
+	}
 }
 
 loom {
@@ -46,6 +52,11 @@ dependencies {
 	include "net.kyrptonaught:customportalapi:${portal_api_version}"
 	modImplementation 'net.kyrptonaught:customportalapi:<version>'
 	include 'net.kyrptonaught:customportalapi:<version>'
+
+	modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cca_version}"
+	modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-block:${project.cca_version}"
+	include "org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cca_version}"
+	include "org.ladysnake.cardinal-components-api:cardinal-components-block:${project.cca_version}"
 }
 
 processResources {

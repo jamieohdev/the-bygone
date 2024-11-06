@@ -1,10 +1,7 @@
 package com.jamiedev.mod.client.renderer;
 
-import com.jamiedev.mod.client.JamiesModClient;
 import com.jamiedev.mod.init.JamiesModBiomes;
 import com.jamiedev.mod.init.JamiesModDimension;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.BackgroundRenderer;
@@ -17,19 +14,12 @@ import net.minecraft.world.biome.Biome;
 
 import java.util.function.Consumer;
 
-import org.joml.Matrix4f;
-
-
-
-
 public class BygoneDimensionEffects extends DimensionEffects
 {
-    public static final BygoneDimensionEffects INSTANCE = new BygoneDimensionEffects(Float.NaN, false, SkyType.NORMAL,
-            false, true);
+
+    public static final BygoneDimensionEffects INSTANCE = new BygoneDimensionEffects(Float.NaN, false, SkyType.NORMAL, false, true);
     private final MinecraftClient minecraft = MinecraftClient.getInstance();
     private int rainSoundTime;
-
-
 
     public BygoneDimensionEffects(float cloudsHeight, boolean alternateSkyColor, SkyType skyType, boolean brightenLighting, boolean darkened) {
         super(cloudsHeight, true, SkyType.NORMAL, false, false);
@@ -94,6 +84,4 @@ public class BygoneDimensionEffects extends DimensionEffects
 
         return false;
     }
-
-
 }

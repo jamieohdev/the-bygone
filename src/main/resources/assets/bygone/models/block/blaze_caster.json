@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "bygone:block/blaze_caster_bottom",
+    "front": "bygone:block/blaze_caster_front",
+    "side": "bygone:block/blaze_caster_side",
+    "top": "bygone:block/blaze_caster_top"
+  }
+}

@@ -1,6 +1,5 @@
 package com.jamiedev.mod.mixin.client;
 
-import com.jamiedev.mod.JamiesMod;
 import com.jamiedev.mod.client.JamiesModUtilClient;
 import com.jamiedev.mod.client.screen.DimensionScreen;
 import com.jamiedev.mod.init.JamiesModDimension;
@@ -8,8 +7,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
-import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.dimension.DimensionTypes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

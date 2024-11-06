@@ -1,7 +1,6 @@
 package com.jamiedev.mod.client.renderer;
 
 import com.jamiedev.mod.blocks.entity.BygoneBrushableBlockEntity;
-import net.minecraft.block.entity.BrushableBlockEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;

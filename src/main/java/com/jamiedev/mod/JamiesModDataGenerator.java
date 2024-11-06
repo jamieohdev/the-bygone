@@ -1,5 +1,6 @@
 package com.jamiedev.mod;
 
+import com.jamiedev.mod.datagen.*;
 import com.jamiedev.mod.init.JamiesModBiomes;
 import com.jamiedev.mod.init.JamiesModConfiguredFeatures;
 import com.jamiedev.mod.init.JamiesModPlacedFeatures;
@@ -7,7 +8,6 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
-import com.jamiedev.mod.datagen.*;
 
 
 public class JamiesModDataGenerator implements DataGeneratorEntrypoint {

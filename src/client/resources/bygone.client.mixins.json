@@ -3,9 +3,9 @@
 	"package": "com.jamiedev.mod.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-		"ExampleClientMixin",
-		"DownloadingTerrainScreenMixin"
-	],
+      "DownloadingTerrainScreenMixin",
+      "ExampleClientMixin"
+    ],
 	"injectors": {
 		"defaultRequire": 1
 	}

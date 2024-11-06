@@ -27,7 +27,8 @@
 		],
 		"fabric-datagen": [
 			"com.jamiedev.mod.JamiesModDataGenerator"
-		]
+		],
+		"cardinal-components-block": ["com.jamiedev.mod.init.JamiesModComponents"]
 	},
 	"mixins": [
 		"bygone.mixins.json",
@@ -44,5 +45,10 @@
 	},
 	"suggests": {
 		"another-mod": "*"
+	},
+	"custom": {
+		"cardinal-components": [
+			"bygone:caster"
+		]
 	}
 }

@@ -1,11 +1,11 @@
 package com.jamiedev.mod.datagen;
+
 import com.jamiedev.mod.JamiesMod;
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 public class JamiesModTags
 {
     public static class Blocks {

@@ -1,6 +1,12 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "all": "bygone:block/cobbled_amberstone"
+    "down": "bygone:block/cobbled_amberstone_down",
+    "east": "bygone:block/cobbled_amberstone_east",
+    "north": "bygone:block/cobbled_amberstone_north",
+    "particle": "bygone:block/cobbled_amberstone_particle",
+    "south": "bygone:block/cobbled_amberstone_south",
+    "up": "bygone:block/cobbled_amberstone_up",
+    "west": "bygone:block/cobbled_amberstone_west"
   }
 }

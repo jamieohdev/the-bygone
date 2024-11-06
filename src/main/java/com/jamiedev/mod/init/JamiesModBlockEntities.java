@@ -2,21 +2,11 @@ package com.jamiedev.mod.init;
 
 import com.jamiedev.mod.JamiesMod;
 import com.jamiedev.mod.blocks.entity.*;
-import com.jamiedev.mod.worldgen.structure.AncientRootStructure;
-import com.jamiedev.mod.worldgen.structure.TestRootStructure;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.BrushableBlockEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.structure.StructurePieceType;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.structure.StructureType;
-
-import java.util.Locale;
 
 import static com.jamiedev.mod.init.JamiesModBlocks.*;
 

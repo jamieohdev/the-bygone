@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "bygone:block/spike_caster_bottom",
+    "front": "bygone:block/spike_caster_front",
+    "side": "bygone:block/spike_caster_side",
+    "top": "bygone:block/spike_caster_top"
+  }
+}

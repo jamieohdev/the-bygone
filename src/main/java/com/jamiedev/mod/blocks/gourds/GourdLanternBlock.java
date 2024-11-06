@@ -25,7 +25,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
-public class GourdLanternBlock extends AbstractPlantBlock{
+public class GourdLanternBlock extends AbstractPlantBlock {
     public static final MapCodec<GourdLanternBlock> CODEC = createCodec(GourdLanternBlock::new);
     public static final BooleanProperty HANGING;
     public static final BooleanProperty WATERLOGGED;
@@ -33,8 +33,7 @@ public class GourdLanternBlock extends AbstractPlantBlock{
     protected static final VoxelShape HANGING_SHAPE;
 
     WeepingVinesPlantBlock ref;
-    AnvilBlock ref2;
-    ChorusFlowerBlock ref3;
+
 
     public MapCodec<GourdLanternBlock> getCodec() {
         return CODEC;
@@ -59,6 +58,7 @@ public class GourdLanternBlock extends AbstractPlantBlock{
     }
 
 
+
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return (Boolean)state.get(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
     }
@@ -79,7 +79,6 @@ public class GourdLanternBlock extends AbstractPlantBlock{
     protected AbstractPlantStemBlock getStem() {
         return (AbstractPlantStemBlock) JamiesModBlocks.GOURD_VINE;
     }
-
     static {
         HANGING = Properties.HANGING;
         WATERLOGGED = Properties.WATERLOGGED;

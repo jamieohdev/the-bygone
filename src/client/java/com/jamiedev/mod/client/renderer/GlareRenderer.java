@@ -7,9 +7,7 @@ import com.jamiedev.mod.entities.GlareEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 
 public class GlareRenderer  extends MobEntityRenderer<GlareEntity, GlareModel<GlareEntity>> {
     private static final Identifier TEXTURE = JamiesMod.getModId("textures/entity/glare.png");

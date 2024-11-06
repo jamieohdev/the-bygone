@@ -1,10 +1,6 @@
 package com.jamiedev.mod.init;
 
-import com.jamiedev.mod.JamiesMod;
-import com.mojang.serialization.MapCodec;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
 
 import java.util.ArrayList;

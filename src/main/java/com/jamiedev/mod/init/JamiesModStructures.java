@@ -2,11 +2,8 @@ package com.jamiedev.mod.init;
 
 import com.jamiedev.mod.JamiesMod;
 import com.jamiedev.mod.worldgen.structure.*;
-import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.structure.MineshaftGenerator;
-import net.minecraft.structure.NetherFossilGenerator;
 import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.structure.StructureType;

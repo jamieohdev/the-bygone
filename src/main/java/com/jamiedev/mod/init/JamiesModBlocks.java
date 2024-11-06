@@ -4,10 +4,7 @@ import java.util.Optional;
 import com.jamiedev.mod.*;
 
 import com.jamiedev.mod.blocks.*;
-import com.jamiedev.mod.blocks.gourds.GourdDangoBlock;
-import com.jamiedev.mod.blocks.gourds.GourdDangoWallBlock;
-import com.jamiedev.mod.blocks.gourds.GourdLanternBlock;
-import com.jamiedev.mod.blocks.gourds.GourdVineBlock;
+import com.jamiedev.mod.blocks.gourds.*;
 import com.jamiedev.mod.items.JamiesModItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.kyrptonaught.customportalapi.CustomPortalBlock;
@@ -25,6 +22,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
+import java.util.Optional;
 
 import static net.minecraft.block.Blocks.DIRT;
 
@@ -58,6 +56,10 @@ public class JamiesModBlocks {
             AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 3.0F)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block BYGONESLATE_COPPER_ORE = registerBlock("byslate_copper_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
             AbstractBlock.Settings.copyShallow(BYGONESTONE_COPPER_ORE).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5F, 3.0F).sounds(BlockSoundGroup.DEEPSLATE)), JamiesModItemGroup.JAMIES_MOD);
+
+
+    public static final Block JAMIES_BLOCK = createBlockWithItem("jamies_block", new ExperienceDroppingBlock(UniformIntProvider.create(3, 7),
+            AbstractBlock.Settings.copy(Blocks.OBSIDIAN).strength(52.0F, 1200.0F).instrument(NoteBlockInstrument.BANJO).pistonBehavior(PistonBehavior.NORMAL)));
 
     public static final Block LIMBOSTONE = registerBlock("bystone",
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(0.8F)), JamiesModItemGroup.JAMIES_MOD);
@@ -120,16 +122,16 @@ public class JamiesModBlocks {
             .ticksRandomly().breakInstantly().sounds(BlockSoundGroup.VINE).burnable().pistonBehavior(PistonBehavior.DESTROY)),  JamiesModItemGroup.JAMIES_MOD);
     public static final Block GOURD_LANTERN_VERDANT = registerBlock("glow_gourd_verdant", new GourdLanternBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN)
             .solid().breakInstantly().strength(0.1F).sounds(BlockSoundGroup.SHROOMLIGHT).luminance((state) -> {
-        return 15;
-    }).nonOpaque().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+                return 15;
+            }).nonOpaque().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block GOURD_LANTERN_BEIGE = registerBlock("glow_gourd_beige", new GourdLanternBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW)
             .solid().breakInstantly().strength(0.1F).sounds(BlockSoundGroup.SHROOMLIGHT).luminance((state) -> {
-        return 15;
-    }).nonOpaque().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+                return 15;
+            }).nonOpaque().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block GOURD_LANTERN_MUAVE = registerBlock("glow_gourd_muave", new GourdLanternBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_PURPLE)
             .solid().breakInstantly().strength(0.1F).sounds(BlockSoundGroup.SHROOMLIGHT).luminance((state) -> {
-        return 15;
-    }).nonOpaque().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+                return 15;
+            }).nonOpaque().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
 
     public static final Block GOURD_DANGO = registerBlockWithoutBlockItem("glow_gourd_dango", new GourdDangoBlock(AbstractBlock.Settings.create().breakInstantly()
             .sounds(BlockSoundGroup.BAMBOO).luminance((state) -> {
@@ -141,7 +143,7 @@ public class JamiesModBlocks {
                 return 15;
             })), JamiesModItemGroup.JAMIES_MOD);
 
-   public static final Block CLAYSTONE = registerBlock("claystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block CLAYSTONE = registerBlock("claystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block COARSE_CLAYSTONE = registerBlock("coarse_claystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block MOSSY_CLAYSTONE = registerBlock((String)"mossy_claystone", new GrassBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block GRASSY_CLAYSTONE = registerBlockWithoutBlockItem((String)"grassy_claystone", new GrassBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);
@@ -437,6 +439,6 @@ public class JamiesModBlocks {
     public static void init()
     {
         JamiesModStrippableBlocks.registerStrippables();
-        //ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> entries.addAfter(Items.LILY_OF_THE_VALLEY, JAMIES_BLOCK));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> entries.addAfter(Items.LILY_OF_THE_VALLEY, JAMIES_BLOCK));
     }
 }
