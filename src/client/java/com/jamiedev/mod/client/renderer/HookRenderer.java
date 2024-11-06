@@ -18,7 +18,7 @@ import net.minecraft.util.Arm;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.Vec3d;
 
 public class HookRenderer extends EntityRenderer<HookEntity>
 {

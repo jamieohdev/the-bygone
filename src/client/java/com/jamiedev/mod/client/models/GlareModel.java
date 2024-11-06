@@ -1,19 +1,10 @@
 package com.jamiedev.mod.client.models;
 
-import net.minecraft.client.render.entity.model.EntityModel;
-import com.jamiedev.mod.entities.DuckEntity;
-import com.google.common.collect.ImmutableList;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.AnimalModel;
-import net.minecraft.client.render.model.*;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
-
-import net.minecraft.client.*;
 public class GlareModel<E extends Entity> extends EntityModel<E>
 {
     private final ModelPart head;

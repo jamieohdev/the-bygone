@@ -2,7 +2,10 @@ package com.jamiedev.mod.blocks;
 
 import com.jamiedev.mod.init.JamiesModBlocks;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;

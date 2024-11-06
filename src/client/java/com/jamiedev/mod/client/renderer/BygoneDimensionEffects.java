@@ -1,6 +1,5 @@
 package com.jamiedev.mod.client.renderer;
 
-import com.jamiedev.mod.init.JamiesModBiomes;
 import com.jamiedev.mod.init.JamiesModDimension;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -8,9 +7,7 @@ import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.client.render.FogShape;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.biome.Biome;
 
 import java.util.function.Consumer;
 

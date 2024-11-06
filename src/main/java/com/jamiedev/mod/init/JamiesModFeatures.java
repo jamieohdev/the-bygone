@@ -1,16 +1,15 @@
 package com.jamiedev.mod.init;
+
+import com.jamiedev.mod.JamiesMod;
 import com.jamiedev.mod.worldgen.feature.*;
-import com.jamiedev.mod.worldgen.feature.config.*;
-import com.jamiedev.mod.worldgen.structure.*;
-import net.minecraft.block.BlockState;
+import com.jamiedev.mod.worldgen.feature.config.SmallCloudConfig;
+import com.jamiedev.mod.worldgen.structure.AncientForestVegetationFeature;
+import com.jamiedev.mod.worldgen.structure.AncientForestVegetationFeatureConfig;
+import com.jamiedev.mod.worldgen.structure.AncientTreeFeature;
+import com.jamiedev.mod.worldgen.structure.AncientTreeFeatureConfig;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.*;
-
-import com.jamiedev.mod.*;
 
 public class JamiesModFeatures
 {

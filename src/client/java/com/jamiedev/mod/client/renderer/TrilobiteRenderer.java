@@ -2,14 +2,11 @@ package com.jamiedev.mod.client.renderer;
 
 import com.jamiedev.mod.JamiesMod;
 import com.jamiedev.mod.client.JamiesModModelLayers;
-import com.jamiedev.mod.client.models.CoelacanthModel;
 import com.jamiedev.mod.client.models.TrilobiteModel;
-import com.jamiedev.mod.entities.CoelacanthEntity;
 import com.jamiedev.mod.entities.TrilobiteEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.GlowSquidEntityRenderer;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.entity.passive.GlowSquidEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;

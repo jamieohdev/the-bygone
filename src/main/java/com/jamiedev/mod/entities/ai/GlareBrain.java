@@ -5,20 +5,15 @@ import com.google.common.collect.ImmutableSet;
 import com.jamiedev.mod.entities.GlareEntity;
 import com.jamiedev.mod.init.JamiesModEntityTypes;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.entity.ai.brain.*;
-import net.minecraft.entity.ai.brain.task.*;
-import net.minecraft.entity.passive.AllayBrain;
-import net.minecraft.entity.passive.AllayEntity;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
-import net.minecraft.world.World;
-
-import java.util.Optional;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.entity.ai.brain.*;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
+import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import java.util.List;
-import java.util.function.Predicate;
+import java.util.Optional;
 
 public class GlareBrain
 {

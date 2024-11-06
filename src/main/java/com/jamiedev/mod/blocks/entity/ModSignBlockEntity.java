@@ -1,7 +1,6 @@
 package com.jamiedev.mod.blocks.entity;
 
 import com.jamiedev.mod.init.JamiesModBlockEntities;
-import com.jamiedev.mod.init.JamiesModEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.SignBlockEntity;

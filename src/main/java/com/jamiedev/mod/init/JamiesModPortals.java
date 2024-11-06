@@ -1,10 +1,10 @@
 package com.jamiedev.mod.init;
+
 import com.jamiedev.mod.JamiesMod;
 import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
 import net.kyrptonaught.customportalapi.portal.PortalIgnitionSource;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 
 public class JamiesModPortals {
 

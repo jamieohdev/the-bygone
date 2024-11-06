@@ -2,12 +2,14 @@ package com.jamiedev.mod.client;
 
 import com.jamiedev.mod.JamiesMod;
 import com.jamiedev.mod.blocks.JamiesModWoodType;
+import com.jamiedev.mod.client.models.*;
+import com.jamiedev.mod.client.network.SyncPlayerHookPacketHandler;
 import com.jamiedev.mod.client.particles.AmberDustParticle;
 import com.jamiedev.mod.client.particles.BlemishParticle;
 import com.jamiedev.mod.client.particles.RafflesiaSporeParticle;
+import com.jamiedev.mod.client.renderer.*;
 import com.jamiedev.mod.init.*;
 import com.jamiedev.mod.network.SyncPlayerHookS2C;
-import com.jamiedev.mod.client.network.SyncPlayerHookPacketHandler;
 import com.jamiedev.mod.util.PlayerWithHook;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -17,22 +19,16 @@ import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
-import net.minecraft.client.particle.CherryLeavesParticle;
-import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.SoulParticle;
-import net.minecraft.client.particle.WaterSuspendParticle;
 import net.minecraft.client.render.RenderLayer;
-import com.jamiedev.mod.client.renderer.*;
-import com.jamiedev.mod.client.models.*;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.client.render.block.entity.BrushableBlockEntityRenderer;
+import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
+import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
-import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 
 public class JamiesModClient implements ClientModInitializer {
     public static Identifier BYGONE = JamiesMod.getModId("bygone");
@@ -134,6 +130,7 @@ public class JamiesModClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(JamiesModBlockEntities.MOD_SIGN_BLOCK_ENTITY, SignBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(JamiesModBlockEntities.MOD_HANGING_SIGN_BLOCK_ENTITY, HangingSignBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(JamiesModBlockEntities.BRUSHABLE_BLOCK, BygoneBrushableBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(JamiesModBlockEntities.CASTER, CasterBlockEntityRenderer::new);
     }
     public static void registerModelPredicateProviders() {
         ModelPredicateProviderRegistry.register(JamiesModItems.HOOK, JamiesMod.getModId("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {

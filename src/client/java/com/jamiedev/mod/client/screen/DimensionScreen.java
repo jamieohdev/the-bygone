@@ -6,7 +6,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
 import net.minecraft.client.render.*;
-import net.minecraft.component.Component;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 

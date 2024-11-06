@@ -1,6 +1,12 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "all": "bygone:block/umber_bricks"
+    "down": "bygone:block/umber_bricks_down",
+    "east": "bygone:block/umber_bricks_east",
+    "north": "bygone:block/umber_bricks_north",
+    "particle": "bygone:block/umber_bricks_particle",
+    "south": "bygone:block/umber_bricks_south",
+    "up": "bygone:block/umber_bricks_up",
+    "west": "bygone:block/umber_bricks_west"
   }
 }

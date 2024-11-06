@@ -1,6 +1,5 @@
 package com.jamiedev.mod.blocks.entity;
 
-import com.jamiedev.mod.blocks.BygoneBrushableBlock;
 import com.jamiedev.mod.init.JamiesModBlockEntities;
 import com.mojang.logging.LogUtils;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -11,8 +10,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.BrushableBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.BrushableBlockEntity;
-import net.minecraft.component.ComponentMap;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;

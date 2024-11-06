@@ -1,7 +1,6 @@
 package com.jamiedev.mod.blocks;
 
 import com.jamiedev.mod.blocks.entity.ModHangingSignBlockEntity;
-import com.jamiedev.mod.init.JamiesModBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.WallHangingSignBlock;
 import net.minecraft.block.WoodType;

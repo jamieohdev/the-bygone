@@ -1,15 +1,12 @@
 package com.jamiedev.mod.blocks.entity;
 
 import com.jamiedev.mod.init.JamiesModBlockEntities;
-import com.jamiedev.mod.util.HangingSignFlags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.HangingSignBlockEntity;
 import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.NotNull;
 
 public class ModHangingSignBlockEntity extends SignBlockEntity

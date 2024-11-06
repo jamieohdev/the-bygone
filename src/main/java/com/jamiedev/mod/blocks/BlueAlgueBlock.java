@@ -1,6 +1,5 @@
 package com.jamiedev.mod.blocks;
 
-import com.jamiedev.mod.init.JamiesModBlocks;
 import com.jamiedev.mod.init.JamiesModParticleTypes;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
@@ -8,25 +7,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
-
-import java.util.function.ToIntFunction;
 
 public class BlueAlgueBlock extends PlantBlock {
     public static final MapCodec<BlueAlgueBlock> CODEC = createCodec(BlueAlgueBlock::new);

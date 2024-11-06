@@ -1,21 +1,13 @@
 package com.jamiedev.mod.client.models;// Made with Blockbench 4.11.1
 // Exported for Minecraft version 1.17 or later with Mojang mappings
 // Paste this class into your mod and generate all required imports
-import com.jamiedev.mod.JamiesMod;
-import net.minecraft.client.render.entity.model.EntityModel;
-import com.jamiedev.mod.entities.DuckEntity;
-import com.google.common.collect.ImmutableList;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.AnimalModel;
 import net.minecraft.client.render.entity.model.SalmonEntityModel;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.render.model.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 public class CoelacanthModel<E extends Entity> extends SinglePartEntityModel<E> {

@@ -1,12 +1,11 @@
 package com.jamiedev.mod.init;
+
 import com.jamiedev.mod.JamiesMod;
 import com.jamiedev.mod.items.ExoticArrowItem;
 import com.jamiedev.mod.items.HookItem;
 import com.jamiedev.mod.items.JamiesModItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.block.Blocks;
 import net.minecraft.component.type.FoodComponents;
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

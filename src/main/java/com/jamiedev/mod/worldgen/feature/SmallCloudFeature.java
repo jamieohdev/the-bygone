@@ -1,12 +1,12 @@
 package com.jamiedev.mod.worldgen.feature;
 
+import com.jamiedev.mod.worldgen.feature.config.SmallCloudConfig;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
-import com.jamiedev.mod.worldgen.feature.config.SmallCloudConfig;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class SmallCloudFeature extends Feature<SmallCloudConfig>

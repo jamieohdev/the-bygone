@@ -3,10 +3,9 @@ package com.jamiedev.mod.client.network;
 
 import com.jamiedev.mod.entities.projectile.HookEntity;
 import com.jamiedev.mod.init.JamiesModEntityTypes;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
-import net.minecraft.client.MinecraftClient;
 
 import java.util.function.Supplier;
 public class RecordHookHandler {
