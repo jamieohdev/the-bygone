@@ -13,7 +13,7 @@ public class JamiesModPortals {
                 .frameBlock(JamiesModBlocks.BYGONE_PORTAL_FRAME)
                 .customPortalBlock(JamiesModBlocks.BYGONE_PORTAL)
                 .destDimID(JamiesMod.getModId("bygone"))
-                .tintColor(86, 18, 1)
+                .tintColor(0, 1, 0)
                 .setPortalSearchYRange(0, 120)
                 .flatPortal()
                 .lightWithItem(JamiesModItems.HOOK)

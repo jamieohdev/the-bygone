@@ -3,6 +3,9 @@
     "axis=x": {
       "model": "bygone:block/bygone_portal_ns"
     },
+    "axis=y": {
+      "model": "bygone:block/bygone_portal_y"
+    },
     "axis=z": {
       "model": "bygone:block/bygone_portal_ew"
     }

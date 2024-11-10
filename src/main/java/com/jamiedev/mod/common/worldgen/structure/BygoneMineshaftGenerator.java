@@ -3,6 +3,7 @@ package com.jamiedev.mod.common.worldgen.structure;
 import com.google.common.collect.Lists;
 import com.jamiedev.mod.common.blocks.gourds.GourdDangoWallBlock;
 import com.jamiedev.mod.common.init.JamiesModBlocks;
+import com.jamiedev.mod.common.init.JamiesModLootTables;
 import com.jamiedev.mod.common.init.JamiesModStructures;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
@@ -453,11 +454,11 @@ public class BygoneMineshaftGenerator {
                     this.addCobwebsUnderground(world, chunkBox, random, 0.05F, 0, 2, o + 2);
                     this.addCobwebsUnderground(world, chunkBox, random, 0.05F, 2, 2, o + 2);
                     if (random.nextInt(100) == 0) {
-                        this.addChest(world, chunkBox, random, 2, 0, o - 1, LootTables.ABANDONED_MINESHAFT_CHEST);
+                        this.addChest(world, chunkBox, random, 2, 0, o - 1, JamiesModLootTables.ABANDONED_MINESHAFT_CHEST);
                     }
 
                     if (random.nextInt(100) == 0) {
-                        this.addChest(world, chunkBox, random, 0, 0, o + 1, LootTables.ABANDONED_MINESHAFT_CHEST);
+                        this.addChest(world, chunkBox, random, 0, 0, o + 1, JamiesModLootTables.ABANDONED_MINESHAFT_CHEST);
                     }
 
                     if (this.hasCobwebs && !this.hasSpawner) {

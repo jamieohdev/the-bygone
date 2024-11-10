@@ -78,7 +78,8 @@ public class GourdLanternBlock extends AbstractPlantBlock {
     static {
         HANGING = Properties.HANGING;
         WATERLOGGED = Properties.WATERLOGGED;
-        STANDING_SHAPE = VoxelShapes.union(Block.createCuboidShape(5.0, 0.0, 5.0, 11.0, 7.0, 11.0), Block.createCuboidShape(6.0, 7.0, 6.0, 10.0, 9.0, 10.0));
-        HANGING_SHAPE = VoxelShapes.union(Block.createCuboidShape(5.0, 1.0, 5.0, 11.0, 8.0, 11.0), Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
+        STANDING_SHAPE = VoxelShapes.union(Block.createCuboidShape(3.0, 0.0, 3.0, 13.0, 5.0, 13.0), Block.createCuboidShape(6.0, 7.0, 6.0, 10.0, 9.0, 10.0));
+        HANGING_SHAPE = VoxelShapes.union(Block.createCuboidShape(3.0, 1.0, 3.0, 13.0, 5.0, 13.0), Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
+
     }
 }

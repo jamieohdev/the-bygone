@@ -2,6 +2,7 @@ package com.jamiedev.mod.common.init;
 
 import com.jamiedev.mod.common.JamiesMod;
 import com.jamiedev.mod.common.entities.*;
+import com.jamiedev.mod.common.entities.projectile.BygoneItemEntity;
 import com.jamiedev.mod.common.entities.projectile.ExoticArrowEntity;
 import com.jamiedev.mod.common.entities.projectile.HookEntity;
 import com.jamiedev.mod.common.entities.projectile.ScuttleSpikeEntity;
@@ -9,6 +10,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EyeOfEnderEntity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.registry.Registries;
@@ -113,6 +115,15 @@ public class JamiesModEntityTypes {
             JamiesMod.getModId( "trilobite"),
             FabricEntityTypeBuilder.create(SpawnGroup.WATER_CREATURE, TrilobiteEntity::new)
                     .dimensions(EntityDimensions.fixed(0.4F, 0.3F)).build());
+
+
+    public static final  EntityType<BygoneItemEntity> BYGONE_ITEM = Registry.register(Registries.ENTITY_TYPE,
+            JamiesMod.getModId( "bygone_item"),
+            FabricEntityTypeBuilder.<BygoneItemEntity>create(SpawnGroup.MISC, BygoneItemEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.25F, 0.25F))
+                    .trackRangeChunks(4)
+                    .trackedUpdateRate(4)
+                    .build());
 
 
     EntityType ref;

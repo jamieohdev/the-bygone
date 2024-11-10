@@ -5,6 +5,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.gen.structure.Structure;
 
 public class JamiesModTag
 {
@@ -21,6 +23,10 @@ public class JamiesModTag
     public static final TagKey<Block> CREOSOTE_MAY_PLACE_ON = Blocks.createTag("creosote_may_place_on");
 
     public static final TagKey<Item> BIGBEAK_FOOD = Items.createTag("bigbeak_food");
+
+    public static final TagKey<Structure> ON_BYGONE_PORTAL_MAPS = Structures.createTag("on_bygone_portal_maps");
+
+    public static final TagKey<Structure> BYGONE_ITEM_LOCATED = Structures.createTag("bygone_item_located");
     public static class Blocks {
 
         private static TagKey<Block> createTag(String name) {
@@ -33,6 +39,13 @@ public class JamiesModTag
 
         private static TagKey<Item> createTag(String name) {
             return TagKey.of(RegistryKeys.ITEM, JamiesMod.getModId(name));
+        }
+    }
+
+    public static class Structures {
+
+        private static TagKey<Structure> createTag(String id) {
+            return TagKey.of(RegistryKeys.STRUCTURE, JamiesMod.getModId(id));
         }
     }
 }

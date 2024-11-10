@@ -18,10 +18,12 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import com.jamiedev.mod.common.init.JamiesModSoundEvents;
 
 public class MoobooEntity extends CowEntity
 {
@@ -81,5 +83,16 @@ public class MoobooEntity extends CowEntity
         }
     }
 
+    protected SoundEvent getAmbientSound() {
+        return JamiesModSoundEvents.MOOBOO_AMBIENT_ADDITIONS_EVENT;
+    }
+
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return JamiesModSoundEvents.MOOBOO_HURT_ADDITIONS_EVENT;
+    }
+
+    protected SoundEvent getDeathSound() {
+        return JamiesModSoundEvents.MOOBOO_DEATH_ADDITIONS_EVENT;
+    }
 
 }

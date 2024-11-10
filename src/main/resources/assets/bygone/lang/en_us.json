@@ -42,7 +42,8 @@
 
   "itemgroup.bygone": "The Bygone",
 
-  "block.bygone.jamiesblock": "",
+  "block.bygone.bygone_portal_frame": "Bygone Portal Frame",
+
   "block.bygone.bystone": "Bystone",
   "block.bygone.byslate": "Byslate",
   "block.bygone.cobbled_bystone": "Cobbled Bystone",
@@ -143,7 +144,7 @@
   "block.bygone.blemish_stone": "Blemished Stone",
   "block.bygone.blemish_vines": "Blemished Vines",
 
-  "block.bygone.blemish_vein": "Blemish Vein (WIP!)",
+  "block.bygone.blemish_vein": "Blemish Vein",
   "block.bygone.blemish_catalyst": "Blemished Catalyst (WIP!)",
 
   "block.bygone.amber": "Amber",
@@ -182,7 +183,13 @@
   "painting.bygone.hallucigeania.title": "Hallucigeania",
   "painting.bygone.hallucigeania.author": "ZLB1",
 
+  "filled_map.bygone_portal": "Bygone Portal Map",
+
   "": "",
 
-  "bygone:container.caster": "Caster"
+  "bygone:container.caster": "Caster",
+
+  "subtitles.ambient.underhang.additions": "",
+  "subtitles.ambient.amber_desert.additions": "Ancient wind howls...",
+  "subtitles.ambient.primordial_ocean.additions": ""
 }

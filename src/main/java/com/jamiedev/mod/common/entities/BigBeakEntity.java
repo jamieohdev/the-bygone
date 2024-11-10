@@ -51,10 +51,10 @@ public class BigBeakEntity  extends AbstractHorseEntity
     HorseEntity ref;
     PigEntity ref3;
     private static final float MIN_HEALTH_BONUS = getChildHealthBonus((max) -> {
-        return 1;
+        return 0;
     });
     private static final float MAX_HEALTH_BONUS = getChildHealthBonus((max) -> {
-        return 1;
+        return max;
     });
     private static final EntityDimensions BABY_BASE_DIMENSIONS;
     public float flapProgress;
@@ -104,7 +104,7 @@ public class BigBeakEntity  extends AbstractHorseEntity
 
     public static DefaultAttributeContainer.Builder createBigBeakAttributes() {
         return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_JUMP_STRENGTH, 2.0)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 50.0)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
                 .add(EntityAttributes.GENERIC_STEP_HEIGHT, 2.0)
                 .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 100.0)
@@ -167,7 +167,7 @@ public class BigBeakEntity  extends AbstractHorseEntity
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
-        return 0F;
+        return 5.0F + (float)randomIntGetter.applyAsInt(2) + (float)randomIntGetter.applyAsInt(3);
     }
 
 
@@ -188,7 +188,7 @@ public class BigBeakEntity  extends AbstractHorseEntity
         ItemStack itemStack = this.getBodyArmor();
         super.onInventoryChanged(sender);
         ItemStack itemStack2 = this.getBodyArmor();
-        if (this.age > 20 && this.isBigBeakArmor(itemStack2) && itemStack != itemStack2) {
+        if (this.age > 20 && this.isHorseArmor(itemStack2) && itemStack != itemStack2) {
             this.playSound(SoundEvents.ENTITY_HORSE_ARMOR, 0.5F, 1.0F);
         }
 
@@ -295,7 +295,7 @@ public class BigBeakEntity  extends AbstractHorseEntity
                     return ActionResult.success(this.getWorld().isClient);
                 }
 
-                if (this.canUseSlot(EquipmentSlot.BODY) && this.isBigBeakArmor(itemStack) && !this.isWearingBodyArmor()) {
+                if (this.canUseSlot(EquipmentSlot.BODY) && this.isHorseArmor(itemStack) && !this.isWearingBodyArmor()) {
                     this.equipBigBeakArmor(player, itemStack);
                     return ActionResult.success(this.getWorld().isClient);
                 }
@@ -308,7 +308,7 @@ public class BigBeakEntity  extends AbstractHorseEntity
     }
 
     public void equipBigBeakArmor(PlayerEntity player, ItemStack stack) {
-        if (this.isBigBeakArmor(stack)) {
+        if (this.isHorseArmor(stack)) {
             this.equipBodyArmor(stack.copyWithCount(1));
             stack.decrementUnlessCreative(1, player);
         }
@@ -338,7 +338,8 @@ public class BigBeakEntity  extends AbstractHorseEntity
         return true;
     }
 
-    public boolean isBigBeakArmor(ItemStack stack) {
+    @Override
+    public boolean isHorseArmor(ItemStack stack) {
         Item var3 = stack.getItem();
         boolean var10000;
         if (var3 instanceof AnimalArmorItem animalArmorItem) {

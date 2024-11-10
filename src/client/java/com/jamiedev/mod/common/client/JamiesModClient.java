@@ -24,7 +24,9 @@ import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.CowEntityModel;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
@@ -115,6 +117,10 @@ public class JamiesModClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(JamiesModEntityTypes.MOOBOO, MoobooRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.MOOBOO, MoobooModel::getTexturedModelData);
+
+        EntityRendererRegistry.register(JamiesModEntityTypes.BYGONE_ITEM, (context) -> {
+            return new FlyingItemEntityRenderer<>(context, 1.0F, true);
+        });
 
         EntityRendererRegistry.register(JamiesModEntityTypes.BIG_BEAK, BigBeakRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.BIG_BEAK, BigBeakModel::getTexturedModelData);

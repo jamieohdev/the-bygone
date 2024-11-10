@@ -20,6 +20,11 @@ public class JamiesModSoundEvents
     public static final Identifier ENTITY_BIGBEAK_STEP = JamiesMod.getModId("entity.bigbeak.step");
     public static final Identifier ENTITY_BIGBEAK_STEP_WOOD = JamiesMod.getModId("entity.bigbeak.step_wood");
     public static final Identifier ENTITY_BIGBEAK_GALLOP = JamiesMod.getModId("entity.bigbeak.gallop");
+
+    public static final Identifier ENTITY_MOOBOO_AMBIENT = JamiesMod.getModId("entity.mooboo.ambient");
+    public static final Identifier ENTITY_MOOBOO_HURT = JamiesMod.getModId("entity.mooboo.hurt");
+    public static final Identifier ENTITY_MOOBOO_DEATH = JamiesMod.getModId("entity.mooboo.death");
+    
      public static SoundEvent AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.of(AMBIENT_ANCIENTFOREST_ADDITIONS);
     public static SoundEvent AMBIENT_AMBERDESERT_ADDITIONS_EVENT = SoundEvent.of(AMBIENT_AMBERDESERT_ADDITIONS);
     public static SoundEvent AMBIENT_PRIMORDIALOCEAN_ADDITIONS_EVENT = SoundEvent.of(AMBIENT_PRIMORDIALOCEAN_ADDITIONS);
@@ -34,6 +39,9 @@ public class JamiesModSoundEvents
     public static SoundEvent BIGBEAK_STEP_WOOD_ADDITIONS_EVENT = SoundEvent.of(ENTITY_BIGBEAK_STEP_WOOD);
     public static SoundEvent BIGBEAK_GALLOP_ADDITIONS_EVENT = SoundEvent.of(ENTITY_BIGBEAK_GALLOP);
 
+    public static SoundEvent MOOBOO_AMBIENT_ADDITIONS_EVENT = SoundEvent.of(ENTITY_MOOBOO_AMBIENT);
+    public static SoundEvent MOOBOO_HURT_ADDITIONS_EVENT = SoundEvent.of(ENTITY_MOOBOO_HURT);
+    public static SoundEvent MOOBOO_DEATH_ADDITIONS_EVENT = SoundEvent.of(ENTITY_MOOBOO_DEATH);
 
 
     private static SoundEvent register(String id) {
@@ -63,6 +71,10 @@ public class JamiesModSoundEvents
         Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.ENTITY_BIGBEAK_STEP, JamiesModSoundEvents.BIGBEAK_STEP_ADDITIONS_EVENT);
         Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.ENTITY_BIGBEAK_STEP_WOOD, JamiesModSoundEvents.BIGBEAK_STEP_WOOD_ADDITIONS_EVENT);
         Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.ENTITY_BIGBEAK_GALLOP, JamiesModSoundEvents.BIGBEAK_GALLOP_ADDITIONS_EVENT);
+
+        Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.ENTITY_MOOBOO_AMBIENT, JamiesModSoundEvents.MOOBOO_AMBIENT_ADDITIONS_EVENT);
+        Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.ENTITY_MOOBOO_HURT, JamiesModSoundEvents.MOOBOO_HURT_ADDITIONS_EVENT);
+        Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.ENTITY_MOOBOO_DEATH, JamiesModSoundEvents.MOOBOO_DEATH_ADDITIONS_EVENT);
 
     }
 }

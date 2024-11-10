@@ -94,7 +94,7 @@ public class HookItem extends Item
         isGrappling = true;
         // Bump the player up by 1.2 blocks if they're on the ground or horizontally colliding with a block
         if (player.isOnGround() || player.horizontalCollision) {
-            player.move(MovementType.SELF, new Vec3d(0.0D, 1.1999999F, 0.0D));
+            player.move(MovementType.SELF, new Vec3d(0.0D, 0.1F, 0.0D));
         }
         Vec3d vec3d = player.getVelocity();
 

@@ -9,7 +9,7 @@ import net.minecraft.util.shape.VoxelShape;
 
 public class GourdVineBlock extends AbstractPlantStemBlock {
     public static final MapCodec<GourdVineBlock> CODEC = createCodec(GourdVineBlock::new);
-    protected static final VoxelShape SHAPE = Block.createCuboidShape(4.0, 9.0, 4.0, 12.0, 16.0, 12.0);
+    protected static final VoxelShape SHAPE = Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 16.0, 12.0);
 
     public MapCodec<GourdVineBlock> getCodec() {
         return CODEC;

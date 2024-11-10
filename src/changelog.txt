@@ -1,25 +1,50 @@
+# **Updates in 0.0.7c**
+
+**Changes to existing Features:**
+Coarse Claystone is now craftable with Claystone and Gravel!
+Cobbled Byslate/Bystone can be smelted to normal Byslate/Bystone!
+Ancient Leaves, Roots, and Vines are now compostable!
+The Ancient woodset can now be used as fuel!
+
+**Bugs fixed:**
+Fixed Big Beaks having 1HP - They now have a range of 2-5 Health!
+Fixed Bygone ambience not having a subtitle!
+Fixed Glow Gourd Vine/Gourds hitboxes being small!
+
+# **Updates in 0.0.7b**
+
+**Bugs fixed:**
+Beige Glow Gourds were missing their Item model!
+Fixed "Test" item being left in the Creative Inventory!
+Fixed Big Beak armor not being equipable in the GUI!
+Fixed Ancient Hook -launching- players when they spam the item against the wall
+Fixed Glow Gourd Soup being stackable!
+
 # **Updates in 0.0.7a**
 
 **New Features:**
-Added Iron, Gold, and Diamond Big Beak Armor! TODO: ADD A PLACE FOR THEM TO GENERATE
+Added Iron, Gold, and Diamond Big Beak Armor!
 Added Glow Gourd Dangos! A edible light source that can be placed like a torch!
 Added Glow Gourd Soup!
 Added a new painting, "Hallucigeania", by ZLB1!
 Added the Mooboo, a mob only found by dragging a Cow into the Bygone!
-
-**Experimental Features:**
-TODO: Ruins, maybe a new structure (everything mentioned last week)
+Added the Bygone Portal, a unique frame that only generates underground. Can be found naturally or via the cartographers new map!
+NOTE: These are (currently) still activated with the Hook, but that will be replaced in the next update!
 
 **Changes to existing Features:**
+Bygone Portals are no longer made out of Calcite Frames.
+Added the Bygone Portal Map to cartographers!
+Bygone Mineshafts now have unique loot, including the new Big Beak Armor + new food sources!
+Bygone Mineshafts now generate with Glow Gourd Dangos instead of Torches!
 Ancient Vines now naturally generate in the Underhang!
 Gourds now break when their vines break, and can be broken by arrows!
 Glow Gourd Slices give less saturation and hunger.
 Changed Cobbled Byslate & Cobbled Bystone Textures!
-Changed  Creosote Sprouts to have a light level of 5  (This is a temporary fix while we see how dim the biome can be)
+Changed Creosote Sprouts to have a light level of 5  (This is a temporary fix while we see how dim the biome can be)
 Montsechia/Sagaria can now be crafted into dyes!
 Exotic Plumage can now be used in other recipes with Feathers!
 
-Overall Big Beaks have gotten a overhaul, including:
+Overall Big Beaks have gotten an overhaul, including:
 New Animations!
 New sounds!
 Tweaked Health/Speed/Jump stats!
@@ -34,8 +59,10 @@ Fixed Glow Gourds not dropping anything when broken with a non-axe.
 Fixed Umber Bricks not being craftable.
 Fixed all Bystone/Byslate Ores not being smeltable/blastable.
 Fixed Sagaria not being compostable/smeltable (as fuel).
+Fixed Coelacanths hitboxes being behind them
 
-
+KNOWN BUGS:
+Bygone Portals still generate in Lava, sometimes? (Please report this with the seed + coords when you find it!)
 
 # **Updates in 0.0.6d**
 

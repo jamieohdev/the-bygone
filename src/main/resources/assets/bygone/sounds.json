@@ -256,5 +256,26 @@
       "bygone:entity/bigbeak/gallop2"
     ],
     "subtitle": "bygone:subtitles.entity.bigbeak.gallop"
+  },
+  "entity.mooboo.ambient": {
+    "sounds": [
+      "bygone:entity/mooboo/idle1",
+      "bygone:entity/mooboo/idle3",
+      "bygone:entity/mooboo/idle4"
+    ],
+    "subtitle": "bygone:subtitles.entity.mooboo.ambient"
+  },
+  "entity.mooboo.hurt": {
+    "sounds": [
+      "bygone:entity/mooboo/hurt1",
+      "bygone:entity/mooboo/hurt3"
+    ],
+    "subtitle": "bygone:subtitles.entity.mooboo.hurt"
+  },
+  "entity.mooboo.death": {
+    "sounds": [
+      "bygone:entity/mooboo/hurt3"
+    ],
+    "subtitle": "bygone:subtitles.entity.mooboo.death"
   }
 }

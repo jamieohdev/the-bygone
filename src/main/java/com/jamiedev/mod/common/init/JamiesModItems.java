@@ -1,6 +1,7 @@
 package com.jamiedev.mod.common.init;
 
 import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.common.items.BygoneItem;
 import com.jamiedev.mod.common.items.ExoticArrowItem;
 import com.jamiedev.mod.common.items.HookItem;
 import com.jamiedev.mod.common.items.JamiesModItemGroup;
@@ -52,7 +53,7 @@ public class JamiesModItems
     public static final Item VERDANT_SLICE = registerItem("glow_gourd_verdant_slice", new Item(new Item.Settings().food(FoodComponents.CARROT)));
     //public static final Item GOURD_DANGO = registerItem("glow_gourd_dango", (Item)(new AliasedBlockItem(JamiesModBlocks.GOURD_DANGO, (new Item.Settings()).food(FoodComponents.SWEET_BERRIES))));
 
-    public static final Item GOURD_SOUP = registerItem("glow_gourd_soup", new Item(new Item.Settings().food(FoodComponents.RABBIT_STEW)));
+    public static final Item GOURD_SOUP = registerItem("glow_gourd_soup", new Item(new Item.Settings().food(FoodComponents.RABBIT_STEW).maxCount(1)));
     public static final Item GOURD_DANGO = registerItem("glow_gourd_dango",((BlockItem)(new VerticallyAttachableBlockItem(JamiesModBlocks.GOURD_DANGO, JamiesModBlocks.GOURD_DANGO_WALL,
             new Item.Settings().food(FoodComponents.GOLDEN_CARROT), Direction.DOWN))));
     public static final Item SCALE_HELMET = registerItem("scale_helmet",
