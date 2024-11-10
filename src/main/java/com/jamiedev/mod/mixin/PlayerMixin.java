@@ -1,8 +1,8 @@
 package com.jamiedev.mod.mixin;
 
-import com.jamiedev.mod.entities.projectile.HookEntity;
-import com.jamiedev.mod.network.SyncPlayerHookS2C;
-import com.jamiedev.mod.util.PlayerWithHook;
+import com.jamiedev.mod.common.entities.projectile.HookEntity;
+import com.jamiedev.mod.common.network.SyncPlayerHookS2C;
+import com.jamiedev.mod.common.util.PlayerWithHook;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.Entity;

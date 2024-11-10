@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "bygone:claystone",
+    "bygone:coarse_claystone",
+    "bygone:grassy_claystone",
+    "bygone:mossy_claystone",
+    "bygone:primordial_sand"
+  ]
+}

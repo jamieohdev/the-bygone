@@ -1,6 +1,6 @@
 package com.jamiedev.mod.mixin;
 
-import com.jamiedev.mod.util.HangingSignFlags;
+import com.jamiedev.mod.common.util.HangingSignFlags;
 import net.minecraft.block.entity.HangingSignBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

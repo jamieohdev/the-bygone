@@ -1,8 +1,8 @@
 package com.jamiedev.mod.mixin.client;
 
-import com.jamiedev.mod.client.JamiesModUtilClient;
-import com.jamiedev.mod.client.screen.DimensionScreen;
-import com.jamiedev.mod.init.JamiesModDimension;
+import com.jamiedev.mod.common.client.JamiesModUtilClient;
+import com.jamiedev.mod.common.client.screen.DimensionScreen;
+import com.jamiedev.mod.common.init.JamiesModDimension;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
 import net.minecraft.client.gui.screen.Screen;

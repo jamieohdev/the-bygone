@@ -63,7 +63,7 @@
 
   "block.bygone.cloud": "Cloud Block",
 
-  "block.bygone.goud_vine": "Gourd Vines",
+  "block.bygone.gourd_vine": "Gourd Vines",
   "block.bygone.glow_gourd_beige": "Beige Glow Gourd",
   "block.bygone.glow_gourd_muave": "Muave Glow Gourd",
   "block.bygone.glow_gourd_verdant": "Verdant Glow Gourd",
@@ -178,6 +178,9 @@
   "biome.bygone.calm":"The Calmlands (Not added yet)",
   "biome.bygone.primordial_ocean":"Primordial Ocean",
   "biome.bygone.tar_pits":"The Cess Pools (Not added yet)",
+
+  "painting.bygone.hallucigeania.title": "Hallucigeania",
+  "painting.bygone.hallucigeania.author": "ZLB1",
 
   "": "",
 

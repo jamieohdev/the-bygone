@@ -1,3 +1,6 @@
 {
-  "parent": "bygone:block/glow_gourd_beige"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bygone:block/glow_gourd_beige"
+  }
 }

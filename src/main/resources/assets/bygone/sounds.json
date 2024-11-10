@@ -204,5 +204,57 @@
         "stream": true
       }
     ]
+  },
+  "entity.bigbeak.ambient": {
+    "sounds": [
+      "bygone:entity/bigbeak/ambient1",
+      "bygone:entity/bigbeak/ambient2",
+      "bygone:entity/bigbeak/ambient3",
+      "bygone:entity/bigbeak/ambient4",
+      "bygone:entity/bigbeak/ambient5"
+    ],
+    "subtitle": "bygone:subtitles.entity.bigbeak.ambient"
+  },
+  "entity.bigbeak.hurt": {
+    "sounds": [
+      "bygone:entity/bigbeak/hurt1",
+      "bygone:entity/bigbeak/hurt2",
+      "bygone:entity/bigbeak/hurt3"
+    ],
+    "subtitle": "bygone:subtitles.entity.bigbeak.hurt"
+  },
+  "entity.bigbeak.death": {
+    "sounds": [
+      "bygone:entity/bigbeak/death1",
+      "bygone:entity/bigbeak/death2"
+    ],
+    "subtitle": "bygone:subtitles.entity.bigbeak.death"
+  },
+  "entity.bigbeak.jump": {
+    "sounds": [
+      "bygone:entity/bigbeak/jump1",
+      "bygone:entity/bigbeak/jump2"
+    ],
+    "subtitle": "bygone:subtitles.entity.bigbeak.jump"
+  },
+  "entity.bigbeak.step": {
+    "sounds": [
+      "bygone:entity/bigbeak/step1"
+    ],
+    "subtitle": "bygone:subtitles.entity.bigbeak.step"
+  },
+  "entity.bigbeak.step_wood": {
+    "sounds": [
+      "bygone:entity/bigbeak/step_wood1",
+      "bygone:entity/bigbeak/step_wood2"
+    ],
+    "subtitle": "bygone:subtitles.entity.bigbeak.step_wood"
+  },
+  "entity.bigbeak.gallop": {
+    "sounds": [
+      "bygone:entity/bigbeak/gallop1",
+      "bygone:entity/bigbeak/gallop2"
+    ],
+    "subtitle": "bygone:subtitles.entity.bigbeak.gallop"
   }
 }

@@ -4,7 +4,8 @@
 Added Iron, Gold, and Diamond Big Beak Armor! TODO: ADD A PLACE FOR THEM TO GENERATE
 Added Glow Gourd Dangos! A edible light source that can be placed like a torch!
 Added Glow Gourd Soup!
-TODO:
+Added a new painting, "Hallucigeania", by ZLB1!
+Added the Mooboo, a mob only found by dragging a Cow into the Bygone!
 
 **Experimental Features:**
 TODO: Ruins, maybe a new structure (everything mentioned last week)
@@ -14,11 +15,27 @@ Ancient Vines now naturally generate in the Underhang!
 Gourds now break when their vines break, and can be broken by arrows!
 Glow Gourd Slices give less saturation and hunger.
 Changed Cobbled Byslate & Cobbled Bystone Textures!
-TODO:
+Changed  Creosote Sprouts to have a light level of 5  (This is a temporary fix while we see how dim the biome can be)
+Montsechia/Sagaria can now be crafted into dyes!
+Exotic Plumage can now be used in other recipes with Feathers!
+
+Overall Big Beaks have gotten a overhaul, including:
+New Animations!
+New sounds!
+Tweaked Health/Speed/Jump stats!
+
 
 **Bugs fixed:**
 Fixed multiple blocks/items being improperly tagged!
-TODO: FIX SUSSY UMBER
+Fixed "Gourd Vines" not having a name!
+Fixed Creosote Sprouts having a big hitbox
+Fixed Campfires not being craftable with Stripped Ancient Logs/Wood!
+Fixed Glow Gourds not dropping anything when broken with a non-axe.
+Fixed Umber Bricks not being craftable.
+Fixed all Bystone/Byslate Ores not being smeltable/blastable.
+Fixed Sagaria not being compostable/smeltable (as fuel).
+
+
 
 # **Updates in 0.0.6d**
 

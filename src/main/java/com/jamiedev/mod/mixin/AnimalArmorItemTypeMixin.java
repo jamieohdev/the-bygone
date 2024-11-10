@@ -1,5 +1,5 @@
 package com.jamiedev.mod.mixin;
-import com.jamiedev.mod.JamiesMod;
+import com.jamiedev.mod.common.JamiesMod;
 import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;

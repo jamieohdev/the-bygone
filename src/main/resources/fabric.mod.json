@@ -20,15 +20,15 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.jamiedev.mod.JamiesMod"
+          "com.jamiedev.mod.common.JamiesMod"
 		],
 		"client": [
-			"com.jamiedev.mod.client.JamiesModClient"
+          "com.jamiedev.mod.common.client.JamiesModClient"
 		],
 		"fabric-datagen": [
-			"com.jamiedev.mod.JamiesModDataGenerator"
+          "com.jamiedev.mod.common.JamiesModDataGenerator"
 		],
-		"cardinal-components-block": ["com.jamiedev.mod.init.JamiesModComponents"]
+		"cardinal-components-block": ["com.jamiedev.mod.common.init.JamiesModComponents"]
 	},
 	"mixins": [
 		"bygone.mixins.json",

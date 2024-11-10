@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "bygone:bystone_iron_ore",
+    "bygone:bystone_copper_ore",
+    "bygone:oceanstone"
+  ]
+}
