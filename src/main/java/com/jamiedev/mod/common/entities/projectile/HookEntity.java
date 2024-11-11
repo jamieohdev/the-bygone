@@ -1,7 +1,7 @@
 package com.jamiedev.mod.common.entities.projectile;
 
-import com.jamiedev.mod.common.init.JamiesModEntityTypes;
-import com.jamiedev.mod.common.init.JamiesModItems;
+import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
+import com.jamiedev.mod.fabric.init.JamiesModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

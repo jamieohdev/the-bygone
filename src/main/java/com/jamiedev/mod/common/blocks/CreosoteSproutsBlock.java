@@ -1,9 +1,8 @@
 package com.jamiedev.mod.common.blocks;
 
-import com.jamiedev.mod.common.init.JamiesModTag;
+import com.jamiedev.mod.fabric.init.JamiesModTag;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;

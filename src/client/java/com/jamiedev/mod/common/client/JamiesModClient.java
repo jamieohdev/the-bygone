@@ -1,13 +1,13 @@
 package com.jamiedev.mod.common.client;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.blocks.JamiesModWoodType;
 import com.jamiedev.mod.common.client.particles.AmberDustParticle;
 import com.jamiedev.mod.common.client.particles.BlemishParticle;
 import com.jamiedev.mod.common.client.particles.RafflesiaSporeParticle;
 import com.jamiedev.mod.common.client.models.*;
 import com.jamiedev.mod.common.client.renderer.*;
-import com.jamiedev.mod.common.init.*;
+import com.jamiedev.mod.fabric.init.*;
 import com.jamiedev.mod.common.network.SyncPlayerHookS2C;
 import com.jamiedev.mod.common.client.network.SyncPlayerHookPacketHandler;
 import com.jamiedev.mod.common.util.PlayerWithHook;
@@ -25,8 +25,6 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
-import net.minecraft.client.render.entity.model.CowEntityModel;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
@@ -35,7 +33,7 @@ import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 
 public class JamiesModClient implements ClientModInitializer {
-    public static Identifier BYGONE = JamiesMod.getModId("bygone");
+    public static Identifier BYGONE = JamiesModFabric.getModId("bygone");
     public  static DimensionEffects.SkyType BYGONE_SKY;
 
     @Override
@@ -149,7 +147,7 @@ public class JamiesModClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(JamiesModBlockEntities.CASTER, CasterBlockEntityRenderer::new);
     }
     public static void registerModelPredicateProviders() {
-        ModelPredicateProviderRegistry.register(JamiesModItems.HOOK, JamiesMod.getModId("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
+        ModelPredicateProviderRegistry.register(JamiesModItems.HOOK, JamiesModFabric.getModId("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
             if (livingEntity instanceof PlayerEntity) {
                 for (Hand value : Hand.values())
                 {

@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.util;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.blocks.CasterBlock;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
@@ -14,7 +14,7 @@ public class DatagenUtils {
 
     public static final Model ORIENTABLE_VERTICAL_WITH_BOTTOM = block("orientable_vertical", "_vertical", TextureKey.FRONT, TextureKey.SIDE, TextureKey.BOTTOM, TextureKey.DOWN);
     
-    public static final Identifier CASTER = JamiesMod.getModId("caster");
+    public static final Identifier CASTER = JamiesModFabric.getModId("caster");
     
     public static void registerCasterModel(Block block, BlockStateModelGenerator blockStateModelGenerator) {
         TextureMap textureMap = new TextureMap()

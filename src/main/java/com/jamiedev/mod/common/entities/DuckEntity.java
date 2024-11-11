@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.entities;
 
-import com.jamiedev.mod.common.init.JamiesModEntityTypes;
+import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;

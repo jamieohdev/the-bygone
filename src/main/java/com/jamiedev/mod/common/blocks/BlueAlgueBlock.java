@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.blocks;
 
-import com.jamiedev.mod.common.init.JamiesModParticleTypes;
+import com.jamiedev.mod.fabric.init.JamiesModParticleTypes;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;

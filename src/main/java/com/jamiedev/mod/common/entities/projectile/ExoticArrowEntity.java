@@ -1,7 +1,7 @@
 package com.jamiedev.mod.common.entities.projectile;
 
-import com.jamiedev.mod.common.init.JamiesModEntityTypes;
-import com.jamiedev.mod.common.init.JamiesModItems;
+import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
+import com.jamiedev.mod.fabric.init.JamiesModItems;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.Entity;

@@ -2,8 +2,8 @@ package com.jamiedev.mod.common.blocks.entity;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.jamiedev.mod.common.blocks.BlemishCatalystBlock;
-import com.jamiedev.mod.common.init.JamiesModBlockEntities;
-import com.jamiedev.mod.common.init.JamiesModCriteria;
+import com.jamiedev.mod.fabric.init.JamiesModBlockEntities;
+import com.jamiedev.mod.fabric.init.JamiesModCriteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;

@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.client.models;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -14,7 +14,7 @@ public class ScuttleSpikeModel extends Model
 {
 	public final ModelPart body;
 
-	public static final Identifier TEXTURE = JamiesMod.getModId("textures/entity/scuttlespike.png");
+	public static final Identifier TEXTURE = JamiesModFabric.getModId("textures/entity/scuttlespike.png");
 
 	public ScuttleSpikeModel(ModelPart root) {
 		super(RenderLayer::getEntitySolid);

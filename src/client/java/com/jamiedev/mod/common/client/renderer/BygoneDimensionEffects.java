@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.client.renderer;
 
-import com.jamiedev.mod.common.init.JamiesModDimension;
+import com.jamiedev.mod.fabric.init.JamiesModDimension;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.BackgroundRenderer;

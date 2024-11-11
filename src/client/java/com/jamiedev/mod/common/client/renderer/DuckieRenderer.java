@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.client.renderer;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.client.JamiesModModelLayers;
 import com.jamiedev.mod.common.client.models.DuckieModel;
 import com.jamiedev.mod.common.entities.DuckEntity;
@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 public class DuckieRenderer  extends MobEntityRenderer<DuckEntity, DuckieModel<DuckEntity>> {
-    private static final Identifier TEXTURE = JamiesMod.getModId("textures/entity/duckie.png");
+    private static final Identifier TEXTURE = JamiesModFabric.getModId("textures/entity/duckie.png");
 
     public DuckieRenderer(EntityRendererFactory.Context context) {
         super(context, new DuckieModel(context.getPart(JamiesModModelLayers.DUCKIE)), 0.3F);

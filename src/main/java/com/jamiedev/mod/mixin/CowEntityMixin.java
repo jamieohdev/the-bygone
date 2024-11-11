@@ -1,8 +1,8 @@
 package com.jamiedev.mod.mixin;
 
 import com.jamiedev.mod.common.entities.MoobooEntity;
-import com.jamiedev.mod.common.init.JamiesModDimension;
-import com.jamiedev.mod.common.init.JamiesModEntityTypes;
+import com.jamiedev.mod.fabric.init.JamiesModDimension;
+import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;

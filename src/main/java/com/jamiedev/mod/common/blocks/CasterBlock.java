@@ -2,7 +2,7 @@ package com.jamiedev.mod.common.blocks;
 
 import com.google.common.base.Predicates;
 import com.jamiedev.mod.common.blocks.entity.CasterBlockEntity;
-import com.jamiedev.mod.common.init.*;
+import com.jamiedev.mod.fabric.init.*;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;

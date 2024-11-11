@@ -1,7 +1,7 @@
 package com.jamiedev.mod.common.worldgen.structure;
 
-import com.jamiedev.mod.common.JamiesMod;
-import com.jamiedev.mod.common.init.JamiesModStructures;
+import com.jamiedev.mod.fabric.JamiesModFabric;
+import com.jamiedev.mod.fabric.init.JamiesModStructures;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.structure.*;
 import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
@@ -20,7 +20,7 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 public class BygonePortalGenerator 
 {
-    private static final Identifier[] PORTAL = new Identifier[]{Identifier.of(JamiesMod.MOD_ID, "bygone_portal/bygone_portal")};
+    private static final Identifier[] PORTAL = new Identifier[]{Identifier.of(JamiesModFabric.MOD_ID, "bygone_portal/bygone_portal")};
     
 
     public static void addPieces(StructureTemplateManager manager, StructurePiecesHolder holder, Random random, BlockPos pos) {

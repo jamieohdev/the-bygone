@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.client.renderer;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.client.JamiesModModelLayers;
 import com.jamiedev.mod.common.client.models.JawsEntityModel;
 import com.jamiedev.mod.common.entities.JawsEntity;
@@ -16,8 +16,8 @@ import net.minecraft.util.math.Vec3d;
 public class JawsRenderer extends MobEntityRenderer<JawsEntity, JawsEntityModel>
 {
 
-    private static final Identifier TEXTURE = JamiesMod.getModId("textures/entity/jaws.png");
-    private static final Identifier EXPLOSION_BEAM_TEXTURE = JamiesMod.getModId("textures/entity/jaws_attack.png");
+    private static final Identifier TEXTURE = JamiesModFabric.getModId("textures/entity/jaws.png");
+    private static final Identifier EXPLOSION_BEAM_TEXTURE = JamiesModFabric.getModId("textures/entity/jaws_attack.png");
     private static final RenderLayer LAYER;
 
     public JawsRenderer(EntityRendererFactory.Context context) {

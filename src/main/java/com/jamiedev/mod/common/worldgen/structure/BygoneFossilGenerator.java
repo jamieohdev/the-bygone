@@ -1,7 +1,7 @@
 package com.jamiedev.mod.common.worldgen.structure;
 
-import com.jamiedev.mod.common.JamiesMod;
-import com.jamiedev.mod.common.init.JamiesModStructures;
+import com.jamiedev.mod.fabric.JamiesModFabric;
+import com.jamiedev.mod.fabric.init.JamiesModStructures;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.structure.*;
 import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
@@ -20,8 +20,8 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 public class BygoneFossilGenerator 
 {
-    private static final Identifier[] FOSSILS = new Identifier[]{Identifier.of(JamiesMod.MOD_ID, "bygone_fossil/bygone_fossil_1"), Identifier.of(JamiesMod.MOD_ID, "bygone_fossil/bygone_fossil_2"),
-            Identifier.of(JamiesMod.MOD_ID, "bygone_fossil/bygone_fossil_3"), Identifier.of(JamiesMod.MOD_ID, "bygone_fossil/bygone_fossil_4"),
+    private static final Identifier[] FOSSILS = new Identifier[]{Identifier.of(JamiesModFabric.MOD_ID, "bygone_fossil/bygone_fossil_1"), Identifier.of(JamiesModFabric.MOD_ID, "bygone_fossil/bygone_fossil_2"),
+            Identifier.of(JamiesModFabric.MOD_ID, "bygone_fossil/bygone_fossil_3"), Identifier.of(JamiesModFabric.MOD_ID, "bygone_fossil/bygone_fossil_4"),
             Identifier.ofVanilla("nether_fossils/fossil_1"), Identifier.ofVanilla("nether_fossils/fossil_2"), Identifier.ofVanilla("nether_fossils/fossil_3"), Identifier.ofVanilla("nether_fossils/fossil_4"), Identifier.ofVanilla("nether_fossils/fossil_5"), Identifier.ofVanilla("nether_fossils/fossil_6"), Identifier.ofVanilla("nether_fossils/fossil_7"), Identifier.ofVanilla("nether_fossils/fossil_8"), Identifier.ofVanilla("nether_fossils/fossil_9"), Identifier.ofVanilla("nether_fossils/fossil_10"), Identifier.ofVanilla("nether_fossils/fossil_11"), Identifier.ofVanilla("nether_fossils/fossil_12"), Identifier.ofVanilla("nether_fossils/fossil_13"), Identifier.ofVanilla("nether_fossils/fossil_14")};
     public BygoneFossilGenerator() {
     }

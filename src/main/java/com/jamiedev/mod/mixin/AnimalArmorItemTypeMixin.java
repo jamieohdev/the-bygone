@@ -1,5 +1,5 @@
 package com.jamiedev.mod.mixin;
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -33,7 +33,7 @@ public class AnimalArmorItemTypeMixin {
 
     @Unique
     private static AnimalArmorItem.Type BIG_BEAK = bygone$addVariant("big_beak", id ->
-            JamiesMod.getModId( "textures/entity/big_beak/beak_" + id.getPath()), SoundEvents.ENTITY_ITEM_BREAK);
+            JamiesModFabric.getModId( "textures/entity/big_beak/beak_" + id.getPath()), SoundEvents.ENTITY_ITEM_BREAK);
 
     @Invoker("<init>")
     public static AnimalArmorItem.Type bygone$invokeInit(String name, int index, final Function<Identifier, Identifier> textureIdFunction, final SoundEvent breakSound) {
@@ -47,7 +47,7 @@ public class AnimalArmorItemTypeMixin {
         variants.add(beakArmor);
         AnimalArmorItemTypeMixin.bygone$values = variants.toArray(new AnimalArmorItem.Type[0]);
 
-        JamiesMod.BIG_BEAK_ARMOR = beakArmor;
+        JamiesModFabric.BIG_BEAK_ARMOR = beakArmor;
 
         return beakArmor;
     }

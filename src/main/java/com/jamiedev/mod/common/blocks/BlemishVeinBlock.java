@@ -2,8 +2,8 @@ package com.jamiedev.mod.common.blocks;
 
 import com.jamiedev.mod.common.blocks.entity.BlemishSpreadManager;
 import com.jamiedev.mod.common.blocks.entity.BlemishSpreadable;
-import com.jamiedev.mod.common.init.JamiesModBlocks;
-import com.jamiedev.mod.common.init.JamiesModTag;
+import com.jamiedev.mod.fabric.init.JamiesModBlocks;
+import com.jamiedev.mod.fabric.init.JamiesModTag;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;

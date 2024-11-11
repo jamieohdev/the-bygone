@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.client.renderer;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.client.JamiesModModelLayers;
 import com.jamiedev.mod.common.client.models.ScuttleModel;
 import com.jamiedev.mod.common.entities.ScuttleEntity;
@@ -18,7 +18,7 @@ import net.minecraft.util.math.Vec3d;
 public class ScuttleRenderer extends MobEntityRenderer<ScuttleEntity, ScuttleModel> {
     GuardianEntityRenderer ref;
     private static final RenderLayer LAYER;
-    private static final Identifier TEXTURE = JamiesMod.getModId("textures/entity/scuttle.png");
+    private static final Identifier TEXTURE = JamiesModFabric.getModId("textures/entity/scuttle.png");
 
     public ScuttleRenderer(EntityRendererFactory.Context context) {
         super(context, new ScuttleModel(context.getPart(JamiesModModelLayers.SCUTTLE)), 0.5F);

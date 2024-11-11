@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.client.network;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.entities.projectile.HookEntity;
 import com.jamiedev.mod.common.network.SyncPlayerHookS2C;
 import com.jamiedev.mod.common.util.PlayerWithHook;
@@ -21,10 +21,10 @@ public class SyncPlayerHookPacketHandler {
         HookEntity hook = entity instanceof HookEntity ? (HookEntity)entity : null;
         PlayerEntity playerByUuid = world.getPlayerByUuid(playerUUID);
         if(playerByUuid != null){
-            JamiesMod.LOGGER.info("Syncing {} to {}", hook, playerByUuid);
+            JamiesModFabric.LOGGER.info("Syncing {} to {}", hook, playerByUuid);
             ((PlayerWithHook)playerByUuid).bygone$setHook(hook);
         } else{
-            JamiesMod.LOGGER.error("Could not find player with UUID {}, unable to sync their hook", playerUUID);
+            JamiesModFabric.LOGGER.error("Could not find player with UUID {}, unable to sync their hook", playerUUID);
         }
     }
 }

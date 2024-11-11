@@ -1,10 +1,31 @@
-# **Updates in 0.0.7c**
+# **Updates in 0.0.7c/0.0.8a**
+
+TODO: Additional Features
+Finish Portal Mechanics (Random placement, Structure, HOW its activated)
+Arcane Core
+Finish Blemish content
+Caster polish
+Glare animations/sounds/functions
+Additional plants in the Amber Desert
+THE SKY
+WEATHER RENDERING
+<Maybe> a new mob by Bewtwixer
+A new tool by Betwixer
+A new subbiome! (Underhang variant?)
+TODO: END OF LIST
+
+## **It is highly recommended that you purge the /dimensions/bygone folder in your Save file with this update!!**
+
+**New features:**
+
 
 **Changes to existing Features:**
+Glow Gourds can now be broken by -any- projectile!
 Coarse Claystone is now craftable with Claystone and Gravel!
 Cobbled Byslate/Bystone can be smelted to normal Byslate/Bystone!
 Ancient Leaves, Roots, and Vines are now compostable!
 The Ancient woodset can now be used as fuel!
+Mossy Claystone now needs Silk Touch in order to be dropped!
 
 **Bugs fixed:**
 Fixed Big Beaks having 1HP - They now have a range of 2-5 Health!

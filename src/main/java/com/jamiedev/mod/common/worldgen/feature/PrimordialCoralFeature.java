@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.worldgen.feature;
 
-import com.jamiedev.mod.common.init.JamiesModTag;
+import com.jamiedev.mod.fabric.init.JamiesModTag;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.*;
 import net.minecraft.registry.Registries;

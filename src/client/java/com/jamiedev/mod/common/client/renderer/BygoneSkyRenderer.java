@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.client.renderer;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -25,7 +25,7 @@ public enum BygoneSkyRenderer implements DimensionRenderingRegistry.SkyRenderer
         void make(BufferBuilder bufferBuilder, double minSize, double maxSize, int count, long seed);
     }
     private static Tessellator tessellator;
-    private static final Identifier END_SKY = JamiesMod.getModId("textures/environment/bygone_sky.png");
+    private static final Identifier END_SKY = JamiesModFabric.getModId("textures/environment/bygone_sky.png");
 
  //   public BygoneSkyRenderer() {}
  @Nullable

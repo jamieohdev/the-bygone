@@ -1,7 +1,7 @@
 package com.jamiedev.mod.common.entities.projectile;
 
 import com.google.common.base.MoreObjects;
-import com.jamiedev.mod.common.init.JamiesModEntityTypes;
+import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

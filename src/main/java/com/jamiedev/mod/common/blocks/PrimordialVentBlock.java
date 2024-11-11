@@ -1,7 +1,7 @@
 package com.jamiedev.mod.common.blocks;
 
 import com.jamiedev.mod.common.blocks.entity.PrimordialVentEntity;
-import com.jamiedev.mod.common.init.JamiesModBlockEntities;
+import com.jamiedev.mod.fabric.init.JamiesModBlockEntities;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.client.renderer;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.client.JamiesModModelLayers;
 import com.jamiedev.mod.common.client.models.ScuttleSpikeModel;
 import com.jamiedev.mod.common.entities.projectile.ScuttleSpikeEntity;
@@ -16,7 +16,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 
 public class ScuttleSpikeRenderer  extends EntityRenderer<ScuttleSpikeEntity> {
-    public static final Identifier TEXTURE = JamiesMod.getModId("textures/entity/scuttlespike.png");
+    public static final Identifier TEXTURE = JamiesModFabric.getModId("textures/entity/scuttlespike.png");
     private final ScuttleSpikeModel model;
 
     public ScuttleSpikeRenderer(EntityRendererFactory.Context context) {

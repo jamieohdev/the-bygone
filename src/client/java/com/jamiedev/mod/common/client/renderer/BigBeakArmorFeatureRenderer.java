@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.client.renderer;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.client.JamiesModModelLayers;
 import com.jamiedev.mod.common.client.models.BigBeakModel;
 import com.jamiedev.mod.common.entities.BigBeakEntity;
@@ -35,7 +35,7 @@ public class BigBeakArmorFeatureRenderer extends FeatureRenderer<BigBeakEntity, 
         ItemStack itemStack = BigBeakEntity.getBodyArmor();
         Item var13 = itemStack.getItem();
         if (var13 instanceof AnimalArmorItem animalArmorItem) {
-            if (animalArmorItem.getType() == JamiesMod.BIG_BEAK_ARMOR) {
+            if (animalArmorItem.getType() == JamiesModFabric.BIG_BEAK_ARMOR) {
                 ((BigBeakModel)this.getContextModel()).copyStateTo(this.model);
                 this.model.animateModel(BigBeakEntity, f, g, h);
                 this.model.setAngles(BigBeakEntity, f, g, j, k, l);

@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.client.screen;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class DimensionScreen {
     private static final Text DOWNLOADING_BYGONE_TERRAIN_TEXT  = Text.translatable("system.bygone.entering_into_bygone");
-    private static final Identifier BACKGROUND_LOCATION = JamiesMod.getModId( "bg.png");
+    private static final Identifier BACKGROUND_LOCATION = JamiesModFabric.getModId( "bg.png");
 
     public static void renderScreenAndText(DownloadingTerrainScreen screen, DrawContext guiGraphics) {
         Tessellator tesselator = Tessellator.getInstance();

@@ -1,8 +1,8 @@
 package com.jamiedev.mod.common.client.renderer;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.entities.projectile.HookEntity;
-import com.jamiedev.mod.common.init.JamiesModItems;
+import com.jamiedev.mod.fabric.init.JamiesModItems;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -22,7 +22,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class HookRenderer extends EntityRenderer<HookEntity>
 {
-    private static final Identifier TEXTURE = JamiesMod.getModId("textures/entity/hook.png");
+    private static final Identifier TEXTURE = JamiesModFabric.getModId("textures/entity/hook.png");
     private static final RenderLayer LAYER = RenderLayer.getEntityCutout(TEXTURE);
     public HookRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);

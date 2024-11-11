@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.blocks.gourds;
 
-import com.jamiedev.mod.common.init.JamiesModBlocks;
+import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.entity.ai.pathing.NavigationType;
@@ -41,7 +41,7 @@ public class GourdLanternBlock extends AbstractPlantBlock {
     }
     protected void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
         BlockPos blockPos = hit.getBlockPos();
-        if (!world.isClient && projectile.canModifyAt(world, blockPos) && projectile.canBreakBlocks(world)) {
+        if (!world.isClient) {
             world.breakBlock(blockPos, true, projectile);
         }
 

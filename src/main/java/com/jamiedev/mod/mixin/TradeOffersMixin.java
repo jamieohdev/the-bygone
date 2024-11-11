@@ -2,24 +2,17 @@ package com.jamiedev.mod.mixin;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.jamiedev.mod.common.JamiesMod;
-import com.jamiedev.mod.common.init.JamiesModTag;
+import com.jamiedev.mod.fabric.init.JamiesModTag;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.map.MapDecorationTypes;
-import net.minecraft.registry.tag.EnchantmentTags;
 import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.util.Util;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
-import net.minecraft.village.VillagerType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 
 import java.util.Map;
 

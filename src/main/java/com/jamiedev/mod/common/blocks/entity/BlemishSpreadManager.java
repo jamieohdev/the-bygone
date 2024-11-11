@@ -4,7 +4,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.jamiedev.mod.common.blocks.BlemishVeinBlock;
-import com.jamiedev.mod.common.init.JamiesModTag;
+import com.jamiedev.mod.fabric.init.JamiesModTag;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;

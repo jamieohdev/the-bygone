@@ -3,7 +3,7 @@ package com.jamiedev.mod.common.entities.ai;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.jamiedev.mod.common.entities.GlareEntity;
-import com.jamiedev.mod.common.init.JamiesModEntityTypes;
+import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.ai.brain.*;

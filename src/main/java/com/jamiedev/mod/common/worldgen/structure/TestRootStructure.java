@@ -1,5 +1,5 @@
 package com.jamiedev.mod.common.worldgen.structure;
-import com.jamiedev.mod.common.init.JamiesModStructures;
+import com.jamiedev.mod.fabric.init.JamiesModStructures;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

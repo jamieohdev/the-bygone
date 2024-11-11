@@ -2,7 +2,7 @@ package com.jamiedev.mod.common.client.network;
 
 
 import com.jamiedev.mod.common.entities.projectile.HookEntity;
-import com.jamiedev.mod.common.init.JamiesModEntityTypes;
+import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;

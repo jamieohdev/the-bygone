@@ -1,10 +1,10 @@
 package com.jamiedev.mod.common.entities;
 
-import com.jamiedev.mod.common.JamiesMod;
-import com.jamiedev.mod.common.init.JamiesModBlocks;
-import com.jamiedev.mod.common.init.JamiesModEntityTypes;
-import com.jamiedev.mod.common.init.JamiesModSoundEvents;
-import com.jamiedev.mod.common.init.JamiesModTag;
+import com.jamiedev.mod.fabric.JamiesModFabric;
+import com.jamiedev.mod.fabric.init.JamiesModBlocks;
+import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
+import com.jamiedev.mod.fabric.init.JamiesModSoundEvents;
+import com.jamiedev.mod.fabric.init.JamiesModTag;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -343,7 +343,7 @@ public class BigBeakEntity  extends AbstractHorseEntity
         Item var3 = stack.getItem();
         boolean var10000;
         if (var3 instanceof AnimalArmorItem animalArmorItem) {
-            if (animalArmorItem.getType() == JamiesMod.BIG_BEAK_ARMOR) {
+            if (animalArmorItem.getType() == JamiesModFabric.BIG_BEAK_ARMOR) {
                 var10000 = true;
                 return var10000;
             }

@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.client.mixin;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.client.JamiesModClient;
 import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.sound.SoundEvent;
@@ -33,7 +33,7 @@ public class DimensionEffectsSkyTypeMixin
 
     @Unique
     private static DimensionEffects.SkyType BYGONE_SKY = bygone$addVariant("bygone_sky", id ->
-            JamiesMod.getModId( "textures/environment/" + id.getPath()), SoundEvents.ENTITY_ITEM_BREAK);
+            JamiesModFabric.getModId( "textures/environment/" + id.getPath()), SoundEvents.ENTITY_ITEM_BREAK);
 
     @Invoker("<init>")
     public static DimensionEffects.SkyType bygone$invokeInit(String name, int index, final Function<Identifier, Identifier> textureIdFunction, final SoundEvent breakSound) {

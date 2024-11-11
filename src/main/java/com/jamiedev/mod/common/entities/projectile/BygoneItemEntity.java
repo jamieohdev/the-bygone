@@ -1,23 +1,18 @@
 package com.jamiedev.mod.common.entities.projectile;
 
 import com.google.common.collect.Lists;
-import com.jamiedev.mod.common.init.JamiesModEntityTypes;
-import com.jamiedev.mod.common.init.JamiesModItems;
+import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
+import com.jamiedev.mod.fabric.init.JamiesModItems;
 import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;

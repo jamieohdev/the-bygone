@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.blocks.entity;
 
-import com.jamiedev.mod.common.init.JamiesModBlockEntities;
+import com.jamiedev.mod.fabric.init.JamiesModBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.Clearable;

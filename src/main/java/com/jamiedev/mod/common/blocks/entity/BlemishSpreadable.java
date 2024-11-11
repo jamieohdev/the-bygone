@@ -1,7 +1,7 @@
 package com.jamiedev.mod.common.blocks.entity;
 
 import com.jamiedev.mod.common.blocks.BlemishVeinBlock;
-import com.jamiedev.mod.common.init.JamiesModBlocks;
+import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MultifaceGrowthBlock;
 import net.minecraft.fluid.Fluids;

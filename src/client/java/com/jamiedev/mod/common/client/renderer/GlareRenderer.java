@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.client.renderer;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.client.JamiesModModelLayers;
 import com.jamiedev.mod.common.client.models.GlareModel;
 import com.jamiedev.mod.common.entities.GlareEntity;
@@ -10,7 +10,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class GlareRenderer  extends MobEntityRenderer<GlareEntity, GlareModel<GlareEntity>> {
-    private static final Identifier TEXTURE = JamiesMod.getModId("textures/entity/glare.png");
+    private static final Identifier TEXTURE = JamiesModFabric.getModId("textures/entity/glare.png");
 
     public GlareRenderer(EntityRendererFactory.Context context) {
         super(context, new GlareModel(context.getPart(JamiesModModelLayers.GLARE)), 0.5F);

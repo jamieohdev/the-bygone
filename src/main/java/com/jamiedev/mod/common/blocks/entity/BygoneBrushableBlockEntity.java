@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.blocks.entity;
 
-import com.jamiedev.mod.common.init.JamiesModBlockEntities;
+import com.jamiedev.mod.fabric.init.JamiesModBlockEntities;
 import com.mojang.logging.LogUtils;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.advancement.criterion.Criteria;

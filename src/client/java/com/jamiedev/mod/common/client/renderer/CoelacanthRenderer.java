@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.client.renderer;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.client.JamiesModModelLayers;
 import com.jamiedev.mod.common.client.models.CoelacanthModel;
 import com.jamiedev.mod.common.entities.CoelacanthEntity;
@@ -13,7 +13,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 
 public class CoelacanthRenderer extends MobEntityRenderer<CoelacanthEntity, CoelacanthModel<CoelacanthEntity>> {
-    private static final Identifier TEXTURE = JamiesMod.getModId("textures/entity/coelacanth.png");
+    private static final Identifier TEXTURE = JamiesModFabric.getModId("textures/entity/coelacanth.png");
 SalmonEntityRenderer ref;
     public CoelacanthRenderer(EntityRendererFactory.Context context) {
         super(context, new CoelacanthModel(context.getPart(JamiesModModelLayers.COELACANTH)), 0.6F);

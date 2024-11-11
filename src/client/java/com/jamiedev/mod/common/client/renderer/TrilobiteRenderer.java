@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.client.renderer;
 
-import com.jamiedev.mod.common.JamiesMod;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.client.JamiesModModelLayers;
 import com.jamiedev.mod.common.client.models.TrilobiteModel;
 import com.jamiedev.mod.common.entities.TrilobiteEntity;
@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
 public class TrilobiteRenderer extends MobEntityRenderer<TrilobiteEntity, TrilobiteModel<TrilobiteEntity>> {
-    private static final Identifier TEXTURE = JamiesMod.getModId("textures/entity/trilobite.png");
+    private static final Identifier TEXTURE = JamiesModFabric.getModId("textures/entity/trilobite.png");
 GlowSquidEntityRenderer ref;
     public TrilobiteRenderer(EntityRendererFactory.Context context) {
         super(context, new TrilobiteModel(context.getPart(JamiesModModelLayers.TRILOBITE)), 0.3F);

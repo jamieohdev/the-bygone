@@ -1,7 +1,7 @@
 package com.jamiedev.mod.common.worldgen.structure;
 
-import com.jamiedev.mod.common.JamiesMod;
-import com.jamiedev.mod.common.init.JamiesModStructures;
+import com.jamiedev.mod.fabric.JamiesModFabric;
+import com.jamiedev.mod.fabric.init.JamiesModStructures;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.structure.*;
 import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
@@ -20,10 +20,10 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 public class AncientRootGenerator
 {
-    private static final Identifier[] FOSSILS = new Identifier[]{Identifier.of(JamiesMod.MOD_ID, "ancient_roots_1"),
-            Identifier.of(JamiesMod.MOD_ID, "ancient_roots_2"), Identifier.of(JamiesMod.MOD_ID,"ancient_roots_3"),
-            Identifier.of(JamiesMod.MOD_ID,"ancient_roots_4"), Identifier.of(JamiesMod.MOD_ID,"ancient_roots_5"),
-            Identifier.of(JamiesMod.MOD_ID,"ancient_roots_6")};
+    private static final Identifier[] FOSSILS = new Identifier[]{Identifier.of(JamiesModFabric.MOD_ID, "ancient_roots_1"),
+            Identifier.of(JamiesModFabric.MOD_ID, "ancient_roots_2"), Identifier.of(JamiesModFabric.MOD_ID,"ancient_roots_3"),
+            Identifier.of(JamiesModFabric.MOD_ID,"ancient_roots_4"), Identifier.of(JamiesModFabric.MOD_ID,"ancient_roots_5"),
+            Identifier.of(JamiesModFabric.MOD_ID,"ancient_roots_6")};
 
     public AncientRootGenerator() {
     }
