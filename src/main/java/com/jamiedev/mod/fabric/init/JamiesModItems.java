@@ -1,5 +1,6 @@
 package com.jamiedev.mod.fabric.init;
 
+import com.jamiedev.mod.common.items.ArcaneCoreItem;
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.items.ExoticArrowItem;
 import com.jamiedev.mod.common.items.HookItem;
@@ -75,6 +76,9 @@ public class JamiesModItems
     public static final Item SCUTTLE_SPAWN_EGG = registerItem("scuttle_spawn_egg", (Item)(new SpawnEggItem(JamiesModEntityTypes.SCUTTLE, 2574194, 15380531, new Item.Settings())));
     public static final Item TRILOBITE_SPAWN_EGG = registerItem("trilobite_spawn_egg", (Item)(new SpawnEggItem(JamiesModEntityTypes.TRILOBITE, 2309206, 1352874, new Item.Settings())));
 
+    public static final Item ARCANE_CORE = registerItem("arcane_core",((BlockItem)(new ArcaneCoreItem(JamiesModBlocks.ARCANE_CORE,
+            new Item.Settings()))));
+
     public static void addItemsToItemGroup() {
 
        // addToItemGroup(JamiesModItemGroup.JAMIES_MOD, JAMIES_ITEM);
@@ -98,6 +102,7 @@ public class JamiesModItems
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, COELACANTH_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, SCUTTLE_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, TRILOBITE_SPAWN_EGG);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, ARCANE_CORE);
     }
 
 

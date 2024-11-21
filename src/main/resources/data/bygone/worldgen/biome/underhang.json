@@ -76,7 +76,8 @@
       "minecraft:patch_tall_grass_2",
       "bygone:patch_grass_underhang",
       "bygone:patch_tall_grass",
-      "bygone:underhang_vegetation"
+      "bygone:underhang_vegetation",
+      "bygone:patch_whirliweed"
     ],
     [
       "minecraft:brown_mushroom_normal",

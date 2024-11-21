@@ -61,6 +61,8 @@ public class GlareEntity extends AnimalEntity implements Flutterer
     private static final TrackedData<Integer> GLARE_SIZE;
 
     public static final int MAX_SIZE = 127;
+    public final AnimationState idleAnimationState = new AnimationState();
+    private int idleAnimationTimeout = 0;
     private Vec2f targetEyesPositionOffset;
 
     public GlarePathHolder glarePathHolder = new GlarePathHolder();
@@ -80,7 +82,7 @@ public class GlareEntity extends AnimalEntity implements Flutterer
     }
 
     @Override
-    protected Brain.Profile<GlareEntity> createBrainProfile() {
+    protected Brain.Profile createBrainProfile() {
         return Brain.createProfile(MEMORY_MODULES, SENSORS);
     }
     @Override
@@ -352,6 +354,15 @@ public class GlareEntity extends AnimalEntity implements Flutterer
         return true;
     }
 
+    private void setupAnimationStates() {
+        if (this.idleAnimationTimeout <= 0) {
+            this.idleAnimationTimeout = this.random.nextInt(100) + 100;
+            this.idleAnimationState.start(this.age);
+        } else {
+            --this.idleAnimationTimeout;
+        }
+
+    }
 
     static {
         GLARE_SIZE = DataTracker.registerData(GlareEntity.class, TrackedDataHandlerRegistry.INTEGER);

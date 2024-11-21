@@ -5,6 +5,7 @@ import com.jamiedev.mod.fabric.init.JamiesModTag;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.EnderEyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -27,6 +28,7 @@ public class BygoneItem extends Item
         super(settings);
     }
 
+EnderEyeItem ref;
 
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
         return 0;

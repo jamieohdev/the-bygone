@@ -15,7 +15,26 @@ public class JamiesModPortals {
                 .tintColor(0, 1, 0)
                 .setPortalSearchYRange(0, 120)
                 .flatPortal()
-                .lightWithItem(JamiesModItems.HOOK)
+                .lightWithItem(JamiesModItems.ARCANE_CORE)
+                .registerIgniteEvent((player, world, portalPos, framePos, portalIgnitionSource) -> {
+                    if (portalIgnitionSource.sourceType == PortalIgnitionSource.SourceType.USEITEM && player != null) {
+                        if (player.isCreative())
+                            return;
+                        ItemStack heldItem = player.getMainHandStack().getItem() == JamiesModItems.HOOK ?
+                                player.getMainHandStack() : player.getOffHandStack();
+
+                        heldItem.damage(1 , player, player.getPreferredEquipmentSlot(player.getActiveItem()));
+                    }
+                })
+                .registerPortal();
+        CustomPortalBuilder.beginPortal()
+                .frameBlock(JamiesModBlocks.BYGONE_PORTAL_FRAME_PLACEABLE)
+                .customPortalBlock(JamiesModBlocks.BYGONE_PORTAL)
+                .destDimID(JamiesModFabric.getModId("bygone"))
+                .tintColor(0, 1, 0)
+                .setPortalSearchYRange(0, 120)
+                .flatPortal()
+                .lightWithItem(JamiesModItems.ARCANE_CORE)
                 .registerIgniteEvent((player, world, portalPos, framePos, portalIgnitionSource) -> {
                     if (portalIgnitionSource.sourceType == PortalIgnitionSource.SourceType.USEITEM && player != null) {
                         if (player.isCreative())

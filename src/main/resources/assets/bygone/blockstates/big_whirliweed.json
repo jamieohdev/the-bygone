@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "bygone:block/big_whirliweed_bottom"
+    },
+    "half=upper": {
+      "model": "bygone:block/big_whirliweed_top"
+    }
+  }
+}

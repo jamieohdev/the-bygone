@@ -82,15 +82,15 @@ public class MoobooEntity extends CowEntity
     }
 
     protected SoundEvent getAmbientSound() {
-        return JamiesModSoundEvents.MOOBOO_AMBIENT_ADDITIONS_EVENT;
+        return SoundEvents.ENTITY_COW_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return JamiesModSoundEvents.MOOBOO_HURT_ADDITIONS_EVENT;
+        return SoundEvents.ENTITY_COW_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return JamiesModSoundEvents.MOOBOO_DEATH_ADDITIONS_EVENT;
+        return SoundEvents.ENTITY_COW_DEATH;
     }
 
 }

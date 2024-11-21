@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "bygone:block/big_whirliweed_bottom"
+  }
+}

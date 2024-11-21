@@ -38,7 +38,13 @@ public class JamiesModBlocks {
     public static final CustomPortalBlock BYGONE_PORTAL = (CustomPortalBlock) registerBlockWithoutBlockItem("bygone_portal",
             new BygonePortalBlock(AbstractBlock.Settings.copy(Blocks.NETHER_PORTAL).luminance((state) -> 6).dropsNothing().noCollision().strength(-1.0f,3600000.0f)), JamiesModItemGroup.JAMIES_MOD );
     public static final Block BYGONE_PORTAL_FRAME = registerBlock("bygone_portal_frame",
+            new BygonePortalFrameBlock(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1000000.8F)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block BYGONE_PORTAL_FRAME_BLOCK = registerBlock("bygone_portal_frame_block",
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1000000.8F)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block BYGONE_PORTAL_FRAME_PLACEABLE = registerBlock("bygone_portal_frame_placeable",
+            new BygonePortalFramePlaceableBlock(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1000000.8F)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final  Block ARCANE_CORE = registerBlockWithoutBlockItem("arcane_core", new ArcaneCoreBlock(AbstractBlock.Settings.create().mapColor(MapColor.CYAN).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 3.0F)), JamiesModItemGroup.JAMIES_MOD);
 
     public static final Block BYGONESTONE_IRON_ORE = registerBlock("bystone_iron_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
             AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 3.0F)), JamiesModItemGroup.JAMIES_MOD);
@@ -140,6 +146,10 @@ public class JamiesModBlocks {
             .sounds(BlockSoundGroup.BAMBOO).luminance((state) -> {
                 return 15;
             })), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block BIG_WHIRLIWEED = registerBlock("big_whirliweed", new TallFlowerBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).burnable().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block WHIRLIWEED = registerBlock("whirliweed", new FlowerBlock(StatusEffects.POISON, 12.0F,AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+
 
     public static final Block CLAYSTONE = registerBlock("claystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block COARSE_CLAYSTONE = registerBlock("coarse_claystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
