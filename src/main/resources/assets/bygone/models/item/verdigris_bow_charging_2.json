@@ -1,0 +1,6 @@
+{
+    "parent": "bygone:item/verdigris_bow",
+    "textures": {
+        "layer0": "bygone:item/verdigris_bow_charging_2"
+    }
+}

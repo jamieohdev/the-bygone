@@ -1,4 +1,4 @@
-package com.jamiedev.mod.common.client.mixin;
+package com.jamiedev.mod.mixin.client;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.client.JamiesModClient;

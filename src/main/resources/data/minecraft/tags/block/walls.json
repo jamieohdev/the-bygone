@@ -1,7 +1,8 @@
 {
   "replace": false,
   "values": [
-
+    "bygone:malachite_tile_wall",
+    "bygone:malachite_wall",
     "bygone:cobbled_byslate_wall",
     "bygone:cobbled_bystone_wall"
   ]

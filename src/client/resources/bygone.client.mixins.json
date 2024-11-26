@@ -3,10 +3,15 @@
 	"package": "com.jamiedev.mod.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-      "DownloadingTerrainScreenMixin",
-      "ExampleClientMixin"
-    ],
+		"DownloadingTerrainScreenMixin",
+		"ExampleClientMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
-	}
+	},
+	"mixins": [
+		"BipedEntityModelMixin",
+		"MixinHeldItemRenderer",
+		"MixinPlayerEntityRenderer"
+	]
 }

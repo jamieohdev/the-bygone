@@ -40,24 +40,26 @@ public class GlareModel<T extends GlareEntity> extends SinglePartEntityModel<T> 
 		ModelData meshdefinition = new ModelData();
 		ModelPartData ModelPartData = meshdefinition.getRoot();
 
-		ModelPartData root = ModelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData root = ModelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
 
-		ModelPartData Head = root.addChild("Head", ModelPartBuilder.create().uv(0, 27).cuboid(-6.0F, 1.0F, -6.0F, 12.0F, 10.0F, 12.0F, new Dilation(0.0F))
-		.uv(0, 0).cuboid(-7.0F, 0.0F, -7.0F, 14.0F, 13.0F, 14.0F, new Dilation(0.0F))
-		.uv(0, 80).mirrored().cuboid(-7.0F, -2.0F, -7.0F, 14.0F, 2.0F, 14.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(0.0F, 12.0F, 0.0F));
+		ModelPartData Head = root.addChild("Head", ModelPartBuilder.create().uv(0, 27).cuboid(-6.0F, -11.0F, -6.0F, 12.0F, 10.0F, 12.0F, new Dilation(0.0F))
+		.uv(0, 0).cuboid(-7.0F, -13.0F, -7.0F, 14.0F, 13.0F, 14.0F, new Dilation(0.0F))
+		.uv(0, 80).mirrored().cuboid(-7.0F, 0.0F, -7.0F, 14.0F, 2.0F, 14.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(0.0F, -12.0F, 0.0F));
 
-		ModelPartData Face = Head.addChild("Face", ModelPartBuilder.create(), ModelTransform.pivot(5.0F, 1.0F, -5.0F));
+		ModelPartData Face = Head.addChild("Face", ModelPartBuilder.create(), ModelTransform.pivot(5.0F, -1.0F, -5.0F));
 
-		ModelPartData neutral = Face.addChild("neutral", ModelPartBuilder.create().uv(104, 0).cuboid(-11.0F, 0.0F, -1.0F, 12.0F, 10.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData neutral = Face.addChild("neutral", ModelPartBuilder.create().uv(104, 0).cuboid(-11.0F, -10.0F, -1.0F, 12.0F, 10.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-		ModelPartData tired = Face.addChild("tired", ModelPartBuilder.create().uv(104, 10).cuboid(-11.0F, 0.0F, -1.0F, 12.0F, 10.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData tired = Face.addChild("tired", ModelPartBuilder.create().uv(104, 10).cuboid(-11.0F, -10.0F, -1.0F, 12.0F, 10.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-		ModelPartData closed = Face.addChild("closed", ModelPartBuilder.create().uv(104, 20).cuboid(-11.0F, 0.0F, -1.0F, 12.0F, 10.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData closed = Face.addChild("closed", ModelPartBuilder.create().uv(104, 20).cuboid(-11.0F, -10.0F, -1.0F, 12.0F, 10.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-		ModelPartData angry = Face.addChild("angry", ModelPartBuilder.create().uv(104, 30).cuboid(-11.0F, 0.0F, -1.0F, 12.0F, 10.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData angry = Face.addChild("angry", ModelPartBuilder.create().uv(104, 30).cuboid(-11.0F, -10.0F, -1.0F, 12.0F, 10.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-		ModelPartData Body = root.addChild("Body", ModelPartBuilder.create().uv(0, 49).mirrored().cuboid(-4.5F, -6.0F, -4.5F, 9.0F, 6.0F, 9.0F, new Dilation(0.0F)).mirrored(false)
-				.uv(0, 64).mirrored().cuboid(-4.5F, -7.0F, -4.5F, 9.0F, 7.0F, 9.0F, new Dilation(0.25F)).mirrored(false), ModelTransform.pivot(0.0F, 12.0F, 0.0F));
+		ModelPartData body = root.addChild("Body", ModelPartBuilder.create()
+				.uv(0, 49).mirrored().cuboid(-4.5F, 0.0F, -4.5F, 9.0F, 6.0F, 9.0F, new Dilation(0.0F)).mirrored(false)
+				.uv(0, 64).mirrored().cuboid(-4.5F, 0.0F, -4.5F, 9.0F, 7.0F, 9.0F, new Dilation(0.25F)).mirrored(false),
+					ModelTransform.pivot(0.0F, -12.0F, 0.0F));
 
 		return TexturedModelData.of(meshdefinition, 128, 128);
 	}

@@ -4,6 +4,7 @@ import com.jamiedev.mod.fabric.JamiesModFabric;
 import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -67,4 +68,6 @@ public class JamiesModArmorMaterials
                 new ArmorMaterial(enumMap, enchantability, equipSound, repairIngredient, layers, toughness, knockbackResistance)
         );
     }
+
+
 }

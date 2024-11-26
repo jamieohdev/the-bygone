@@ -4,8 +4,10 @@ import com.jamiedev.mod.common.blocks.BygonePortalFrameBlock;
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemUsageContext;
@@ -33,7 +35,7 @@ public class ArcaneCoreItem extends BlockItem
                 world.setBlockState(blockPos, blockState2, 2);
                 world.updateComparators(blockPos, JamiesModBlocks.BYGONE_PORTAL_FRAME);
                 context.getStack().decrement(1);
-                world.syncWorldEvent(1503, blockPos, 0);
+                world.syncWorldEvent(2503, blockPos, 0);
                 BlockPattern.Result result = BygonePortalFrameBlock.getCompletedFramePattern().searchAround(world, blockPos);
                 if (result != null) {
                     BlockPos blockPos2 = result.getFrontTopLeft().add(-3, 0, -3);
@@ -60,4 +62,12 @@ public class ArcaneCoreItem extends BlockItem
         }
         return ActionResult.FAIL;
     }
+
+    @Override
+    protected boolean canPlace(ItemPlacementContext context, BlockState state) {
+        PlayerEntity playerEntity = context.getPlayer();
+        ShapeContext shapeContext = playerEntity == null ? ShapeContext.absent() : ShapeContext.of(playerEntity);
+        return (!this.checkStatePlacement() || state.canPlaceAt(context.getWorld(), context.getBlockPos())) && context.getWorld().canPlace(state, context.getBlockPos(), shapeContext) && !state.isOf(JamiesModBlocks.BYGONE_PORTAL_FRAME);
+    }
+
 }

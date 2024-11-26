@@ -17,9 +17,10 @@ TODO: END OF LIST
 ## **It is highly recommended that you purge the /dimensions/bygone folder in your Save file with this update!!**
 
 **New features:**
-
+Added Whirliweeds and Large Whirliweeds, new decorative plants that can be found in the Underhang!
 
 **Changes to existing Features:**
+Glares have a new model and idle animations!
 Glow Gourds can now be broken by -any- projectile!
 Coarse Claystone is now craftable with Claystone and Gravel!
 Cobbled Byslate/Bystone can be smelted to normal Byslate/Bystone!
@@ -31,6 +32,10 @@ Mossy Claystone now needs Silk Touch in order to be dropped!
 Fixed Big Beaks having 1HP - They now have a range of 2-5 Health!
 Fixed Bygone ambience not having a subtitle!
 Fixed Glow Gourd Vine/Gourds hitboxes being small!
+Fixed Malachite Walls and Malachite Tile Walls not being usable!
+
+
+
 
 # **Updates in 0.0.7b**
 

@@ -1,5 +1,6 @@
 package com.jamiedev.mod.common.client;
 
+import com.jamiedev.mod.common.items.VerdigrisBladeItem;
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.blocks.JamiesModWoodType;
 import com.jamiedev.mod.common.client.particles.AmberDustParticle;
@@ -25,17 +26,37 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ShieldItem;
+import net.minecraft.item.SwordItem;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
-
+import net.minecraft.component.DataComponentTypes;
+import java.util.Objects;
 public class JamiesModClient implements ClientModInitializer {
     public static Identifier BYGONE = JamiesModFabric.getModId("bygone");
     public  static DimensionEffects.SkyType BYGONE_SKY;
 
+    public static boolean isWeaponBlocking(LivingEntity entity) {
+        return entity.isUsingItem() && (canWeaponBlock(entity) || isBlockingOnViaVersion(entity));
+    }
+
+    public static boolean canWeaponBlock(LivingEntity entity) {
+        //if ((entity.getOffHandStack().getItem() instanceof ShieldItem || entity.getMainHandStack().getItem() instanceof ShieldItem)) {
+            Item weaponItem = entity.getOffHandStack().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandStack().getItem() : entity.getOffHandStack().getItem();
+            return weaponItem instanceof VerdigrisBladeItem;
+        //}
+       // return false;
+    }
+    public static boolean isBlockingOnViaVersion(LivingEntity entity) {
+        Item item = entity.getMainHandStack().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandStack().getItem() : entity.getOffHandStack().getItem();
+        return item instanceof VerdigrisBladeItem && item.getComponents() != null && item.getComponents().contains(DataComponentTypes.FOOD) && Objects.requireNonNull(item.getComponents().get(DataComponentTypes.FOOD)).eatSeconds() == 3600;
+    }
     @Override
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.AMBER, RenderLayer.getTranslucent());
@@ -44,6 +65,7 @@ public class JamiesModClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_LEAVES, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_ROOTS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_VINE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CHARNIA, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_BEIGE, RenderLayer.getCutout());

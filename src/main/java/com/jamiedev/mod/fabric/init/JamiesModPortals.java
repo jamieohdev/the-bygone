@@ -35,6 +35,7 @@ public class JamiesModPortals {
                 .setPortalSearchYRange(0, 120)
                 .flatPortal()
                 .lightWithItem(JamiesModItems.ARCANE_CORE)
+                .onlyLightInOverworld()
                 .registerIgniteEvent((player, world, portalPos, framePos, portalIgnitionSource) -> {
                     if (portalIgnitionSource.sourceType == PortalIgnitionSource.SourceType.USEITEM && player != null) {
                         if (player.isCreative())
