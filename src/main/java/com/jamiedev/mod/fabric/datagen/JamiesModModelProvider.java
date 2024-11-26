@@ -2,10 +2,12 @@ package com.jamiedev.mod.fabric.datagen;
 
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import com.jamiedev.mod.common.util.DatagenUtils;
+import com.jamiedev.mod.fabric.init.JamiesModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.data.client.Models;
 import net.minecraft.data.family.BlockFamilies;
 
 public class JamiesModModelProvider  extends FabricModelProvider {
@@ -36,6 +38,7 @@ public class JamiesModModelProvider  extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-
+        itemModelGenerator.register(JamiesModItems.VERDIGRIS_SWORD, Models.HANDHELD);
+        itemModelGenerator.register(JamiesModItems.VERDIGRIS_BOW, Models.GENERATED);
     }
 }
