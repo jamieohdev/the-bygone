@@ -39,6 +39,5 @@ public class JamiesModModelProvider  extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(JamiesModItems.VERDIGRIS_BLADE, Models.HANDHELD);
-        itemModelGenerator.register(JamiesModItems.VERDIGRIS_BOW, Models.GENERATED);
     }
 }

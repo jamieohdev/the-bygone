@@ -1,9 +1,7 @@
 package com.jamiedev.mod.fabric.init;
 
-import com.jamiedev.mod.common.items.ArcaneCoreItem;
+import com.jamiedev.mod.common.items.*;
 import com.jamiedev.mod.fabric.JamiesModFabric;
-import com.jamiedev.mod.common.items.ExoticArrowItem;
-import com.jamiedev.mod.common.items.HookItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.type.FoodComponents;
 import net.minecraft.item.*;
@@ -22,8 +20,8 @@ public class JamiesModItems
 
    // public static final Item JAMIES_ITEM = registerItem("jamies_item", new Item(new Item.Settings().fireproof()));
 
-    public static final Item VERDIGRIS_BLADE = registerItem("verdigris_blade", new SwordItem(ToolMaterials.DIAMOND, new Item.Settings().maxCount(1)));
-    public static final Item VERDIGRIS_BOW = registerItem("verdigris_bow", new BowItem(new Item.Settings().maxCount(1)));
+    public static final Item VERDIGRIS_BLADE = registerItem("verdigris_blade", new VerdigrisBladeItem(ToolMaterials.DIAMOND, new Item.Settings().maxCount(1)));
+    public static final Item VERDIGRIS_BOW = registerItem("verdigris_bow", new VerdigrisBowItem(new Item.Settings().maxCount(1)));
 
     public static final Item HOOK = registerItem("hook", new HookItem(new Item.Settings().maxCount(1).maxDamage(100)));
 
