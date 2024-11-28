@@ -34,7 +34,6 @@ public class VerdigrisBowItem extends BowItem {
     public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
         super.usageTick(world, user, stack, remainingUseTicks);
         arrowShootLogic(user, stack, world);
-        JamiesModFabric.LOGGER.info("Usage tick");
     }
 
     public void arrowShootLogic(Entity user, ItemStack stack, World world) {
