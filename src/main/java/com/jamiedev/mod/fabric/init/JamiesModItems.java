@@ -81,9 +81,7 @@ public class JamiesModItems
     public static final Item ARCANE_CORE = registerItem("arcane_core",((BlockItem)(new ArcaneCoreItem(JamiesModBlocks.ARCANE_CORE,
             new Item.Settings()))));
 
-    public static final Item VERDIGRIS_BLADE = registerItem("verdigris_blade", (Item)(new VerdigrisBladeItem(JamiesModToolMaterials.VERDIGRIS, (new Item.Settings()).attributeModifiers(SwordItem.createAttributeModifiers(JamiesModToolMaterials.VERDIGRIS, 3, -0.5F)))));
-    public static final Item VERDIGRIS_BOW = registerItem("verdigris_bow", (Item)(new VerdigrisBowItem((new Item.Settings()).maxDamage(384))));
-    public static final Item VERDIGRIS = registerItem("verdigris", new Item(new Item.Settings().fireproof()));
+   public static final Item VERDIGRIS = registerItem("verdigris", new Item(new Item.Settings().fireproof()));
     public static void addItemsToItemGroup() {
 
        // addToItemGroup(JamiesModItemGroup.JAMIES_MOD, JAMIES_ITEM);
