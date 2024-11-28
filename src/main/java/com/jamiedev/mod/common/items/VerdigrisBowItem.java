@@ -1,7 +1,5 @@
 package com.jamiedev.mod.common.items;
 
-import com.jamiedev.mod.fabric.JamiesModFabric;
-import com.jamiedev.mod.fabric.init.JamiesModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,8 +9,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 import java.util.List;
