@@ -7,6 +7,7 @@
     "CowEntityMixin",
     "ExampleMixin",
     "HangingSignBlockEntityMixin",
+    "LivingEntityMixin",
     "PlayerMixin",
     "SpawnRestrictMixin",
     "TradeOffersMixin"

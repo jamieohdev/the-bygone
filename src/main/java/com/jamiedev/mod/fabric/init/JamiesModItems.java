@@ -20,9 +20,6 @@ public class JamiesModItems
 
    // public static final Item JAMIES_ITEM = registerItem("jamies_item", new Item(new Item.Settings().fireproof()));
 
-    public static final Item VERDIGRIS_BLADE = registerItem("verdigris_blade", new VerdigrisBladeItem(ToolMaterials.DIAMOND, new Item.Settings().maxCount(1)));
-    public static final Item VERDIGRIS_BOW = registerItem("verdigris_bow", new VerdigrisBowItem(new Item.Settings().maxCount(1)));
-
     public static final Item HOOK = registerItem("hook", new HookItem(new Item.Settings().maxCount(1).maxDamage(100)));
 
     public static final Item ANCIENT_SIGN = registerItem("ancient_sign",
