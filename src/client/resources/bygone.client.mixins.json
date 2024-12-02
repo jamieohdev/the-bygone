@@ -1,17 +1,18 @@
 {
-	"required": true,
-	"package": "com.jamiedev.mod.mixin.client",
-	"compatibilityLevel": "JAVA_21",
-	"client": [
-		"DownloadingTerrainScreenMixin",
-		"ExampleClientMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"mixins": [
-		"BipedEntityModelMixin",
-		"MixinHeldItemRenderer",
-		"MixinPlayerEntityRenderer"
+  "required": true,
+  "package": "com.jamiedev.mod.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "DownloadingTerrainScreenMixin",
+    "ExampleClientMixin",
+    "MixinItemRenderer"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "BipedEntityModelMixin",
+    "MixinHeldItemRenderer",
+    "MixinPlayerEntityRenderer"
 	]
 }

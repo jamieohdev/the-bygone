@@ -12,6 +12,8 @@ import com.jamiedev.mod.fabric.init.*;
 import com.jamiedev.mod.common.network.SyncPlayerHookS2C;
 import com.jamiedev.mod.common.client.network.SyncPlayerHookPacketHandler;
 import com.jamiedev.mod.common.util.PlayerWithHook;
+import io.github.amerebagatelle.fabricskyboxes.api.FabricSkyBoxesApi;
+import io.github.amerebagatelle.fabricskyboxes.mixin.skybox.WorldRendererAccess;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -19,13 +21,16 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.particle.SoulParticle;
+import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -37,21 +42,23 @@ import net.minecraft.util.Identifier;
 import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.component.DataComponentTypes;
+import org.joml.Matrix4f;
+
 import java.util.Objects;
 public class JamiesModClient implements ClientModInitializer {
     public static Identifier BYGONE = JamiesModFabric.getModId("bygone");
     public  static DimensionEffects.SkyType BYGONE_SKY;
 
     public static boolean isWeaponBlocking(LivingEntity entity) {
-        return entity.isUsingItem() && (canWeaponBlock(entity) || isBlockingOnViaVersion(entity));
+        return entity.isUsingItem() && (canWeaponBlock(entity));
     }
 
     public static boolean canWeaponBlock(LivingEntity entity) {
-        //if ((entity.getOffHandStack().getItem() instanceof ShieldItem || entity.getMainHandStack().getItem() instanceof ShieldItem)) {
+        if ((entity.getMainHandStack().getItem() instanceof VerdigrisBladeItem)) {
             Item weaponItem = entity.getOffHandStack().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandStack().getItem() : entity.getOffHandStack().getItem();
             return weaponItem instanceof VerdigrisBladeItem;
-        //}
-       // return false;
+        }
+       return false;
     }
     public static boolean isBlockingOnViaVersion(LivingEntity entity) {
         Item item = entity.getMainHandStack().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandStack().getItem() : entity.getOffHandStack().getItem();
@@ -110,6 +117,7 @@ public class JamiesModClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL_WALL_FAN, RenderLayer.getCutout());
 
 
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.POINTED_AMBER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CREOSOTE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CREOSOTE_SPROUTS, RenderLayer.getCutout());
 
@@ -169,6 +177,8 @@ public class JamiesModClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(JamiesModBlockEntities.MOD_HANGING_SIGN_BLOCK_ENTITY, HangingSignBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(JamiesModBlockEntities.BRUSHABLE_BLOCK, BygoneBrushableBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(JamiesModBlockEntities.CASTER, CasterBlockEntityRenderer::new);
+
+
     }
     public static void registerModelPredicateProviders() {
         ModelPredicateProviderRegistry.register(JamiesModItems.HOOK, JamiesModFabric.getModId("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
