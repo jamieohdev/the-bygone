@@ -177,18 +177,24 @@ public class JamiesModClient implements ClientModInitializer {
                 {
                     ItemStack heldStack = livingEntity.getStackInHand(value);
 
-                    if (heldStack == itemStack && (((PlayerWithHook)livingEntity).bygone$getHook()  != null && !((PlayerWithHook)livingEntity).bygone$getHook().isRemoved()))
+                    if (heldStack == itemStack && (((PlayerWithHook)livingEntity).bygone$getHook() != null && !((PlayerWithHook)livingEntity).bygone$getHook().isRemoved()))
                     {
                         return 1;
                     }
                 }
             }
-            if (livingEntity == null)
-            {
-                return 0.0F;
-            }
+
+            if (livingEntity == null) return 0.0F;
             return 0;
         });
+
+        ModelPredicateProviderRegistry.register(JamiesModItems.VERDIGRIS_BLADE, JamiesModFabric.getModId("blocking"),
+                (itemStack, clientWorld, livingEntity, seed) -> {
+                    if (livingEntity == null) return 0;
+                    if (livingEntity instanceof PlayerEntity && livingEntity.isBlocking()) return 1;
+                    return 0;
+                }
+        );
     }
 
 
