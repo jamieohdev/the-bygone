@@ -105,6 +105,8 @@ public class JamiesModItems
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, SCUTTLE_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, TRILOBITE_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, ARCANE_CORE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, VERDIGRIS_BLADE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, VERDIGRIS_BOW);
     }
 
 
