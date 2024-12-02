@@ -16,11 +16,8 @@ TODO: END OF LIST
 **New features:**
 Added Whirliweeds and Large Whirliweeds, new decorative plants that can be found in the Underhang!
 Added the Verdigris Bow, a unique Bow that instant shoots arrows! It has low durability, and can not be enchanted.
-(ALMOST DONE) Added the Verdigris Blade, a unique Sword that can block most damage, and has no cooldown! It has low durability, and can not be enchanted.
 Added Pointed Amber.
 
-EXPERIMENTAL:
-Added a sky texture to the Bygone! But we have also removed the fog. Please provide feedback on this change to the discord!
 
 **Changes to existing Features:**
 Glares have a new model and idle animations!
@@ -31,13 +28,14 @@ Ancient Leaves, Roots, and Vines are now compostable!
 The Ancient woodset can now be used as fuel!
 Mossy Claystone now needs Silk Touch in order to be dropped!
 
+
 **Bugs fixed:**
 Fixed Big Beaks having 1HP - They now have a range of 2-5 Health!
 Fixed Bygone ambience not having a subtitle!
 Fixed Glow Gourd Vine/Gourds hitboxes being small!
 Fixed Malachite Walls and Malachite Tile Walls not being usable!
 Fixed Mooboos not having a Display name!
-
+Fixed a critcial bug involving Villager Trades being wiped!
 
 
 # **Updates in 0.0.7b**

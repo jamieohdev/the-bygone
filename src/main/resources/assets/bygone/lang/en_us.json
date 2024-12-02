@@ -39,6 +39,11 @@
   "item.bygone.mooboo_spawn_egg": "Mooboo Spawn Egg",
   "item.bygone.scuttle_spawn_egg": "Scuttle Spawn Egg",
   "item.bygone.trilobite_spawn_egg": "Trilobite Spawn Egg",
+  "item.bygone.arcane_core": "Arcane Core",
+  "item.bygone.verdigris": "Verdigris",
+  "item.bygone.verdigris_blade": "Verdigris Blade",
+  "item.bygone.verdigris_bow": "Verdigris Bow",
+
 
   "itemgroup.bygone": "The Bygone",
 
@@ -68,6 +73,8 @@
   "block.bygone.alpha_moss_carpet": "Alpha Moss Carpet",
   "block.bygone.alpha_mossy_claystone": "Alpha Mossy Claystone",
 
+  "block.bygone.big_whirliweed": "Big Whirliweed",
+  "block.bygone.whirliweed": "Whirliweed",
   "block.bygone.gourd_vine": "Gourd Vines",
   "block.bygone.glow_gourd_beige": "Beige Glow Gourd",
   "block.bygone.glow_gourd_muave": "Muave Glow Gourd",

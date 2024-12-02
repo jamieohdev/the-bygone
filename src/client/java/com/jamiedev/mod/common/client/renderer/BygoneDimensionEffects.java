@@ -46,7 +46,7 @@ public class BygoneDimensionEffects extends DimensionEffects
         //
        // }
 
-        return false;
+        return true;
     }
 
     public static boolean fogThicknessAdjustments(
