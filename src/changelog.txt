@@ -6,11 +6,8 @@ Arcane Core
 Finish Blemish content
 Caster polish
 Glare animations/sounds/functions
-Additional plants in the Amber Desert
-THE SKY
 WEATHER RENDERING
 <Maybe> a new mob by Bewtwixer
-A new tool by Betwixer
 A new subbiome! (Underhang variant?)
 TODO: END OF LIST
 
@@ -18,6 +15,9 @@ TODO: END OF LIST
 
 **New features:**
 Added Whirliweeds and Large Whirliweeds, new decorative plants that can be found in the Underhang!
+Added the Verdigris Bow, a unique Bow that instant shoots arrows! It has low durability, and can not be enchanted.
+Added Pointed Amber.
+
 
 **Changes to existing Features:**
 Glares have a new model and idle animations!
@@ -28,13 +28,14 @@ Ancient Leaves, Roots, and Vines are now compostable!
 The Ancient woodset can now be used as fuel!
 Mossy Claystone now needs Silk Touch in order to be dropped!
 
+
 **Bugs fixed:**
 Fixed Big Beaks having 1HP - They now have a range of 2-5 Health!
 Fixed Bygone ambience not having a subtitle!
 Fixed Glow Gourd Vine/Gourds hitboxes being small!
 Fixed Malachite Walls and Malachite Tile Walls not being usable!
-
-
+Fixed Mooboos not having a Display name!
+Fixed a critcial bug involving Villager Trades being wiped!
 
 
 # **Updates in 0.0.7b**

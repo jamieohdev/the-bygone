@@ -10,10 +10,13 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+
+import javax.imageio.spi.RegisterableService;
 
 public class JamiesModEntityTypes {
 
@@ -121,6 +124,14 @@ public class JamiesModEntityTypes {
                     .dimensions(EntityDimensions.fixed(0.25F, 0.25F))
                     .trackRangeChunks(4)
                     .trackedUpdateRate(4)
+                    .build());
+
+    public static final  EntityType<RisingBlockEntity> RISING_BLOCK = Registry.register(Registries.ENTITY_TYPE,
+            JamiesModFabric.getModId("rising_block"),
+            FabricEntityTypeBuilder.<RisingBlockEntity>create(SpawnGroup.MISC, RisingBlockEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.98F, 0.98F))
+                    .trackRangeChunks(10)
+                    .trackedUpdateRate(20)
                     .build());
 
 

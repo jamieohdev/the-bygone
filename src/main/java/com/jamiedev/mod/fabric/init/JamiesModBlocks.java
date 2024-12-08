@@ -413,6 +413,9 @@ public class JamiesModBlocks {
                     3.0F).luminance((state) -> {
                 return 8;
             })), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block POINTED_AMBER = registerBlock("pointed_amber", new PointedAmberBlock(AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_BROWN).solid().instrument(NoteBlockInstrument.BASEDRUM).nonOpaque().sounds(BlockSoundGroup.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never)), JamiesModItemGroup.JAMIES_MOD);
+
     public static final Block CREOSOTE = registerBlock("creosote", new CreosoteBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).replaceable()
             .noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).burnable().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block CREOSOTE_SPROUTS = registerBlock("creosote_sprouts", new CreosoteSproutsBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).replaceable()

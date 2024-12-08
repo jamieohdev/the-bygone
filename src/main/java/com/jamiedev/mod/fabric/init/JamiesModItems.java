@@ -20,6 +20,9 @@ public class JamiesModItems
 
    // public static final Item JAMIES_ITEM = registerItem("jamies_item", new Item(new Item.Settings().fireproof()));
 
+    public static final Item VERDIGRIS_BLADE = registerItem("verdigris_blade", new VerdigrisBladeItem(JamiesModToolMaterials.VERDIGRIS, new Item.Settings().maxCount(1).attributeModifiers(HoeItem.createAttributeModifiers(ToolMaterials.IRON, -2.0F, 3.0F))));
+    public static final Item VERDIGRIS_BOW = registerItem("verdigris_bow", new VerdigrisBowItem(new Item.Settings().maxDamage(100).maxCount(1)));
+  
     public static final Item HOOK = registerItem("hook", new HookItem(new Item.Settings().maxCount(1).maxDamage(100)));
 
     public static final Item ANCIENT_SIGN = registerItem("ancient_sign",
@@ -71,16 +74,13 @@ public class JamiesModItems
     public static final Item DIAMOND_BIG_BEAK_ARMOR = registerItem("diamond_beak_armor", (Item)(new AnimalArmorItem(ArmorMaterials.DIAMOND, JamiesModFabric.BIG_BEAK_ARMOR, false, (new Item.Settings()).maxCount(1))));
     public static final Item BIG_BEAK_SPAWN_EGG = registerItem("big_beak_spawn_egg", (Item)(new SpawnEggItem(JamiesModEntityTypes.BIG_BEAK, 8767242, 16756224, new Item.Settings())));
     public static final Item COELACANTH_SPAWN_EGG = registerItem("coelacanth_spawn_egg", (Item)(new SpawnEggItem(JamiesModEntityTypes.COELACANTH, 2517624, 2327369, new Item.Settings())));
-    //public static final Item MOOBOO_SPAWN_EGG = registerItem("mooboo_spawn_egg", (Item)(new SpawnEggItem(JamiesModEntityTypes.MOOBOO, 6022120, 11716552, new Item.Settings())));
+    public static final Item MOOBOO_SPAWN_EGG = registerItem("mooboo_spawn_egg", (Item)(new SpawnEggItem(JamiesModEntityTypes.MOOBOO, 6022120, 11716552, new Item.Settings())));
     public static final Item SCUTTLE_SPAWN_EGG = registerItem("scuttle_spawn_egg", (Item)(new SpawnEggItem(JamiesModEntityTypes.SCUTTLE, 2574194, 15380531, new Item.Settings())));
     public static final Item TRILOBITE_SPAWN_EGG = registerItem("trilobite_spawn_egg", (Item)(new SpawnEggItem(JamiesModEntityTypes.TRILOBITE, 2309206, 1352874, new Item.Settings())));
 
-    public static final Item ARCANE_CORE = registerItem("arcane_core",((BlockItem)(new ArcaneCoreItem(JamiesModBlocks.ARCANE_CORE,
-            new Item.Settings()))));
+    public static final Item ARCANE_CORE = registerItem("arcane_core", new Item(new Item.Settings().fireproof()));//((BlockItem)(new ArcaneCoreItem(JamiesModBlocks.ARCANE_CORE, new Item.Settings()))));
 
-    public static final Item VERDIGRIS_BLADE = registerItem("verdigris_blade", (Item)(new VerdigrisBladeItem(JamiesModToolMaterials.VERDIGRIS, (new Item.Settings()).attributeModifiers(SwordItem.createAttributeModifiers(JamiesModToolMaterials.VERDIGRIS, 3, -0.5F)))));
-    public static final Item VERDIGRIS_BOW = registerItem("verdigris_bow", (Item)(new VerdigrisBowItem((new Item.Settings()).maxDamage(384))));
-    public static final Item VERDIGRIS = registerItem("verdigris", new Item(new Item.Settings().fireproof()));
+   public static final Item VERDIGRIS = registerItem("verdigris", new Item(new Item.Settings().fireproof()));
     public static void addItemsToItemGroup() {
 
        // addToItemGroup(JamiesModItemGroup.JAMIES_MOD, JAMIES_ITEM);
@@ -102,6 +102,7 @@ public class JamiesModItems
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, GOURD_SOUP);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, BIG_BEAK_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, COELACANTH_SPAWN_EGG);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, MOOBOO_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, SCUTTLE_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, TRILOBITE_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, ARCANE_CORE);

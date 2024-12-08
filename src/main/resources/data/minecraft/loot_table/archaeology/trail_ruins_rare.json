@@ -55,6 +55,10 @@
         {
           "type": "minecraft:item",
           "name": "bygone:hook"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:arcane_core"
         }
       ],
       "rolls": 1.0

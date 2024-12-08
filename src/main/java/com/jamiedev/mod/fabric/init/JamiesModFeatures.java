@@ -22,6 +22,8 @@ public class JamiesModFeatures
     public static final Feature<SingleStateFeatureConfig> AMBER = register("amber", new AmberFeature(SingleStateFeatureConfig.CODEC));
     public static  final Feature<DefaultFeatureConfig> AMBER_UNDER = register("amber_under", new AmberUnderFeature(DefaultFeatureConfig.CODEC));
 
+    public static final Feature<PointedAmberFeatureConfig> POINTED_AMBER = register("pointed_amber", new PointedAmberFeature(PointedAmberFeatureConfig.CODEC));
+    public static final Feature<PointedAmberClusterFeatureConfig> AMBER_CLUSTER  = register("amber_cluster", new PointedAmberClusterFeature(PointedAmberClusterFeatureConfig.CODEC));
     public static  final Feature<DefaultFeatureConfig> PRIMORDIAL_CORAL_CLAW = register("primordial_coral_claw", new PrimordialCoralClawFeature(DefaultFeatureConfig.CODEC));
     public static  final Feature<DefaultFeatureConfig> PRIMORDIAL_CORAL_MUSHROOM = register("primordial_coral_mushroom", new PrimordialCoralMushroomFeature(DefaultFeatureConfig.CODEC));
     public static  final Feature<DefaultFeatureConfig> PRIMORDIAL_CORAL_TREE = register("primordial_coral_tree", new PrimordialCoralTreeFeature(DefaultFeatureConfig.CODEC));
@@ -42,10 +44,13 @@ public class JamiesModFeatures
         Registry.register(Registries.FEATURE, JamiesModFabric.getModId("small_cloud"), SMALL_CLOUD);
         Registry.register(Registries.FEATURE, JamiesModFabric.getModId("amber"), AMBER);
         Registry.register(Registries.FEATURE, JamiesModFabric.getModId("amber_under"), AMBER_UNDER);
+        Registry.register(Registries.FEATURE, JamiesModFabric.getModId("pointed_amber"), POINTED_AMBER);
+        Registry.register(Registries.FEATURE, JamiesModFabric.getModId("amber_cluster"), AMBER_CLUSTER);
 
         Registry.register(Registries.FEATURE, JamiesModFabric.getModId("primordial_coral_claw"), PRIMORDIAL_CORAL_CLAW);
         Registry.register(Registries.FEATURE, JamiesModFabric.getModId("primordial_coral_mushroom"), PRIMORDIAL_CORAL_MUSHROOM);
         Registry.register(Registries.FEATURE, JamiesModFabric.getModId("primordial_coral_tree"), PRIMORDIAL_CORAL_TREE);
+
 
 
     }
