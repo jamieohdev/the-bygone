@@ -3,13 +3,16 @@ package com.jamiedev.mod.mixin;
 import com.jamiedev.mod.common.entities.projectile.HookEntity;
 import com.jamiedev.mod.common.network.SyncPlayerHookS2C;
 import com.jamiedev.mod.common.util.PlayerWithHook;
+import com.jamiedev.mod.fabric.JamiesModFabric;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
@@ -17,8 +20,11 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -97,5 +103,22 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
         }
     }
 
+    @Inject(method = "damage", at = @At("TAIL"), cancellable = true)
+    public void jamies_mod$damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        boolean bl = cir.getReturnValue();
+
+        if (amount > 0.0f && this.blockedByShield(source)) {
+            Entity entity;
+            if (!source.isIn(DamageTypeTags.IS_PROJECTILE) && (entity = source.getSource()) instanceof LivingEntity) {
+                LivingEntity livingEntity = (LivingEntity)entity;
+                this.takeShieldHit(livingEntity);
+            }
+            bl = true;
+
+            this.applyDamage(source, amount * 0.5f);
+        }
+
+        cir.setReturnValue(bl);
+    }
 
 }

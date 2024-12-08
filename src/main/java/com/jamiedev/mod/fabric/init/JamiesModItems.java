@@ -22,7 +22,7 @@ public class JamiesModItems
 
     public static final Item VERDIGRIS_BLADE = registerItem("verdigris_blade", new VerdigrisBladeItem(JamiesModToolMaterials.VERDIGRIS, new Item.Settings().maxCount(1).attributeModifiers(HoeItem.createAttributeModifiers(ToolMaterials.IRON, -2.0F, 3.0F))));
     public static final Item VERDIGRIS_BOW = registerItem("verdigris_bow", new VerdigrisBowItem(new Item.Settings().maxDamage(100).maxCount(1)));
-
+  
     public static final Item HOOK = registerItem("hook", new HookItem(new Item.Settings().maxCount(1).maxDamage(100)));
 
     public static final Item ANCIENT_SIGN = registerItem("ancient_sign",
@@ -106,6 +106,8 @@ public class JamiesModItems
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, SCUTTLE_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, TRILOBITE_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, ARCANE_CORE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, VERDIGRIS_BLADE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, VERDIGRIS_BOW);
     }
 
 

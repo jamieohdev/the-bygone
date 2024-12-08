@@ -2,5 +2,19 @@
   "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "bygone:item/verdigris_blade"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "bygone:blocking": 0
+      },
+      "model": "bygone:item/verdigris_blade"
+    },
+    {
+      "predicate": {
+        "bygone:blocking": 1
+      },
+      "model": "bygone:item/verdigris_blade_blocking"
+    }
+  ]
 }

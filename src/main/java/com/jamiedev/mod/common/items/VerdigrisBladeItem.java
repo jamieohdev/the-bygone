@@ -1,5 +1,7 @@
 package com.jamiedev.mod.common.items;
 
+import com.jamiedev.mod.fabric.JamiesModFabric;
+import com.jamiedev.mod.fabric.init.JamiesModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
@@ -51,22 +53,24 @@ public class VerdigrisBladeItem extends ToolItem
         stack.damage(1, attacker, EquipmentSlot.MAINHAND);
     }
 
+    public boolean canRepair(ItemStack stack, ItemStack ingredient) {
+        return false;
+    }
+
+    @Override
+    public int getMaxUseTime(ItemStack stack, LivingEntity user) {
+        return 10000;
+    }
+
+    @Override
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.BLOCK;
     }
 
-    public int getMaxUseTime(ItemStack stack, LivingEntity user) {
-        return 72000;
-    }
-
+    @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);
         return TypedActionResult.consume(itemStack);
     }
-
-    public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-        return false;
-    }
-
 }

@@ -4,9 +4,11 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AnimalArmorItemTypeMixin",
+    "BowMixin",
     "CowEntityMixin",
     "ExampleMixin",
     "HangingSignBlockEntityMixin",
+    "LivingEntityMixin",
     "PlayerMixin",
     "SpawnRestrictMixin"
   ],
