@@ -45,6 +45,7 @@ public class JamiesModFabric implements ModInitializer {
 		JamiesModSoundEvents.init();
 		JamiesModMisc.init();
 		JamiesModCriteria.init();
+		JamiesModTradeOffers.init();
 
 //		JamiesModPaintings.bootstrap((Registerable<PaintingVariant>) RegistryKeys.PAINTING_VARIANT);
 

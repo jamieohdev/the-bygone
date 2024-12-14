@@ -10,8 +10,7 @@
     "HangingSignBlockEntityMixin",
     "LivingEntityMixin",
     "PlayerMixin",
-    "SpawnRestrictMixin",
-    "TradeOffersMixin"
+    "SpawnRestrictMixin"
   ],
   "injectors": {
     "defaultRequire": 1
