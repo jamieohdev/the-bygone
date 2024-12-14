@@ -1,6 +1,7 @@
 package com.jamiedev.mod.mixin;
 
 import com.jamiedev.mod.common.entities.projectile.HookEntity;
+import com.jamiedev.mod.common.items.VerdigrisBladeItem;
 import com.jamiedev.mod.common.network.SyncPlayerHookS2C;
 import com.jamiedev.mod.common.util.PlayerWithHook;
 import com.jamiedev.mod.fabric.JamiesModFabric;
@@ -105,6 +106,8 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
 
     @Inject(method = "damage", at = @At("TAIL"), cancellable = true)
     public void jamies_mod$damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if (!(((PlayerEntity)(Object)this).getActiveItem().getItem() instanceof VerdigrisBladeItem)) return;
+
         boolean bl = cir.getReturnValue();
 
         if (amount > 0.0f && this.blockedByShield(source)) {
