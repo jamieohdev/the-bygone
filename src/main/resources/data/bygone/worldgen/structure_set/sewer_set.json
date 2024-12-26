@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "bygone:sewer",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "separation": 10,
+    "spacing": 24,
+    "salt": 1337
+  }
+}

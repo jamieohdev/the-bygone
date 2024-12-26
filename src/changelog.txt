@@ -1,3 +1,106 @@
+# **Updates in 1.0.0a**
+
+
+## **Welcome to the new (SemVer-approved) naming scheme for future Bygone updates! We've been working as much as we can, but Hannukkahs
+approaching so things will slow down before the New Year! This will be the *final* update of 2024, barring no critical bugs popping up!
+See you all in 2025, where even bigger and exciting things await the BYGONE...**
+
+
+**New features:**
+
+# Sewers
+
+> Sewers are a new structure in the Bygone that allows players to travel through the Byslate ceiling with ease
+
+* Sewers are found commonly in the Byslate ceiling of the Bygone (Around Y=200) in all biomes!
+
+* Sewers have "rooms" that can generate at the end of a pipe with unique loot!
+
+
+*Known issues**
+
+> The Sewers entrances can sometimes generate -through- Byslate instead of in the air!
+
+
+# Copperbug
+
+> A new neutral mob that can sometimes be found in the Sewers!
+
+> Right now they'll try and eat some Copper oxidization and stick together.
+
+> More features are coming SOON to the Copperbug!
+
+
+# Copperbug Spawn Egg
+
+> A spawn egg for the Copperbug
+
+
+# Verdirgris
+
+> A Item that can only be found in the Sewers, and Bygone Mineshafts
+
+> Only used (right now) to repair the Verdigris Blade and Verdigris Bow!
+
+
+# Verdigris Blade
+
+> A item that can only be found in the Sewers
+
+> Can block (most) damage by right-clicking! You can swing it faster than every other weapon in the game as well.
+
+> Is not enchantable and has a very low durability! Can be repaired with Verdirgris.
+
+
+
+**Changes to existing Features:**
+
+Mossy Claystone can now -spread- to normal Claystone blocks
+
+Changed Underhangs water color to match the biome more!
+
+Tweaked Big Beak Armor loot to be in the Sewers instead of Bygone Mineshafts!
+
+
+
+**Bugs fixed:**
+
+Fixed Mossy Claystone converting to Dirt when a block is above it!
+
+Fixed "Jamies Block" existing and showing up in the Creative Tab
+
+Fixed multiple names not existing for Blocks
+
+
+**Known Bugs (that WILL be fixed in 2025)**:
+
+Pointed Amber. The entire block.
+
+Blemish Blocks/Ruins.
+
+
+
+**COMING IN 2025:**
+
+
+(FINALLY) FINISHED PORTAL MECHANICS
+
+REVAMPED BLEMISH CONTENT.
+
+REVAMPED CASTER CONTENT.
+
+CUSTOM WEATHER.
+
+MORE BIOMES.
+
+MORE EQUIPMENT AND TOOLS/WEAPONS.
+
+MORE MOBS.
+
+MORE STRUCTURES.
+
+& BYGONE WILL ENTER THE BETA PHASE!! (WITH A MAJOR FOCUS ON MULTIPLAYER + QOL CHANGES)
+
 # **Updates in 0.0.7c/0.0.8a**
 
 TODO: Additional Features

@@ -136,6 +136,9 @@ public class JamiesModClient implements ClientModInitializer {
         EntityRendererRegistry.register(JamiesModEntityTypes.SCUTTLE, ScuttleRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.SCUTTLE, ScuttleModel::getTexturedModelData);
 
+        EntityRendererRegistry.register(JamiesModEntityTypes.COPPERBUG, CopperbugRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.COPPERBUG, CopperbugModel::getTexturedModelData);
+
         EntityRendererRegistry.register(JamiesModEntityTypes.HOOK, HookRenderer::new);
         EntityRendererRegistry.register(JamiesModEntityTypes.EXOTIC_ARROW, ExoticArrowRenderer::new);
 

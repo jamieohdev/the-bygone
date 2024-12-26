@@ -14,6 +14,7 @@ import static com.jamiedev.mod.fabric.init.JamiesModBlocks.*;
 
 public class JamiesModBlockEntities <T extends BlockEntity>
 {
+    public static BlockEntityType<CopperbugNestBlockEntity> COPPERBUGNEST;
     BlockEntityType ref;
     public static BlockEntityType<BygonePortalBlockEntity> BYGONE_PORTAL;
     public static BlockEntityType<PrimordialVentEntity> PRIMORDIAL_VENT;
@@ -41,6 +42,9 @@ public class JamiesModBlockEntities <T extends BlockEntity>
                         .build());
         CASTER = register("caster",
                 BlockEntityType.Builder.create(CasterBlockEntity::new, JamiesModBlocks.CASTER)
+                        .build());
+        COPPERBUGNEST = register("copperbug_nest",
+                BlockEntityType.Builder.create(CopperbugNestBlockEntity::new, JamiesModBlocks.COPPERBUG_NEST)
                         .build());
         PRIMORDIAL_VENT = register("primordial_vent",
                 BlockEntityType.Builder.create(PrimordialVentEntity::new, JamiesModBlocks.PRIMORDIAL_VENT)

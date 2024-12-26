@@ -54,7 +54,7 @@ public class VerdigrisBladeItem extends ToolItem
     }
 
     public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-        return false;
+        return ingredient.isOf(JamiesModItems.VERDIGRIS);
     }
 
     @Override

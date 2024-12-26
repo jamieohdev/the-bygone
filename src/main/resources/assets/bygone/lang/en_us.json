@@ -36,6 +36,7 @@
   "item.bygone.diamond_beak_armor": "Diamond Big Beak Armor",
   "item.bygone.big_beak_spawn_egg": "Big Beak Spawn Egg",
   "item.bygone.coelacanth_spawn_egg": "Coelacanth Spawn Egg",
+  "item.bygone.copperbug_spawn_egg": "Copperbug Spawn Egg",
   "item.bygone.mooboo_spawn_egg": "Mooboo Spawn Egg",
   "item.bygone.scuttle_spawn_egg": "Scuttle Spawn Egg",
   "item.bygone.trilobite_spawn_egg": "Trilobite Spawn Egg",
@@ -48,6 +49,8 @@
   "itemgroup.bygone": "The Bygone",
 
   "block.bygone.bygone_portal_frame": "Bygone Portal Frame",
+  "block.bygone.bygone_portal_frame_block": "Bygone Portal Frame",
+  "block.bygone.bygone_portal_frame_placeable": "Bygone Portal Frame",
 
   "block.bygone.bystone": "Bystone",
   "block.bygone.byslate": "Byslate",
@@ -170,10 +173,12 @@
   "block.bygone.cobbled_amber": "Cobbled Amber",
   "block.bygone.creosote": "Creosote",
   "block.bygone.creosote_sprouts": "Creosote Sprouts",
+  "block.bygone.pointed_amber": "Pointed Amber (WIP!!)",
 
   "entity.bygone.ammonite": "Ammonite",
   "entity.bygone.big_beak": "Big Beak",
   "entity.bygone.coelacanth": "Coelacanth",
+  "entity.bygone.copperbug": "Copperbug (WIP!!)",
   "entity.bygone.glare": "Glare (WIP)",
   "entity.bygone.mooboo": "Mooboo",
   "entity.bygone.trilobite": "Trilobite",

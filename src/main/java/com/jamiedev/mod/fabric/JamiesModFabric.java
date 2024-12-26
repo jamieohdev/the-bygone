@@ -29,6 +29,8 @@ public class JamiesModFabric implements ModInitializer {
 		SpawnRestriction.register(GLARE, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, GlareEntity::canSpawn);
 		SpawnRestriction.register(BIG_BEAK, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, BigBeakEntity::canSpawn);
 		SpawnRestriction.register(TRILOBITE, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TrilobiteEntity::canSpawn);
+		//SpawnRestriction.register(COPPERBUG, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, CopperbugEntity::canSpawn);
+		SpawnRestriction.register(COPPERBUG, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CopperbugEntity::canSpawn);
 
 		SpawnRestrictMixin.callRegister(COELACANTH, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CoelacanthEntity::canSpawn);
 		JamiesModBlocks.init();
@@ -47,8 +49,6 @@ public class JamiesModFabric implements ModInitializer {
 		JamiesModCriteria.init();
 		JamiesModTradeOffers.init();
 
-//		JamiesModPaintings.bootstrap((Registerable<PaintingVariant>) RegistryKeys.PAINTING_VARIANT);
-
 		JamiesModFabric.LOGGER.info("Registering Entities for " + JamiesModFabric.MOD_ID);
 
 		PayloadTypeRegistry.playS2C().register(SyncPlayerHookS2C.PACkET_ID, SyncPlayerHookS2C.CODEC);
@@ -61,14 +61,3 @@ public class JamiesModFabric implements ModInitializer {
 	}
 
 }
-
-/**
- *
- *
- *
- * JAMIES MOD v7i643
- *
- * dimension
- *
- *
- */

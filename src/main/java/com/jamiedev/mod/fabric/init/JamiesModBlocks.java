@@ -26,7 +26,9 @@ import static net.minecraft.block.Blocks.DIRT;
 
 public class JamiesModBlocks {
 
-   public static BlockItem createBlockItem(String blockID, Block block){
+
+
+    public static BlockItem createBlockItem(String blockID, Block block){
         return Registry.register(Registries.ITEM, JamiesModFabric.getModId(blockID), new BlockItem(block, new Item.Settings().fireproof()));
     }
 
@@ -37,11 +39,11 @@ public class JamiesModBlocks {
     Blocks blocks; // using this as a reference
     public static final CustomPortalBlock BYGONE_PORTAL = (CustomPortalBlock) registerBlockWithoutBlockItem("bygone_portal",
             new BygonePortalBlock(AbstractBlock.Settings.copy(Blocks.NETHER_PORTAL).luminance((state) -> 6).dropsNothing().noCollision().strength(-1.0f,3600000.0f)), JamiesModItemGroup.JAMIES_MOD );
-    public static final Block BYGONE_PORTAL_FRAME = registerBlock("bygone_portal_frame",
+    public static final Block BYGONE_PORTAL_FRAME = registerBlockWithoutBlockItem("bygone_portal_frame",
             new BygonePortalFrameBlock(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1000000.8F)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block BYGONE_PORTAL_FRAME_BLOCK = registerBlock("bygone_portal_frame_block",
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1000000.8F)), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block BYGONE_PORTAL_FRAME_PLACEABLE = registerBlock("bygone_portal_frame_placeable",
+    public static final Block BYGONE_PORTAL_FRAME_PLACEABLE = registerBlockWithoutBlockItem("bygone_portal_frame_placeable",
             new BygonePortalFramePlaceableBlock(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1000000.8F)), JamiesModItemGroup.JAMIES_MOD);
 
     public static final  Block ARCANE_CORE = registerBlockWithoutBlockItem("arcane_core", new ArcaneCoreBlock(AbstractBlock.Settings.create().mapColor(MapColor.CYAN).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 3.0F)), JamiesModItemGroup.JAMIES_MOD);
@@ -60,10 +62,6 @@ public class JamiesModBlocks {
             AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 3.0F)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block BYGONESLATE_COPPER_ORE = registerBlock("byslate_copper_ore", new ExperienceDroppingBlock(ConstantIntProvider.create(0),
             AbstractBlock.Settings.copyShallow(BYGONESTONE_COPPER_ORE).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5F, 3.0F).sounds(BlockSoundGroup.DEEPSLATE)), JamiesModItemGroup.JAMIES_MOD);
-
-
-    public static final Block JAMIES_BLOCK = createBlockWithItem("jamies_block", new ExperienceDroppingBlock(UniformIntProvider.create(3, 7),
-            AbstractBlock.Settings.copy(Blocks.OBSIDIAN).strength(52.0F, 1200.0F).instrument(NoteBlockInstrument.BANJO).pistonBehavior(PistonBehavior.NORMAL)));
 
     public static final Block LIMBOSTONE = registerBlock("bystone",
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(0.8F)), JamiesModItemGroup.JAMIES_MOD);
@@ -97,13 +95,17 @@ public class JamiesModBlocks {
             new TranslucentBlock(AbstractBlock.Settings.create().mapColor(MapColor.OFF_WHITE).strength(0.001F).slipperiness(0.989F)
                     .sounds(BlockSoundGroup.WOOL).nonOpaque().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never).blockVision(Blocks::never)), JamiesModItemGroup.JAMIES_MOD);
 
+    public static final Block COPPERBUG_NEST = registerBlockWithoutBlockItem("copperbug_nest",
+            new CopperbugNestBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(0.6F).sounds(BlockSoundGroup.WOOD)),
+            JamiesModItemGroup.JAMIES_MOD);
+
     // Start of the Ancient Forests unique Blocks
 
     public static  final  Block TALL_GRASS = registerBlockWithoutBlockItem("tall_grass", new UpsidedownTallPlantBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).replaceable().noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).burnable().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
     public static  final  Block SHORT_GRASS = registerBlock("short_grass", new UpsidedownShortPlantBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).replaceable().noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ).burnable().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
 
 
- public static  final  Block CAVE_VINES = registerBlockWithoutBlockItem("cave_vines", new AncientCaveVinesHeadBlock(AbstractBlock.Settings.create()
+    public static  final  Block CAVE_VINES = registerBlockWithoutBlockItem("cave_vines", new AncientCaveVinesHeadBlock(AbstractBlock.Settings.create()
             .mapColor(MapColor.DARK_GREEN).ticksRandomly().noCollision().luminance(CaveVines.getLuminanceSupplier(5)).breakInstantly()
             .sounds(BlockSoundGroup.CAVE_VINES).pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
     public static  final  Block CAVE_VINES_PLANT = registerBlockWithoutBlockItem("cave_vines_plant", new AncientCaveVinesBodyBlock(AbstractBlock.Settings.create()
@@ -153,8 +155,8 @@ public class JamiesModBlocks {
 
     public static final Block CLAYSTONE = registerBlock("claystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block COARSE_CLAYSTONE = registerBlock("coarse_claystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block MOSSY_CLAYSTONE = registerBlock((String)"mossy_claystone", new GrassBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block GRASSY_CLAYSTONE = registerBlockWithoutBlockItem((String)"grassy_claystone", new GrassBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block MOSSY_CLAYSTONE = registerBlock((String)"mossy_claystone", new MossyClaystoneBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block GRASSY_CLAYSTONE = registerBlockWithoutBlockItem((String)"grassy_claystone", new MossyClaystoneBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block ANCIENT_ROOTS = registerBlock("ancient_roots",
             new AncientRootBlock(AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).instrument(NoteBlockInstrument.BASS).strength(0.7F).sounds(BlockSoundGroup.MANGROVE_ROOTS).nonOpaque().suffocates(Blocks::never).blockVision(Blocks::never).nonOpaque().burnable()), JamiesModItemGroup.JAMIES_MOD);
 
@@ -459,6 +461,6 @@ public class JamiesModBlocks {
     public static void init()
     {
         JamiesModStrippableBlocks.registerStrippables();
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> entries.addAfter(Items.LILY_OF_THE_VALLEY, JAMIES_BLOCK));
+       // ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> entries.addAfter(Items.LILY_OF_THE_VALLEY, JAMIES_BLOCK));
     }
 }

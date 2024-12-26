@@ -25,6 +25,10 @@ public class JamiesModModelLayers {
             new EntityModelLayer(JamiesModFabric.getModId("scuttle_spike"), "main");
     public static final EntityModelLayer COELACANTH =
             new EntityModelLayer(JamiesModFabric.getModId("coelacanth"), "main");
+
+    public static final EntityModelLayer COPPERBUG =
+            new EntityModelLayer(JamiesModFabric.getModId("copperbug"), "main");
+
     public static final EntityModelLayer TRILOBITE =
             new EntityModelLayer(JamiesModFabric.getModId("trilobite"), "main");
     public static final EntityModelLayer GLARE =

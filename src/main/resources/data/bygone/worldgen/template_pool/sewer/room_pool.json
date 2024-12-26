@@ -1,0 +1,122 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/room/room_medium_industrial",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/room/room_medium_vault",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/room/room_small_ancient",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/room/room_small_chambered",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/room/room_small_copperbug",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/room/room_small_drop",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/room/room_small_mossy",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/room/room_small_spawner",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/room/room_small_reinforced",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/intersection/intersection_2_way_fixed",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 5
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/intersection/intersection_3_way_fixed",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 5
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/intersection/intersection_4_way_fixed",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 5
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/intersection/intersection_4_way_fixed",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 10
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

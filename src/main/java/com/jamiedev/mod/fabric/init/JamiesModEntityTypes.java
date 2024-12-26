@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.mob.SilverfishEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -134,6 +135,14 @@ public class JamiesModEntityTypes {
                     .trackedUpdateRate(20)
                     .build());
 
+    public static final  EntityType<CopperbugEntity> COPPERBUG = Registry.register(Registries.ENTITY_TYPE,
+            JamiesModFabric.getModId("copperbug"),
+            FabricEntityTypeBuilder.<CopperbugEntity>create(SpawnGroup.CREATURE, CopperbugEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.4F, 0.3F).withEyeHeight(0.13F)).trackRangeChunks(8)
+                    .trackedUpdateRate(8)
+                    .build());
+
+
 
     EntityType ref;
 
@@ -147,6 +156,7 @@ public class JamiesModEntityTypes {
         FabricDefaultAttributeRegistry.register(COELACANTH, CoelacanthEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(TRILOBITE, TrilobiteEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(MOOBOO, MoobooEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(COPPERBUG, CopperbugEntity.createCopperbugAttributes());
     }
 
     public static void postInit() {

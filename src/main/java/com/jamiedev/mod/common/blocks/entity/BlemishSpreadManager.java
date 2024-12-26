@@ -144,10 +144,10 @@ public class BlemishSpreadManager {
 
     public void tick(WorldAccess world, BlockPos pos, Random random, boolean shouldConvertToBlock) {
         if (!this.cursors.isEmpty()) {
-            List<BlemishSpreadManager.Cursor> list = new ArrayList();
-            Map<BlockPos, BlemishSpreadManager.Cursor> map = new HashMap();
-            Object2IntMap<BlockPos> object2IntMap = new Object2IntOpenHashMap();
-            Iterator var8 = this.cursors.iterator();
+            List<BlemishSpreadManager.Cursor> list = new ArrayList<>();
+            Map<BlockPos, BlemishSpreadManager.Cursor> map = new HashMap<>();
+            Object2IntMap<BlockPos> object2IntMap = new Object2IntOpenHashMap<>();
+            Iterator<Cursor> var8 = this.cursors.iterator();
 
             while(true) {
                 BlockPos blockPos;
@@ -198,7 +198,7 @@ public class BlemishSpreadManager {
     }
 
     public static class Cursor {
-        private static final ObjectArrayList<Vec3i> OFFSETS = (ObjectArrayList) Util.make(new ObjectArrayList(18), (list) -> {
+        private static final ObjectArrayList OFFSETS = (ObjectArrayList) Util.make(new ObjectArrayList(18), (list) -> {
             Stream var10000 = BlockPos.stream(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1)).filter((pos) -> {
                 return (pos.getX() == 0 || pos.getY() == 0 || pos.getZ() == 0) && !pos.equals(BlockPos.ORIGIN);
             }).map(BlockPos::toImmutable);
