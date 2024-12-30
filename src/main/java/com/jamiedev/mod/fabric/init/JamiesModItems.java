@@ -3,7 +3,11 @@ package com.jamiedev.mod.fabric.init;
 import com.jamiedev.mod.common.items.*;
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.block.Blocks;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.component.type.FoodComponents;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -15,6 +19,11 @@ public class JamiesModItems
     public static Item registerItem(String id, Item item){
         return Registry.register(Registries.ITEM, JamiesModFabric.getModId(id), item);
     }
+
+
+    public static FoodComponent AMARANTH_LOAF_COMP  = (new FoodComponent.Builder()).nutrition(0).saturationModifier(0F).statusEffect(new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1, 0), 1.0F).alwaysEdible().build();
+
+
 
     Items items;
 
@@ -83,7 +92,15 @@ public class JamiesModItems
 
     public static final Item ARCANE_CORE = registerItem("arcane_core", new Item(new Item.Settings().fireproof()));//((BlockItem)(new ArcaneCoreItem(JamiesModBlocks.ARCANE_CORE, new Item.Settings()))));
 
-   public static final Item VERDIGRIS = registerItem("verdigris", new Item(new Item.Settings().fireproof()));
+    public static final Item VERDIGRIS_SCRAP = registerItem("verdigris_scrap", new Item(new Item.Settings().fireproof()));
+    public static final Item VERDIGRIS_INGOT = registerItem("verdigris_ingot", new Item(new Item.Settings().fireproof()));
+
+    public static final Item AMARANTH_SEEDS = registerItem("amaranth_seeds", (Item)(new AliasedBlockItem(JamiesModBlocks.AMARANTH_CROP, new Item.Settings())));
+
+    public static final Item AMARANTH_GRAIN = registerItem("amaranth_grain", new Item(new Item.Settings().fireproof()));
+
+    public static final Item AMARANTH_LOAF = registerItem("amaranth_loaf", new Item(new Item.Settings().food(AMARANTH_LOAF_COMP)));
+
     public static void addItemsToItemGroup() {
 
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, ANCIENT_SIGN);
@@ -102,6 +119,9 @@ public class JamiesModItems
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, VERDANT_SLICE);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, GOURD_DANGO);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, GOURD_SOUP);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, AMARANTH_SEEDS);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, AMARANTH_GRAIN);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, AMARANTH_LOAF);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, BIG_BEAK_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, COELACANTH_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, COPPERBUG_SPAWN_EGG);
@@ -109,6 +129,8 @@ public class JamiesModItems
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, SCUTTLE_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, TRILOBITE_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, ARCANE_CORE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, VERDIGRIS_SCRAP);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, VERDIGRIS_INGOT);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, VERDIGRIS_BLADE);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, VERDIGRIS_BOW);
     }
@@ -139,4 +161,5 @@ public class JamiesModItems
 
         addItemsToItemGroup();
     }
+
 }

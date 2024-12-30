@@ -21,6 +21,15 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/room/room_medium_copperbug",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "bygone:sewer/room/room_small_ancient",
         "processors": "bygone:sewer",
         "projection": "rigid"

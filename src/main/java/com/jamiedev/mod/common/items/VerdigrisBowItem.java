@@ -53,6 +53,6 @@ public class VerdigrisBowItem extends BowItem {
     }
 
     public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-        return ingredient.isOf(JamiesModItems.VERDIGRIS);
+        return ingredient.isOf(JamiesModItems.VERDIGRIS_INGOT);
     }
 }

@@ -41,6 +41,9 @@ import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 public class PointedAmberBlock   extends Block implements LandingBlock2, Waterloggable {
+
+    PointedDripstoneBlock ref;
+
     public static final MapCodec<PointedAmberBlock> CODEC = createCodec(PointedAmberBlock::new);
     public static final DirectionProperty VERTICAL_DIRECTION;
     public static final EnumProperty<Thickness> THICKNESS;

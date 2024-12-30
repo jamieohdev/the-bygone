@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 public enum JamiesModToolMaterials implements ToolMaterial {
 
     VERDIGRIS(BlockTags.INCORRECT_FOR_IRON_TOOL, 250, 6.0F, 2.0F, 0, () -> {
-        return Ingredient.ofItems(new ItemConvertible[]{JamiesModItems.VERDIGRIS});
+        return Ingredient.ofItems(new ItemConvertible[]{JamiesModItems.VERDIGRIS_INGOT});
     });
 
     private final TagKey<Block> inverseTag;

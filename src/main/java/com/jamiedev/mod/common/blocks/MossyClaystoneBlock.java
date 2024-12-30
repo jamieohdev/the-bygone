@@ -24,6 +24,7 @@ import java.util.Optional;
 
 public class MossyClaystoneBlock  extends SpreadableBlock implements Fertilizable
 {
+    GrassBlock ref;
     public static final MapCodec<MossyClaystoneBlock> CODEC = createCodec(MossyClaystoneBlock::new);
 
     public MapCodec<MossyClaystoneBlock> getCodec() {
@@ -50,7 +51,7 @@ public class MossyClaystoneBlock  extends SpreadableBlock implements Fertilizabl
             return false;
         } else {
             int i = ChunkLightProvider.getRealisticOpacity(world, state, pos, blockState, blockPos, Direction.UP, blockState.getOpacity(world, blockPos));
-            return i < world.getMaxLightLevel();
+            return i < 1;
         }
     }
 
@@ -63,7 +64,7 @@ public class MossyClaystoneBlock  extends SpreadableBlock implements Fertilizabl
         if (!canSurvive(state, world, pos)) {
             world.setBlockState(pos, JamiesModBlocks.CLAYSTONE.getDefaultState());
         } else {
-            if (world.getLightLevel(pos.up()) >= 9) {
+            if (world.getLightLevel(pos.up()) >= 0) {
                 BlockState blockState = this.getDefaultState();
 
                 for(int i = 0; i < 4; ++i) {

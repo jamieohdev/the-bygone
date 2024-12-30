@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "bygone:block/amaranth_crop_stage5"
+  }
+}

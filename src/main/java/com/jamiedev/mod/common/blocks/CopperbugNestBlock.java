@@ -124,7 +124,7 @@ public class CopperbugNestBlock extends BlockWithEntity
     public static void dropItems(World world, BlockPos pos) {
         if (world.random.nextInt(10) == 1)
         {
-            dropStack(world, pos, new ItemStack(JamiesModItems.VERDIGRIS, 1));   
+            dropStack(world, pos, new ItemStack(JamiesModItems.VERDIGRIS_SCRAP, 1));
         }
         else
         {

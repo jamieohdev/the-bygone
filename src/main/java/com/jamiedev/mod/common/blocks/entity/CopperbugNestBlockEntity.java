@@ -21,6 +21,7 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -30,6 +31,7 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.EntityTypeTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.annotation.Debug;
@@ -293,7 +295,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
     protected void readComponents(BlockEntity.ComponentsAccess components) {
         super.readComponents(components);
         this.copperbugs.clear();
-        List<CopperbugNestBlockEntity.CopperbugData> list = (List)components.getOrDefault(JamiesModDataComponentTypes.COPPERBUGS, List.of());
+        List<CopperbugNestBlockEntity.CopperbugData> list = components.getOrDefault(JamiesModDataComponentTypes.COPPERBUGS, List.of());
         list.forEach(this::addCopperbug);
     }
 
@@ -331,8 +333,10 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         public static final PacketCodec<ByteBuf, CopperbugNestBlockEntity.CopperbugData> PACKET_CODEC;
 
         public CopperbugData(NbtComponent entityData, int ticksInNest, int minTicksInNest) {
+            nbt = entityData;
             this.entityData = entityData;
             this.ticksInNest = ticksInNest;
+            minTicksInNests = minTicksInNest;
             this.minTicksInNest = minTicksInNest;
         }
 

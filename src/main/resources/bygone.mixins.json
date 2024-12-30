@@ -6,7 +6,6 @@
     "AnimalArmorItemTypeMixin",
     "BowMixin",
     "CowEntityMixin",
-    "ExampleMixin",
     "HangingSignBlockEntityMixin",
     "LivingEntityMixin",
     "PlayerMixin",

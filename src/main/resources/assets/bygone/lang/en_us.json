@@ -24,6 +24,9 @@
   "item.bygone.scale_boots": "Scale Boots",
   "item.bygone.coelacanth": "Coelacanth",
   "item.bygone.cooked_coelacanth": "'Cooked' Coelacanth",
+  "item.bygone.amaranth_grain": "Amaranth Grain",
+  "item.bygone.amaranth_loaf": "Amaranth Loaf",
+  "item.bygone.amaranth_seeds": "Amaranth Seeds",
   "item.bygone.exotic_arrow": "Exotic Arrow",
   "item.bygone.exotic_plumage": "Exotic Plumage",
   "item.bygone.glow_chitin": "Glow Chitin",
@@ -41,11 +44,14 @@
   "item.bygone.scuttle_spawn_egg": "Scuttle Spawn Egg",
   "item.bygone.trilobite_spawn_egg": "Trilobite Spawn Egg",
   "item.bygone.arcane_core": "Arcane Core",
-  "item.bygone.verdigris": "Verdigris",
+  "item.bygone.verdigris_ingot": "Verdigris Ingot",
+  "item.bygone.verdigris_scrap": "Verdigris Scrap",
   "item.bygone.verdigris_blade": "Verdigris Blade",
   "item.bygone.verdigris_bow": "Verdigris Bow",
 
 
+
+  "itemgroup.test": "The Bygone",
   "itemgroup.bygone": "The Bygone",
 
   "block.bygone.bygone_portal_frame": "Bygone Portal Frame",
@@ -75,6 +81,9 @@
   "block.bygone.alpha_moss_block": "Alpha Moss Block",
   "block.bygone.alpha_moss_carpet": "Alpha Moss Carpet",
   "block.bygone.alpha_mossy_claystone": "Alpha Mossy Claystone",
+
+  "block.bygone.claystone_farmland": "Claystone Farmland",
+  "block.bygone.amaranth_crop": "Amaranth",
 
   "block.bygone.big_whirliweed": "Big Whirliweed",
   "block.bygone.whirliweed": "Whirliweed",
@@ -208,5 +217,6 @@
 
   "subtitles.ambient.underhang.additions": "",
   "subtitles.ambient.amber_desert.additions": "Ancient wind howls...",
-  "subtitles.ambient.primordial_ocean.additions": ""
+  "subtitles.ambient.primordial_ocean.additions": "",
+  "itemGroup.test": "The Bygone"
 }

@@ -1,3 +1,60 @@
+# **Updates in 1.1.0a / 1.0.1a **
+
+## The first update of the new year is here!! Blah blah blah...
+
+# New features:
+
+> Claystone Farmland
+* Till Claystone with any Hoe to get this new block! It thrives in the dark(Under light level 8).
+
+> Amaranth
+* A new crop that only grows in the dark (Under light level 8) on Claystone Farmland.
+It will not drop any seeds when broken!
+> Amaranth Seed
+* A new seed found only within the Bygone Mineshafts and some Blemished Ruins.
+> Amaranth Grain
+* A new item obtained from fully grown Amaranth.
+> Amaranth Loaf
+* A new food item that gives the player two hearts instead of saturation! Crafted with Amaranth Grain.
+
+> Verdigris Scrap
+* A rare resource found in loot chests in the Bygone Mineshafts and Sewers!
+
+> Verdigris Ingot
+* A new ingot that can obtained by smelting Verdigris Scraps!
+
+> Blemished Ruins
+* Added new iterations of the Ruins, with its own loot tables!
+* Removed the old iterations of the structure.
+
+> Sewers
+* Added a new room to the Sewers.
+
+
+
+
+# Changes to existing features:
+
+* Adjusted Bygone Mineshaft loot.
+
+* Changed Verdigris tools to be repaired with Verdigris Ingots instead of Verdigris Scraps.
+
+* Tilling Coarse Claystone will turn it into Claystone!
+
+# Bugs fixed:
+
+* Fixed Mossy Claystone not spreading naturally if light level was below 9.
+
+* Fixed Malachite Pillars not being available in the Stonecutter.
+
+
+# Known bugs:
+
+> Title
+
+* Comment
+
+
 # **Updates in 1.0.0a**
 
 

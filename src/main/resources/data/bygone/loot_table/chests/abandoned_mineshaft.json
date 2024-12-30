@@ -15,7 +15,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "bygone:verdigris"
+          "name": "bygone:verdigris_scrap"
         },
         {
           "type": "minecraft:item",
@@ -32,11 +32,6 @@
           ],
           "name": "minecraft:book",
           "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond_pickaxe",
-          "weight": 55
         },
         {
           "type": "minecraft:item",
@@ -247,13 +242,29 @@
               "count": {
                 "type": "minecraft:uniform",
                 "max": 16.0,
+                "min": 4.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:amaranth_seeds",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 16.0,
                 "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:glow_gourd_dango",
-          "weight": 15
+          "weight": 10
         }
       ],
       "rolls": 3.0
