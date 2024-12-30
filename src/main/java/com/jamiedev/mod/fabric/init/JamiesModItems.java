@@ -48,10 +48,6 @@ public class JamiesModItems
     public static final Item ANCIENT_BOAT = registerItem("ancient_boat", (Item)(new BoatItem(false, net.minecraft.entity.vehicle.BoatEntity.Type.OAK, (new Item.Settings()).maxCount(1))));
     public static final Item ANCIENT_CHEST_BOAT = registerItem("ancient_chest_boat", (Item)(new BoatItem(true, net.minecraft.entity.vehicle.BoatEntity.Type.OAK, (new Item.Settings()).maxCount(1))));
 
-    public static final Item GOURD_ON_A_STICK =  registerItem("gourd_on_a_stick", (Item)(new OnAStickItem<>((new Item.Settings()).maxDamage(100), JamiesModEntityTypes.BRUNGLE, 1)));
-    public static final Item GOURD_FLESH = registerItem("gourd_flesh", new Item((new Item.Settings()).food(FoodComponents.GOLDEN_CARROT)));
-   // public static final Item GOURD_SEEDS = registerItem("gourd_seeds", (Item)(new AliasedBlockItem(JamiesModBlocks.GOURD_LANTERN_VERDANT, new Item.Settings())));
-
     public static final Item COELECANTH = registerItem("coelacanth", new Item(new Item.Settings().food(FoodComponents.CHICKEN)));
     public static final Item COELECANTH_COOKED = registerItem("cooked_coelacanth", new Item(new Item.Settings().food(FoodComponents.PUFFERFISH)));
     public static final Item EXOTIC_ARROW = registerItem("exotic_arrow", new ExoticArrowItem(new Item.Settings().fireproof()));

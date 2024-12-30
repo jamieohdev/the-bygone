@@ -133,8 +133,6 @@ public class JamiesModClient implements ClientModInitializer {
         EntityRendererRegistry.register(JamiesModEntityTypes.GLARE, GlareRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.GLARE, GlareModel::getTexturedModelData);
 
-        EntityRendererRegistry.register(JamiesModEntityTypes.JAWS, JawsRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.JAWS, JawsEntityModel::getTexturedModelData);
 
         EntityRendererRegistry.register(JamiesModEntityTypes.SCUTTLE, ScuttleRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.SCUTTLE, ScuttleModel::getTexturedModelData);
@@ -181,7 +179,7 @@ public class JamiesModClient implements ClientModInitializer {
         TexturedRenderLayers.SIGN_TYPE_TEXTURES.put(JamiesModWoodType.ANCIENT, TexturedRenderLayers.getSignTextureId(JamiesModWoodType.ANCIENT));
         BlockEntityRendererFactories.register(JamiesModBlockEntities.MOD_SIGN_BLOCK_ENTITY, SignBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(JamiesModBlockEntities.MOD_HANGING_SIGN_BLOCK_ENTITY, HangingSignBlockEntityRenderer::new);
-        BlockEntityRendererFactories.register(JamiesModBlockEntities.BRUSHABLE_BLOCK, BygoneBrushableBlockEntityRenderer::new);
+     //   BlockEntityRendererFactories.register(JamiesModBlockEntities.BRUSHABLE_BLOCK, BygoneBrushableBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(JamiesModBlockEntities.CASTER, CasterBlockEntityRenderer::new);
 
 

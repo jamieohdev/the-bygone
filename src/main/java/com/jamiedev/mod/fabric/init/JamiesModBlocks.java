@@ -97,7 +97,7 @@ public class JamiesModBlocks {
     // Start of the Ancient Forests unique Blocks
 
     public static  final  Block TALL_GRASS = registerBlockWithoutBlockItem("tall_grass", new UpsidedownTallPlantBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).replaceable().noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).burnable().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
-    public static  final  Block SHORT_GRASS = registerBlock("short_grass", new UpsidedownShortPlantBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).replaceable().noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ).burnable().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+    public static  final  Block SHORT_GRASS = registerBlock("under_grass", new UpsidedownShortPlantBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).replaceable().noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ).burnable().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
 
 
     public static  final  Block CAVE_VINES = registerBlockWithoutBlockItem("cave_vines", new AncientCaveVinesHeadBlock(AbstractBlock.Settings.create()
@@ -366,10 +366,10 @@ public class JamiesModBlocks {
     public static final Block UMBER_BRICKS = registerBlock("umber_bricks",
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.DARK_RED).strength(0.99F)
                     .sounds(BlockSoundGroup.GRAVEL)), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block SUSPICIOUS_UMBER = registerBlock("suspicious_umber",
-            new BygoneBrushableBlock(UMBER, SoundEvents.ITEM_BRUSH_BRUSHING_GRAVEL, SoundEvents.ITEM_BRUSH_BRUSHING_GRAVEL_COMPLETE,
-                    AbstractBlock.Settings.create().mapColor(MapColor.DARK_RED).instrument(NoteBlockInstrument.SNARE)
-                            .strength(0.25F).sounds(BlockSoundGroup.SUSPICIOUS_GRAVEL).pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+    //public static final Block SUSPICIOUS_UMBER = registerBlock("suspicious_umber",
+    //        new BygoneBrushableBlock(UMBER, SoundEvents.ITEM_BRUSH_BRUSHING_GRAVEL, SoundEvents.ITEM_BRUSH_BRUSHING_GRAVEL_COMPLETE,
+     //               AbstractBlock.Settings.create().mapColor(MapColor.DARK_RED).instrument(NoteBlockInstrument.SNARE)
+     //                       .strength(0.25F).sounds(BlockSoundGroup.SUSPICIOUS_GRAVEL).pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block AMBER = registerBlock("amber",
         new TranslucentBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).strength(1.0F)
                 .sounds(BlockSoundGroup.GLASS).nonOpaque().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never)
@@ -405,7 +405,7 @@ public class JamiesModBlocks {
                 return 8;
             })), JamiesModItemGroup.JAMIES_MOD);
 
-    public static final Block POINTED_AMBER = registerBlock("pointed_amber", new PointedAmberBlock(AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_BROWN).solid().instrument(NoteBlockInstrument.BASEDRUM).nonOpaque().sounds(BlockSoundGroup.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block POINTED_AMBER = registerBlock("pointed_amber", new PointedAmberBlock2(AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_BROWN).solid().instrument(NoteBlockInstrument.BASEDRUM).nonOpaque().sounds(BlockSoundGroup.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never)), JamiesModItemGroup.JAMIES_MOD);
 
     public static final Block CREOSOTE = registerBlock("creosote", new CreosoteBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).replaceable()
             .noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).burnable().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
@@ -421,10 +421,6 @@ public class JamiesModBlocks {
     public static final Block AMARANTH_CROP = registerBlockWithoutBlockItem("amaranth_crop", new AmaranthCropBlock(AbstractBlock.Settings.create()
             .mapColor(MapColor.DARK_GREEN).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP)
             .pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
-
-    public static final Block COPPERBUG_NEST = registerBlock("copperbug_nest",
-            new CopperbugNestBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(0.6F).sounds(BlockSoundGroup.WOOD)),
-            JamiesModItemGroup.JAMIES_MOD);
 
     private static Block registerBlock(String name, Block block, RegistryKey<ItemGroup> group) {
         registerBlockItem(name, block, group);

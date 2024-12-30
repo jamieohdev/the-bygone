@@ -1,6 +1,6 @@
-# **Updates in 1.1.0a / 1.0.1a **
+# **Updates in 1.0.1a **
 
-## The first update of the new year is here!! Blah blah blah...
+## The first update of the new year is here!! This update comes with a lot of much needed fixes to older content, as long with a new batch of new features.
 
 # New features:
 
@@ -32,7 +32,6 @@ It will not drop any seeds when broken!
 
 
 
-
 # Changes to existing features:
 
 * Adjusted Bygone Mineshaft loot.
@@ -41,11 +40,33 @@ It will not drop any seeds when broken!
 
 * Tilling Coarse Claystone will turn it into Claystone!
 
+* Blemish Blocks spread when a Blemish Catalyst is activated.
+
+* Changed name of Under Grass from "short_grass" to "under_grass".
+
 # Bugs fixed:
+
+* Fixed Under Grass floating below ceiling when placed.
+
+* Fixed several broken data tags.
+
+* Fixed Blemish Blocks not generating when activating a Blemish Catalyst.
+
+* Fixed Sculk particles generating with Blemish Catalysts.
+
+* Fixed Pointed Amber not being obtainable.
+
+* Fixed Pointed Amber not falling as expected.
+
+* Fixed Pointed Amber turning into "tips" if broken.
 
 * Fixed Mossy Claystone not spreading naturally if light level was below 9.
 
 * Fixed Malachite Pillars not being available in the Stonecutter.
+
+* Removed "Suspicious" Umber.
+
+* Removed "Jaws" entity.
 
 
 # Known bugs:
@@ -121,6 +142,7 @@ Tweaked Big Beak Armor loot to be in the Sewers instead of Bygone Mineshafts!
 
 
 **Bugs fixed:**
+
 
 Fixed Mossy Claystone converting to Dirt when a block is above it!
 

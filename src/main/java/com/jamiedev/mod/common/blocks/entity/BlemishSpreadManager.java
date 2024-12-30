@@ -155,7 +155,7 @@ public class BlemishSpreadManager {
                     BlemishSpreadManager.Cursor cursor = (BlemishSpreadManager.Cursor)var8.next();
                     cursor.spread(world, pos, random, this, shouldConvertToBlock);
                     if (cursor.charge <= 0) {
-                        world.syncWorldEvent(3006, cursor.getPos(), 0);
+                        world.syncWorldEvent(6006, cursor.getPos(), 0);
                     } else {
                         blockPos = cursor.getPos();
                         object2IntMap.computeInt(blockPos, (posx, charge) -> {
@@ -187,7 +187,7 @@ public class BlemishSpreadManager {
                     if (i > 0 && collection != null) {
                         int j = (int)(Math.log1p((double)i) / 2.299999952316284) + 1;
                         int k = (j << 6) + MultifaceGrowthBlock.directionsToFlag(collection);
-                        world.syncWorldEvent(3006, blockPos, k);
+                        world.syncWorldEvent(6006, blockPos, k);
                     }
                 }
 

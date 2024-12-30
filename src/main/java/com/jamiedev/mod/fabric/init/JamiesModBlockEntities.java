@@ -43,9 +43,9 @@ public class JamiesModBlockEntities <T extends BlockEntity>
         CASTER = register("caster",
                 BlockEntityType.Builder.create(CasterBlockEntity::new, JamiesModBlocks.CASTER)
                         .build());
-        COPPERBUGNEST = register("copperbug_nest",
-                BlockEntityType.Builder.create(CopperbugNestBlockEntity::new, JamiesModBlocks.COPPERBUG_NEST)
-                        .build());
+      //  COPPERBUGNEST = register("copperbug_nest",
+       //         BlockEntityType.Builder.create(CopperbugNestBlockEntity::new, JamiesModBlocks.COPPERBUG_NEST)
+       //                 .build());
         PRIMORDIAL_VENT = register("primordial_vent",
                 BlockEntityType.Builder.create(PrimordialVentEntity::new, JamiesModBlocks.PRIMORDIAL_VENT)
                         .build());
@@ -60,9 +60,9 @@ public class JamiesModBlockEntities <T extends BlockEntity>
         MOD_HANGING_SIGN_BLOCK_ENTITY = register("ancient_hanging_sign_entity",
                 BlockEntityType.Builder.create(ModHangingSignBlockEntity::new, JamiesModBlocks.ANCIENT_HANGING_SIGN, JamiesModBlocks.ANCIENT_WALL_HANGING_SIGN).build()
         );
-        BRUSHABLE_BLOCK = register("brushable_block",
-                BlockEntityType.Builder.create(BygoneBrushableBlockEntity::new, SUSPICIOUS_UMBER)
-                        .build());
+       // BRUSHABLE_BLOCK = register("brushable_block",
+        //        BlockEntityType.Builder.create(BygoneBrushableBlockEntity::new, SUSPICIOUS_UMBER)
+        //                .build());
         BYGONE_PORTAL =  Registry.register(
                 Registries.BLOCK_ENTITY_TYPE,
                 JamiesModFabric.getModId("bygone_portal"),

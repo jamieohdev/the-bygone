@@ -87,11 +87,6 @@ public class JamiesModEntityTypes {
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, GlareEntity::new)
                     .dimensions(EntityDimensions.fixed(0.6F, 0.8F)).build());
 
-    public static final EntityType<JawsEntity> JAWS = Registry.register(Registries.ENTITY_TYPE,
-            JamiesModFabric.getModId( "jaws"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, JawsEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.8F, 0.4F)).build());
-
     public static final  EntityType<MoobooEntity> MOOBOO = Registry.register(Registries.ENTITY_TYPE,
             JamiesModFabric.getModId("mooboo"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobooEntity::new)
@@ -152,7 +147,6 @@ public class JamiesModEntityTypes {
         FabricDefaultAttributeRegistry.register(BIG_BEAK, BigBeakEntity.createBigBeakAttributes());
         FabricDefaultAttributeRegistry.register(GLARE, GlareEntity.createGlareAttributes());
         FabricDefaultAttributeRegistry.register(SCUTTLE, ScuttleEntity.createAttributes());
-        FabricDefaultAttributeRegistry.register(JAWS, JawsEntity.createJawsAttributes());
         FabricDefaultAttributeRegistry.register(COELACANTH, CoelacanthEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(TRILOBITE, TrilobiteEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(MOOBOO, MoobooEntity.createAttributes());
