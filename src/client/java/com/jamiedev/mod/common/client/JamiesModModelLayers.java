@@ -34,6 +34,9 @@ public class JamiesModModelLayers {
     public static final EntityModelLayer GLARE =
             new EntityModelLayer(JamiesModFabric.getModId("glare"), "main");
 
+    public static final EntityModelLayer FUNGALPARENT =
+            new EntityModelLayer(JamiesModFabric.getModId("fungalparent"), "main");
+
     public static final EntityModelLayer EXOTIC_ARROW =
             new EntityModelLayer(JamiesModFabric.getModId("exotic_arrow"), "main");
 

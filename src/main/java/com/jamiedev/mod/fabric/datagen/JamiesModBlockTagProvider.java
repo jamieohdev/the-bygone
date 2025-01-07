@@ -15,13 +15,11 @@ public class JamiesModBlockTagProvider extends FabricTagProvider.BlockTagProvide
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
-                .add(JamiesModBlocks.COBBLED_BYSLATE_SLAB)
-                .add(JamiesModBlocks.COBBLED_BYSLATE_STAIRS)
-                .add(JamiesModBlocks.COBBLED_BYSLATE_WALL)
-                .add(JamiesModBlocks.COBBLED_BYSTONE_SLAB)
-                .add(JamiesModBlocks.COBBLED_BYSTONE_STAIRS)
-                .add(JamiesModBlocks.COBBLED_BYSTONE_WALL);
+        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
+                .add(JamiesModBlocks.CLAYSTONE_BRICKS)
+                .add(JamiesModBlocks.CLAYSTONE_BRICKS_STAIRS)
+                .add(JamiesModBlocks.CLAYSTONE_BRICKS_WALL)
+                .add(JamiesModBlocks.CLAYSTONE_BRICKS_SLAB);
         
     }
 }

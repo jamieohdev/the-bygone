@@ -53,6 +53,12 @@
     "bygone:cobbled_byslate_wall",
     "bygone:cobbled_bystone_slab",
     "bygone:cobbled_bystone_stairs",
-    "bygone:cobbled_bystone_wall"
+    "bygone:cobbled_bystone_wall",
+    "bygone:shelf_mycelium",
+    "bygone:shelf_mold_block",
+    "bygone:claystone_bricks",
+    "bygone:claystone_bricks_stairs",
+    "bygone:claystone_bricks_wall",
+    "bygone:claystone_bricks_slab"
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "bygone:block/shelf_mold_bottom"
+    },
+    "half=upper": {
+      "model": "bygone:block/shelf_mold_top"
+    }
+  }
+}

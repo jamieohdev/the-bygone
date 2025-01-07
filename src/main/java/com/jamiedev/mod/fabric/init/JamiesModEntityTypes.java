@@ -39,6 +39,8 @@ public class JamiesModEntityTypes {
         }
     }
 
+    EntityType ref;
+
     public static Identifier id(String name){
         return Identifier.of(JamiesModFabric.MOD_ID, name);
     }
@@ -67,6 +69,14 @@ public class JamiesModEntityTypes {
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, DuckEntity::new)
                     .dimensions(EntityDimensions.fixed(0.4F, 0.7F)).build());
 
+    public static final EntityType<FungalParentEntity> FUNGAL_PARENT = Registry.register(Registries.ENTITY_TYPE,
+            JamiesModFabric.getModId( "fungal_parent"),
+            FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, FungalParentEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.6F, 2.9F))
+                    .trackRangeChunks(8)
+                    .trackedUpdateRate(8)
+                    .build());
+// .dimensions(0.6F, 2.9F).eyeHeight(2.55F).passengerAttachments(2.80625F).maxTrackingRange(8));
     public static final EntityType<BrungleEntity> BRUNGLE = Registry.register(Registries.ENTITY_TYPE,
             JamiesModFabric.getModId( "brungle"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, BrungleEntity::new)
@@ -139,7 +149,6 @@ public class JamiesModEntityTypes {
 
 
 
-    EntityType ref;
 
     public static void init()
     {
@@ -151,6 +160,7 @@ public class JamiesModEntityTypes {
         FabricDefaultAttributeRegistry.register(TRILOBITE, TrilobiteEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(MOOBOO, MoobooEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(COPPERBUG, CopperbugEntity.createCopperbugAttributes());
+        FabricDefaultAttributeRegistry.register(FUNGAL_PARENT, FungalParentEntity.createFungieAttributes());
     }
 
     public static void postInit() {

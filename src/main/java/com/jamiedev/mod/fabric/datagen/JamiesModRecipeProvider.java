@@ -9,6 +9,7 @@ import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
@@ -21,12 +22,36 @@ public class JamiesModRecipeProvider  extends FabricRecipeProvider {
 
     @Override
     public void generate(RecipeExporter exporter) {
-        this.SlabRecipe(exporter, JamiesModBlocks.COBBLED_BYSLATE, JamiesModBlocks.COBBLED_BYSLATE_SLAB);
-        this.StairsRecipe(exporter, JamiesModBlocks.COBBLED_BYSLATE, JamiesModBlocks.COBBLED_BYSLATE_STAIRS);
-        this.WallsRecipe(exporter, JamiesModBlocks.COBBLED_BYSLATE, JamiesModBlocks.COBBLED_BYSLATE_WALL);
-        this.SlabRecipe(exporter, JamiesModBlocks.COBBLED_BYSTONE, JamiesModBlocks.COBBLED_BYSTONE_SLAB);
-        this.StairsRecipe(exporter, JamiesModBlocks.COBBLED_BYSTONE, JamiesModBlocks.COBBLED_BYSTONE_STAIRS);
-        this.WallsRecipe(exporter, JamiesModBlocks.COBBLED_BYSTONE, JamiesModBlocks.COBBLED_BYSTONE_WALL);
+        this.BricksRecipe(exporter, JamiesModBlocks.CLAYSTONE, JamiesModBlocks.CLAYSTONE_BRICKS);
+        this.SlabRecipe(exporter, JamiesModBlocks.CLAYSTONE_BRICKS, JamiesModBlocks.CLAYSTONE_BRICKS_SLAB);
+        this.StairsRecipe(exporter, JamiesModBlocks.CLAYSTONE_BRICKS, JamiesModBlocks.CLAYSTONE_BRICKS_STAIRS);
+        this.WallsRecipe(exporter, JamiesModBlocks.CLAYSTONE_BRICKS, JamiesModBlocks.CLAYSTONE_BRICKS_WALL);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.CLAYSTONE_BRICKS, JamiesModBlocks.CLAYSTONE_BRICKS_SLAB, 2);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.CLAYSTONE_BRICKS, JamiesModBlocks.CLAYSTONE_BRICKS_STAIRS, 1);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.CLAYSTONE_BRICKS, JamiesModBlocks.CLAYSTONE_BRICKS_WALL, 1);
+
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.ORANGE_FUNGAL_BRICKS, JamiesModBlocks.ORANGE_FUNGAL_SLAB, 2);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.ORANGE_FUNGAL_BRICKS, JamiesModBlocks.ORANGE_FUNGAL_STAIRS, 1);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.ORANGE_FUNGAL_BRICKS, JamiesModBlocks.ORANGE_FUNGAL_WALL, 1);
+        
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.PURPLE_FUNGAL_BRICKS, JamiesModBlocks.PURPLE_FUNGAL_SLAB, 2);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.PURPLE_FUNGAL_BRICKS, JamiesModBlocks.PURPLE_FUNGAL_STAIRS, 1);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.PURPLE_FUNGAL_BRICKS, JamiesModBlocks.PURPLE_FUNGAL_WALL, 1);
+        
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.PINK_FUNGAL_BRICKS, JamiesModBlocks.PINK_FUNGAL_SLAB, 2);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.PINK_FUNGAL_BRICKS, JamiesModBlocks.PINK_FUNGAL_STAIRS, 1);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.PINK_FUNGAL_BRICKS, JamiesModBlocks.PINK_FUNGAL_WALL, 1);
+    }
+
+
+    void BricksRecipe(RecipeExporter exporter, Block input, Block output){
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, output, 4)
+                .pattern("XX")
+                .pattern("XX")
+                .input('X', input.asItem())
+                .criterion(hasItem(input.asItem()), conditionsFromItem(input.asItem()))
+                .offerTo(exporter, Identifier.of(getRecipeName(output.asItem())));
+
     }
 
     void SlabRecipe(RecipeExporter exporter, Block input, Block output){
@@ -156,5 +181,6 @@ public class JamiesModRecipeProvider  extends FabricRecipeProvider {
                 .showNotification(true)
                 .offerTo(exporter, Identifier.of(getRecipeName(output.asItem())));
     }
+
 
 }

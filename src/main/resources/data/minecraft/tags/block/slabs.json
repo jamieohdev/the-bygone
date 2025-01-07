@@ -55,6 +55,10 @@
     "bygone:cobbled_byslate_slab",
     "bygone:ancient_slab",
     "bygone:malachite_slab",
-    "bygone:malachite_tile_slab"
+    "bygone:malachite_tile_slab",
+    "bygone:orange_fungal_slab",
+    "bygone:pink_fungal_slab",
+    "bygone:purple_fungal_slab",
+    "bygone:claystone_bricks_slab"
   ]
 }

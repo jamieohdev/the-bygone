@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "bygone:block/claystone_bricks",
+    "side": "bygone:block/claystone_bricks",
+    "top": "bygone:block/claystone_bricks"
+  }
+}

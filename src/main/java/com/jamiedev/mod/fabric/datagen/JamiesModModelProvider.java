@@ -23,21 +23,25 @@ public class JamiesModModelProvider  extends FabricModelProvider {
         //malachite.family(BlockFamilies.register(JamiesModBlocks.MALACHITE).slab(JamiesModBlocks.MALACHITE_SLAB).stairs(JamiesModBlocks.MALACHITE_STAIRS).wall(JamiesModBlocks.MALACHITE_WALL).build());
         //tiles.family(BlockFamilies.register(JamiesModBlocks.MALACHITE_TILE).slab(JamiesModBlocks.MALACHITE_TILE_SLAB).stairs(JamiesModBlocks.MALACHITE_TILE_STAIRS).wall(JamiesModBlocks.MALACHITE_TILE_WALL).build());
 
-        blockStateModelGenerator.registerGeneric(JamiesModBlocks.AMBERSTONE);
-        blockStateModelGenerator.registerGeneric(JamiesModBlocks.COBBLED_AMBERSTONE);
-        blockStateModelGenerator.registerGeneric(JamiesModBlocks.UMBER_BRICKS);
+        BlockStateModelGenerator.BlockTexturePool one = blockStateModelGenerator.registerCubeAllModelTexturePool(JamiesModBlocks.CLAYSTONE_BRICKS);
+        
+        one.family(BlockFamilies.register(JamiesModBlocks.CLAYSTONE_BRICKS).slab(JamiesModBlocks.CLAYSTONE_BRICKS_SLAB).stairs(JamiesModBlocks.CLAYSTONE_BRICKS_STAIRS).wall(JamiesModBlocks.CLAYSTONE_BRICKS_WALL).build());
 
-        BlockStateModelGenerator.BlockTexturePool stone = blockStateModelGenerator.registerCubeAllModelTexturePool(JamiesModBlocks.COBBLED_BYSTONE);
-        BlockStateModelGenerator.BlockTexturePool slate = blockStateModelGenerator.registerCubeAllModelTexturePool(JamiesModBlocks.COBBLED_BYSLATE);
-
-        stone.family(BlockFamilies.register(JamiesModBlocks.COBBLED_BYSTONE).slab(JamiesModBlocks.COBBLED_BYSTONE_SLAB).stairs(JamiesModBlocks.COBBLED_BYSTONE_STAIRS).wall(JamiesModBlocks.COBBLED_BYSTONE_WALL).build());
-        slate.family(BlockFamilies.register(JamiesModBlocks.COBBLED_BYSLATE).slab(JamiesModBlocks.COBBLED_BYSLATE_SLAB).stairs(JamiesModBlocks.COBBLED_BYSLATE_STAIRS).wall(JamiesModBlocks.COBBLED_BYSLATE_WALL).build());
-
-        DatagenUtils.registerCasterModel(JamiesModBlocks.CASTER, blockStateModelGenerator);
+        /** blockStateModelGenerator.registerGeneric(JamiesModBlocks.AMBERSTONE);
+         blockStateModelGenerator.registerGeneric(JamiesModBlocks.COBBLED_AMBERSTONE);
+         blockStateModelGenerator.registerGeneric(JamiesModBlocks.UMBER_BRICKS);
+ 
+         BlockStateModelGenerator.BlockTexturePool stone = blockStateModelGenerator.registerCubeAllModelTexturePool(JamiesModBlocks.COBBLED_BYSTONE);
+         BlockStateModelGenerator.BlockTexturePool slate = blockStateModelGenerator.registerCubeAllModelTexturePool(JamiesModBlocks.COBBLED_BYSLATE);
+ 
+         stone.family(BlockFamilies.register(JamiesModBlocks.COBBLED_BYSTONE).slab(JamiesModBlocks.COBBLED_BYSTONE_SLAB).stairs(JamiesModBlocks.COBBLED_BYSTONE_STAIRS).wall(JamiesModBlocks.COBBLED_BYSTONE_WALL).build());
+         slate.family(BlockFamilies.register(JamiesModBlocks.COBBLED_BYSLATE).slab(JamiesModBlocks.COBBLED_BYSLATE_SLAB).stairs(JamiesModBlocks.COBBLED_BYSLATE_STAIRS).wall(JamiesModBlocks.COBBLED_BYSLATE_WALL).build());
+ 
+         DatagenUtils.registerCasterModel(JamiesModBlocks.CASTER, blockStateModelGenerator); **/
     }
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        itemModelGenerator.register(JamiesModItems.VERDIGRIS_BLADE, Models.HANDHELD);
+        //itemModelGenerator.register(JamiesModItems.VERDIGRIS_BLADE, Models.HANDHELD);
     }
 }

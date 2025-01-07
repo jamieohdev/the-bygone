@@ -14,11 +14,13 @@ public class JamiesModParticleTypes
     public static final ParticleType<SimpleParticleType> ALGAE_BLOOM = FabricParticleTypes.simple();
 
     public static final ParticleType<SimpleParticleType> BLEMISH = FabricParticleTypes.simple();
+    public static final ParticleType<SimpleParticleType> SHELF = FabricParticleTypes.simple();
 
     public static void init() {
         Registry.register(Registries.PARTICLE_TYPE, JamiesModFabric.getModId( "rafflesia_spores"), RAFFLESIA_SPORES);
         Registry.register(Registries.PARTICLE_TYPE, JamiesModFabric.getModId( "algae_bloom"), ALGAE_BLOOM);
         Registry.register(Registries.PARTICLE_TYPE, JamiesModFabric.getModId( "blemish_bubble"), BLEMISH);
         Registry.register(Registries.PARTICLE_TYPE, JamiesModFabric.getModId( "amber_dust"), AMBER_DUST);
+        Registry.register(Registries.PARTICLE_TYPE, JamiesModFabric.getModId( "shelf"), SHELF);
     }
 }

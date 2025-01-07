@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "bygone:cobbled_bystone_stairs",
+    "bygone:cobbled_byslate_stairs",
+    "bygone:malachite_stairs",
+    "bygone:malachite_tile_stairs",
+    "bygone:orange_fungal_stairs",
+    "bygone:pink_fungal_stairs",
+    "bygone:purple_fungal_stairs",
+    "bygone:claystone_bricks_stairs"
+  ]
+}

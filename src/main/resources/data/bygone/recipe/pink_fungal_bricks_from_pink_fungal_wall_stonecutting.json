@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "bygone:pink_fungal_wall"
+  },
+  "result": {
+    "count": 1,
+    "id": "bygone:pink_fungal_bricks"
+  }
+}

@@ -12,7 +12,7 @@
     },
     "replaceable": "#minecraft:moss_replaceable",
     "surface": "floor",
-    "vegetation_chance": 0.8,
+    "vegetation_chance": 0.3,
     "vegetation_feature": {
       "feature": "bygone:whirliweed_vegetation",
       "placement": []
@@ -20,7 +20,7 @@
     "vertical_range": 5,
     "xz_radius": {
       "type": "minecraft:uniform",
-      "max_inclusive": 6,
+      "max_inclusive": 4,
       "min_inclusive": 3
     }
   }

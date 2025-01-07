@@ -1,0 +1,24 @@
+{
+  "variants": {
+    "snowy=false": [
+      {
+        "model": "bygone:block/shelf_mycelium"
+      },
+      {
+        "model": "bygone:block/shelf_mycelium",
+        "y": 90
+      },
+      {
+        "model": "bygone:block/shelf_mycelium",
+        "y": 180
+      },
+      {
+        "model": "bygone:block/shelf_mycelium",
+        "y": 270
+      }
+    ],
+    "snowy=true": {
+      "model": "bygone:block/shelf_mycelium"
+    }
+  }
+}

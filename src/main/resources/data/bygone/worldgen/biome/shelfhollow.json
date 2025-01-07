@@ -1,0 +1,95 @@
+{
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
+  "downfall": 1.0,
+  "effects": {
+    "fog_color": 0,
+    "additions_sound": {
+      "sound": "minecraft:ambient.crimson_forest.additions",
+      "tick_chance": 0.0111
+    },
+    "ambient_sound": "minecraft:ambient.crimson_forest.loop",
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.crimson_forest.mood",
+      "tick_delay": 6000
+    },
+    "particle": {
+      "options": {
+        "type": "bygone:shelf"
+      },
+      "probability": 0.018093334
+    },
+    "sky_color": 0,
+    "water_color": 0,
+    "water_fog_color": 0
+  },
+  "features": [
+    [],
+    [
+    ],
+    [
+    ],
+    [
+      "minecraft:monster_room",
+      "minecraft:monster_room_deep",
+      "bygone:small_cloud"
+    ],
+    [],
+    [],
+    [
+      "bygone:ore_coal_upper",
+      "bygone:ore_coal_lower",
+      "bygone:ore_iron_upper",
+      "bygone:ore_iron_middle",
+      "bygone:ore_iron_small",
+      "bygone:ore_copper",
+      "bygone:orange_mushroom_shelf",
+      "bygone:pink_mushroom_shelf",
+      "bygone:purple_mushroom_shelf"
+    ],
+    [],
+    [
+    ],
+    [
+      "bygone:shelfhollow_vegetation",
+      "bygone:mold_vegetation",
+      "bygone:small_cloud",
+      "bygone:test_cloud",
+      "minecraft:mushroom_island_vegetation",
+      "minecraft:brown_mushroom_taiga",
+      "minecraft:red_mushroom_taiga"
+    ],
+    [
+      "minecraft:glowstone_extra",
+      "minecraft:glowstone",
+      "minecraft:brown_mushroom_nether",
+      "minecraft:red_mushroom_nether"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [
+
+    ],
+    "axolotls": [],
+    "creature": [
+
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [
+
+    ],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.9
+}

@@ -1,6 +1,85 @@
+# **Updates in 1.1.0a**
+
+
+## The first update of the new year is here!! We're introducing a brand new, fungal biome -- The Shelfhollows!
+You will find them generating alongside the Undergrove biome!
+
+# New features in 1.1.0a:
+* Added the Shelfhollow biome.
+* Added the Orange/Pink/Purple Mushroom Blocks.
+* Added the Orange/Pink/Purple Fungal Brickset.
+* Added Shelf Mycelium and Shelf Mold blocks.
+* Added new vegetation: Shelf Fungus, Mold, Roots, and Sprouts.
+* Added the (Fungal) Parent and Child mobs.
+* Added Claystone Bricks blockset.
+* Added stonecutter recipes for the Cobbled Bystone/Byslate family of blocks.
+
+> Shelfhollow Biome
+* A quiet land filled with giant Mushroom Shelves and the occasional Sporeshroom.
+* Spore particles fly around the player, but breathing them in isn't that bad for you!
+
+> Orange/Pink/Purple blocksets
+* Found naturally-occuring on the cliffs of the Shelfhollow Biome!
+* Each color has its own bounciness ratio: Orange will slowly stop a players bounces, Pink will almost immediately stop a players bounces, and Purple doubles the players bounces!
+* You can craft a Brick blockset from each Mushroom Block as well!
+* Both blocksets are preferred tool is Axe.
+
+> Shelf Mycelium and Shelf Mold Blocks
+* Both make up the groundscape of the Shelfhollow, coating any Bystone it can find.
+* Will naturally spread to any Bystone blocks in its vicinity.
+* You can place any Nether Fungi blocks on them as well!
+
+> Shelfhollow Vegetation
+* The landscape of the Shelfhollow is literred with new plants and fungi.
+* THe Shelf Fungus/Roots/Sprouts can all be found growing from Shelf Mycelium.
+* The Shelf Mold will only be found growing out of Shelf Mold Blocks.
+
+> (Fungal) Parent & Child mob
+* A new, overly protective mob that will roam the Shelfhollows with their young. Do -not- approach the child if you don't want to be attacked!
+* The Parent will poison the player, as well as damaging them normally from its attack.
+* The Child will stick close to its Parent, and shy away from the Player.
+
+> Prototaxite Stem
+* An experimental new block, does not currently have any uses nor is it available in Survival.
+* More coming soon!
+
+
+# Changes to existing features:
+
+* Amaranth Crops & associated items have new textures! (Courtesy of the extremely talented Betwixer!)
+
+* Renamed internal name of "hook" to "ancient_hook"
+
+* Changed Ancient Hook texture.
+
+* Tweaked Whirliweed generation.
+
+
+# Bugs fixed:
+
+* Fixed Big Beaks not having proper subtitles.
+
+* Fixed the console log being spammed by Whirliweed generation.
+
+* Fixed all non-wooden Stairs not being in the "Stairs" tag.
+
+* Fixed Sand and Shovel tags being broken.
+
+* Fixed Ancient Roots not being obtainable in Survival.
+
+* Bug!
+
+
+# Known bugs:
+
+* Sometimes the Parent/Child mobs will generate on a floating island!
+
+* Prototaxtite Stems have no top texture!
+
+
 # **Updates in 1.0.1a **
 
-## The first update of the new year is here!! This update comes with a lot of much needed fixes to older content, as long with a new batch of new features.
+##
 
 # New features:
 
@@ -29,7 +108,6 @@ It will not drop any seeds when broken!
 
 > Sewers
 * Added a new room to the Sewers.
-
 
 
 # Changes to existing features:

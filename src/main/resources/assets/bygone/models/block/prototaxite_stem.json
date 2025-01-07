@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "bygone:block/prototaxite_stem_top",
+    "side": "bygone:block/prototaxite_stem"
+  }
+}

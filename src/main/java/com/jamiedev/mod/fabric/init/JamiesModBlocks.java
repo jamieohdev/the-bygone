@@ -21,6 +21,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.world.gen.feature.TreeConfiguredFeatures;
 
 import static net.minecraft.block.Blocks.DIRT;
 
@@ -150,6 +151,17 @@ public class JamiesModBlocks {
 
     public static final Block CLAYSTONE = registerBlock("claystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block COARSE_CLAYSTONE = registerBlock("coarse_claystone", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block CLAYSTONE_BRICKS = registerBlock("claystone_bricks", new Block(AbstractBlock.Settings.copyShallow(DIRT).strength(1.0F, 3.0F).sounds(BlockSoundGroup.PACKED_MUD)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block CLAYSTONE_BRICKS_STAIRS = registerBlock("claystone_bricks_stairs",
+            new StairsBlock(JamiesModBlocks.CLAYSTONE_BRICKS.getDefaultState(), AbstractBlock.Settings.copy(Blocks.QUARTZ_STAIRS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block CLAYSTONE_BRICKS_SLAB = registerBlock("claystone_bricks_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(JamiesModBlocks.CLAYSTONE_BRICKS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block CLAYSTONE_BRICKS_WALL = registerBlock("claystone_bricks_wall",
+            new WallBlock(AbstractBlock.Settings.copy(JamiesModBlocks.CLAYSTONE_BRICKS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
     public static final Block MOSSY_CLAYSTONE = registerBlock((String)"mossy_claystone", new MossyClaystoneBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block GRASSY_CLAYSTONE = registerBlockWithoutBlockItem((String)"grassy_claystone", new MossyClaystoneBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block ANCIENT_ROOTS = registerBlock("ancient_roots",
@@ -421,6 +433,83 @@ public class JamiesModBlocks {
     public static final Block AMARANTH_CROP = registerBlockWithoutBlockItem("amaranth_crop", new AmaranthCropBlock(AbstractBlock.Settings.create()
             .mapColor(MapColor.DARK_GREEN).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP)
             .pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block PROTOTAXITE_STEM = registerBlock("prototaxite_stem",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block SHELF_MYCELIUM = registerBlock((String)"shelf_mycelium", new ShelfMyceliumBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block SHELF_MOLD_BLOCK = registerBlock((String)"shelf_mold_block", new ShelfMoldBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block SHELF_MOLD = registerBlock((String)"shelf_mold", new TallPlantBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).replaceable().noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).burnable().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block ORANGE_MUSHROOM_BLOCK = registerBlock("orange_mushroom_block", new ShelfMushroomBlock(
+            AbstractBlock.Settings.create().sounds(BlockSoundGroup.WOOD).mapColor(MapColor.ORANGE).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F,
+                    6.0F).luminance((state) -> {
+                return 13;
+            }), 0), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block PINK_MUSHROOM_BLOCK = registerBlock("pink_mushroom_block", new ShelfMushroomBlock(
+            AbstractBlock.Settings.create().sounds(BlockSoundGroup.WOOD).mapColor(MapColor.ORANGE).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F,
+                    6.0F).luminance((state) -> {
+                return 14;
+            }), 1), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block PURPLE_MUSHROOM_BLOCK = registerBlock("purple_mushroom_block", new ShelfMushroomBlock(
+            AbstractBlock.Settings.create().sounds(BlockSoundGroup.WOOD).mapColor(MapColor.ORANGE).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F,
+                    6.0F).luminance((state) -> {
+                return 15;
+            }), 2), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block ORANGE_FUNGAL_BRICKS = registerBlock("orange_fungal_bricks", new ShelfMushroomBlock(
+            AbstractBlock.Settings.create().sounds(BlockSoundGroup.WOOD).mapColor(MapColor.ORANGE).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F,
+                    6.0F).luminance((state) -> {
+                return 6;
+            }), 0), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block ORANGE_FUNGAL_STAIRS = registerBlock("orange_fungal_stairs",
+            new StairsBlock(JamiesModBlocks.ORANGE_FUNGAL_BRICKS.getDefaultState(), AbstractBlock.Settings.copy(Blocks.QUARTZ_STAIRS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block ORANGE_FUNGAL_SLAB = registerBlock("orange_fungal_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(JamiesModBlocks.ORANGE_FUNGAL_BRICKS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block ORANGE_FUNGAL_WALL = registerBlock("orange_fungal_wall",
+            new WallBlock(AbstractBlock.Settings.copy(JamiesModBlocks.ORANGE_FUNGAL_BRICKS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block PINK_FUNGAL_BRICKS = registerBlock("pink_fungal_bricks", new ShelfMushroomBlock(
+            AbstractBlock.Settings.create().sounds(BlockSoundGroup.WOOD).mapColor(MapColor.ORANGE).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F,
+                    6.0F).luminance((state) -> {
+                return 7;
+            }), 1), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block PINK_FUNGAL_STAIRS = registerBlock("pink_fungal_stairs",
+            new StairsBlock(JamiesModBlocks.PINK_FUNGAL_BRICKS.getDefaultState(), AbstractBlock.Settings.copy(Blocks.QUARTZ_STAIRS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block PINK_FUNGAL_SLAB = registerBlock("pink_fungal_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(JamiesModBlocks.PINK_FUNGAL_BRICKS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block PINK_FUNGAL_WALL = registerBlock("pink_fungal_wall",
+            new WallBlock(AbstractBlock.Settings.copy(JamiesModBlocks.PINK_FUNGAL_BRICKS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block PURPLE_FUNGAL_BRICKS = registerBlock("purple_fungal_bricks", new ShelfMushroomBlock(
+            AbstractBlock.Settings.create().sounds(BlockSoundGroup.WOOD).mapColor(MapColor.ORANGE).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F,
+                    6.0F).luminance((state) -> {
+                return 8;
+            }), 2), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block PURPLE_FUNGAL_STAIRS = registerBlock("purple_fungal_stairs",
+            new StairsBlock(JamiesModBlocks.PURPLE_FUNGAL_BRICKS.getDefaultState(), AbstractBlock.Settings.copy(Blocks.QUARTZ_STAIRS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block PURPLE_FUNGAL_SLAB = registerBlock("purple_fungal_slab",
+            new SlabBlock(AbstractBlock.Settings.copy(JamiesModBlocks.PURPLE_FUNGAL_BRICKS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block PURPLE_FUNGAL_WALL = registerBlock("purple_fungal_wall",
+            new WallBlock(AbstractBlock.Settings.copy(JamiesModBlocks.PURPLE_FUNGAL_BRICKS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static Block SHELF_ROOTS = registerBlock((String)"shelf_roots", new RootsBlock(AbstractBlock.Settings.create().mapColor(MapColor.CYAN).replaceable().noCollision().breakInstantly().sounds(BlockSoundGroup.ROOTS).offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+    public static Block SHELF_WART_BLOCK = registerBlockWithoutBlockItem("shelf_wart_block", new Block(AbstractBlock.Settings.create().mapColor(MapColor.BRIGHT_TEAL).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK)), JamiesModItemGroup.JAMIES_MOD);
+    public static Block SHELF_FUNGUS = registerBlock((String)"shelf_fungus", new FungusBlock(TreeConfiguredFeatures.WARPED_FUNGUS_PLANTED, SHELF_MYCELIUM, AbstractBlock.Settings.create().mapColor(MapColor.CYAN).breakInstantly().noCollision().sounds(BlockSoundGroup.FUNGUS).pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static Block SHELF_SPROUTS = registerBlock("shelf_sprouts", new CreosoteSproutsBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).replaceable()
+            .noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).burnable().pistonBehavior(PistonBehavior.DESTROY).luminance((state) -> {
+                return 1;
+            })), JamiesModItemGroup.JAMIES_MOD);
 
     private static Block registerBlock(String name, Block block, RegistryKey<ItemGroup> group) {
         registerBlockItem(name, block, group);

@@ -3,6 +3,7 @@ package com.jamiedev.mod.common.blocks;
 import com.jamiedev.mod.fabric.init.JamiesModTag;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
@@ -24,6 +25,6 @@ public class CreosoteSproutsBlock  extends PlantBlock {
     }
 
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isIn(JamiesModTag.CREOSOTE_MAY_PLACE_ON) || super.canPlantOnTop(floor, world, pos);
+        return floor.isIn(JamiesModTag.CREOSOTE_MAY_PLACE_ON) || floor.isIn(BlockTags.NYLIUM) ||super.canPlantOnTop(floor, world, pos);
     }
 }

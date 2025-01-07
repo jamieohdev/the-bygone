@@ -922,7 +922,7 @@
               "type": "minecraft:condition",
               "if_true": {
                 "type": "minecraft:biome",
-                "biome_is": ["bygone:calm"]
+                "biome_is": ["bygone:shelfhollow"]
               },
               "then_run": {
                 "type": "minecraft:sequence",
@@ -939,14 +939,14 @@
                     "then_run": {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "minecraft:calcite"
+                        "Name": "bygone:bystone"
                       }
                     }
                   },
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "minecraft:grass_block"
+                      "Name": "bygone:shelf_mycelium"
                     }
                   }
                 ]
@@ -1114,7 +1114,7 @@
         "type": "minecraft:condition",
         "if_true": {
           "type": "minecraft:biome",
-          "biome_is": ["bygone:calm"]
+          "biome_is": ["bygone:shelfhollow"]
         },
         "then_run": {
           "type": "minecraft:condition",
@@ -1128,7 +1128,7 @@
           "then_run": {
             "type": "minecraft:block",
             "result_state": {
-              "Name": "minecraft:calcite"
+              "Name": "bygone:bystone"
             }
           }
         }

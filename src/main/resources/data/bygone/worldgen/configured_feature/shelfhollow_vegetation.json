@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "bygone:shelf_roots"
+          },
+          "weight": 3
+        },
+        {
+          "data": {
+            "Name": "bygone:shelf_fungus"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "bygone:shelf_sprouts"
+          },
+          "weight": 10
+        }
+      ]
+    }
+  }
+}

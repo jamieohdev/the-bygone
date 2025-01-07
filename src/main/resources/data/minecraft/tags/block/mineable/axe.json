@@ -16,6 +16,22 @@
     "bygone:ancient_button",
     "bygone:glow_gourd_beige",
     "bygone:glow_gourd_muave",
-    "bygone:glow_gourd_verdant"
+    "bygone:glow_gourd_verdant",
+    "bygone:orange_mushroom_block",
+    "bygone:pink_mushroom_block",
+    "bygone:purple_mushroom_block",
+    "bygone:prototaxite_stem",
+    "bygone:orange_fungal_bricks",
+    "bygone:orange_fungal_stairs",
+    "bygone:orange_fungal_wall",
+    "bygone:orange_fungal_slab",
+    "bygone:pink_fungal_bricks",
+    "bygone:pink_fungal_stairs",
+    "bygone:pink_fungal_wall",
+    "bygone:pink_fungal_slab",
+    "bygone:purple_fungal_bricks",
+    "bygone:purple_fungal_stairs",
+    "bygone:purple_fungal_wall",
+    "bygone:purple_fungal_slab"
   ]
 }

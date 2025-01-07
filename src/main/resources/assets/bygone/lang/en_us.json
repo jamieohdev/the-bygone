@@ -6,7 +6,7 @@
   "system.bygone.teleporting_out_of_bygone": "Teleporting out of the Bygone...",
 
   "item.bygone.jamiesitem": "",
-  "item.bygone.hook": "Ancient Hook",
+  "item.bygone.ancient_hook": "Ancient Hook",
   "item.bygone.ancient_sign": "Ancient Sign",
   "item.bygone.ancient_hanging_sign": "Ancient Hanging Sign",
   "item.bygone.ancient_boat": "Ancient Boat",
@@ -100,6 +100,10 @@
   "block.bygone.rafflesia": "Rafflesia",
   "block.bygone.gourd_lantern": "Gourd Lantern",
   "block.bygone.claystone": "Claystone",
+  "block.bygone.claystone_bricks": "Claystone Bricks",
+  "block.bygone.claystone_bricks_slab": "Claystone Brick Slab",
+  "block.bygone.claystone_bricks_stairs": "Claystone Brick Stairs",
+  "block.bygone.claystone_bricks_wall": "Claystone Brick Wall",
   "block.bygone.coarse_claystone": "Coarse Claystone",
   "block.bygone.mossy_claystone": "Mossy Claystone",
   "block.bygone.grassy_claystone": "Grassy Claystone",
@@ -184,6 +188,35 @@
   "block.bygone.creosote_sprouts": "Creosote Sprouts",
   "block.bygone.pointed_amber": "Pointed Amber",
 
+  "block.bygone.prototaxite_stem": "Prototaxite Stem",
+
+  "block.bygone.shelf_mycelium" : "Shelf Mycelium",
+  "block.bygone.shelf_roots" : "Shelf Roots",
+  "block.bygone.shelf_wart_block" : "Shelf Wart Block",
+  "block.bygone.shelf_fungus" : "Shelf Fungus",
+  "block.bygone.shelf_sprouts" : "Shelf Sprouts",
+
+  "block.bygone.shelf_mold_block" : "Shelf Mold Block",
+  "block.bygone.shelf_mold" : "Shelf Mold",
+
+  "block.bygone.orange_mushroom_block" : "Orange Mushroom Block",
+  "block.bygone.orange_fungal_bricks" : "Orange Fungal Bricks",
+  "block.bygone.orange_fungal_slab" : "Orange Fungal Brick Slab",
+  "block.bygone.orange_fungal_stairs" : "Orange Fungal Brick Stairs",
+  "block.bygone.orange_fungal_wall" : "Orange Fungal Brick Wall",
+  
+  "block.bygone.pink_mushroom_block" : "Pink Mushroom Block",
+  "block.bygone.pink_fungal_bricks" : "Pink Fungal Bricks",
+  "block.bygone.pink_fungal_slab" : "Pink Fungal Brick Slab",
+  "block.bygone.pink_fungal_stairs" : "Pink Fungal Brick Stairs",
+  "block.bygone.pink_fungal_wall" : "Pink Fungal Brick Wall",
+  
+  "block.bygone.purple_mushroom_block" : "Purple Mushroom Block",
+  "block.bygone.purple_fungal_bricks" : "Purple Fungal Bricks",
+  "block.bygone.purple_fungal_slab" : "Purple Fungal Brick Slab",
+  "block.bygone.purple_fungal_stairs" : "Purple Fungal Brick Stairs",
+  "block.bygone.purple_fungal_wall" : "Purple Fungal Brick Wall",
+  
   "entity.bygone.ammonite": "Ammonite",
   "entity.bygone.big_beak": "Big Beak",
   "entity.bygone.coelacanth": "Coelacanth",
@@ -218,5 +251,11 @@
   "subtitles.ambient.underhang.additions": "",
   "subtitles.ambient.amber_desert.additions": "Ancient wind howls...",
   "subtitles.ambient.primordial_ocean.additions": "",
+
+  "subtitles.entity.bigbeak.step": "Footsteps",
+  "subtitles.entity.bigbeak.ambient": "Big Beak caws",
+  "subtitles.entity.bigbeak.hurt": "Big Beak hurts",
+  "subtitles.entity.bigbeak.death": "Big Beak dies",
+
   "itemGroup.test": "The Bygone"
 }

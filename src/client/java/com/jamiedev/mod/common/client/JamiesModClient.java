@@ -1,5 +1,6 @@
 package com.jamiedev.mod.common.client;
 
+import com.jamiedev.mod.common.client.particles.ShelfParticle;
 import com.jamiedev.mod.common.items.VerdigrisBladeItem;
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.blocks.JamiesModWoodType;
@@ -116,6 +117,10 @@ public class JamiesModClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL_FAN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL_WALL_FAN, RenderLayer.getCutout());
 
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_FUNGUS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_ROOTS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_SPROUTS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_MOLD, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CLAYSTONE_FARMLAND, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.AMARANTH_CROP, RenderLayer.getCutout());
@@ -152,6 +157,9 @@ public class JamiesModClient implements ClientModInitializer {
         EntityRendererRegistry.register(JamiesModEntityTypes.MOOBOO, MoobooRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.MOOBOO, MoobooModel::getTexturedModelData);
 
+        EntityRendererRegistry.register(JamiesModEntityTypes.FUNGAL_PARENT, FungalParentRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.FUNGALPARENT, FungalParentModel::getTexturedModelData);
+
         EntityRendererRegistry.register(JamiesModEntityTypes.BYGONE_ITEM, (context) -> {
             return new FlyingItemEntityRenderer<>(context, 1.0F, true);
         });
@@ -164,6 +172,7 @@ public class JamiesModClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.BLEMISH, BlemishParticle.BlemishBlockProvider::new);
         ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.RAFFLESIA_SPORES, RafflesiaSporeParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.ALGAE_BLOOM, SoulParticle.SculkSoulFactory::new);
+        ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.SHELF, ShelfParticle.Factory::new);
 
         ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.AMBER_DUST, AmberDustParticle.Factory::new);
 

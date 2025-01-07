@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
@@ -21,6 +22,8 @@ import net.minecraft.world.event.GameEvent;
 
 public class HookItem extends Item
 {
+    FishingRodItem ref;
+
     static boolean isGrappling;
 
     public HookItem(Settings settings) {
@@ -42,7 +45,8 @@ public class HookItem extends Item
             retrieve(world, user, hook);
             used = true;
         }
-
+            user.incrementStat(Stats.USED.getOrCreateStat(this));
+            user.emitGameEvent(GameEvent.ITEM_INTERACT_START);
         return used ? TypedActionResult.consume(itemStack) : TypedActionResult.fail(itemStack);
     }
 
