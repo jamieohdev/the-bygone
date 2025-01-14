@@ -213,7 +213,7 @@
       "bygone:entity/bigbeak/ambient4",
       "bygone:entity/bigbeak/ambient5"
     ],
-    "subtitle": "bygone:subtitles.entity.bigbeak.ambient"
+    "subtitle": "subtitles.entity.bigbeak.ambient"
   },
   "entity.bigbeak.hurt": {
     "sounds": [
@@ -221,41 +221,41 @@
       "bygone:entity/bigbeak/hurt2",
       "bygone:entity/bigbeak/hurt3"
     ],
-    "subtitle": "bygone:subtitles.entity.bigbeak.hurt"
+    "subtitle": "subtitles.entity.bigbeak.hurt"
   },
   "entity.bigbeak.death": {
     "sounds": [
       "bygone:entity/bigbeak/death1",
       "bygone:entity/bigbeak/death2"
     ],
-    "subtitle": "bygone:subtitles.entity.bigbeak.death"
+    "subtitle": "subtitles.entity.bigbeak.death"
   },
   "entity.bigbeak.jump": {
     "sounds": [
       "bygone:entity/bigbeak/jump1",
       "bygone:entity/bigbeak/jump2"
     ],
-    "subtitle": "bygone:subtitles.entity.bigbeak.jump"
+    "subtitle": "subtitles.entity.bigbeak.jump"
   },
   "entity.bigbeak.step": {
     "sounds": [
       "bygone:entity/bigbeak/step1"
     ],
-    "subtitle": "bygone:subtitles.entity.bigbeak.step"
+    "subtitle": "subtitles.entity.bigbeak.step"
   },
   "entity.bigbeak.step_wood": {
     "sounds": [
       "bygone:entity/bigbeak/step_wood1",
       "bygone:entity/bigbeak/step_wood2"
     ],
-    "subtitle": "bygone:subtitles.entity.bigbeak.step_wood"
+    "subtitle": "subtitles.entity.bigbeak.step_wood"
   },
   "entity.bigbeak.gallop": {
     "sounds": [
       "bygone:entity/bigbeak/gallop1",
       "bygone:entity/bigbeak/gallop2"
     ],
-    "subtitle": "bygone:subtitles.entity.bigbeak.gallop"
+    "subtitle": "subtitles.entity.bigbeak.gallop"
   },
   "entity.mooboo.ambient": {
     "sounds": [
@@ -263,19 +263,45 @@
       "bygone:entity/mooboo/idle3",
       "bygone:entity/mooboo/idle4"
     ],
-    "subtitle": "bygone:subtitles.entity.mooboo.ambient"
+    "subtitle": "subtitles.entity.mooboo.ambient"
   },
   "entity.mooboo.hurt": {
     "sounds": [
       "bygone:entity/mooboo/hurt1",
       "bygone:entity/mooboo/hurt3"
     ],
-    "subtitle": "bygone:subtitles.entity.mooboo.hurt"
+    "subtitle": "subtitles.entity.mooboo.hurt"
   },
   "entity.mooboo.death": {
     "sounds": [
       "bygone:entity/mooboo/hurt3"
     ],
-    "subtitle": "bygone:subtitles.entity.mooboo.death"
+    "subtitle": "subtitles.entity.mooboo.death"
+  },
+  "entity.fungus_parent.ambient": {
+    "sounds": [
+      "bygone:entity/fungus_parent/ambient",
+      "bygone:entity/fungus_parent/ambient_2"
+    ],
+    "subtitle": "subtitles.entity.fungus_parent.ambient"
+  },
+  "entity.fungus_parent.ambient_baby": {
+    "sounds": [
+      "bygone:entity/fungus_parent/ambient_baby",
+      "bygone:entity/fungus_parent/ambient_baby2"
+    ],
+    "subtitle": "subtitles.entity.fungus_parent.ambient_baby"
+  },
+  "entity.fungus_parent.hurt": {
+    "sounds": [
+      "bygone:entity/fungus_parent/hurt"
+    ],
+    "subtitle": "subtitles.entity.fungus_parent.hurt"
+  },
+  "entity.fungus_parent.death": {
+    "sounds": [
+      "bygone:entity/fungus_parent/death"
+    ],
+    "subtitle": "subtitles.entity.fungus_parent.death"
   }
 }

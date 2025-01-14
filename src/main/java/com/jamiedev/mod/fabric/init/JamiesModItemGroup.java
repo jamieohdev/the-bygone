@@ -20,7 +20,7 @@ public class JamiesModItemGroup
        //         .displayName(Text.translatable("itemgroup.bygone"))
       //          .build());
         Registry.register(Registries.ITEM_GROUP, JAMIES_MOD, FabricItemGroup.builder()
-                .icon(() -> new ItemStack(JamiesModItems.AMARANTH_LOAF))
+                .icon(() -> new ItemStack(JamiesModBlocks.SHELF_FUNGUS))
                 .displayName(Text.translatable("itemGroup.test"))
                 .build());
     }

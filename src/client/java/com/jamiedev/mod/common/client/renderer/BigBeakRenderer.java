@@ -1,5 +1,6 @@
 package com.jamiedev.mod.common.client.renderer;
 
+import com.jamiedev.mod.common.entities.FungalParentEntity;
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.client.JamiesModModelLayers;
 import com.jamiedev.mod.common.client.models.BigBeakModel;
@@ -9,6 +10,7 @@ import net.minecraft.client.render.entity.HorseEntityRenderer;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.feature.HorseArmorFeatureRenderer;
 import net.minecraft.client.render.entity.feature.SaddleFeatureRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
@@ -31,5 +33,14 @@ public class BigBeakRenderer  extends MobEntityRenderer<BigBeakEntity, BigBeakMo
         float h = MathHelper.lerp(f, chickenEntity.prevMaxWingDeviation, chickenEntity.maxWingDeviation);
         return (MathHelper.sin(g) + 1.0F) * h;
 
+    }
+
+    @Override
+    protected void scale(BigBeakEntity slimeEntity, MatrixStack matrixStack, float f) {
+
+        if (slimeEntity.isBaby())
+        {
+            matrixStack.scale(0.5F, 0.5F, 0.5F);
+        }
     }
 }

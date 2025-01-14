@@ -45,7 +45,7 @@
                   "function": "minecraft:set_count"
                 }
               ],
-              "name": "minecraft:short_grass"
+              "name": "bygone:shelf_mold"
             },
             {
               "type": "minecraft:item",
@@ -109,20 +109,7 @@
                   "function": "minecraft:set_count"
                 }
               ],
-              "name": "minecraft:short_grass"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:survives_explosion"
-                },
-                {
-                  "chance": 0.125,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
-              "name": "minecraft:wheat_seeds"
+              "name": "bygone:shelf_mold"
             }
           ]
         }

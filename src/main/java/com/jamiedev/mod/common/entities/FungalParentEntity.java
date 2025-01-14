@@ -2,6 +2,7 @@ package com.jamiedev.mod.common.entities;
 
 import com.jamiedev.mod.common.entities.ai.FollowFungalParentGoal;
 import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
+import com.jamiedev.mod.fabric.init.JamiesModSoundEvents;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -138,15 +139,15 @@ public class FungalParentEntity  extends AnimalEntity implements Angerable {
     }
 
     protected SoundEvent getAmbientSound() {
-        return this.isBaby() ? SoundEvents.ENTITY_ALLAY_AMBIENT_WITHOUT_ITEM : SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME;
+        return this.isBaby() ? JamiesModSoundEvents.FUNGUSPARENT_AMBIENT_BABY_ADDITIONS_EVENT : JamiesModSoundEvents.FUNGUSPARENT_AMBIENT_ADDITIONS_EVENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.BLOCK_SHROOMLIGHT_BREAK;
+        return JamiesModSoundEvents.FUNGUSPARENT_HURT_ADDITIONS_EVENT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BLOCK_SHROOMLIGHT_BREAK;
+        return JamiesModSoundEvents.FUNGUSPARENT_DEATH_ADDITIONS_EVENT;
     }
 
     protected void playStepSound(BlockPos pos, BlockState state) {

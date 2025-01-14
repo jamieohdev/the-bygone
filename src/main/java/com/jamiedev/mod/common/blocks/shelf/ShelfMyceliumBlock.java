@@ -1,4 +1,4 @@
-package com.jamiedev.mod.common.blocks;
+package com.jamiedev.mod.common.blocks.shelf;
 
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import com.mojang.serialization.MapCodec;

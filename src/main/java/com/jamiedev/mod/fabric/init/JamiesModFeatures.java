@@ -32,6 +32,9 @@ public class JamiesModFeatures
     public static final RegistryKey<ConfiguredFeature<?, ?>> MOSS_PATCH = ConfiguredFeatures.of("alpha_moss_patch");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MOSS_PATCH_BONEMEAL = ConfiguredFeatures.of("alpha_moss_patch_bonemeal");
 
+    public static  final Feature<DefaultFeatureConfig> SHELF_FUNGI = register("shelf_fungi", new ShelfFungiFeature(DefaultFeatureConfig.CODEC));
+    public static  final Feature<DefaultFeatureConfig> FUNGI_VINES = register("fungi_vines", new TestFungiVineFeature(DefaultFeatureConfig.CODEC));
+
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
         return Registry.register(Registries.FEATURE, JamiesModFabric.getModId(name), feature);
     }
@@ -46,6 +49,8 @@ public class JamiesModFeatures
         Registry.register(Registries.FEATURE, JamiesModFabric.getModId("amber_under"), AMBER_UNDER);
         Registry.register(Registries.FEATURE, JamiesModFabric.getModId("pointed_amber"), POINTED_AMBER);
         Registry.register(Registries.FEATURE, JamiesModFabric.getModId("amber_cluster"), AMBER_CLUSTER);
+        Registry.register(Registries.FEATURE, JamiesModFabric.getModId("shelf_fungi"), SHELF_FUNGI);
+        Registry.register(Registries.FEATURE, JamiesModFabric.getModId("fungi_vines"), FUNGI_VINES);
 
         Registry.register(Registries.FEATURE, JamiesModFabric.getModId("primordial_coral_claw"), PRIMORDIAL_CORAL_CLAW);
         Registry.register(Registries.FEATURE, JamiesModFabric.getModId("primordial_coral_mushroom"), PRIMORDIAL_CORAL_MUSHROOM);

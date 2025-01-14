@@ -1,23 +1,18 @@
 package com.jamiedev.mod.common.client.renderer;
 
 import com.jamiedev.mod.common.client.JamiesModModelLayers;
-import com.jamiedev.mod.common.client.models.FungalParentModel;
+import com.jamiedev.mod.common.client.models.*;
 import com.jamiedev.mod.common.entities.FungalParentEntity;
 import com.jamiedev.mod.fabric.JamiesModFabric;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.*;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.mob.EndermanEntity;
-import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 
 public class FungalParentRenderer  extends MobEntityRenderer<FungalParentEntity, FungalParentModel<FungalParentEntity>> {
-    private static final Identifier TEXTURE = JamiesModFabric.getModId("textures/entity/fungalparent.png");
+    private static final Identifier TEXTURE = JamiesModFabric.getModId("textures/entity/fungalparent1.png");
     private final Random random = Random.create();
 
 

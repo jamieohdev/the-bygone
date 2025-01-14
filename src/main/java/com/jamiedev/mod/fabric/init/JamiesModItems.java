@@ -101,15 +101,24 @@ public class JamiesModItems
 
     public static final Item AMARANTH_LOAF = registerItem("amaranth_loaf", new Item(new Item.Settings().food(AMARANTH_LOAF_COMP)));
 
+  //  public static final Item ORANGE_FUNGI = registerItem("orange_fungi_fan", (BlockItem)(new VerticallyAttachableBlockItem(JamiesModBlocks.ORANGE_FUNGI_FAN, JamiesModBlocks.ORANGE_FUNGI_WALL_FAN, new Item.Settings(), Direction.DOWN)));
+
+  //  public static final Item PINK_FUNGI = registerItem("pink_fungi_fan", (BlockItem)(new VerticallyAttachableBlockItem(JamiesModBlocks.PINK_FUNGI_FAN, JamiesModBlocks.PINK_FUNGI_WALL_FAN, new Item.Settings(), Direction.DOWN)));
+    
+  //  public static final Item PURPLE_FUNGI = registerItem("purple_fungi_fan", (BlockItem)(new VerticallyAttachableBlockItem(JamiesModBlocks.PURPLE_FUNGI_FAN, JamiesModBlocks.PURPLE_FUNGI_WALL_FAN, new Item.Settings(), Direction.DOWN)));
+
+    public static final Item ORANGE_FUNGI  = registerItem("orange_fungi_vines", (Item)(new AliasedBlockItem(JamiesModBlocks.ORANGE_FUNGI_VINES, (new Item.Settings()))));
+    public static final Item PINK_FUNGI  = registerItem("pink_fungi_vines", (Item)(new AliasedBlockItem(JamiesModBlocks.PINK_FUNGI_VINES, (new Item.Settings()))));
+    public static final Item PURPLE_FUNGI  = registerItem("purple_fungi_vines", (Item)(new AliasedBlockItem(JamiesModBlocks.PURPLE_FUNGI_VINES, (new Item.Settings()))));
+
     public static void addItemsToItemGroup() {
 
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, ANCIENT_SIGN);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, ANCIENT_HANGING_SIGN);
-        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, HOOK);
-        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, GOLD_BIG_BEAK_ARMOR);
-        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, IRON_BIG_BEAK_ARMOR);
-        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, DIAMOND_BIG_BEAK_ARMOR);
-        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, SCALE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, ORANGE_FUNGI);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, PINK_FUNGI);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, PURPLE_FUNGI);
+         //addToItemGroup(JamiesModItemGroup.JAMIES_MOD, SCALE);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, EXOTIC_ARROW);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, EXOTIC_PLUMAGE);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, COELECANTH);
@@ -125,10 +134,15 @@ public class JamiesModItems
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, BIG_BEAK_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, COELACANTH_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, COPPERBUG_SPAWN_EGG);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, FUNGALPARENT_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, MOOBOO_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, SCUTTLE_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, TRILOBITE_SPAWN_EGG);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, ARCANE_CORE);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, HOOK);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, GOLD_BIG_BEAK_ARMOR);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, IRON_BIG_BEAK_ARMOR);
+        addToItemGroup(JamiesModItemGroup.JAMIES_MOD, DIAMOND_BIG_BEAK_ARMOR);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, VERDIGRIS_SCRAP);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, VERDIGRIS_INGOT);
         addToItemGroup(JamiesModItemGroup.JAMIES_MOD, VERDIGRIS_BLADE);

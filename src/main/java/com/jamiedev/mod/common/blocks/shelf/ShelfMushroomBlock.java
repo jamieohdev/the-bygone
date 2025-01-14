@@ -1,4 +1,4 @@
-package com.jamiedev.mod.common.blocks;
+package com.jamiedev.mod.common.blocks.shelf;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
@@ -74,7 +74,7 @@ public class ShelfMushroomBlock extends Block
             Vec3d vec3d = entity.getVelocity();
             if (vec3d.y < 0.0) {
                 double d = entity instanceof LivingEntity ? 1.0 : 0.1;
-                entity.setVelocity(vec3d.x, -vec3d.y * d * 2, vec3d.z);
+                entity.setVelocity(vec3d.x, -vec3d.y * d * 1.5, vec3d.z);
             }
         }
 

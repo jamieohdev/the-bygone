@@ -1,20 +1,15 @@
 package com.jamiedev.mod.common.client;
 
-import com.jamiedev.mod.common.client.particles.ShelfParticle;
+import com.jamiedev.mod.common.client.particles.*;
 import com.jamiedev.mod.common.items.VerdigrisBladeItem;
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.blocks.JamiesModWoodType;
-import com.jamiedev.mod.common.client.particles.AmberDustParticle;
-import com.jamiedev.mod.common.client.particles.BlemishParticle;
-import com.jamiedev.mod.common.client.particles.RafflesiaSporeParticle;
 import com.jamiedev.mod.common.client.models.*;
 import com.jamiedev.mod.common.client.renderer.*;
 import com.jamiedev.mod.fabric.init.*;
 import com.jamiedev.mod.common.network.SyncPlayerHookS2C;
 import com.jamiedev.mod.common.client.network.SyncPlayerHookPacketHandler;
 import com.jamiedev.mod.common.util.PlayerWithHook;
-import io.github.amerebagatelle.fabricskyboxes.api.FabricSkyBoxesApi;
-import io.github.amerebagatelle.fabricskyboxes.mixin.skybox.WorldRendererAccess;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -22,28 +17,22 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.particle.SoulParticle;
-import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ShieldItem;
-import net.minecraft.item.SwordItem;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.component.DataComponentTypes;
-import org.joml.Matrix4f;
 
 import java.util.Objects;
 public class JamiesModClient implements ClientModInitializer {
@@ -121,6 +110,19 @@ public class JamiesModClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_ROOTS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_SPROUTS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_MOLD, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_FUNGI_VINES, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_FUNGI_PLANT, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PINK_FUNGI_VINES, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PINK_FUNGI_VINES_PLANT, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PURPLE_FUNGI_VINES, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PURPLE_FUNGI_VINES_PLANT, RenderLayer.getCutout());
+
+        // BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_FUNGI_FAN, RenderLayer.getCutout());
+        //BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_FUNGI_WALL_FAN, RenderLayer.getCutout());
+       // BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PINK_FUNGI_FAN, RenderLayer.getCutout());
+       // BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PINK_FUNGI_WALL_FAN, RenderLayer.getCutout());
+       // BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PURPLE_FUNGI_FAN, RenderLayer.getCutout());
+       // BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PURPLE_FUNGI_WALL_FAN, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CLAYSTONE_FARMLAND, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.AMARANTH_CROP, RenderLayer.getCutout());
@@ -175,6 +177,7 @@ public class JamiesModClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.SHELF, ShelfParticle.Factory::new);
 
         ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.AMBER_DUST, AmberDustParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.ANCIENT_LEAVES, AncientLeavesParticle.Factory::new);
 
         DimensionRenderingRegistry.registerDimensionEffects(BYGONE, BygoneDimensionEffects.INSTANCE);
         DimensionRenderingRegistry.registerSkyRenderer(JamiesModDimension.BYGONE_LEVEL_KEY, BygoneSkyRenderer.INSTANCE);

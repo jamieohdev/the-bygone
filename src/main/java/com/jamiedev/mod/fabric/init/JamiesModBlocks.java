@@ -2,6 +2,7 @@ package com.jamiedev.mod.fabric.init;
 
 import java.util.Optional;
 
+import com.jamiedev.mod.common.blocks.shelf.*;
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.blocks.*;
 import com.jamiedev.mod.common.blocks.gourds.*;
@@ -17,15 +18,13 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.feature.TreeConfiguredFeatures;
 
 import static net.minecraft.block.Blocks.DIRT;
 
 public class JamiesModBlocks {
+
 
     public static BlockItem createBlockItem(String blockID, Block block){
         return Registry.register(Registries.ITEM, JamiesModFabric.getModId(blockID), new BlockItem(block, new Item.Settings().fireproof()));
@@ -170,14 +169,14 @@ public class JamiesModBlocks {
     public static final Block ANCIENT_VINE = registerBlock("ancient_vines",
             new VineBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).replaceable().noCollision().ticksRandomly().strength(0.2F).sounds(BlockSoundGroup.VINE).burnable().pistonBehavior(PistonBehavior.DESTROY)),  JamiesModItemGroup.JAMIES_MOD);
 
-    public static final Block ANCIENT_SAPLING = createBlockWithItem("ancient_sapling", new SaplingBlock(new SaplingGenerator(JamiesModFabric.getModId( "ancient_tree").toString(),
+    public static final Block ANCIENT_SAPLING = createBlockWithItem("ancient_sapling", new AncientSaplingBlock(new SaplingGenerator(JamiesModFabric.getModId( "ancient_tree").toString(),
             Optional.empty(),
             Optional.of(JamiesModConfiguredFeatures.ANCIENT_TREE),
             Optional.empty()),AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)));
     public static final Block ANCIENT_LOG = registerBlock("ancient_log",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block ANCIENT_LEAVES = registerBlock("ancient_leaves",
-            new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)), JamiesModItemGroup.JAMIES_MOD);
+            new AncientLeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block ANCIENT_WOOD = registerBlock("ancient_wood",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_WOOD).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
 
@@ -441,6 +440,8 @@ public class JamiesModBlocks {
     public static final Block SHELF_MOLD_BLOCK = registerBlock((String)"shelf_mold_block", new ShelfMoldBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block SHELF_MOLD = registerBlock((String)"shelf_mold", new TallPlantBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).replaceable().noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XZ).burnable().pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
 
+    public static final Block SHELF_MOLD_MOSS = registerBlock((String)"shelf_mold_moss_block", new Block(AbstractBlock.Settings.create().mapColor(MapColor.PALE_GREEN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRASS)), JamiesModItemGroup.JAMIES_MOD);
+
     public static final Block ORANGE_MUSHROOM_BLOCK = registerBlock("orange_mushroom_block", new ShelfMushroomBlock(
             AbstractBlock.Settings.create().sounds(BlockSoundGroup.WOOD).mapColor(MapColor.ORANGE).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F,
                     6.0F).luminance((state) -> {
@@ -510,6 +511,49 @@ public class JamiesModBlocks {
             .noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).burnable().pistonBehavior(PistonBehavior.DESTROY).luminance((state) -> {
                 return 1;
             })), JamiesModItemGroup.JAMIES_MOD);
+
+    public static  final  Block ORANGE_FUNGI_VINES = registerBlockWithoutBlockItem("orange_fungi_vines", new ShelfOrangeFungiVinesHeadBlock(AbstractBlock.Settings.create()
+            .mapColor(MapColor.DARK_GREEN).ticksRandomly().noCollision().luminance((state) -> {
+                return 1;
+            }).breakInstantly()
+            .sounds(BlockSoundGroup.CAVE_VINES).pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+    public static  final  Block ORANGE_FUNGI_PLANT = registerBlockWithoutBlockItem("orange_fungi_vines_plant", new ShelfOrangeFungiVinesBodyBlock(AbstractBlock.Settings.create()
+            .mapColor(MapColor.DARK_GREEN).noCollision().luminance((state) -> {
+                return 1;
+            }).breakInstantly().sounds(BlockSoundGroup.CAVE_VINES)
+            .pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+    public static  final  Block PINK_FUNGI_VINES = registerBlockWithoutBlockItem("pink_fungi_vines", new ShelfPinkFungiVinesHeadBlock(AbstractBlock.Settings.create()
+            .mapColor(MapColor.DARK_GREEN).ticksRandomly().noCollision().luminance((state) -> {
+                return 1;
+            }).breakInstantly()
+            .sounds(BlockSoundGroup.CAVE_VINES).pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+    public static  final  Block PINK_FUNGI_VINES_PLANT = registerBlockWithoutBlockItem("pink_fungi_vines_plant", new ShelfPinkFungiVinesBodyBlock(AbstractBlock.Settings.create()
+            .mapColor(MapColor.DARK_GREEN).noCollision().luminance((state) -> {
+                return 1;
+            }).breakInstantly().sounds(BlockSoundGroup.CAVE_VINES)
+            .pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+    public static  final  Block PURPLE_FUNGI_VINES = registerBlockWithoutBlockItem("purple_fungi_vines", new ShelfPurpleFungiVinesHeadBlock(AbstractBlock.Settings.create()
+            .mapColor(MapColor.DARK_GREEN).ticksRandomly().noCollision().luminance((state) -> {
+                return 1;
+            }).breakInstantly()
+            .sounds(BlockSoundGroup.CAVE_VINES).pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+    public static  final  Block PURPLE_FUNGI_VINES_PLANT = registerBlockWithoutBlockItem("purple_fungi_vines_plant", new ShelfPurpleFungiVinesBodyBlock(AbstractBlock.Settings.create()
+            .mapColor(MapColor.DARK_GREEN).noCollision().luminance((state) -> {
+                return 1;
+            }).breakInstantly().sounds(BlockSoundGroup.CAVE_VINES)
+            .pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+
+
+    /**
+     public static Block PURPLE_FUNGI_FAN = registerBlockWithoutBlockItem("purple_fungi_fan", new ShelfFungiFanBlock(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().noCollision().breakInstantly()), JamiesModItemGroup.JAMIES_MOD);
+    public static Block  PURPLE_FUNGI_WALL_FAN = registerBlockWithoutBlockItem("purple_fungi_wall_fan", new ShelfFungiWallFanBlock(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().noCollision().breakInstantly().dropsLike(PURPLE_FUNGI_FAN)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static Block PINK_FUNGI_FAN = registerBlockWithoutBlockItem("pink_fungi_fan", new ShelfFungiFanBlock(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().noCollision().breakInstantly()), JamiesModItemGroup.JAMIES_MOD);
+    public static Block  PINK_FUNGI_WALL_FAN = registerBlockWithoutBlockItem("pink_fungi_wall_fan", new ShelfFungiWallFanBlock(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().noCollision().breakInstantly().dropsLike(PINK_FUNGI_FAN)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static Block ORANGE_FUNGI_FAN = registerBlockWithoutBlockItem("orange_fungi_fan", new ShelfFungiFanBlock(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().noCollision().breakInstantly()), JamiesModItemGroup.JAMIES_MOD);
+    public static Block  ORANGE_FUNGI_WALL_FAN = registerBlockWithoutBlockItem("orange_fungi_wall_fan", new ShelfFungiWallFanBlock2(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().noCollision().breakInstantly().dropsLike(ORANGE_FUNGI_FAN)), JamiesModItemGroup.JAMIES_MOD);
+**/
 
     private static Block registerBlock(String name, Block block, RegistryKey<ItemGroup> group) {
         registerBlockItem(name, block, group);

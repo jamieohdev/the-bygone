@@ -40,10 +40,14 @@ public class HookItem extends Item
         if(!secondaryUse){
             user.setCurrentHand(hand);
             used = true;
+            user.incrementStat(Stats.USED.getOrCreateStat(this));
+            user.emitGameEvent(GameEvent.ITEM_INTERACT_START);
         }
         if (hook != null && secondaryUse) {
             retrieve(world, user, hook);
             used = true;
+            user.incrementStat(Stats.USED.getOrCreateStat(this));
+            user.emitGameEvent(GameEvent.ITEM_INTERACT_START);
         }
             user.incrementStat(Stats.USED.getOrCreateStat(this));
             user.emitGameEvent(GameEvent.ITEM_INTERACT_START);

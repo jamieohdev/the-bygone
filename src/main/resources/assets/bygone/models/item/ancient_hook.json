@@ -1,7 +1,7 @@
 {
     "parent": "item/handheld_rod",
     "textures": {
-        "layer0": "bygone:item/ancient_hook"
+        "layer0": "bygone:item/ancient_hook_cast"
     },
     "overrides": [
         {

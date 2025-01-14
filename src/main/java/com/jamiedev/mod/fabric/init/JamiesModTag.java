@@ -36,7 +36,8 @@ public class JamiesModTag
     public static final TagKey<Block> COPPERBUGNESTS = Blocks.createTag("copperbug_nests") ;
 
     public static final TagKey<EntityType<?>> COPPERBUGNEST_INHABITORS = Entities.createTag("copperbugnest_inhabitors");
-
+    public static final TagKey<Block> SHELF_FUNGI = Blocks.createTag("shelf_fungi") ;
+    public static final TagKey<Block>  MOLD_REPLACEABLE = Blocks.createTag("mold_replaceable");
     public static class Blocks {
 
         private static TagKey<Block> createTag(String name) {

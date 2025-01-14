@@ -72,7 +72,7 @@ public class JamiesModEntityTypes {
     public static final EntityType<FungalParentEntity> FUNGAL_PARENT = Registry.register(Registries.ENTITY_TYPE,
             JamiesModFabric.getModId( "fungal_parent"),
             FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, FungalParentEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.6F, 2.9F))
+                    .dimensions(EntityDimensions.fixed(0.6F, 2.1F))
                     .trackRangeChunks(8)
                     .trackedUpdateRate(8)
                     .build());

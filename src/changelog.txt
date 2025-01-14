@@ -1,3 +1,51 @@
+## **Updates in 1.1.1a
+
+
+## This patch contains a lot of changes to the Shelfhollows thanks to feedback we've received, as well as a few more additions!
+
+# New features in 1.1.1a
+
+* Added Orange/Pink/Purple Fungi Vines. THey are currently not obtainable, and just serve as decoration to the Shelfhollow ceiling!
+
+* Added Shelf Mold Moss.
+
+* Added a new falling leaf particle to Ancient Leaves.
+
+> Feature One
+* Desc
+
+
+# Changes to existing features:
+
+* Completely overhauled the Fungal Parents model and texture.
+
+* Changed the Shelfhollow's fog color from pitch black to beige.
+
+* Adjusted the Purple Mushroom Block's bounciness from x2 to x1.2 times.
+
+* Adjusted the Shelfhollow's particle textures.
+
+* Adjusted the frequency of Shelfhollow particles that appear.
+
+* Adjusted how many (Fungal) Parents spawn.
+
+* Adjusted the Orange/Pink/Purple blocksets textures.
+
+
+# Technical additions or changes:
+
+* Added "mold_replaceable" tag.
+
+
+
+# Bugs fixed:
+
+* Fixed Fungal Parents not having a display name.
+
+* Fixed Shelf Mold dropping Short Grass.
+
+
+
 # **Updates in 1.1.0a**
 
 
@@ -11,6 +59,7 @@ You will find them generating alongside the Undergrove biome!
 * Added Shelf Mycelium and Shelf Mold blocks.
 * Added new vegetation: Shelf Fungus, Mold, Roots, and Sprouts.
 * Added the (Fungal) Parent and Child mobs.
+* Added Fungal Parent mob spawn egg.
 * Added Claystone Bricks blockset.
 * Added stonecutter recipes for the Cobbled Bystone/Byslate family of blocks.
 
@@ -46,6 +95,8 @@ You will find them generating alongside the Undergrove biome!
 
 # Changes to existing features:
 
+* Big Beaks can now have babies!
+
 * Amaranth Crops & associated items have new textures! (Courtesy of the extremely talented Betwixer!)
 
 * Renamed internal name of "hook" to "ancient_hook"
@@ -53,6 +104,8 @@ You will find them generating alongside the Undergrove biome!
 * Changed Ancient Hook texture.
 
 * Tweaked Whirliweed generation.
+
+* Removed unused painting variant "Bob".
 
 
 # Bugs fixed:

@@ -11,11 +11,10 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bygone:creosote"
+          "name": "bygone:shelf_mold_moss_block"
         }
       ],
       "rolls": 1.0
     }
-  ],
-  "random_sequence": "bygone:blocks/creosote"
+  ]
 }

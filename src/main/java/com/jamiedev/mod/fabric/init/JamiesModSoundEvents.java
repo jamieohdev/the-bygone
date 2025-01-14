@@ -24,6 +24,11 @@ public class JamiesModSoundEvents
     public static final Identifier ENTITY_MOOBOO_AMBIENT = JamiesModFabric.getModId("entity.mooboo.ambient");
     public static final Identifier ENTITY_MOOBOO_HURT = JamiesModFabric.getModId("entity.mooboo.hurt");
     public static final Identifier ENTITY_MOOBOO_DEATH = JamiesModFabric.getModId("entity.mooboo.death");
+
+    public static final Identifier ENTITY_FUNGUSPARENT_AMBIENT = JamiesModFabric.getModId("entity.fungus_parent.ambient");
+    public static final Identifier ENTITY_FUNGUSPARENT_BABY_AMBIENT = JamiesModFabric.getModId("entity.fungus_parent.ambient_baby");
+    public static final Identifier ENTITY_FUNGUSPARENT_HURT = JamiesModFabric.getModId("entity.fungus_parent.hurt");
+    public static final Identifier ENTITY_FUNGUSPARENT_DEATH = JamiesModFabric.getModId("entity.fungus_parent.death");
     
      public static SoundEvent AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.of(AMBIENT_ANCIENTFOREST_ADDITIONS);
     public static SoundEvent AMBIENT_AMBERDESERT_ADDITIONS_EVENT = SoundEvent.of(AMBIENT_AMBERDESERT_ADDITIONS);
@@ -42,6 +47,11 @@ public class JamiesModSoundEvents
     public static SoundEvent MOOBOO_AMBIENT_ADDITIONS_EVENT = SoundEvent.of(ENTITY_MOOBOO_AMBIENT);
     public static SoundEvent MOOBOO_HURT_ADDITIONS_EVENT = SoundEvent.of(ENTITY_MOOBOO_HURT);
     public static SoundEvent MOOBOO_DEATH_ADDITIONS_EVENT = SoundEvent.of(ENTITY_MOOBOO_DEATH);
+
+    public static SoundEvent FUNGUSPARENT_AMBIENT_ADDITIONS_EVENT = SoundEvent.of(ENTITY_FUNGUSPARENT_AMBIENT);
+    public static SoundEvent FUNGUSPARENT_AMBIENT_BABY_ADDITIONS_EVENT = SoundEvent.of(ENTITY_FUNGUSPARENT_BABY_AMBIENT);
+    public static SoundEvent FUNGUSPARENT_HURT_ADDITIONS_EVENT = SoundEvent.of(ENTITY_FUNGUSPARENT_HURT);
+    public static SoundEvent FUNGUSPARENT_DEATH_ADDITIONS_EVENT = SoundEvent.of(ENTITY_FUNGUSPARENT_DEATH);
 
 
     private static SoundEvent register(String id) {
@@ -75,6 +85,10 @@ public class JamiesModSoundEvents
         Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.ENTITY_MOOBOO_AMBIENT, JamiesModSoundEvents.MOOBOO_AMBIENT_ADDITIONS_EVENT);
         Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.ENTITY_MOOBOO_HURT, JamiesModSoundEvents.MOOBOO_HURT_ADDITIONS_EVENT);
         Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.ENTITY_MOOBOO_DEATH, JamiesModSoundEvents.MOOBOO_DEATH_ADDITIONS_EVENT);
+        
+        Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.ENTITY_FUNGUSPARENT_AMBIENT, JamiesModSoundEvents.FUNGUSPARENT_AMBIENT_ADDITIONS_EVENT);
+        Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.ENTITY_FUNGUSPARENT_HURT, JamiesModSoundEvents.FUNGUSPARENT_HURT_ADDITIONS_EVENT);
+        Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.ENTITY_FUNGUSPARENT_DEATH, JamiesModSoundEvents.FUNGUSPARENT_DEATH_ADDITIONS_EVENT);
 
     }
 }
