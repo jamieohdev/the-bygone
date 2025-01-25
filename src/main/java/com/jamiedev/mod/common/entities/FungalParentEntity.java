@@ -90,7 +90,7 @@ public class FungalParentEntity  extends AnimalEntity implements Angerable {
         this.targetSelector.add(1, new FungalParentEntity.FungalParentRevengeGoal());
         this.targetSelector.add(2, new FungalParentEntity.ProtectBabiesGoal());
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, this::shouldAngerAt));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, FoxEntity.class, 10, true, true, (Predicate)null));
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, GlareEntity.class, 10, true, true, (Predicate)null));
         this.targetSelector.add(5, new UniversalAngerGoal<>(this, true));
     }
 

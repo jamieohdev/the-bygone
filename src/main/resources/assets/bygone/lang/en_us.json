@@ -53,6 +53,7 @@
   "itemgroup.test": "The Bygone",
   "itemgroup.bygone": "The Bygone",
 
+  "block.bygone.arcane_core": "Arcane Core",
   "block.bygone.bygone_portal_frame": "Bygone Portal Frame",
   "block.bygone.bygone_portal_frame_block": "Bygone Portal Frame",
   "block.bygone.bygone_portal_frame_placeable": "Bygone Portal Frame",

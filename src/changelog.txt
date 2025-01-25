@@ -1,3 +1,23 @@
+## **Updates in 1.1.2a / 1.2.0a**
+
+# This patch/update <content>
+
+# New features in 1.1.2a/1.2.0a
+* Title 1
+
+> Title 1
+* Desc 1
+
+# Changes to existing features:
+
+* Updated the Fungi Vines texture(s).
+
+
+# Bugs fixed:
+
+* Fixed the Arcane Core not having a display name.
+
+
 ## **Updates in 1.1.1a
 
 
@@ -10,9 +30,6 @@
 * Added Shelf Mold Moss.
 
 * Added a new falling leaf particle to Ancient Leaves.
-
-> Feature One
-* Desc
 
 
 # Changes to existing features:
