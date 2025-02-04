@@ -27,6 +27,10 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:trident"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:arcane_core"
         }
       ],
       "rolls": 1.0

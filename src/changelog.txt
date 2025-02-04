@@ -1,16 +1,28 @@
 ## **Updates in 1.1.2a / 1.2.0a**
 
-# This patch/update <content>
+# This is hopefully the last patch before 1.2! We have some major things coming up that we look forward to sharing with you all!
+# This patch mostly contains new textures and some minor bug fixes! And we have the first piece of ambience courtesy of the talented @Quizzly_ !
+
 
 # New features in 1.1.2a/1.2.0a
-* Title 1
+* Added new ambience in the Shelfhollows.
 
 > Title 1
 * Desc 1
 
 # Changes to existing features:
 
+* Tweaked Arcane Cores to appear rarely as loot in common Vaults.
+
+* Updated the Rugosa Coral blockset textures.
+
+* Updated the Tabulata Coral blockset textures.
+
+* Updated the Sagaria texture.
+
 * Updated the Fungi Vines texture(s).
+
+* Updated the credits!
 
 
 # Bugs fixed:

@@ -13,6 +13,7 @@ public class JamiesModSoundEvents
     public static final Identifier AMBIENT_PRIMORDIALOCEAN_ADDITIONS = JamiesModFabric.getModId("ambient.primordial_ocean.additions");
     public static final Identifier MUSIC_ANCIENTFOREST_ADDITIONS = JamiesModFabric.getModId("music.bygone.underhang");
     public static final Identifier MUSIC_PRIMORDIALOCEAN_ADDITIONS = JamiesModFabric.getModId("music.bygone.primordial_ocean");
+    public static final Identifier AMBIENT_SHELFHOLLOW_ADDITIONS = JamiesModFabric.getModId("ambient.shelfhollow.additions");
     public static final Identifier ENTITY_BIGBEAK_AMBIENT = JamiesModFabric.getModId("entity.bigbeak.ambient");
     public static final Identifier ENTITY_BIGBEAK_HURT = JamiesModFabric.getModId("entity.bigbeak.hurt");
     public static final Identifier ENTITY_BIGBEAK_DEATH = JamiesModFabric.getModId("entity.bigbeak.death");
@@ -30,10 +31,11 @@ public class JamiesModSoundEvents
     public static final Identifier ENTITY_FUNGUSPARENT_HURT = JamiesModFabric.getModId("entity.fungus_parent.hurt");
     public static final Identifier ENTITY_FUNGUSPARENT_DEATH = JamiesModFabric.getModId("entity.fungus_parent.death");
     
-     public static SoundEvent AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.of(AMBIENT_ANCIENTFOREST_ADDITIONS);
+    public static SoundEvent AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.of(AMBIENT_ANCIENTFOREST_ADDITIONS);
     public static SoundEvent AMBIENT_AMBERDESERT_ADDITIONS_EVENT = SoundEvent.of(AMBIENT_AMBERDESERT_ADDITIONS);
     public static SoundEvent AMBIENT_PRIMORDIALOCEAN_ADDITIONS_EVENT = SoundEvent.of(AMBIENT_PRIMORDIALOCEAN_ADDITIONS);
-     public static SoundEvent MUSIC_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.of(MUSIC_ANCIENTFOREST_ADDITIONS);
+    public static SoundEvent MUSIC_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.of(MUSIC_ANCIENTFOREST_ADDITIONS);
+    public static SoundEvent AMBIENT_SHELFHOLLOW_ADDITIONS_EVENT = SoundEvent.of(AMBIENT_SHELFHOLLOW_ADDITIONS);
     public static SoundEvent MUSIC_PRIMORDIALOCEAN_ADDITIONS_EVENT = SoundEvent.of(MUSIC_PRIMORDIALOCEAN_ADDITIONS);
 
     public static SoundEvent BIGBEAK_AMBIENT_ADDITIONS_EVENT = SoundEvent.of(ENTITY_BIGBEAK_AMBIENT);
@@ -71,6 +73,7 @@ public class JamiesModSoundEvents
         Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.AMBIENT_ANCIENTFOREST_ADDITIONS, JamiesModSoundEvents.AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT);
         Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.AMBIENT_AMBERDESERT_ADDITIONS, JamiesModSoundEvents.AMBIENT_AMBERDESERT_ADDITIONS_EVENT);
         Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.AMBIENT_PRIMORDIALOCEAN_ADDITIONS, JamiesModSoundEvents.AMBIENT_PRIMORDIALOCEAN_ADDITIONS_EVENT);
+        Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.AMBIENT_SHELFHOLLOW_ADDITIONS, JamiesModSoundEvents.AMBIENT_SHELFHOLLOW_ADDITIONS_EVENT);
         Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.MUSIC_ANCIENTFOREST_ADDITIONS, JamiesModSoundEvents.MUSIC_ANCIENTFOREST_ADDITIONS_EVENT);
         Registry.register(Registries.SOUND_EVENT, JamiesModSoundEvents.MUSIC_PRIMORDIALOCEAN_ADDITIONS, JamiesModSoundEvents.MUSIC_PRIMORDIALOCEAN_ADDITIONS_EVENT);
 

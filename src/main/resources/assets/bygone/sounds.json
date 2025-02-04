@@ -53,6 +53,12 @@
     ],
     "subtitle": "subtitles.ambient.primordial_ocean.additions"
   },
+  "ambient.shelfhollow.additions": {
+    "sounds":  [
+      "bygone:ambience/shelfhollows"
+    ],
+    "subtitle": "subtitles.ambient.shelfhollows.additions"
+  },
   "ambience.volcanic1": {
     "category": "ambient",
     "subtitle": "subtitles.ambient.bygone",
