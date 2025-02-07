@@ -12,6 +12,8 @@
 
 # Changes to existing features:
 
+* Fungi Vines are now obtainable via shears!
+
 * Tweaked Arcane Cores to appear rarely as loot in common Vaults.
 
 * Updated the Rugosa Coral blockset textures.
@@ -26,6 +28,12 @@
 
 
 # Bugs fixed:
+
+* Fixed all Fungi / Shelf vegetation not being compostable.
+
+* Fixed Alpha Moss Blocks and Carpets not being compostable.
+
+* Fixed Alpha Moss Blocks and Carpets not being able to be used as fuel.
 
 * Fixed the Arcane Core not having a display name.
 

@@ -10,7 +10,7 @@
   "effects": {
     "additions_sound": {
       "sound": "bygone:ambient.primordial_ocean.additions",
-      "tick_chance": 0.0007
+      "tick_chance": 0.0014
     },
     "music": {
       "max_delay": 24000,

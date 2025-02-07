@@ -22,6 +22,19 @@ public class JamiesModMisc {
         compostingRegistry.add(JamiesModBlocks.ANCIENT_ROOTS, 0.3F);
         compostingRegistry.add(JamiesModBlocks.ANCIENT_VINE, 0.3F);
         compostingRegistry.add(JamiesModBlocks.ANCIENT_LEAVES, 0.3F);
+
+        compostingRegistry.add(JamiesModBlocks.ALPHA_MOSS_CARPET, 0.3F);
+        compostingRegistry.add(JamiesModBlocks.ALPHA_MOSS_BLOCK, 0.3F);
+
+        compostingRegistry.add(JamiesModBlocks.CREOSOTE_SPROUTS, 0.2F);
+        compostingRegistry.add(JamiesModBlocks.SHELF_MOLD, 0.2F);
+        compostingRegistry.add(JamiesModBlocks.SHELF_ROOTS, 0.2F);
+        compostingRegistry.add(JamiesModBlocks.SHELF_FUNGUS, 0.2F);
+        compostingRegistry.add(JamiesModBlocks.SHELF_SPROUTS, 0.2F);
+
+        compostingRegistry.add(JamiesModBlocks.ORANGE_FUNGI_VINES, 0.1F);
+        compostingRegistry.add(JamiesModBlocks.PINK_FUNGI_VINES, 0.1F);
+        compostingRegistry.add(JamiesModBlocks.PURPLE_FUNGI_VINES, 0.1F);
     }
 
     private static void addFuels() {
@@ -38,6 +51,8 @@ public class JamiesModMisc {
         fuelRegistry.add(JamiesModBlocks.SHORT_GRASS, 300);
         fuelRegistry.add(JamiesModBlocks.TALL_GRASS, 200);
         fuelRegistry.add(JamiesModBlocks.ANCIENT_ROOTS, 50);
+        fuelRegistry.add(JamiesModBlocks.ALPHA_MOSS_CARPET, 30);
+        fuelRegistry.add(JamiesModBlocks.ALPHA_MOSS_BLOCK, 60);
 
         fuelRegistry.add(JamiesModBlocks.ANCIENT_WOOD, 300);
         fuelRegistry.add(JamiesModBlocks.ANCIENT_LOG, 300);

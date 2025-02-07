@@ -10,15 +10,21 @@
   "effects": {
     "fog_color": 12764056,
     "additions_sound": {
-      "sound": "bygone:ambient.shelfhollow.additions",
-      "tick_chance": 0.0111
+      "sound": "minecraft:ambient.crimson_forest.additions",
+      "tick_chance": 0.0055
     },
-
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
-      "sound": "minecraft:ambient.crimson_forest.mood",
+      "sound": "minecraft:ambient.warped_forest.mood",
       "tick_delay": 6000
+    },
+    "ambient_sound": "bygone:ambient.shelfhollow.additions",
+    "music": {
+      "max_delay": 99900,
+      "min_delay": 99800,
+      "replace_current_music": false,
+      "sound": "minecraft:music.nether.warped_forest"
     },
     "particle": {
       "options": {
