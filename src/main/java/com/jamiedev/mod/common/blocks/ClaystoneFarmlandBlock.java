@@ -1,6 +1,7 @@
 package com.jamiedev.mod.common.blocks;
 
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
+import com.jamiedev.mod.fabric.init.JamiesModTag;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
@@ -75,7 +76,7 @@ public class ClaystoneFarmlandBlock extends Block
 
     protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         int i = (Integer)state.get(MOISTURE);
-        if (!isWaterNearby(world, pos) && !world.hasRain(pos.up())) {
+        if ((!isSprinklerNearby(world, pos)) && !world.hasRain(pos.up())) {
             if (i > 0) {
                 world.setBlockState(pos, (BlockState)state.with(MOISTURE, i - 1), 2);
             } else if (!hasCrop(world, pos)) {
@@ -116,6 +117,21 @@ public class ClaystoneFarmlandBlock extends Block
 
             blockPos = (BlockPos)var2.next();
         } while(!world.getFluidState(blockPos).isIn(FluidTags.WATER));
+
+        return true;
+    }
+
+    private static boolean isSprinklerNearby(WorldView world, BlockPos pos) {
+        Iterator var2 = BlockPos.iterate(pos.add(-15, 0, -15), pos.add(15, 1, 15)).iterator();
+
+        BlockPos blockPos;
+        do {
+            if (!var2.hasNext()) {
+                return false;
+            }
+
+            blockPos = (BlockPos)var2.next();
+        } while(world.getBlockState(blockPos).isIn(JamiesModTag.SPRINKLERS));
 
         return true;
     }

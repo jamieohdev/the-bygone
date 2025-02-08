@@ -75,7 +75,9 @@
       "bygone:coral",
       "bygone:seagrass_deep",
       "bygone:seagrass_normal",
-      "bygone:kelp"
+      "bygone:kelp",
+      "minecraft:flower_cherry",
+      "bygone:flower_primordial"
     ],
     [
       "minecraft:freeze_top_layer"

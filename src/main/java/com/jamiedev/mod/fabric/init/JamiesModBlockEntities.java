@@ -19,6 +19,8 @@ public class JamiesModBlockEntities <T extends BlockEntity>
     public static BlockEntityType<BygonePortalBlockEntity> BYGONE_PORTAL;
     public static BlockEntityType<PrimordialVentEntity> PRIMORDIAL_VENT;
 
+    public static BlockEntityType<SprinklerEntity> SPRINKLER;
+
     public static BlockEntityType<CasterBlockEntity> CASTER;
 
     public static BlockEntityType<PrimordialUrchinEntity> PRIMORDIAL_URCHIN;
@@ -46,6 +48,9 @@ public class JamiesModBlockEntities <T extends BlockEntity>
       //  COPPERBUGNEST = register("copperbug_nest",
        //         BlockEntityType.Builder.create(CopperbugNestBlockEntity::new, JamiesModBlocks.COPPERBUG_NEST)
        //                 .build());
+        SPRINKLER = register("ancient_sprinkler",
+                BlockEntityType.Builder.create(SprinklerEntity::new, JamiesModBlocks.SPRINKER)
+                        .build());
         PRIMORDIAL_VENT = register("primordial_vent",
                 BlockEntityType.Builder.create(PrimordialVentEntity::new, JamiesModBlocks.PRIMORDIAL_VENT)
                         .build());

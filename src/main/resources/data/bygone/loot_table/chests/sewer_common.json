@@ -164,6 +164,10 @@
         {
           "type": "minecraft:item",
           "name": "bygone:ancient_hook"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:ancient_sprinkler"
         }
       ]
     }

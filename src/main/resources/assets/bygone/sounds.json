@@ -47,9 +47,7 @@
   },
   "ambient.primordial_ocean.additions": {
     "sounds":  [
-      "bygone:ambience/primordial_ocean1",
-      "bygone:ambience/primordial_ocean2",
-      "bygone:ambience/frozen3"
+
     ],
     "subtitle": "subtitles.ambient.primordial_ocean.additions"
   },

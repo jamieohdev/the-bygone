@@ -425,6 +425,8 @@ public class JamiesModBlocks {
                 return 5;
             })), JamiesModItemGroup.JAMIES_MOD);
 
+// Farming / Agriculture blocksets
+
     public static final Block CLAYSTONE_FARMLAND = registerBlockWithoutBlockItem("claystone_farmland", new ClaystoneFarmlandBlock(AbstractBlock.Settings.create()
             .mapColor(MapColor.DIRT_BROWN).ticksRandomly().strength(0.6F).sounds(BlockSoundGroup.GRAVEL)
             .blockVision(Blocks::always).suffocates(Blocks::always)), JamiesModItemGroup.JAMIES_MOD);
@@ -432,6 +434,17 @@ public class JamiesModBlocks {
     public static final Block AMARANTH_CROP = registerBlockWithoutBlockItem("amaranth_crop", new AmaranthCropBlock(AbstractBlock.Settings.create()
             .mapColor(MapColor.DARK_GREEN).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP)
             .pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block SPRINKER = registerBlock("ancient_sprinkler", new SprinklerBlock(AbstractBlock.Settings.create().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.METAL)
+            .pistonBehavior(PistonBehavior.DESTROY).nonOpaque()), JamiesModItemGroup.JAMIES_MOD);
+
+    public static final Block BELLADONNA = registerBlock("belladonna", new FlowerbedBlock(AbstractBlock.Settings.create().mapColor(MapColor.PALE_PURPLE)
+            .noCollision().sounds(BlockSoundGroup.PINK_PETALS).pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block COLEUS = registerBlock("coleus", new FlowerbedBlock(AbstractBlock.Settings.create().mapColor(MapColor.CYAN)
+            .noCollision().sounds(BlockSoundGroup.PINK_PETALS).pistonBehavior(PistonBehavior.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+
+
+// Shelf Hollows blocksets
 
     public static final Block PROTOTAXITE_STEM = registerBlock("prototaxite_stem",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);

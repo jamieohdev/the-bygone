@@ -1,14 +1,31 @@
 ## **Updates in 1.1.2a / 1.2.0a**
 
-# This is hopefully the last patch before 1.2! We have some major things coming up that we look forward to sharing with you all!
-# This patch mostly contains new textures and some minor bug fixes! And we have the first piece of ambience courtesy of the talented @Quizzly_ !
+# This is hopefully the last minor upddate before 1.2! We have some major things coming up that we look forward to sharing with you all!
+# This update contains some new additions towards the major theme of the next major update, quite a few texture tweaks, and some bug fixes!
+# And we have the first piece of ambience courtesy of the talented @Quizzly_ ! Stay tuned!
 
 
 # New features in 1.1.2a/1.2.0a
+* Added the Ancient Sprinkler.
+* Added the Belladonna and Coleus flowers.
 * Added new ambience in the Shelfhollows.
+* Added a new icon for the Bygone! Courtesy of the talented Patchouli!
 
-> Title 1
-* Desc 1
+> Ancient Sprinkler
+
+* A new functional block that can only be found in Ruins across the Bygone, or the Sewers.
+
+* Can hydrate farmland up to 15 blocks away!
+
+* Can sometimes bonemeal (most) crops within that range if bonemealed!
+
+
+> Belladonna and Coleus flowers
+
+* Can be placed and broken like Pink Petals!
+
+* Found exclusively in the Primordial Oceans.
+
 
 # Changes to existing features:
 
@@ -27,6 +44,7 @@
 * Updated the credits!
 
 
+
 # Bugs fixed:
 
 * Fixed all Fungi / Shelf vegetation not being compostable.
@@ -36,6 +54,8 @@
 * Fixed Alpha Moss Blocks and Carpets not being able to be used as fuel.
 
 * Fixed the Arcane Core not having a display name.
+
+* Temporarily removed Primordial Oceans ambience while we work on a new take!
 
 
 ## **Updates in 1.1.1a

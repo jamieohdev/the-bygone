@@ -45,8 +45,6 @@ public class PrimordialUrchinBlock extends BlockWithEntity implements Waterlogga
 
     public static boolean test = false;
 
-    FlowerBlock ref;
-
 
     public MapCodec<PrimordialUrchinBlock> getCodec() { return CODEC; }
 

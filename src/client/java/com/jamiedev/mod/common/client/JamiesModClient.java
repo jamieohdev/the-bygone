@@ -105,6 +105,8 @@ public class JamiesModClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL_FAN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL_WALL_FAN, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BELLADONNA, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.COLEUS, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_FUNGUS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_ROOTS, RenderLayer.getCutout());
@@ -126,6 +128,7 @@ public class JamiesModClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CLAYSTONE_FARMLAND, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.AMARANTH_CROP, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SPRINKER, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.POINTED_AMBER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CREOSOTE, RenderLayer.getCutout());

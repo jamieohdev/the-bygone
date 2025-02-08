@@ -84,6 +84,7 @@
 
   "block.bygone.claystone_farmland": "Claystone Farmland",
   "block.bygone.amaranth_crop": "Amaranth",
+  "block.bygone.ancient_sprinkler": "ancient_sprinkler",
 
   "block.bygone.big_whirliweed": "Big Whirliweed",
   "block.bygone.whirliweed": "Whirliweed",
@@ -162,6 +163,8 @@
   "block.bygone.tabulata_coral_fan": "Tabulata Coral Fan",
   "block.bygone.glow_gravel": "Glow Gravel",
   "block.bygone.charnia": "Charnia",
+  "block.bygone.belladonna": "Belladonna",
+  "block.bygone.coleus": "Coleus",
 
   "block.bygone.caster": "Caster (WIP!)",
 
@@ -235,7 +238,6 @@
   "entity.bygone.scuttle": "Scuttle",
   "entity.bygone.scuttle_spike": "Scuttle's Spike",
 
-
   "structure.bygone.ancient_roots": "Ancient Roots",
   "structure.bygone.ruin": "Blemished Ruins",
 
@@ -259,6 +261,7 @@
   "subtitles.ambient.underhang.additions": "",
   "subtitles.ambient.amber_desert.additions": "Ancient wind howls...",
   "subtitles.ambient.primordial_ocean.additions": "",
+  "subtitles.ambient.shelfhollows.additions": "Fungal noises ring...",
 
   "subtitles.entity.bigbeak.step": "Footsteps",
   "subtitles.entity.bigbeak.ambient": "Big Beak caws",

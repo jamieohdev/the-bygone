@@ -238,6 +238,10 @@
           ],
           "name": "minecraft:stone_sword",
           "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:ancient_sprinkler"
         }
       ],
       "rolls": {
