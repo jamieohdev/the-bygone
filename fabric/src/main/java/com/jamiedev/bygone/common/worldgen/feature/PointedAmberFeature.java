@@ -47,7 +47,7 @@ public class PointedAmberFeature  extends Feature<PointedAmberFeatureConfig> {
 
     private static void generateAmberBlocks(LevelAccessor world, RandomSource random, BlockPos pos, PointedAmberFeatureConfig config) {
         AmberHelper.generateAmberBlock(world, pos);
-        Iterator var4 = Direction.Plane.HORIZONTAL.iterator();
+        Iterator<Direction> var4 = Direction.Plane.HORIZONTAL.iterator();
 
         while(var4.hasNext()) {
             Direction direction = (Direction)var4.next();

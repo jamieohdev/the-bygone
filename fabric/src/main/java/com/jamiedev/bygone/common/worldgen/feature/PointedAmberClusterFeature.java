@@ -150,7 +150,7 @@ public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatu
             if (world.getBlockState(pos.above()).getFluidState().is(FluidTags.WATER)) {
                 return false;
             } else {
-                Iterator var4 = Direction.Plane.HORIZONTAL.iterator();
+                Iterator<Direction> var4 = Direction.Plane.HORIZONTAL.iterator();
 
                 Direction direction;
                 do {

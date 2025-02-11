@@ -3,11 +3,10 @@ package com.jamiedev.bygone.common.entities;
 import com.google.common.collect.Lists;
 import com.jamiedev.bygone.common.blocks.entity.CopperbugNestBlockEntity;
 import com.jamiedev.bygone.fabric.init.JamiesModBlockEntities;
-import com.jamiedev.bygone.fabric.init.JamiesModPOI;
+import com.jamiedev.bygone.init.JamiesModPOI;
 import com.jamiedev.bygone.init.JamiesModTag;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 
@@ -892,7 +891,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
     }
 
     private static Optional<BlockPos> cleanOxidationAround(Level world, BlockPos pos) {
-        Iterator var2 = BlockPos.randomInCube(world.random, 10, pos, 1).iterator();
+        Iterator<BlockPos> var2 = BlockPos.randomInCube(world.random, 10, pos, 1).iterator();
 
         BlockPos blockPos;
         BlockState blockState;
@@ -935,7 +934,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
             CopperbugEntity.this.ticksLeftToFindNest = 200;
             List<BlockPos> list = this.getNearbyFreeNests();
             if (!list.isEmpty()) {
-                Iterator var2 = list.iterator();
+                Iterator<BlockPos> var2 = list.iterator();
 
                 BlockPos blockPos;
                 do {

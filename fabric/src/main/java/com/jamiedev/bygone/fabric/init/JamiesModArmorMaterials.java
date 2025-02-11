@@ -55,7 +55,7 @@ public class JamiesModArmorMaterials
             Supplier<Ingredient> repairIngredient,
             List<ArmorMaterial.Layer> layers
     ) {
-        EnumMap<ArmorItem.Type, Integer> enumMap = new EnumMap(ArmorItem.Type.class);
+        EnumMap<ArmorItem.Type, Integer> enumMap = new EnumMap<>(ArmorItem.Type.class);
 
         for (ArmorItem.Type type : ArmorItem.Type.values()) {
             enumMap.put(type, defense.get(type));

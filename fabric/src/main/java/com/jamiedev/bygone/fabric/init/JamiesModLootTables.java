@@ -12,7 +12,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 
 public class JamiesModLootTables
 {
-    private static final Set<ResourceKey<LootTable>> LOOT_TABLES = new HashSet();
+    private static final Set<ResourceKey<LootTable>> LOOT_TABLES = new HashSet<>();
     private static final Set<ResourceKey<LootTable>> LOOT_TABLES_READ_ONLY;
     public static final ResourceKey<LootTable> EMPTY;
 

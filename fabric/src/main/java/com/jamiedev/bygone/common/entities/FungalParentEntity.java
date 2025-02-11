@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.common.entities;
 
 import com.jamiedev.bygone.fabric.init.JamiesModEntityTypes;
-import com.jamiedev.bygone.fabric.init.JamiesModSoundEvents;
+import com.jamiedev.bygone.init.JamiesModSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 
@@ -347,7 +347,7 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
                             FungalParentEntity.this.level().getEntitiesOfClass(FungalParentEntity.class, 
                                     FungalParentEntity.this.getBoundingBox().inflate(8.0, 4.0, 8.0));
 
-                    Iterator var2 = list.iterator();
+                    Iterator<FungalParentEntity> var2 = list.iterator();
 
                     while(var2.hasNext()) {
                         FungalParentEntity polarBearEntity = (FungalParentEntity)var2.next();

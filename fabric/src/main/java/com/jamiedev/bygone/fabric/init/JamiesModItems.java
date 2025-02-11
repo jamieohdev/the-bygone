@@ -2,7 +2,7 @@ package com.jamiedev.bygone.fabric.init;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.items.*;
-import com.jamiedev.bygone.fabric.JamiesModFabric;
+import com.jamiedev.bygone.fabric.BygoneFabric;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -16,7 +16,6 @@ import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.AnimalArmorItem;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterials;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -93,9 +92,9 @@ public class JamiesModItems
     public static final Item SCALE_BOOTS = registerItem("scale_boots",
             new ArmorItem(JamiesModArmorMaterials.SCALE, ArmorItem.Type.BOOTS,
                     new Item.Properties().fireResistant()));
-    public static final Item GOLD_BIG_BEAK_ARMOR = registerItem("gold_beak_armor", new AnimalArmorItem(ArmorMaterials.GOLD, JamiesModFabric.BIG_BEAK_ARMOR, false, (new Item.Properties()).stacksTo(1)));
-    public static final Item IRON_BIG_BEAK_ARMOR = registerItem("iron_beak_armor", new AnimalArmorItem(ArmorMaterials.IRON, JamiesModFabric.BIG_BEAK_ARMOR, false, (new Item.Properties()).stacksTo(1)));
-    public static final Item DIAMOND_BIG_BEAK_ARMOR = registerItem("diamond_beak_armor", new AnimalArmorItem(ArmorMaterials.DIAMOND, JamiesModFabric.BIG_BEAK_ARMOR, false, (new Item.Properties()).stacksTo(1)));
+    public static final Item GOLD_BIG_BEAK_ARMOR = registerItem("gold_beak_armor", new AnimalArmorItem(ArmorMaterials.GOLD, BygoneFabric.BIG_BEAK_ARMOR, false, (new Item.Properties()).stacksTo(1)));
+    public static final Item IRON_BIG_BEAK_ARMOR = registerItem("iron_beak_armor", new AnimalArmorItem(ArmorMaterials.IRON, BygoneFabric.BIG_BEAK_ARMOR, false, (new Item.Properties()).stacksTo(1)));
+    public static final Item DIAMOND_BIG_BEAK_ARMOR = registerItem("diamond_beak_armor", new AnimalArmorItem(ArmorMaterials.DIAMOND, BygoneFabric.BIG_BEAK_ARMOR, false, (new Item.Properties()).stacksTo(1)));
     public static final Item BIG_BEAK_SPAWN_EGG = registerItem("big_beak_spawn_egg", new SpawnEggItem(JamiesModEntityTypes.BIG_BEAK, 8767242, 16756224, new Item.Properties()));
     public static final Item COELACANTH_SPAWN_EGG = registerItem("coelacanth_spawn_egg", new SpawnEggItem(JamiesModEntityTypes.COELACANTH, 2517624, 2327369, new Item.Properties()));
     public static final Item COPPERBUG_SPAWN_EGG = registerItem("copperbug_spawn_egg", new SpawnEggItem(JamiesModEntityTypes.COPPERBUG, 2680408, 2476961, new Item.Properties()));

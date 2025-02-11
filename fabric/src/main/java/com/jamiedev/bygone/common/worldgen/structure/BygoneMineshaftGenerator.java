@@ -840,7 +840,7 @@ public class BygoneMineshaftGenerator {
         public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
             if (!this.cannotGenerate(world, chunkBox)) {
                 this.generateBox(world, chunkBox, this.boundingBox.minX(), this.boundingBox.minY() + 1, this.boundingBox.minZ(), this.boundingBox.maxX(), Math.min(this.boundingBox.minY() + 3, this.boundingBox.maxY()), this.boundingBox.maxZ(), CAVE_AIR, CAVE_AIR, false);
-                Iterator var8 = this.entrances.iterator();
+                Iterator<BoundingBox> var8 = this.entrances.iterator();
 
                 while(var8.hasNext()) {
                     BoundingBox blockBox = (BoundingBox)var8.next();
@@ -854,7 +854,7 @@ public class BygoneMineshaftGenerator {
         @Override
         public void move(int x, int y, int z) {
             super.move(x, y, z);
-            Iterator var4 = this.entrances.iterator();
+            Iterator<BoundingBox> var4 = this.entrances.iterator();
 
             while(var4.hasNext()) {
                 BoundingBox blockBox = (BoundingBox)var4.next();

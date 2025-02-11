@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -125,7 +124,7 @@ public class PrimordialUrchinBlock extends BaseEntityBlock implements SimpleWate
         boolean bl2 = false;
         List<? extends Entity> list = world.getEntities(null, blockState.getShape(world, pos).bounds().move(pos));
         if (!list.isEmpty()) {
-            Iterator var7 = list.iterator();
+            Iterator<? extends Entity> var7 = list.iterator();
 
             while(var7.hasNext()) {
                 Entity entity = (Entity)var7.next();

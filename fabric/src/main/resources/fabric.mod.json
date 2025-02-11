@@ -16,7 +16,7 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "com.jamiedev.bygone.ExampleMod"
+            "com.jamiedev.bygone.fabric.BygoneFabric"
         ]
     },
     "mixins": [

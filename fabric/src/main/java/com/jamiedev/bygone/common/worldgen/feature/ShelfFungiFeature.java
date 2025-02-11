@@ -40,7 +40,7 @@ public class ShelfFungiFeature extends Feature<NoneFeatureConfiguration> {
 
             for (Direction direction : var4) {
                 if (direction != Direction.DOWN && ShelfFungiWallFanBlock.shouldConnectTo(structureWorldAccess, blockPos.relative(direction), direction)) {
-                    Iterator var7 = Direction.Plane.HORIZONTAL.iterator();
+                    Iterator<Direction> var7 = Direction.Plane.HORIZONTAL.iterator();
 
                     while(var7.hasNext()) {
                         Direction direction1 = (Direction) var7.next();
@@ -61,7 +61,7 @@ public class ShelfFungiFeature extends Feature<NoneFeatureConfiguration> {
             world.setBlock(pos, state, 3);
 
 
-            Iterator var7 = Direction.Plane.HORIZONTAL.iterator();
+            Iterator<Direction> var7 = Direction.Plane.HORIZONTAL.iterator();
 
             while(var7.hasNext()) {
                 Direction direction = (Direction)var7.next();

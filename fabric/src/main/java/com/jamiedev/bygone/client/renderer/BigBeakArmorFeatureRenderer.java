@@ -2,7 +2,7 @@ package com.jamiedev.bygone.client.renderer;
 
 import com.jamiedev.bygone.client.JamiesModModelLayers;
 import com.jamiedev.bygone.client.models.BigBeakModel;
-import com.jamiedev.bygone.fabric.JamiesModFabric;
+import com.jamiedev.bygone.fabric.BygoneFabric;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -36,7 +36,7 @@ public class BigBeakArmorFeatureRenderer extends RenderLayer<BigBeakEntity, BigB
         ItemStack itemStack = BigBeakEntity.getBodyArmorItem();
         Item var13 = itemStack.getItem();
         if (var13 instanceof AnimalArmorItem animalArmorItem) {
-            if (animalArmorItem.getBodyType() == JamiesModFabric.BIG_BEAK_ARMOR) {
+            if (animalArmorItem.getBodyType() == BygoneFabric.BIG_BEAK_ARMOR) {
                 this.getParentModel().copyPropertiesTo(this.model);
                 this.model.prepareMobModel(BigBeakEntity, f, g, h);
                 this.model.setupAnim(BigBeakEntity, f, g, j, k, l);

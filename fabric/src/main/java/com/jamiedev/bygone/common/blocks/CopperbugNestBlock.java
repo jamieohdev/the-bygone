@@ -55,7 +55,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -123,7 +122,7 @@ public class CopperbugNestBlock extends BaseEntityBlock
                 return;
             }
 
-            Iterator var6 = list.iterator();
+            Iterator<CopperbugEntity> var6 = list.iterator();
 
             while(var6.hasNext()) {
                 CopperbugEntity beeEntity = (CopperbugEntity)var6.next();

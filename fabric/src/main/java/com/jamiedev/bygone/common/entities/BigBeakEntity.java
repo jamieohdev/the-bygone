@@ -1,9 +1,9 @@
 package com.jamiedev.bygone.common.entities;
 
-import com.jamiedev.bygone.fabric.JamiesModFabric;
+import com.jamiedev.bygone.fabric.BygoneFabric;
 import com.jamiedev.bygone.fabric.init.JamiesModBlocks;
 import com.jamiedev.bygone.fabric.init.JamiesModEntityTypes;
-import com.jamiedev.bygone.fabric.init.JamiesModSoundEvents;
+import com.jamiedev.bygone.init.JamiesModSoundEvents;
 import com.jamiedev.bygone.init.JamiesModTag;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -392,7 +392,7 @@ public class BigBeakEntity  extends AbstractHorse
         Item var3 = stack.getItem();
         boolean var10000;
         if (var3 instanceof AnimalArmorItem animalArmorItem) {
-            if (animalArmorItem.getBodyType() == JamiesModFabric.BIG_BEAK_ARMOR) {
+            if (animalArmorItem.getBodyType() == BygoneFabric.BIG_BEAK_ARMOR) {
                 var10000 = true;
                 return var10000;
             }

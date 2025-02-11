@@ -23,7 +23,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -108,7 +107,7 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
 
     private int getAdjacentBlockCount(BlockState state) {
         int i = 0;
-        Iterator var3 = FACING_PROPERTIES.values().iterator();
+        Iterator<BooleanProperty> var3 = FACING_PROPERTIES.values().iterator();
 
         while(var3.hasNext()) {
             BooleanProperty booleanProperty = (BooleanProperty)var3.next();
@@ -148,7 +147,7 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
         }
 
         BlockState blockState = null;
-        Iterator var6 = Direction.Plane.HORIZONTAL.iterator();
+        Iterator<Direction> var6 = Direction.Plane.HORIZONTAL.iterator();
 
         while(true) {
             Direction direction;
@@ -237,7 +236,7 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
                             }
 
                             BlockState blockState2 = state;
-                            Iterator var17 = Direction.Plane.HORIZONTAL.iterator();
+                            Iterator<Direction> var17 = Direction.Plane.HORIZONTAL.iterator();
 
                             while(true) {
                                 do {
@@ -275,7 +274,7 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
     }
 
     private BlockState getGrownState(BlockState above, BlockState state, RandomSource random) {
-        Iterator var4 = Direction.Plane.HORIZONTAL.iterator();
+        Iterator<Direction> var4 = Direction.Plane.HORIZONTAL.iterator();
 
         while(var4.hasNext()) {
             Direction direction = (Direction)var4.next();
@@ -298,7 +297,7 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
 
         Iterable<BlockPos> iterable = BlockPos.betweenClosed(pos.getX() - 4, pos.getY() - 1, pos.getZ() - 4, pos.getX() + 4, pos.getY() + 1, pos.getZ() + 4);
         int j = 5;
-        Iterator var6 = iterable.iterator();
+        Iterator<BlockPos> var6 = iterable.iterator();
 
         while(var6.hasNext()) {
             BlockPos blockPos = (BlockPos)var6.next();

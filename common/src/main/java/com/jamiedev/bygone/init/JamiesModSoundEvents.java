@@ -1,4 +1,4 @@
-package com.jamiedev.bygone.fabric.init;
+package com.jamiedev.bygone.init;
 
 import com.jamiedev.bygone.Bygone;
 import net.minecraft.core.Holder;

@@ -336,7 +336,7 @@ public class FungalChildEntity extends FungalParentEntity
                             FungalChildEntity.this.level().getEntitiesOfClass(FungalChildEntity.class,
                                     FungalChildEntity.this.getBoundingBox().inflate(8.0, 4.0, 8.0));
 
-                    Iterator var2 = list.iterator();
+                    Iterator<FungalChildEntity> var2 = list.iterator();
 
                     while(var2.hasNext()) {
                         FungalChildEntity polarBearEntity = (FungalChildEntity)var2.next();

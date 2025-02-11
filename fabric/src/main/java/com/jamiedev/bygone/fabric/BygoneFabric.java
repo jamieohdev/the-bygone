@@ -3,6 +3,9 @@ package com.jamiedev.bygone.fabric;
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.entities.*;
 import com.jamiedev.bygone.fabric.init.*;
+import com.jamiedev.bygone.init.JamiesModBiomes;
+import com.jamiedev.bygone.init.JamiesModCriteria;
+import com.jamiedev.bygone.init.JamiesModSoundEvents;
 import com.jamiedev.bygone.mixin.SpawnRestrictMixin;
 import com.jamiedev.bygone.network.SyncPlayerHookS2C;
 import net.fabricmc.api.ModInitializer;
@@ -23,7 +26,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 
 import static com.jamiedev.bygone.fabric.init.JamiesModEntityTypes.*;
 
-public class JamiesModFabric implements ModInitializer {
+public class BygoneFabric implements ModInitializer {
 
 	public static AnimalArmorItem.BodyType BIG_BEAK_ARMOR;
 

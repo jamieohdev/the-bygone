@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.mixin;
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.fabric.JamiesModFabric;
+import com.jamiedev.bygone.fabric.BygoneFabric;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
@@ -49,7 +49,7 @@ public class AnimalArmorItemTypeMixin {
         variants.add(beakArmor);
         AnimalArmorItemTypeMixin.bygone$values = variants.toArray(new AnimalArmorItem.BodyType[0]);
 
-        JamiesModFabric.BIG_BEAK_ARMOR = beakArmor;
+        BygoneFabric.BIG_BEAK_ARMOR = beakArmor;
 
         return beakArmor;
     }

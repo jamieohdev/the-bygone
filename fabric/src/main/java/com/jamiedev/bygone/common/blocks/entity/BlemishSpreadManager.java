@@ -26,7 +26,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.MultifaceBlock;
@@ -49,7 +48,7 @@ public class BlemishSpreadManager {
     private final int maxDistance;
     private final int spreadChance;
     private final int decayChance;
-    private List<BlemishSpreadManager.Cursor> cursors = new ArrayList();
+    private List<BlemishSpreadManager.Cursor> cursors = new ArrayList<>();
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public BlemishSpreadManager(boolean worldGen, TagKey<Block> replaceableTag, int extraBlockChance, int maxDistance, int spreadChance, int decayChance) {
@@ -176,7 +175,7 @@ public class BlemishSpreadManager {
                     }
                 }
 
-                ObjectIterator var16 = object2IntMap.object2IntEntrySet().iterator();
+                ObjectIterator<Object2IntMap.Entry<BlockPos>> var16 = object2IntMap.object2IntEntrySet().iterator();
 
                 while(var16.hasNext()) {
                     Object2IntMap.Entry<BlockPos> entry = (Object2IntMap.Entry)var16.next();
@@ -199,7 +198,7 @@ public class BlemishSpreadManager {
 
     public static class Cursor {
         private static final ObjectArrayList OFFSETS = Util.make(new ObjectArrayList(18), (list) -> {
-            Stream var10000 = BlockPos.betweenClosedStream(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1)).filter((pos) -> {
+            Stream<BlockPos> var10000 = BlockPos.betweenClosedStream(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1)).filter((pos) -> {
                 return (pos.getX() == 0 || pos.getY() == 0 || pos.getZ() == 0) && !pos.equals(BlockPos.ZERO);
             }).map(BlockPos::immutable);
             Objects.requireNonNull(list);
@@ -325,7 +324,7 @@ public class BlemishSpreadManager {
         private static BlockPos getSpreadPos(LevelAccessor world, BlockPos pos, RandomSource random) {
             BlockPos.MutableBlockPos mutable = pos.mutable();
             BlockPos.MutableBlockPos mutable2 = pos.mutable();
-            Iterator var5 = shuffleOffsets(random).iterator();
+            Iterator<Vec3i> var5 = shuffleOffsets(random).iterator();
 
             while(var5.hasNext()) {
                 Vec3i vec3i = (Vec3i)var5.next();

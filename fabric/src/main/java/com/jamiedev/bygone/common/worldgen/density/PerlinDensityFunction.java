@@ -26,7 +26,7 @@ public class PerlinDensityFunction implements DensityFunction
                     .apply(p_208798_, PerlinDensityFunction::new)));
     @Nullable
     public NormalNoise noise = null;
-    private static final  Map<Long, Visitor> VISITORS = new HashMap();
+    private static final  Map<Long, Visitor> VISITORS = new HashMap<>();
 
     public NormalNoise.NoiseParameters param;
     public NormalNoise fake;

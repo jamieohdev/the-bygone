@@ -31,7 +31,7 @@ public class FollowFungalParentGoal extends Goal
             List<? extends FungalParentEntity> list = this.animal.level().getEntitiesOfClass(this.animal.getClass(), this.animal.getBoundingBox().inflate(8.0, 4.0, 8.0));
             FungalParentEntity animalEntity = null;
             double d = Double.MAX_VALUE;
-            Iterator var5 = list.iterator();
+            Iterator<? extends FungalParentEntity> var5 = list.iterator();
 
             while(var5.hasNext()) {
                 FungalParentEntity animalEntity2 = (FungalParentEntity)var5.next();

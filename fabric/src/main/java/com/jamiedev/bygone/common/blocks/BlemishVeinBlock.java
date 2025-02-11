@@ -14,7 +14,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -29,7 +28,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import java.util.Collection;
@@ -65,7 +63,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
     public static boolean place(LevelAccessor world, BlockPos pos, BlockState state, Collection<Direction> directions) {
         boolean bl = false;
         BlockState blockState = JamiesModBlocks.BLEMISH_VEIN.defaultBlockState();
-        Iterator var6 = directions.iterator();
+        Iterator<Direction> var6 = directions.iterator();
 
         while(var6.hasNext()) {
             Direction direction = (Direction)var6.next();
@@ -124,7 +122,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
     private boolean convertToBlock(BlemishSpreadManager spreadManager, LevelAccessor world, BlockPos pos, RandomSource random) {
         BlockState blockState = world.getBlockState(pos);
         TagKey<Block> tagKey = spreadManager.getReplaceableTag();
-        Iterator var7 = Direction.allShuffled(random).iterator();
+        Iterator<Direction> var7 = Direction.allShuffled(random).iterator();
 
         while(var7.hasNext()) {
             Direction direction = (Direction)var7.next();

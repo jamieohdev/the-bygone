@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -126,7 +125,7 @@ public class ClaystoneFarmlandBlock extends Block
     }
 
     private static boolean isWaterNearby(LevelReader world, BlockPos pos) {
-        Iterator var2 = BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4)).iterator();
+        Iterator<BlockPos> var2 = BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4)).iterator();
 
         BlockPos blockPos;
         do {
@@ -141,7 +140,7 @@ public class ClaystoneFarmlandBlock extends Block
     }
 
     private static boolean isSprinklerNearby(LevelReader world, BlockPos pos) {
-        Iterator var2 = BlockPos.betweenClosed(pos.offset(-15, 0, -15), pos.offset(15, 1, 15)).iterator();
+        Iterator<BlockPos> var2 = BlockPos.betweenClosed(pos.offset(-15, 0, -15), pos.offset(15, 1, 15)).iterator();
 
         BlockPos blockPos;
         do {

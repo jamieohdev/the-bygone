@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.fabric;
 
 import com.jamiedev.bygone.fabric.datagen.*;
-import com.jamiedev.bygone.fabric.init.JamiesModBiomes;
+import com.jamiedev.bygone.init.JamiesModBiomes;
 import com.jamiedev.bygone.fabric.init.JamiesModConfiguredFeatures;
 import com.jamiedev.bygone.fabric.init.JamiesModPlacedFeatures;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;

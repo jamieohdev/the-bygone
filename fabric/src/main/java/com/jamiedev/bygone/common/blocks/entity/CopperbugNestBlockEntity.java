@@ -19,7 +19,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.NbtUtils;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.sounds.SoundEvents;
@@ -74,7 +73,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         if (this.level == null) {
             return false;
         } else {
-            Iterator var1 = BlockPos.betweenClosed(this.worldPosition.offset(-1, -1, -1), this.worldPosition.offset(1, 1, 1)).iterator();
+            Iterator<BlockPos> var1 = BlockPos.betweenClosed(this.worldPosition.offset(-1, -1, -1), this.worldPosition.offset(1, 1, 1)).iterator();
 
             BlockPos blockPos;
             do {
@@ -100,7 +99,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
     public void angerCopperbugs(@Nullable Player player, BlockState state, CopperbugNestBlockEntity.CopperbugState beeState) {
         List<Entity> list = this.tryReleaseCopperbug(state, beeState);
         if (player != null) {
-            Iterator var5 = list.iterator();
+            Iterator<Entity> var5 = list.iterator();
 
             while(var5.hasNext()) {
                 Entity entity = (Entity)var5.next();

@@ -3,6 +3,7 @@ package com.jamiedev.bygone.common.blocks;
 import com.google.common.base.Predicates;
 import com.jamiedev.bygone.common.blocks.entity.CasterBlockEntity;
 import com.jamiedev.bygone.fabric.init.*;
+import com.jamiedev.bygone.init.JamiesModDamageTypes;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;

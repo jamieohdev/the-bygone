@@ -12,9 +12,7 @@ import net.minecraft.world.level.block.Block;
 
 public enum JamiesModToolMaterials implements Tier {
 
-    VERDIGRIS(BlockTags.INCORRECT_FOR_IRON_TOOL, 250, 6.0F, 2.0F, 0, () -> {
-        return Ingredient.of(JamiesModItems.VERDIGRIS_INGOT);
-    });
+    VERDIGRIS(BlockTags.INCORRECT_FOR_IRON_TOOL, 250, 6.0F, 2.0F, 0, () -> Ingredient.of(JamiesModItems.VERDIGRIS_INGOT));
 
     private final TagKey<Block> inverseTag;
     private final int itemDurability;
@@ -23,7 +21,7 @@ public enum JamiesModToolMaterials implements Tier {
     private final int enchantability;
     private final Supplier<Ingredient> repairIngredient;
 
-    JamiesModToolMaterials(final TagKey inverseTag, final int itemDurability, final float miningSpeed, final float attackDamage, final int enchantability, final Supplier<Ingredient> repairIngredient) {
+    JamiesModToolMaterials(final TagKey<Block> inverseTag, final int itemDurability, final float miningSpeed, final float attackDamage, final int enchantability, final Supplier<Ingredient> repairIngredient) {
         this.inverseTag = inverseTag;
         this.itemDurability = itemDurability;
         this.miningSpeed = miningSpeed;
