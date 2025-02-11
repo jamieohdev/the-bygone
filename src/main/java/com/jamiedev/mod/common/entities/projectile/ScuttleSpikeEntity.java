@@ -2,48 +2,48 @@ package com.jamiedev.mod.common.entities.projectile;
 
 import com.google.common.base.MoreObjects;
 import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 
-public class ScuttleSpikeEntity  extends PersistentProjectileEntity
+public class ScuttleSpikeEntity  extends AbstractArrow
 {
     private boolean dealtDamage;
 
-    public ScuttleSpikeEntity(EntityType<? extends ScuttleSpikeEntity> entityType, World world) {
+    public ScuttleSpikeEntity(EntityType<? extends ScuttleSpikeEntity> entityType, Level world) {
         super(entityType, world);
     }
 
-    public ScuttleSpikeEntity(World world, LivingEntity owner, ItemStack stack) {
+    public ScuttleSpikeEntity(Level world, LivingEntity owner, ItemStack stack) {
         super(JamiesModEntityTypes.SCUTTLE_SPIKE, owner, world, stack, (ItemStack)null);
     }
 
-    public ScuttleSpikeEntity(World world, double x, double y, double z, ItemStack stack) {
+    public ScuttleSpikeEntity(Level world, double x, double y, double z, ItemStack stack) {
         super(JamiesModEntityTypes.SCUTTLE_SPIKE, x, y, z, world, stack, stack);
     }
 
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
     }
 
     public void tick() {
@@ -59,82 +59,82 @@ public class ScuttleSpikeEntity  extends PersistentProjectileEntity
         super.tick();
     }
     @Nullable
-    protected EntityHitResult getEntityCollision(Vec3d currentPosition, Vec3d nextPosition) {
-        return this.dealtDamage ? null : super.getEntityCollision(currentPosition, nextPosition);
+    protected EntityHitResult findHitEntity(Vec3 currentPosition, Vec3 nextPosition) {
+        return this.dealtDamage ? null : super.findHitEntity(currentPosition, nextPosition);
     }
 
-    protected void onEntityHit(EntityHitResult entityHitResult) {
+    protected void onHitEntity(EntityHitResult entityHitResult) {
         Entity entity = entityHitResult.getEntity();
         float f = 8.0F;
         Entity entity2 = this.getOwner();
-        DamageSource damageSource = this.getDamageSources().trident(this, (Entity)(entity2 == null ? this : entity2));
-        World var7 = this.getWorld();
-        if (var7 instanceof ServerWorld serverWorld) {
-            f = EnchantmentHelper.getDamage(serverWorld, Objects.requireNonNull(this.getWeaponStack()), entity, damageSource, f);
+        DamageSource damageSource = this.damageSources().trident(this, (Entity)(entity2 == null ? this : entity2));
+        Level var7 = this.level();
+        if (var7 instanceof ServerLevel serverWorld) {
+            f = EnchantmentHelper.modifyDamage(serverWorld, Objects.requireNonNull(this.getWeaponItem()), entity, damageSource, f);
         }
 
         this.dealtDamage = true;
-        if (entity.damage(damageSource, f)) {
+        if (entity.hurt(damageSource, f)) {
             if (entity.getType() == EntityType.ENDERMAN) {
                 return;
             }
 
-            var7 = this.getWorld();
-            if (var7 instanceof ServerWorld serverWorld) {
-                serverWorld = (ServerWorld)var7;
-                EnchantmentHelper.onTargetDamaged(serverWorld, entity, damageSource, this.getWeaponStack());
+            var7 = this.level();
+            if (var7 instanceof ServerLevel serverWorld) {
+                serverWorld = (ServerLevel)var7;
+                EnchantmentHelper.doPostAttackEffectsWithItemSource(serverWorld, entity, damageSource, this.getWeaponItem());
             }
 
             if (entity instanceof LivingEntity livingEntity) {
-                this.knockback(livingEntity, damageSource);
-                this.onHit(livingEntity);
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 200), (Entity) MoreObjects.firstNonNull(entity2, this));
+                this.doKnockback(livingEntity, damageSource);
+                this.doPostHurtEffects(livingEntity);
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200), (Entity) MoreObjects.firstNonNull(entity2, this));
             }
         }
 
-        this.setVelocity(this.getVelocity().multiply(-0.01, -0.1, -0.01));
-        this.playSound(SoundEvents.ITEM_GLOW_INK_SAC_USE, 1.0F, 1.0F);
+        this.setDeltaMovement(this.getDeltaMovement().multiply(-0.01, -0.1, -0.01));
+        this.playSound(SoundEvents.GLOW_INK_SAC_USE, 1.0F, 1.0F);
     }
 
-    protected void onBlockHitEnchantmentEffects(ServerWorld world, BlockHitResult blockHitResult, ItemStack weaponStack) {
+    protected void hitBlockEnchantmentEffects(ServerLevel world, BlockHitResult blockHitResult, ItemStack weaponStack) {
         this.kill();
     }
 
-    public ItemStack getWeaponStack() {
-        return this.getItemStack();
+    public ItemStack getWeaponItem() {
+        return this.getPickupItemStackOrigin();
     }
 
-    protected boolean tryPickup(PlayerEntity player) {
-        return super.tryPickup(player) || this.isNoClip() && this.isOwner(player) && player.getInventory().insertStack(this.asItemStack());
+    protected boolean tryPickup(Player player) {
+        return super.tryPickup(player) || this.isNoPhysics() && this.ownedBy(player) && player.getInventory().add(this.getPickupItem());
     }
 
-    protected ItemStack getDefaultItemStack() {
+    protected ItemStack getDefaultPickupItem() {
         return new ItemStack(Items.TRIDENT);
     }
 
-    protected SoundEvent getHitSound() {
-        return SoundEvents.ITEM_TRIDENT_HIT_GROUND;
+    protected SoundEvent getDefaultHitGroundSoundEvent() {
+        return SoundEvents.TRIDENT_HIT_GROUND;
     }
 
-    public void onPlayerCollision(PlayerEntity player) {
-        if (this.isOwner(player) || this.getOwner() == null) {
-            super.onPlayerCollision(player);
+    public void playerTouch(Player player) {
+        if (this.ownedBy(player) || this.getOwner() == null) {
+            super.playerTouch(player);
         }
 
     }
 
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
+    public void readAdditionalSaveData(CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
         this.dealtDamage = nbt.getBoolean("DealtDamage");
     }
 
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
+    public void addAdditionalSaveData(CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
         nbt.putBoolean("DealtDamage", this.dealtDamage);
     }
 
 
-    protected float getDragInWater() {
+    protected float getWaterInertia() {
         return 0.99F;
     }
 

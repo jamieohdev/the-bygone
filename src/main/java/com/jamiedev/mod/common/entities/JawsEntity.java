@@ -1,102 +1,118 @@
 package com.jamiedev.mod.common.entities;
 
-import net.minecraft.block.Blocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.NoPenaltyTargeting;
-import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.MobNavigation;
-import net.minecraft.entity.ai.pathing.Path;
-import net.minecraft.entity.ai.pathing.PathNodeType;
-import net.minecraft.entity.ai.pathing.SwimNavigation;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.entity.mob.ZombifiedPiglinEntity;
-import net.minecraft.entity.passive.AxolotlEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.MerchantEntity;
-import net.minecraft.entity.passive.TurtleEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.TridentEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.*;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.animal.axolotl.Axolotl;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.ZombifiedPiglin;
+import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrownTrident;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
-public class JawsEntity extends HostileEntity
+public class JawsEntity extends Monster
 {
 JawsEntity ref;
     private boolean flopping;
     @Nullable
-    protected WanderAroundGoal wanderGoal;
+    protected RandomStrollGoal wanderGoal;
     
     public static final float field_30460 = 0.03F;
     boolean targetingUnderwater;
 
 
-    public JawsEntity(EntityType<? extends JawsEntity> entityType, World world) {
+    public JawsEntity(EntityType<? extends JawsEntity> entityType, Level world) {
         super(entityType, world);
         this.moveControl = new JawsEntity.JawsMoveControl(this);
-        this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
-        this.waterNavigation = new SwimNavigation(this, world);
-        this.landNavigation = new MobNavigation(this, world);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.waterNavigation = new WaterBoundPathNavigation(this, world);
+        this.landNavigation = new GroundPathNavigation(this, world);
     }
 
 
-    protected final SwimNavigation waterNavigation;
-    protected final MobNavigation landNavigation;
+    protected final WaterBoundPathNavigation waterNavigation;
+    protected final GroundPathNavigation landNavigation;
 
 
-    public static DefaultAttributeContainer.Builder createJawsAttributes() {
-        return ZombieEntity.createZombieAttributes().add(EntityAttributes.GENERIC_STEP_HEIGHT, 1.0);
+    public static AttributeSupplier.Builder createJawsAttributes() {
+        return Zombie.createAttributes().add(Attributes.STEP_HEIGHT, 1.0);
     }
 
     protected void initCustomGoals() {
-        this.goalSelector.add(1, new JawsEntity.WanderAroundOnSurfaceGoal(this, 1.0));
+        this.goalSelector.addGoal(1, new JawsEntity.WanderAroundOnSurfaceGoal(this, 1.0));
         //this.goalSelector.add(2, new JawsEntity.TridentAttackGoal(this, 1.0, 40, 10.0F));
-        this.goalSelector.add(2, new JawsEntity.JawsAttackGoal(this, 1.0, false));
-        this.goalSelector.add(5, new JawsEntity.LeaveWaterGoal(this, 1.0));
-        this.goalSelector.add(6, new JawsEntity.TargetAboveWaterGoal(this, 1.0, this.getWorld().getSeaLevel()));
-        this.goalSelector.add(7, new WanderAroundGoal(this, 1.0));
-        this.targetSelector.add(1, (new RevengeGoal(this, new Class[]{JawsEntity.class})).setGroupRevenge(new Class[]{ZombifiedPiglinEntity.class}));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, this::canDrownedAttackTarget));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, MerchantEntity.class, false));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, AxolotlEntity.class, true, false));
-        this.targetSelector.add(5, new ActiveTargetGoal<>(this, TurtleEntity.class, 10, true, false, TurtleEntity.BABY_TURTLE_ON_LAND_FILTER));
+        this.goalSelector.addGoal(2, new JawsEntity.JawsAttackGoal(this, 1.0, false));
+        this.goalSelector.addGoal(5, new JawsEntity.LeaveWaterGoal(this, 1.0));
+        this.goalSelector.addGoal(6, new JawsEntity.TargetAboveWaterGoal(this, 1.0, this.level().getSeaLevel()));
+        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, new Class[]{JawsEntity.class})).setAlertOthers(new Class[]{ZombifiedPiglin.class}));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::canDrownedAttackTarget));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Axolotl.class, true, false));
+        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
     }
 
     private boolean canDrownedAttackTarget(LivingEntity target) {
         if (target != null) {
-            return !this.getWorld().isDay() || target.isTouchingWater();
+            return !this.level().isDay() || target.isInWater();
         } else {
             return false;
         }
     }
 
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        entityData = super.initialize(world, difficulty, spawnReason, entityData);
-        if (this.getEquippedStack(EquipmentSlot.OFFHAND).isEmpty() && world.getRandom().nextFloat() < 0.03F) {
-            this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.NAUTILUS_SHELL));
-            this.updateDropChances(EquipmentSlot.OFFHAND);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
+        entityData = super.finalizeSpawn(world, difficulty, spawnReason, entityData);
+        if (this.getItemBySlot(EquipmentSlot.OFFHAND).isEmpty() && world.getRandom().nextFloat() < 0.03F) {
+            this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.NAUTILUS_SHELL));
+            this.setGuaranteedDrop(EquipmentSlot.OFFHAND);
         }
 
         return entityData;
@@ -104,15 +120,15 @@ JawsEntity ref;
 
 
 
-    public static boolean canSpawn(EntityType<JawsEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        if (!world.getFluidState(pos.down()).isIn(FluidTags.WATER) && !SpawnReason.isAnySpawner(spawnReason)) {
+    public static boolean canSpawn(EntityType<JawsEntity> type, ServerLevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        if (!world.getFluidState(pos.below()).is(FluidTags.WATER) && !MobSpawnType.isSpawner(spawnReason)) {
             return false;
         } else {
-            RegistryEntry<Biome> registryEntry = world.getBiome(pos);
-            boolean bl = world.getDifficulty() != Difficulty.PEACEFUL && (SpawnReason.isTrialSpawner(spawnReason) || isSpawnDark(world, pos, random)) && (SpawnReason.isAnySpawner(spawnReason) || world.getFluidState(pos).isIn(FluidTags.WATER));
-            if (bl && SpawnReason.isAnySpawner(spawnReason)) {
+            Holder<Biome> registryEntry = world.getBiome(pos);
+            boolean bl = world.getDifficulty() != Difficulty.PEACEFUL && (MobSpawnType.ignoresLightRequirements(spawnReason) || isDarkEnoughToSpawn(world, pos, random)) && (MobSpawnType.isSpawner(spawnReason) || world.getFluidState(pos).is(FluidTags.WATER));
+            if (bl && MobSpawnType.isSpawner(spawnReason)) {
                 return true;
-            } else if (registryEntry.isIn(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS)) {
+            } else if (registryEntry.is(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS)) {
                 return random.nextInt(15) == 0 && bl;
             } else {
                 return random.nextInt(40) == 0 && isValidSpawnDepth(world, pos) && bl;
@@ -120,7 +136,7 @@ JawsEntity ref;
         }
     }
 
-    private static boolean isValidSpawnDepth(WorldAccess world, BlockPos pos) {
+    private static boolean isValidSpawnDepth(LevelAccessor world, BlockPos pos) {
         return pos.getY() < world.getSeaLevel() - 5;
     }
 
@@ -129,52 +145,52 @@ JawsEntity ref;
     }
 
     protected SoundEvent getAmbientSound() {
-        return this.isTouchingWater() ? SoundEvents.ENTITY_DROWNED_AMBIENT_WATER : SoundEvents.ENTITY_DROWNED_AMBIENT;
+        return this.isInWater() ? SoundEvents.DROWNED_AMBIENT_WATER : SoundEvents.DROWNED_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return this.isTouchingWater() ? SoundEvents.ENTITY_DROWNED_HURT_WATER : SoundEvents.ENTITY_DROWNED_HURT;
+        return this.isInWater() ? SoundEvents.DROWNED_HURT_WATER : SoundEvents.DROWNED_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return this.isTouchingWater() ? SoundEvents.ENTITY_DROWNED_DEATH_WATER : SoundEvents.ENTITY_DROWNED_DEATH;
+        return this.isInWater() ? SoundEvents.DROWNED_DEATH_WATER : SoundEvents.DROWNED_DEATH;
     }
 
     protected SoundEvent getStepSound() {
-        return SoundEvents.ENTITY_DROWNED_STEP;
+        return SoundEvents.DROWNED_STEP;
     }
 
     protected SoundEvent getSwimSound() {
-        return SoundEvents.ENTITY_DROWNED_SWIM;
+        return SoundEvents.DROWNED_SWIM;
     }
 
     protected ItemStack getSkull() {
         return ItemStack.EMPTY;
     }
 
-    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
+    protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance localDifficulty) {
         if ((double)random.nextFloat() > 0.9) {
             int i = random.nextInt(16);
             if (i < 10) {
-                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.TRIDENT));
+                this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.TRIDENT));
             } else {
-                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
+                this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
             }
         }
 
     }
 
-    protected boolean prefersNewEquipment(ItemStack newStack, ItemStack oldStack) {
-        if (oldStack.isOf(Items.NAUTILUS_SHELL)) {
+    protected boolean canReplaceCurrentItem(ItemStack newStack, ItemStack oldStack) {
+        if (oldStack.is(Items.NAUTILUS_SHELL)) {
             return false;
-        } else if (oldStack.isOf(Items.TRIDENT)) {
-            if (newStack.isOf(Items.TRIDENT)) {
-                return newStack.getDamage() < oldStack.getDamage();
+        } else if (oldStack.is(Items.TRIDENT)) {
+            if (newStack.is(Items.TRIDENT)) {
+                return newStack.getDamageValue() < oldStack.getDamageValue();
             } else {
                 return false;
             }
         } else {
-            return newStack.isOf(Items.TRIDENT) ? true : super.prefersNewEquipment(newStack, oldStack);
+            return newStack.is(Items.TRIDENT) ? true : super.canReplaceCurrentItem(newStack, oldStack);
         }
     }
 
@@ -182,19 +198,19 @@ JawsEntity ref;
         return false;
     }
 
-    public boolean canSpawn(WorldView world) {
-        return world.doesNotIntersectEntities(this);
+    public boolean checkSpawnObstruction(LevelReader world) {
+        return world.isUnobstructed(this);
     }
 
     public boolean canJawsAttackTarget(@Nullable LivingEntity target) {
         if (target != null) {
-            return !this.getWorld().isDay() || target.isTouchingWater();
+            return !this.level().isDay() || target.isInWater();
         } else {
             return false;
         }
     }
 
-    public boolean isPushedByFluids() {
+    public boolean isPushedByFluid() {
         return !this.isSwimming();
     }
 
@@ -203,15 +219,15 @@ JawsEntity ref;
             return true;
         } else {
             LivingEntity livingEntity = this.getTarget();
-            return livingEntity != null && livingEntity.isTouchingWater();
+            return livingEntity != null && livingEntity.isInWater();
         }
     }
 
-    public void travel(Vec3d movementInput) {
-        if (this.isLogicalSideForUpdatingMovement() && this.isTouchingWater() && this.isTargetingUnderwater()) {
-            this.updateVelocity(0.01F, movementInput);
-            this.move(MovementType.SELF, this.getVelocity());
-            this.setVelocity(this.getVelocity().multiply(0.9));
+    public void travel(Vec3 movementInput) {
+        if (this.isControlledByLocalInstance() && this.isInWater() && this.isTargetingUnderwater()) {
+            this.moveRelative(0.01F, movementInput);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
         } else {
             super.travel(movementInput);
         }
@@ -219,8 +235,8 @@ JawsEntity ref;
     }
 
     public void updateSwimming() {
-        if (!this.getWorld().isClient) {
-            if (this.canMoveVoluntarily() && this.isTouchingWater() && this.isTargetingUnderwater()) {
+        if (!this.level().isClientSide) {
+            if (this.isEffectiveAi() && this.isInWater() && this.isTargetingUnderwater()) {
                 this.navigation = this.waterNavigation;
                 this.setSwimming(true);
             } else {
@@ -231,16 +247,16 @@ JawsEntity ref;
 
     }
 
-    public boolean isInSwimmingPose() {
+    public boolean isVisuallySwimming() {
         return this.isSwimming();
     }
 
     protected boolean hasFinishedCurrentPath() {
-        Path path = this.getNavigation().getCurrentPath();
+        Path path = this.getNavigation().getPath();
         if (path != null) {
             BlockPos blockPos = path.getTarget();
             if (blockPos != null) {
-                double d = this.squaredDistanceTo((double)blockPos.getX(), (double)blockPos.getY(), (double)blockPos.getZ());
+                double d = this.distanceToSqr((double)blockPos.getX(), (double)blockPos.getY(), (double)blockPos.getZ());
                 if (d < 4.0) {
                     return true;
                 }
@@ -251,14 +267,14 @@ JawsEntity ref;
     }
 
     public void shootAt(LivingEntity target, float pullProgress) {
-        TridentEntity tridentEntity = new TridentEntity(this.getWorld(), this, new ItemStack(Items.TRIDENT));
+        ThrownTrident tridentEntity = new ThrownTrident(this.level(), this, new ItemStack(Items.TRIDENT));
         double d = target.getX() - this.getX();
-        double e = target.getBodyY(0.3333333333333333) - tridentEntity.getY();
+        double e = target.getY(0.3333333333333333) - tridentEntity.getY();
         double f = target.getZ() - this.getZ();
         double g = Math.sqrt(d * d + f * f);
-        tridentEntity.setVelocity(d, e + g * 0.20000000298023224, f, 1.6F, (float)(14 - this.getWorld().getDifficulty().getId() * 4));
-        this.playSound(SoundEvents.ENTITY_DROWNED_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-        this.getWorld().spawnEntity(tridentEntity);
+        tridentEntity.shoot(d, e + g * 0.20000000298023224, f, 1.6F, (float)(14 - this.level().getDifficulty().getId() * 4));
+        this.playSound(SoundEvents.DROWNED_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.level().addFreshEntity(tridentEntity);
     }
 
     public void setTargetingUnderwater(boolean targetingUnderwater) {
@@ -275,31 +291,31 @@ JawsEntity ref;
 
         public void tick() {
             LivingEntity livingEntity = this.drowned.getTarget();
-            if (this.drowned.isTargetingUnderwater() && this.drowned.isTouchingWater()) {
+            if (this.drowned.isTargetingUnderwater() && this.drowned.isInWater()) {
                 if (livingEntity != null && livingEntity.getY() > this.drowned.getY() || this.drowned.targetingUnderwater) {
-                    this.drowned.setVelocity(this.drowned.getVelocity().add(0.0, 0.002, 0.0));
+                    this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add(0.0, 0.002, 0.0));
                 }
 
-                if (this.state != State.MOVE_TO || this.drowned.getNavigation().isIdle()) {
-                    this.drowned.setMovementSpeed(0.0F);
+                if (this.operation != Operation.MOVE_TO || this.drowned.getNavigation().isDone()) {
+                    this.drowned.setSpeed(0.0F);
                     return;
                 }
 
-                double d = this.targetX - this.drowned.getX();
-                double e = this.targetY - this.drowned.getY();
-                double f = this.targetZ - this.drowned.getZ();
+                double d = this.wantedX - this.drowned.getX();
+                double e = this.wantedY - this.drowned.getY();
+                double f = this.wantedZ - this.drowned.getZ();
                 double g = Math.sqrt(d * d + e * e + f * f);
                 e /= g;
-                float h = (float)(MathHelper.atan2(f, d) * 57.2957763671875) - 90.0F;
-                this.drowned.setYaw(this.wrapDegrees(this.drowned.getYaw(), h, 90.0F));
-                this.drowned.bodyYaw = this.drowned.getYaw();
-                float i = (float)(this.speed * this.drowned.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
-                float j = MathHelper.lerp(0.125F, this.drowned.getMovementSpeed(), i);
-                this.drowned.setMovementSpeed(j);
-                this.drowned.setVelocity(this.drowned.getVelocity().add((double)j * d * 0.005, (double)j * e * 0.1, (double)j * f * 0.005));
+                float h = (float)(Mth.atan2(f, d) * 57.2957763671875) - 90.0F;
+                this.drowned.setYRot(this.rotlerp(this.drowned.getYRot(), h, 90.0F));
+                this.drowned.yBodyRot = this.drowned.getYRot();
+                float i = (float)(this.speedModifier * this.drowned.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                float j = Mth.lerp(0.125F, this.drowned.getSpeed(), i);
+                this.drowned.setSpeed(j);
+                this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add((double)j * d * 0.005, (double)j * e * 0.1, (double)j * f * 0.005));
             } else {
-                if (!this.drowned.isOnGround()) {
-                    this.drowned.setVelocity(this.drowned.getVelocity().add(0.0, -0.008, 0.0));
+                if (!this.drowned.onGround()) {
+                    this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add(0.0, -0.008, 0.0));
                 }
 
                 super.tick();
@@ -309,27 +325,27 @@ JawsEntity ref;
     }
 
     private static class WanderAroundOnSurfaceGoal extends Goal {
-        private final PathAwareEntity mob;
+        private final PathfinderMob mob;
         private double x;
         private double y;
         private double z;
         private final double speed;
-        private final World world;
+        private final Level world;
 
-        public WanderAroundOnSurfaceGoal(PathAwareEntity mob, double speed) {
+        public WanderAroundOnSurfaceGoal(PathfinderMob mob, double speed) {
             this.mob = mob;
             this.speed = speed;
-            this.world = mob.getWorld();
-            this.setControls(EnumSet.of(Control.MOVE));
+            this.world = mob.level();
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
-        public boolean canStart() {
+        public boolean canUse() {
             if (!this.world.isDay()) {
                 return false;
-            } else if (this.mob.isTouchingWater()) {
+            } else if (this.mob.isInWater()) {
                 return false;
             } else {
-                Vec3d vec3d = this.getWanderTarget();
+                Vec3 vec3d = this.getWanderTarget();
                 if (vec3d == null) {
                     return false;
                 } else {
@@ -341,23 +357,23 @@ JawsEntity ref;
             }
         }
 
-        public boolean shouldContinue() {
-            return !this.mob.getNavigation().isIdle();
+        public boolean canContinueToUse() {
+            return !this.mob.getNavigation().isDone();
         }
 
         public void start() {
-            this.mob.getNavigation().startMovingTo(this.x, this.y, this.z, this.speed);
+            this.mob.getNavigation().moveTo(this.x, this.y, this.z, this.speed);
         }
 
         @Nullable
-        private Vec3d getWanderTarget() {
-            Random random = this.mob.getRandom();
-            BlockPos blockPos = this.mob.getBlockPos();
+        private Vec3 getWanderTarget() {
+            RandomSource random = this.mob.getRandom();
+            BlockPos blockPos = this.mob.blockPosition();
 
             for(int i = 0; i < 10; ++i) {
-                BlockPos blockPos2 = blockPos.add(random.nextInt(20) - 10, 2 - random.nextInt(8), random.nextInt(20) - 10);
-                if (this.world.getBlockState(blockPos2).isOf(Blocks.WATER)) {
-                    return Vec3d.ofBottomCenter(blockPos2);
+                BlockPos blockPos2 = blockPos.offset(random.nextInt(20) - 10, 2 - random.nextInt(8), random.nextInt(20) - 10);
+                if (this.world.getBlockState(blockPos2).is(Blocks.WATER)) {
+                    return Vec3.atBottomCenterOf(blockPos2);
                 }
             }
 
@@ -365,7 +381,7 @@ JawsEntity ref;
         }
     }
 
-    static class TridentAttackGoal extends ProjectileAttackGoal {
+    static class TridentAttackGoal extends RangedAttackGoal {
         private final JawsEntity drowned;
 
         public TridentAttackGoal(RangedAttackMob rangedAttackMob, double d, int i, float f) {
@@ -373,20 +389,20 @@ JawsEntity ref;
             this.drowned = (JawsEntity)rangedAttackMob;
         }
 
-        public boolean canStart() {
-            return super.canStart() && this.drowned.getMainHandStack().isOf(Items.TRIDENT);
+        public boolean canUse() {
+            return super.canUse() && this.drowned.getMainHandItem().is(Items.TRIDENT);
         }
 
         public void start() {
             super.start();
-            this.drowned.setAttacking(true);
-            this.drowned.setCurrentHand(Hand.MAIN_HAND);
+            this.drowned.setAggressive(true);
+            this.drowned.startUsingItem(InteractionHand.MAIN_HAND);
         }
 
         public void stop() {
             super.stop();
-            this.drowned.clearActiveItem();
-            this.drowned.setAttacking(false);
+            this.drowned.stopUsingItem();
+            this.drowned.setAggressive(false);
         }
     }
 
@@ -398,16 +414,16 @@ JawsEntity ref;
             this.drowned = drowned;
         }
 
-        public boolean canStart() {
-            return super.canStart() && this.drowned.canJawsAttackTarget(this.drowned.getTarget());
+        public boolean canUse() {
+            return super.canUse() && this.drowned.canJawsAttackTarget(this.drowned.getTarget());
         }
 
-        public boolean shouldContinue() {
-            return super.shouldContinue() && this.drowned.canJawsAttackTarget(this.drowned.getTarget());
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && this.drowned.canJawsAttackTarget(this.drowned.getTarget());
         }
     }
 
-    private static class LeaveWaterGoal extends MoveToTargetPosGoal {
+    private static class LeaveWaterGoal extends MoveToBlockGoal {
         private final JawsEntity drowned;
 
         public LeaveWaterGoal(JawsEntity drowned, double speed) {
@@ -415,17 +431,17 @@ JawsEntity ref;
             this.drowned = drowned;
         }
 
-        public boolean canStart() {
-            return super.canStart() && !this.drowned.getWorld().isDay() && this.drowned.isTouchingWater() && this.drowned.getY() >= (double)(this.drowned.getWorld().getSeaLevel() - 3);
+        public boolean canUse() {
+            return super.canUse() && !this.drowned.level().isDay() && this.drowned.isInWater() && this.drowned.getY() >= (double)(this.drowned.level().getSeaLevel() - 3);
         }
 
-        public boolean shouldContinue() {
-            return super.shouldContinue();
+        public boolean canContinueToUse() {
+            return super.canContinueToUse();
         }
 
-        protected boolean isTargetPos(WorldView world, BlockPos pos) {
-            BlockPos blockPos = pos.up();
-            return world.isAir(blockPos) && world.isAir(blockPos.up()) ? world.getBlockState(pos).hasSolidTopSurface(world, pos, this.drowned) : false;
+        protected boolean isValidTarget(LevelReader world, BlockPos pos) {
+            BlockPos blockPos = pos.above();
+            return world.isEmptyBlock(blockPos) && world.isEmptyBlock(blockPos.above()) ? world.getBlockState(pos).entityCanStandOn(world, pos, this.drowned) : false;
         }
 
         public void start() {
@@ -451,23 +467,23 @@ JawsEntity ref;
             this.minY = minY;
         }
 
-        public boolean canStart() {
-            return !this.drowned.getWorld().isDay() && this.drowned.isTouchingWater() && this.drowned.getY() < (double)(this.minY - 2);
+        public boolean canUse() {
+            return !this.drowned.level().isDay() && this.drowned.isInWater() && this.drowned.getY() < (double)(this.minY - 2);
         }
 
-        public boolean shouldContinue() {
-            return this.canStart() && !this.foundTarget;
+        public boolean canContinueToUse() {
+            return this.canUse() && !this.foundTarget;
         }
 
         public void tick() {
-            if (this.drowned.getY() < (double)(this.minY - 1) && (this.drowned.getNavigation().isIdle() || this.drowned.hasFinishedCurrentPath())) {
-                Vec3d vec3d = NoPenaltyTargeting.findTo(this.drowned, 4, 8, new Vec3d(this.drowned.getX(), (double)(this.minY - 1), this.drowned.getZ()), 1.5707963705062866);
+            if (this.drowned.getY() < (double)(this.minY - 1) && (this.drowned.getNavigation().isDone() || this.drowned.hasFinishedCurrentPath())) {
+                Vec3 vec3d = DefaultRandomPos.getPosTowards(this.drowned, 4, 8, new Vec3(this.drowned.getX(), (double)(this.minY - 1), this.drowned.getZ()), 1.5707963705062866);
                 if (vec3d == null) {
                     this.foundTarget = true;
                     return;
                 }
 
-                this.drowned.getNavigation().startMovingTo(vec3d.x, vec3d.y, vec3d.z, this.speed);
+                this.drowned.getNavigation().moveTo(vec3d.x, vec3d.y, vec3d.z, this.speed);
             }
 
         }

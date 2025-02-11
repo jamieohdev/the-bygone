@@ -3,15 +3,14 @@ package com.jamiedev.mod.common.client.network;
 
 import com.jamiedev.mod.common.entities.projectile.HookEntity;
 import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.player.PlayerEntity;
-
 import java.util.function.Supplier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.world.entity.player.Player;
 public class RecordHookHandler {
 
-    public static void handle(Supplier<Supplier<MinecraftClient>> minecraft, RecordHookPacket packet) {
-        ClientWorld level = minecraft.get().get().world;
+    public static void handle(Supplier<Supplier<Minecraft>> minecraft, RecordHookPacket packet) {
+        ClientLevel level = minecraft.get().get().level;
         if(level == null) {
             return;
         }
@@ -19,14 +18,14 @@ public class RecordHookHandler {
         if (entity == null) {
             return;
         }
-        entity.setVelocity(packet.x(), packet.y(), packet.z());
-        entity.setPos(packet.x(), packet.y(), packet.z());
-        entity.offsetX(packet.xRot());
-        entity.getRotationVec(packet.yRot());
+        entity.setDeltaMovement(packet.x(), packet.y(), packet.z());
+        entity.setPosRaw(packet.x(), packet.y(), packet.z());
+        entity.getX(packet.xRot());
+        entity.getViewVector(packet.yRot());
         entity.setId(packet.id());
-        entity.setUuid(packet.uuid());
+        entity.setUUID(packet.uuid());
 
-        if(packet.hasGrapplingPlayer() && level.getEntityById(packet.grapplingPlayerId()) instanceof PlayerEntity player) {
+        if(packet.hasGrapplingPlayer() && level.getEntity(packet.grapplingPlayerId()) instanceof Player player) {
             entity.setOwner(player);
         }
     }

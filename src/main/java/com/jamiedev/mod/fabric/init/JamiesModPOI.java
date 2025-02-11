@@ -1,17 +1,16 @@
 package com.jamiedev.mod.fabric.init;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 
 public class JamiesModPOI
 {
-    public static final TagKey<PointOfInterestType> COPPERBUG_HOME = of("copperbug_home");
+    public static final TagKey<PoiType> COPPERBUG_HOME = of("copperbug_home");
 
 
-    private static TagKey<PointOfInterestType> of(String id) {
-        return TagKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, JamiesModFabric.getModId(id));
+    private static TagKey<PoiType> of(String id) {
+        return TagKey.create(Registries.POINT_OF_INTEREST_TYPE, JamiesModFabric.getModId(id));
     }
 }

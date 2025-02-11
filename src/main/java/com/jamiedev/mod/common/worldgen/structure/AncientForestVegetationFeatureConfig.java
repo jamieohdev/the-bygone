@@ -2,18 +2,18 @@ package com.jamiedev.mod.common.worldgen.structure;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.world.gen.feature.BlockPileFeatureConfig;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-public class AncientForestVegetationFeatureConfig extends BlockPileFeatureConfig
+public class AncientForestVegetationFeatureConfig extends BlockPileConfiguration
 {
     public static final Codec<AncientForestVegetationFeatureConfig> VEGETATION_CODEC = RecordCodecBuilder.create((instance) -> {
-        return instance.group(BlockStateProvider.TYPE_CODEC.fieldOf("state_provider").forGetter((config) -> {
+        return instance.group(BlockStateProvider.CODEC.fieldOf("state_provider").forGetter((config) -> {
             return config.stateProvider;
-        }), Codecs.POSITIVE_INT.fieldOf("spread_width").forGetter((config) -> {
+        }), ExtraCodecs.POSITIVE_INT.fieldOf("spread_width").forGetter((config) -> {
             return config.spreadWidth;
-        }), Codecs.POSITIVE_INT.fieldOf("spread_height").forGetter((config) -> {
+        }), ExtraCodecs.POSITIVE_INT.fieldOf("spread_height").forGetter((config) -> {
             return config.spreadHeight;
         })).apply(instance, AncientForestVegetationFeatureConfig::new);
     });

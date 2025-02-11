@@ -1,52 +1,56 @@
 package com.jamiedev.mod.common.client.renderer;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.jamiedev.mod.common.client.JamiesModModelLayers;
 import com.jamiedev.mod.common.client.models.MoobooModel;
 import com.jamiedev.mod.common.entities.MoobooEntity;
 import net.minecraft.client.render.*;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.VexEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ColorHelper;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.monster.Vex;
 
-public class MoobooRenderer extends MobEntityRenderer<MoobooEntity, MoobooModel<MoobooEntity>> {
-    private static final Identifier TEXTURE = JamiesModFabric.getModId("textures/entity/mooboo.png");
+public class MoobooRenderer extends MobRenderer<MoobooEntity, MoobooModel<MoobooEntity>> {
+    private static final ResourceLocation TEXTURE = JamiesModFabric.getModId("textures/entity/mooboo.png");
 
 
-    public MoobooRenderer(EntityRendererFactory.Context context) {
-        super(context, new MoobooModel<>(context.getPart(JamiesModModelLayers.MOOBOO)), 0.7F);
+    public MoobooRenderer(EntityRendererProvider.Context context) {
+        super(context, new MoobooModel<>(context.bakeLayer(JamiesModModelLayers.MOOBOO)), 0.7F);
     }
 
-    protected int getBlockLight(VexEntity vexEntity, BlockPos blockPos) {
+    protected int getBlockLight(Vex vexEntity, BlockPos blockPos) {
         return 15;
     }
 
-    public Identifier getTexture(MoobooEntity cowEntity) {
+    public ResourceLocation getTexture(MoobooEntity cowEntity) {
         return TEXTURE;
     }
 
     @Override
-    public void render(MoobooEntity entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i)
+    public void render(MoobooEntity entity, float f, float g, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i)
     {
-        matrixStack.push();
-        float h = MathHelper.lerpAngleDegrees(g, entity.prevBodyYaw, entity.bodyYaw);
-        float j = MathHelper.lerpAngleDegrees(g, entity.prevHeadYaw, entity.headYaw);
+        matrixStack.pushPose();
+        float h = Mth.rotLerp(g, entity.yBodyRotO, entity.yBodyRot);
+        float j = Mth.rotLerp(g, entity.yHeadRotO, entity.yHeadRot);
         float k = j - h;
-        float m = MathHelper.lerp(g, entity.prevPitch, entity.getPitch());
+        float m = Mth.lerp(g, entity.xRotO, entity.getXRot());
         float o = 0.0F;
         float p = 0.0F;
         float n;
 
-        n = this.getAnimationProgress(entity, g);
-        if (!entity.hasVehicle() && entity.isAlive()) {
-            o = entity.limbAnimator.getSpeed(g);
-            p = entity.limbAnimator.getPos(g);
+        n = this.getBob(entity, g);
+        if (!entity.isPassenger() && entity.isAlive()) {
+            o = entity.walkAnimation.speed(g);
+            p = entity.walkAnimation.position(g);
             if (entity.isBaby()) {
                 p *= 3.0F;
             }
@@ -60,18 +64,18 @@ public class MoobooRenderer extends MobEntityRenderer<MoobooEntity, MoobooModel<
             k *= +1.0F;
        // }
 
-        k = MathHelper.wrapDegrees(k);
+        k = Mth.wrapDegrees(k);
 
         if(((Entity) entity).isInvisible())
             return;
 
         VertexConsumer vertexConsumer;
-        vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucent(this.getTexture(entity)));
+        vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucent(this.getTexture(entity)));
 
-        int color = ColorHelper.Argb.getArgb(128, 255, 255, 255);
-        this.model.animateModel(entity, p, o, g);
-        this.model.setAngles(entity, p, o, n, k, m);
-        matrixStack.pop();
-        model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, color);
+        int color = FastColor.ARGB32.color(128, 255, 255, 255);
+        this.model.prepareMobModel(entity, p, o, g);
+        this.model.setupAnim(entity, p, o, n, k, m);
+        matrixStack.popPose();
+        model.renderToBuffer(matrixStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, color);
     }
 }

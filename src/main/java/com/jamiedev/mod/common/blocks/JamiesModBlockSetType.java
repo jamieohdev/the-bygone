@@ -2,7 +2,7 @@ package com.jamiedev.mod.common.blocks;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
-import net.minecraft.block.BlockSetType;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 
 public class JamiesModBlockSetType
 {

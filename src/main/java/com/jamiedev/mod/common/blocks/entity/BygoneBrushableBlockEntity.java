@@ -3,37 +3,37 @@ package com.jamiedev.mod.common.blocks.entity;
 import com.jamiedev.mod.fabric.init.JamiesModBlockEntities;
 import com.mojang.logging.LogUtils;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.BrushableBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContextParameterSet;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.context.LootContextTypes;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 import java.util.Objects;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BrushableBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 
 public class BygoneBrushableBlockEntity extends BlockEntity {
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -51,7 +51,7 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
     @Nullable
     private Direction hitDirection;
     @Nullable
-    private RegistryKey<LootTable> lootTable;
+    private ResourceKey<LootTable> lootTable;
     private long lootTableSeed;
 
     public BygoneBrushableBlockEntity(BlockPos pos, BlockState state) {
@@ -61,13 +61,13 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
     public BlockEntityType<?> getType() {
         return JamiesModBlockEntities.BRUSHABLE_BLOCK;
     }
-    public boolean brush(long worldTime, PlayerEntity player, Direction hitDirection) {
+    public boolean brush(long worldTime, Player player, Direction hitDirection) {
         if (this.hitDirection == null) {
             this.hitDirection = hitDirection;
         }
 
         this.nextDustTime = worldTime + 40L;
-        if (worldTime >= this.nextBrushTime && this.world instanceof ServerWorld) {
+        if (worldTime >= this.nextBrushTime && this.level instanceof ServerLevel) {
             this.nextBrushTime = worldTime + 10L;
             this.generateItem(player);
             int i = this.getDustedLevel();
@@ -75,12 +75,12 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
                 this.finishBrushing(player);
                 return true;
             } else {
-                this.world.scheduleBlockTick(this.getPos(), this.getCachedState().getBlock(), 2);
+                this.level.scheduleTick(this.getBlockPos(), this.getBlockState().getBlock(), 2);
                 int j = this.getDustedLevel();
                 if (i != j) {
-                    BlockState blockState = this.getCachedState();
-                    BlockState blockState2 = (BlockState)blockState.with(Properties.DUSTED, j);
-                    this.world.setBlockState(this.getPos(), blockState2, 3);
+                    BlockState blockState = this.getBlockState();
+                    BlockState blockState2 = (BlockState)blockState.setValue(BlockStateProperties.DUSTED, j);
+                    this.level.setBlock(this.getBlockPos(), blockState2, 3);
                 }
 
                 return false;
@@ -90,16 +90,16 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
         }
     }
 
-    public void generateItem(PlayerEntity player) {
-        if (this.lootTable != null && this.world != null && !this.world.isClient() && this.world.getServer() != null) {
-            LootTable lootTable = this.world.getServer().getReloadableRegistries().getLootTable(this.lootTable);
-            if (player instanceof ServerPlayerEntity) {
-                ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
-                Criteria.PLAYER_GENERATES_CONTAINER_LOOT.trigger(serverPlayerEntity, this.lootTable);
+    public void generateItem(Player player) {
+        if (this.lootTable != null && this.level != null && !this.level.isClientSide() && this.level.getServer() != null) {
+            LootTable lootTable = this.level.getServer().reloadableRegistries().getLootTable(this.lootTable);
+            if (player instanceof ServerPlayer) {
+                ServerPlayer serverPlayerEntity = (ServerPlayer)player;
+                CriteriaTriggers.GENERATE_LOOT.trigger(serverPlayerEntity, this.lootTable);
             }
 
-            LootContextParameterSet lootContextParameterSet = (new LootContextParameterSet.Builder((ServerWorld)this.world)).add(LootContextParameters.ORIGIN, Vec3d.ofCenter(this.pos)).luck(player.getLuck()).add(LootContextParameters.THIS_ENTITY, player).build(LootContextTypes.CHEST);
-            ObjectArrayList<ItemStack> objectArrayList = lootTable.generateLoot(lootContextParameterSet, this.lootTableSeed);
+            LootParams lootContextParameterSet = (new LootParams.Builder((ServerLevel)this.level)).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition)).withLuck(player.getLuck()).withParameter(LootContextParams.THIS_ENTITY, player).create(LootContextParamSets.CHEST);
+            ObjectArrayList<ItemStack> objectArrayList = lootTable.getRandomItems(lootContextParameterSet, this.lootTableSeed);
             ItemStack var10001;
             switch (objectArrayList.size()) {
                 case 0:
@@ -109,49 +109,49 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
                     var10001 = (ItemStack)objectArrayList.get(0);
                     break;
                 default:
-                    LOGGER.warn("Expected max 1 loot from loot table {}, but got {}", this.lootTable.getValue(), objectArrayList.size());
+                    LOGGER.warn("Expected max 1 loot from loot table {}, but got {}", this.lootTable.location(), objectArrayList.size());
                     var10001 = (ItemStack)objectArrayList.get(0);
             }
 
             this.item = var10001;
             this.lootTable = null;
-            this.markDirty();
+            this.setChanged();
         }
     }
 
-    private void finishBrushing(PlayerEntity player) {
-        if (this.world != null && this.world.getServer() != null) {
+    private void finishBrushing(Player player) {
+        if (this.level != null && this.level.getServer() != null) {
             this.spawnItem(player);
-            BlockState blockState = this.getCachedState();
-            this.world.syncWorldEvent(3008, this.getPos(), Block.getRawIdFromState(blockState));
-            Block block = this.getCachedState().getBlock();
+            BlockState blockState = this.getBlockState();
+            this.level.levelEvent(3008, this.getBlockPos(), Block.getId(blockState));
+            Block block = this.getBlockState().getBlock();
             Block block2;
             if (block instanceof BrushableBlock) {
                 BrushableBlock brushableBlock = (BrushableBlock)block;
-                block2 = brushableBlock.getBaseBlock();
+                block2 = brushableBlock.getTurnsInto();
             } else {
                 block2 = Blocks.AIR;
             }
 
-            this.world.setBlockState(this.pos, block2.getDefaultState(), 3);
+            this.level.setBlock(this.worldPosition, block2.defaultBlockState(), 3);
         }
     }
 
-    private void spawnItem(PlayerEntity player) {
-        if (this.world != null && this.world.getServer() != null) {
+    private void spawnItem(Player player) {
+        if (this.level != null && this.level.getServer() != null) {
             this.generateItem(player);
             if (!this.item.isEmpty()) {
                 double d = (double) EntityType.ITEM.getWidth();
                 double e = 1.0 - d;
                 double f = d / 2.0;
                 Direction direction = (Direction) Objects.requireNonNullElse(this.hitDirection, Direction.UP);
-                BlockPos blockPos = this.pos.offset(direction, 1);
+                BlockPos blockPos = this.worldPosition.relative(direction, 1);
                 double g = (double)blockPos.getX() + 0.5 * e + f;
                 double h = (double)blockPos.getY() + 0.5 + (double)(EntityType.ITEM.getHeight() / 2.0F);
                 double i = (double)blockPos.getZ() + 0.5 * e + f;
-                ItemEntity itemEntity = new ItemEntity(this.world, g, h, i, this.item.split(this.world.random.nextInt(21) + 10));
-                itemEntity.setVelocity(Vec3d.ZERO);
-                this.world.spawnEntity(itemEntity);
+                ItemEntity itemEntity = new ItemEntity(this.level, g, h, i, this.item.split(this.level.random.nextInt(21) + 10));
+                itemEntity.setDeltaMovement(Vec3.ZERO);
+                this.level.addFreshEntity(itemEntity);
                 this.item = ItemStack.EMPTY;
             }
 
@@ -159,16 +159,16 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
     }
 
     public void scheduledTick() {
-        if (this.world != null) {
-            if (this.brushesCount != 0 && this.world.getTime() >= this.nextDustTime) {
+        if (this.level != null) {
+            if (this.brushesCount != 0 && this.level.getGameTime() >= this.nextDustTime) {
                 int i = this.getDustedLevel();
                 this.brushesCount = Math.max(0, this.brushesCount - 2);
                 int j = this.getDustedLevel();
                 if (i != j) {
-                    this.world.setBlockState(this.getPos(), (BlockState)this.getCachedState().with(Properties.DUSTED, j), 3);
+                    this.level.setBlock(this.getBlockPos(), (BlockState)this.getBlockState().setValue(BlockStateProperties.DUSTED, j), 3);
                 }
 
-                this.nextDustTime = this.world.getTime() + 4L;
+                this.nextDustTime = this.level.getGameTime() + 4L;
             }
 
             if (this.brushesCount == 0) {
@@ -176,15 +176,15 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
                 this.nextDustTime = 0L;
                 this.nextBrushTime = 0L;
             } else {
-                this.world.scheduleBlockTick(this.getPos(), this.getCachedState().getBlock(), 2);
+                this.level.scheduleTick(this.getBlockPos(), this.getBlockState().getBlock(), 2);
             }
 
         }
     }
 
-    private boolean readLootTableFromNbt(NbtCompound nbt) {
+    private boolean readLootTableFromNbt(CompoundTag nbt) {
         if (nbt.contains("LootTable", 8)) {
-            this.lootTable = RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of(nbt.getString("LootTable")));
+            this.lootTable = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse(nbt.getString("LootTable")));
             this.lootTableSeed = nbt.getLong("LootTableSeed");
             return true;
         } else {
@@ -192,11 +192,11 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
         }
     }
 
-    private boolean writeLootTableToNbt(NbtCompound nbt) {
+    private boolean writeLootTableToNbt(CompoundTag nbt) {
         if (this.lootTable == null) {
             return false;
         } else {
-            nbt.putString("LootTable", this.lootTable.getValue().toString());
+            nbt.putString("LootTable", this.lootTable.location().toString());
             if (this.lootTableSeed != 0L) {
                 nbt.putLong("LootTableSeed", this.lootTableSeed);
             }
@@ -205,27 +205,27 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
         }
     }
 
-    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
-        NbtCompound nbtCompound = super.toInitialChunkDataNbt(registryLookup);
+    public CompoundTag getUpdateTag(HolderLookup.Provider registryLookup) {
+        CompoundTag nbtCompound = super.getUpdateTag(registryLookup);
         if (this.hitDirection != null) {
             nbtCompound.putInt("hit_direction", this.hitDirection.ordinal());
         }
 
         if (!this.item.isEmpty()) {
-            nbtCompound.put("item", this.item.encode(registryLookup));
+            nbtCompound.put("item", this.item.save(registryLookup));
         }
 
         return nbtCompound;
     }
 
-    public BlockEntityUpdateS2CPacket toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.readNbt(nbt, registryLookup);
+    protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider registryLookup) {
+        super.loadAdditional(nbt, registryLookup);
         if (!this.readLootTableFromNbt(nbt) && nbt.contains("item")) {
-            this.item = (ItemStack)ItemStack.fromNbt(registryLookup, nbt.getCompound("item")).orElse(ItemStack.EMPTY);
+            this.item = (ItemStack)ItemStack.parse(registryLookup, nbt.getCompound("item")).orElse(ItemStack.EMPTY);
         } else {
             this.item = ItemStack.EMPTY;
         }
@@ -236,15 +236,15 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
 
     }
 
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.writeNbt(nbt, registryLookup);
+    protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider registryLookup) {
+        super.saveAdditional(nbt, registryLookup);
         if (!this.writeLootTableToNbt(nbt) && !this.item.isEmpty()) {
-            nbt.put("item", this.item.encode(registryLookup));
+            nbt.put("item", this.item.save(registryLookup));
         }
 
     }
 
-    public void setLootTable(RegistryKey<LootTable> lootTable, long seed) {
+    public void setLootTable(ResourceKey<LootTable> lootTable, long seed) {
         this.lootTable = lootTable;
         this.lootTableSeed = seed;
     }

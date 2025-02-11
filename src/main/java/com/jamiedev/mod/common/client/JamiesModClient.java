@@ -17,107 +17,106 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.particle.SoulParticle;
-import net.minecraft.client.render.DimensionEffects;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.client.render.block.entity.HangingSignBlockEntityRenderer;
-import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
-import net.minecraft.component.DataComponentTypes;
-
+import net.minecraft.client.renderer.DimensionSpecialEffects;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
+import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import java.util.Objects;
 public class JamiesModClient implements ClientModInitializer {
-    public static Identifier BYGONE = JamiesModFabric.getModId("bygone");
-    public  static DimensionEffects.SkyType BYGONE_SKY;
+    public static ResourceLocation BYGONE = JamiesModFabric.getModId("bygone");
+    public  static DimensionSpecialEffects.SkyType BYGONE_SKY;
 
     public static boolean isWeaponBlocking(LivingEntity entity) {
         return entity.isUsingItem() && (canWeaponBlock(entity));
     }
 
     public static boolean canWeaponBlock(LivingEntity entity) {
-        if ((entity.getMainHandStack().getItem() instanceof VerdigrisBladeItem)) {
-            Item weaponItem = entity.getOffHandStack().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandStack().getItem() : entity.getOffHandStack().getItem();
+        if ((entity.getMainHandItem().getItem() instanceof VerdigrisBladeItem)) {
+            Item weaponItem = entity.getOffhandItem().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandItem().getItem() : entity.getOffhandItem().getItem();
             return weaponItem instanceof VerdigrisBladeItem;
         }
        return false;
     }
     public static boolean isBlockingOnViaVersion(LivingEntity entity) {
-        Item item = entity.getMainHandStack().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandStack().getItem() : entity.getOffHandStack().getItem();
-        return item instanceof VerdigrisBladeItem && item.getComponents() != null && item.getComponents().contains(DataComponentTypes.FOOD) && Objects.requireNonNull(item.getComponents().get(DataComponentTypes.FOOD)).eatSeconds() == 3600;
+        Item item = entity.getMainHandItem().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandItem().getItem() : entity.getOffhandItem().getItem();
+        return item instanceof VerdigrisBladeItem && item.components() != null && item.components().has(DataComponents.FOOD) && Objects.requireNonNull(item.components().get(DataComponents.FOOD)).eatSeconds() == 3600;
     }
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.AMBER, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CLOUD, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BYGONE_PORTAL, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.AMBER, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CLOUD, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BYGONE_PORTAL, RenderType.translucent());
 
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_LEAVES, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_ROOTS, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_SAPLING, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_VINE, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CHARNIA, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_BEIGE, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_MUAVE, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_VERDANT, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_DANGO, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_DANGO_WALL, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_VINE, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BIG_WHIRLIWEED, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.WHIRLIWEED, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.RAFFLESIA, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CAVE_VINES, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CAVE_VINES_PLANT, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.MONTSECHIA, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SAGARIA, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_DOOR, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_TRAPDOOR, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.POTTED_MONTSECHIA, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.POTTED_SAGARIA, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHORT_GRASS, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.TALL_GRASS, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_ALGAE, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.MALACHITE_DOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_LEAVES, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_ROOTS, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_SAPLING, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_VINE, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CHARNIA, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_BEIGE, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_MUAVE, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_VERDANT, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_DANGO, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_DANGO_WALL, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_VINE, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BIG_WHIRLIWEED, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.WHIRLIWEED, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.RAFFLESIA, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CAVE_VINES, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CAVE_VINES_PLANT, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.MONTSECHIA, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SAGARIA, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_DOOR, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_TRAPDOOR, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.POTTED_MONTSECHIA, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.POTTED_SAGARIA, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHORT_GRASS, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.TALL_GRASS, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_ALGAE, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.MALACHITE_DOOR, RenderType.cutout());
 
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLEMISH_VEIN, RenderLayer.getCutoutMipped());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLEMISH_VEIN, RenderType.cutoutMipped());
 
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CRINOID, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PRIMORDIAL_URCHIN, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PRIMORDIAL_VENT, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CRINOID, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PRIMORDIAL_URCHIN, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PRIMORDIAL_VENT, RenderType.cutout());
 
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_ORANGE_CORAL, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_ORANGE_CORAL_WALL_FAN, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_ORANGE_CORAL_FAN, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_CORAL, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_CORAL_FAN, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_CORAL_WALL_FAN, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_BLUE_CORAL, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_BLUE_CORAL_WALL_FAN, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_BLUE_CORAL_FAN, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL_FAN, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL_WALL_FAN, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BELLADONNA, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.COLEUS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_ORANGE_CORAL, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_ORANGE_CORAL_WALL_FAN, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_ORANGE_CORAL_FAN, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_CORAL, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_CORAL_FAN, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_CORAL_WALL_FAN, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_BLUE_CORAL, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_BLUE_CORAL_WALL_FAN, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_BLUE_CORAL_FAN, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL_FAN, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL_WALL_FAN, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BELLADONNA, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.COLEUS, RenderType.cutout());
 
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_FUNGUS, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_ROOTS, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_SPROUTS, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_MOLD, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_FUNGI_VINES, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_FUNGI_PLANT, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PINK_FUNGI_VINES, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PINK_FUNGI_VINES_PLANT, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PURPLE_FUNGI_VINES, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PURPLE_FUNGI_VINES_PLANT, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_FUNGUS, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_ROOTS, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_SPROUTS, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_MOLD, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_FUNGI_VINES, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_FUNGI_PLANT, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PINK_FUNGI_VINES, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PINK_FUNGI_VINES_PLANT, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PURPLE_FUNGI_VINES, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PURPLE_FUNGI_VINES_PLANT, RenderType.cutout());
 
         // BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_FUNGI_FAN, RenderLayer.getCutout());
         //BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_FUNGI_WALL_FAN, RenderLayer.getCutout());
@@ -126,13 +125,13 @@ public class JamiesModClient implements ClientModInitializer {
        // BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PURPLE_FUNGI_FAN, RenderLayer.getCutout());
        // BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PURPLE_FUNGI_WALL_FAN, RenderLayer.getCutout());
 
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CLAYSTONE_FARMLAND, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.AMARANTH_CROP, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SPRINKER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CLAYSTONE_FARMLAND, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.AMARANTH_CROP, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SPRINKER, RenderType.cutout());
 
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.POINTED_AMBER, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CREOSOTE, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CREOSOTE_SPROUTS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.POINTED_AMBER, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CREOSOTE, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CREOSOTE_SPROUTS, RenderType.cutout());
 
         EntityRendererRegistry.register(JamiesModEntityTypes.COELACANTH, CoelacanthRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.COELACANTH, CoelacanthModel::getTexturedModelData);
@@ -166,7 +165,7 @@ public class JamiesModClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.FUNGALPARENT, FungalParentModel::getTexturedModelData);
 
         EntityRendererRegistry.register(JamiesModEntityTypes.BYGONE_ITEM, (context) -> {
-            return new FlyingItemEntityRenderer<>(context, 1.0F, true);
+            return new ThrownItemRenderer<>(context, 1.0F, true);
         });
 
         EntityRendererRegistry.register(JamiesModEntityTypes.BIG_BEAK, BigBeakRenderer::new);
@@ -176,7 +175,7 @@ public class JamiesModClient implements ClientModInitializer {
 
         ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.BLEMISH, BlemishParticle.BlemishBlockProvider::new);
         ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.RAFFLESIA_SPORES, RafflesiaSporeParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.ALGAE_BLOOM, SoulParticle.SculkSoulFactory::new);
+        ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.ALGAE_BLOOM, SoulParticle.EmissiveProvider::new);
         ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.SHELF, ShelfParticle.Factory::new);
 
         ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.AMBER_DUST, AmberDustParticle.Factory::new);
@@ -191,20 +190,20 @@ public class JamiesModClient implements ClientModInitializer {
             context.client().execute(() -> SyncPlayerHookPacketHandler.handle(payload, context));
         });
 
-        TexturedRenderLayers.SIGN_TYPE_TEXTURES.put(JamiesModWoodType.ANCIENT, TexturedRenderLayers.getSignTextureId(JamiesModWoodType.ANCIENT));
-        BlockEntityRendererFactories.register(JamiesModBlockEntities.MOD_SIGN_BLOCK_ENTITY, SignBlockEntityRenderer::new);
-        BlockEntityRendererFactories.register(JamiesModBlockEntities.MOD_HANGING_SIGN_BLOCK_ENTITY, HangingSignBlockEntityRenderer::new);
+        Sheets.SIGN_MATERIALS.put(JamiesModWoodType.ANCIENT, Sheets.getSignMaterial(JamiesModWoodType.ANCIENT));
+        BlockEntityRenderers.register(JamiesModBlockEntities.MOD_SIGN_BLOCK_ENTITY, SignRenderer::new);
+        BlockEntityRenderers.register(JamiesModBlockEntities.MOD_HANGING_SIGN_BLOCK_ENTITY, HangingSignRenderer::new);
      //   BlockEntityRendererFactories.register(JamiesModBlockEntities.BRUSHABLE_BLOCK, BygoneBrushableBlockEntityRenderer::new);
-        BlockEntityRendererFactories.register(JamiesModBlockEntities.CASTER, CasterBlockEntityRenderer::new);
+        BlockEntityRenderers.register(JamiesModBlockEntities.CASTER, CasterBlockEntityRenderer::new);
 
 
     }
     public static void registerModelPredicateProviders() {
-        ModelPredicateProviderRegistry.register(JamiesModItems.HOOK, JamiesModFabric.getModId("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
-            if (livingEntity instanceof PlayerEntity) {
-                for (Hand value : Hand.values())
+        ItemProperties.register(JamiesModItems.HOOK, JamiesModFabric.getModId("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
+            if (livingEntity instanceof Player) {
+                for (InteractionHand value : InteractionHand.values())
                 {
-                    ItemStack heldStack = livingEntity.getStackInHand(value);
+                    ItemStack heldStack = livingEntity.getItemInHand(value);
 
                     if (heldStack == itemStack && (((PlayerWithHook)livingEntity).bygone$getHook() != null && !((PlayerWithHook)livingEntity).bygone$getHook().isRemoved()))
                     {
@@ -217,10 +216,10 @@ public class JamiesModClient implements ClientModInitializer {
             return 0;
         });
 
-        ModelPredicateProviderRegistry.register(JamiesModItems.VERDIGRIS_BLADE, JamiesModFabric.getModId("blocking"),
+        ItemProperties.register(JamiesModItems.VERDIGRIS_BLADE, JamiesModFabric.getModId("blocking"),
                 (itemStack, clientWorld, livingEntity, seed) -> {
                     if (livingEntity == null) return 0;
-                    if (livingEntity instanceof PlayerEntity && livingEntity.isBlocking()) return 1;
+                    if (livingEntity instanceof Player && livingEntity.isBlocking()) return 1;
                     return 0;
                 }
         );

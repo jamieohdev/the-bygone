@@ -2,30 +2,30 @@ package com.jamiedev.mod.common.blocks.entity;
 
 import com.jamiedev.mod.common.blocks.BlemishVeinBlock;
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.MultifaceGrowthBlock;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
 
 public interface BlemishSpreadable {
     BlemishSpreadable VEIN_ONLY_SPREADER = new BlemishSpreadable() {
-        public boolean spread(WorldAccess world, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
+        public boolean spread(LevelAccessor world, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
             if (directions == null) {
-                return ((BlemishVeinBlock) JamiesModBlocks.BLEMISH_VEIN).getSamePositionOnlyGrower().grow(world.getBlockState(pos), world, pos, markForPostProcessing) > 0L;
+                return ((BlemishVeinBlock) JamiesModBlocks.BLEMISH_VEIN).getSamePositionOnlyGrower().spreadAll(world.getBlockState(pos), world, pos, markForPostProcessing) > 0L;
             } else if (!directions.isEmpty()) {
-                return (state.isAir() || state.getFluidState().isOf(Fluids.WATER)) && BlemishVeinBlock.place(world, pos, state, directions);
+                return (state.isAir() || state.getFluidState().is(Fluids.WATER)) && BlemishVeinBlock.place(world, pos, state, directions);
             } else {
                 return BlemishSpreadable.super.spread(world, pos, state, directions, markForPostProcessing);
             }
         }
 
-        public int spread(BlemishSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, Random random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock) {
+        public int spread(BlemishSpreadManager.Cursor cursor, LevelAccessor world, BlockPos catalystPos, RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock) {
             return cursor.getDecay() > 0 ? cursor.getCharge() : 0;
         }
 
@@ -38,15 +38,15 @@ public interface BlemishSpreadable {
         return 1;
     }
 
-    default void spreadAtSamePosition(WorldAccess world, BlockState state, BlockPos pos, Random random) {
+    default void spreadAtSamePosition(LevelAccessor world, BlockState state, BlockPos pos, RandomSource random) {
     }
 
-    default boolean method_41470(WorldAccess world, BlockPos pos, Random random) {
+    default boolean method_41470(LevelAccessor world, BlockPos pos, RandomSource random) {
         return false;
     }
 
-    default boolean spread(WorldAccess world, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
-        return ((MultifaceGrowthBlock) JamiesModBlocks.BLEMISH_VEIN).getGrower().grow(state, world, pos, markForPostProcessing) > 0L;
+    default boolean spread(LevelAccessor world, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
+        return ((MultifaceBlock) JamiesModBlocks.BLEMISH_VEIN).getSpreader().spreadAll(state, world, pos, markForPostProcessing) > 0L;
     }
 
     default boolean shouldConvertToSpreadable() {
@@ -57,5 +57,5 @@ public interface BlemishSpreadable {
         return 1;
     }
 
-    int spread(BlemishSpreadManager.Cursor cursor, WorldAccess world, BlockPos catalystPos, Random random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock);
+    int spread(BlemishSpreadManager.Cursor cursor, LevelAccessor world, BlockPos catalystPos, RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock);
 }

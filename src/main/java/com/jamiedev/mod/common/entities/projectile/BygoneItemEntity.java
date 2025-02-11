@@ -3,27 +3,31 @@ package com.jamiedev.mod.common.entities.projectile;
 import com.google.common.collect.Lists;
 import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
 import com.jamiedev.mod.fabric.init.JamiesModItems;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.entity.*;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.projectile.ItemSupplier;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BygoneItemEntity  extends Entity implements FlyingItemEntity {
-    private static final TrackedData<ItemStack> ITEM;
+public class BygoneItemEntity  extends Entity implements ItemSupplier {
+    private static final EntityDataAccessor<ItemStack> ITEM;
     private int stepCount;
     private double targetX;
     private double targetY;
@@ -35,13 +39,13 @@ public class BygoneItemEntity  extends Entity implements FlyingItemEntity {
 
     BlockPos target;
 
-    public BygoneItemEntity(EntityType<? extends BygoneItemEntity> entityType, World world) {
+    public BygoneItemEntity(EntityType<? extends BygoneItemEntity> entityType, Level world) {
         super(entityType, world);
     }
 
-    public BygoneItemEntity(World world, double x, double y, double z) {
+    public BygoneItemEntity(Level world, double x, double y, double z) {
         this(JamiesModEntityTypes.BYGONE_ITEM, world);
-        this.setPosition(x, y, z);
+        this.setPos(x, y, z);
         this.target = target;
         this.direction = Direction.UP;
     }
@@ -57,23 +61,23 @@ public class BygoneItemEntity  extends Entity implements FlyingItemEntity {
 
     public void setItem(ItemStack itemStack) {
         if (itemStack.isEmpty()) {
-            this.getDataTracker().set(ITEM, this.getItem());
+            this.getEntityData().set(ITEM, this.getItem());
         } else {
-            this.getDataTracker().set(ITEM, itemStack.copyWithCount(1));
+            this.getEntityData().set(ITEM, itemStack.copyWithCount(1));
         }
 
     }
 
-    public ItemStack getStack() {
-        return (ItemStack)this.getDataTracker().get(ITEM);
+    public ItemStack getItem() {
+        return (ItemStack)this.getEntityData().get(ITEM);
     }
 
-    protected void initDataTracker(DataTracker.Builder builder) {
-        builder.add(ITEM, this.getItem());
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(ITEM, this.getItem());
     }
 
-    public boolean shouldRender(double distance) {
-        double d = this.getBoundingBox().getAverageSideLength() * 4.0;
+    public boolean shouldRenderAtSqrDistance(double distance) {
+        double d = this.getBoundingBox().getSize() * 4.0;
         if (Double.isNaN(d)) {
             d = 4.0;
         }
@@ -86,55 +90,55 @@ public class BygoneItemEntity  extends Entity implements FlyingItemEntity {
         double d = 0.5;
         BlockPos blockPos;
         if (this.target == null) {
-            blockPos = this.getBlockPos().down();
+            blockPos = this.blockPosition().below();
         } else {
             d = (double)this.target.asLong() * 0.5;
-            blockPos = BlockPos.ofFloored(this.target.getX(), this.target.getY() + d, this.target.getZ());
+            blockPos = BlockPos.containing(this.target.getX(), this.target.getY() + d, this.target.getZ());
         }
 
         double e = (double)blockPos.getX() + 0.5;
         double f = (double)blockPos.getY() + d;
         double g = (double)blockPos.getZ() + 0.5;
         Direction direction = null;
-        if (!blockPos.isWithinDistance(this.getPos(), 2.0)) {
-            BlockPos blockPos2 = this.getBlockPos();
+        if (!blockPos.closerToCenterThan(this.position(), 2.0)) {
+            BlockPos blockPos2 = this.blockPosition();
             List<Direction> list = Lists.newArrayList();
             if (axis != Direction.Axis.X) {
-                if (blockPos2.getX() < blockPos.getX() && this.getWorld().isAir(blockPos2.east())) {
+                if (blockPos2.getX() < blockPos.getX() && this.level().isEmptyBlock(blockPos2.east())) {
                     list.add(Direction.EAST);
-                } else if (blockPos2.getX() > blockPos.getX() && this.getWorld().isAir(blockPos2.west())) {
+                } else if (blockPos2.getX() > blockPos.getX() && this.level().isEmptyBlock(blockPos2.west())) {
                     list.add(Direction.WEST);
                 }
             }
 
             if (axis != Direction.Axis.Y) {
-                if (blockPos2.getY() < blockPos.getY() && this.getWorld().isAir(blockPos2.up())) {
+                if (blockPos2.getY() < blockPos.getY() && this.level().isEmptyBlock(blockPos2.above())) {
                     list.add(Direction.UP);
-                } else if (blockPos2.getY() > blockPos.getY() && this.getWorld().isAir(blockPos2.down())) {
+                } else if (blockPos2.getY() > blockPos.getY() && this.level().isEmptyBlock(blockPos2.below())) {
                     list.add(Direction.DOWN);
                 }
             }
 
             if (axis != Direction.Axis.Z) {
-                if (blockPos2.getZ() < blockPos.getZ() && this.getWorld().isAir(blockPos2.south())) {
+                if (blockPos2.getZ() < blockPos.getZ() && this.level().isEmptyBlock(blockPos2.south())) {
                     list.add(Direction.SOUTH);
-                } else if (blockPos2.getZ() > blockPos.getZ() && this.getWorld().isAir(blockPos2.north())) {
+                } else if (blockPos2.getZ() > blockPos.getZ() && this.level().isEmptyBlock(blockPos2.north())) {
                     list.add(Direction.NORTH);
                 }
             }
 
-            direction = Direction.random(this.random);
+            direction = Direction.getRandom(this.random);
             if (list.isEmpty()) {
-                for(int i = 5; !this.getWorld().isAir(blockPos2.offset(direction)) && i > 0; --i) {
-                    direction = Direction.random(this.random);
+                for(int i = 5; !this.level().isEmptyBlock(blockPos2.relative(direction)) && i > 0; --i) {
+                    direction = Direction.getRandom(this.random);
                 }
             } else {
                 direction = (Direction)list.get(this.random.nextInt(list.size()));
             }
 
-            e = this.getX() + (double)direction.getOffsetX();
-            f = this.getY() + (double)direction.getOffsetY();
-            g = this.getZ() + (double)direction.getOffsetZ();
+            e = this.getX() + (double)direction.getStepX();
+            f = this.getY() + (double)direction.getStepY();
+            g = this.getZ() + (double)direction.getStepZ();
         }
 
         this.setDirection(direction);
@@ -152,7 +156,7 @@ public class BygoneItemEntity  extends Entity implements FlyingItemEntity {
             this.targetZ = k / l * 0.15;
         }
 
-        this.velocityDirty = true;
+        this.hasImpulse = true;
         //this.stepCount = 10 + this.random.nextInt(5) * 10;
     }
 
@@ -177,14 +181,14 @@ public class BygoneItemEntity  extends Entity implements FlyingItemEntity {
         this.dropsItem = this.random.nextInt(5) > 0;
     }
 
-    public void setVelocityClient(double x, double y, double z) {
-        this.setVelocity(x, y, z);
-        if (this.prevPitch == 0.0F && this.prevYaw == 0.0F) {
+    public void lerpMotion(double x, double y, double z) {
+        this.setDeltaMovement(x, y, z);
+        if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
             double d = Math.sqrt(x * x + z * z);
-            this.setYaw((float)(MathHelper.atan2(x, z) * 57.2957763671875));
-            this.setPitch((float)(MathHelper.atan2(y, d) * 57.2957763671875));
-            this.prevYaw = this.getYaw();
-            this.prevPitch = this.getPitch();
+            this.setYRot((float)(Mth.atan2(x, z) * 57.2957763671875));
+            this.setXRot((float)(Mth.atan2(y, d) * 57.2957763671875));
+            this.yRotO = this.getYRot();
+            this.xRotO = this.getXRot();
         }
 
     }
@@ -198,29 +202,29 @@ public class BygoneItemEntity  extends Entity implements FlyingItemEntity {
             prevRot += 360.0F;
         }
 
-        return MathHelper.lerp(0.2F, prevRot, newRot);
+        return Mth.lerp(0.2F, prevRot, newRot);
     }
 
-    protected double getGravity() {
+    protected double getDefaultGravity() {
         return 0.01;
     }
 
 
     public void tick() {
         super.tick();
-        Vec3d vec3d = this.getVelocity();
+        Vec3 vec3d = this.getDeltaMovement();
         double d = this.getX() + vec3d.x;
         double e = this.getY() + vec3d.y;
         double f = this.getZ() + vec3d.z;
-        double g = vec3d.horizontalLength();
-        this.setPitch(updateRotation(this.prevPitch, (float)(MathHelper.atan2(vec3d.y, g) * 37.2957763671875)));
-        this.setYaw(updateRotation(this.prevYaw, (float)(MathHelper.atan2(vec3d.x, vec3d.z) * 37.2957763671875)));
-        if (!this.getWorld().isClient) {
+        double g = vec3d.horizontalDistance();
+        this.setXRot(updateRotation(this.xRotO, (float)(Mth.atan2(vec3d.y, g) * 37.2957763671875)));
+        this.setYRot(updateRotation(this.yRotO, (float)(Mth.atan2(vec3d.x, vec3d.z) * 37.2957763671875)));
+        if (!this.level().isClientSide) {
             double h = this.targetX - d;
             double i = this.targetZ - f;
             float j = (float)Math.sqrt(h * h + i * i);
-            float k = (float)MathHelper.atan2(i, h);
-            double l = MathHelper.lerp(0.0025, g, (double)j);
+            float k = (float)Mth.atan2(i, h);
+            double l = Mth.lerp(0.0025, g, (double)j);
             double m = vec3d.y;
             if (j < 1.0F) {
                 l *= 0.8;
@@ -229,45 +233,45 @@ public class BygoneItemEntity  extends Entity implements FlyingItemEntity {
 
             int n = this.getY() < this.targetY ? 1 : -1;
            // vec3d = new Vec3d(Math.cos((double)k) * l, m + ((double)n - m) * 0.014999999664723873, Math.sin((double)k) * l);
-            this.targetX = MathHelper.clamp(this.targetX * 1.025, -1.0, 1.0);
-            this.targetY = MathHelper.clamp(this.targetY * 1.025, -1.0, 1.0);
-            this.targetZ = MathHelper.clamp(this.targetZ * 1.025, -1.0, 1.0);
-            vec3d = this.getVelocity();
-            this.setVelocity(vec3d.add((this.targetX - vec3d.x) * 0.1, (this.targetY - vec3d.y) * 0.1, (this.targetZ - vec3d.z) * 0.1));
+            this.targetX = Mth.clamp(this.targetX * 1.025, -1.0, 1.0);
+            this.targetY = Mth.clamp(this.targetY * 1.025, -1.0, 1.0);
+            this.targetZ = Mth.clamp(this.targetZ * 1.025, -1.0, 1.0);
+            vec3d = this.getDeltaMovement();
+            this.setDeltaMovement(vec3d.add((this.targetX - vec3d.x) * 0.1, (this.targetY - vec3d.y) * 0.1, (this.targetZ - vec3d.z) * 0.1));
 
         }
 
         float o = 0.25F;
-        if (this.isTouchingWater()) {
+        if (this.isInWater()) {
             for(int p = 0; p < 4; ++p) {
-                this.getWorld().addParticle(ParticleTypes.BUBBLE, d - vec3d.x * 0.25, e - vec3d.y * 0.25, f - vec3d.z * 0.25, vec3d.x, vec3d.y, vec3d.z);
+                this.level().addParticle(ParticleTypes.BUBBLE, d - vec3d.x * 0.25, e - vec3d.y * 0.25, f - vec3d.z * 0.25, vec3d.x, vec3d.y, vec3d.z);
             }
         } else {
-            this.getWorld().addParticle(ParticleTypes.PORTAL, d - vec3d.x * 0.25 + this.random.nextDouble() * 0.6 - 0.3, e - vec3d.y * 0.25 - 0.5, f - vec3d.z * 0.25 + this.random.nextDouble() * 0.6 - 0.3, vec3d.x, vec3d.y, vec3d.z);
+            this.level().addParticle(ParticleTypes.PORTAL, d - vec3d.x * 0.25 + this.random.nextDouble() * 0.6 - 0.3, e - vec3d.y * 0.25 - 0.5, f - vec3d.z * 0.25 + this.random.nextDouble() * 0.6 - 0.3, vec3d.x, vec3d.y, vec3d.z);
         }
 
-        if (!this.getWorld().isClient) {
-            this.setPosition(d, e, f);
+        if (!this.level().isClientSide) {
+            this.setPos(d, e, f);
             ++this.lifespan;
-            if (this.lifespan > 100 && !this.getWorld().isClient) {
-                this.playSound(SoundEvents.ENTITY_ENDER_EYE_DEATH, 1.0F, 1.0F);
+            if (this.lifespan > 100 && !this.level().isClientSide) {
+                this.playSound(SoundEvents.ENDER_EYE_DEATH, 1.0F, 1.0F);
                 this.discard();
                 if (this.dropsItem) {
-                    this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), this.getStack()));
+                    this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem()));
                 } else {
-                    this.getWorld().syncWorldEvent(2003, this.getBlockPos(), 0);
+                    this.level().levelEvent(2003, this.blockPosition(), 0);
                 }
             }
         } else {
-            this.setPos(d, e, f);
+            this.setPosRaw(d, e, f);
         }
 
-        this.checkBlockCollision();
-        vec3d = this.getVelocity();
-        this.setPosition(this.getX() + vec3d.x, this.getY() + vec3d.y, this.getZ() + vec3d.z);
-        ProjectileUtil.setRotationFromVelocity(this, 0.5F);
-        if (this.getWorld().isClient) {
-            this.getWorld().addParticle(ParticleTypes.END_ROD, this.getX() - vec3d.x, this.getY() - vec3d.y + 0.15, this.getZ() - vec3d.z, 0.0, 0.0, 0.0);
+        this.checkInsideBlocks();
+        vec3d = this.getDeltaMovement();
+        this.setPos(this.getX() + vec3d.x, this.getY() + vec3d.y, this.getZ() + vec3d.z);
+        ProjectileUtil.rotateTowardsMovement(this, 0.5F);
+        if (this.level().isClientSide) {
+            this.level().addParticle(ParticleTypes.END_ROD, this.getX() - vec3d.x, this.getY() - vec3d.y + 0.15, this.getZ() - vec3d.z, 0.0, 0.0, 0.0);
         } else if (this.target != null) {
             if (this.stepCount > 0) {
                 --this.stepCount;
@@ -277,12 +281,12 @@ public class BygoneItemEntity  extends Entity implements FlyingItemEntity {
             }
 
             if (this.direction != null) {
-                BlockPos blockPos = this.getBlockPos();
+                BlockPos blockPos = this.blockPosition();
                 Direction.Axis axis = this.direction.getAxis();
-                if (this.getWorld().isTopSolid(blockPos.offset(this.direction), this)) {
+                if (this.level().loadedAndEntityCanStandOn(blockPos.relative(this.direction), this)) {
                     this.changeTargetDirection(axis);
                 } else {
-                    BlockPos blockPos2 = this.target.up();
+                    BlockPos blockPos2 = this.target.above();
                     if (axis == Direction.Axis.X && blockPos.getX() == blockPos2.getX() || axis == Direction.Axis.Z && blockPos.getZ() == blockPos2.getZ() || axis == Direction.Axis.Y && blockPos.getY() == blockPos2.getY()) {
                         this.changeTargetDirection(axis);
                     }
@@ -292,13 +296,13 @@ public class BygoneItemEntity  extends Entity implements FlyingItemEntity {
 
     }
 
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        nbt.put("Item", this.getStack().encode(this.getRegistryManager()));
+    public void addAdditionalSaveData(CompoundTag nbt) {
+        nbt.put("Item", this.getItem().save(this.registryAccess()));
         if (this.target != null) {
 
         }
         if (this.direction != null) {
-            nbt.putInt("Dir", this.direction.getId());
+            nbt.putInt("Dir", this.direction.get3DDataValue());
         }
 
 
@@ -307,9 +311,9 @@ public class BygoneItemEntity  extends Entity implements FlyingItemEntity {
         nbt.putDouble("TZD", this.targetZ);
     }
 
-    public void readCustomDataFromNbt(NbtCompound nbt) {
+    public void readAdditionalSaveData(CompoundTag nbt) {
         if (nbt.contains("Item", 10)) {
-            this.setItem((ItemStack)ItemStack.fromNbt(this.getRegistryManager(), nbt.getCompound("Item")).orElse(this.getItem()));
+            this.setItem((ItemStack)ItemStack.parse(this.registryAccess(), nbt.getCompound("Item")).orElse(this.getItem()));
         } else {
             this.setItem(this.getItem());
         }
@@ -317,9 +321,9 @@ public class BygoneItemEntity  extends Entity implements FlyingItemEntity {
         this.targetY = nbt.getDouble("TYD");
         this.targetZ = nbt.getDouble("TZD");
         if (nbt.contains("Dir", 99)) {
-            this.direction = Direction.byId(nbt.getInt("Dir"));
+            this.direction = Direction.from3DDataValue(nbt.getInt("Dir"));
         }
-        if (nbt.containsUuid("Target")) {
+        if (nbt.hasUUID("Target")) {
 
         }
     }
@@ -328,22 +332,22 @@ public class BygoneItemEntity  extends Entity implements FlyingItemEntity {
         return new ItemStack(JamiesModItems.BEIGE_SLICE);
     }
 
-    public float getBrightnessAtEyes() {
+    public float getLightLevelDependentMagicValue() {
         return 1.0F;
     }
 
     public boolean isAttackable() {
         return false;
     }
-    public void onSpawnPacket(EntitySpawnS2CPacket packet) {
-        super.onSpawnPacket(packet);
-        double d = packet.getVelocityX();
-        double e = packet.getVelocityY();
-        double f = packet.getVelocityZ();
-        this.setVelocity(d, e, f);
+    public void recreateFromPacket(ClientboundAddEntityPacket packet) {
+        super.recreateFromPacket(packet);
+        double d = packet.getXa();
+        double e = packet.getYa();
+        double f = packet.getZa();
+        this.setDeltaMovement(d, e, f);
     }
 
     static {
-        ITEM = DataTracker.registerData(BygoneItemEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
+        ITEM = SynchedEntityData.defineId(BygoneItemEntity.class, EntityDataSerializers.ITEM_STACK);
     }
 }

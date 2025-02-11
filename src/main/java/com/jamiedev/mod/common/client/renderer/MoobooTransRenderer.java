@@ -1,43 +1,42 @@
 package com.jamiedev.mod.common.client.renderer;
 
 import com.jamiedev.mod.common.client.JamiesModModelLayers;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.EntityModelLoader;
-import net.minecraft.client.render.entity.model.CowEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.CowModel;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.world.entity.LivingEntity;
 
-public class MoobooTransRenderer <T extends LivingEntity> extends FeatureRenderer<T, CowEntityModel<T>> {
+public class MoobooTransRenderer <T extends LivingEntity> extends RenderLayer<T, CowModel<T>> {
     private final EntityModel<T> model;
 
-    public MoobooTransRenderer(FeatureRendererContext<T, CowEntityModel<T>> context, EntityModelLoader loader) {
+    public MoobooTransRenderer(RenderLayerParent<T, CowModel<T>> context, EntityModelSet loader) {
         super(context);
-        this.model = new CowEntityModel<>(loader.getModelPart(JamiesModModelLayers.MOOBOO_TRANS));
+        this.model = new CowModel<>(loader.bakeLayer(JamiesModModelLayers.MOOBOO_TRANS));
     }
 
-    public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l) {
-        MinecraftClient minecraftClient = MinecraftClient.getInstance();
-        boolean bl = minecraftClient.hasOutline(livingEntity) && livingEntity.isInvisible();
+    public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l) {
+        Minecraft minecraftClient = Minecraft.getInstance();
+        boolean bl = minecraftClient.shouldEntityAppearGlowing(livingEntity) && livingEntity.isInvisible();
         if (!livingEntity.isInvisible() || bl) {
             VertexConsumer vertexConsumer;
             if (bl) {
-                vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getOutline(this.getTexture(livingEntity)));
+                vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.outline(this.getTextureLocation(livingEntity)));
             } else {
-                vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucent(this.getTexture(livingEntity)));
+                vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucent(this.getTextureLocation(livingEntity)));
             }
 
-            ((CowEntityModel) this.getContextModel()).copyStateTo(this.model);
-            this.model.animateModel(livingEntity, f, g, h);
-            this.model.setAngles(livingEntity, f, g, j, k, l);
-            this.model.render(matrixStack, vertexConsumer, i, LivingEntityRenderer.getOverlay(livingEntity, 0.0F));
+            ((CowModel) this.getParentModel()).copyPropertiesTo(this.model);
+            this.model.prepareMobModel(livingEntity, f, g, h);
+            this.model.setupAnim(livingEntity, f, g, j, k, l);
+            this.model.renderToBuffer(matrixStack, vertexConsumer, i, LivingEntityRenderer.getOverlayCoords(livingEntity, 0.0F));
         }
     }
 }

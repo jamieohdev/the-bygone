@@ -2,81 +2,81 @@ package com.jamiedev.mod.common.entities.projectile;
 
 import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
 import com.jamiedev.mod.fabric.init.JamiesModItems;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.function.BooleanBiFunction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.Shapes;
 import org.jetbrains.annotations.Nullable;
 
-public class HookEntity extends PersistentProjectileEntity
+public class HookEntity extends AbstractArrow
 {
 
 
 
-    public HookEntity(EntityType<? extends HookEntity> entityType, World pLevel) {
+    public HookEntity(EntityType<? extends HookEntity> entityType, Level pLevel) {
         super(entityType, pLevel);
-        this.ignoreCameraFrustum = true;
+        this.noCulling = true;
     }
 
-    public HookEntity(World level, PlayerEntity player) {
+    public HookEntity(Level level, Player player) {
         super(JamiesModEntityTypes.HOOK, level);
         setOwner(player);
-        setPos(player.getX(), player.getEyeY() - 0.1, player.getZ());
+        setPosRaw(player.getX(), player.getEyeY() - 0.1, player.getZ());
     }
 
     @Override
-    protected ItemStack getDefaultItemStack() {
-        return JamiesModItems.HOOK.getDefaultStack();
+    protected ItemStack getDefaultPickupItem() {
+        return JamiesModItems.HOOK.getDefaultInstance();
     }
 
     @Override
     public void setOwner(@Nullable Entity entity) {
         super.setOwner(entity);
-        this.pickupType = PickupPermission.DISALLOWED;
+        this.pickup = Pickup.DISALLOWED;
     }
 
     @Nullable
-    public PlayerEntity getPlayerOwner() {
+    public Player getPlayerOwner() {
         Entity entity = this.getOwner();
-        return entity instanceof PlayerEntity ? (PlayerEntity)entity : null;
+        return entity instanceof Player ? (Player)entity : null;
     }
 
     @Override
     public void tick() {
         super.tick();
-        PlayerEntity player = this.getPlayerOwner();
-        if((player == null || this.shouldRetract(player)) && !this.getWorld().isClient) {
+        Player player = this.getPlayerOwner();
+        if((player == null || this.shouldRetract(player)) && !this.level().isClientSide) {
             this.discard();
         }
     }
 
-    private boolean shouldRetract(PlayerEntity player) {
-        return player.isRemoved() || !player.isAlive() || !player.isHolding(JamiesModItems.HOOK) || this.squaredDistanceTo(player) > 10000.0;
+    private boolean shouldRetract(Player player) {
+        return player.isRemoved() || !player.isAlive() || !player.isHolding(JamiesModItems.HOOK) || this.distanceToSqr(player) > 10000.0;
     }
 
     @Override
-    public boolean canUsePortals(boolean allowVehicles) {
+    public boolean canUsePortal(boolean allowVehicles) {
         return false;
     }
 
     @Override
-    public boolean isInsideWall() {
-        if (this.noClip) {
+    public boolean isInWall() {
+        if (this.noPhysics) {
             return false;
         } else {
             float f = this.getDimensions(this.getPose()).width() * 0.8F;
-            Box box = Box.of(this.getEyePos(), (double)f, 1.0E-6, (double)f);
-            return BlockPos.stream(box).anyMatch((pos) -> {
-                BlockState blockState = this.getWorld().getBlockState(pos);
-                return !blockState.isAir() && VoxelShapes.matchesAnywhere(blockState.getCollisionShape(this.getWorld(), pos)
-                        .offset((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), VoxelShapes.cuboid(box), BooleanBiFunction.AND);
+            AABB box = AABB.ofSize(this.getEyePosition(), (double)f, 1.0E-6, (double)f);
+            return BlockPos.betweenClosedStream(box).anyMatch((pos) -> {
+                BlockState blockState = this.level().getBlockState(pos);
+                return !blockState.isAir() && Shapes.joinIsNotEmpty(blockState.getCollisionShape(this.level(), pos)
+                        .move((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), Shapes.create(box), BooleanOp.AND);
             });
         }
     }

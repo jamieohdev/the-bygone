@@ -2,12 +2,12 @@ package com.jamiedev.mod.common.blocks.entity;
 
 import com.jamiedev.mod.common.compounds.CasterComponent;
 import com.jamiedev.mod.fabric.init.JamiesModBlockEntities;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class CasterBlockEntity extends BlockEntity implements CasterComponent {
     public int ticks = 0;
@@ -23,11 +23,11 @@ public class CasterBlockEntity extends BlockEntity implements CasterComponent {
         this(JamiesModBlockEntities.CASTER, pos, state);
     }
 
-    public void writeSyncPacket(RegistryByteBuf buf, ServerPlayerEntity recipient) {
+    public void writeSyncPacket(RegistryFriendlyByteBuf buf, ServerPlayer recipient) {
         buf.writeBoolean(onCooldown);
     }
 
-    public void applySyncPacket(RegistryByteBuf buf) {
+    public void applySyncPacket(RegistryFriendlyByteBuf buf) {
         onCooldown = buf.readBoolean();
     }
 }

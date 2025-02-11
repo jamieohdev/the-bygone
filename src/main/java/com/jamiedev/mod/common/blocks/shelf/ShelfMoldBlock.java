@@ -3,74 +3,78 @@ package com.jamiedev.mod.common.blocks.shelf;
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.light.ChunkLightProvider;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.PlacedFeature;
-import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
-import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.GrassBlock;
+import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.lighting.LightEngine;
 import java.util.List;
 import java.util.Optional;
 
-public class ShelfMoldBlock extends SpreadableBlock implements Fertilizable
+public class ShelfMoldBlock extends SpreadingSnowyDirtBlock implements BonemealableBlock
 {
     GrassBlock ref;
-    public static final MapCodec<ShelfMoldBlock> CODEC = createCodec(ShelfMoldBlock::new);
+    public static final MapCodec<ShelfMoldBlock> CODEC = simpleCodec(ShelfMoldBlock::new);
 
-    public MapCodec<ShelfMoldBlock> getCodec() {
+    public MapCodec<ShelfMoldBlock> codec() {
         return CODEC;
     }
 
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
-        return world.getBlockState(pos.up()).isAir();
+    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
+        return world.getBlockState(pos.above()).isAir();
     }
 
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
 
-    public ShelfMoldBlock(Settings settings) {
+    public ShelfMoldBlock(Properties settings) {
         super(settings);
     }
 
-    private static boolean canSurvive(BlockState state, WorldView world, BlockPos pos) {
-        BlockPos blockPos = pos.up();
+    private static boolean canBeGrass(BlockState state, LevelReader world, BlockPos pos) {
+        BlockPos blockPos = pos.above();
         BlockState blockState = world.getBlockState(blockPos);
-        if (blockState.getFluidState().getLevel() == 8) {
+        if (blockState.getFluidState().getAmount() == 8) {
             return false;
         } else {
-            int i = ChunkLightProvider.getRealisticOpacity(world, state, pos, blockState, blockPos, Direction.UP, blockState.getOpacity(world, blockPos));
+            int i = LightEngine.getLightBlockInto(world, state, pos, blockState, blockPos, Direction.UP, blockState.getLightBlock(world, blockPos));
             return i < 1;
         }
     }
 
-    private static boolean canSpread(BlockState state, WorldView world, BlockPos pos) {
-        BlockPos blockPos = pos.up();
-        return canSurvive(state, world, pos) && !world.getFluidState(blockPos).isIn(FluidTags.WATER);
+    private static boolean canPropagate(BlockState state, LevelReader world, BlockPos pos) {
+        BlockPos blockPos = pos.above();
+        return canBeGrass(state, world, pos) && !world.getFluidState(blockPos).is(FluidTags.WATER);
     }
 
-    protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!canSurvive(state, world, pos)) {
-            world.setBlockState(pos, JamiesModBlocks.LIMBOSTONE.getDefaultState());
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        if (!canBeGrass(state, world, pos)) {
+            world.setBlockAndUpdate(pos, JamiesModBlocks.LIMBOSTONE.defaultBlockState());
         } else {
-            if (world.getLightLevel(pos.up()) >= 0) {
-                BlockState blockState = this.getDefaultState();
+            if (world.getMaxLocalRawBrightness(pos.above()) >= 0) {
+                BlockState blockState = this.defaultBlockState();
 
                 for(int i = 0; i < 4; ++i) {
-                    BlockPos blockPos = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
-                    if (world.getBlockState(blockPos).isOf(JamiesModBlocks.LIMBOSTONE) && canSpread(blockState, world, blockPos)) {
-                        world.setBlockState(blockPos, (BlockState)blockState.with(SNOWY, world.getBlockState(blockPos.up()).isOf(JamiesModBlocks.SHELF_MOLD_BLOCK)));
+                    BlockPos blockPos = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
+                    if (world.getBlockState(blockPos).is(JamiesModBlocks.LIMBOSTONE) && canPropagate(blockState, world, blockPos)) {
+                        world.setBlockAndUpdate(blockPos, (BlockState)blockState.setValue(SNOWY, world.getBlockState(blockPos.above()).is(JamiesModBlocks.SHELF_MOLD_BLOCK)));
                     }
                 }
             }
@@ -78,49 +82,49 @@ public class ShelfMoldBlock extends SpreadableBlock implements Fertilizable
         }
     }
 
-    public FertilizableType getFertilizableType() {
-        return FertilizableType.NEIGHBOR_SPREADER;
+    public Type getType() {
+        return Type.NEIGHBOR_SPREADER;
     }
 
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        BlockPos blockPos = pos.up();
-        BlockState blockState = Blocks.SHORT_GRASS.getDefaultState();
-        Optional<RegistryEntry.Reference<PlacedFeature>> optional = world.getRegistryManager().get(RegistryKeys.PLACED_FEATURE).getEntry(VegetationPlacedFeatures.GRASS_BONEMEAL);
+    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
+        BlockPos blockPos = pos.above();
+        BlockState blockState = Blocks.SHORT_GRASS.defaultBlockState();
+        Optional<Holder.Reference<PlacedFeature>> optional = world.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(VegetationPlacements.GRASS_BONEMEAL);
 
         label49:
         for(int i = 0; i < 128; ++i) {
             BlockPos blockPos2 = blockPos;
 
             for(int j = 0; j < i / 16; ++j) {
-                blockPos2 = blockPos2.add(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
-                if (!world.getBlockState(blockPos2.down()).isOf(this) || world.getBlockState(blockPos2).isFullCube(world, blockPos2)) {
+                blockPos2 = blockPos2.offset(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
+                if (!world.getBlockState(blockPos2.below()).is(this) || world.getBlockState(blockPos2).isCollisionShapeFullBlock(world, blockPos2)) {
                     continue label49;
                 }
             }
 
             BlockState blockState2 = world.getBlockState(blockPos2);
-            if (blockState2.isOf(blockState.getBlock()) && random.nextInt(10) == 0) {
-                ((Fertilizable)blockState.getBlock()).grow(world, random, blockPos2, blockState2);
+            if (blockState2.is(blockState.getBlock()) && random.nextInt(10) == 0) {
+                ((BonemealableBlock)blockState.getBlock()).performBonemeal(world, random, blockPos2, blockState2);
             }
 
             if (blockState2.isAir()) {
-                RegistryEntry registryEntry;
+                Holder registryEntry;
                 if (random.nextInt(8) == 0) {
                     List<ConfiguredFeature<?, ?>> list = ((Biome)world.getBiome(blockPos2).value()).getGenerationSettings().getFlowerFeatures();
                     if (list.isEmpty()) {
                         continue;
                     }
 
-                    registryEntry = ((RandomPatchFeatureConfig)((ConfiguredFeature)list.get(0)).config()).feature();
+                    registryEntry = ((RandomPatchConfiguration)((ConfiguredFeature)list.get(0)).config()).feature();
                 } else {
                     if (!optional.isPresent()) {
                         continue;
                     }
 
-                    registryEntry = (RegistryEntry)optional.get();
+                    registryEntry = (Holder)optional.get();
                 }
 
-                ((PlacedFeature)registryEntry.value()).generateUnregistered(world, world.getChunkManager().getChunkGenerator(), random, blockPos2);
+                ((PlacedFeature)registryEntry.value()).place(world, world.getChunkSource().getGenerator(), random, blockPos2);
             }
         }
 

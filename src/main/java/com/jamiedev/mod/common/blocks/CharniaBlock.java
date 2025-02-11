@@ -3,56 +3,64 @@ package com.jamiedev.mod.common.blocks;
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.KelpBlock;
+import net.minecraft.world.level.block.LiquidBlockContainer;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class CharniaBlock extends TallPlantBlock implements FluidFillable {
+public class CharniaBlock extends DoublePlantBlock implements LiquidBlockContainer {
     KelpBlock ref;
-    public static final MapCodec<CharniaBlock> CODEC = createCodec(CharniaBlock::new);
+    public static final MapCodec<CharniaBlock> CODEC = simpleCodec(CharniaBlock::new);
     public static final EnumProperty<DoubleBlockHalf> HALF;
     protected static final float field_31262 = 6.0F;
     protected static final VoxelShape SHAPE;
 
-    public MapCodec<CharniaBlock> getCodec() {
+    public MapCodec<CharniaBlock> codec() {
         return CODEC;
     }
 
-    public CharniaBlock(AbstractBlock.Settings settings) {
+    public CharniaBlock(BlockBehaviour.Properties settings) {
         super(settings);
     }
 
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
-    protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isSideSolidFullSquare(world, pos, Direction.UP) && !floor.isOf(Blocks.MAGMA_BLOCK);
+    protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
+        return floor.isFaceSturdy(world, pos, Direction.UP) && !floor.is(Blocks.MAGMA_BLOCK);
     }
 
-    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
         return new ItemStack(JamiesModBlocks.CHARNIA);
     }
 
     @Nullable
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockState blockState = super.getPlacementState(ctx);
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        BlockState blockState = super.getStateForPlacement(ctx);
         if (blockState != null) {
-            FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos().up());
-            if (fluidState.isIn(FluidTags.WATER) && fluidState.getLevel() == 8) {
+            FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos().above());
+            if (fluidState.is(FluidTags.WATER) && fluidState.getAmount() == 8) {
                 return blockState;
             }
         }
@@ -60,30 +68,30 @@ public class CharniaBlock extends TallPlantBlock implements FluidFillable {
         return null;
     }
 
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        if (state.get(HALF) == DoubleBlockHalf.UPPER) {
-            BlockState blockState = world.getBlockState(pos.down());
-            return blockState.isOf(this) && blockState.get(HALF) == DoubleBlockHalf.LOWER;
+    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
+            BlockState blockState = world.getBlockState(pos.below());
+            return blockState.is(this) && blockState.getValue(HALF) == DoubleBlockHalf.LOWER;
         } else {
             FluidState fluidState = world.getFluidState(pos);
-            return super.canPlaceAt(state, world, pos) && fluidState.isIn(FluidTags.WATER) && fluidState.getLevel() == 8;
+            return super.canSurvive(state, world, pos) && fluidState.is(FluidTags.WATER) && fluidState.getAmount() == 8;
         }
     }
 
     protected FluidState getFluidState(BlockState state) {
-        return Fluids.WATER.getStill(false);
+        return Fluids.WATER.getSource(false);
     }
 
-    public boolean canFillWithFluid(@Nullable PlayerEntity player, BlockView world, BlockPos pos, BlockState state, Fluid fluid) {
+    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
         return false;
     }
 
-    public boolean tryFillWithFluid(WorldAccess world, BlockPos pos, BlockState state, FluidState fluidState) {
+    public boolean placeLiquid(LevelAccessor world, BlockPos pos, BlockState state, FluidState fluidState) {
         return false;
     }
 
     static {
-        HALF = TallPlantBlock.HALF;
-        SHAPE = Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
+        HALF = DoublePlantBlock.HALF;
+        SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
     }
 }

@@ -1,123 +1,123 @@
 package com.jamiedev.mod.common.blocks;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
 public class UpsidedownTallPlantBlock extends UpsidedownPlantBlock
 {
 
-    public static final MapCodec<UpsidedownTallPlantBlock> CODEC = createCodec(UpsidedownTallPlantBlock::new);
+    public static final MapCodec<UpsidedownTallPlantBlock> CODEC = simpleCodec(UpsidedownTallPlantBlock::new);
     public static final EnumProperty<DoubleBlockHalf> HALF;
 
-    public MapCodec<? extends UpsidedownTallPlantBlock> getCodec() {
+    public MapCodec<? extends UpsidedownTallPlantBlock> codec() {
         return CODEC;
     }
 
-    public UpsidedownTallPlantBlock(AbstractBlock.Settings settings) {
+    public UpsidedownTallPlantBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(HALF, DoubleBlockHalf.LOWER));
+        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(HALF, DoubleBlockHalf.LOWER));
     }
 
-    protected BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        DoubleBlockHalf doubleBlockHalf = (DoubleBlockHalf)state.get(HALF);
-        if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP) && (!neighborState.isOf(this) || neighborState.get(HALF) == doubleBlockHalf)) {
-            return Blocks.AIR.getDefaultState();
+    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        DoubleBlockHalf doubleBlockHalf = (DoubleBlockHalf)state.getValue(HALF);
+        if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP) && (!neighborState.is(this) || neighborState.getValue(HALF) == doubleBlockHalf)) {
+            return Blocks.AIR.defaultBlockState();
         } else {
-            return doubleBlockHalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+            return doubleBlockHalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
         }
     }
 
     @Nullable
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockPos blockPos = ctx.getBlockPos();
-        World world = ctx.getWorld();
-        return blockPos.getY() < world.getTopY() - 1 && world.getBlockState(blockPos.down()).canReplace(ctx) ? super.getPlacementState(ctx) : null;
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        BlockPos blockPos = ctx.getClickedPos();
+        Level world = ctx.getLevel();
+        return blockPos.getY() < world.getMaxBuildHeight() - 1 && world.getBlockState(blockPos.below()).canBeReplaced(ctx) ? super.getStateForPlacement(ctx) : null;
     }
 
-    public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        BlockPos blockPos = pos.down();
-        world.setBlockState(blockPos, withWaterloggedState(world, blockPos, (BlockState)this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER)), 3);
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
+        BlockPos blockPos = pos.below();
+        world.setBlock(blockPos, withWaterloggedState(world, blockPos, (BlockState)this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER)), 3);
     }
 
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        if (state.get(HALF) != DoubleBlockHalf.UPPER) {
-            return super.canPlaceAt(state, world, pos);
+    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        if (state.getValue(HALF) != DoubleBlockHalf.UPPER) {
+            return super.canSurvive(state, world, pos);
         } else {
-            BlockState blockState = world.getBlockState(pos.down());
-            return blockState.isOf(this) && blockState.get(HALF) == DoubleBlockHalf.LOWER;
+            BlockState blockState = world.getBlockState(pos.below());
+            return blockState.is(this) && blockState.getValue(HALF) == DoubleBlockHalf.LOWER;
         }
     }
 
-    public static void placeAt(WorldAccess world, BlockState state, BlockPos pos, int flags) {
-        BlockPos blockPos = pos.down();
-        world.setBlockState(pos, withWaterloggedState(world, pos, (BlockState)state.with(HALF, DoubleBlockHalf.LOWER)), flags);
-        world.setBlockState(blockPos, withWaterloggedState(world, blockPos, (BlockState)state.with(HALF, DoubleBlockHalf.UPPER)), flags);
+    public static void placeAt(LevelAccessor world, BlockState state, BlockPos pos, int flags) {
+        BlockPos blockPos = pos.below();
+        world.setBlock(pos, withWaterloggedState(world, pos, (BlockState)state.setValue(HALF, DoubleBlockHalf.LOWER)), flags);
+        world.setBlock(blockPos, withWaterloggedState(world, blockPos, (BlockState)state.setValue(HALF, DoubleBlockHalf.UPPER)), flags);
     }
 
-    public static BlockState withWaterloggedState(WorldView world, BlockPos pos, BlockState state) {
-        return state.contains(Properties.WATERLOGGED) ? (BlockState)state.with(Properties.WATERLOGGED, world.isWater(pos)) : state;
+    public static BlockState withWaterloggedState(LevelReader world, BlockPos pos, BlockState state) {
+        return state.hasProperty(BlockStateProperties.WATERLOGGED) ? (BlockState)state.setValue(BlockStateProperties.WATERLOGGED, world.isWaterAt(pos)) : state;
     }
 
-    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient) {
+    public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
+        if (!world.isClientSide) {
             if (player.isCreative()) {
                 onBreakInCreative(world, pos, state, player);
             } else {
-                dropStacks(state, world, pos, (BlockEntity)null, player, player.getMainHandStack());
+                dropResources(state, world, pos, (BlockEntity)null, player, player.getMainHandItem());
             }
         }
 
-        return super.onBreak(world, pos, state, player);
+        return super.playerWillDestroy(world, pos, state, player);
     }
 
-    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
-        super.afterBreak(world, player, pos, Blocks.AIR.getDefaultState(), blockEntity, tool);
+    public void playerDestroy(Level world, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
+        super.playerDestroy(world, player, pos, Blocks.AIR.defaultBlockState(), blockEntity, tool);
     }
 
-    protected static void onBreakInCreative(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        DoubleBlockHalf doubleBlockHalf = (DoubleBlockHalf)state.get(HALF);
+    protected static void onBreakInCreative(Level world, BlockPos pos, BlockState state, Player player) {
+        DoubleBlockHalf doubleBlockHalf = (DoubleBlockHalf)state.getValue(HALF);
         if (doubleBlockHalf == DoubleBlockHalf.UPPER) {
-            BlockPos blockPos = pos.up();
+            BlockPos blockPos = pos.above();
             BlockState blockState = world.getBlockState(blockPos);
-            if (blockState.isOf(state.getBlock()) && blockState.get(HALF) == DoubleBlockHalf.LOWER) {
-                BlockState blockState2 = blockState.getFluidState().isOf(Fluids.WATER) ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState();
-                world.setBlockState(blockPos, blockState2, 35);
-                world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
+            if (blockState.is(state.getBlock()) && blockState.getValue(HALF) == DoubleBlockHalf.LOWER) {
+                BlockState blockState2 = blockState.getFluidState().is(Fluids.WATER) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+                world.setBlock(blockPos, blockState2, 35);
+                world.levelEvent(player, 2001, blockPos, Block.getId(blockState));
             }
         }
 
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(new Property[]{HALF});
     }
 
-    protected long getRenderingSeed(BlockState state, BlockPos pos) {
-        return MathHelper.hashCode(pos.getX(), pos.down(state.get(HALF) == DoubleBlockHalf.LOWER ? 0 : 1).getY(), pos.getZ());
+    protected long getSeed(BlockState state, BlockPos pos) {
+        return Mth.getSeed(pos.getX(), pos.below(state.getValue(HALF) == DoubleBlockHalf.LOWER ? 0 : 1).getY(), pos.getZ());
     }
 
     static {
-        HALF = Properties.DOUBLE_BLOCK_HALF;
+        HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     }
 }

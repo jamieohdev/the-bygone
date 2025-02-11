@@ -7,14 +7,19 @@ package com.jamiedev.mod.common.client.models;
 import com.jamiedev.mod.common.client.models.animations.BigBeakAnimations;
 import com.jamiedev.mod.common.client.models.animations.GlareAnimations;
 import com.jamiedev.mod.common.entities.GlareEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.world.entity.Entity;
 
-public class GlareModel<T extends GlareEntity> extends SinglePartEntityModel<T>  {
+public class GlareModel<T extends GlareEntity> extends HierarchicalModel<T>  {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	private final ModelPart root;
 	private final ModelPart Head;
@@ -36,32 +41,32 @@ public class GlareModel<T extends GlareEntity> extends SinglePartEntityModel<T> 
 		this.Body = this.root.getChild("Body");
 	}
 
-	public static TexturedModelData getTexturedModelData() {
-		ModelData meshdefinition = new ModelData();
-		ModelPartData ModelPartData = meshdefinition.getRoot();
+	public static LayerDefinition getTexturedModelData() {
+		MeshDefinition meshdefinition = new MeshDefinition();
+		PartDefinition ModelPartData = meshdefinition.getRoot();
 
-		ModelPartData root = ModelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		PartDefinition root = ModelPartData.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		ModelPartData Head = root.addChild("Head", ModelPartBuilder.create().uv(0, 27).cuboid(-6.0F, -11.0F, -6.0F, 12.0F, 10.0F, 12.0F, new Dilation(0.0F))
-		.uv(0, 0).cuboid(-7.0F, -13.0F, -7.0F, 14.0F, 13.0F, 14.0F, new Dilation(0.0F))
-		.uv(0, 80).mirrored().cuboid(-7.0F, 0.0F, -7.0F, 14.0F, 2.0F, 14.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(0.0F, -12.0F, 0.0F));
+		PartDefinition Head = root.addOrReplaceChild("Head", CubeListBuilder.create().texOffs(0, 27).addBox(-6.0F, -11.0F, -6.0F, 12.0F, 10.0F, 12.0F, new CubeDeformation(0.0F))
+		.texOffs(0, 0).addBox(-7.0F, -13.0F, -7.0F, 14.0F, 13.0F, 14.0F, new CubeDeformation(0.0F))
+		.texOffs(0, 80).mirror().addBox(-7.0F, 0.0F, -7.0F, 14.0F, 2.0F, 14.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, -12.0F, 0.0F));
 
-		ModelPartData Face = Head.addChild("Face", ModelPartBuilder.create(), ModelTransform.pivot(5.0F, -1.0F, -5.0F));
+		PartDefinition Face = Head.addOrReplaceChild("Face", CubeListBuilder.create(), PartPose.offset(5.0F, -1.0F, -5.0F));
 
-		ModelPartData neutral = Face.addChild("neutral", ModelPartBuilder.create().uv(104, 0).cuboid(-11.0F, -10.0F, -1.0F, 12.0F, 10.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		PartDefinition neutral = Face.addOrReplaceChild("neutral", CubeListBuilder.create().texOffs(104, 0).addBox(-11.0F, -10.0F, -1.0F, 12.0F, 10.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		ModelPartData tired = Face.addChild("tired", ModelPartBuilder.create().uv(104, 10).cuboid(-11.0F, -10.0F, -1.0F, 12.0F, 10.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		PartDefinition tired = Face.addOrReplaceChild("tired", CubeListBuilder.create().texOffs(104, 10).addBox(-11.0F, -10.0F, -1.0F, 12.0F, 10.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		ModelPartData closed = Face.addChild("closed", ModelPartBuilder.create().uv(104, 20).cuboid(-11.0F, -10.0F, -1.0F, 12.0F, 10.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		PartDefinition closed = Face.addOrReplaceChild("closed", CubeListBuilder.create().texOffs(104, 20).addBox(-11.0F, -10.0F, -1.0F, 12.0F, 10.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		ModelPartData angry = Face.addChild("angry", ModelPartBuilder.create().uv(104, 30).cuboid(-11.0F, -10.0F, -1.0F, 12.0F, 10.0F, 0.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		PartDefinition angry = Face.addOrReplaceChild("angry", CubeListBuilder.create().texOffs(104, 30).addBox(-11.0F, -10.0F, -1.0F, 12.0F, 10.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		ModelPartData body = root.addChild("Body", ModelPartBuilder.create()
-				.uv(0, 49).mirrored().cuboid(-4.5F, 0.0F, -4.5F, 9.0F, 6.0F, 9.0F, new Dilation(0.0F)).mirrored(false)
-				.uv(0, 64).mirrored().cuboid(-4.5F, 0.0F, -4.5F, 9.0F, 7.0F, 9.0F, new Dilation(0.25F)).mirrored(false),
-					ModelTransform.pivot(0.0F, -12.0F, 0.0F));
+		PartDefinition body = root.addOrReplaceChild("Body", CubeListBuilder.create()
+				.texOffs(0, 49).mirror().addBox(-4.5F, 0.0F, -4.5F, 9.0F, 6.0F, 9.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(0, 64).mirror().addBox(-4.5F, 0.0F, -4.5F, 9.0F, 7.0F, 9.0F, new CubeDeformation(0.25F)).mirror(false),
+					PartPose.offset(0.0F, -12.0F, 0.0F));
 
-		return TexturedModelData.of(meshdefinition, 128, 128);
+		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
 
 
@@ -71,22 +76,22 @@ public class GlareModel<T extends GlareEntity> extends SinglePartEntityModel<T> 
 
 
 	@Override
-	public ModelPart getPart() {
+	public ModelPart root() {
 		return root;
 	}
 
 	@Override
-	public void render(MatrixStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
 		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 	}
 
 	@Override
 	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		this.getPart().traverse().forEach(ModelPart::resetTransform);
+		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.updateAnimation(entity.idleAnimationState, GlareAnimations.GLARE_FACE_IDLE, animationProgress, 1f);
-		this.updateAnimation(entity.idleAnimationState, GlareAnimations.GLARE_BODY_IDLE, animationProgress, 1f);
-		this.animateMovement(GlareAnimations.GLARE_BODY_MOVE, limbAngle, limbDistance,2f, 2.5f);
+		this.animate(entity.idleAnimationState, GlareAnimations.GLARE_FACE_IDLE, animationProgress, 1f);
+		this.animate(entity.idleAnimationState, GlareAnimations.GLARE_BODY_IDLE, animationProgress, 1f);
+		this.animateWalk(GlareAnimations.GLARE_BODY_MOVE, limbAngle, limbDistance,2f, 2.5f);
 
 	}
 

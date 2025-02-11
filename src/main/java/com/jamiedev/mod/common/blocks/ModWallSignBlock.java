@@ -1,18 +1,18 @@
 package com.jamiedev.mod.common.blocks;
 
 import com.jamiedev.mod.common.blocks.entity.ModSignBlockEntity;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.WallSignBlock;
-import net.minecraft.block.WoodType;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.WallSignBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.WoodType;
 
 public class ModWallSignBlock extends WallSignBlock {
-    public ModWallSignBlock(WoodType woodType, Settings settings) {
+    public ModWallSignBlock(WoodType woodType, Properties settings) {
         super(woodType, settings);
     }
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new ModSignBlockEntity(pos, state);
     }
 }

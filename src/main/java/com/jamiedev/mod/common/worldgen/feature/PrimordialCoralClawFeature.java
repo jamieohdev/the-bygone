@@ -1,33 +1,32 @@
 package com.jamiedev.mod.common.worldgen.feature;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-
 import java.util.List;
 import java.util.stream.Stream;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 public class PrimordialCoralClawFeature extends PrimordialCoralFeature {
-    public PrimordialCoralClawFeature(Codec<DefaultFeatureConfig> codec) {
+    public PrimordialCoralClawFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
 
-    protected boolean generateCoral(WorldAccess world, Random random, BlockPos pos, BlockState state) {
+    protected boolean generateCoral(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state) {
         if (!this.generateCoralPiece(world, random, pos, state)) {
             return false;
         } else {
-            Direction direction = Direction.Type.HORIZONTAL.random(random);
+            Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
             int i = random.nextInt(2) + 2;
-            List<Direction> list = Util.copyShuffled(Stream.of(direction, direction.rotateYClockwise(), direction.rotateYCounterclockwise()), random);
+            List<Direction> list = Util.toShuffledList(Stream.of(direction, direction.getClockWise(), direction.getCounterClockWise()), random);
             List<Direction> list2 = list.subList(0, i);
 
             for (Direction direction2 : list2) {
-                BlockPos.Mutable mutable = pos.mutableCopy();
+                BlockPos.MutableBlockPos mutable = pos.mutable();
                 int j = random.nextInt(2) + 1;
                 mutable.move(direction2);
                 int k;

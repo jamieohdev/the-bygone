@@ -5,38 +5,69 @@ import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
 import com.jamiedev.mod.fabric.init.JamiesModSoundEvents;
 import com.jamiedev.mod.fabric.init.JamiesModTag;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SingleStackInventory;
 import net.minecraft.item.*;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.math.*;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntityAttachment;
+import net.minecraft.world.entity.EntityAttachments;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomStandGoal;
+import net.minecraft.world.entity.ai.goal.RunAroundLikeCrazyGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Pig;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AnimalArmorItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.ticks.ContainerSingleItem;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.function.IntUnaryOperator;
 
-public class BigBeakEntity  extends AbstractHorseEntity
+public class BigBeakEntity  extends AbstractHorse
 {
 
     public final AnimationState idleAnimationState = new AnimationState();
@@ -48,12 +79,12 @@ public class BigBeakEntity  extends AbstractHorseEntity
     public final AnimationState flappingAnimationState = new AnimationState();
     public int flappingAnimationTimeout = 0;
 
-    HorseEntity ref;
-    PigEntity ref3;
-    private static final float MIN_HEALTH_BONUS = getChildHealthBonus((max) -> {
+    Horse ref;
+    Pig ref3;
+    private static final float MIN_HEALTH_BONUS = generateMaxHealth((max) -> {
         return 0;
     });
-    private static final float MAX_HEALTH_BONUS = getChildHealthBonus((max) -> {
+    private static final float MAX_HEALTH_BONUS = generateMaxHealth((max) -> {
         return max;
     });
     private static final EntityDimensions BABY_BASE_DIMENSIONS;
@@ -64,132 +95,132 @@ public class BigBeakEntity  extends AbstractHorseEntity
     public float flapSpeed = 1.0F;
     private float field_28639 = 1.0F;
 
-    private final Inventory inventory = new SingleStackInventory() {
-        public ItemStack getStack() {
-            return BigBeakEntity.this.getBodyArmor();
+    private final Container inventory = new ContainerSingleItem() {
+        public ItemStack getTheItem() {
+            return BigBeakEntity.this.getBodyArmorItem();
         }
 
-        public void setStack(ItemStack stack) {
-            BigBeakEntity.this.equipBodyArmor(stack);
+        public void setTheItem(ItemStack stack) {
+            BigBeakEntity.this.setBodyArmorItem(stack);
         }
 
-        public void markDirty() {
+        public void setChanged() {
         }
 
-        public boolean canPlayerUse(PlayerEntity player) {
+        public boolean stillValid(Player player) {
             return player.getVehicle() == BigBeakEntity.this || player.canInteractWithEntity(
                     BigBeakEntity.this, 4.0);
         }
     };
 
-    public BigBeakEntity(EntityType<? extends BigBeakEntity> entityType, World world) {
+    public BigBeakEntity(EntityType<? extends BigBeakEntity> entityType, Level world) {
         super(entityType, world);
     }
 
-    protected void initAttributes(Random random) {
-        EntityAttributeInstance var10000 = this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+    protected void randomizeReinforcementsChance(RandomSource random) {
+        AttributeInstance var10000 = this.getAttribute(Attributes.MAX_HEALTH);
         Objects.requireNonNull(random);
         assert var10000 != null;
-        var10000.setBaseValue((double)getChildHealthBonus(random::nextInt));
-        var10000 = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+        var10000.setBaseValue((double)generateMaxHealth(random::nextInt));
+        var10000 = this.getAttribute(Attributes.MOVEMENT_SPEED);
         Objects.requireNonNull(random);
         assert var10000 != null;
-        var10000.setBaseValue(getChildMovementSpeedBonus(random::nextDouble));
-        var10000 = this.getAttributeInstance(EntityAttributes.GENERIC_JUMP_STRENGTH);
+        var10000.setBaseValue(generateSpeed(random::nextDouble));
+        var10000 = this.getAttribute(Attributes.JUMP_STRENGTH);
         Objects.requireNonNull(random);
         assert var10000 != null;
-        var10000.setBaseValue(getChildJumpStrengthBonus(random::nextDouble));
+        var10000.setBaseValue(generateJumpStrength(random::nextDouble));
     }
 
 
-    public static DefaultAttributeContainer.Builder createBigBeakAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_JUMP_STRENGTH, 2.0)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 50.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
-                .add(EntityAttributes.GENERIC_STEP_HEIGHT, 2.0)
-                .add(EntityAttributes.GENERIC_SAFE_FALL_DISTANCE, 100.0)
-                .add(EntityAttributes.GENERIC_FALL_DAMAGE_MULTIPLIER, 0.5);
+    public static AttributeSupplier.Builder createBigBeakAttributes() {
+        return Mob.createMobAttributes().add(Attributes.JUMP_STRENGTH, 2.0)
+                .add(Attributes.MAX_HEALTH, 50.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.4)
+                .add(Attributes.STEP_HEIGHT, 2.0)
+                .add(Attributes.SAFE_FALL_DISTANCE, 100.0)
+                .add(Attributes.FALL_DAMAGE_MULTIPLIER, 0.5);
     }
 
-    protected void initGoals() {
-        this.goalSelector.add(1, new EscapeDangerGoal(this, 1.2));
-        this.goalSelector.add(1, new HorseBondWithPlayerGoal(this, 1.2));
-        this.goalSelector.add(2, new AnimalMateGoal(this, 1.0, BigBeakEntity.class));
-        this.goalSelector.add(4, new FollowParentGoal(this, 1.0));
-        this.goalSelector.add(4, new TemptGoal(this, 1.2, (stack) -> {
-            return stack.isIn(JamiesModTag.BIGBEAK_FOOD);
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.2));
+        this.goalSelector.addGoal(1, new RunAroundLikeCrazyGoal(this, 1.2));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0, BigBeakEntity.class));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2, (stack) -> {
+            return stack.is(JamiesModTag.BIGBEAK_FOOD);
         }, false));
-        this.goalSelector.add(6, new WanderAroundFarGoal(this, 0.7));
-        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.add(8, new LookAroundGoal(this));
-        if (this.shouldAmbientStand()) {
-            this.goalSelector.add(9, new AmbientStandGoal(this));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.7));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        if (this.canPerformRearing()) {
+            this.goalSelector.addGoal(9, new RandomStandGoal(this));
         }
 
-        this.initCustomGoals();
+        this.addBehaviourGoals();
     }
 
-    public void tickMovement() {
+    public void aiStep() {
         this.prevFlapProgress = this.flapProgress;
         this.prevMaxWingDeviation = this.maxWingDeviation;
-        this.maxWingDeviation += (this.isOnGround() ? -1.0F : 4.0F) * 0.3F;
-        this.maxWingDeviation = MathHelper.clamp(this.maxWingDeviation, 0.0F, 1.0F);
-        if (!this.isOnGround() && this.flapSpeed < 1.0F) {
+        this.maxWingDeviation += (this.onGround() ? -1.0F : 4.0F) * 0.3F;
+        this.maxWingDeviation = Mth.clamp(this.maxWingDeviation, 0.0F, 1.0F);
+        if (!this.onGround() && this.flapSpeed < 1.0F) {
             this.flapSpeed = 1.0F;
             this.flappingAnimationTimeout = this.random.nextInt(100) + 100;
-            this.flappingAnimationState.start(this.age);
+            this.flappingAnimationState.start(this.tickCount);
         }else {
             --this.flappingAnimationTimeout;
         }
 
         this.flapSpeed *= 0.9F;
-        Vec3d vec3d = this.getVelocity();
-        if (!this.isOnGround() && vec3d.y < 0.0) {
-            this.setVelocity(vec3d.multiply(1.0, 0.6, 1.0));
+        Vec3 vec3d = this.getDeltaMovement();
+        if (!this.onGround() && vec3d.y < 0.0) {
+            this.setDeltaMovement(vec3d.multiply(1.0, 0.6, 1.0));
         }
 
         this.flapProgress += this.flapSpeed * 2.0F;
 
-        super.tickMovement();
-        if (!this.getWorld().isClient && this.isAlive()) {
+        super.aiStep();
+        if (!this.level().isClientSide && this.isAlive()) {
             if (this.random.nextInt(900) == 0 && this.deathTime == 0) {
                 this.heal(1.0F);
             }
 
-            if (this.eatsGrass()) {
-                if (!this.isEatingGrass() && !this.hasPassengers() && this.random.nextInt(300) == 0 && this.getWorld().getBlockState(this.getBlockPos().down()).isOf(Blocks.GRASS_BLOCK)) {
-                    this.setEatingGrass(true);
+            if (this.canEatGrass()) {
+                if (!this.isEating() && !this.isVehicle() && this.random.nextInt(300) == 0 && this.level().getBlockState(this.blockPosition().below()).is(Blocks.GRASS_BLOCK)) {
+                    this.setEating(true);
                 }
             }
 
-            this.walkToParent();
+            this.followMommy();
         }
     }
 
-    protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
+    protected static float generateMaxHealth(IntUnaryOperator randomIntGetter) {
         return 5.0F + (float)randomIntGetter.applyAsInt(2) + (float)randomIntGetter.applyAsInt(3);
     }
 
 
-    public float getBrightnessAtEyes() {
+    public float getLightLevelDependentMagicValue() {
         return 1.0F;
     }
 
-    protected boolean isFlappingWings() {
-        return this.speed > this.field_28639;
+    protected boolean isFlapping() {
+        return this.flyDist > this.field_28639;
     }
 
-    protected void addFlapEffects() {
-        this.field_28639 = this.speed + this.maxWingDeviation / 2.0F;
+    protected void onFlap() {
+        this.field_28639 = this.flyDist + this.maxWingDeviation / 2.0F;
     }
 
 
-    public void onInventoryChanged(Inventory sender) {
-        ItemStack itemStack = this.getBodyArmor();
-        super.onInventoryChanged(sender);
-        ItemStack itemStack2 = this.getBodyArmor();
-        if (this.age > 20 && this.isHorseArmor(itemStack2) && itemStack != itemStack2) {
-            this.playSound(SoundEvents.ENTITY_HORSE_ARMOR, 0.5F, 1.0F);
+    public void containerChanged(Container sender) {
+        ItemStack itemStack = this.getBodyArmorItem();
+        super.containerChanged(sender);
+        ItemStack itemStack2 = this.getBodyArmorItem();
+        if (this.tickCount > 20 && this.isBodyArmorItem(itemStack2) && itemStack != itemStack2) {
+            this.playSound(SoundEvents.HORSE_ARMOR, 0.5F, 1.0F);
         }
 
     }
@@ -197,27 +228,27 @@ public class BigBeakEntity  extends AbstractHorseEntity
     @Override
     public void tick() {
         super.tick();
-        if (this.getWorld().isClient) {
+        if (this.level().isClientSide) {
             setupAnimationStates();
         }
     }
 
     protected void playStepSound(BlockPos pos, BlockState state) {
-        if (!state.isLiquid()) {
-            BlockState blockState = this.getWorld().getBlockState(pos.up());
-            BlockSoundGroup blockSoundGroup = state.getSoundGroup();
-            if (blockState.isOf(Blocks.SNOW)) {
-                blockSoundGroup = blockState.getSoundGroup();
+        if (!state.liquid()) {
+            BlockState blockState = this.level().getBlockState(pos.above());
+            SoundType blockSoundGroup = state.getSoundType();
+            if (blockState.is(Blocks.SNOW)) {
+                blockSoundGroup = blockState.getSoundType();
             }
 
-            if (this.hasPassengers() && this.playExtraHorseSounds) {
-                ++this.soundTicks;
-                if (this.soundTicks > 5 && this.soundTicks % 3 == 0) {
-                    this.playWalkSound(blockSoundGroup);
-                } else if (this.soundTicks <= 5) {
+            if (this.isVehicle() && this.canGallop) {
+                ++this.gallopSoundCounter;
+                if (this.gallopSoundCounter > 5 && this.gallopSoundCounter % 3 == 0) {
+                    this.playGallopSound(blockSoundGroup);
+                } else if (this.gallopSoundCounter <= 5) {
                     this.playSound(JamiesModSoundEvents.BIGBEAK_STEP_WOOD_ADDITIONS_EVENT, blockSoundGroup.getVolume() * 0.15F, blockSoundGroup.getPitch());
                 }
-            } else if (this.isWooden(blockSoundGroup)) {
+            } else if (this.isWoodSoundType(blockSoundGroup)) {
                 this.playSound(JamiesModSoundEvents.BIGBEAK_STEP_WOOD_ADDITIONS_EVENT, blockSoundGroup.getVolume() * 0.15F, blockSoundGroup.getPitch());
             } else {
                 this.playSound(JamiesModSoundEvents.BIGBEAK_STEP_ADDITIONS_EVENT, blockSoundGroup.getVolume() * 0.15F, blockSoundGroup.getPitch());
@@ -227,17 +258,17 @@ public class BigBeakEntity  extends AbstractHorseEntity
     }
 
     @Override
-    protected void playWalkSound(BlockSoundGroup group) {
+    protected void playGallopSound(SoundType group) {
         this.playSound(JamiesModSoundEvents.BIGBEAK_GALLOP_ADDITIONS_EVENT, group.getVolume() * 0.15F, group.getPitch());
     }
 
-    private boolean isWooden(BlockSoundGroup soundGroup) {
-        return soundGroup == BlockSoundGroup.WOOD || soundGroup == BlockSoundGroup.NETHER_WOOD || soundGroup == BlockSoundGroup.NETHER_STEM || soundGroup == BlockSoundGroup.CHERRY_WOOD || soundGroup == BlockSoundGroup.BAMBOO_WOOD;
+    private boolean isWoodSoundType(SoundType soundGroup) {
+        return soundGroup == SoundType.WOOD || soundGroup == SoundType.NETHER_WOOD || soundGroup == SoundType.STEM || soundGroup == SoundType.CHERRY_WOOD || soundGroup == SoundType.BAMBOO_WOOD;
     }
 
 
-    public boolean canImmediatelyDespawn(double distanceSquared) {
-        return this.hasVehicle();
+    public boolean removeWhenFarAway(double distanceSquared) {
+        return this.isPassenger();
     }
 
 
@@ -250,8 +281,8 @@ public class BigBeakEntity  extends AbstractHorseEntity
     }
 
     @Nullable
-    protected SoundEvent getEatSound() {
-        return SoundEvents.ENTITY_PARROT_EAT;
+    protected SoundEvent getEatingSound() {
+        return SoundEvents.PARROT_EAT;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
@@ -263,71 +294,71 @@ public class BigBeakEntity  extends AbstractHorseEntity
     }
 
 
-    public ActionResult interactBigBeak(PlayerEntity player, ItemStack stack) {
-        boolean bl = this.receiveFood(player, stack);
+    public InteractionResult interactBigBeak(Player player, ItemStack stack) {
+        boolean bl = this.handleEating(player, stack);
         if (bl) {
-            stack.decrementUnlessCreative(1, player);
+            stack.consume(1, player);
         }
 
-        if (this.getWorld().isClient) {
-            return ActionResult.CONSUME;
+        if (this.level().isClientSide) {
+            return InteractionResult.CONSUME;
         } else {
-            return bl ? ActionResult.SUCCESS : ActionResult.PASS;
+            return bl ? InteractionResult.SUCCESS : InteractionResult.PASS;
         }
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
-        return stack.isIn(ItemTags.CHICKEN_FOOD);
+    public boolean isFood(ItemStack stack) {
+        return stack.is(ItemTags.CHICKEN_FOOD);
     }
 
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
-        if (!this.hasPassengers() && !bl) {
-            ItemStack itemStack = player.getStackInHand(hand);
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        boolean bl = !this.isBaby() && this.isTamed() && player.isSecondaryUseActive();
+        if (!this.isVehicle() && !bl) {
+            ItemStack itemStack = player.getItemInHand(hand);
             if (!itemStack.isEmpty()) {
-                if (this.isBreedingItem(itemStack)) {
+                if (this.isFood(itemStack)) {
                     return this.interactBigBeak(player, itemStack);
                 }
 
-                if (!this.isTame()) {
-                    this.playAngrySound();
-                    return ActionResult.success(this.getWorld().isClient);
+                if (!this.isTamed()) {
+                    this.makeMad();
+                    return InteractionResult.sidedSuccess(this.level().isClientSide);
                 }
 
-                if (this.canUseSlot(EquipmentSlot.BODY) && this.isHorseArmor(itemStack) && !this.isWearingBodyArmor()) {
+                if (this.canUseSlot(EquipmentSlot.BODY) && this.isBodyArmorItem(itemStack) && !this.isWearingBodyArmor()) {
                     this.equipBigBeakArmor(player, itemStack);
-                    return ActionResult.success(this.getWorld().isClient);
+                    return InteractionResult.sidedSuccess(this.level().isClientSide);
                 }
             }
 
-            return super.interactMob(player, hand);
+            return super.mobInteract(player, hand);
         } else {
-            return super.interactMob(player, hand);
+            return super.mobInteract(player, hand);
         }
     }
 
-    public void equipBigBeakArmor(PlayerEntity player, ItemStack stack) {
-        if (this.isHorseArmor(stack)) {
-            this.equipBodyArmor(stack.copyWithCount(1));
-            stack.decrementUnlessCreative(1, player);
+    public void equipBigBeakArmor(Player player, ItemStack stack) {
+        if (this.isBodyArmorItem(stack)) {
+            this.setBodyArmorItem(stack.copyWithCount(1));
+            stack.consume(1, player);
         }
 
     }
 
 
-    public boolean canBreedWith(AnimalEntity other) {
+    public boolean canMate(Animal other) {
         return false;
     }
 
     @Nullable
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
 
             BigBeakEntity BigBeakEntity = (BigBeakEntity)entity;
             BigBeakEntity BigBeakEntity2 = (BigBeakEntity)JamiesModEntityTypes.BIG_BEAK.create(world);
             if (BigBeakEntity2 != null) {
                 int i = this.random.nextInt(9);
-                this.setChildAttributes(entity, BigBeakEntity2);
+                this.setOffspringAttributes(entity, BigBeakEntity2);
             }
 
             return BigBeakEntity2;
@@ -339,11 +370,11 @@ public class BigBeakEntity  extends AbstractHorseEntity
     }
 
     @Override
-    public boolean isHorseArmor(ItemStack stack) {
+    public boolean isBodyArmorItem(ItemStack stack) {
         Item var3 = stack.getItem();
         boolean var10000;
         if (var3 instanceof AnimalArmorItem animalArmorItem) {
-            if (animalArmorItem.getType() == JamiesModFabric.BIG_BEAK_ARMOR) {
+            if (animalArmorItem.getBodyType() == JamiesModFabric.BIG_BEAK_ARMOR) {
                 var10000 = true;
                 return var10000;
             }
@@ -353,12 +384,12 @@ public class BigBeakEntity  extends AbstractHorseEntity
         return var10000;
     }
 
-    static double calculateAttributeBaseValue(double parentBase, double otherParentBase, double min, double max, Random random) {
+    static double createOffspringAttribute(double parentBase, double otherParentBase, double min, double max, RandomSource random) {
         if (max <= min) {
             throw new IllegalArgumentException("Incorrect range for an attribute");
         } else {
-            parentBase = MathHelper.clamp(parentBase, min, max);
-            otherParentBase = MathHelper.clamp(otherParentBase, min, max);
+            parentBase = Mth.clamp(parentBase, min, max);
+            otherParentBase = Mth.clamp(otherParentBase, min, max);
             double d = 0.15 * (max - min);
             double e = Math.abs(parentBase - otherParentBase) + d * 2.0;
             double f = (parentBase + otherParentBase) / 2.0;
@@ -378,58 +409,58 @@ public class BigBeakEntity  extends AbstractHorseEntity
     }
 
 
-    protected void setChildAttributes(PassiveEntity other, AbstractHorseEntity child) {
-        this.setChildAttribute(other, child, EntityAttributes.GENERIC_MAX_HEALTH, (double)MIN_HEALTH_BONUS, (double)MAX_HEALTH_BONUS);
+    protected void setOffspringAttributes(AgeableMob other, AbstractHorse child) {
+        this.setOffspringAttribute(other, child, Attributes.MAX_HEALTH, (double)MIN_HEALTH_BONUS, (double)MAX_HEALTH_BONUS);
     }
 
-    private void setChildAttribute(PassiveEntity other, AbstractHorseEntity child, RegistryEntry<EntityAttribute> attribute, double min, double max) {
-        double d = calculateAttributeBaseValue(this.getAttributeBaseValue(attribute), other.getAttributeBaseValue(attribute), min, max, this.random);
-        Objects.requireNonNull(child.getAttributeInstance(attribute)).setBaseValue(d);
+    private void setOffspringAttribute(AgeableMob other, AbstractHorse child, Holder<Attribute> attribute, double min, double max) {
+        double d = createOffspringAttribute(this.getAttributeBaseValue(attribute), other.getAttributeBaseValue(attribute), min, max, this.random);
+        Objects.requireNonNull(child.getAttribute(attribute)).setBaseValue(d);
     }
 
-    public static boolean isValidNaturalSpawn(EntityType<? extends AnimalEntity> type, WorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
-        boolean bl = SpawnReason.isTrialSpawner(spawnReason) || isLightLevelValidForNaturalSpawn(serverWorldAccess, blockPos);
-        return serverWorldAccess.getBlockState(blockPos.down()).isOf(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.down()).isOf(JamiesModBlocks.MOSSY_CLAYSTONE) && bl;
+    public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> type, LevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, RandomSource random) {
+        boolean bl = MobSpawnType.ignoresLightRequirements(spawnReason) || isBrightEnoughToSpawn(serverWorldAccess, blockPos);
+        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(JamiesModBlocks.MOSSY_CLAYSTONE) && bl;
     }
 
-    protected static boolean isLightLevelValidForNaturalSpawn(BlockRenderView world, BlockPos pos) {
-        return world.getBaseLightLevel(pos, 0) > 1;
+    protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter world, BlockPos pos) {
+        return world.getRawBrightness(pos, 0) > 1;
     }
 
     @Nullable
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        Random random = world.getRandom();
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
+        RandomSource random = world.getRandom();
 
-        return super.initialize(world, difficulty, spawnReason, (EntityData)entityData);
+        return super.finalizeSpawn(world, difficulty, spawnReason, (SpawnGroupData)entityData);
     }
 
-    public EntityDimensions getBaseDimensions(EntityPose pose) {
-        return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getBaseDimensions(pose);
+    public EntityDimensions getDefaultDimensions(Pose pose) {
+        return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getDefaultDimensions(pose);
     }
 
     static {
-        BABY_BASE_DIMENSIONS = JamiesModEntityTypes.BIG_BEAK.getDimensions().withAttachments(EntityAttachments.builder().add(EntityAttachmentType.PASSENGER, 0.0F,
-                JamiesModEntityTypes.BIG_BEAK.getHeight() + 0.125F, 0.0F)).scaled(0.5F);
+        BABY_BASE_DIMENSIONS = JamiesModEntityTypes.BIG_BEAK.getDimensions().withAttachments(EntityAttachments.builder().attach(EntityAttachment.PASSENGER, 0.0F,
+                JamiesModEntityTypes.BIG_BEAK.getHeight() + 0.125F, 0.0F)).scale(0.5F);
     }
     public static boolean canSpawn(
             EntityType<BigBeakEntity> moobloomEntityType,
-            WorldAccess serverWorldAccess,
-            SpawnReason spawnReason,
+            LevelAccessor serverWorldAccess,
+            MobSpawnType spawnReason,
             BlockPos blockPos,
-            Random random
+            RandomSource random
     ) {
-        return serverWorldAccess.getBlockState(blockPos.down()).isOf(Blocks.MOSS_BLOCK) ||
-                serverWorldAccess.getBlockState(blockPos.down()).isOf(JamiesModBlocks.MOSSY_CLAYSTONE);
+        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) ||
+                serverWorldAccess.getBlockState(blockPos.below()).is(JamiesModBlocks.MOSSY_CLAYSTONE);
     }
 
-    public boolean canSpawn(WorldView world) {
-        return world.doesNotIntersectEntities(this);
+    public boolean checkSpawnObstruction(LevelReader world) {
+        return world.isUnobstructed(this);
     }
 
     private void setupAnimationStates() {
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = this.random.nextInt(100) + 100;
-            this.idleAnimationState.start(this.age);
+            this.idleAnimationState.start(this.tickCount);
         } else {
             --this.idleAnimationTimeout;
         }
@@ -437,9 +468,9 @@ public class BigBeakEntity  extends AbstractHorseEntity
     }
 
     @Override
-    protected void updateLimbs(float posDelta) {
-        float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
-        this.limbAnimator.updateLimbs(f, 0.2f);
+    protected void updateWalkAnimation(float posDelta) {
+        float f = this.getPose() == Pose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
+        this.walkAnimation.update(f, 0.2f);
     }
 
 

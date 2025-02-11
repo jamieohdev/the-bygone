@@ -1,28 +1,26 @@
 package com.jamiedev.mod.common.entities;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.PiglinEntity;
-import net.minecraft.entity.passive.PolarBearEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.animal.PolarBear;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 
-public class SewerEntity  extends HostileEntity
+public class SewerEntity  extends Monster
 {
-    PolarBearEntity ref;
+    PolarBear ref;
 
 
-    protected SewerEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    protected SewerEntity(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
     }
 
-    public static boolean canSpawn(EntityType<SewerEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return world.getBlockState(pos.down()).isOf(Blocks.WATER) || world.getBlockState(pos.down()).isOf(Blocks.MOSS_BLOCK) || world.getBlockState(pos.down()).isOf(Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS);
+    public static boolean canSpawn(EntityType<SewerEntity> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return world.getBlockState(pos.below()).is(Blocks.WATER) || world.getBlockState(pos.below()).is(Blocks.MOSS_BLOCK) || world.getBlockState(pos.below()).is(Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS);
     }
 }

@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.entities.ai;
 
-import net.minecraft.entity.ai.pathing.Path;
+import net.minecraft.world.level.pathfinder.Path;
 
 public final class GlarePathHolder
 {

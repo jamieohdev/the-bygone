@@ -7,48 +7,61 @@ import com.jamiedev.mod.common.entities.ai.GlarePathHolder;
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.core.BlockPos;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.sensor.Sensor;
-import net.minecraft.entity.ai.brain.sensor.SensorType;
-import net.minecraft.entity.ai.control.FlightMoveControl;
-import net.minecraft.entity.ai.goal.AnimalMateGoal;
-import net.minecraft.entity.ai.goal.FollowParentGoal;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.ai.pathing.BirdNavigation;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
-import net.minecraft.entity.ai.pathing.PathNodeType;
-import net.minecraft.entity.attribute.DefaultAttributeContainer.Builder;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.PigEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.*;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.FlyingAnimal;
+import net.minecraft.world.entity.animal.Pig;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class GlareEntity extends AnimalEntity implements Flutterer
+public class GlareEntity extends Animal implements FlyingAnimal
 {
 
     protected static final ImmutableList<SensorType<? extends Sensor<? super GlareEntity>>> SENSORS;
@@ -58,35 +71,35 @@ public class GlareEntity extends AnimalEntity implements Flutterer
     Glare will be pretty different, has different sizes that the smaller ones gather to.
     rn its basically like a zombie glare lmao
      */
-    private static final TrackedData<Integer> GLARE_SIZE;
+    private static final EntityDataAccessor<Integer> GLARE_SIZE;
 
     public static final int MAX_SIZE = 127;
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
-    private Vec2f targetEyesPositionOffset;
+    private Vec2 targetEyesPositionOffset;
 
     public GlarePathHolder glarePathHolder = new GlarePathHolder();
 
-    public GlareEntity(EntityType<? extends GlareEntity> entityType, World world) {
+    public GlareEntity(EntityType<? extends GlareEntity> entityType, Level world) {
         super(JamiesModEntityTypes.GLARE, world);
         this.moveControl = new GlareMoveControl(this, 20, true);
-        this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, -1.0F);
-        this.setPathfindingPenalty(PathNodeType.WATER, -1.0F);
-        this.setPathfindingPenalty(PathNodeType.LAVA, -1.0F);
-        this.setPathfindingPenalty(PathNodeType.WATER_BORDER, 16.0F);
-        this.setPathfindingPenalty(PathNodeType.COCOA, -1.0F);
-        this.setPathfindingPenalty(PathNodeType.FENCE, -1.0F);
+        this.setPathfindingMalus(PathType.DANGER_FIRE, -1.0F);
+        this.setPathfindingMalus(PathType.WATER, -1.0F);
+        this.setPathfindingMalus(PathType.LAVA, -1.0F);
+        this.setPathfindingMalus(PathType.WATER_BORDER, 16.0F);
+        this.setPathfindingMalus(PathType.COCOA, -1.0F);
+        this.setPathfindingMalus(PathType.FENCE, -1.0F);
         this.setCanPickUpLoot(true);
 
-        this.targetEyesPositionOffset = new Vec2f(0.0F, 0.0F);
+        this.targetEyesPositionOffset = new Vec2(0.0F, 0.0F);
     }
 
     @Override
-    protected Brain.Profile createBrainProfile() {
-        return Brain.createProfile(MEMORY_MODULES, SENSORS);
+    protected Brain.Provider brainProvider() {
+        return Brain.provider(MEMORY_MODULES, SENSORS);
     }
     @Override
-    protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
+    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
         return GlareBrain.create(dynamic);
     }
     @Override
@@ -95,82 +108,82 @@ public class GlareEntity extends AnimalEntity implements Flutterer
         return (Brain<GlareEntity>) super.getBrain();
     }
 
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
-        builder.add(GLARE_SIZE, 1);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(GLARE_SIZE, 1);
     }
 
-    public void onTrackedDataSet(TrackedData<?> data) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> data) {
         if (GLARE_SIZE.equals(data)) {
-            this.setYaw(this.headYaw);
-            this.bodyYaw = this.headYaw;
+            this.setYRot(this.yHeadRot);
+            this.yBodyRot = this.yHeadRot;
             this.onSizeChanged();
 
         }
 
-        super.onTrackedDataSet(data);
+        super.onSyncedDataUpdated(data);
     }
 
-    protected void initGoals() {
+    protected void registerGoals() {
 
-        this.goalSelector.add(1, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(2, new TemptGoal(this, 1.2, (stack) -> {
-            return stack.isOf(Items.DIRT);
+        this.goalSelector.addGoal(1, new BreedGoal(this, 1.0));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2, (stack) -> {
+            return stack.is(Items.DIRT);
         }, false));
-        this.goalSelector.add(3, new FollowParentGoal(this, 1.1));
+        this.goalSelector.addGoal(3, new FollowParentGoal(this, 1.1));
 
     }
 
     @Override
-    public void tickMovement() {
-        super.tickMovement();
+    public void aiStep() {
+        super.aiStep();
 
-        if (!this.getWorld().isClient() && this.isAlive() && this.age % 10 == 0) {
+        if (!this.level().isClientSide() && this.isAlive() && this.tickCount % 10 == 0) {
             this.heal(1.0F);
         }
     }
 
     @VisibleForTesting
     public void setSize(int size) {
-        this.dataTracker.set(GLARE_SIZE, MathHelper.clamp(size, 0, 2));
+        this.entityData.set(GLARE_SIZE, Mth.clamp(size, 0, 2));
     }
 
     public int getSize() {
-        return (Integer)this.dataTracker.get(GLARE_SIZE);
+        return (Integer)this.entityData.get(GLARE_SIZE);
     }
 
     private void onSizeChanged() {
-        this.calculateDimensions();
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue((double)(6 + this.getSize()));
+        this.refreshDimensions();
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)(6 + this.getSize()));
     }
 
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
+    public void addAdditionalSaveData(CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
         nbt.putInt("Size", this.getSize());
     }
 
-    public void readCustomDataFromNbt(NbtCompound nbt) {
+    public void readAdditionalSaveData(CompoundTag nbt) {
         this.setSize(nbt.getInt("Size") + 1);
-        super.readCustomDataFromNbt(nbt);
+        super.readAdditionalSaveData(nbt);
     }
 
-    public EntityDimensions getBaseDimensions(EntityPose pose) {
+    public EntityDimensions getDefaultDimensions(Pose pose) {
         int i = this.getSize();
-        EntityDimensions entityDimensions = super.getBaseDimensions(pose);
-        return entityDimensions.scaled(1.0F + 0.15F * (float)i);
+        EntityDimensions entityDimensions = super.getDefaultDimensions(pose);
+        return entityDimensions.scale(1.0F + 0.15F * (float)i);
     }
 
 
-    public Vec2f getTargetEyesPositionOffset() {
+    public Vec2 getTargetEyesPositionOffset() {
         return this.targetEyesPositionOffset;
     }
 
     public void setTargetEyesPositionOffset(float xEyePositionOffset, float yEyePositionOffset) {
-        this.targetEyesPositionOffset = new Vec2f(xEyePositionOffset, yEyePositionOffset);
+        this.targetEyesPositionOffset = new Vec2(xEyePositionOffset, yEyePositionOffset);
     }
 
     private void updateTargetEyesPositionOffset() {
-        if (this.getRandom().nextBetween(0, 2) != 0) {
+        if (this.getRandom().nextIntBetweenInclusive(0, 2) != 0) {
             return;
         }
 
@@ -181,11 +194,11 @@ public class GlareEntity extends AnimalEntity implements Flutterer
     }
 
     public static Builder createGlareAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0D)
-                .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.10000000149011612)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.10000000149011612)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0D);
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 20.0D)
+                .add(Attributes.FLYING_SPEED, 0.10000000149011612)
+                .add(Attributes.MOVEMENT_SPEED, 0.10000000149011612)
+                .add(Attributes.FOLLOW_RANGE, 48.0D);
     }
 
     @Override
@@ -195,116 +208,116 @@ public class GlareEntity extends AnimalEntity implements Flutterer
     }
 
     @Override
-    protected void mobTick() {
-        this.getWorld().getProfiler().push("glareBrain");
-        this.getBrain().tick((ServerWorld) this.getWorld(), this);
-        this.getWorld().getProfiler().pop();
-        this.getWorld().getProfiler().push("glareActivityUpdate");
+    protected void customServerAiStep() {
+        this.level().getProfiler().push("glareBrain");
+        this.getBrain().tick((ServerLevel) this.level(), this);
+        this.level().getProfiler().pop();
+        this.level().getProfiler().push("glareActivityUpdate");
         GlareBrain.updateActivities(this);
-        this.getWorld().getProfiler().pop();
+        this.level().getProfiler().pop();
 
-        super.mobTick();
+        super.customServerAiStep();
     }
 
     @Override
-    public void travel(Vec3d movementInput) {
-        if (this.isLogicalSideForUpdatingMovement()) {
-            if (this.isTouchingWater()) {
-                this.updateVelocity(0.02F, movementInput);
-                this.move(MovementType.SELF, this.getVelocity());
-                this.setVelocity(this.getVelocity().multiply(0.800000011920929));
+    public void travel(Vec3 movementInput) {
+        if (this.isControlledByLocalInstance()) {
+            if (this.isInWater()) {
+                this.moveRelative(0.02F, movementInput);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.800000011920929));
             } else if (this.isInLava()) {
-                this.updateVelocity(0.02F, movementInput);
-                this.move(MovementType.SELF, this.getVelocity());
-                this.setVelocity(this.getVelocity().multiply(0.5));
+                this.moveRelative(0.02F, movementInput);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.5));
             } else {
-                this.updateVelocity(this.getMovementSpeed(), movementInput);
-                this.move(MovementType.SELF, this.getVelocity());
-                this.setVelocity(this.getVelocity().multiply(0.9100000262260437));
+                this.moveRelative(this.getSpeed(), movementInput);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437));
             }
         }
 
-        this.updateLimbs(false);
+        this.calculateEntityAnimation(false);
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.BLOCK_AZALEA_LEAVES_BREAK;
+        return SoundEvents.AZALEA_LEAVES_BREAK;
     }
 
     @Override
-    public void stopMovement() {
-        this.getBrain().forget(MemoryModuleType.AVOID_TARGET);
-        this.getBrain().forget(MemoryModuleType.WALK_TARGET);
-        this.getBrain().forget(MemoryModuleType.LOOK_TARGET);
+    public void stopInPlace() {
+        this.getBrain().eraseMemory(MemoryModuleType.AVOID_TARGET);
+        this.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
+        this.getBrain().eraseMemory(MemoryModuleType.LOOK_TARGET);
 
-        this.getNavigation().setSpeed(0);
+        this.getNavigation().setSpeedModifier(0);
         this.getNavigation().stop();
-        this.getMoveControl().moveTo(this.getX(), this.getY(), this.getZ(), 0);
+        this.getMoveControl().setWantedPosition(this.getX(), this.getY(), this.getZ(), 0);
         this.getMoveControl().tick();
-        this.getLookControl().lookAt(this.getLookControl().getLookX(), this.getLookControl().getLookY(), this.getLookControl().getLookZ());
-        this.getLookControl().lookAt(Vec3d.ZERO);
+        this.getLookControl().setLookAt(this.getLookControl().getWantedX(), this.getLookControl().getWantedY(), this.getLookControl().getWantedZ());
+        this.getLookControl().setLookAt(Vec3.ZERO);
         this.getLookControl().tick();
 
         this.setJumping(false);
-        this.setMovementSpeed(0.0F);
-        this.prevHorizontalSpeed = 0.0F;
-        this.horizontalSpeed = 0.0F;
-        this.sidewaysSpeed = 0.0F;
-        this.upwardSpeed = 0.0F;
+        this.setSpeed(0.0F);
+        this.walkDistO = 0.0F;
+        this.walkDist = 0.0F;
+        this.xxa = 0.0F;
+        this.yya = 0.0F;
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
-        return stack.isIn(ItemTags.DIRT);
+    public boolean isFood(ItemStack stack) {
+        return stack.is(ItemTags.DIRT);
     }
 
-    PigEntity ref;
+    Pig ref;
 
     @Nullable
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
         return (GlareEntity)JamiesModEntityTypes.GLARE.create(world);
     }
 
-    public boolean isInAir() {
-        return !this.isOnGround();
+    public boolean isFlying() {
+        return !this.onGround();
     }
 
-    protected void swimUpward(TagKey<Fluid> tagKey) {
-        this.setVelocity(this.getVelocity().add(0.0, 0.01, 0.0));
+    protected void jumpInLiquid(TagKey<Fluid> tagKey) {
+        this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.01, 0.0));
     }
 
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
+    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
     }
 
     @Override
-    public void fall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition) {
+    public void checkFallDamage(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition) {
     }
 
     @Override
-    public Vec3d getLeashOffset() {
-        return new Vec3d(0.0D, this.getStandingEyeHeight() * 0.6D, 0.0D);
+    public Vec3 getLeashOffset() {
+        return new Vec3(0.0D, this.getEyeHeight() * 0.6D, 0.0D);
     }
 
     @Override
-    protected EntityNavigation createNavigation(World world) {
-        BirdNavigation birdNavigation = new BirdNavigation(this, world)
+    protected PathNavigation createNavigation(Level world) {
+        FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, world)
         {
-            public boolean isValidPosition(BlockPos pos) {
-                boolean isValidPos = !this.world.getBlockState(pos.down()).isAir() && !this.world.getBlockState(pos.down()).isLiquid();
+            public boolean isStableDestination(BlockPos pos) {
+                boolean isValidPos = !this.level.getBlockState(pos.below()).isAir() && !this.level.getBlockState(pos.below()).liquid();
 
                 return isValidPos;
             }
         };
 
-        birdNavigation.setCanPathThroughDoors(false);
-        birdNavigation.setCanSwim(false);
-        birdNavigation.setCanEnterOpenDoors(true);
+        birdNavigation.setCanOpenDoors(false);
+        birdNavigation.setCanFloat(false);
+        birdNavigation.setCanPassDoors(true);
 
         return birdNavigation;
     }
 
-    final class GlareMoveControl extends FlightMoveControl
+    final class GlareMoveControl extends FlyingMoveControl
     {
         public GlareMoveControl(GlareEntity glare, int maxPitchChange, boolean noGravity) {
             super(glare, maxPitchChange, noGravity);
@@ -312,7 +325,7 @@ public class GlareEntity extends AnimalEntity implements Flutterer
 
         @Override
         public void tick() {
-            if (GlareEntity.this.isAttacking()) {
+            if (GlareEntity.this.isAggressive()) {
                 return;
             }
 
@@ -325,39 +338,39 @@ public class GlareEntity extends AnimalEntity implements Flutterer
     }
 
     @Nullable
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        Random random = world.getRandom();
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
+        RandomSource random = world.getRandom();
         int i = random.nextInt(8);
-        if (i < 2 && random.nextFloat() < 0.5F * difficulty.getClampedLocalDifficulty()) {
+        if (i < 2 && random.nextFloat() < 0.5F * difficulty.getSpecialMultiplier()) {
             ++i;
         }
 
         int j = 1 << i;
         this.setSize(j);
-        return super.initialize(world, difficulty, spawnReason, entityData);
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
-    public static boolean isValidNaturalSpawn(EntityType<? extends AnimalEntity> type, WorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
-        boolean bl = SpawnReason.isTrialSpawner(spawnReason) || isLightLevelValidForNaturalSpawn(serverWorldAccess, blockPos);
-        return serverWorldAccess.getBlockState(blockPos.down()).isOf(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.down()).isOf(JamiesModBlocks.MOSSY_CLAYSTONE) && bl;
+    public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> type, LevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, RandomSource random) {
+        boolean bl = MobSpawnType.ignoresLightRequirements(spawnReason) || isBrightEnoughToSpawn(serverWorldAccess, blockPos);
+        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(JamiesModBlocks.MOSSY_CLAYSTONE) && bl;
     }
 
-    protected static boolean isLightLevelValidForNaturalSpawn(BlockRenderView world, BlockPos pos) {
-        return world.getBaseLightLevel(pos, 0) > 1;
+    protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter world, BlockPos pos) {
+        return world.getRawBrightness(pos, 0) > 1;
     }
 
-    public static boolean canSpawn(EntityType<GlareEntity> glareEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
-       return serverWorldAccess.getBlockState(blockPos.down()).isOf(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.down()).isOf(JamiesModBlocks.MOSSY_CLAYSTONE);
+    public static boolean canSpawn(EntityType<GlareEntity> glareEntityEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, RandomSource random) {
+       return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(JamiesModBlocks.MOSSY_CLAYSTONE);
     }
 
-    public boolean canImmediatelyDespawn(double distanceSquared) {
+    public boolean removeWhenFarAway(double distanceSquared) {
         return true;
     }
 
     private void setupAnimationStates() {
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = this.random.nextInt(100) + 100;
-            this.idleAnimationState.start(this.age);
+            this.idleAnimationState.start(this.tickCount);
         } else {
             --this.idleAnimationTimeout;
         }
@@ -365,12 +378,12 @@ public class GlareEntity extends AnimalEntity implements Flutterer
     }
 
     static {
-        GLARE_SIZE = DataTracker.registerData(GlareEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        GLARE_SIZE = SynchedEntityData.defineId(GlareEntity.class, EntityDataSerializers.INT);
         SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY, SensorType.NEAREST_ITEMS);
-        MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.LOOK_TARGET, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.HURT_BY, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.LIKED_PLAYER, MemoryModuleType.LIKED_NOTEBLOCK, MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS, MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, MemoryModuleType.IS_PANICKING, new MemoryModuleType[0]);
+        MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.HURT_BY, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.LIKED_PLAYER, MemoryModuleType.LIKED_NOTEBLOCK_POSITION, MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS, MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, MemoryModuleType.IS_PANICKING, new MemoryModuleType[0]);
     }
 
-    public boolean canSpawn(WorldView world) {
-        return world.doesNotIntersectEntities(this);
+    public boolean checkSpawnObstruction(LevelReader world) {
+        return world.isUnobstructed(this);
     }
 }

@@ -5,109 +5,123 @@ import com.jamiedev.mod.common.blocks.entity.CasterBlockEntity;
 import com.jamiedev.mod.fabric.init.*;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.state.StateManager;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.state.property.*;
 import net.minecraft.util.*;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.entity.EntityTypeTest;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class CasterBlock extends BlockWithEntity implements BlockEntityTicker<CasterBlockEntity>
+public class CasterBlock extends BaseEntityBlock implements BlockEntityTicker<CasterBlockEntity>
 {
-    public static final MapCodec<CasterBlock> CODEC = createCodec(CasterBlock::new);
+    public static final MapCodec<CasterBlock> CODEC = simpleCodec(CasterBlock::new);
     public static final DirectionProperty FACING;
     public static final BooleanProperty TRIGGERED;
     public static final EnumProperty<CasterType> TYPE;
 
-    public CasterBlock(Settings settings) {
+    public CasterBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(TRIGGERED, false).with(TYPE, CasterType.NONE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TRIGGERED, false).setValue(TYPE, CasterType.NONE));
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerLookDirection().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getNearestLookingDirection().getOpposite());
     }
 
-    protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        ItemScatterer.onStateReplaced(state, newState, world, pos);
-        super.onStateReplaced(state, world, pos, newState, moved);
+    protected void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
+        Containers.dropContentsOnDestroy(state, newState, world, pos);
+        super.onRemove(state, world, pos, newState, moved);
     }
 
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (world.isClientSide) {
+            return InteractionResult.SUCCESS;
         } else {
-            Item item = player.getMainHandStack().getItem();
+            Item item = player.getMainHandItem().getItem();
             if (item == Items.BLAZE_ROD) {
-                world.setBlockState(pos, state.with(TYPE, CasterType.BLAZE));
+                world.setBlockAndUpdate(pos, state.setValue(TYPE, CasterType.BLAZE));
             }
             else if (item == Items.BREEZE_ROD) {
-                world.setBlockState(pos, state.with(TYPE, CasterType.BREEZE));
+                world.setBlockAndUpdate(pos, state.setValue(TYPE, CasterType.BREEZE));
             }
             else if (item == JamiesModItems.SCUTTLE_SPIKE) {
-                world.setBlockState(pos, state.with(TYPE, CasterType.GUARDIAN));
+                world.setBlockAndUpdate(pos, state.setValue(TYPE, CasterType.GUARDIAN));
             }
-            return super.onUse(state, world, pos, player, hit);
+            return super.useWithoutItem(state, world, pos, player, hit);
         }
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new CasterBlockEntity(pos, state);
     }
 
-    protected BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    protected RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
-    protected BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    protected BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
-    protected BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(FACING)));
+    protected BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, TRIGGERED, TYPE);
     }
 
-    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
-        boolean bl = world.isReceivingRedstonePower(pos) || world.isReceivingRedstonePower(pos.up());
-        boolean bl2 = state.get(TRIGGERED);
+    protected void neighborChanged(BlockState state, Level world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        boolean bl = world.hasNeighborSignal(pos) || world.hasNeighborSignal(pos.above());
+        boolean bl2 = state.getValue(TRIGGERED);
         if (bl && !bl2) {
-            world.setBlockState(pos, state.with(TRIGGERED, true));
+            world.setBlockAndUpdate(pos, state.setValue(TRIGGERED, true));
         } else if (!bl && bl2) {
-            world.setBlockState(pos, state.with(TRIGGERED, false));
+            world.setBlockAndUpdate(pos, state.setValue(TRIGGERED, false));
         }
     }
 
-    protected boolean hasComparatorOutput(BlockState state) {
+    protected boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
-    protected int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+    protected int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof CasterBlockEntity && ((CasterBlockEntity) entity).cooldownTicks > 0) {
             return (int) Math.max(Math.min(Math.round((double) ((CasterBlockEntity) entity).cooldownTicks / 6), 15), 1);
@@ -116,25 +130,25 @@ public class CasterBlock extends BlockWithEntity implements BlockEntityTicker<Ca
     }
 
     static {
-        FACING = FacingBlock.FACING;
-        TRIGGERED = Properties.POWERED;
-        TYPE = EnumProperty.of("caster_type", CasterType.class);
+        FACING = DirectionalBlock.FACING;
+        TRIGGERED = BlockStateProperties.POWERED;
+        TYPE = EnumProperty.create("caster_type", CasterType.class);
     }
 
     @Override
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> blockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         return blockEntityType == JamiesModBlockEntities.CASTER ? (var1, var2, var3, var4) -> tick(var1, var2, var3, (CasterBlockEntity) var4) : null;
     }
 
     @Override
-    public void tick(World world, BlockPos pos, BlockState state, CasterBlockEntity blockEntity) {
+    public void tick(Level world, BlockPos pos, BlockState state, CasterBlockEntity blockEntity) {
         blockEntity.renderSpike = false;
-        if (state.get(TRIGGERED)) {
-            if (!world.isClient) {
+        if (state.getValue(TRIGGERED)) {
+            if (!world.isClientSide) {
                 if (blockEntity.cooldownTicks > 0) {
                     blockEntity.cooldownTicks -= 1;
-                    world.updateComparators(pos, JamiesModBlocks.CASTER);
+                    world.updateNeighbourForOutputSignal(pos, JamiesModBlocks.CASTER);
                     return;
                 }
                 else
@@ -145,64 +159,64 @@ public class CasterBlock extends BlockWithEntity implements BlockEntityTicker<Ca
                 }
             }
             else if (blockEntity.onCooldown) return;
-            Direction direction = state.get(FACING);
-            Box box = new Box(pos.offset(direction));
-            switch (state.get(TYPE)) {
+            Direction direction = state.getValue(FACING);
+            AABB box = new AABB(pos.relative(direction));
+            switch (state.getValue(TYPE)) {
                 case BREEZE -> {
                     int i = 1;
                     for (int i1 = 2; i < 4; i++) {
-                        if (world.getBlockState(pos.offset(direction, i1)).isAir()) i += 1;
+                        if (world.getBlockState(pos.relative(direction, i1)).isAir()) i += 1;
                     }
-                    List<Entity> entities = world.getEntitiesByType(TypeFilter.instanceOf(Entity.class), box.union(new Box(pos.offset(direction, i))), Predicates.alwaysTrue());
+                    List<Entity> entities = world.getEntities(EntityTypeTest.forClass(Entity.class), box.minmax(new AABB(pos.relative(direction, i))), Predicates.alwaysTrue());
                     for (Entity entity : entities) {
-                        entity.addVelocity((double) direction.getOffsetX()/10, (double) direction.getOffsetY()/10, (double) direction.getOffsetZ()/10);
+                        entity.push((double) direction.getStepX()/10, (double) direction.getStepY()/10, (double) direction.getStepZ()/10);
                     }
                     if (blockEntity.ticks % 40 == 0) {
-                        Vec3d blockPos = pos.offset(direction).toCenterPos();
-                        world.addImportantParticle(ParticleTypes.POOF, true, blockPos.x, blockPos.y, blockPos.z, direction.getOffsetX()/0.5, direction.getOffsetY()/0.5, direction.getOffsetZ()/0.5);
+                        Vec3 blockPos = pos.relative(direction).getCenter();
+                        world.addAlwaysVisibleParticle(ParticleTypes.POOF, true, blockPos.x, blockPos.y, blockPos.z, direction.getStepX()/0.5, direction.getStepY()/0.5, direction.getStepZ()/0.5);
                     }
                 }
                 case BLAZE -> {
-                    List<Entity> entities = world.getEntitiesByType(TypeFilter.instanceOf(Entity.class), box, Predicates.alwaysTrue());
+                    List<Entity> entities = world.getEntities(EntityTypeTest.forClass(Entity.class), box, Predicates.alwaysTrue());
                     for (Entity entity : entities) {
-                        entity.setOnFireFor(15);
+                        entity.igniteForSeconds(15);
                     }
-                    Vec3d blockPos = pos.offset(direction).toCenterPos();
+                    Vec3 blockPos = pos.relative(direction).getCenter();
                     for (int i = 0; i < 5; i++) {
-                        world.addImportantParticle(ParticleTypes.FLAME, true, blockPos.x + (Math.random()-0.5), blockPos.y + (Math.random()-0.5), blockPos.z + (Math.random()-0.5), 0, 0, 0);
+                        world.addAlwaysVisibleParticle(ParticleTypes.FLAME, true, blockPos.x + (Math.random()-0.5), blockPos.y + (Math.random()-0.5), blockPos.z + (Math.random()-0.5), 0, 0, 0);
                     }
                 }
                 case GUARDIAN -> {
-                    List<Entity> entities = world.getEntitiesByType(TypeFilter.instanceOf(Entity.class), box, Predicates.alwaysTrue());
+                    List<Entity> entities = world.getEntities(EntityTypeTest.forClass(Entity.class), box, Predicates.alwaysTrue());
                     for (Entity entity : entities) {
-                        entity.damage(world.getDamageSources().create(JamiesModDamageTypes.SPIKE), 1);
+                        entity.hurt(world.damageSources().source(JamiesModDamageTypes.SPIKE), 1);
                     }
                     blockEntity.renderSpike = true;
-                    Vec3d blockPos = pos.offset(direction).toCenterPos();
+                    Vec3 blockPos = pos.relative(direction).getCenter();
                     for (int i = 0; i < 5; i++) {
-                        world.addImportantParticle(ParticleTypes.SOUL_FIRE_FLAME, true, blockPos.x + (Math.random()-0.5), blockPos.y + (Math.random()-0.5), blockPos.z + (Math.random()-0.5), 0, 0, 0);
+                        world.addAlwaysVisibleParticle(ParticleTypes.SOUL_FIRE_FLAME, true, blockPos.x + (Math.random()-0.5), blockPos.y + (Math.random()-0.5), blockPos.z + (Math.random()-0.5), 0, 0, 0);
                     }
                 }
             }
         }
-        else if (blockEntity.cooldownTicks > 0 && !world.isClient)
+        else if (blockEntity.cooldownTicks > 0 && !world.isClientSide)
             blockEntity.cooldownTicks -= 1;
-            world.updateComparators(pos, JamiesModBlocks.CASTER);
-        if (!blockEntity.isRemoved() && !world.isClient && ((blockEntity.onCooldown && blockEntity.cooldownTicks <=0) ||
+            world.updateNeighbourForOutputSignal(pos, JamiesModBlocks.CASTER);
+        if (!blockEntity.isRemoved() && !world.isClientSide && ((blockEntity.onCooldown && blockEntity.cooldownTicks <=0) ||
                 (!blockEntity.onCooldown && blockEntity.cooldownTicks > 0))) {
             blockEntity.onCooldown = blockEntity.cooldownTicks > 0;
             JamiesModComponents.CASTER.sync(blockEntity);
         }
     }
 
-    public enum CasterType implements StringIdentifiable {
+    public enum CasterType implements StringRepresentable {
         BLAZE,
         BREEZE,
         GUARDIAN,
         NONE;
 
         @Override
-        public String asString() {
+        public String getSerializedName() {
             switch (this) {
                 case BLAZE -> {
                     return "blaze";

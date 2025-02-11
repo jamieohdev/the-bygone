@@ -2,25 +2,24 @@ package com.jamiedev.mod.fabric;
 
 import com.jamiedev.mod.common.entities.*;
 import com.jamiedev.mod.fabric.init.*;
-import com.jamiedev.mod.fabric.init.JamiesModItemGroup;
 import com.jamiedev.mod.mixin.SpawnRestrictMixin;
 import com.jamiedev.mod.common.network.SyncPlayerHookS2C;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.SpawnLocationTypes;
-import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.item.AnimalArmorItem;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Heightmap;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.item.AnimalArmorItem;
+import net.minecraft.world.item.HoeItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,21 +28,21 @@ import static com.jamiedev.mod.fabric.init.JamiesModEntityTypes.*;
 public class JamiesModFabric implements ModInitializer {
 	public static String MOD_ID = "bygone";
 
-	public static AnimalArmorItem.Type BIG_BEAK_ARMOR;
+	public static AnimalArmorItem.BodyType BIG_BEAK_ARMOR;
 
 	@Override
 	public void onInitialize() {
 		initEvents();
 
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
-		SpawnRestriction.register(SCUTTLE, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ScuttleEntity::canSpawn);
-		SpawnRestriction.register(GLARE, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, GlareEntity::canSpawn);
-		SpawnRestriction.register(BIG_BEAK, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, BigBeakEntity::canSpawn);
-		SpawnRestriction.register(TRILOBITE, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TrilobiteEntity::canSpawn);
-		SpawnRestriction.register(COPPERBUG, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, CopperbugEntity::canSpawn);
+		SpawnPlacements.register(SCUTTLE, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScuttleEntity::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(GLARE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
+		SpawnPlacements.register(BIG_BEAK, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, BigBeakEntity::canSpawn);
+		SpawnPlacements.register(TRILOBITE, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TrilobiteEntity::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(COPPERBUG, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, CopperbugEntity::canSpawn);
 		//SpawnRestriction.register(COPPERBUG, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CopperbugEntity::canSpawn);
 
-		SpawnRestrictMixin.callRegister(COELACANTH, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CoelacanthEntity::canSpawn);
+		SpawnRestrictMixin.callRegister(COELACANTH, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CoelacanthEntity::checkSurfaceWaterAnimalSpawnRules);
 		JamiesModBlocks.init();
 		JamiesModBlockEntities.init();
 		JamiesModItems.init();
@@ -67,8 +66,8 @@ public class JamiesModFabric implements ModInitializer {
 
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
-	public static Identifier getModId(String id){
-		return Identifier.of(MOD_ID, id);
+	public static ResourceLocation getModId(String id){
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, id);
 	}
 
 
@@ -79,40 +78,40 @@ public class JamiesModFabric implements ModInitializer {
 		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
 			BlockPos pos = hitResult.getBlockPos();
 			BlockState state = world.getBlockState(pos);
-			ItemStack stack = player.getStackInHand(hand);
+			ItemStack stack = player.getItemInHand(hand);
 
 
-			if (stack.getItem() instanceof HoeItem && (state.isOf(JamiesModBlocks.CLAYSTONE) || state.isOf(JamiesModBlocks.MOSSY_CLAYSTONE))) {
-				BlockPos blockAbovePos = pos.up();
+			if (stack.getItem() instanceof HoeItem && (state.is(JamiesModBlocks.CLAYSTONE) || state.is(JamiesModBlocks.MOSSY_CLAYSTONE))) {
+				BlockPos blockAbovePos = pos.above();
 				BlockState blockAboveState = world.getBlockState(blockAbovePos);
 				if (blockAboveState.isAir()) {
-					world.playSound(null, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
-					world.setBlockState(pos, JamiesModBlocks.CLAYSTONE_FARMLAND.getDefaultState(), Block.NOTIFY_LISTENERS);
+					world.playSound(null, pos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+					world.setBlock(pos, JamiesModBlocks.CLAYSTONE_FARMLAND.defaultBlockState(), Block.UPDATE_CLIENTS);
 
 					if (!player.isCreative()) {
-						stack.damage(1, player,  player.getPreferredEquipmentSlot(player.getActiveItem()));
+						stack.hurtAndBreak(1, player,  player.getEquipmentSlotForItem(player.getUseItem()));
 
 					}
 
-					return ActionResult.SUCCESS;
+					return InteractionResult.SUCCESS;
 				}
 			}
-			if (stack.getItem() instanceof HoeItem && (state.isOf(JamiesModBlocks.COARSE_CLAYSTONE))) {
-				BlockPos blockAbovePos = pos.up();
+			if (stack.getItem() instanceof HoeItem && (state.is(JamiesModBlocks.COARSE_CLAYSTONE))) {
+				BlockPos blockAbovePos = pos.above();
 				BlockState blockAboveState = world.getBlockState(blockAbovePos);
 				if (blockAboveState.isAir()) {
-					world.playSound(null, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
-					world.setBlockState(pos, JamiesModBlocks.CLAYSTONE.getDefaultState(), Block.NOTIFY_LISTENERS);
+					world.playSound(null, pos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+					world.setBlock(pos, JamiesModBlocks.CLAYSTONE.defaultBlockState(), Block.UPDATE_CLIENTS);
 
 					if (!player.isCreative()) {
-						stack.damage(1, player,  player.getPreferredEquipmentSlot(player.getActiveItem()));
+						stack.hurtAndBreak(1, player,  player.getEquipmentSlotForItem(player.getUseItem()));
 
 					}
 
-					return ActionResult.SUCCESS;
+					return InteractionResult.SUCCESS;
 				}
 			}
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		});
 	}
 }

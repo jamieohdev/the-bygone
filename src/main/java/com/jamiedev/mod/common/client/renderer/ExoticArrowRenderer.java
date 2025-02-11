@@ -1,19 +1,19 @@
 package com.jamiedev.mod.common.client.renderer;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
+import net.minecraft.client.renderer.entity.ArrowRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
 import com.jamiedev.mod.common.entities.projectile.ExoticArrowEntity;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.ProjectileEntityRenderer;
-import net.minecraft.util.Identifier;
 
-public class ExoticArrowRenderer extends ProjectileEntityRenderer<ExoticArrowEntity> {
-    public static final Identifier TEXTURE = JamiesModFabric.getModId("textures/entity/exotic_arrow.png");
+public class ExoticArrowRenderer extends ArrowRenderer<ExoticArrowEntity> {
+    public static final ResourceLocation TEXTURE = JamiesModFabric.getModId("textures/entity/exotic_arrow.png");
 
-    public ExoticArrowRenderer(EntityRendererFactory.Context context) {
+    public ExoticArrowRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
 
-    public Identifier getTexture(ExoticArrowEntity arrowEntity) {
+    public ResourceLocation getTexture(ExoticArrowEntity arrowEntity) {
         return TEXTURE;
     }
 }

@@ -3,58 +3,62 @@ package com.jamiedev.mod.common.worldgen.feature;
 import com.jamiedev.mod.fabric.init.JamiesModTag;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.*;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.util.FeatureContext;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.BaseCoralWallFanBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SeaPickleBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import java.util.Optional;
 
-public abstract class PrimordialCoralFeature extends Feature<DefaultFeatureConfig> {
-    public PrimordialCoralFeature(Codec<DefaultFeatureConfig> codec) {
+public abstract class PrimordialCoralFeature extends Feature<NoneFeatureConfiguration> {
+    public PrimordialCoralFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
 
-    public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
-        Random random = context.getRandom();
-        StructureWorldAccess structureWorldAccess = context.getWorld();
-        BlockPos blockPos = context.getOrigin();
-        Optional<Block> optional = Registries.BLOCK.getRandomEntry(JamiesModTag.CORAL_BLOCKS, random).map(RegistryEntry::value);
-        return optional.filter(block -> this.generateCoral(structureWorldAccess, random, blockPos, ((Block) block).getDefaultState())).isPresent();
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+        RandomSource random = context.random();
+        WorldGenLevel structureWorldAccess = context.level();
+        BlockPos blockPos = context.origin();
+        Optional<Block> optional = BuiltInRegistries.BLOCK.getRandomElementOf(JamiesModTag.CORAL_BLOCKS, random).map(Holder::value);
+        return optional.filter(block -> this.generateCoral(structureWorldAccess, random, blockPos, ((Block) block).defaultBlockState())).isPresent();
     }
 
-    protected abstract boolean generateCoral(WorldAccess world, Random random, BlockPos pos, BlockState state);
+    protected abstract boolean generateCoral(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state);
 
-    protected boolean generateCoralPiece(WorldAccess world, Random random, BlockPos pos, BlockState state) {
-        BlockPos blockPos = pos.up();
+    protected boolean generateCoralPiece(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state) {
+        BlockPos blockPos = pos.above();
         BlockState blockState = world.getBlockState(pos);
-        if ((blockState.isOf(Blocks.WATER) || blockState.isIn(JamiesModTag.CORALS)) && world.getBlockState(blockPos).isOf(Blocks.WATER)) {
-            world.setBlockState(pos, state, 3);
+        if ((blockState.is(Blocks.WATER) || blockState.is(JamiesModTag.CORALS)) && world.getBlockState(blockPos).is(Blocks.WATER)) {
+            world.setBlock(pos, state, 3);
             if (random.nextFloat() < 0.25F) {
-                Registries.BLOCK.getRandomEntry(JamiesModTag.CORALS, random).map(RegistryEntry::value).ifPresent((block) -> {
-                    world.setBlockState(blockPos, block.getDefaultState(), 2);
+                BuiltInRegistries.BLOCK.getRandomElementOf(JamiesModTag.CORALS, random).map(Holder::value).ifPresent((block) -> {
+                    world.setBlock(blockPos, block.defaultBlockState(), 2);
                 });
             } else if (random.nextFloat() < 0.05F) {
-                world.setBlockState(blockPos, (BlockState)Blocks.SEA_PICKLE.getDefaultState().with(SeaPickleBlock.PICKLES, random.nextInt(4) + 1), 2);
+                world.setBlock(blockPos, (BlockState)Blocks.SEA_PICKLE.defaultBlockState().setValue(SeaPickleBlock.PICKLES, random.nextInt(4) + 1), 2);
             }
 
-            for (Direction direction : Direction.Type.HORIZONTAL) {
+            for (Direction direction : Direction.Plane.HORIZONTAL) {
                 if (random.nextFloat() < 0.2F) {
-                    BlockPos blockPos2 = pos.offset(direction);
-                    if (world.getBlockState(blockPos2).isOf(Blocks.WATER)) {
-                        Registries.BLOCK.getRandomEntry(JamiesModTag.WALL_CORALS, random).map(RegistryEntry::value).ifPresent((block) -> {
-                            BlockState blockState2 = block.getDefaultState();
-                            if (blockState2.contains(DeadCoralWallFanBlock.FACING)) {
-                                blockState2 = (BlockState) blockState2.with(DeadCoralWallFanBlock.FACING, direction);
+                    BlockPos blockPos2 = pos.relative(direction);
+                    if (world.getBlockState(blockPos2).is(Blocks.WATER)) {
+                        BuiltInRegistries.BLOCK.getRandomElementOf(JamiesModTag.WALL_CORALS, random).map(Holder::value).ifPresent((block) -> {
+                            BlockState blockState2 = block.defaultBlockState();
+                            if (blockState2.hasProperty(BaseCoralWallFanBlock.FACING)) {
+                                blockState2 = (BlockState) blockState2.setValue(BaseCoralWallFanBlock.FACING, direction);
                             }
 
-                            world.setBlockState(blockPos2, blockState2, 2);
+                            world.setBlock(blockPos2, blockState2, 2);
                         });
                     }
                 }

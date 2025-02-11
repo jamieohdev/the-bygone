@@ -2,14 +2,14 @@ package com.jamiedev.mod.common.blocks.entity;
 
 import com.jamiedev.mod.common.blocks.PrimordialVentBlock;
 import com.jamiedev.mod.fabric.init.JamiesModBlockEntities;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FurnaceBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.CampfireBlockEntity;
-import net.minecraft.util.Clearable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Clearable;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.FurnaceBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.CampfireBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class PrimordialVentEntity  extends BlockEntity implements Clearable
 {
@@ -22,8 +22,8 @@ public class PrimordialVentEntity  extends BlockEntity implements Clearable
         super(JamiesModBlockEntities.PRIMORDIAL_VENT, pos, state);
     }
 
-    public static void clientTick(World world, BlockPos pos, BlockState state, PrimordialVentEntity campfire) {
-        Random random = world.random;
+    public static void clientTick(Level world, BlockPos pos, BlockState state, PrimordialVentEntity campfire) {
+        RandomSource random = world.random;
         int i;
 
         if (random.nextFloat() < 0.11F) {
@@ -34,18 +34,18 @@ public class PrimordialVentEntity  extends BlockEntity implements Clearable
 
     }
 
-    public static void litServerTick(World world, BlockPos pos, BlockState state, PrimordialVentEntity campfire) {
+    public static void litServerTick(Level world, BlockPos pos, BlockState state, PrimordialVentEntity campfire) {
 
 
     }
 
     private void updateListeners() {
-        this.markDirty();
-        this.getWorld().updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), 3);
+        this.setChanged();
+        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
     }
 
     @Override
-    public void clear() {
+    public void clearContent() {
 
     }
 }

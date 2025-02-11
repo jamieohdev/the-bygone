@@ -1,96 +1,101 @@
 package com.jamiedev.mod.common.entities;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.CowEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
-import net.minecraft.item.Items;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import com.jamiedev.mod.fabric.init.JamiesModSoundEvents;
 
-public class MoobooEntity extends CowEntity
+public class MoobooEntity extends Cow
 {
-    public MoobooEntity(EntityType<? extends CowEntity> entityType, World world) {
+    public MoobooEntity(EntityType<? extends Cow> entityType, Level world) {
         super(entityType, world);
     }
 
-    public static DefaultAttributeContainer.Builder createAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.20000000298023224);
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 20.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.20000000298023224);
     }
 
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0));
-        this.goalSelector.add(2, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.add(4, new LookAroundGoal(this));
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 2.0));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
     }
 
-    public boolean isBreedingItem(ItemStack stack) {
+    public boolean isFood(ItemStack stack) {
         return false;
     }
 
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getStackInHand(hand);
-        if (itemStack.isOf(Items.BUCKET) && !this.isBaby()) {
-            player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
-            ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, Items.MILK_BUCKET.getDefaultStack());
-            player.setStackInHand(hand, itemStack2);
-            return ActionResult.success(this.getWorld().isClient);
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (itemStack.is(Items.BUCKET) && !this.isBaby()) {
+            player.playSound(SoundEvents.COW_MILK, 1.0F, 1.0F);
+            ItemStack itemStack2 = ItemUtils.createFilledResult(itemStack, player, Items.MILK_BUCKET.getDefaultInstance());
+            player.setItemInHand(hand, itemStack2);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else {
-            return super.interactMob(player, hand);
+            return super.mobInteract(player, hand);
         }
     }
 
-    public boolean damage(DamageSource source, float amount) {
-        if (this.getWorld().isClient) {
+    public boolean hurt(DamageSource source, float amount) {
+        if (this.level().isClientSide) {
             return false;
         } else {
-            if (source.isOf(DamageTypes.PLAYER_ATTACK)) {
-                Entity var4 = source.getSource();
+            if (source.is(DamageTypes.PLAYER_ATTACK)) {
+                Entity var4 = source.getDirectEntity();
                 if (var4 instanceof LivingEntity livingEntity) {
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION,  20, 0), this);
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_HEALTH,  20, 0), this);
+                    this.addEffect(new MobEffectInstance(MobEffects.LEVITATION,  20, 0), this);
+                    this.addEffect(new MobEffectInstance(MobEffects.HEAL,  20, 0), this);
                 }
             }
-            if (source.isOf(DamageTypes.FALL)) {
-                Entity var4 = source.getSource();
+            if (source.is(DamageTypes.FALL)) {
+                Entity var4 = source.getDirectEntity();
                 if (var4 instanceof LivingEntity livingEntity) {
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_HEALTH,  20, 20), this);
+                    this.addEffect(new MobEffectInstance(MobEffects.HEAL,  20, 20), this);
                 }
             }
 
-            return super.damage(source, amount);
+            return super.hurt(source, amount);
         }
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_COW_AMBIENT;
+        return SoundEvents.COW_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_COW_HURT;
+        return SoundEvents.COW_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_COW_DEATH;
+        return SoundEvents.COW_DEATH;
     }
 
 }

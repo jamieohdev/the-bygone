@@ -1,14 +1,14 @@
 package com.jamiedev.mod.common.compounds;
 
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import org.ladysnake.cca.api.v3.component.Component;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 
 public interface CasterComponent extends Component, AutoSyncedComponent {
     @Override
-    default void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {}
+    default void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {}
 
     @Override
-    default void writeToNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {}
+    default void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {}
 }

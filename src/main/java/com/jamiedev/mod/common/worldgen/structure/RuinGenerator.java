@@ -2,68 +2,73 @@ package com.jamiedev.mod.common.worldgen.structure;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.fabric.init.JamiesModStructures;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.structure.*;
-import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.StructureAccessor;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.StructureManager;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.StructurePieceAccessor;
+import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 
 public class RuinGenerator
 {
-    private static final Identifier[] FOSSILS = new Identifier[]{Identifier.of(JamiesModFabric.MOD_ID, "ruin_overworld_1"), Identifier.of(JamiesModFabric.MOD_ID, "ruin_nether_1"),
-            Identifier.of(JamiesModFabric.MOD_ID, "ruin_end_1")};
+    private static final ResourceLocation[] FOSSILS = new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(JamiesModFabric.MOD_ID, "ruin_overworld_1"), ResourceLocation.fromNamespaceAndPath(JamiesModFabric.MOD_ID, "ruin_nether_1"),
+            ResourceLocation.fromNamespaceAndPath(JamiesModFabric.MOD_ID, "ruin_end_1")};
 
     public RuinGenerator() {
     }
 
-    public static void addPieces(StructureTemplateManager manager, StructurePiecesHolder holder, Random random, BlockPos pos) {
-        BlockRotation blockRotation = BlockRotation.random(random);
-        holder.addPiece(new RuinGenerator.Piece(manager, (Identifier) Util.getRandom(FOSSILS, random), pos, blockRotation));
+    public static void addPieces(StructureTemplateManager manager, StructurePieceAccessor holder, RandomSource random, BlockPos pos) {
+        Rotation blockRotation = Rotation.getRandom(random);
+        holder.addPiece(new RuinGenerator.Piece(manager, (ResourceLocation) Util.getRandom(FOSSILS, random), pos, blockRotation));
     }
 
-    public static class Piece extends SimpleStructurePiece {
-        public Piece(StructureTemplateManager manager, Identifier template, BlockPos pos, BlockRotation rotation) {
+    public static class Piece extends TemplateStructurePiece {
+        public Piece(StructureTemplateManager manager, ResourceLocation template, BlockPos pos, Rotation rotation) {
             super(JamiesModStructures.RUIN_PIECES, 0, manager, template, template.toString(), createPlacementData(rotation), pos);
         }
 
-        public Piece(StructureTemplateManager manager, NbtCompound nbt) {
+        public Piece(StructureTemplateManager manager, CompoundTag nbt) {
             super(JamiesModStructures.RUIN_PIECES, nbt, manager, (id) -> {
-                return createPlacementData(BlockRotation.valueOf(nbt.getString("Rot")));
+                return createPlacementData(Rotation.valueOf(nbt.getString("Rot")));
             });
         }
 
-        public Piece(StructureContext structureContext, NbtCompound nbt) {
+        public Piece(StructurePieceSerializationContext structureContext, CompoundTag nbt) {
             super(JamiesModStructures.RUIN_PIECES, nbt, structureContext.structureTemplateManager(), (id) -> {
-                return createPlacementData(BlockRotation.valueOf(nbt.getString("Rot")));
+                return createPlacementData(Rotation.valueOf(nbt.getString("Rot")));
             });
         }
 
 
-        private static StructurePlacementData createPlacementData(BlockRotation rotation) {
-            return (new StructurePlacementData()).setRotation(rotation).setMirror(BlockMirror.NONE).addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
+        private static StructurePlaceSettings createPlacementData(Rotation rotation) {
+            return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_AND_AIR);
         }
 
-        protected void writeNbt(StructureContext context, NbtCompound nbt) {
-            super.writeNbt(context, nbt);
-            nbt.putString("Rot", this.placementData.getRotation().name());
+        protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag nbt) {
+            super.addAdditionalSaveData(context, nbt);
+            nbt.putString("Rot", this.placeSettings.getRotation().name());
         }
 
-        protected void handleMetadata(String metadata, BlockPos pos, ServerWorldAccess world, Random random, BlockBox boundingBox) {
+        protected void handleDataMarker(String metadata, BlockPos pos, ServerLevelAccessor world, RandomSource random, BoundingBox boundingBox) {
         }
 
-        public void generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
-            chunkBox.encompass(this.template.calculateBoundingBox(this.placementData, this.pos));
-            super.generate(world, structureAccessor, chunkGenerator, random, chunkBox, chunkPos, pivot);
+        public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
+            chunkBox.encapsulate(this.template.getBoundingBox(this.placeSettings, this.templatePosition));
+            super.postProcess(world, structureAccessor, chunkGenerator, random, chunkBox, chunkPos, pivot);
         }
     }
 }

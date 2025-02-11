@@ -2,30 +2,30 @@ package com.jamiedev.mod.common.worldgen.feature;
 
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
-import net.minecraft.world.gen.feature.util.FeatureContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 
-public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
-    public AmberFeature(Codec<SingleStateFeatureConfig> codec) {
+public class AmberFeature  extends Feature<BlockStateConfiguration> {
+    public AmberFeature(Codec<BlockStateConfiguration> codec) {
         super(codec);
     }
 
-    public boolean generate(FeatureContext<SingleStateFeatureConfig> context) {
+    public boolean place(FeaturePlaceContext<BlockStateConfiguration> context) {
         BlockPos blockPos;// = context.getOrigin();
-        StructureWorldAccess structureWorldAccess = context.getWorld();
-        blockPos = context.getOrigin();//= new BlockPos(blockPos.getX(), context.getGenerator().getMinimumY(), blockPos.getZ());
-        Random random = context.getRandom();
+        WorldGenLevel structureWorldAccess = context.level();
+        blockPos = context.origin();//= new BlockPos(blockPos.getX(), context.getGenerator().getMinimumY(), blockPos.getZ());
+        RandomSource random = context.random();
         boolean bl = random.nextDouble() > 0.7;
-        BlockState blockState = ((SingleStateFeatureConfig)context.getConfig()).state;
+        BlockState blockState = ((BlockStateConfiguration)context.config()).state;
         double d = random.nextDouble() * 2.0 * Math.PI;
         int i = 11 - random.nextInt(5);
         int j = 3 + random.nextInt(3);
@@ -59,10 +59,10 @@ public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
         for(p = -o; p < o; ++p) {
             for(q = -o; q < o; ++q) {
                 for(r = -1; r > -m; --r) {
-                    s = bl2 ? MathHelper.ceil((float)o * (1.0F - (float)Math.pow((double)r, 2.0) / ((float)m * 16.0F))) : o;
+                    s = bl2 ? Mth.ceil((float)o * (1.0F - (float)Math.pow((double)r, 2.0) / ((float)m * 16.0F))) : o;
                     int t = this.method_13427(random, -r, m, n);
                     if (p < t) {
-                        this.placeAt(structureWorldAccess, random, blockPos, m, p, r , q , t -1, s, bl2, j, d, bl, JamiesModBlocks.FLOWING_AMBER.getDefaultState());
+                        this.placeAt(structureWorldAccess, random, blockPos, m, p, r , q , t -1, s, bl2, j, d, bl, JamiesModBlocks.FLOWING_AMBER.defaultBlockState());
                     }
                 }
             }
@@ -76,7 +76,7 @@ public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
         return true;
     }
 
-    private void method_13428(Random random, WorldAccess world, int i, int j, BlockPos pos, boolean bl, int k, double d, int l) {
+    private void method_13428(RandomSource random, LevelAccessor world, int i, int j, BlockPos pos, boolean bl, int k, double d, int l) {
         int m = random.nextBoolean() ? -1 : 1;
         int n = random.nextBoolean() ? -1 : 1;
         int o = random.nextInt(Math.max(i / 2 - 2, 1));
@@ -110,7 +110,7 @@ public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
 
     }
 
-    private void method_13415(int i, int y, BlockPos pos, WorldAccess world, boolean placeWater, double d, BlockPos blockPos, int j, int k) {
+    private void method_13415(int i, int y, BlockPos pos, LevelAccessor world, boolean placeWater, double d, BlockPos blockPos, int j, int k) {
         int l = i + 1 + j / 3;
         int m = Math.min(i - 3, 3) + k / 2 - 1;
 
@@ -118,13 +118,13 @@ public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
             for(int o = -l; o < l; ++o) {
                 double e = this.getDistance(n, o, blockPos, l, m, d);
                 if (e < 0.0) {
-                    BlockPos blockPos2 = pos.add(n, y, o);
+                    BlockPos blockPos2 = pos.offset(n, y, o);
                     BlockState blockState = world.getBlockState(blockPos2);
-                    if (isSnowOrHONEY_BLOCK(blockState) || blockState.isOf(JamiesModBlocks.COBBLED_AMBER)) {
+                    if (isSnowOrHONEY_BLOCK(blockState) || blockState.is(JamiesModBlocks.COBBLED_AMBER)) {
                         if (placeWater) {
-                            this.setBlockState(world, blockPos2, JamiesModBlocks.UMBER.getDefaultState());
+                            this.setBlock(world, blockPos2, JamiesModBlocks.UMBER.defaultBlockState());
                         } else {
-                            this.setBlockState(world, blockPos2, Blocks.AIR.getDefaultState());
+                            this.setBlock(world, blockPos2, Blocks.AIR.defaultBlockState());
                             this.clearSnowAbove(world, blockPos2);
                         }
                     }
@@ -134,17 +134,17 @@ public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
 
     }
 
-    private void clearSnowAbove(WorldAccess world, BlockPos pos) {
-        if (world.getBlockState(pos.up()).isOf(Blocks.SNOW)) {
-            this.setBlockState(world, pos.up(), Blocks.AIR.getDefaultState());
+    private void clearSnowAbove(LevelAccessor world, BlockPos pos) {
+        if (world.getBlockState(pos.above()).is(Blocks.SNOW)) {
+            this.setBlock(world, pos.above(), Blocks.AIR.defaultBlockState());
         }
 
     }
 
-    private void placeAt(WorldAccess world, Random random, BlockPos pos, int height, int offsetX, int offsetY, int offsetZ, int i, int j, boolean bl, int k, double randomSine, boolean placeSnow, BlockState state) {
-        double d = bl ? this.getDistance(offsetX, offsetZ, BlockPos.ORIGIN, j, this.decreaseValueNearTop(offsetY, height, k), randomSine) : this.method_13421(offsetX, offsetZ, BlockPos.ORIGIN, i, random);
+    private void placeAt(LevelAccessor world, RandomSource random, BlockPos pos, int height, int offsetX, int offsetY, int offsetZ, int i, int j, boolean bl, int k, double randomSine, boolean placeSnow, BlockState state) {
+        double d = bl ? this.getDistance(offsetX, offsetZ, BlockPos.ZERO, j, this.decreaseValueNearTop(offsetY, height, k), randomSine) : this.method_13421(offsetX, offsetZ, BlockPos.ZERO, i, random);
         if (d < 0.0) {
-            BlockPos blockPos = pos.add(offsetX, offsetY, offsetZ);
+            BlockPos blockPos = pos.offset(offsetX, offsetY, offsetZ);
             double e = bl ? -0.5 : (double)(-6 - random.nextInt(3));
             if (d > e && random.nextDouble() > 0.9) {
                 return;
@@ -155,15 +155,15 @@ public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
 
     }
 
-    private void placeBlockOrSnow(BlockPos pos, WorldAccess world, Random random, int heightRemaining, int height, boolean lessSnow, boolean placeSnow, BlockState state) {
+    private void placeBlockOrSnow(BlockPos pos, LevelAccessor world, RandomSource random, int heightRemaining, int height, boolean lessSnow, boolean placeSnow, BlockState state) {
         BlockState blockState = world.getBlockState(pos);
-        if (blockState.isAir() || blockState.isOf(JamiesModBlocks.COBBLED_AMBER) || blockState.isOf(JamiesModBlocks.AMBER) || blockState.isOf(JamiesModBlocks.UMBER)) {
+        if (blockState.isAir() || blockState.is(JamiesModBlocks.COBBLED_AMBER) || blockState.is(JamiesModBlocks.AMBER) || blockState.is(JamiesModBlocks.UMBER)) {
             boolean bl = !lessSnow || random.nextDouble() > 0.05;
             int i = lessSnow ? 3 : 2;
-            if (placeSnow && !blockState.isOf(JamiesModBlocks.UMBER) && (double)heightRemaining <= (double)random.nextInt(Math.max(1, height / i)) + (double)height * 0.6 && bl) {
-                this.setBlockState(world, pos, JamiesModBlocks.COBBLED_AMBER.getDefaultState());
+            if (placeSnow && !blockState.is(JamiesModBlocks.UMBER) && (double)heightRemaining <= (double)random.nextInt(Math.max(1, height / i)) + (double)height * 0.6 && bl) {
+                this.setBlock(world, pos, JamiesModBlocks.COBBLED_AMBER.defaultBlockState());
             } else {
-                this.setBlockState(world, pos, state);
+                this.setBlock(world, pos, state);
             }
         }
 
@@ -178,8 +178,8 @@ public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
         return i;
     }
 
-    private double method_13421(int x, int z, BlockPos pos, int i, Random random) {
-        float f = 10.0F * MathHelper.clamp(random.nextFloat(), 0.2F, 0.8F) / (float)i;
+    private double method_13421(int x, int z, BlockPos pos, int i, RandomSource random) {
+        float f = 10.0F * Mth.clamp(random.nextFloat(), 0.2F, 0.8F) / (float)i;
         return (double)f + Math.pow((double)(x - pos.getX()), 2.0) + Math.pow((double)(z - pos.getZ()), 2.0) - Math.pow((double)i, 2.0);
     }
 
@@ -187,7 +187,7 @@ public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
         return Math.pow(((double)(x - pos.getX()) * Math.cos(randomSine) - (double)(z - pos.getZ()) * Math.sin(randomSine)) / (double)divisor1, 2.0) + Math.pow(((double)(x - pos.getX()) * Math.sin(randomSine) + (double)(z - pos.getZ()) * Math.cos(randomSine)) / (double)divisor2, 2.0) - 1.0;
     }
 
-    private int method_13419(Random random, int y, int height, int factor) {
+    private int method_13419(RandomSource random, int y, int height, int factor) {
         float f = 3.5F - random.nextFloat();
         float g = (1.0F - (float)Math.pow((double)y, 2.0) / ((float)height * f)) * (float)factor;
         if (height > 15 + random.nextInt(5)) {
@@ -195,41 +195,41 @@ public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
             g = (1.0F - (float)i / ((float)height * f * 0.4F)) * (float)factor;
         }
 
-        return MathHelper.ceil(g / 2.0F);
+        return Mth.ceil(g / 2.0F);
     }
 
     private int method_13417(int y, int height, int factor) {
         float f = 1.0F;
         float g = (1.0F - (float)Math.pow((double)y, 2.0) / ((float) height)) * (float)factor;
-        return MathHelper.ceil(g / 2.0F);
+        return Mth.ceil(g / 2.0F);
     }
 
-    private int method_13427(Random random, int y, int height, int factor) {
+    private int method_13427(RandomSource random, int y, int height, int factor) {
         float f = 1.0F + random.nextFloat() / 2.0F;
         float g = (1.0F - (float)y / ((float)height * f)) * (float)factor;
-        return MathHelper.ceil(g / 2.0F);
+        return Mth.ceil(g / 2.0F);
     }
 
     private static boolean isSnowOrHONEY_BLOCK(BlockState state) {
-        return state.isOf(Blocks.YELLOW_WOOL) || state.isOf(JamiesModBlocks.COBBLED_AMBER) || state.isOf(Blocks.YELLOW_STAINED_GLASS) || state.isOf(JamiesModBlocks.AMBER);
+        return state.is(Blocks.YELLOW_WOOL) || state.is(JamiesModBlocks.COBBLED_AMBER) || state.is(Blocks.YELLOW_STAINED_GLASS) || state.is(JamiesModBlocks.AMBER);
     }
 
-    private boolean isAirBelow(BlockView world, BlockPos pos) {
-        return world.getBlockState(pos.down()).isAir();
+    private boolean isAirBelow(BlockGetter world, BlockPos pos) {
+        return world.getBlockState(pos.below()).isAir();
     }
 
-    private void method_13418(WorldAccess world, BlockPos pos, int i, int height, boolean bl, int j) {
+    private void method_13418(LevelAccessor world, BlockPos pos, int i, int height, boolean bl, int j) {
         int k = bl ? j : i / 2;
 
         for(int l = -k; l <= k; ++l) {
             for(int m = -k; m <= k; ++m) {
                 for(int n = 0; n <= height; ++n) {
-                    BlockPos blockPos = pos.add(l, n, m);
+                    BlockPos blockPos = pos.offset(l, n, m);
                     BlockState blockState = world.getBlockState(blockPos);
-                    if (isSnowOrHONEY_BLOCK(blockState) || blockState.isOf(Blocks.SNOW)) {
+                    if (isSnowOrHONEY_BLOCK(blockState) || blockState.is(Blocks.SNOW)) {
                         if (this.isAirBelow(world, blockPos)) {
-                            this.setBlockState(world, blockPos, Blocks.AIR.getDefaultState());
-                            this.setBlockState(world, blockPos.up(), Blocks.AIR.getDefaultState());
+                            this.setBlock(world, blockPos, Blocks.AIR.defaultBlockState());
+                            this.setBlock(world, blockPos.above(), Blocks.AIR.defaultBlockState());
                         } else if (isSnowOrHONEY_BLOCK(blockState)) {
                             BlockState[] blockStates = new BlockState[]{world.getBlockState(blockPos.west()), world.getBlockState(blockPos.east()), world.getBlockState(blockPos.north()), world.getBlockState(blockPos.south())};
                             int o = 0;
@@ -244,7 +244,7 @@ public class AmberFeature  extends Feature<SingleStateFeatureConfig> {
                             }
 
                             if (o >= 3) {
-                                this.setBlockState(world, blockPos, Blocks.AIR.getDefaultState());
+                                this.setBlock(world, blockPos, Blocks.AIR.defaultBlockState());
                             }
                         }
                     }

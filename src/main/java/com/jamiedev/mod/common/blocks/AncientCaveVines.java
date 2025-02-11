@@ -1,50 +1,50 @@
 package com.jamiedev.mod.common.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.ToIntFunction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public interface AncientCaveVines {
-    VoxelShape SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
-    BooleanProperty BERRIES = Properties.BERRIES;
+    VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
+    BooleanProperty BERRIES = BlockStateProperties.BERRIES;
 
-    static ActionResult pickBerries(@Nullable Entity picker, BlockState state, World world, BlockPos pos) {
-        if ((Boolean)state.get(BERRIES)) {
-            Block.dropStack(world, pos, new ItemStack(Blocks.GLOWSTONE, 1));
-            float f = MathHelper.nextBetween(world.random, 0.8F, 1.2F);
-            world.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_CAVE_VINES_PICK_BERRIES, SoundCategory.BLOCKS, 1.0F, f);
-            BlockState blockState = (BlockState)state.with(BERRIES, false);
-            world.setBlockState(pos, blockState, 2);
-            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(picker, blockState));
-            return ActionResult.success(world.isClient);
+    static InteractionResult pickBerries(@Nullable Entity picker, BlockState state, Level world, BlockPos pos) {
+        if ((Boolean)state.getValue(BERRIES)) {
+            Block.popResource(world, pos, new ItemStack(Blocks.GLOWSTONE, 1));
+            float f = Mth.randomBetween(world.random, 0.8F, 1.2F);
+            world.playSound((Player)null, pos, SoundEvents.CAVE_VINES_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, f);
+            BlockState blockState = (BlockState)state.setValue(BERRIES, false);
+            world.setBlock(pos, blockState, 2);
+            world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(picker, blockState));
+            return InteractionResult.sidedSuccess(world.isClientSide);
         } else {
-            return ActionResult.PASS;
+            return InteractionResult.PASS;
         }
     }
 
     static boolean hasBerries(BlockState state) {
-        return state.contains(BERRIES) && (Boolean)state.get(BERRIES);
+        return state.hasProperty(BERRIES) && (Boolean)state.getValue(BERRIES);
     }
 
     static ToIntFunction<BlockState> getLuminanceSupplier(int luminance) {
         return (state) -> {
-            return (Boolean)state.get(Properties.BERRIES) ? luminance : 0;
+            return (Boolean)state.getValue(BlockStateProperties.BERRIES) ? luminance : 0;
         };
     }
 }

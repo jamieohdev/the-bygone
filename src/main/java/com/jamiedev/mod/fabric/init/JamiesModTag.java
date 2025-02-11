@@ -1,13 +1,12 @@
 package com.jamiedev.mod.fabric.init;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.structure.Structure;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.structure.Structure;
 
 public class JamiesModTag
 {
@@ -42,13 +41,13 @@ public class JamiesModTag
     public static class Blocks {
 
         private static TagKey<Block> createTag(String name) {
-            return TagKey.of(RegistryKeys.BLOCK, JamiesModFabric.getModId(name));
+            return TagKey.create(Registries.BLOCK, JamiesModFabric.getModId(name));
         }
     }
 
     public static class Entities {
         private static TagKey<EntityType<?>> createTag(String id) {
-            return TagKey.of(RegistryKeys.ENTITY_TYPE, JamiesModFabric.getModId(id));
+            return TagKey.create(Registries.ENTITY_TYPE, JamiesModFabric.getModId(id));
         }
     }
 
@@ -56,14 +55,14 @@ public class JamiesModTag
         public static final TagKey<Item> TRANSFORMABLE_ITEMS = createTag("transformable_items");
 
         private static TagKey<Item> createTag(String name) {
-            return TagKey.of(RegistryKeys.ITEM, JamiesModFabric.getModId(name));
+            return TagKey.create(Registries.ITEM, JamiesModFabric.getModId(name));
         }
     }
 
     public static class Structures {
 
         private static TagKey<Structure> createTag(String id) {
-            return TagKey.of(RegistryKeys.STRUCTURE, JamiesModFabric.getModId(id));
+            return TagKey.create(Registries.STRUCTURE, JamiesModFabric.getModId(id));
         }
     }
 }

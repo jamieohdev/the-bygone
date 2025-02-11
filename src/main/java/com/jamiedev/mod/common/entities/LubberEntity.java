@@ -1,171 +1,185 @@
 package com.jamiedev.mod.common.entities;
 
 import com.jamiedev.mod.common.entities.ai.LubberNavigation;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.SkeletonEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class LubberEntity  extends HostileEntity implements RangedAttackMob
+public class LubberEntity  extends Monster implements RangedAttackMob
 {
     LubberEntity ref;
-    SkeletonEntity ref2;
+    Skeleton ref2;
 
-    private static final TrackedData<Byte> LUBBER_FLAGS;
+    private static final EntityDataAccessor<Byte> LUBBER_FLAGS;
     private static final float field_30498 = 0.1F;
 
-    protected LubberEntity(EntityType<? extends LubberEntity> entityType, World world) {
+    protected LubberEntity(EntityType<? extends LubberEntity> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    public void shootAt(LivingEntity target, float pullProgress) {
+    public void performRangedAttack(LivingEntity target, float pullProgress) {
 
     }
-    protected void initGoals() {
-        this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new FleeEntityGoal(this, BigBeakEntity.class, 6.0F, 1.0, 1.2, (entity) -> {
-            return !((BigBeakEntity)entity).isFlappingWings();
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal(this, BigBeakEntity.class, 6.0F, 1.0, 1.2, (entity) -> {
+            return !((BigBeakEntity)entity).isFlapping();
         }));
-        this.goalSelector.add(3, new PounceAtTargetGoal(this, 0.4F));
-        this.goalSelector.add(4, new LubberEntity.AttackGoal(this));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(6, new LookAroundGoal(this));
-        this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
-        this.targetSelector.add(2, new LubberEntity.TargetGoal<>(this, PlayerEntity.class));
-        this.targetSelector.add(3, new LubberEntity.TargetGoal<>(this, IronGolemEntity.class));
+        this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
+        this.goalSelector.addGoal(4, new LubberEntity.AttackGoal(this));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this, new Class[0]));
+        this.targetSelector.addGoal(2, new LubberEntity.TargetGoal<>(this, Player.class));
+        this.targetSelector.addGoal(3, new LubberEntity.TargetGoal<>(this, IronGolem.class));
     }
 
-    protected EntityNavigation createNavigation(World world) {
+    protected PathNavigation createNavigation(Level world) {
         return new LubberNavigation(this, world);
     }
 
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
-        builder.add(LUBBER_FLAGS, (byte)0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(LUBBER_FLAGS, (byte)0);
     }
 
     public void tick() {
         super.tick();
-        if (!this.getWorld().isClient) {
+        if (!this.level().isClientSide) {
             this.setClimbingWall(this.horizontalCollision);
         }
 
     }
 
-    public static DefaultAttributeContainer.Builder createLubberAttributes() {
-        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 16.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.30000001192092896);
+    public static AttributeSupplier.Builder createLubberAttributes() {
+        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 16.0).add(Attributes.MOVEMENT_SPEED, 0.30000001192092896);
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_SILVERFISH_AMBIENT;
+        return SoundEvents.SILVERFISH_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_SILVERFISH_HURT;
+        return SoundEvents.SILVERFISH_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_SILVERFISH_DEATH;
+        return SoundEvents.SILVERFISH_DEATH;
     }
 
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_SILVERFISH_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.SILVERFISH_STEP, 0.15F, 1.0F);
     }
 
-    public boolean isClimbing() {
+    public boolean onClimbable() {
         return this.isClimbingWall();
     }
 
-    public void slowMovement(BlockState state, Vec3d multiplier) {
-        if (!state.isOf(Blocks.COBWEB)) {
-            super.slowMovement(state, multiplier);
+    public void makeStuckInBlock(BlockState state, Vec3 multiplier) {
+        if (!state.is(Blocks.COBWEB)) {
+            super.makeStuckInBlock(state, multiplier);
         }
 
     }
 
-    public boolean canHaveStatusEffect(StatusEffectInstance effect) {
-        return effect.equals(StatusEffects.POISON) ? false : super.canHaveStatusEffect(effect);
+    public boolean canBeAffected(MobEffectInstance effect) {
+        return effect.is(MobEffects.POISON) ? false : super.canBeAffected(effect);
     }
 
     public boolean isClimbingWall() {
-        return ((Byte)this.dataTracker.get(LUBBER_FLAGS) & 1) != 0;
+        return ((Byte)this.entityData.get(LUBBER_FLAGS) & 1) != 0;
     }
 
     public void setClimbingWall(boolean climbing) {
-        byte b = (Byte)this.dataTracker.get(LUBBER_FLAGS);
+        byte b = (Byte)this.entityData.get(LUBBER_FLAGS);
         if (climbing) {
             b = (byte)(b | 1);
         } else {
             b &= -2;
         }
 
-        this.dataTracker.set(LUBBER_FLAGS, b);
+        this.entityData.set(LUBBER_FLAGS, b);
     }
 
     @Nullable
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-        EntityData entityData1 = super.initialize(world, difficulty, spawnReason, entityData);
-        Random random = world.getRandom();
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
+        SpawnGroupData entityData1 = super.finalizeSpawn(world, difficulty, spawnReason, entityData);
+        RandomSource random = world.getRandom();
         if (random.nextInt(100) == 0) {
-            SkeletonEntity skeletonEntity = (SkeletonEntity)EntityType.SKELETON.create(this.getWorld());
+            Skeleton skeletonEntity = (Skeleton)EntityType.SKELETON.create(this.level());
             if (skeletonEntity != null) {
-                skeletonEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), 0.0F);
-                skeletonEntity.initialize(world, difficulty, spawnReason, (EntityData)null);
+                skeletonEntity.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+                skeletonEntity.finalizeSpawn(world, difficulty, spawnReason, (SpawnGroupData)null);
                 skeletonEntity.startRiding(this);
             }
         }
 
         if (entityData1 == null) {
             entityData1 = new LubberEntity.LubberData();
-            if (world.getDifficulty() == Difficulty.HARD && random.nextFloat() < 0.1F * difficulty.getClampedLocalDifficulty()) {
+            if (world.getDifficulty() == Difficulty.HARD && random.nextFloat() < 0.1F * difficulty.getSpecialMultiplier()) {
                 ((LubberEntity.LubberData)entityData1).setEffect(random);
             }
         }
 
         if (entityData1 instanceof LubberEntity.LubberData spiderData) {
-            RegistryEntry<StatusEffect> registryEntry = spiderData.effect;
+            Holder<MobEffect> registryEntry = spiderData.effect;
             if (registryEntry != null) {
-                this.addStatusEffect(new StatusEffectInstance(registryEntry, -1));
+                this.addEffect(new MobEffectInstance(registryEntry, -1));
             }
         }
 
-        return (EntityData)entityData1;
+        return (SpawnGroupData)entityData1;
     }
 
-    public Vec3d getVehicleAttachmentPos(Entity vehicle) {
-        return vehicle.getWidth() <= this.getWidth() ? new Vec3d(0.0, 0.3125 * (double)this.getScale(), 0.0) : super.getVehicleAttachmentPos(vehicle);
+    public Vec3 getVehicleAttachmentPoint(Entity vehicle) {
+        return vehicle.getBbWidth() <= this.getBbWidth() ? new Vec3(0.0, 0.3125 * (double)this.getScale(), 0.0) : super.getVehicleAttachmentPoint(vehicle);
     }
 
     static {
-        LUBBER_FLAGS = DataTracker.registerData(LubberEntity.class, TrackedDataHandlerRegistry.BYTE);
+        LUBBER_FLAGS = SynchedEntityData.defineId(LubberEntity.class, EntityDataSerializers.BYTE);
     }
 
     private static class AttackGoal extends MeleeAttackGoal {
@@ -173,49 +187,49 @@ public class LubberEntity  extends HostileEntity implements RangedAttackMob
             super(spider, 1.0, true);
         }
 
-        public boolean canStart() {
-            return super.canStart() && !this.mob.hasPassengers();
+        public boolean canUse() {
+            return super.canUse() && !this.mob.isVehicle();
         }
 
-        public boolean shouldContinue() {
-            float f = this.mob.getBrightnessAtEyes();
+        public boolean canContinueToUse() {
+            float f = this.mob.getLightLevelDependentMagicValue();
             if (f >= 0.5F && this.mob.getRandom().nextInt(100) == 0) {
                 this.mob.setTarget((LivingEntity)null);
                 return false;
             } else {
-                return super.shouldContinue();
+                return super.canContinueToUse();
             }
         }
     }
 
-    private static class TargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T> {
+    private static class TargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
         public TargetGoal(LubberEntity spider, Class<T> targetEntityClass) {
             super(spider, targetEntityClass, true);
         }
 
-        public boolean canStart() {
-            float f = this.mob.getBrightnessAtEyes();
-            return f >= 0.5F ? false : super.canStart();
+        public boolean canUse() {
+            float f = this.mob.getLightLevelDependentMagicValue();
+            return f >= 0.5F ? false : super.canUse();
         }
     }
 
-    public static class LubberData implements EntityData {
+    public static class LubberData implements SpawnGroupData {
         @Nullable
-        public RegistryEntry<StatusEffect> effect;
+        public Holder<MobEffect> effect;
 
         public LubberData() {
         }
 
-        public void setEffect(Random random) {
+        public void setEffect(RandomSource random) {
             int i = random.nextInt(5);
             if (i <= 1) {
-                this.effect = StatusEffects.SPEED;
+                this.effect = MobEffects.MOVEMENT_SPEED;
             } else if (i <= 2) {
-                this.effect = StatusEffects.STRENGTH;
+                this.effect = MobEffects.DAMAGE_BOOST;
             } else if (i <= 3) {
-                this.effect = StatusEffects.REGENERATION;
+                this.effect = MobEffects.REGENERATION;
             } else if (i <= 4) {
-                this.effect = StatusEffects.INVISIBILITY;
+                this.effect = MobEffects.INVISIBILITY;
             }
 
         }

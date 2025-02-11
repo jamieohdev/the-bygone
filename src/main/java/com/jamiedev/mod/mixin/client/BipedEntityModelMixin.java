@@ -1,9 +1,8 @@
 package com.jamiedev.mod.mixin.client;
 
 import com.jamiedev.mod.common.items.VerdigrisBladeItem;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ShieldItem;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.jamiedev.mod.common.client.JamiesModClient;
 
-@Mixin(BipedEntityModel.class)
+@Mixin(HumanoidModel.class)
 public abstract class BipedEntityModelMixin<T extends LivingEntity> {
     @Shadow
     protected abstract void positionRightArm(T entity);
@@ -23,7 +22,7 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> {
     private void swordblocking$setBlockingAngles(T livingEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
         if (!JamiesModClient.isWeaponBlocking(livingEntity))
             return;
-        if (livingEntity.getOffHandStack().getItem() instanceof VerdigrisBladeItem)
+        if (livingEntity.getOffhandItem().getItem() instanceof VerdigrisBladeItem)
             this.positionRightArm(livingEntity);
         else
             this.positionLeftArm(livingEntity);

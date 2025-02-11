@@ -9,28 +9,31 @@ import net.kyrptonaught.customportalapi.portal.frame.PortalFrameTester;
 import net.kyrptonaught.customportalapi.util.CustomPortalHelper;
 import net.kyrptonaught.customportalapi.util.PortalLink;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.EndPortalBlockEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EndPortalBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class BygonePortalBlock extends CustomPortalBlock
 {
     EndPortalBlock ref;
-    public static final MapCodec<BygonePortalBlock> CODEC = createCodec(BygonePortalBlock::new);
+    public static final MapCodec<BygonePortalBlock> CODEC = simpleCodec(BygonePortalBlock::new);
 
-    public MapCodec<BygonePortalBlock> getCodec() {
+    public MapCodec<BygonePortalBlock> codec() {
         return CODEC;
     }
-    protected static final VoxelShape SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
-    public BygonePortalBlock(Settings settings) {
+    protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+    public BygonePortalBlock(Properties settings) {
         super(settings);
     }
 
@@ -39,29 +42,29 @@ public class BygonePortalBlock extends CustomPortalBlock
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
-    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
         return ItemStack.EMPTY;
     }
 
-    protected boolean canBucketPlace(BlockState state, Fluid fluid) {
+    protected boolean canBeReplaced(BlockState state, Fluid fluid) {
         return false;
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
-        Block block = getPortalBase((World) world, pos);
+    public BlockState updateShape(BlockState state, Direction direction, BlockState newState, LevelAccessor world, BlockPos pos, BlockPos posFrom) {
+        Block block = getPortalBase((Level) world, pos);
         PortalLink link = CustomPortalApiRegistry.getPortalLinkFromBase(block);
         if (link != null) {
             PortalFrameTester portalFrameTester = link.getFrameTester().createInstanceOfPortalFrameTester().init(world, pos, CustomPortalHelper.getAxisFrom(state), block);
             if (portalFrameTester.isAlreadyLitPortalFrame())
-                return super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
+                return super.updateShape(state, direction, newState, world, pos, posFrom);
         }
         //todo handle unknown portallink
 
-        return JamiesModBlocks.BYGONE_PORTAL.getDefaultState();
+        return JamiesModBlocks.BYGONE_PORTAL.defaultBlockState();
     }
 }

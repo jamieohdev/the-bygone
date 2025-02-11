@@ -1,22 +1,19 @@
 package com.jamiedev.mod.fabric.init;
 
 import com.google.common.base.Suppliers;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
-
 import java.util.Objects;
 import java.util.function.Supplier;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 
-public enum JamiesModToolMaterials implements ToolMaterial {
+public enum JamiesModToolMaterials implements Tier {
 
     VERDIGRIS(BlockTags.INCORRECT_FOR_IRON_TOOL, 250, 6.0F, 2.0F, 0, () -> {
-        return Ingredient.ofItems(new ItemConvertible[]{JamiesModItems.VERDIGRIS_INGOT});
+        return Ingredient.of(new ItemLike[]{JamiesModItems.VERDIGRIS_INGOT});
     });
 
     private final TagKey<Block> inverseTag;
@@ -36,23 +33,23 @@ public enum JamiesModToolMaterials implements ToolMaterial {
         this.repairIngredient = Suppliers.memoize(repairIngredient::get);
     }
 
-    public int getDurability() {
+    public int getUses() {
         return this.itemDurability;
     }
 
-    public float getMiningSpeedMultiplier() {
+    public float getSpeed() {
         return this.miningSpeed;
     }
 
-    public float getAttackDamage() {
+    public float getAttackDamageBonus() {
         return this.attackDamage;
     }
 
-    public TagKey<Block> getInverseTag() {
+    public TagKey<Block> getIncorrectBlocksForDrops() {
         return this.inverseTag;
     }
 
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return this.enchantability;
     }
 

@@ -1,21 +1,21 @@
 package com.jamiedev.mod.common.blocks;
 
 import com.jamiedev.mod.common.entities.RisingBlockEntity;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LandingBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Fallable;
+import net.minecraft.world.level.block.state.BlockState;
 
-public interface LandingBlock2 extends LandingBlock {
-    default void onLanding(World world, BlockPos pos, BlockState fallingBlockState, BlockState currentStateInPos, RisingBlockEntity fallingBlockEntity) {
+public interface LandingBlock2 extends Fallable {
+    default void onLanding(Level world, BlockPos pos, BlockState fallingBlockState, BlockState currentStateInPos, RisingBlockEntity fallingBlockEntity) {
     }
 
-    default void onDestroyedOnLanding(World world, BlockPos pos, RisingBlockEntity fallingBlockEntity) {
+    default void onDestroyedOnLanding(Level world, BlockPos pos, RisingBlockEntity fallingBlockEntity) {
     }
 
-    default DamageSource getDamageSource(Entity attacker) {
-        return attacker.getDamageSources().fallingBlock(attacker);
+    default DamageSource getFallDamageSource(Entity attacker) {
+        return attacker.damageSources().fallingBlock(attacker);
     }
 }

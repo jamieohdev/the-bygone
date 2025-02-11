@@ -3,37 +3,41 @@ package com.jamiedev.mod.common.blocks;
 import com.jamiedev.mod.common.entities.RisingBlockEntity;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.particle.ParticleUtil;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.ParticleUtils;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Fallable;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class RisingBlock  extends Block implements LandingBlock {
-    public RisingBlock(AbstractBlock.Settings settings) {
+public abstract class RisingBlock  extends Block implements Fallable {
+    public RisingBlock(BlockBehaviour.Properties settings) {
         super(settings);
     }
 
-    protected abstract MapCodec<? extends RisingBlock> getCodec();
+    protected abstract MapCodec<? extends RisingBlock> codec();
 
-    protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-        world.scheduleBlockTick(pos, this, this.getRiseDelay());
+    protected void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean notify) {
+        world.scheduleTick(pos, this, this.getRiseDelay());
     }
 
-    protected BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        world.scheduleBlockTick(pos, this, this.getRiseDelay());
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        world.scheduleTick(pos, this, this.getRiseDelay());
+        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
-    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (canRiseThrough(world.getBlockState(pos.up())) && pos.getY() >= world.getTopY()) {
-            RisingBlockEntity fallingBlockEntity = RisingBlockEntity.spawnFromBlock(world, pos, state);
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        if (canRiseThrough(world.getBlockState(pos.above())) && pos.getY() >= world.getMaxBuildHeight()) {
+            RisingBlockEntity fallingBlockEntity = RisingBlockEntity.fall(world, pos, state);
             this.configureRisingBlockEntity(fallingBlockEntity);
         }
     }
@@ -46,20 +50,20 @@ public abstract class RisingBlock  extends Block implements LandingBlock {
     }
 
     public static boolean canRiseThrough(BlockState state) {
-        return state.isAir() || state.isIn(BlockTags.FIRE) || state.isLiquid() || state.isReplaceable();
+        return state.isAir() || state.is(BlockTags.FIRE) || state.liquid() || state.canBeReplaced();
     }
 
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         if (random.nextInt(16) == 0) {
-            BlockPos blockPos = pos.up();
+            BlockPos blockPos = pos.above();
             if (canRiseThrough(world.getBlockState(blockPos))) {
-                ParticleUtil.spawnParticle(world, pos, random, new BlockStateParticleEffect(ParticleTypes.FALLING_DUST, state));
+                ParticleUtils.spawnParticleBelow(world, pos, random, new BlockParticleOption(ParticleTypes.FALLING_DUST, state));
             }
         }
 
     }
 
-    public int getColor(BlockState state, BlockView world, BlockPos pos) {
+    public int getColor(BlockState state, BlockGetter world, BlockPos pos) {
         return -16777216;
     }
 }

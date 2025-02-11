@@ -1,127 +1,139 @@
 package com.jamiedev.mod.common.entities;
 
 import com.jamiedev.mod.common.entities.projectile.ScuttleSpikeEntity;
-import net.minecraft.block.Blocks;
-import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.control.LookControl;
-import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
-import net.minecraft.entity.ai.pathing.SwimNavigation;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.GuardianEntity;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.WaterCreatureEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.SquidEntity;
-import net.minecraft.entity.passive.TurtleEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.LookControl;
+import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Squid;
+import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.monster.Guardian;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
-public class ScuttleEntity extends WaterCreatureEntity implements RangedAttackMob
+public class ScuttleEntity extends WaterAnimal implements RangedAttackMob
 {
-    GuardianEntity ref;
+    Guardian ref;
     @Nullable
     private LivingEntity cachedTarget;
-    private static final TrackedData<Integer> TARGET_ID;
+    private static final EntityDataAccessor<Integer> TARGET_ID;
     int attackCooldown = 0;
     int attackAnimTick;
     private float tailAngle;
     private float prevTailAngle;
     private boolean flopping;
 
-    public ScuttleEntity(EntityType<? extends ScuttleEntity> entityType, World world) {
+    public ScuttleEntity(EntityType<? extends ScuttleEntity> entityType, Level world) {
         super(entityType, world);
-        this.experiencePoints = 15;
+        this.xpReward = 15;
         this.moveControl = new ScuttleMoveControl(this);
         this.tailAngle = this.random.nextFloat();
         this.prevTailAngle = this.tailAngle;
     }
 
-    protected void initGoals() {
-        this.goalSelector.add(1, new MoveIntoWaterGoal(this));
-        this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 0.8F));
-        this.goalSelector.add(2, new ProjectileAttackGoal(this, 0.5D, 20, 10.0F));
-        this.goalSelector.add(3, new SwimAroundGoal(this, 1.0D, 1)
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 0.8F));
+        this.goalSelector.addGoal(2, new RangedAttackGoal(this, 0.5D, 20, 10.0F));
+        this.goalSelector.addGoal(3, new RandomSwimmingGoal(this, 1.0D, 1)
         );
-        this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
-        this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(1, new ActiveTargetGoal<>(this, SquidEntity.class, true));
-        this.targetSelector.add(1, new ActiveTargetGoal<>(this, AnimalEntity.class, 10, true, false, TurtleEntity.BABY_TURTLE_ON_LAND_FILTER));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this, new Class[0]));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Squid.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Animal.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
 
     }
 
-    public static DefaultAttributeContainer.Builder createAttributes() {
-        return HostileEntity.createHostileAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8.0D)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 1.0D);
+    public static AttributeSupplier.Builder createAttributes() {
+        return Monster.createMonsterAttributes()
+                .add(Attributes.MAX_HEALTH, 30.0D)
+                .add(Attributes.ATTACK_DAMAGE, 8.0D)
+                .add(Attributes.MOVEMENT_SPEED, 1.0D);
     }
 
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
-        builder.add(TARGET_ID, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(TARGET_ID, 0);
     }
 
 
-    public void onTrackedDataSet(TrackedData<?> data) {
-        super.onTrackedDataSet(data);
+    public void onSyncedDataUpdated(EntityDataAccessor<?> data) {
+        super.onSyncedDataUpdated(data);
         if (TARGET_ID.equals(data)) {
            // this.cachedTarget = null;
         }
     }
     @Override
-    public void shootAt(LivingEntity target, float pullProgress) {
-        this.lookAtEntity(this, 100, 100);
-        this.bodyYaw = prevBodyYaw;
-        ScuttleSpikeEntity glass = new ScuttleSpikeEntity(this.getWorld(), this, new ItemStack(Items.TRIDENT));
+    public void performRangedAttack(LivingEntity target, float pullProgress) {
+        this.lookAt(this, 100, 100);
+        this.yBodyRot = yBodyRotO;
+        ScuttleSpikeEntity glass = new ScuttleSpikeEntity(this.level(), this, new ItemStack(Items.TRIDENT));
         double xDistance = target.getX() - this.getX();
-        double yDistance = target.getBodyY(0.3333333333333333D) - glass.getY();
+        double yDistance = target.getY(0.3333333333333333D) - glass.getY();
         double zDistance = target.getZ() - this.getZ();
         double yMath = Math.sqrt((float) ((xDistance * xDistance) + (zDistance * zDistance)));
-        glass.setVelocity(xDistance, yDistance + yMath * 0.10000000298023224D, zDistance, 1.6F, 11.0F);
-        this.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-        this.getWorld().spawnEntity(glass);
+        glass.shoot(xDistance, yDistance + yMath * 0.10000000298023224D, zDistance, 1.6F, 11.0F);
+        this.playSound(SoundEvents.ARROW_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.level().addFreshEntity(glass);
     }
 
     @Override
-    public boolean tryAttack(Entity target) {
+    public boolean doHurtTarget(Entity target) {
         this.attackAnimTick = 10;
-        this.getWorld().sendEntityStatus(this, (byte)4);
+        this.level().broadcastEntityEvent(this, (byte)4);
         //boolean bl = super.tryAttack(target);
         float f = this.getAttackDamage();
         float f1 = (int)f > 0 ? f / 2.0F + (float)this.random.nextInt((int)f) : f;
-        boolean flag = target.damage(getDamageSources().mobAttackNoAggro(this), f1);
+        boolean flag = target.hurt(damageSources().noAggroMobAttack(this), f1);
 
         if (flag)
         {
-            World var7 = this.getWorld();
-            ServerWorld serverWorld2 = (ServerWorld)var7;
-            target.setVelocity(target.getVelocity().add(0.0D, (double)0.4F, 0.0D));
-            DamageSource damageSource = this.getDamageSources().mobAttack(this);
-            EnchantmentHelper.onTargetDamaged(serverWorld2, target, damageSource);
+            Level var7 = this.level();
+            ServerLevel serverWorld2 = (ServerLevel)var7;
+            target.setDeltaMovement(target.getDeltaMovement().add(0.0D, (double)0.4F, 0.0D));
+            DamageSource damageSource = this.damageSources().mobAttack(this);
+            EnchantmentHelper.doPostAttackEffects(serverWorld2, target, damageSource);
 
         }
 
@@ -129,7 +141,7 @@ public class ScuttleEntity extends WaterCreatureEntity implements RangedAttackMo
     }
 
     private float getAttackDamage() {
-        return (float)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+        return (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
     }
 
     public int getAttackAnimationTick() {
@@ -137,16 +149,16 @@ public class ScuttleEntity extends WaterCreatureEntity implements RangedAttackMo
     }
 
     @Override
-    public void handleStatus(byte status) {
+    public void handleEntityEvent(byte status) {
         if (status == 4) {
             this.attackAnimTick = 10;
         }
-        super.handleStatus(status);
+        super.handleEntityEvent(status);
 
     }
 
-    protected EntityNavigation createNavigation(World world) {
-        return new SwimNavigation(this, world);
+    protected PathNavigation createNavigation(Level world) {
+        return new WaterBoundPathNavigation(this, world);
     }
 
     public void tick()
@@ -160,13 +172,13 @@ public class ScuttleEntity extends WaterCreatureEntity implements RangedAttackMo
 
     }
 
-    public void travel(Vec3d movementInput) {
-        if (this.canMoveVoluntarily() && this.isTouchingWater()) {
-            this.updateVelocity(0.01F, movementInput);
-            this.move(MovementType.SELF, this.getVelocity());
-            this.setVelocity(this.getVelocity().multiply(0.9));
+    public void travel(Vec3 movementInput) {
+        if (this.isEffectiveAi() && this.isInWater()) {
+            this.moveRelative(0.01F, movementInput);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
             if (this.getTarget() == null) {
-                this.setVelocity(this.getVelocity().add(0.0, -0.005, 0.0));
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.005, 0.0));
             }
         } else {
             super.travel(movementInput);
@@ -175,24 +187,24 @@ public class ScuttleEntity extends WaterCreatureEntity implements RangedAttackMo
     }
 
     protected SoundEvent getFlopSound() {
-        return SoundEvents.ENTITY_GUARDIAN_FLOP;
+        return SoundEvents.GUARDIAN_FLOP;
     }
     void setProjTarget(int entityId) {
-        this.dataTracker.set(TARGET_ID, entityId);
+        this.entityData.set(TARGET_ID, entityId);
     }
     public boolean hasProjTarget() {
-        return (Integer)this.dataTracker.get(TARGET_ID) != 0;
+        return (Integer)this.entityData.get(TARGET_ID) != 0;
     }
 
     @Nullable
     public LivingEntity getProjTarget() {
         if (!this.hasProjTarget()) {
             return null;
-        } else if (this.getWorld().isClient) {
+        } else if (this.level().isClientSide) {
             if (this.cachedTarget != null) {
                 return this.cachedTarget;
             } else {
-                Entity entity = this.getWorld().getEntityById((Integer)this.dataTracker.get(TARGET_ID));
+                Entity entity = this.level().getEntity((Integer)this.entityData.get(TARGET_ID));
                 if (entity instanceof LivingEntity) {
                     this.cachedTarget = (LivingEntity)entity;
                     return this.cachedTarget;
@@ -205,28 +217,28 @@ public class ScuttleEntity extends WaterCreatureEntity implements RangedAttackMo
         }
     }
 
-    public void tickMovement() {
+    public void aiStep() {
         if (this.isAlive()) {
-            if (this.getWorld().isClient) {
+            if (this.level().isClientSide) {
                 this.prevTailAngle = this.tailAngle;
-                Vec3d vec3d;
-                if (!this.isTouchingWater()) {
-                    vec3d = this.getVelocity();
+                Vec3 vec3d;
+                if (!this.isInWater()) {
+                    vec3d = this.getDeltaMovement();
                     if (vec3d.y > 0.0 && this.flopping && !this.isSilent()) {
-                        this.getWorld().playSound(this.getX(), this.getY(), this.getZ(), this.getFlopSound(), this.getSoundCategory(), 1.0F, 1.0F, false);
+                        this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), this.getFlopSound(), this.getSoundSource(), 1.0F, 1.0F, false);
                     }
 
-                    this.flopping = vec3d.y < 0.0 && this.getWorld().isTopSolid(this.getBlockPos().down(), this);
+                    this.flopping = vec3d.y < 0.0 && this.level().loadedAndEntityCanStandOn(this.blockPosition().below(), this);
                 }
 
                 this.tailAngle += 2.0F;
 
 
-                if (this.isTouchingWater()) {
-                    vec3d = this.getRotationVec(0.0F);
+                if (this.isInWater()) {
+                    vec3d = this.getViewVector(0.0F);
 
                     for(int i = 0; i < 2; ++i) {
-                        this.getWorld().addParticle(ParticleTypes.BUBBLE, this.getParticleX(0.5) - vec3d.x * 1.5, this.getRandomBodyY() - vec3d.y * 1.5, this.getParticleZ(0.5) - vec3d.z * 1.5, 0.0, 0.0, 0.0);
+                        this.level().addParticle(ParticleTypes.BUBBLE, this.getRandomX(0.5) - vec3d.x * 1.5, this.getRandomY() - vec3d.y * 1.5, this.getRandomZ(0.5) - vec3d.z * 1.5, 0.0, 0.0, 0.0);
                     }
                 }
 
@@ -235,10 +247,10 @@ public class ScuttleEntity extends WaterCreatureEntity implements RangedAttackMo
 
                     LivingEntity livingEntity = this.getProjTarget();
                     if (livingEntity != null) {
-                        this.getLookControl().lookAt(livingEntity, 90.0F, 90.0F);
+                        this.getLookControl().setLookAt(livingEntity, 90.0F, 90.0F);
                         this.getLookControl().tick();
                         double e = livingEntity.getX() - this.getX();
-                        double f = livingEntity.getBodyY(0.5) - this.getEyeY();
+                        double f = livingEntity.getY(0.5) - this.getEyeY();
                         double g = livingEntity.getZ() - this.getZ();
                         double h = Math.sqrt(e * e + f * f + g * g);
                         e /= h;
@@ -247,69 +259,69 @@ public class ScuttleEntity extends WaterCreatureEntity implements RangedAttackMo
                         double j = this.random.nextDouble();
 
                         while(j < h) {
-                            this.getWorld().addParticle(ParticleTypes.BUBBLE, this.getX() + e * j, this.getEyeY() + f * j, this.getZ() + g * j, 0.0, 0.0, 0.0);
+                            this.level().addParticle(ParticleTypes.BUBBLE, this.getX() + e * j, this.getEyeY() + f * j, this.getZ() + g * j, 0.0, 0.0, 0.0);
                         }
                     }
                 }
             }
 
-            if (this.isInsideWaterOrBubbleColumn()) {
-                this.setAir(300);
-            } else if (this.isOnGround()) {
-                this.setVelocity(this.getVelocity().add((double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.4F), 0.5, (double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.4F)));
-                this.setYaw(this.random.nextFloat() * 360.0F);
+            if (this.isInWaterOrBubble()) {
+                this.setAirSupply(300);
+            } else if (this.onGround()) {
+                this.setDeltaMovement(this.getDeltaMovement().add((double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.4F), 0.5, (double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.4F)));
+                this.setYRot(this.random.nextFloat() * 360.0F);
                 this.setOnGround(false);
-                this.velocityDirty = true;
+                this.hasImpulse = true;
             }
 
             if (this.hasProjTarget()) {
-                this.setYaw(this.headYaw);
+                this.setYRot(this.yHeadRot);
             }
         }
 
-        if (!this.isTouchingWater() && this.isOnGround() && this.verticalCollision) {
-            this.setVelocity(this.getVelocity().add((double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4000000059604645, (double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+            this.setDeltaMovement(this.getDeltaMovement().add((double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4000000059604645, (double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
             this.setOnGround(false);
-            this.velocityDirty = true;
+            this.hasImpulse = true;
            // this.playSound(this.getFlopSound());
         }
 
-        super.tickMovement();
+        super.aiStep();
     }
 
-    public int getMinAmbientSoundDelay() {
+    public int getAmbientSoundInterval() {
         return 260;
     }
 
     protected SoundEvent getAmbientSound() {
-        return this.isInsideWaterOrBubbleColumn() ? SoundEvents.ENTITY_GUARDIAN_AMBIENT : SoundEvents.ENTITY_GUARDIAN_AMBIENT_LAND;
+        return this.isInWaterOrBubble() ? SoundEvents.GUARDIAN_AMBIENT : SoundEvents.GUARDIAN_AMBIENT_LAND;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return this.isInsideWaterOrBubbleColumn() ? SoundEvents.ENTITY_GUARDIAN_HURT : SoundEvents.ENTITY_GUARDIAN_HURT_LAND;
+        return this.isInWaterOrBubble() ? SoundEvents.GUARDIAN_HURT : SoundEvents.GUARDIAN_HURT_LAND;
     }
 
     protected SoundEvent getDeathSound() {
-        return this.isInsideWaterOrBubbleColumn() ? SoundEvents.ENTITY_GUARDIAN_DEATH : SoundEvents.ENTITY_GUARDIAN_DEATH_LAND;
+        return this.isInWaterOrBubble() ? SoundEvents.GUARDIAN_DEATH : SoundEvents.GUARDIAN_DEATH_LAND;
     }
 
     public float getTailAngle(float tickDelta) {
-        return MathHelper.lerp(tickDelta, this.prevTailAngle, this.tailAngle);
+        return Mth.lerp(tickDelta, this.prevTailAngle, this.tailAngle);
     }
 
 
-    public static boolean canSpawn(EntityType<? extends WaterCreatureEntity> entityType,
-                                   WorldAccess iServerWorld,
-                                   SpawnReason reason,
+    public static boolean checkSurfaceWaterAnimalSpawnRules(EntityType<? extends WaterAnimal> entityType,
+                                   LevelAccessor iServerWorld,
+                                   MobSpawnType reason,
                                    BlockPos pos,
-                                   Random random) {
-        return iServerWorld.getBlockState(pos).getFluidState().isIn(FluidTags.WATER)
-                && iServerWorld.getBlockState(pos.up()).isOf(Blocks.WATER)
+                                   RandomSource random) {
+        return iServerWorld.getBlockState(pos).getFluidState().is(FluidTags.WATER)
+                && iServerWorld.getBlockState(pos.above()).is(Blocks.WATER)
                 && isLightLevelOk(pos, iServerWorld);
     }
 
-    private static boolean isLightLevelOk(BlockPos pos, WorldAccess iServerWorld) {
-        int light = iServerWorld.getLightLevel(pos);
+    private static boolean isLightLevelOk(BlockPos pos, LevelAccessor iServerWorld) {
+        int light = iServerWorld.getMaxLocalRawBrightness(pos);
         return light <= 4;
     }
 
@@ -318,30 +330,30 @@ public class ScuttleEntity extends WaterCreatureEntity implements RangedAttackMo
 
         public LookAtTargetGoal(ScuttleEntity Spitter) {
             this.Spitter = Spitter;
-            this.setControls(EnumSet.of(Control.LOOK));
+            this.setFlags(EnumSet.of(Flag.LOOK));
         }
 
-        public boolean canStart() {
+        public boolean canUse() {
             return true;
         }
 
-        public boolean shouldRunEveryTick() {
+        public boolean requiresUpdateEveryTick() {
             return true;
         }
 
         public void tick() {
             if (this.Spitter.getTarget() == null) {
-                Vec3d vec3d = this.Spitter.getVelocity();
-                this.Spitter.setYaw(-((float) MathHelper.atan2(vec3d.x, vec3d.z)) * 57.295776F);
-                this.Spitter.bodyYaw = this.Spitter.getYaw();
+                Vec3 vec3d = this.Spitter.getDeltaMovement();
+                this.Spitter.setYRot(-((float) Mth.atan2(vec3d.x, vec3d.z)) * 57.295776F);
+                this.Spitter.yBodyRot = this.Spitter.getYRot();
             } else {
                 LivingEntity livingEntity = this.Spitter.getTarget();
                 double d = 64.0;
-                if (livingEntity.squaredDistanceTo(this.Spitter) < 4096.0) {
+                if (livingEntity.distanceToSqr(this.Spitter) < 4096.0) {
                     double e = livingEntity.getX() - this.Spitter.getX();
                     double f = livingEntity.getZ() - this.Spitter.getZ();
-                    this.Spitter.setYaw(-((float)MathHelper.atan2(e, f)) * 57.295776F);
-                    this.Spitter.bodyYaw = this.Spitter.getYaw();
+                    this.Spitter.setYRot(-((float)Mth.atan2(e, f)) * 57.295776F);
+                    this.Spitter.yBodyRot = this.Spitter.getYRot();
                 }
             }
 
@@ -361,40 +373,40 @@ public class ScuttleEntity extends WaterCreatureEntity implements RangedAttackMo
         }
 
         public void tick() {
-            if (this.state == State.MOVE_TO && !this.guardian.getNavigation().isIdle()) {
-                Vec3d vec3d = new Vec3d(this.targetX - this.guardian.getX(), this.targetY - this.guardian.getY(), this.targetZ - this.guardian.getZ());
+            if (this.operation == Operation.MOVE_TO && !this.guardian.getNavigation().isDone()) {
+                Vec3 vec3d = new Vec3(this.wantedX - this.guardian.getX(), this.wantedY - this.guardian.getY(), this.wantedZ - this.guardian.getZ());
                 double d = vec3d.length();
                 double e = vec3d.x / d;
                 double f = vec3d.y / d;
                 double g = vec3d.z / d;
-                float h = (float)(MathHelper.atan2(vec3d.z, vec3d.x) * 57.2957763671875) - 90.0F;
-                this.guardian.setYaw(this.wrapDegrees(this.guardian.getYaw(), h, 90.0F));
-                this.guardian.bodyYaw = this.guardian.getYaw();
-                float i = (float)(this.speed * this.guardian.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
-                float j = MathHelper.lerp(0.125F, this.guardian.getMovementSpeed(), i);
-                this.guardian.setMovementSpeed(j);
-                double k = Math.sin((double)(this.guardian.age + this.guardian.getId()) * 0.5) * 0.05;
-                double l = Math.cos((double)(this.guardian.getYaw() * 0.017453292F));
-                double m = Math.sin((double)(this.guardian.getYaw() * 0.017453292F));
-                double n = Math.sin((double)(this.guardian.age + this.guardian.getId()) * 0.75) * 0.05;
-                this.guardian.setVelocity(this.guardian.getVelocity().add(k * l, n * (m + l) * 0.25 + (double)j * f * 0.1, k * m));
+                float h = (float)(Mth.atan2(vec3d.z, vec3d.x) * 57.2957763671875) - 90.0F;
+                this.guardian.setYRot(this.rotlerp(this.guardian.getYRot(), h, 90.0F));
+                this.guardian.yBodyRot = this.guardian.getYRot();
+                float i = (float)(this.speedModifier * this.guardian.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                float j = Mth.lerp(0.125F, this.guardian.getSpeed(), i);
+                this.guardian.setSpeed(j);
+                double k = Math.sin((double)(this.guardian.tickCount + this.guardian.getId()) * 0.5) * 0.05;
+                double l = Math.cos((double)(this.guardian.getYRot() * 0.017453292F));
+                double m = Math.sin((double)(this.guardian.getYRot() * 0.017453292F));
+                double n = Math.sin((double)(this.guardian.tickCount + this.guardian.getId()) * 0.75) * 0.05;
+                this.guardian.setDeltaMovement(this.guardian.getDeltaMovement().add(k * l, n * (m + l) * 0.25 + (double)j * f * 0.1, k * m));
                 LookControl lookControl = this.guardian.getLookControl();
                 double o = this.guardian.getX() + e * 2.0;
                 double p = this.guardian.getEyeY() + f / d;
                 double q = this.guardian.getZ() + g * 2.0;
-                double r = lookControl.getLookX();
-                double s = lookControl.getLookY();
-                double t = lookControl.getLookZ();
-                if (!lookControl.isLookingAtSpecificPosition()) {
+                double r = lookControl.getWantedX();
+                double s = lookControl.getWantedY();
+                double t = lookControl.getWantedZ();
+                if (!lookControl.isLookingAtTarget()) {
                     r = o;
                     s = p;
                     t = q;
                 }
 
-                this.guardian.getLookControl().lookAt(MathHelper.lerp(0.125, r, o), MathHelper.lerp(0.125, s, p), MathHelper.lerp(0.125, t, q), 10.0F, 40.0F);
+                this.guardian.getLookControl().setLookAt(Mth.lerp(0.125, r, o), Mth.lerp(0.125, s, p), Mth.lerp(0.125, t, q), 10.0F, 40.0F);
 
             } else {
-                this.guardian.setMovementSpeed(0.0F);
+                this.guardian.setSpeed(0.0F);
 
             }
         }
@@ -403,6 +415,6 @@ public class ScuttleEntity extends WaterCreatureEntity implements RangedAttackMo
 
 
     static {
-        TARGET_ID = DataTracker.registerData(ScuttleEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        TARGET_ID = SynchedEntityData.defineId(ScuttleEntity.class, EntityDataSerializers.INT);
     }
 }

@@ -1,16 +1,16 @@
 package com.jamiedev.mod.common.client;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
 
 public class JamiesModUtilClient {
-    public static ClientPlayerEntity getClientPlayer() {
-        return MinecraftClient.getInstance().player;
+    public static LocalPlayer getClientPlayer() {
+        return Minecraft.getInstance().player;
     }
 
-    public static ClientWorld getClientLevel() {
-        return MinecraftClient.getInstance().world;
+    public static ClientLevel getClientLevel() {
+        return Minecraft.getInstance().level;
     }
 
 }

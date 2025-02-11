@@ -2,9 +2,9 @@ package com.jamiedev.mod.common.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.world.gen.feature.FeatureConfig;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class PointedAmberFeatureConfig  implements FeatureConfig {
+public class PointedAmberFeatureConfig  implements FeatureConfiguration {
     public static final Codec<PointedAmberFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("chance_of_taller_amber").orElse(0.2F).forGetter((config) -> {
             return config.chanceOfTallerAmber;

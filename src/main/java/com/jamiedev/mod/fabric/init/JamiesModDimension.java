@@ -1,19 +1,19 @@
 package com.jamiedev.mod.fabric.init;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionOptions;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.dimension.LevelStem;
 public class JamiesModDimension
 {
-    public static final RegistryKey<DimensionOptions> BYGONE = RegistryKey.of(RegistryKeys.DIMENSION,
+    public static final ResourceKey<LevelStem> BYGONE = ResourceKey.create(Registries.LEVEL_STEM,
             JamiesModFabric.getModId( "bygone"));
-    public static final RegistryKey<World> BYGONE_LEVEL_KEY = RegistryKey.of(RegistryKeys.WORLD,
+    public static final ResourceKey<Level> BYGONE_LEVEL_KEY = ResourceKey.create(Registries.DIMENSION,
             JamiesModFabric.getModId( "bygone"));
 
-    public static final RegistryKey<DimensionType> BYGONE_TYPE = RegistryKey.of(RegistryKeys.DIMENSION_TYPE,
+    public static final ResourceKey<DimensionType> BYGONE_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE,
             JamiesModFabric.getModId( "bygone_type"));
 }
 

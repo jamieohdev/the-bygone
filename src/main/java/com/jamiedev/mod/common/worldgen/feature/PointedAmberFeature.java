@@ -1,41 +1,40 @@
 package com.jamiedev.mod.common.worldgen.feature;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.util.FeatureContext;
-
 import java.util.Iterator;
 import java.util.Optional;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
 public class PointedAmberFeature  extends Feature<PointedAmberFeatureConfig> {
     public PointedAmberFeature(Codec<PointedAmberFeatureConfig> codec) {
         super(codec);
     }
 
-    public boolean generate(FeatureContext<PointedAmberFeatureConfig> context) {
-        WorldAccess worldAccess = context.getWorld();
-        BlockPos blockPos = context.getOrigin();
-        Random random = context.getRandom();
-        PointedAmberFeatureConfig smallAmberFeatureConfig = (PointedAmberFeatureConfig)context.getConfig();
+    public boolean place(FeaturePlaceContext<PointedAmberFeatureConfig> context) {
+        LevelAccessor worldAccess = context.level();
+        BlockPos blockPos = context.origin();
+        RandomSource random = context.random();
+        PointedAmberFeatureConfig smallAmberFeatureConfig = (PointedAmberFeatureConfig)context.config();
         Optional<Direction> optional = getDirection(worldAccess, blockPos, random);
         if (optional.isEmpty()) {
             return false;
         } else {
-            BlockPos blockPos2 = blockPos.offset(((Direction)optional.get()).getOpposite());
+            BlockPos blockPos2 = blockPos.relative(((Direction)optional.get()).getOpposite());
             generateAmberBlocks(worldAccess, random, blockPos2, smallAmberFeatureConfig);
-            int i = random.nextFloat() < smallAmberFeatureConfig.chanceOfTallerAmber && AmberHelper.canGenerate(worldAccess.getBlockState(blockPos.offset((Direction)optional.get()))) ? 2 : 1;
+            int i = random.nextFloat() < smallAmberFeatureConfig.chanceOfTallerAmber && AmberHelper.canGenerate(worldAccess.getBlockState(blockPos.relative((Direction)optional.get()))) ? 2 : 1;
             AmberHelper.generatePointedAmber(worldAccess, blockPos, (Direction)optional.get(), i, false);
             return true;
         }
     }
 
-    private static Optional<Direction> getDirection(WorldAccess world, BlockPos pos, Random random) {
-        boolean bl = AmberHelper.canReplace(world.getBlockState(pos.up()));
-        boolean bl2 = AmberHelper.canReplace(world.getBlockState(pos.down()));
+    private static Optional<Direction> getDirection(LevelAccessor world, BlockPos pos, RandomSource random) {
+        boolean bl = AmberHelper.canReplace(world.getBlockState(pos.above()));
+        boolean bl2 = AmberHelper.canReplace(world.getBlockState(pos.below()));
         if (bl && bl2) {
             return Optional.of(random.nextBoolean() ? Direction.DOWN : Direction.UP);
         } else if (bl) {
@@ -45,20 +44,20 @@ public class PointedAmberFeature  extends Feature<PointedAmberFeatureConfig> {
         }
     }
 
-    private static void generateAmberBlocks(WorldAccess world, Random random, BlockPos pos, PointedAmberFeatureConfig config) {
+    private static void generateAmberBlocks(LevelAccessor world, RandomSource random, BlockPos pos, PointedAmberFeatureConfig config) {
         AmberHelper.generateAmberBlock(world, pos);
-        Iterator var4 = Direction.Type.HORIZONTAL.iterator();
+        Iterator var4 = Direction.Plane.HORIZONTAL.iterator();
 
         while(var4.hasNext()) {
             Direction direction = (Direction)var4.next();
             if (!(random.nextFloat() > config.chanceOfDirectionalSpread)) {
-                BlockPos blockPos = pos.offset(direction);
+                BlockPos blockPos = pos.relative(direction);
                 AmberHelper.generateAmberBlock(world, blockPos);
                 if (!(random.nextFloat() > config.chanceOfSpreadRadius2)) {
-                    BlockPos blockPos2 = blockPos.offset(Direction.random(random));
+                    BlockPos blockPos2 = blockPos.relative(Direction.getRandom(random));
                     AmberHelper.generateAmberBlock(world, blockPos2);
                     if (!(random.nextFloat() > config.chanceOfSpreadRadius3)) {
-                        BlockPos blockPos3 = blockPos2.offset(Direction.random(random));
+                        BlockPos blockPos3 = blockPos2.relative(Direction.getRandom(random));
                         AmberHelper.generateAmberBlock(world, blockPos3);
                     }
                 }

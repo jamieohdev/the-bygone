@@ -2,10 +2,10 @@ package com.jamiedev.mod.fabric.init;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import net.minecraft.particle.ParticleType;
-import net.minecraft.particle.SimpleParticleType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 public class JamiesModParticleTypes
 {
 
@@ -18,11 +18,11 @@ public class JamiesModParticleTypes
     public static final ParticleType<SimpleParticleType> ANCIENT_LEAVES = FabricParticleTypes.simple();
 
     public static void init() {
-        Registry.register(Registries.PARTICLE_TYPE, JamiesModFabric.getModId( "rafflesia_spores"), RAFFLESIA_SPORES);
-        Registry.register(Registries.PARTICLE_TYPE, JamiesModFabric.getModId( "algae_bloom"), ALGAE_BLOOM);
-        Registry.register(Registries.PARTICLE_TYPE, JamiesModFabric.getModId( "blemish_bubble"), BLEMISH);
-        Registry.register(Registries.PARTICLE_TYPE, JamiesModFabric.getModId( "amber_dust"), AMBER_DUST);
-        Registry.register(Registries.PARTICLE_TYPE, JamiesModFabric.getModId( "shelf"), SHELF);
-        Registry.register(Registries.PARTICLE_TYPE, JamiesModFabric.getModId( "ancient_leaves"), ANCIENT_LEAVES);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, JamiesModFabric.getModId( "rafflesia_spores"), RAFFLESIA_SPORES);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, JamiesModFabric.getModId( "algae_bloom"), ALGAE_BLOOM);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, JamiesModFabric.getModId( "blemish_bubble"), BLEMISH);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, JamiesModFabric.getModId( "amber_dust"), AMBER_DUST);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, JamiesModFabric.getModId( "shelf"), SHELF);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, JamiesModFabric.getModId( "ancient_leaves"), ANCIENT_LEAVES);
     }
 }

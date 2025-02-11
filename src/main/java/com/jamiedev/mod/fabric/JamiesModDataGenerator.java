@@ -6,8 +6,8 @@ import com.jamiedev.mod.fabric.init.JamiesModConfiguredFeatures;
 import com.jamiedev.mod.fabric.init.JamiesModPlacedFeatures;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 
 
 public class JamiesModDataGenerator implements DataGeneratorEntrypoint {
@@ -22,10 +22,10 @@ public class JamiesModDataGenerator implements DataGeneratorEntrypoint {
 	}
 
 	@Override
-	public void buildRegistry(RegistryBuilder registryBuilder) {
-		registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, JamiesModConfiguredFeatures::bootstrap);
-		registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, JamiesModPlacedFeatures::bootstrap);
-		registryBuilder.addRegistry(RegistryKeys.BIOME, JamiesModBiomes::bootstrap);
+	public void buildRegistry(RegistrySetBuilder registryBuilder) {
+		registryBuilder.add(Registries.CONFIGURED_FEATURE, JamiesModConfiguredFeatures::bootstrap);
+		registryBuilder.add(Registries.PLACED_FEATURE, JamiesModPlacedFeatures::bootstrap);
+		registryBuilder.add(Registries.BIOME, JamiesModBiomes::bootstrap);
 
 		/**registryBuilder.addRegistry(RegistryKeys.PROCESSOR_LIST, JamiesModProcessorLists::bootstrap);
 		registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, JamiesModStructureSets::bootstrap);

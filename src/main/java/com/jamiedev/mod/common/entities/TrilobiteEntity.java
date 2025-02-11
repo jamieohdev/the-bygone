@@ -1,88 +1,88 @@
 package com.jamiedev.mod.common.entities;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.WaterCreatureEntity;
-import net.minecraft.entity.passive.FishEntity;
-import net.minecraft.entity.passive.GlowSquidEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.GlowSquid;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 
-public class TrilobiteEntity extends FishEntity
+public class TrilobiteEntity extends AbstractFish
 {
-    GlowSquidEntity ref;
-    private static final TrackedData<Integer> DARK_TICKS_REMAINING1;
-    public TrilobiteEntity(EntityType<? extends TrilobiteEntity> entityType, World world) {
+    GlowSquid ref;
+    private static final EntityDataAccessor<Integer> DARK_TICKS_REMAINING1;
+    public TrilobiteEntity(EntityType<? extends TrilobiteEntity> entityType, Level world) {
         super(entityType, world);
     }
 
-    public static DefaultAttributeContainer.Builder createAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 5.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35);
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 5.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.35);
     }
 
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
-        builder.add(DARK_TICKS_REMAINING1, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DARK_TICKS_REMAINING1, 0);
     }
 
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
+    public void addAdditionalSaveData(CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
         nbt.putInt("DarkTicksRemaining", this.getDarkTicksRemaining());
     }
 
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
+    public void readAdditionalSaveData(CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
         this.setDarkTicksRemaining(nbt.getInt("DarkTicksRemaining"));
     }
 
-    public static boolean canSpawn(EntityType<? extends WaterCreatureEntity> type, WorldAccess world, SpawnReason reason, BlockPos pos, Random random) {
+    public static boolean checkSurfaceWaterAnimalSpawnRules(EntityType<? extends WaterAnimal> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, RandomSource random) {
         int i = world.getSeaLevel();
         int j = i - 13;
 
-        return  world.getBlockState(pos).getFluidState().isIn(FluidTags.WATER)
-                    && world.getBlockState(pos.up()).isOf(Blocks.WATER);
+        return  world.getBlockState(pos).getFluidState().is(FluidTags.WATER)
+                    && world.getBlockState(pos.above()).is(Blocks.WATER);
     }
 
 
 
     @Override
     protected SoundEvent getFlopSound() {
-        return SoundEvents.ENTITY_TADPOLE_FLOP;
+        return SoundEvents.TADPOLE_FLOP;
     }
 
     @Override
-    public ItemStack getBucketItem() {
-        return Items.WATER_BUCKET.getDefaultStack();
+    public ItemStack getBucketItemStack() {
+        return Items.WATER_BUCKET.getDefaultInstance();
     }
 
     private void setDarkTicksRemaining(int ticks) {
-        this.dataTracker.set(DARK_TICKS_REMAINING1, ticks);
+        this.entityData.set(DARK_TICKS_REMAINING1, ticks);
     }
 
     public int getDarkTicksRemaining() {
-        return (Integer)this.dataTracker.get(DARK_TICKS_REMAINING1);
+        return (Integer)this.entityData.get(DARK_TICKS_REMAINING1);
     }
 
 
 
     static {
-        DARK_TICKS_REMAINING1 = DataTracker.registerData(TrilobiteEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        DARK_TICKS_REMAINING1 = SynchedEntityData.defineId(TrilobiteEntity.class, EntityDataSerializers.INT);
     }
 }

@@ -1,21 +1,21 @@
 package com.jamiedev.mod.fabric.init;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
-import net.minecraft.advancement.criterion.Criterion;
-import net.minecraft.advancement.criterion.OnKilledCriterion;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.advancements.critereon.KilledTrigger;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 
 public class JamiesModCriteria
 {
-    public static final OnKilledCriterion KILLED_BY_BLEMISH_CRITERION = new OnKilledCriterion();
+    public static final KilledTrigger KILLED_BY_BLEMISH_CRITERION = new KilledTrigger();
 
     public static void init() {
-        Registry.register(Registries.CRITERION, JamiesModFabric.getModId("killed_by_blemish"), KILLED_BY_BLEMISH_CRITERION);
+        Registry.register(BuiltInRegistries.TRIGGER_TYPES, JamiesModFabric.getModId("killed_by_blemish"), KILLED_BY_BLEMISH_CRITERION);
     }
 
-    public static <T extends Criterion<?>> T register(String id, T criterion) {
-        return (T) Registry.register(Registries.CRITERION, Identifier.of(JamiesModFabric.MOD_ID, id), criterion);
+    public static <T extends CriterionTrigger<?>> T register(String id, T criterion) {
+        return (T) Registry.register(BuiltInRegistries.TRIGGER_TYPES, ResourceLocation.fromNamespaceAndPath(JamiesModFabric.MOD_ID, id), criterion);
     }
 }

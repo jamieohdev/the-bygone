@@ -1,101 +1,101 @@
 package com.jamiedev.mod.common.entities;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.control.AquaticMoveControl;
-import net.minecraft.entity.ai.control.LookControl;
-import net.minecraft.entity.ai.goal.FleeEntityGoal;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.WaterCreatureEntity;
-import net.minecraft.entity.passive.SalmonEntity;
-import net.minecraft.entity.passive.SchoolingFishEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.LookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.animal.AbstractSchoolingFish;
+import net.minecraft.world.entity.animal.Salmon;
+import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 
-public class CoelacanthEntity extends SchoolingFishEntity
+public class CoelacanthEntity extends AbstractSchoolingFish
 {
-    SalmonEntity ref;
+    Salmon ref;
 
-    public CoelacanthEntity(EntityType<? extends CoelacanthEntity> entityType, World world) {
+    public CoelacanthEntity(EntityType<? extends CoelacanthEntity> entityType, Level world) {
         super(entityType, world);
-        this.moveControl = new AquaticMoveControl(this, 85, 10, 0.02F, 0.1F, true);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
         this.lookControl = new LookControl(this);
     }
 
-    public static DefaultAttributeContainer.Builder createAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0);
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 4.0);
     }
-    protected void initGoals() {
-        super.initGoals();
-        this.goalSelector.add(0, new FleeEntityGoal<>(this, PlayerEntity.class, 6.0F, 1.0, 1.2));
-        this.goalSelector.add(1, new TemptGoal(this, 3.0, (stack) -> {
-            return stack.isIn(ItemTags.ARMADILLO_FOOD);
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.0, 1.2));
+        this.goalSelector.addGoal(1, new TemptGoal(this, 3.0, (stack) -> {
+            return stack.is(ItemTags.ARMADILLO_FOOD);
         }, false));
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_SALMON_AMBIENT;
+        return SoundEvents.SALMON_AMBIENT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_SALMON_DEATH;
+        return SoundEvents.SALMON_DEATH;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_SALMON_HURT;
+        return SoundEvents.SALMON_HURT;
     }
 
     protected SoundEvent getFlopSound() {
-        return SoundEvents.ENTITY_SALMON_FLOP;
+        return SoundEvents.SALMON_FLOP;
     }
 
     @Override
-    public ItemStack getBucketItem() {
-        return Items.WATER_BUCKET.getDefaultStack();
+    public ItemStack getBucketItemStack() {
+        return Items.WATER_BUCKET.getDefaultInstance();
     }
 
-    public boolean damage(DamageSource source, float amount) {
-        if (this.getWorld().isClient) {
+    public boolean hurt(DamageSource source, float amount) {
+        if (this.level().isClientSide) {
             return false;
         } else {
-            if (!source.isIn(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !source.isOf(DamageTypes.THORNS)) {
-                Entity var4 = source.getSource();
+            if (!source.is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !source.is(DamageTypes.THORNS)) {
+                Entity var4 = source.getDirectEntity();
                 if (var4 instanceof LivingEntity) {
                     LivingEntity livingEntity = (LivingEntity)var4;
-                    livingEntity.damage(this.getDamageSources().thorns(this), 0.1F);
-                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 60, 0), this);
-                    this.playSound(SoundEvents.BLOCK_CALCITE_HIT, 1.0F, 1.0F);
+                    livingEntity.hurt(this.damageSources().thorns(this), 0.1F);
+                    livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0), this);
+                    this.playSound(SoundEvents.CALCITE_HIT, 1.0F, 1.0F);
                 }
             }
-            return super.damage(source, amount);
+            return super.hurt(source, amount);
         }
     }
 
-    public static boolean canSpawn(EntityType<? extends WaterCreatureEntity> type, WorldAccess world, SpawnReason reason, BlockPos pos, Random random) {
+    public static boolean checkSurfaceWaterAnimalSpawnRules(EntityType<? extends WaterAnimal> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, RandomSource random) {
         int i = world.getSeaLevel();
         int j = i - 13;
-        return pos.getY() >= j && pos.getY() <= i && world.getFluidState(pos.down()).isIn(FluidTags.WATER) && world.getBlockState(pos.up()).isOf(Blocks.WATER);
+        return pos.getY() >= j && pos.getY() <= i && world.getFluidState(pos.below()).is(FluidTags.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER);
     }
 
 

@@ -3,61 +3,67 @@ package com.jamiedev.mod.common.blocks;
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Property;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.GrowingPlantBodyBlock;
+import net.minecraft.world.level.block.GrowingPlantHeadBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.phys.BlockHitResult;
 
-public class AncientCaveVinesBodyBlock  extends AbstractPlantBlock implements Fertilizable, AncientCaveVines {
-    public static final MapCodec<AncientCaveVinesBodyBlock> CODEC = createCodec(AncientCaveVinesBodyBlock::new);
+public class AncientCaveVinesBodyBlock  extends GrowingPlantBodyBlock implements BonemealableBlock, AncientCaveVines {
+    public static final MapCodec<AncientCaveVinesBodyBlock> CODEC = simpleCodec(AncientCaveVinesBodyBlock::new);
 
-    public MapCodec<AncientCaveVinesBodyBlock> getCodec() {
+    public MapCodec<AncientCaveVinesBodyBlock> codec() {
         return CODEC;
     }
 
-    public AncientCaveVinesBodyBlock(AbstractBlock.Settings settings) {
+    public AncientCaveVinesBodyBlock(BlockBehaviour.Properties settings) {
         super(settings, Direction.DOWN, SHAPE, false);
-        this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(BERRIES, false));
+        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(BERRIES, false));
     }
 
-    protected AbstractPlantStemBlock getStem() {
-        return (AbstractPlantStemBlock) JamiesModBlocks.CAVE_VINES;
+    protected GrowingPlantHeadBlock getHeadBlock() {
+        return (GrowingPlantHeadBlock) JamiesModBlocks.CAVE_VINES;
     }
 
-    protected BlockState copyState(BlockState from, BlockState to) {
-        return (BlockState)to.with(BERRIES, (Boolean)from.get(BERRIES));
+    protected BlockState updateHeadAfterConvertedFromBody(BlockState from, BlockState to) {
+        return (BlockState)to.setValue(BERRIES, (Boolean)from.getValue(BERRIES));
     }
 
-    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
         return new ItemStack(JamiesModBlocks.CAVE_VINES_PLANT);
     }
 
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         return AncientCaveVines.pickBerries(player, state, world, pos);
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(new Property[]{BERRIES});
     }
 
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
-        return !(Boolean)state.get(BERRIES);
+    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
+        return !(Boolean)state.getValue(BERRIES);
     }
 
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        world.setBlockState(pos, (BlockState)state.with(BERRIES, true), 2);
+    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
+        world.setBlock(pos, (BlockState)state.setValue(BERRIES, true), 2);
     }
 
 }

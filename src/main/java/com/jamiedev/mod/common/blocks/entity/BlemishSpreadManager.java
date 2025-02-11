@@ -14,23 +14,23 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectIterator;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.MultifaceGrowthBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.nbt.Tag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
@@ -102,7 +102,7 @@ public class BlemishSpreadManager {
         this.cursors.clear();
     }
 
-    public void readNbt(NbtCompound nbt) {
+    public void readNbt(CompoundTag nbt) {
         if (nbt.contains("cursors", 9)) {
             this.cursors.clear();
             DataResult<List> var10000 = Cursor.CODEC.listOf().parse(new Dynamic(NbtOps.INSTANCE, nbt.getList("cursors", 10)));
@@ -118,12 +118,12 @@ public class BlemishSpreadManager {
 
     }
 
-    public void writeNbt(NbtCompound nbt) {
-        DataResult<NbtElement> var10000 = BlemishSpreadManager.Cursor.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.cursors);
+    public void writeNbt(CompoundTag nbt) {
+        DataResult<Tag> var10000 = BlemishSpreadManager.Cursor.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.cursors);
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);
         var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> {
-            nbt.put("cursors", (NbtElement) cursorsNbt);
+            nbt.put("cursors", (Tag) cursorsNbt);
         });
     }
 
@@ -142,7 +142,7 @@ public class BlemishSpreadManager {
         }
     }
 
-    public void tick(WorldAccess world, BlockPos pos, Random random, boolean shouldConvertToBlock) {
+    public void tick(LevelAccessor world, BlockPos pos, RandomSource random, boolean shouldConvertToBlock) {
         if (!this.cursors.isEmpty()) {
             List<BlemishSpreadManager.Cursor> list = new ArrayList<>();
             Map<BlockPos, BlemishSpreadManager.Cursor> map = new HashMap<>();
@@ -155,7 +155,7 @@ public class BlemishSpreadManager {
                     BlemishSpreadManager.Cursor cursor = (BlemishSpreadManager.Cursor)var8.next();
                     cursor.spread(world, pos, random, this, shouldConvertToBlock);
                     if (cursor.charge <= 0) {
-                        world.syncWorldEvent(6006, cursor.getPos(), 0);
+                        world.levelEvent(6006, cursor.getPos(), 0);
                     } else {
                         blockPos = cursor.getPos();
                         object2IntMap.computeInt(blockPos, (posx, charge) -> {
@@ -186,8 +186,8 @@ public class BlemishSpreadManager {
                     Collection<Direction> collection = cursor3 == null ? null : cursor3.getFaces();
                     if (i > 0 && collection != null) {
                         int j = (int)(Math.log1p((double)i) / 2.299999952316284) + 1;
-                        int k = (j << 6) + MultifaceGrowthBlock.directionsToFlag(collection);
-                        world.syncWorldEvent(6006, blockPos, k);
+                        int k = (j << 6) + MultifaceBlock.pack(collection);
+                        world.levelEvent(6006, blockPos, k);
                     }
                 }
 
@@ -199,9 +199,9 @@ public class BlemishSpreadManager {
 
     public static class Cursor {
         private static final ObjectArrayList OFFSETS = (ObjectArrayList) Util.make(new ObjectArrayList(18), (list) -> {
-            Stream var10000 = BlockPos.stream(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1)).filter((pos) -> {
-                return (pos.getX() == 0 || pos.getY() == 0 || pos.getZ() == 0) && !pos.equals(BlockPos.ORIGIN);
-            }).map(BlockPos::toImmutable);
+            Stream var10000 = BlockPos.betweenClosedStream(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1)).filter((pos) -> {
+                return (pos.getX() == 0 || pos.getY() == 0 || pos.getZ() == 0) && !pos.equals(BlockPos.ZERO);
+            }).map(BlockPos::immutable);
             Objects.requireNonNull(list);
             var10000.forEach(list::add);
         });
@@ -244,20 +244,20 @@ public class BlemishSpreadManager {
             return this.faces;
         }
 
-        private boolean canSpread(WorldAccess world, BlockPos pos, boolean worldGen) {
+        private boolean canSpread(LevelAccessor world, BlockPos pos, boolean worldGen) {
             if (this.charge <= 0) {
                 return false;
             } else if (worldGen) {
                 return true;
-            } else if (world instanceof ServerWorld) {
-                ServerWorld serverWorld = (ServerWorld)world;
-                return serverWorld.shouldTickBlockPos(pos);
+            } else if (world instanceof ServerLevel) {
+                ServerLevel serverWorld = (ServerLevel)world;
+                return serverWorld.shouldTickBlocksAt(pos);
             } else {
                 return false;
             }
         }
 
-        public void spread(WorldAccess world, BlockPos pos, Random random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock) {
+        public void spread(LevelAccessor world, BlockPos pos, RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock) {
             if (this.canSpread(world, pos, spreadManager.worldGen)) {
                 if (this.update > 0) {
                     --this.update;
@@ -270,7 +270,7 @@ public class BlemishSpreadManager {
                             BlemishSpreadable = getSpreadable(blockState);
                         }
 
-                        world.playSound((PlayerEntity)null, this.pos, SoundEvents.BLOCK_SCULK_SPREAD, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        world.playSound((Player)null, this.pos, SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.BLOCKS, 1.0F, 1.0F);
                     }
 
                     this.charge = BlemishSpreadable.spread(this, world, pos, random, spreadManager, shouldConvertToBlock);
@@ -280,8 +280,8 @@ public class BlemishSpreadManager {
                         BlockPos blockPos = getSpreadPos(world, this.pos, random);
                         if (blockPos != null) {
                             BlemishSpreadable.spreadAtSamePosition(world, blockState, this.pos, random);
-                            this.pos = blockPos.toImmutable();
-                            if (spreadManager.isWorldGen() && !this.pos.isWithinDistance(new Vec3i(pos.getX(), this.pos.getY(), pos.getZ()), 15.0)) {
+                            this.pos = blockPos.immutable();
+                            if (spreadManager.isWorldGen() && !this.pos.closerThan(new Vec3i(pos.getX(), this.pos.getY(), pos.getZ()), 15.0)) {
                                 this.charge = 0;
                                 return;
                             }
@@ -290,7 +290,7 @@ public class BlemishSpreadManager {
                         }
 
                         if (blockState.getBlock() instanceof BlemishSpreadable) {
-                            this.faces = MultifaceGrowthBlock.collectDirections(blockState);
+                            this.faces = MultifaceBlock.availableFaces(blockState);
                         }
 
                         this.decay = BlemishSpreadable.getDecay(this.decay);
@@ -318,19 +318,19 @@ public class BlemishSpreadManager {
             return var10000;
         }
 
-        private static List<Vec3i> shuffleOffsets(Random random) {
-            return Util.copyShuffled(OFFSETS, random);
+        private static List<Vec3i> shuffleOffsets(RandomSource random) {
+            return Util.shuffledCopy(OFFSETS, random);
         }
 
         @Nullable
-        private static BlockPos getSpreadPos(WorldAccess world, BlockPos pos, Random random) {
-            BlockPos.Mutable mutable = pos.mutableCopy();
-            BlockPos.Mutable mutable2 = pos.mutableCopy();
+        private static BlockPos getSpreadPos(LevelAccessor world, BlockPos pos, RandomSource random) {
+            BlockPos.MutableBlockPos mutable = pos.mutable();
+            BlockPos.MutableBlockPos mutable2 = pos.mutable();
             Iterator var5 = shuffleOffsets(random).iterator();
 
             while(var5.hasNext()) {
                 Vec3i vec3i = (Vec3i)var5.next();
-                mutable2.set(pos, vec3i);
+                mutable2.setWithOffset(pos, vec3i);
                 BlockState blockState = world.getBlockState(mutable2);
                 if (blockState.getBlock() instanceof BlemishSpreadable && canSpread(world, pos, (BlockPos)mutable2)) {
                     mutable.set(mutable2);
@@ -343,14 +343,14 @@ public class BlemishSpreadManager {
             return mutable.equals(pos) ? null : mutable;
         }
 
-        private static boolean canSpread(WorldAccess world, BlockPos sourcePos, BlockPos targetPos) {
-            if (sourcePos.getManhattanDistance(targetPos) == 1) {
+        private static boolean canSpread(LevelAccessor world, BlockPos sourcePos, BlockPos targetPos) {
+            if (sourcePos.distManhattan(targetPos) == 1) {
                 return true;
             } else {
                 BlockPos blockPos = targetPos.subtract(sourcePos);
-                Direction direction = Direction.from(Direction.Axis.X, blockPos.getX() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-                Direction direction2 = Direction.from(Direction.Axis.Y, blockPos.getY() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-                Direction direction3 = Direction.from(Direction.Axis.Z, blockPos.getZ() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+                Direction direction = Direction.fromAxisAndDirection(Direction.Axis.X, blockPos.getX() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+                Direction direction2 = Direction.fromAxisAndDirection(Direction.Axis.Y, blockPos.getY() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+                Direction direction3 = Direction.fromAxisAndDirection(Direction.Axis.Z, blockPos.getZ() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
                 if (blockPos.getX() == 0) {
                     return canSpread(world, sourcePos, direction2) || canSpread(world, sourcePos, direction3);
                 } else if (blockPos.getY() == 0) {
@@ -361,9 +361,9 @@ public class BlemishSpreadManager {
             }
         }
 
-        private static boolean canSpread(WorldAccess world, BlockPos pos, Direction direction) {
-            BlockPos blockPos = pos.offset(direction);
-            return !world.getBlockState(blockPos).isSideSolidFullSquare(world, blockPos, direction.getOpposite());
+        private static boolean canSpread(LevelAccessor world, BlockPos pos, Direction direction) {
+            BlockPos blockPos = pos.relative(direction);
+            return !world.getBlockState(blockPos).isFaceSturdy(world, blockPos, direction.getOpposite());
         }
 
         static {

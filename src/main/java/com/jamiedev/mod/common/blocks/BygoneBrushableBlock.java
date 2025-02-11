@@ -4,102 +4,109 @@ import com.jamiedev.mod.common.blocks.entity.BygoneBrushableBlockEntity;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BrushableBlockEntity;
-import net.minecraft.entity.FallingBlockEntity;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.Registries;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Fallable;
+import net.minecraft.world.level.block.FallingBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BrushableBlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class BygoneBrushableBlock extends BlockWithEntity implements LandingBlock {
+public class BygoneBrushableBlock extends BaseEntityBlock implements Fallable {
     public static final MapCodec<BygoneBrushableBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-        return instance.group(Registries.BLOCK.getCodec().fieldOf("turns_into").forGetter(BygoneBrushableBlock::getBaseBlock),
-                Registries.SOUND_EVENT.getCodec().fieldOf("brush_sound").forGetter(BygoneBrushableBlock::getBrushingSound),
-                Registries.SOUND_EVENT.getCodec().fieldOf("brush_completed_sound").forGetter(BygoneBrushableBlock::getBrushingCompleteSound),
-                createSettingsCodec()).apply(instance, BygoneBrushableBlock::new);
+        return instance.group(BuiltInRegistries.BLOCK.byNameCodec().fieldOf("turns_into").forGetter(BygoneBrushableBlock::getBaseBlock),
+                BuiltInRegistries.SOUND_EVENT.byNameCodec().fieldOf("brush_sound").forGetter(BygoneBrushableBlock::getBrushingSound),
+                BuiltInRegistries.SOUND_EVENT.byNameCodec().fieldOf("brush_completed_sound").forGetter(BygoneBrushableBlock::getBrushingCompleteSound),
+                propertiesCodec()).apply(instance, BygoneBrushableBlock::new);
     });
-    private static final IntProperty DUSTED;
+    private static final IntegerProperty DUSTED;
     public static final int field_42773 = 2;
     private final Block baseBlock;
     private final SoundEvent brushingSound;
     private final SoundEvent brushingCompleteSound;
 
-    public MapCodec<BygoneBrushableBlock> getCodec() {
+    public MapCodec<BygoneBrushableBlock> codec() {
         return CODEC;
     }
 
-    public BygoneBrushableBlock(Block baseBlock, SoundEvent brushingSound, SoundEvent brushingCompleteSound, AbstractBlock.Settings settings) {
+    public BygoneBrushableBlock(Block baseBlock, SoundEvent brushingSound, SoundEvent brushingCompleteSound, BlockBehaviour.Properties settings) {
         super(settings);
         this.baseBlock = baseBlock;
         this.brushingSound = brushingSound;
         this.brushingCompleteSound = brushingCompleteSound;
-        this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(DUSTED, 0));
+        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(DUSTED, 0));
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(new Property[]{DUSTED});
     }
 
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
-    public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-        world.scheduleBlockTick(pos, this, 2);
+    public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean notify) {
+        world.scheduleTick(pos, this, 2);
     }
 
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        world.scheduleBlockTick(pos, this, 2);
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        world.scheduleTick(pos, this, 2);
+        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         BlockEntity var6 = world.getBlockEntity(pos);
         if (var6 instanceof BrushableBlockEntity brushableBlockEntity) {
-            brushableBlockEntity.scheduledTick();
+            brushableBlockEntity.checkReset();
         }
 
-        if (FallingBlock.canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= world.getBottomY()) {
-            FallingBlockEntity fallingBlockEntity = FallingBlockEntity.spawnFromBlock(world, pos, state);
-            fallingBlockEntity.setDestroyedOnLanding();
+        if (FallingBlock.isFree(world.getBlockState(pos.below())) && pos.getY() >= world.getMinBuildHeight()) {
+            FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(world, pos, state);
+            fallingBlockEntity.disableDrop();
         }
     }
 
-    public void onDestroyedOnLanding(World world, BlockPos pos, FallingBlockEntity fallingBlockEntity) {
-        Vec3d vec3d = fallingBlockEntity.getBoundingBox().getCenter();
-        world.syncWorldEvent(2001, BlockPos.ofFloored(vec3d), Block.getRawIdFromState(fallingBlockEntity.getBlockState()));
-        world.emitGameEvent(fallingBlockEntity, GameEvent.BLOCK_DESTROY, vec3d);
+    public void onBrokenAfterFall(Level world, BlockPos pos, FallingBlockEntity fallingBlockEntity) {
+        Vec3 vec3d = fallingBlockEntity.getBoundingBox().getCenter();
+        world.levelEvent(2001, BlockPos.containing(vec3d), Block.getId(fallingBlockEntity.getBlockState()));
+        world.gameEvent(fallingBlockEntity, GameEvent.BLOCK_DESTROY, vec3d);
     }
 
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         if (random.nextInt(16) == 0) {
-            BlockPos blockPos = pos.down();
-            if (FallingBlock.canFallThrough(world.getBlockState(blockPos))) {
+            BlockPos blockPos = pos.below();
+            if (FallingBlock.isFree(world.getBlockState(blockPos))) {
                 double d = (double)pos.getX() + random.nextDouble();
                 double e = (double)pos.getY() - 0.05;
                 double f = (double)pos.getZ() + random.nextDouble();
-                world.addParticle(new BlockStateParticleEffect(ParticleTypes.FALLING_DUST, state), d, e, f, 0.0, 0.0, 0.0);
+                world.addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, state), d, e, f, 0.0, 0.0, 0.0);
             }
         }
 
     }
 
     @Nullable
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new BygoneBrushableBlockEntity(pos, state);
     }
 
@@ -116,6 +123,6 @@ public class BygoneBrushableBlock extends BlockWithEntity implements LandingBloc
     }
 
     static {
-        DUSTED = Properties.DUSTED;
+        DUSTED = BlockStateProperties.DUSTED;
     }
 }

@@ -1,13 +1,19 @@
 package com.jamiedev.mod.common.client.models;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.AnimalModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.world.entity.Entity;
 
-public class DuckieModel<T extends Entity> extends AnimalModel<T> {
+public class DuckieModel<T extends Entity> extends AgeableListModel<T> {
 	private final ModelPart head;
 	private final ModelPart body;
 	private final ModelPart wing_left;
@@ -20,26 +26,26 @@ public class DuckieModel<T extends Entity> extends AnimalModel<T> {
 		this.wing_right = root.getChild("wing_right");
 		this.tail = root.getChild("tail");
 	}
-	public static TexturedModelData getTexturedModelData() {
-		ModelData modelData = new ModelData();
-		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData head = modelPartData.addChild("head", ModelPartBuilder.create().uv(0, 19).cuboid(-4.0F, -19.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.0F))
-		.uv(0, 35).cuboid(-3.0F, -13.5F, -8.0F, 6.0F, 2.0F, 4.0F, new Dilation(0.0F))
-		.uv(0, 0).cuboid(-1.0F, -14.5F, -5.0F, 2.0F, 2.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+	public static LayerDefinition getTexturedModelData() {
+		MeshDefinition modelData = new MeshDefinition();
+		PartDefinition modelPartData = modelData.getRoot();
+		PartDefinition head = modelPartData.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 19).addBox(-4.0F, -19.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
+		.texOffs(0, 35).addBox(-3.0F, -13.5F, -8.0F, 6.0F, 2.0F, 4.0F, new CubeDeformation(0.0F))
+		.texOffs(0, 0).addBox(-1.0F, -14.5F, -5.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		ModelPartData body = modelPartData.addChild("body", ModelPartBuilder.create().uv(0, 0).cuboid(-5.0F, -11.0F, -3.0F, 10.0F, 7.0F, 12.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		PartDefinition body = modelPartData.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -11.0F, -3.0F, 10.0F, 7.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		ModelPartData wing_left = modelPartData.addChild("wing_left", ModelPartBuilder.create().uv(34, 19).cuboid(5.0F, -10.0F, -1.0F, 1.0F, 5.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		PartDefinition wing_left = modelPartData.addOrReplaceChild("wing_left", CubeListBuilder.create().texOffs(34, 19).addBox(5.0F, -10.0F, -1.0F, 1.0F, 5.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		ModelPartData wing_right = modelPartData.addChild("wing_right", ModelPartBuilder.create().uv(24, 27).cuboid(-6.0F, -10.0F, -1.0F, 1.0F, 5.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		PartDefinition wing_right = modelPartData.addOrReplaceChild("wing_right", CubeListBuilder.create().texOffs(24, 27).addBox(-6.0F, -10.0F, -1.0F, 1.0F, 5.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		ModelPartData tail = modelPartData.addChild("tail", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		PartDefinition tail = modelPartData.addOrReplaceChild("tail", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		ModelPartData tail_r1 = tail.addChild("tail_r1", ModelPartBuilder.create().uv(32, 0).cuboid(-9.0F, -9.0F, -1.0F, 10.0F, 9.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(4.0F, -4.0F, 9.0F, -0.3491F, 0.0F, 0.0F));
-		return TexturedModelData.of(modelData, 64, 64);
+		PartDefinition tail_r1 = tail.addOrReplaceChild("tail_r1", CubeListBuilder.create().texOffs(32, 0).addBox(-9.0F, -9.0F, -1.0F, 10.0F, 9.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, -4.0F, 9.0F, -0.3491F, 0.0F, 0.0F));
+		return LayerDefinition.create(modelData, 64, 64);
 	}
 	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
+	public void renderToBuffer(PoseStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
 		head.render(matrices, vertexConsumer, light, overlay, color);
 		body.render(matrices, vertexConsumer, light, overlay, color);
 		wing_left.render(matrices, vertexConsumer, light, overlay, color);
@@ -47,18 +53,18 @@ public class DuckieModel<T extends Entity> extends AnimalModel<T> {
 		tail.render(matrices, vertexConsumer, light, overlay, color);
 	}
 
-	protected Iterable<ModelPart> getHeadParts() {
+	protected Iterable<ModelPart> headParts() {
 		return ImmutableList.of(this.head);
 	}
 
-	protected Iterable<ModelPart> getBodyParts() {
+	protected Iterable<ModelPart> bodyParts() {
 		return ImmutableList.of(this.body,  this.wing_right, this.wing_left, this.tail);
 	}
 
 	@Override
-	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		this.head.pitch = headPitch * 0.017453292F;
-		this.head.yaw = headYaw * 0.017453292F;
+	public void setupAnim(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+		this.head.xRot = headPitch * 0.017453292F;
+		this.head.yRot = headYaw * 0.017453292F;
 
 	}
 }

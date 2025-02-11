@@ -1,24 +1,24 @@
 package com.jamiedev.mod.common.worldgen.feature;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 public class PrimordialCoralMushroomFeature extends PrimordialCoralFeature {
-    public PrimordialCoralMushroomFeature(Codec<DefaultFeatureConfig> codec) {
+    public PrimordialCoralMushroomFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
 
-    protected boolean generateCoral(WorldAccess world, Random random, BlockPos pos, BlockState state) {
+    protected boolean generateCoral(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state) {
         int i = random.nextInt(3) + 3;
         int j = random.nextInt(3) + 3;
         int k = random.nextInt(3) + 3;
         int l = random.nextInt(3) + 1;
-        BlockPos.Mutable mutable = pos.mutableCopy();
+        BlockPos.MutableBlockPos mutable = pos.mutable();
 
         for(int m = 0; m <= j; ++m) {
             for(int n = 0; n <= i; ++n) {

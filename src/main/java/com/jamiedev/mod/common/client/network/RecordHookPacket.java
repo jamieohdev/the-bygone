@@ -2,10 +2,9 @@ package com.jamiedev.mod.common.client.network;
 
 
 import com.jamiedev.mod.common.entities.projectile.HookEntity;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.util.math.MathHelper;
-
 import java.util.UUID;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.Mth;
 
 public record RecordHookPacket(	UUID uuid,
                                    int id,
@@ -18,17 +17,17 @@ public record RecordHookPacket(	UUID uuid,
 
     public RecordHookPacket(HookEntity entity) {
         this(
-                entity.getUuid(), entity.getId(),
+                entity.getUUID(), entity.getId(),
                 entity.getX(), entity.getY(), entity.getZ(),
-                MathHelper.floor(entity.getX() * 256.0F / 360.0F),
-                MathHelper.floor(entity.getY() * 256.0F / 360.0F),
+                Mth.floor(entity.getX() * 256.0F / 360.0F),
+                Mth.floor(entity.getY() * 256.0F / 360.0F),
                 entity.getPlayerOwner() != null,
                 entity.getPlayerOwner() == null ? -1 : entity.getPlayerOwner().getId()
         );
     }
 
-    public static void encode(RecordHookPacket packet, PacketByteBuf buf) {
-        buf.writeUuid(packet.uuid());
+    public static void encode(RecordHookPacket packet, FriendlyByteBuf buf) {
+        buf.writeUUID(packet.uuid());
         buf.writeVarInt(packet.id());
         buf.writeDouble(packet.x());
         buf.writeDouble(packet.y());
@@ -39,9 +38,9 @@ public record RecordHookPacket(	UUID uuid,
         buf.writeVarInt(packet.grapplingPlayerId);
     }
 
-    public static RecordHookPacket decode(PacketByteBuf buffer) {
+    public static RecordHookPacket decode(FriendlyByteBuf buffer) {
         return new RecordHookPacket(
-                buffer.readUuid(),
+                buffer.readUUID(),
                 buffer.readVarInt(),
                 buffer.readDouble(), buffer.readDouble(), buffer.readDouble(),
                 buffer.readByte(), buffer.readByte(),

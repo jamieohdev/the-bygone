@@ -1,58 +1,56 @@
 package com.jamiedev.mod.common.items;
 
 import com.jamiedev.mod.fabric.init.JamiesModItems;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.world.World;
-
 import java.util.List;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BowItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class VerdigrisBowItem extends BowItem {
-    public VerdigrisBowItem(Settings settings) {
+    public VerdigrisBowItem(Properties settings) {
         super(settings);
     }
 
     @Override
-    public int getMaxUseTime(ItemStack stack, LivingEntity user) {
+    public int getUseDuration(ItemStack stack, LivingEntity user) {
         return 72000;
     }
 
     @Override
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {};
+    public void releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {};
 
     @Override
-    public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
-        super.usageTick(world, user, stack, remainingUseTicks);
+    public void onUseTick(Level world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
+        super.onUseTick(world, user, stack, remainingUseTicks);
         arrowShootLogic(user, stack, world);
     }
 
-    public void arrowShootLogic(Entity user, ItemStack stack, World world) {
-        if (user instanceof PlayerEntity playerEntity) {
-            ItemStack itemStack = playerEntity.getProjectileType(stack);
+    public void arrowShootLogic(Entity user, ItemStack stack, Level world) {
+        if (user instanceof Player playerEntity) {
+            ItemStack itemStack = playerEntity.getProjectile(stack);
             if (!itemStack.isEmpty()) {
-                List<ItemStack> list = load(stack, itemStack, playerEntity);
-                if (world instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld) world;
+                List<ItemStack> list = draw(stack, itemStack, playerEntity);
+                if (world instanceof ServerLevel) {
+                    ServerLevel serverWorld = (ServerLevel) world;
                     if (!list.isEmpty()) {
-                        this.shootAll(serverWorld, playerEntity, playerEntity.getActiveHand(), stack, list, 1 * 3.0F, 1.0F, false, (LivingEntity) null);
+                        this.shoot(serverWorld, playerEntity, playerEntity.getUsedItemHand(), stack, list, 1 * 3.0F, 1.0F, false, (LivingEntity) null);
                     }
                 }
 
-                world.playSound((PlayerEntity) null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + 1 * 0.5F);
-                playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
+                world.playSound((Player) null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + 1 * 0.5F);
+                playerEntity.awardStat(Stats.ITEM_USED.get(this));
             }
         }
     }
 
-    public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-        return ingredient.isOf(JamiesModItems.VERDIGRIS_INGOT);
+    public boolean isValidRepairItem(ItemStack stack, ItemStack ingredient) {
+        return ingredient.is(JamiesModItems.VERDIGRIS_INGOT);
     }
 }

@@ -2,50 +2,51 @@ package com.jamiedev.mod.mixin.client;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.client.JamiesModClient;
-import net.minecraft.client.render.DimensionEffects;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Function;
+import net.minecraft.client.renderer.DimensionSpecialEffects;
+import net.minecraft.client.renderer.DimensionSpecialEffects.SkyType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 
 
 
 @Unique
-@Mixin(DimensionEffects.SkyType.class)
+@Mixin(DimensionSpecialEffects.SkyType.class)
 public class DimensionEffectsSkyTypeMixin 
 {
     @Unique
-    private static DimensionEffects.SkyType[] bygone$values = new DimensionEffects.SkyType[]{
-            DimensionEffects.SkyType.NONE,  DimensionEffects.SkyType.NORMAL, DimensionEffects.SkyType.END
+    private static DimensionSpecialEffects.SkyType[] bygone$values = new DimensionSpecialEffects.SkyType[]{
+            DimensionSpecialEffects.SkyType.NONE,  DimensionSpecialEffects.SkyType.NORMAL, DimensionSpecialEffects.SkyType.END
     };
 
     @Shadow
     @Final
     @Mutable
-    public static DimensionEffects.SkyType[] values() {
+    public static DimensionSpecialEffects.SkyType[] values() {
         return bygone$values;
     }
 
     @Unique
-    private static DimensionEffects.SkyType BYGONE_SKY = bygone$addVariant("bygone_sky", id ->
-            JamiesModFabric.getModId( "textures/environment/" + id.getPath()), SoundEvents.ENTITY_ITEM_BREAK);
+    private static DimensionSpecialEffects.SkyType BYGONE_SKY = bygone$addVariant("bygone_sky", id ->
+            JamiesModFabric.getModId( "textures/environment/" + id.getPath()), SoundEvents.ITEM_BREAK);
 
     @Invoker("<init>")
-    public static DimensionEffects.SkyType bygone$invokeInit(String name, int index, final Function<Identifier, Identifier> textureIdFunction, final SoundEvent breakSound) {
+    public static DimensionSpecialEffects.SkyType bygone$invokeInit(String name, int index, final Function<ResourceLocation, ResourceLocation> textureIdFunction, final SoundEvent breakSound) {
         throw new AssertionError();
     }
 
     @Unique
-    private static DimensionEffects.SkyType bygone$addVariant(String internalName, final Function<Identifier, Identifier> textureIdFunction, final SoundEvent breakSound) {
+    private static DimensionSpecialEffects.SkyType bygone$addVariant(String internalName, final Function<ResourceLocation, ResourceLocation> textureIdFunction, final SoundEvent breakSound) {
         var variants = new ArrayList<>(Arrays.asList(DimensionEffectsSkyTypeMixin.bygone$values));
         var beakArmor = bygone$invokeInit(internalName,variants.getLast().ordinal() + 1, textureIdFunction, breakSound);
         variants.add(beakArmor);
-        DimensionEffectsSkyTypeMixin.bygone$values = variants.toArray(new DimensionEffects.SkyType[0]);
+        DimensionEffectsSkyTypeMixin.bygone$values = variants.toArray(new DimensionSpecialEffects.SkyType[0]);
 
         JamiesModClient.BYGONE_SKY = beakArmor;
 

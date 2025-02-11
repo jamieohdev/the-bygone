@@ -2,7 +2,7 @@ package com.jamiedev.mod.common.blocks;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
-import net.minecraft.block.WoodType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 public class JamiesModWoodType
 {
     public static final WoodType ANCIENT = WoodTypeBuilder.copyOf(WoodType.OAK).register(

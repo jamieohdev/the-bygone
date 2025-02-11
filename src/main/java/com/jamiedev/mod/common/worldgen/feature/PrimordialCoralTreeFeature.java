@@ -1,22 +1,21 @@
 package com.jamiedev.mod.common.worldgen.feature;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 public class PrimordialCoralTreeFeature extends PrimordialCoralFeature {
-    public PrimordialCoralTreeFeature(Codec<DefaultFeatureConfig> codec) {
+    public PrimordialCoralTreeFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
 
-    protected boolean generateCoral(WorldAccess world, Random random, BlockPos pos, BlockState state) {
-        BlockPos.Mutable mutable = pos.mutableCopy();
+    protected boolean generateCoral(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state) {
+        BlockPos.MutableBlockPos mutable = pos.mutable();
         int i = random.nextInt(3) + 1;
 
         for(int j = 0; j < i; ++j) {
@@ -27,9 +26,9 @@ public class PrimordialCoralTreeFeature extends PrimordialCoralFeature {
             mutable.move(Direction.UP);
         }
 
-        BlockPos blockPos = mutable.toImmutable();
+        BlockPos blockPos = mutable.immutable();
         int k = random.nextInt(3) + 2;
-        List<Direction> list = Direction.Type.HORIZONTAL.getShuffled(random);
+        List<Direction> list = Direction.Plane.HORIZONTAL.shuffledCopy(random);
         List<Direction> list2 = list.subList(0, k);
 
         for (Direction direction : list2) {

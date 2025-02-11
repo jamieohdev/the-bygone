@@ -1,45 +1,45 @@
 package com.jamiedev.mod.common.client.renderer;
 
 import com.jamiedev.mod.common.blocks.entity.BygoneBrushableBlockEntity;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.RotationAxis;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 public class BygoneBrushableBlockEntityRenderer  implements BlockEntityRenderer<BygoneBrushableBlockEntity> {
     private final ItemRenderer itemRenderer;
 
-    public BygoneBrushableBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
+    public BygoneBrushableBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         this.itemRenderer = context.getItemRenderer();
     }
 
-    public void render(BygoneBrushableBlockEntity brushableBlockEntity, float f, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j) {
-        if (brushableBlockEntity.getWorld() != null) {
-            int k = (Integer)brushableBlockEntity.getCachedState().get(Properties.DUSTED);
+    public void render(BygoneBrushableBlockEntity brushableBlockEntity, float f, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, int j) {
+        if (brushableBlockEntity.getLevel() != null) {
+            int k = (Integer)brushableBlockEntity.getBlockState().getValue(BlockStateProperties.DUSTED);
             if (k > 0) {
                 Direction direction = brushableBlockEntity.getHitDirection();
                 if (direction != null) {
                     ItemStack itemStack = brushableBlockEntity.getItem();
                     if (!itemStack.isEmpty()) {
-                        matrixStack.push();
+                        matrixStack.pushPose();
                         matrixStack.translate(0.0F, 0.5F, 0.0F);
                         float[] fs = this.getTranslation(direction, k);
                         matrixStack.translate(fs[0], fs[1], fs[2]);
-                        matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(75.0F));
+                        matrixStack.mulPose(Axis.YP.rotationDegrees(75.0F));
                         boolean bl = direction == Direction.EAST || direction == Direction.WEST;
-                        matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((float)((bl ? 90 : 0) + 11)));
+                        matrixStack.mulPose(Axis.YP.rotationDegrees((float)((bl ? 90 : 0) + 11)));
                         matrixStack.scale(0.5F, 0.5F, 0.5F);
-                        int l = WorldRenderer.getLightmapCoordinates(brushableBlockEntity.getWorld(), brushableBlockEntity.getCachedState(), brushableBlockEntity.getPos().offset(direction));
-                        this.itemRenderer.renderItem(itemStack, ModelTransformationMode.FIXED, l, OverlayTexture.DEFAULT_UV, matrixStack, vertexConsumerProvider, brushableBlockEntity.getWorld(), 0);
-                        matrixStack.pop();
+                        int l = LevelRenderer.getLightColor(brushableBlockEntity.getLevel(), brushableBlockEntity.getBlockState(), brushableBlockEntity.getBlockPos().relative(direction));
+                        this.itemRenderer.renderStatic(itemStack, ItemDisplayContext.FIXED, l, OverlayTexture.NO_OVERLAY, matrixStack, vertexConsumerProvider, brushableBlockEntity.getLevel(), 0);
+                        matrixStack.popPose();
                     }
                 }
             }

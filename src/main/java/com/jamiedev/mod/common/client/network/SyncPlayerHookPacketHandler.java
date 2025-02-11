@@ -5,10 +5,9 @@ import com.jamiedev.mod.common.entities.projectile.HookEntity;
 import com.jamiedev.mod.common.network.SyncPlayerHookS2C;
 import com.jamiedev.mod.common.util.PlayerWithHook;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import java.util.UUID;
 
 public class SyncPlayerHookPacketHandler {
@@ -16,10 +15,10 @@ public class SyncPlayerHookPacketHandler {
     public static void handle(SyncPlayerHookS2C packet, ClientPlayNetworking.Context context) {
         int hookId = packet.hookId();
         UUID playerUUID = packet.playerUUID();
-        ClientWorld world = context.client().world;
-        Entity entity = world.getEntityById(hookId);
+        ClientLevel world = context.client().level;
+        Entity entity = world.getEntity(hookId);
         HookEntity hook = entity instanceof HookEntity ? (HookEntity)entity : null;
-        PlayerEntity playerByUuid = world.getPlayerByUuid(playerUUID);
+        Player playerByUuid = world.getPlayerByUUID(playerUUID);
         if(playerByUuid != null){
             JamiesModFabric.LOGGER.info("Syncing {} to {}", hook, playerByUuid);
             ((PlayerWithHook)playerByUuid).bygone$setHook(hook);

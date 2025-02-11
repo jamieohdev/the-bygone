@@ -2,72 +2,72 @@ package com.jamiedev.mod.common.items;
 
 import com.jamiedev.mod.common.blocks.BygonePortalFrameBlock;
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.pattern.BlockPattern;
+import net.minecraft.core.BlockPos;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.pattern.BlockPattern;
+import net.minecraft.world.phys.shapes.CollisionContext;
 
 public class ArcaneCoreItem extends BlockItem
 {
-    public ArcaneCoreItem(Block block, Settings settings) {
+    public ArcaneCoreItem(Block block, Properties settings) {
         super(block, settings);
     }
 
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        World world = context.getWorld();
-        BlockPos blockPos = context.getBlockPos();
+    public InteractionResult useOn(UseOnContext context) {
+        Level world = context.getLevel();
+        BlockPos blockPos = context.getClickedPos();
         BlockState blockState = world.getBlockState(blockPos);
-        ActionResult actionResult = this.place(new ItemPlacementContext(context));
-        if (blockState.isOf(JamiesModBlocks.BYGONE_PORTAL_FRAME) && !(Boolean)blockState.get(BygonePortalFrameBlock.EYE)) {
-            if (world.isClient) {
+        InteractionResult actionResult = this.place(new BlockPlaceContext(context));
+        if (blockState.is(JamiesModBlocks.BYGONE_PORTAL_FRAME) && !(Boolean)blockState.getValue(BygonePortalFrameBlock.EYE)) {
+            if (world.isClientSide) {
                // return ActionResult.SUCCESS;
             } else {
-                BlockState blockState2 = (BlockState)blockState.with(BygonePortalFrameBlock.EYE, true);
-                Block.pushEntitiesUpBeforeBlockChange(blockState, blockState2, world, blockPos);
-                world.setBlockState(blockPos, blockState2, 2);
-                world.updateComparators(blockPos, JamiesModBlocks.BYGONE_PORTAL_FRAME);
-                context.getStack().decrement(1);
-                world.syncWorldEvent(2503, blockPos, 0);
-                BlockPattern.Result result = BygonePortalFrameBlock.getCompletedFramePattern().searchAround(world, blockPos);
+                BlockState blockState2 = (BlockState)blockState.setValue(BygonePortalFrameBlock.EYE, true);
+                Block.pushEntitiesUp(blockState, blockState2, world, blockPos);
+                world.setBlock(blockPos, blockState2, 2);
+                world.updateNeighbourForOutputSignal(blockPos, JamiesModBlocks.BYGONE_PORTAL_FRAME);
+                context.getItemInHand().shrink(1);
+                world.levelEvent(2503, blockPos, 0);
+                BlockPattern.BlockPatternMatch result = BygonePortalFrameBlock.getCompletedFramePattern().find(world, blockPos);
                 if (result != null) {
-                    BlockPos blockPos2 = result.getFrontTopLeft().add(-3, 0, -3);
+                    BlockPos blockPos2 = result.getFrontTopLeft().offset(-3, 0, -3);
 
                     for(int i = 0; i < 3; ++i) {
                         for(int j = 0; j < 3; ++j) {
-                            world.setBlockState(blockPos2.add(i, 0, j), JamiesModBlocks.BYGONE_PORTAL.getDefaultState(), 2);
+                            world.setBlock(blockPos2.offset(i, 0, j), JamiesModBlocks.BYGONE_PORTAL.defaultBlockState(), 2);
                         }
                     }
 
-                    world.syncGlobalEvent(1038, blockPos2.add(1, 0, 1), 0);
+                    world.globalLevelEvent(1038, blockPos2.offset(1, 0, 1), 0);
                 }
 
-                return ActionResult.CONSUME;
+                return InteractionResult.CONSUME;
             }
         }
-        else if (!blockState.isOf(JamiesModBlocks.BYGONE_PORTAL_FRAME))
+        else if (!blockState.is(JamiesModBlocks.BYGONE_PORTAL_FRAME))
         {
             return actionResult;
         }
         else
         {
-            return ActionResult.FAIL;
+            return InteractionResult.FAIL;
         }
-        return ActionResult.FAIL;
+        return InteractionResult.FAIL;
     }
 
     @Override
-    protected boolean canPlace(ItemPlacementContext context, BlockState state) {
-        PlayerEntity playerEntity = context.getPlayer();
-        ShapeContext shapeContext = playerEntity == null ? ShapeContext.absent() : ShapeContext.of(playerEntity);
-        return (!this.checkStatePlacement() || state.canPlaceAt(context.getWorld(), context.getBlockPos())) && context.getWorld().canPlace(state, context.getBlockPos(), shapeContext) && !state.isOf(JamiesModBlocks.BYGONE_PORTAL_FRAME);
+    protected boolean canPlace(BlockPlaceContext context, BlockState state) {
+        Player playerEntity = context.getPlayer();
+        CollisionContext shapeContext = playerEntity == null ? CollisionContext.empty() : CollisionContext.of(playerEntity);
+        return (!this.mustSurvive() || state.canSurvive(context.getLevel(), context.getClickedPos())) && context.getLevel().isUnobstructed(state, context.getClickedPos(), shapeContext) && !state.is(JamiesModBlocks.BYGONE_PORTAL_FRAME);
     }
 
 }

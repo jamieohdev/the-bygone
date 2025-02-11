@@ -11,34 +11,30 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CampfireBlock;
-import net.minecraft.block.FireBlock;
-import net.minecraft.block.entity.BeehiveBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.BeeEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.EntityTypeTags;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.annotation.Debug;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.VisibleForDebug;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
@@ -65,19 +61,19 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         super(JamiesModBlockEntities.COPPERBUGNEST, pos, state);
     }
 
-    public void markDirty() {
+    public void setChanged() {
         if (this.isNearFire()) {
-            this.angerCopperbugs((PlayerEntity)null, this.world.getBlockState(this.getPos()), CopperbugNestBlockEntity.CopperbugState.EMERGENCY);
+            this.angerCopperbugs((Player)null, this.level.getBlockState(this.getBlockPos()), CopperbugNestBlockEntity.CopperbugState.EMERGENCY);
         }
 
-        super.markDirty();
+        super.setChanged();
     }
 
     public boolean isNearFire() {
-        if (this.world == null) {
+        if (this.level == null) {
             return false;
         } else {
-            Iterator var1 = BlockPos.iterate(this.pos.add(-1, -1, -1), this.pos.add(1, 1, 1)).iterator();
+            Iterator var1 = BlockPos.betweenClosed(this.worldPosition.offset(-1, -1, -1), this.worldPosition.offset(1, 1, 1)).iterator();
 
             BlockPos blockPos;
             do {
@@ -86,7 +82,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
                 }
 
                 blockPos = (BlockPos)var1.next();
-            } while(!(this.world.getBlockState(blockPos).getBlock() instanceof FireBlock));
+            } while(!(this.level.getBlockState(blockPos).getBlock() instanceof FireBlock));
 
             return true;
         }
@@ -100,7 +96,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         return this.copperbugs.size() == 3;
     }
 
-    public void angerCopperbugs(@Nullable PlayerEntity player, BlockState state, CopperbugNestBlockEntity.CopperbugState beeState) {
+    public void angerCopperbugs(@Nullable Player player, BlockState state, CopperbugNestBlockEntity.CopperbugState beeState) {
         List<Entity> list = this.tryReleaseCopperbug(state, beeState);
         if (player != null) {
             Iterator var5 = list.iterator();
@@ -109,7 +105,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
                 Entity entity = (Entity)var5.next();
                 if (entity instanceof CopperbugEntity) {
                     CopperbugEntity beeEntity = (CopperbugEntity)entity;
-                    if (player.getPos().squaredDistanceTo(entity.getPos()) <= 16.0) {
+                    if (player.position().distanceToSqr(entity.position()) <= 16.0) {
                         if (!this.isSmoked()) {
                             beeEntity.setTarget(player);
                         } else {
@@ -125,49 +121,49 @@ public class CopperbugNestBlockEntity  extends BlockEntity
     private List<Entity> tryReleaseCopperbug(BlockState state, CopperbugNestBlockEntity.CopperbugState beeState) {
         List<Entity> list = Lists.newArrayList();
         this.copperbugs.removeIf((bee) -> {
-            return releaseCopperbug(this.world, this.pos, state, bee.createData(), list, beeState, this.flowerPos);
+            return releaseCopperbug(this.level, this.worldPosition, state, bee.createData(), list, beeState, this.flowerPos);
         });
         if (!list.isEmpty()) {
-            super.markDirty();
+            super.setChanged();
         }
 
         return list;
     }
 
-    @Debug
+    @VisibleForDebug
     public int getCopperbugCount() {
         return this.copperbugs.size();
     }
 
     public static int getOxidizationLevel(BlockState state) {
-        return (Integer)state.get(CopperbugNestBlock.OXIDIZATION_LEVEL);
+        return (Integer)state.getValue(CopperbugNestBlock.OXIDIZATION_LEVEL);
     }
 
-    @Debug
+    @VisibleForDebug
     public boolean isSmoked() {
-        return CampfireBlock.isLitCampfireInRange(this.world, this.getPos());
+        return CampfireBlock.isSmokeyPos(this.level, this.getBlockPos());
     }
 
     public void tryEnterNest(Entity entity) {
         if (this.copperbugs.size() < 15) {
             entity.stopRiding();
-            entity.removeAllPassengers();
+            entity.ejectPassengers();
             this.addCopperbug(CopperbugNestBlockEntity.CopperbugData.of(entity));
-            if (this.world != null) {
+            if (this.level != null) {
                 if (entity instanceof CopperbugEntity) {
                     CopperbugEntity beeEntity = (CopperbugEntity)entity;
-                    if (beeEntity.hasCopperBlock() && (!this.hasCopperBlockPos() || this.world.random.nextBoolean())) {
+                    if (beeEntity.hasCopperBlock() && (!this.hasCopperBlockPos() || this.level.random.nextBoolean())) {
                         this.flowerPos = beeEntity.getCopperBlockPos();
                     }
                 }
 
-                BlockPos blockPos = this.getPos();
-                this.world.playSound((PlayerEntity)null, (double)blockPos.getX(), (double)blockPos.getY(), (double)blockPos.getZ(), SoundEvents.BLOCK_COPPER_BULB_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                this.world.emitGameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Emitter.of(entity, this.getCachedState()));
+                BlockPos blockPos = this.getBlockPos();
+                this.level.playSound((Player)null, (double)blockPos.getX(), (double)blockPos.getY(), (double)blockPos.getZ(), SoundEvents.COPPER_BULB_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                this.level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(entity, this.getBlockState()));
             }
 
             entity.discard();
-            super.markDirty();
+            super.setChanged();
         }
     }
 
@@ -175,12 +171,12 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         this.copperbugs.add(new CopperbugNestBlockEntity.Copperbug(bee));
     }
 
-    private static boolean releaseCopperbug(World world, BlockPos pos, BlockState state, CopperbugNestBlockEntity.CopperbugData bee, @Nullable List<Entity> entities, CopperbugNestBlockEntity.CopperbugState beeState, @Nullable BlockPos flowerPos) {
+    private static boolean releaseCopperbug(Level world, BlockPos pos, BlockState state, CopperbugNestBlockEntity.CopperbugData bee, @Nullable List<Entity> entities, CopperbugNestBlockEntity.CopperbugState beeState, @Nullable BlockPos flowerPos) {
         if ((world.isNight() || world.isRaining()) && beeState != CopperbugNestBlockEntity.CopperbugState.EMERGENCY) {
             return false;
         } else {
-            Direction direction = (Direction)state.get(CopperbugNestBlock.FACING);
-            BlockPos blockPos = pos.offset(direction);
+            Direction direction = (Direction)state.getValue(CopperbugNestBlock.FACING);
+            BlockPos blockPos = pos.relative(direction);
             boolean bl = !world.getBlockState(blockPos).getCollisionShape(world, blockPos).isEmpty();
             if (bl && beeState != CopperbugNestBlockEntity.CopperbugState.EMERGENCY) {
                 return false;
@@ -195,8 +191,8 @@ public class CopperbugNestBlockEntity  extends BlockEntity
 
                         if (beeState == CopperbugNestBlockEntity.CopperbugState.HONEY_DELIVERED) {
                             beeEntity.onOxidizationDelivered();
-                            if (state.isIn(JamiesModTag.COPPERBUGNESTS, (statex) -> {
-                                return statex.contains(CopperbugNestBlock.OXIDIZATION_LEVEL);
+                            if (state.is(JamiesModTag.COPPERBUGNESTS, (statex) -> {
+                                return statex.hasProperty(CopperbugNestBlock.OXIDIZATION_LEVEL);
                             })) {
                                 int i = getOxidizationLevel(state);
                                 if (i < 5) {
@@ -205,7 +201,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
                                         --j;
                                     }
 
-                                    world.setBlockState(pos, (BlockState)state.with(CopperbugNestBlock.OXIDIZATION_LEVEL, i + j));
+                                    world.setBlockAndUpdate(pos, (BlockState)state.setValue(CopperbugNestBlock.OXIDIZATION_LEVEL, i + j));
                                 }
                             }
                         }
@@ -214,17 +210,17 @@ public class CopperbugNestBlockEntity  extends BlockEntity
                             entities.add(beeEntity);
                         }
 
-                        float f = entity.getWidth();
+                        float f = entity.getBbWidth();
                         double d = bl ? 0.0 : 0.55 + (double)(f / 2.0F);
-                        double e = (double)pos.getX() + 0.5 + d * (double)direction.getOffsetX();
-                        double g = (double)pos.getY() + 0.5 - (double)(entity.getHeight() / 2.0F);
-                        double h = (double)pos.getZ() + 0.5 + d * (double)direction.getOffsetZ();
-                        entity.refreshPositionAndAngles(e, g, h, entity.getYaw(), entity.getPitch());
+                        double e = (double)pos.getX() + 0.5 + d * (double)direction.getStepX();
+                        double g = (double)pos.getY() + 0.5 - (double)(entity.getBbHeight() / 2.0F);
+                        double h = (double)pos.getZ() + 0.5 + d * (double)direction.getStepZ();
+                        entity.moveTo(e, g, h, entity.getYRot(), entity.getXRot());
                     }
 
-                    world.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_AXE_SCRAPE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(entity, world.getBlockState(pos)));
-                    return world.spawnEntity(entity);
+                    world.playSound((Player)null, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, world.getBlockState(pos)));
+                    return world.addFreshEntity(entity);
                 } else {
                     return false;
                 }
@@ -236,7 +232,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         return this.flowerPos != null;
     }
 
-    private static void tickCopperbugs(World world, BlockPos pos, BlockState state, List<CopperbugNestBlockEntity.Copperbug> copperbugs, @Nullable BlockPos flowerPos) {
+    private static void tickCopperbugs(Level world, BlockPos pos, BlockState state, List<CopperbugNestBlockEntity.Copperbug> copperbugs, @Nullable BlockPos flowerPos) {
         boolean bl = false;
         Iterator<CopperbugNestBlockEntity.Copperbug> iterator = copperbugs.iterator();
 
@@ -252,25 +248,25 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         }
 
         if (bl) {
-            markDirty(world, pos, state);
+            setChanged(world, pos, state);
         }
 
     }
 
-    public static void serverTick(World world, BlockPos pos, BlockState state, CopperbugNestBlockEntity blockEntity) {
+    public static void serverTick(Level world, BlockPos pos, BlockState state, CopperbugNestBlockEntity blockEntity) {
         tickCopperbugs(world, pos, state, blockEntity.copperbugs, blockEntity.flowerPos);
         if (!blockEntity.copperbugs.isEmpty() && world.getRandom().nextDouble() < 0.005) {
             double d = (double)pos.getX() + 0.5;
             double e = (double)pos.getY();
             double f = (double)pos.getZ() + 0.5;
-            world.playSound((PlayerEntity)null, d, e, f, SoundEvents.BLOCK_COPPER_GRATE_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            world.playSound((Player)null, d, e, f, SoundEvents.COPPER_GRATE_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
         }
 
       //  DebugInfoSender.sendBeehiveDebugData(world, pos, state, blockEntity);
     }
 
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.readNbt(nbt, registryLookup);
+    protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider registryLookup) {
+        super.loadAdditional(nbt, registryLookup);
         this.copperbugs.clear();
         if (nbt.contains("copperbugs")) {
             CopperbugNestBlockEntity.CopperbugData.LIST_CODEC.parse(NbtOps.INSTANCE, nbt.get("copperbugs")).resultOrPartial((string) -> {
@@ -280,32 +276,32 @@ public class CopperbugNestBlockEntity  extends BlockEntity
             });
         }
 
-        this.flowerPos = (BlockPos) NbtHelper.toBlockPos(nbt, "flower_pos").orElse((BlockPos) null);
+        this.flowerPos = (BlockPos) NbtUtils.readBlockPos(nbt, "flower_pos").orElse((BlockPos) null);
     }
 
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.writeNbt(nbt, registryLookup);
-        nbt.put("copperbugs", (NbtElement)CopperbugNestBlockEntity.CopperbugData.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.createCopperbugsData()).getOrThrow());
+    protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider registryLookup) {
+        super.saveAdditional(nbt, registryLookup);
+        nbt.put("copperbugs", (Tag)CopperbugNestBlockEntity.CopperbugData.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.createCopperbugsData()).getOrThrow());
         if (this.hasCopperBlockPos()) {
-            nbt.put("flower_pos", NbtHelper.fromBlockPos(this.flowerPos));
+            nbt.put("flower_pos", NbtUtils.writeBlockPos(this.flowerPos));
         }
 
     }
 
-    protected void readComponents(BlockEntity.ComponentsAccess components) {
-        super.readComponents(components);
+    protected void applyImplicitComponents(BlockEntity.DataComponentInput components) {
+        super.applyImplicitComponents(components);
         this.copperbugs.clear();
         List<CopperbugNestBlockEntity.CopperbugData> list = components.getOrDefault(JamiesModDataComponentTypes.COPPERBUGS, List.of());
         list.forEach(this::addCopperbug);
     }
 
-    protected void addComponents(ComponentMap.Builder componentMapBuilder) {
-        super.addComponents(componentMapBuilder);
-        componentMapBuilder.add(JamiesModDataComponentTypes.COPPERBUGS, this.createCopperbugsData());
+    protected void collectImplicitComponents(DataComponentMap.Builder componentMapBuilder) {
+        super.collectImplicitComponents(componentMapBuilder);
+        componentMapBuilder.set(JamiesModDataComponentTypes.COPPERBUGS, this.createCopperbugsData());
     }
 
-    public void removeFromCopiedStackNbt(NbtCompound nbt) {
-        super.removeFromCopiedStackNbt(nbt);
+    public void removeComponentsFromTag(CompoundTag nbt) {
+        super.removeComponentsFromTag(nbt);
         nbt.remove("copperbugs");
     }
 
@@ -322,17 +318,17 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         }
     }
 
-    public static record CopperbugData(NbtComponent entityData, int ticksInNest, int minTicksInNest) {
-        static NbtComponent nbt;
+    public static record CopperbugData(CustomData entityData, int ticksInNest, int minTicksInNest) {
+        static CustomData nbt;
         static int minTicksInNests;
 
         public static final Codec<CopperbugNestBlockEntity.CopperbugData> CODEC = RecordCodecBuilder.create((instance) -> {
-            return instance.group(NbtComponent.CODEC.optionalFieldOf("entity_data", NbtComponent.DEFAULT).forGetter(CopperbugNestBlockEntity.CopperbugData::entityData), Codec.INT.fieldOf("ticks_in_Nest").forGetter(CopperbugNestBlockEntity.CopperbugData::ticksInNest), Codec.INT.fieldOf("min_ticks_in_Nest").forGetter(CopperbugNestBlockEntity.CopperbugData::minTicksInNest)).apply(instance, CopperbugNestBlockEntity.CopperbugData::new);
+            return instance.group(CustomData.CODEC.optionalFieldOf("entity_data", CustomData.EMPTY).forGetter(CopperbugNestBlockEntity.CopperbugData::entityData), Codec.INT.fieldOf("ticks_in_Nest").forGetter(CopperbugNestBlockEntity.CopperbugData::ticksInNest), Codec.INT.fieldOf("min_ticks_in_Nest").forGetter(CopperbugNestBlockEntity.CopperbugData::minTicksInNest)).apply(instance, CopperbugNestBlockEntity.CopperbugData::new);
         });
         public static final Codec<List<CopperbugNestBlockEntity.CopperbugData>> LIST_CODEC;
-        public static final PacketCodec<ByteBuf, CopperbugNestBlockEntity.CopperbugData> PACKET_CODEC;
+        public static final StreamCodec<ByteBuf, CopperbugNestBlockEntity.CopperbugData> PACKET_CODEC;
 
-        public CopperbugData(NbtComponent entityData, int ticksInNest, int minTicksInNest) {
+        public CopperbugData(CustomData entityData, int ticksInNest, int minTicksInNest) {
             nbt = entityData;
             this.entityData = entityData;
             this.ticksInNest = ticksInNest;
@@ -341,31 +337,31 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         }
 
         public static CopperbugNestBlockEntity.CopperbugData of(Entity entity) {
-            NbtCompound nbtCompound = new NbtCompound();
-            entity.saveNbt(nbtCompound);
+            CompoundTag nbtCompound = new CompoundTag();
+            entity.save(nbtCompound);
             List<String> var10000 = CopperbugNestBlockEntity.IRRELEVANT_COPPERBUG_NBT_KEYS;
             Objects.requireNonNull(nbtCompound);
             var10000.forEach(nbtCompound::remove);
             boolean bl = nbtCompound.getBoolean("HasNectar");
-            return new CopperbugNestBlockEntity.CopperbugData(NbtComponent.of(nbtCompound), 0, bl ? 2400 : 600);
+            return new CopperbugNestBlockEntity.CopperbugData(CustomData.of(nbtCompound), 0, bl ? 2400 : 600);
         }
 
         public static CopperbugNestBlockEntity.CopperbugData create(int ticksInNest) {
-            NbtCompound nbtCompound = new NbtCompound();
-            nbtCompound.putString("id", Registries.ENTITY_TYPE.getId(JamiesModEntityTypes.COPPERBUG).toString());
-            return new CopperbugNestBlockEntity.CopperbugData(NbtComponent.of(nbtCompound), ticksInNest, 600);
+            CompoundTag nbtCompound = new CompoundTag();
+            nbtCompound.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(JamiesModEntityTypes.COPPERBUG).toString());
+            return new CopperbugNestBlockEntity.CopperbugData(CustomData.of(nbtCompound), ticksInNest, 600);
         }
 
         @Nullable
-        public Entity loadEntity(World world, BlockPos pos) {
-            NbtCompound nbtCompound = this.entityData.copyNbt();
+        public Entity loadEntity(Level world, BlockPos pos) {
+            CompoundTag nbtCompound = this.entityData.copyTag();
             Objects.requireNonNull(nbtCompound);
             List<String> var10000 = CopperbugNestBlockEntity.IRRELEVANT_COPPERBUG_NBT_KEYS;
-            Entity entity = EntityType.loadEntityWithPassengers(nbtCompound, world, (entityx) -> {
+            Entity entity = EntityType.loadEntityRecursive(nbtCompound, world, (entityx) -> {
                 return entityx;
             });
             var10000.forEach(nbtCompound::remove);
-            if (entity != null && entity.getType().isIn(JamiesModTag.COPPERBUGNEST_INHABITORS)) {
+            if (entity != null && entity.getType().is(JamiesModTag.COPPERBUGNEST_INHABITORS)) {
                 entity.setNoGravity(true);
                 if (entity instanceof CopperbugEntity) {
                     CopperbugEntity beeEntity = (CopperbugEntity)entity;
@@ -380,17 +376,17 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         }
 
         private static void tickEntity(int ticksInNest, CopperbugEntity beeEntity) {
-            int i = beeEntity.getBreedingAge();
+            int i = beeEntity.getAge();
             if (i < 0) {
-                beeEntity.setBreedingAge(Math.min(0, i + ticksInNest));
+                beeEntity.setAge(Math.min(0, i + ticksInNest));
             } else if (i > 0) {
-                beeEntity.setBreedingAge(Math.max(0, i - ticksInNest));
+                beeEntity.setAge(Math.max(0, i - ticksInNest));
             }
 
-            beeEntity.setLoveTicks(Math.max(0, beeEntity.getLoveTicks() - ticksInNest));
+            beeEntity.setInLoveTime(Math.max(0, beeEntity.getInLoveTime() - ticksInNest));
         }
 
-        public NbtComponent entityData() {
+        public CustomData entityData() {
             return this.entityData;
         }
 
@@ -404,7 +400,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
 
         static {
             LIST_CODEC = CODEC.listOf();
-            PACKET_CODEC = PacketCodec.tuple(NbtComponent.PACKET_CODEC, CopperbugNestBlockEntity.CopperbugData::entityData, PacketCodecs.VAR_INT, CopperbugNestBlockEntity.CopperbugData::ticksInNest, PacketCodecs.VAR_INT, CopperbugNestBlockEntity.CopperbugData::minTicksInNest, CopperbugNestBlockEntity.CopperbugData::new);
+            PACKET_CODEC = StreamCodec.composite(CustomData.STREAM_CODEC, CopperbugNestBlockEntity.CopperbugData::entityData, ByteBufCodecs.VAR_INT, CopperbugNestBlockEntity.CopperbugData::ticksInNest, ByteBufCodecs.VAR_INT, CopperbugNestBlockEntity.CopperbugData::minTicksInNest, CopperbugNestBlockEntity.CopperbugData::new);
         }
     }
 
@@ -426,7 +422,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         }
 
         public boolean hasNectar() {
-            return this.data.entityData.getNbt().getBoolean("HasNectar");
+            return this.data.entityData.getUnsafe().getBoolean("HasNectar");
         }
     }
 }

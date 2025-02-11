@@ -3,49 +3,48 @@ package com.jamiedev.mod.common.worldgen.structure;
 import com.jamiedev.mod.fabric.init.JamiesModStructures;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.ChunkRandom;
-import net.minecraft.world.EmptyBlockView;
-import net.minecraft.world.gen.HeightContext;
-import net.minecraft.world.gen.chunk.VerticalBlockSample;
-import net.minecraft.world.gen.heightprovider.HeightProvider;
-import net.minecraft.world.gen.structure.Structure;
-import net.minecraft.world.gen.structure.StructureType;
-
 import java.util.Optional;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.EmptyBlockGetter;
+import net.minecraft.world.level.NoiseColumn;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.WorldGenerationContext;
+import net.minecraft.world.level.levelgen.WorldgenRandom;
+import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureType;
 
 public class BygoneFossilStructure extends Structure
 {
     public static final MapCodec<BygoneFossilStructure> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-        return instance.group(configCodecBuilder(instance), HeightProvider.CODEC.fieldOf("height").forGetter((structure) -> {
+        return instance.group(settingsCodec(instance), HeightProvider.CODEC.fieldOf("height").forGetter((structure) -> {
             return structure.height;
         })).apply(instance, BygoneFossilStructure::new);
     });
     public final HeightProvider height;
 
-    public BygoneFossilStructure(Structure.Config config, HeightProvider height) {
+    public BygoneFossilStructure(Structure.StructureSettings config, HeightProvider height) {
         super(config);
         this.height = height;
     }
 
-    public Optional<StructurePosition> getStructurePosition(Structure.Context context) {
-        ChunkRandom chunkRandom = context.random();
-        int i = context.chunkPos().getStartX() + chunkRandom.nextInt(16);
-        int j = context.chunkPos().getStartZ() + chunkRandom.nextInt(16);
+    public Optional<GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
+        WorldgenRandom chunkRandom = context.random();
+        int i = context.chunkPos().getMinBlockX() + chunkRandom.nextInt(16);
+        int j = context.chunkPos().getMinBlockZ() + chunkRandom.nextInt(16);
         int k = context.chunkGenerator().getSeaLevel();
-        HeightContext heightContext = new HeightContext(context.chunkGenerator(), context.world());
-        int l = this.height.get(chunkRandom, heightContext);
-        VerticalBlockSample verticalBlockSample = context.chunkGenerator().getColumnSample(i, j, context.world(), context.noiseConfig());
-        BlockPos.Mutable mutable = new BlockPos.Mutable(i, l, j);
+        WorldGenerationContext heightContext = new WorldGenerationContext(context.chunkGenerator(), context.heightAccessor());
+        int l = this.height.sample(chunkRandom, heightContext);
+        NoiseColumn verticalBlockSample = context.chunkGenerator().getBaseColumn(i, j, context.heightAccessor(), context.randomState());
+        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos(i, l, j);
 
         while(l > k) {
-            BlockState blockState = verticalBlockSample.getState(l);
+            BlockState blockState = verticalBlockSample.getBlock(l);
             --l;
-            BlockState blockState2 = verticalBlockSample.getState(l);
-            if (blockState.isAir() && (blockState2.isOf(Blocks.SAND) || (blockState2.isOf(Blocks.MOSS_BLOCK) || blockState2.isSideSolidFullSquare(EmptyBlockView.INSTANCE, mutable.setY(l), Direction.UP)))) {
+            BlockState blockState2 = verticalBlockSample.getBlock(l);
+            if (blockState.isAir() && (blockState2.is(Blocks.SAND) || (blockState2.is(Blocks.MOSS_BLOCK) || blockState2.isFaceSturdy(EmptyBlockGetter.INSTANCE, mutable.setY(l), Direction.UP)))) {
                 break;
             }
         }
@@ -54,13 +53,13 @@ public class BygoneFossilStructure extends Structure
             return Optional.empty();
         } else {
             BlockPos blockPos = new BlockPos(i, l, j);
-            return Optional.of(new Structure.StructurePosition(blockPos, (holder) -> {
+            return Optional.of(new Structure.GenerationStub(blockPos, (holder) -> {
                 BygoneFossilGenerator.addPieces(context.structureTemplateManager(), holder, chunkRandom, blockPos);
             }));
         }
     }
 
-    public StructureType<?> getType() {
+    public StructureType<?> type() {
         return JamiesModStructures.BYGONE_FOSSIL;
     }
 }

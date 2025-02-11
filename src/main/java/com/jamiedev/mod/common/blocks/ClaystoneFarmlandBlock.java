@@ -4,110 +4,121 @@ import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import com.jamiedev.mod.fabric.init.JamiesModTag;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.*;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.piston.MovingPistonBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
 public class ClaystoneFarmlandBlock extends Block
 {
-    public static final MapCodec<ClaystoneFarmlandBlock> CODEC = createCodec(ClaystoneFarmlandBlock::new);
-    public static final IntProperty MOISTURE;
+    public static final MapCodec<ClaystoneFarmlandBlock> CODEC = simpleCodec(ClaystoneFarmlandBlock::new);
+    public static final IntegerProperty MOISTURE;
     protected static final VoxelShape SHAPE;
     public static final int MAX_MOISTURE = 7;
 
-    public MapCodec<ClaystoneFarmlandBlock> getCodec() {
+    public MapCodec<ClaystoneFarmlandBlock> codec() {
         return CODEC;
     }
 
-    public ClaystoneFarmlandBlock(AbstractBlock.Settings settings) {
+    public ClaystoneFarmlandBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(MOISTURE, 0));
+        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(MOISTURE, 0));
     }
 
-    protected BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if (direction == Direction.UP && !state.canPlaceAt(world, pos)) {
-            world.scheduleBlockTick(pos, this, 1);
+    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        if (direction == Direction.UP && !state.canSurvive(world, pos)) {
+            world.scheduleTick(pos, this, 1);
         }
 
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        BlockState blockState = world.getBlockState(pos.up());
-        return !blockState.isSolid() || blockState.getBlock() instanceof FenceGateBlock || blockState.getBlock() instanceof PistonExtensionBlock;
+    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        BlockState blockState = world.getBlockState(pos.above());
+        return !blockState.isSolid() || blockState.getBlock() instanceof FenceGateBlock || blockState.getBlock() instanceof MovingPistonBlock;
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return !this.getDefaultState().canPlaceAt(ctx.getWorld(), ctx.getBlockPos()) ? JamiesModBlocks.CLAYSTONE.getDefaultState() : super.getPlacementState(ctx);
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return !this.defaultBlockState().canSurvive(ctx.getLevel(), ctx.getClickedPos()) ? JamiesModBlocks.CLAYSTONE.defaultBlockState() : super.getStateForPlacement(ctx);
     }
 
-    protected boolean hasSidedTransparency(BlockState state) {
+    protected boolean useShapeForLightOcclusion(BlockState state) {
         return true;
     }
 
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
-    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!state.canPlaceAt(world, pos)) {
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        if (!state.canSurvive(world, pos)) {
             setToDirt((Entity)null, state, world, pos);
         }
 
     }
 
-    protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        int i = (Integer)state.get(MOISTURE);
-        if ((!isSprinklerNearby(world, pos)) && !world.hasRain(pos.up())) {
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        int i = (Integer)state.getValue(MOISTURE);
+        if ((!isSprinklerNearby(world, pos)) && !world.isRainingAt(pos.above())) {
             if (i > 0) {
-                world.setBlockState(pos, (BlockState)state.with(MOISTURE, i - 1), 2);
+                world.setBlock(pos, (BlockState)state.setValue(MOISTURE, i - 1), 2);
             } else if (!hasCrop(world, pos)) {
                 setToDirt((Entity)null, state, world, pos);
             }
         } else if (i < 7) {
-            world.setBlockState(pos, (BlockState)state.with(MOISTURE, 7), 2);
+            world.setBlock(pos, (BlockState)state.setValue(MOISTURE, 7), 2);
         }
 
     }
 
-    public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
-        if (!world.isClient && world.random.nextFloat() < fallDistance - 0.5F && entity instanceof LivingEntity && (entity instanceof PlayerEntity || world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) && entity.getWidth() * entity.getWidth() * entity.getHeight() > 0.512F) {
+    public void fallOn(Level world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+        if (!world.isClientSide && world.random.nextFloat() < fallDistance - 0.5F && entity instanceof LivingEntity && (entity instanceof Player || world.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) && entity.getBbWidth() * entity.getBbWidth() * entity.getBbHeight() > 0.512F) {
             setToDirt(entity, state, world, pos);
         }
 
-        super.onLandedUpon(world, state, pos, entity, fallDistance);
+        super.fallOn(world, state, pos, entity, fallDistance);
     }
 
-    public static void setToDirt(@Nullable Entity entity, BlockState state, World world, BlockPos pos) {
-        BlockState blockState = pushEntitiesUpBeforeBlockChange(state, JamiesModBlocks.CLAYSTONE.getDefaultState(), world, pos);
-        world.setBlockState(pos, blockState);
-        world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(entity, blockState));
+    public static void setToDirt(@Nullable Entity entity, BlockState state, Level world, BlockPos pos) {
+        BlockState blockState = pushEntitiesUp(state, JamiesModBlocks.CLAYSTONE.defaultBlockState(), world, pos);
+        world.setBlockAndUpdate(pos, blockState);
+        world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, blockState));
     }
 
-    private static boolean hasCrop(BlockView world, BlockPos pos) {
-        return world.getBlockState(pos.up()).isIn(BlockTags.MAINTAINS_FARMLAND);
+    private static boolean hasCrop(BlockGetter world, BlockPos pos) {
+        return world.getBlockState(pos.above()).is(BlockTags.MAINTAINS_FARMLAND);
     }
 
-    private static boolean isWaterNearby(WorldView world, BlockPos pos) {
-        Iterator var2 = BlockPos.iterate(pos.add(-4, 0, -4), pos.add(4, 1, 4)).iterator();
+    private static boolean isWaterNearby(LevelReader world, BlockPos pos) {
+        Iterator var2 = BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4)).iterator();
 
         BlockPos blockPos;
         do {
@@ -116,13 +127,13 @@ public class ClaystoneFarmlandBlock extends Block
             }
 
             blockPos = (BlockPos)var2.next();
-        } while(!world.getFluidState(blockPos).isIn(FluidTags.WATER));
+        } while(!world.getFluidState(blockPos).is(FluidTags.WATER));
 
         return true;
     }
 
-    private static boolean isSprinklerNearby(WorldView world, BlockPos pos) {
-        Iterator var2 = BlockPos.iterate(pos.add(-15, 0, -15), pos.add(15, 1, 15)).iterator();
+    private static boolean isSprinklerNearby(LevelReader world, BlockPos pos) {
+        Iterator var2 = BlockPos.betweenClosed(pos.offset(-15, 0, -15), pos.offset(15, 1, 15)).iterator();
 
         BlockPos blockPos;
         do {
@@ -131,21 +142,21 @@ public class ClaystoneFarmlandBlock extends Block
             }
 
             blockPos = (BlockPos)var2.next();
-        } while(world.getBlockState(blockPos).isIn(JamiesModTag.SPRINKLERS));
+        } while(world.getBlockState(blockPos).is(JamiesModTag.SPRINKLERS));
 
         return true;
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(new Property[]{MOISTURE});
     }
 
-    protected boolean canPathfindThrough(BlockState state, NavigationType type) {
+    protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
 
     static {
-        MOISTURE = Properties.MOISTURE;
-        SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 15.0, 16.0);
+        MOISTURE = BlockStateProperties.MOISTURE;
+        SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 15.0, 16.0);
     }
 }

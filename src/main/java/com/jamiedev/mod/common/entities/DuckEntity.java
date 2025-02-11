@@ -1,32 +1,45 @@
 package com.jamiedev.mod.common.entities;
 
 import com.jamiedev.mod.fabric.init.JamiesModEntityTypes;
-import net.minecraft.block.BlockState;
+import net.minecraft.core.BlockPos;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.PathNodeType;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class DuckEntity extends AnimalEntity
+public class DuckEntity extends Animal
 {
     private static final EntityDimensions BABY_BASE_DIMENSIONS;
     public float flapProgress;
@@ -38,98 +51,98 @@ public class DuckEntity extends AnimalEntity
     public int eggLayTime;
     public boolean hasJockey;
 
-    public DuckEntity(EntityType<? extends DuckEntity> entityType, World world) {
+    public DuckEntity(EntityType<? extends DuckEntity> entityType, Level world) {
         super(entityType, world);
         this.eggLayTime = this.random.nextInt(6000) + 6000;
-        this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
     }
 
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4));
-        this.goalSelector.add(2, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(3, new TemptGoal(this, 1.0, (stack) -> {
-            return stack.isIn(ItemTags.CHICKEN_FOOD);
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.4));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, (stack) -> {
+            return stack.is(ItemTags.CHICKEN_FOOD);
         }, false));
-        this.goalSelector.add(4, new FollowParentGoal(this, 1.1));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.add(7, new LookAroundGoal(this));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
     }
 
-    public EntityDimensions getBaseDimensions(EntityPose pose) {
-        return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getBaseDimensions(pose);
+    public EntityDimensions getDefaultDimensions(Pose pose) {
+        return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getDefaultDimensions(pose);
     }
 
-    public static DefaultAttributeContainer.Builder createDuckAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
+    public static AttributeSupplier.Builder createDuckAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0).add(Attributes.MOVEMENT_SPEED, 0.25);
     }
 
-    public void tickMovement() {
-        super.tickMovement();
+    public void aiStep() {
+        super.aiStep();
         this.prevFlapProgress = this.flapProgress;
         this.prevMaxWingDeviation = this.maxWingDeviation;
-        this.maxWingDeviation += (this.isOnGround() ? -1.0F : 4.0F) * 0.3F;
-        this.maxWingDeviation = MathHelper.clamp(this.maxWingDeviation, 0.0F, 1.0F);
-        if (!this.isOnGround() && this.flapSpeed < 1.0F) {
+        this.maxWingDeviation += (this.onGround() ? -1.0F : 4.0F) * 0.3F;
+        this.maxWingDeviation = Mth.clamp(this.maxWingDeviation, 0.0F, 1.0F);
+        if (!this.onGround() && this.flapSpeed < 1.0F) {
             this.flapSpeed = 1.0F;
         }
 
         this.flapSpeed *= 0.9F;
-        Vec3d vec3d = this.getVelocity();
-        if (!this.isOnGround() && vec3d.y < 0.0) {
-            this.setVelocity(vec3d.multiply(1.0, 0.6, 1.0));
+        Vec3 vec3d = this.getDeltaMovement();
+        if (!this.onGround() && vec3d.y < 0.0) {
+            this.setDeltaMovement(vec3d.multiply(1.0, 0.6, 1.0));
         }
 
         this.flapProgress += this.flapSpeed * 2.0F;
-        if (!this.getWorld().isClient && this.isAlive() && !this.isBaby() && !this.hasJockey() && --this.eggLayTime <= 0) {
-            this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-            this.dropItem(Items.EGG);
-            this.emitGameEvent(GameEvent.ENTITY_PLACE);
+        if (!this.level().isClientSide && this.isAlive() && !this.isBaby() && !this.hasJockey() && --this.eggLayTime <= 0) {
+            this.playSound(SoundEvents.CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            this.spawnAtLocation(Items.EGG);
+            this.gameEvent(GameEvent.ENTITY_PLACE);
             this.eggLayTime = this.random.nextInt(6000) + 6000;
         }
 
     }
 
-    protected boolean isFlappingWings() {
-        return this.speed > this.field_28639;
+    protected boolean isFlapping() {
+        return this.flyDist > this.field_28639;
     }
 
-    protected void addFlapEffects() {
-        this.field_28639 = this.speed + this.maxWingDeviation / 2.0F;
+    protected void onFlap() {
+        this.field_28639 = this.flyDist + this.maxWingDeviation / 2.0F;
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_CHICKEN_AMBIENT;
+        return SoundEvents.CHICKEN_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_CHICKEN_HURT;
+        return SoundEvents.CHICKEN_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_CHICKEN_DEATH;
+        return SoundEvents.CHICKEN_DEATH;
     }
 
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
     }
 
     @Nullable
-    public DuckEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
+    public DuckEntity getBreedOffspring(ServerLevel serverWorld, AgeableMob passiveEntity) {
         return (DuckEntity) JamiesModEntityTypes.DUCK.create(serverWorld);
     }
 
-    public boolean isBreedingItem(ItemStack stack) {
-        return stack.isIn(ItemTags.CHICKEN_FOOD);
+    public boolean isFood(ItemStack stack) {
+        return stack.is(ItemTags.CHICKEN_FOOD);
     }
 
-    protected int getXpToDrop() {
-        return this.hasJockey() ? 10 : super.getXpToDrop();
+    protected int getBaseExperienceReward() {
+        return this.hasJockey() ? 10 : super.getBaseExperienceReward();
     }
 
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
+    public void readAdditionalSaveData(CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
         this.hasJockey = nbt.getBoolean("IsDuckJockey");
         if (nbt.contains("EggLayTime")) {
             this.eggLayTime = nbt.getInt("EggLayTime");
@@ -137,20 +150,20 @@ public class DuckEntity extends AnimalEntity
 
     }
 
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
+    public void addAdditionalSaveData(CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
         nbt.putBoolean("IsDuckJockey", this.hasJockey);
         nbt.putInt("EggLayTime", this.eggLayTime);
     }
 
-    public boolean canImmediatelyDespawn(double distanceSquared) {
+    public boolean removeWhenFarAway(double distanceSquared) {
         return this.hasJockey();
     }
 
-    protected void updatePassengerPosition(Entity passenger, Entity.PositionUpdater positionUpdater) {
-        super.updatePassengerPosition(passenger, positionUpdater);
+    protected void positionRider(Entity passenger, Entity.MoveFunction positionUpdater) {
+        super.positionRider(passenger, positionUpdater);
         if (passenger instanceof LivingEntity) {
-            ((LivingEntity)passenger).bodyYaw = this.bodyYaw;
+            ((LivingEntity)passenger).yBodyRot = this.yBodyRot;
         }
 
     }
@@ -164,6 +177,6 @@ public class DuckEntity extends AnimalEntity
     }
 
     static {
-        BABY_BASE_DIMENSIONS = EntityType.CHICKEN.getDimensions().scaled(0.5F).withEyeHeight(0.2975F);
+        BABY_BASE_DIMENSIONS = EntityType.CHICKEN.getDimensions().scale(0.5F).withEyeHeight(0.2975F);
     }
 }

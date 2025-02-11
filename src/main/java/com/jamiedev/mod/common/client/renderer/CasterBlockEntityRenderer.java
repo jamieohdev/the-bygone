@@ -1,17 +1,17 @@
 package com.jamiedev.mod.common.client.renderer;
 
 import com.jamiedev.mod.common.blocks.entity.CasterBlockEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.util.math.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 
 public class CasterBlockEntityRenderer implements BlockEntityRenderer<CasterBlockEntity> {
 
-    public CasterBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {}
+    public CasterBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
     @Override
-    public void render(CasterBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public void render(CasterBlockEntity entity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
 //        if (entity.renderSpike && !entity.isRemoved()) {
 //            matrices.push();
 //            Direction d = entity.getWorld().getBlockState(entity.getPos()).get(CasterBlock.FACING);

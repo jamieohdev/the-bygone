@@ -6,66 +6,65 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.structure.StructurePiecesCollector;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.function.ValueLists;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.random.ChunkRandom;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.structure.Structure;
-import net.minecraft.world.gen.structure.StructureType;
-
 import java.util.Optional;
 import java.util.function.IntFunction;
 import java.util.function.ToIntFunction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.WorldgenRandom;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 
 public class BygoneMineshaftStructure extends Structure {
     public static final MapCodec<BygoneMineshaftStructure> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-        return instance.group(configCodecBuilder(instance), BygoneMineshaftStructure.Type.CODEC.fieldOf("mineshaft_type").forGetter((mineshaftStructure) -> {
+        return instance.group(settingsCodec(instance), BygoneMineshaftStructure.Type.CODEC.fieldOf("mineshaft_type").forGetter((mineshaftStructure) -> {
             return mineshaftStructure.type;
         })).apply(instance, BygoneMineshaftStructure::new);
     });
     private final BygoneMineshaftStructure.Type type;
 
-    public BygoneMineshaftStructure(Structure.Config config, BygoneMineshaftStructure.Type type) {
+    public BygoneMineshaftStructure(Structure.StructureSettings config, BygoneMineshaftStructure.Type type) {
         super(config);
         this.type = type;
     }
 
-    public Optional<StructurePosition> getStructurePosition(Structure.Context context) {
+    public Optional<GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
         context.random().nextDouble();
         ChunkPos chunkPos = context.chunkPos();
-        BlockPos blockPos = new BlockPos(chunkPos.getCenterX(), 50, chunkPos.getStartZ());
-        StructurePiecesCollector structurePiecesCollector = new StructurePiecesCollector();
+        BlockPos blockPos = new BlockPos(chunkPos.getMiddleBlockX(), 50, chunkPos.getMinBlockZ());
+        StructurePiecesBuilder structurePiecesCollector = new StructurePiecesBuilder();
         int i = this.addPieces(structurePiecesCollector, context);
-        return Optional.of(new Structure.StructurePosition(blockPos.add(0, i, 0), Either.right(structurePiecesCollector)));
+        return Optional.of(new Structure.GenerationStub(blockPos.offset(0, i, 0), Either.right(structurePiecesCollector)));
     }
 
-    private int addPieces(StructurePiecesCollector collector, Structure.Context context) {
+    private int addPieces(StructurePiecesBuilder collector, Structure.GenerationContext context) {
         ChunkPos chunkPos = context.chunkPos();
-        ChunkRandom chunkRandom = context.random();
+        WorldgenRandom chunkRandom = context.random();
         ChunkGenerator chunkGenerator = context.chunkGenerator();
-        BygoneMineshaftGenerator.BygoneMineshaftRoom mineshaftRoom = new BygoneMineshaftGenerator.BygoneMineshaftRoom(0, chunkRandom, chunkPos.getOffsetX(2), chunkPos.getOffsetZ(2), this.type);
+        BygoneMineshaftGenerator.BygoneMineshaftRoom mineshaftRoom = new BygoneMineshaftGenerator.BygoneMineshaftRoom(0, chunkRandom, chunkPos.getBlockX(2), chunkPos.getBlockZ(2), this.type);
         collector.addPiece(mineshaftRoom);
-        mineshaftRoom.fillOpenings(mineshaftRoom, collector, chunkRandom);
+        mineshaftRoom.addChildren(mineshaftRoom, collector, chunkRandom);
         int i = chunkGenerator.getSeaLevel();
 
-       return collector.shiftInto(i, chunkGenerator.getMinimumY() + 150, chunkRandom, 10);
+       return collector.moveBelowSeaLevel(i, chunkGenerator.getMinY() + 150, chunkRandom, 10);
 
     }
 
-    public StructureType<?> getType() {
+    public StructureType<?> type() {
         return JamiesModStructures.BYGONE_MINESHAFT;
     }
 
-    public static enum Type implements StringIdentifiable {
+    public static enum Type implements StringRepresentable {
         NORMAL("ancient", JamiesModBlocks.ANCIENT_LOG, JamiesModBlocks.ANCIENT_PLANKS, JamiesModBlocks.ANCIENT_FENCE);
 
-        public static final Codec<BygoneMineshaftStructure.Type> CODEC = StringIdentifiable.createCodec(BygoneMineshaftStructure.Type::values);
-        private static final IntFunction<BygoneMineshaftStructure.Type> BY_ID = ValueLists.createIdToValueFunction((ToIntFunction<Type>) Enum::ordinal, values(), ValueLists.OutOfBoundsHandling.ZERO);
+        public static final Codec<BygoneMineshaftStructure.Type> CODEC = StringRepresentable.fromEnum(BygoneMineshaftStructure.Type::values);
+        private static final IntFunction<BygoneMineshaftStructure.Type> BY_ID = ByIdMap.continuous((ToIntFunction<Type>) Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
         private final String name;
         private final BlockState log;
         private final BlockState planks;
@@ -73,9 +72,9 @@ public class BygoneMineshaftStructure extends Structure {
 
         private Type(final String name, final Block log, final Block planks, final Block fence) {
             this.name = name;
-            this.log = log.getDefaultState();
-            this.planks = planks.getDefaultState();
-            this.fence = fence.getDefaultState();
+            this.log = log.defaultBlockState();
+            this.planks = planks.defaultBlockState();
+            this.fence = fence.defaultBlockState();
         }
 
         public String getName() {
@@ -91,14 +90,14 @@ public class BygoneMineshaftStructure extends Structure {
         }
 
         public BlockState getPlanks() {
-            return JamiesModBlocks.ANCIENT_PLANKS.getDefaultState();
+            return JamiesModBlocks.ANCIENT_PLANKS.defaultBlockState();
         }
 
         public BlockState getFence() {
             return this.fence;
         }
 
-        public String asString() {
+        public String getSerializedName() {
             return this.name;
         }
     }

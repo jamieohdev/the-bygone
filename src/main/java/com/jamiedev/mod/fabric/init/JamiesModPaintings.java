@@ -1,24 +1,24 @@
 package com.jamiedev.mod.fabric.init;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
-import net.minecraft.entity.decoration.painting.PaintingVariant;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 
 public class JamiesModPaintings
 {
-    public static final RegistryKey<PaintingVariant> HALLUCIGENIA = of("hallucigenia");
+    public static final ResourceKey<PaintingVariant> HALLUCIGENIA = of("hallucigenia");
 
-    public static void bootstrap(Registerable<PaintingVariant> registry) {
+    public static void bootstrap(BootstrapContext<PaintingVariant> registry) {
         register(registry, HALLUCIGENIA, 4, 2);
     }
 
-    private static void register(Registerable<PaintingVariant> registry, RegistryKey<PaintingVariant> key, int width, int height) {
-        registry.register(key, new PaintingVariant(width, height, key.getValue()));
+    private static void register(BootstrapContext<PaintingVariant> registry, ResourceKey<PaintingVariant> key, int width, int height) {
+        registry.register(key, new PaintingVariant(width, height, key.location()));
     }
 
-    private static RegistryKey<PaintingVariant> of(String id) {
-        return RegistryKey.of(RegistryKeys.PAINTING_VARIANT, JamiesModFabric.getModId( id));
+    private static ResourceKey<PaintingVariant> of(String id) {
+        return ResourceKey.create(Registries.PAINTING_VARIANT, JamiesModFabric.getModId( id));
     }
 }

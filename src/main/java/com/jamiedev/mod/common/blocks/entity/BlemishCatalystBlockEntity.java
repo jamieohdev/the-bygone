@@ -4,32 +4,32 @@ import com.google.common.annotations.VisibleForTesting;
 import com.jamiedev.mod.common.blocks.BlemishCatalystBlock;
 import com.jamiedev.mod.fabric.init.JamiesModBlockEntities;
 import com.jamiedev.mod.fabric.init.JamiesModCriteria;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Nullables;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.event.BlockPositionSource;
-import net.minecraft.world.event.GameEvent;
-import net.minecraft.world.event.PositionSource;
-import net.minecraft.world.event.listener.GameEventListener;
+import net.minecraft.Optionull;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.BlockPositionSource;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.gameevent.GameEventListener;
+import net.minecraft.world.level.gameevent.PositionSource;
+import net.minecraft.world.phys.Vec3;
 
-public class BlemishCatalystBlockEntity extends BlockEntity implements GameEventListener.Holder<BlemishCatalystBlockEntity.Listener> {
+public class BlemishCatalystBlockEntity extends BlockEntity implements GameEventListener.Provider<BlemishCatalystBlockEntity.Listener> {
     private final BlemishCatalystBlockEntity.Listener eventListener;
 
     public BlemishCatalystBlockEntity(BlockPos pos, BlockState state) {
@@ -37,21 +37,21 @@ public class BlemishCatalystBlockEntity extends BlockEntity implements GameEvent
         this.eventListener = new BlemishCatalystBlockEntity.Listener(state, new BlockPositionSource(pos));
     }
 
-    public static void tick(World world, BlockPos pos, BlockState state, BlemishCatalystBlockEntity blockEntity) {
+    public static void tick(Level world, BlockPos pos, BlockState state, BlemishCatalystBlockEntity blockEntity) {
         blockEntity.eventListener.getSpreadManager().tick(world, pos, world.getRandom(), true);
     }
 
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.readNbt(nbt, registryLookup);
+    protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider registryLookup) {
+        super.loadAdditional(nbt, registryLookup);
         this.eventListener.spreadManager.readNbt(nbt);
     }
 
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+    protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider registryLookup) {
         this.eventListener.spreadManager.writeNbt(nbt);
-        super.writeNbt(nbt, registryLookup);
+        super.saveAdditional(nbt, registryLookup);
     }
 
-    public BlemishCatalystBlockEntity.Listener getEventListener() {
+    public BlemishCatalystBlockEntity.Listener getListener() {
         return this.eventListener;
     }
 
@@ -67,34 +67,34 @@ public class BlemishCatalystBlockEntity extends BlockEntity implements GameEvent
             this.spreadManager = BlemishSpreadManager.create();
         }
 
-        public PositionSource getPositionSource() {
+        public PositionSource getListenerSource() {
             return this.positionSource;
         }
 
-        public int getRange() {
+        public int getListenerRadius() {
             return 8;
         }
 
-        public GameEventListener.TriggerOrder getTriggerOrder() {
-            return TriggerOrder.BY_DISTANCE;
+        public GameEventListener.DeliveryMode getDeliveryMode() {
+            return DeliveryMode.BY_DISTANCE;
         }
 
-        public boolean listen(ServerWorld world, RegistryEntry<GameEvent> event, GameEvent.Emitter emitter, Vec3d emitterPos) {
-            if (event.matches(GameEvent.ENTITY_DIE)) {
+        public boolean handleGameEvent(ServerLevel world, Holder<GameEvent> event, GameEvent.Context emitter, Vec3 emitterPos) {
+            if (event.is(GameEvent.ENTITY_DIE)) {
                 Entity var6 = emitter.sourceEntity();
                 if (var6 instanceof LivingEntity) {
                     LivingEntity livingEntity = (LivingEntity)var6;
-                    if (!livingEntity.isExperienceDroppingDisabled()) {
-                        DamageSource damageSource = livingEntity.getRecentDamageSource();
-                        int i = livingEntity.getXpToDrop(world, (Entity) Nullables.map(damageSource, DamageSource::getAttacker));
-                        if (livingEntity.shouldDropXp() && i > 0) {
-                            this.spreadManager.spread(BlockPos.ofFloored(emitterPos.offset(Direction.UP, 0.5)), i);
+                    if (!livingEntity.wasExperienceConsumed()) {
+                        DamageSource damageSource = livingEntity.getLastDamageSource();
+                        int i = livingEntity.getExperienceReward(world, (Entity) Optionull.map(damageSource, DamageSource::getEntity));
+                        if (livingEntity.shouldDropExperience() && i > 0) {
+                            this.spreadManager.spread(BlockPos.containing(emitterPos.relative(Direction.UP, 0.5)), i);
                             this.triggerCriteria(world, livingEntity);
                         }
 
-                        livingEntity.disableExperienceDropping();
-                        this.positionSource.getPos(world).ifPresent((pos) -> {
-                            this.bloom(world, BlockPos.ofFloored(pos), this.state, world.getRandom());
+                        livingEntity.skipDropExperience();
+                        this.positionSource.getPosition(world).ifPresent((pos) -> {
+                            this.bloom(world, BlockPos.containing(pos), this.state, world.getRandom());
                         });
                     }
 
@@ -110,17 +110,17 @@ public class BlemishCatalystBlockEntity extends BlockEntity implements GameEvent
             return this.spreadManager;
         }
 
-        private void bloom(ServerWorld world, BlockPos pos, BlockState state, Random random) {
-            world.setBlockState(pos, (BlockState)state.with(BlemishCatalystBlock.BLOOM, true), 3);
-            world.scheduleBlockTick(pos, state.getBlock(), 8);
-            world.spawnParticles(ParticleTypes.WITCH, (double)pos.getX() + 0.5, (double)pos.getY() + 1.15, (double)pos.getZ() + 0.5, 2, 0.2, 0.0, 0.2, 0.0);
-            world.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_SCULK_CATALYST_BLOOM, SoundCategory.BLOCKS, 2.0F, 0.6F + random.nextFloat() * 0.4F);
+        private void bloom(ServerLevel world, BlockPos pos, BlockState state, RandomSource random) {
+            world.setBlock(pos, (BlockState)state.setValue(BlemishCatalystBlock.BLOOM, true), 3);
+            world.scheduleTick(pos, state.getBlock(), 8);
+            world.sendParticles(ParticleTypes.WITCH, (double)pos.getX() + 0.5, (double)pos.getY() + 1.15, (double)pos.getZ() + 0.5, 2, 0.2, 0.0, 0.2, 0.0);
+            world.playSound((Player)null, pos, SoundEvents.SCULK_CATALYST_BLOOM, SoundSource.BLOCKS, 2.0F, 0.6F + random.nextFloat() * 0.4F);
         }
 
-        private void triggerCriteria(World world, LivingEntity deadEntity) {
-            LivingEntity livingEntity = deadEntity.getAttacker();
-            if (livingEntity instanceof ServerPlayerEntity serverPlayerEntity) {
-                DamageSource damageSource = deadEntity.getRecentDamageSource() == null ? world.getDamageSources().playerAttack(serverPlayerEntity) : deadEntity.getRecentDamageSource();
+        private void triggerCriteria(Level world, LivingEntity deadEntity) {
+            LivingEntity livingEntity = deadEntity.getLastHurtByMob();
+            if (livingEntity instanceof ServerPlayer serverPlayerEntity) {
+                DamageSource damageSource = deadEntity.getLastDamageSource() == null ? world.damageSources().playerAttack(serverPlayerEntity) : deadEntity.getLastDamageSource();
                 JamiesModCriteria.KILLED_BY_BLEMISH_CRITERION.trigger(serverPlayerEntity, deadEntity, damageSource);
             }
 

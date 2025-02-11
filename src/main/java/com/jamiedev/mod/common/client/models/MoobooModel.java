@@ -1,12 +1,18 @@
 package com.jamiedev.mod.common.client.models;
 
 import com.jamiedev.mod.common.entities.MoobooEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 
 public class MoobooModel<T extends Entity> extends EntityModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
@@ -26,60 +32,60 @@ public class MoobooModel<T extends Entity> extends EntityModel<T> {
         this.leg4 = root.getChild("leg4");
     }
 
-    public static TexturedModelData getTexturedModelData()  {
-        ModelData meshdefinition = new ModelData();
-        ModelPartData ModelPartData = meshdefinition.getRoot();
+    public static LayerDefinition getTexturedModelData()  {
+        MeshDefinition meshdefinition = new MeshDefinition();
+        PartDefinition ModelPartData = meshdefinition.getRoot();
 
-        ModelPartData head = ModelPartData.addChild("head",
-                ModelPartBuilder.create().uv(0, 0)
-                        .cuboid(-4.0F, -19.0F, -6.0F, 8.0F, 8.0F, 6.0F,
-                                new Dilation(0.0F))
-                .uv(22, 0)
-                        .cuboid(4.0F, -20.0F, -4.0F, 1.0F, 3.0F, 1.0F,
-                                new Dilation(0.0F))
-                .uv(22, 0)
-                        .cuboid(-5.0F, -20.0F, -4.0F, 1.0F, 3.0F, 1.0F,
-                                new Dilation(0.0F)),
-                ModelTransform.of(0.0F, 4.0F, -8.0F, 0.0F, 0.0F, -3.1416F));
+        PartDefinition head = ModelPartData.addOrReplaceChild("head",
+                CubeListBuilder.create().texOffs(0, 0)
+                        .addBox(-4.0F, -19.0F, -6.0F, 8.0F, 8.0F, 6.0F,
+                                new CubeDeformation(0.0F))
+                .texOffs(22, 0)
+                        .addBox(4.0F, -20.0F, -4.0F, 1.0F, 3.0F, 1.0F,
+                                new CubeDeformation(0.0F))
+                .texOffs(22, 0)
+                        .addBox(-5.0F, -20.0F, -4.0F, 1.0F, 3.0F, 1.0F,
+                                new CubeDeformation(0.0F)),
+                PartPose.offsetAndRotation(0.0F, 4.0F, -8.0F, 0.0F, 0.0F, -3.1416F));
 
-        ModelPartData body = ModelPartData.addChild("body", ModelPartBuilder.create().uv(18, 4)
-                .cuboid(-6.0F, -10.0F, 6.0F, 12.0F, 18.0F, 10.0F,
-                        new Dilation(0.0F))
-                .uv(52, 0)
-                .cuboid(-2.0F, 2.0F, 5.0F, 4.0F, 6.0F, 1.0F,
-                        new Dilation(0.0F)),
-                ModelTransform.of(0.0F, 5.0F, 2.0F, 1.5708F, 0.0F, -3.1416F));
+        PartDefinition body = ModelPartData.addOrReplaceChild("body", CubeListBuilder.create().texOffs(18, 4)
+                .addBox(-6.0F, -10.0F, 6.0F, 12.0F, 18.0F, 10.0F,
+                        new CubeDeformation(0.0F))
+                .texOffs(52, 0)
+                .addBox(-2.0F, 2.0F, 5.0F, 4.0F, 6.0F, 1.0F,
+                        new CubeDeformation(0.0F)),
+                PartPose.offsetAndRotation(0.0F, 5.0F, 2.0F, 1.5708F, 0.0F, -3.1416F));
 
-        ModelPartData leg1 = ModelPartData.addChild("leg1", ModelPartBuilder.create()
-                .uv(0, 16)
-                .cuboid(-2.0F, 1.0F, -2.0F, 4.0F, 12.0F, 4.0F,
-                        new Dilation(0.0F)),
-                ModelTransform.of(-4.0F, 12.0F, 7.0F, 0.0F, 0.0F, -3.1416F));
+        PartDefinition leg1 = ModelPartData.addOrReplaceChild("leg1", CubeListBuilder.create()
+                .texOffs(0, 16)
+                .addBox(-2.0F, 1.0F, -2.0F, 4.0F, 12.0F, 4.0F,
+                        new CubeDeformation(0.0F)),
+                PartPose.offsetAndRotation(-4.0F, 12.0F, 7.0F, 0.0F, 0.0F, -3.1416F));
 
-        ModelPartData leg2 = ModelPartData.addChild("leg2", ModelPartBuilder.create()
-                .uv(0, 16)
-                .cuboid(-2.0F, 1.0F, -2.0F, 4.0F, 12.0F, 4.0F,
-                        new Dilation(0.0F)),
-                ModelTransform.of(4.0F, 12.0F, 7.0F, 0.0F, 0.0F, -3.1416F));
+        PartDefinition leg2 = ModelPartData.addOrReplaceChild("leg2", CubeListBuilder.create()
+                .texOffs(0, 16)
+                .addBox(-2.0F, 1.0F, -2.0F, 4.0F, 12.0F, 4.0F,
+                        new CubeDeformation(0.0F)),
+                PartPose.offsetAndRotation(4.0F, 12.0F, 7.0F, 0.0F, 0.0F, -3.1416F));
 
-        ModelPartData leg3 = ModelPartData.addChild("leg3", ModelPartBuilder.create()
-                .uv(0, 16)
-                .cuboid(-2.0F, 1.0F, -1.0F, 4.0F, 12.0F, 4.0F,
-                        new Dilation(0.0F)),
-                ModelTransform.of(-4.0F, 12.0F, -6.0F, 0.0F, 0.0F, -3.1416F));
+        PartDefinition leg3 = ModelPartData.addOrReplaceChild("leg3", CubeListBuilder.create()
+                .texOffs(0, 16)
+                .addBox(-2.0F, 1.0F, -1.0F, 4.0F, 12.0F, 4.0F,
+                        new CubeDeformation(0.0F)),
+                PartPose.offsetAndRotation(-4.0F, 12.0F, -6.0F, 0.0F, 0.0F, -3.1416F));
 
-        ModelPartData leg4 = ModelPartData.addChild("leg4", ModelPartBuilder.create()
-                .uv(0, 16)
-                .cuboid(-2.0F, 1.0F, -1.0F, 4.0F, 12.0F, 4.0F,
-                        new Dilation(0.0F)),
-                ModelTransform.of(4.0F, 12.0F, -6.0F, 0.0F, 0.0F, -3.1416F));
+        PartDefinition leg4 = ModelPartData.addOrReplaceChild("leg4", CubeListBuilder.create()
+                .texOffs(0, 16)
+                .addBox(-2.0F, 1.0F, -1.0F, 4.0F, 12.0F, 4.0F,
+                        new CubeDeformation(0.0F)),
+                PartPose.offsetAndRotation(4.0F, 12.0F, -6.0F, 0.0F, 0.0F, -3.1416F));
 
-        return TexturedModelData.of(meshdefinition, 64, 32);
+        return LayerDefinition.create(meshdefinition, 64, 32);
     }
 
 
     @Override
-    public void render(MatrixStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
        head.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
         body.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
         leg1.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
@@ -89,12 +95,12 @@ public class MoobooModel<T extends Entity> extends EntityModel<T> {
     }
 
     @Override
-    public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        this.head.pitch = headPitch * 0.017453292F;
-        this.head.yaw = headYaw * 0.017453292F;
-        this.leg4.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
-        this.leg3.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
-        this.leg2.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
-        this.leg1.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
+    public void setupAnim(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.head.xRot = headPitch * 0.017453292F;
+        this.head.yRot = headYaw * 0.017453292F;
+        this.leg4.xRot = Mth.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
+        this.leg3.xRot = Mth.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
+        this.leg2.xRot = Mth.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
+        this.leg1.xRot = Mth.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
     }
 }

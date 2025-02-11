@@ -1,12 +1,12 @@
 package com.jamiedev.mod.common.blocks.entity;
 
 import com.jamiedev.mod.fabric.init.JamiesModBlockEntities;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.SignBlockEntity;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class ModHangingSignBlockEntity extends SignBlockEntity
@@ -31,11 +31,11 @@ public class ModHangingSignBlockEntity extends SignBlockEntity
         return 9;
     }
 
-    public int getMaxTextWidth() {
+    public int getMaxTextLineWidth() {
         return 60;
     }
 
-    public SoundEvent getInteractionFailSound() {
-        return SoundEvents.BLOCK_HANGING_SIGN_WAXED_INTERACT_FAIL;
+    public SoundEvent getSignInteractionFailedSoundEvent() {
+        return SoundEvents.WAXED_HANGING_SIGN_INTERACT_FAIL;
     }
 }

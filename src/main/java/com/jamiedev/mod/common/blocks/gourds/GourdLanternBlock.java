@@ -3,26 +3,33 @@ package com.jamiedev.mod.common.blocks.gourds;
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
-import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.GrowingPlantBodyBlock;
+import net.minecraft.world.level.block.GrowingPlantHeadBlock;
+import net.minecraft.world.level.block.WeepingVinesPlantBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class GourdLanternBlock extends AbstractPlantBlock {
-    public static final MapCodec<GourdLanternBlock> CODEC = createCodec(GourdLanternBlock::new);
+public class GourdLanternBlock extends GrowingPlantBodyBlock {
+    public static final MapCodec<GourdLanternBlock> CODEC = simpleCodec(GourdLanternBlock::new);
     public static final BooleanProperty HANGING;
     public static final BooleanProperty WATERLOGGED;
     protected static final VoxelShape STANDING_SHAPE;
@@ -31,55 +38,55 @@ public class GourdLanternBlock extends AbstractPlantBlock {
     WeepingVinesPlantBlock ref;
 
 
-    public MapCodec<GourdLanternBlock> getCodec() {
+    public MapCodec<GourdLanternBlock> codec() {
         return CODEC;
     }
 
-    public GourdLanternBlock(AbstractBlock.Settings settings) {
+    public GourdLanternBlock(BlockBehaviour.Properties settings) {
         super(settings, Direction.DOWN, HANGING_SHAPE, false);
-        this.setDefaultState((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(HANGING, false)).with(WATERLOGGED, false));
+        this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(HANGING, false)).setValue(WATERLOGGED, false));
     }
-    protected void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
+    protected void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
         BlockPos blockPos = hit.getBlockPos();
-        if (!world.isClient) {
-            world.breakBlock(blockPos, true, projectile);
+        if (!world.isClientSide) {
+            world.destroyBlock(blockPos, true, projectile);
         }
 
     }
 
-    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!state.canPlaceAt(world, pos)) {
-            world.breakBlock(pos, true);
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        if (!state.canSurvive(world, pos)) {
+            world.destroyBlock(pos, true);
         }
     }
 
 
 
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return (Boolean)state.get(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return (Boolean)state.getValue(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(new Property[]{HANGING, WATERLOGGED});
     }
 
 
 
     protected FluidState getFluidState(BlockState state) {
-        return (Boolean)state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return (Boolean)state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
-    protected boolean canPathfindThrough(BlockState state, NavigationType type) {
+    protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
-    protected AbstractPlantStemBlock getStem() {
-        return (AbstractPlantStemBlock) JamiesModBlocks.GOURD_VINE;
+    protected GrowingPlantHeadBlock getHeadBlock() {
+        return (GrowingPlantHeadBlock) JamiesModBlocks.GOURD_VINE;
     }
     static {
-        HANGING = Properties.HANGING;
-        WATERLOGGED = Properties.WATERLOGGED;
-        STANDING_SHAPE = VoxelShapes.union(Block.createCuboidShape(3.0, 0.0, 3.0, 13.0, 5.0, 13.0), Block.createCuboidShape(6.0, 7.0, 6.0, 10.0, 9.0, 10.0));
-        HANGING_SHAPE = VoxelShapes.union(Block.createCuboidShape(3.0, 1.0, 3.0, 13.0, 5.0, 13.0), Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
+        HANGING = BlockStateProperties.HANGING;
+        WATERLOGGED = BlockStateProperties.WATERLOGGED;
+        STANDING_SHAPE = Shapes.or(Block.box(3.0, 0.0, 3.0, 13.0, 5.0, 13.0), Block.box(6.0, 7.0, 6.0, 10.0, 9.0, 10.0));
+        HANGING_SHAPE = Shapes.or(Block.box(3.0, 1.0, 3.0, 13.0, 5.0, 13.0), Block.box(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
 
     }
 }

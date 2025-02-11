@@ -2,43 +2,43 @@ package com.jamiedev.mod.common.blocks;
 
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 
 public abstract class UpsidedownPlantBlock  extends Block {
-    protected UpsidedownPlantBlock(AbstractBlock.Settings settings) {
+    protected UpsidedownPlantBlock(BlockBehaviour.Properties settings) {
         super(settings);
     }
 
-    protected abstract MapCodec<? extends UpsidedownPlantBlock> getCodec();
+    protected abstract MapCodec<? extends UpsidedownPlantBlock> codec();
 
-    protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isIn(BlockTags.DIRT) || floor.isOf(JamiesModBlocks.LIMBOSTONE)|| floor.isOf(JamiesModBlocks.LIMBOSLATE);
+    protected boolean canPlantOnTop(BlockState floor, BlockGetter world, BlockPos pos) {
+        return floor.is(BlockTags.DIRT) || floor.is(JamiesModBlocks.LIMBOSTONE)|| floor.is(JamiesModBlocks.LIMBOSLATE);
     }
 
-    protected BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        return !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        BlockPos blockPos = pos.up();
+    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        BlockPos blockPos = pos.above();
         return this.canPlantOnTop(world.getBlockState(blockPos), world, blockPos);
     }
 
-    protected boolean isTransparent(BlockState state, BlockView world, BlockPos pos) {
+    protected boolean propagatesSkylightDown(BlockState state, BlockGetter world, BlockPos pos) {
         return state.getFluidState().isEmpty();
     }
 
-    protected boolean canPathfindThrough(BlockState state, NavigationType type) {
-        return type == NavigationType.AIR && !this.collidable ? true : super.canPathfindThrough(state, type);
+    protected boolean isPathfindable(BlockState state, PathComputationType type) {
+        return type == PathComputationType.AIR && !this.hasCollision ? true : super.isPathfindable(state, type);
     }
 }

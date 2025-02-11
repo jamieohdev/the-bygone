@@ -1,25 +1,27 @@
 package com.jamiedev.mod.mixin;
 import com.jamiedev.mod.fabric.JamiesModFabric;
-import net.minecraft.item.AnimalArmorItem;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Function;
-import static net.minecraft.item.AnimalArmorItem.Type.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.AnimalArmorItem;
+import net.minecraft.world.item.AnimalArmorItem.BodyType;
+
+import static net.minecraft.world.item.AnimalArmorItem.BodyType.*;
 
 
 @Unique
-@Mixin(AnimalArmorItem.Type.class)
+@Mixin(AnimalArmorItem.BodyType.class)
 public class AnimalArmorItemTypeMixin {
 
 
     @Unique
-    private static AnimalArmorItem.Type[] bygone$values = new AnimalArmorItem.Type[]{
+    private static AnimalArmorItem.BodyType[] bygone$values = new AnimalArmorItem.BodyType[]{
             EQUESTRIAN,
             CANINE
     };
@@ -27,25 +29,25 @@ public class AnimalArmorItemTypeMixin {
     @Shadow
     @Final
     @Mutable
-    public static AnimalArmorItem.Type[] values() {
+    public static AnimalArmorItem.BodyType[] values() {
         return bygone$values;
     }
 
     @Unique
-    private static AnimalArmorItem.Type BIG_BEAK = bygone$addVariant("big_beak", id ->
-            JamiesModFabric.getModId( "textures/entity/big_beak/beak_" + id.getPath()), SoundEvents.ENTITY_ITEM_BREAK);
+    private static AnimalArmorItem.BodyType BIG_BEAK = bygone$addVariant("big_beak", id ->
+            JamiesModFabric.getModId( "textures/entity/big_beak/beak_" + id.getPath()), SoundEvents.ITEM_BREAK);
 
     @Invoker("<init>")
-    public static AnimalArmorItem.Type bygone$invokeInit(String name, int index, final Function<Identifier, Identifier> textureIdFunction, final SoundEvent breakSound) {
+    public static AnimalArmorItem.BodyType bygone$invokeInit(String name, int index, final Function<ResourceLocation, ResourceLocation> textureIdFunction, final SoundEvent breakSound) {
         throw new AssertionError();
     }
 
     @Unique
-    private static AnimalArmorItem.Type bygone$addVariant(String internalName, final Function<Identifier, Identifier> textureIdFunction, final SoundEvent breakSound) {
+    private static AnimalArmorItem.BodyType bygone$addVariant(String internalName, final Function<ResourceLocation, ResourceLocation> textureIdFunction, final SoundEvent breakSound) {
         var variants = new ArrayList<>(Arrays.asList(AnimalArmorItemTypeMixin.bygone$values));
         var beakArmor = bygone$invokeInit(internalName,variants.getLast().ordinal() + 1, textureIdFunction, breakSound);
         variants.add(beakArmor);
-        AnimalArmorItemTypeMixin.bygone$values = variants.toArray(new AnimalArmorItem.Type[0]);
+        AnimalArmorItemTypeMixin.bygone$values = variants.toArray(new AnimalArmorItem.BodyType[0]);
 
         JamiesModFabric.BIG_BEAK_ARMOR = beakArmor;
 

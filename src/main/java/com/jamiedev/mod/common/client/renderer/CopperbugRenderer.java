@@ -4,26 +4,25 @@ import com.jamiedev.mod.common.client.JamiesModModelLayers;
 import com.jamiedev.mod.common.client.models.CopperbugModel;
 import com.jamiedev.mod.common.entities.CopperbugEntity;
 import com.jamiedev.mod.fabric.JamiesModFabric;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.GlowSquidEntityRenderer;
-import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.entity.mob.SilverfishEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.GlowSquidRenderer;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.monster.Silverfish;
 
-public class CopperbugRenderer  extends MobEntityRenderer<CopperbugEntity, CopperbugModel<CopperbugEntity>> {
-    private static final Identifier TEXTURE = JamiesModFabric.getModId("textures/entity/copperbug.png");
-    GlowSquidEntityRenderer ref;
-    public CopperbugRenderer(EntityRendererFactory.Context context) {
-        super(context, new CopperbugModel<CopperbugEntity>(context.getPart(JamiesModModelLayers.COPPERBUG)), 0.3F);
+public class CopperbugRenderer  extends MobRenderer<CopperbugEntity, CopperbugModel<CopperbugEntity>> {
+    private static final ResourceLocation TEXTURE = JamiesModFabric.getModId("textures/entity/copperbug.png");
+    GlowSquidRenderer ref;
+    public CopperbugRenderer(EntityRendererProvider.Context context) {
+        super(context, new CopperbugModel<CopperbugEntity>(context.bakeLayer(JamiesModModelLayers.COPPERBUG)), 0.3F);
     }
 
-    protected float getLyingAngle(SilverfishEntity silverfishEntity) {
+    protected float getLyingAngle(Silverfish silverfishEntity) {
         return 180.0F;
     }
 
-    public Identifier getTexture(CopperbugEntity coelacanthEntity) {
+    public ResourceLocation getTexture(CopperbugEntity coelacanthEntity) {
         return TEXTURE;
     }
 

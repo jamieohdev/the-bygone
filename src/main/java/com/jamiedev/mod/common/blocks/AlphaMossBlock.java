@@ -1,48 +1,47 @@
 package com.jamiedev.mod.common.blocks;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Fertilizable;
-import net.minecraft.block.MossBlock;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.UndergroundConfiguredFeatures;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.features.CaveFeatures;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
-public class AlphaMossBlock extends Block implements Fertilizable
+public class AlphaMossBlock extends Block implements BonemealableBlock
 {
-    public static final MapCodec<AlphaMossBlock> CODEC = createCodec(AlphaMossBlock::new);
+    public static final MapCodec<AlphaMossBlock> CODEC = simpleCodec(AlphaMossBlock::new);
 
     @Override
-    public MapCodec<AlphaMossBlock> getCodec() {
+    public MapCodec<AlphaMossBlock> codec() {
         return CODEC;
     }
-    public AlphaMossBlock(Settings settings) {
+    public AlphaMossBlock(Properties settings) {
         super(settings);
     }
 
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
-        return world.getBlockState(pos.up()).isAir();
+    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
+        return world.getBlockState(pos.above()).isAir();
     }
 
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        world.getRegistryManager().getOptional(RegistryKeys.CONFIGURED_FEATURE).flatMap((key) -> {
-            return key.getEntry(UndergroundConfiguredFeatures.MOSS_PATCH_BONEMEAL);
+    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
+        world.registryAccess().registry(Registries.CONFIGURED_FEATURE).flatMap((key) -> {
+            return key.getHolder(CaveFeatures.MOSS_PATCH_BONEMEAL);
         }).ifPresent((entry) -> {
-            ((ConfiguredFeature)entry.value()).generate(world, world.getChunkManager().getChunkGenerator(), random, pos.up());
+            ((ConfiguredFeature)entry.value()).place(world, world.getChunkSource().getGenerator(), random, pos.above());
         });
     }
 
-    public Fertilizable.FertilizableType getFertilizableType() {
-        return FertilizableType.NEIGHBOR_SPREADER;
+    public BonemealableBlock.Type getType() {
+        return Type.NEIGHBOR_SPREADER;
     }
 }

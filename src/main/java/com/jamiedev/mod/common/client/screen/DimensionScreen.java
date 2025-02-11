@@ -2,31 +2,37 @@ package com.jamiedev.mod.common.client.screen;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.ReceivingLevelScreen;
 import net.minecraft.client.render.*;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 
 public class DimensionScreen {
-    private static final Text DOWNLOADING_BYGONE_TERRAIN_TEXT  = Text.translatable("system.bygone.entering_into_bygone");
-    private static final Identifier BACKGROUND_LOCATION = JamiesModFabric.getModId( "bg.png");
+    private static final Component DOWNLOADING_BYGONE_TERRAIN_TEXT  = Component.translatable("system.bygone.entering_into_bygone");
+    private static final ResourceLocation BACKGROUND_LOCATION = JamiesModFabric.getModId( "bg.png");
 
-    public static void renderScreenAndText(DownloadingTerrainScreen screen, DrawContext guiGraphics) {
-        Tessellator tesselator = Tessellator.getInstance();
-        BufferBuilder bufferbuilder = tesselator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+    public static void renderScreenAndText(ReceivingLevelScreen screen, GuiGraphics guiGraphics) {
+        Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder bufferbuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
 
-        RenderSystem.setShader(GameRenderer::getPositionTexColorProgram);
+        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         RenderSystem.setShaderTexture(0, BACKGROUND_LOCATION);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        bufferbuilder.vertex(0.0F, screen.height, 0.0F).texture(0.0F, (float)screen.height / 32.0F).color(64, 64, 64, 255);
-        bufferbuilder.vertex(screen.width, screen.height, 0.0F).texture((float)screen.width / 32.0F, (float)screen.height / 32.0F).color(64, 64, 64, 255);
-        bufferbuilder.vertex(screen.width, 0.0F, 0.0F).texture((float)screen.width / 32.0F, 0.0f).color(64, 64, 64, 255);
-        bufferbuilder.vertex(0.0F, 0.0F, 0.0F).texture(0.0F, 0.0f).color(64, 64, 64, 255);
-        BufferRenderer.draw(bufferbuilder.end());
+        bufferbuilder.addVertex(0.0F, screen.height, 0.0F).setUv(0.0F, (float)screen.height / 32.0F).setColor(64, 64, 64, 255);
+        bufferbuilder.addVertex(screen.width, screen.height, 0.0F).setUv((float)screen.width / 32.0F, (float)screen.height / 32.0F).setColor(64, 64, 64, 255);
+        bufferbuilder.addVertex(screen.width, 0.0F, 0.0F).setUv((float)screen.width / 32.0F, 0.0f).setColor(64, 64, 64, 255);
+        bufferbuilder.addVertex(0.0F, 0.0F, 0.0F).setUv(0.0F, 0.0f).setColor(64, 64, 64, 255);
+        BufferUploader.draw(bufferbuilder.buildOrThrow());
 
-        guiGraphics.drawCenteredTextWithShadow(MinecraftClient.getInstance().textRenderer, DOWNLOADING_BYGONE_TERRAIN_TEXT, screen.width / 2 + 1, screen.height / 2 - 9, 0);
-        guiGraphics.drawCenteredTextWithShadow(MinecraftClient.getInstance().textRenderer, DOWNLOADING_BYGONE_TERRAIN_TEXT, screen.width / 2, screen.height / 2 - 10, 16774120);
+        guiGraphics.drawCenteredString(Minecraft.getInstance().font, DOWNLOADING_BYGONE_TERRAIN_TEXT, screen.width / 2 + 1, screen.height / 2 - 9, 0);
+        guiGraphics.drawCenteredString(Minecraft.getInstance().font, DOWNLOADING_BYGONE_TERRAIN_TEXT, screen.width / 2, screen.height / 2 - 10, 16774120);
     }
 }

@@ -1,11 +1,11 @@
 package com.jamiedev.mod.common.entities.ai;
 
 import com.jamiedev.mod.common.entities.FungalParentEntity;
-import net.minecraft.entity.ai.goal.Goal;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 import java.util.List;
+import net.minecraft.world.entity.ai.goal.Goal;
 
 public class FollowFungalParentGoal extends Goal
 {
@@ -23,19 +23,19 @@ public class FollowFungalParentGoal extends Goal
         this.speed = speed;
     }
 
-    public boolean canStart() {
-        if (this.animal.getBreedingAge() >= 0) {
+    public boolean canUse() {
+        if (this.animal.getAge() >= 0) {
             return false;
         } else {
-            List<? extends FungalParentEntity> list = this.animal.getWorld().getNonSpectatingEntities(this.animal.getClass(), this.animal.getBoundingBox().expand(8.0, 4.0, 8.0));
+            List<? extends FungalParentEntity> list = this.animal.level().getEntitiesOfClass(this.animal.getClass(), this.animal.getBoundingBox().inflate(8.0, 4.0, 8.0));
             FungalParentEntity animalEntity = null;
             double d = Double.MAX_VALUE;
             Iterator var5 = list.iterator();
 
             while(var5.hasNext()) {
                 FungalParentEntity animalEntity2 = (FungalParentEntity)var5.next();
-                if (animalEntity2.getBreedingAge() >= 0) {
-                    double e = this.animal.squaredDistanceTo(animalEntity2);
+                if (animalEntity2.getAge() >= 0) {
+                    double e = this.animal.distanceToSqr(animalEntity2);
                     if (!(e > d)) {
                         d = e;
                         animalEntity = animalEntity2;
@@ -54,13 +54,13 @@ public class FollowFungalParentGoal extends Goal
         }
     }
 
-    public boolean shouldContinue() {
-        if (this.animal.getBreedingAge() >= 0) {
+    public boolean canContinueToUse() {
+        if (this.animal.getAge() >= 0) {
             return false;
         } else if (!this.parent.isAlive()) {
             return false;
         } else {
-            double d = this.animal.squaredDistanceTo(this.parent);
+            double d = this.animal.distanceToSqr(this.parent);
             return !(d < 9.0) && !(d > 256.0);
         }
     }
@@ -75,8 +75,8 @@ public class FollowFungalParentGoal extends Goal
 
     public void tick() {
         if (--this.delay <= 0) {
-            this.delay = this.getTickCount(10);
-            this.animal.getNavigation().startMovingTo(this.parent, this.speed);
+            this.delay = this.adjustedTickDelay(10);
+            this.animal.getNavigation().moveTo(this.parent, this.speed);
         }
     }
 }

@@ -6,37 +6,45 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.particle.SimpleParticleType;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CoralFanBlock;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class PrimordialVentBlock extends BlockWithEntity implements Waterloggable
+public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
     CoralFanBlock ref1;
     public static final BooleanProperty WATERLOGGED;
@@ -44,12 +52,12 @@ public class PrimordialVentBlock extends BlockWithEntity implements Waterloggabl
     public static final MapCodec<PrimordialVentBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
         return instance.group(Codec.BOOL.fieldOf("spawn_particles").forGetter((block) -> {
             return block.emitsParticles;
-        }), createSettingsCodec()).apply(instance, PrimordialVentBlock::new);
+        }), propertiesCodec()).apply(instance, PrimordialVentBlock::new);
     });
 
     public static BooleanProperty SIGNAL_FIRE;
 
-    public MapCodec<PrimordialVentBlock> getCodec() {
+    public MapCodec<PrimordialVentBlock> codec() {
         return CODEC;
     }
 
@@ -58,14 +66,14 @@ public class PrimordialVentBlock extends BlockWithEntity implements Waterloggabl
     protected static final VoxelShape SHAPE;
     private final boolean emitsParticles;
 
-    public PrimordialVentBlock(boolean emitsParticles, Settings settings) {
+    public PrimordialVentBlock(boolean emitsParticles, Properties settings) {
         super(settings);
         this.emitsParticles = emitsParticles;
-        this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(WATERLOGGED, false));
+        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(WATERLOGGED, false));
     }
 
-    protected static boolean isInWater(BlockState state, BlockView world, BlockPos pos) {
-        if ((Boolean)state.get(WATERLOGGED)) {
+    protected static boolean isInWater(BlockState state, BlockGetter world, BlockPos pos) {
+        if ((Boolean)state.getValue(WATERLOGGED)) {
             return true;
         } else {
             Direction[] var3 = Direction.values();
@@ -73,7 +81,7 @@ public class PrimordialVentBlock extends BlockWithEntity implements Waterloggabl
 
             for(int var5 = 0; var5 < var4; ++var5) {
                 Direction direction = var3[var5];
-                if (world.getFluidState(pos.offset(direction)).isIn(FluidTags.WATER)) {
+                if (world.getFluidState(pos.relative(direction)).is(FluidTags.WATER)) {
                     return true;
                 }
             }
@@ -81,38 +89,38 @@ public class PrimordialVentBlock extends BlockWithEntity implements Waterloggabl
             return false;
         }
     }
-    protected BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if ((Boolean)state.get(WATERLOGGED)) {
-            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        if ((Boolean)state.getValue(WATERLOGGED)) {
+            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
     CoralFanBlock ref2;
 
-    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (!isInWater(state, world, pos)) {
-            world.setBlockState(pos, (BlockState)this.getDefaultState().with(WATERLOGGED, false), 2);
+            world.setBlock(pos, (BlockState)this.defaultBlockState().setValue(WATERLOGGED, false), 2);
         }
 
     }
 
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Vec3d vec3d = state.getModelOffset(world, pos);
-        return SHAPE.offset(vec3d.x, vec3d.y, vec3d.z);
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        Vec3 vec3d = state.getOffset(world, pos);
+        return SHAPE.move(vec3d.x, vec3d.y, vec3d.z);
     }
 
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+    protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
         if (entity instanceof LivingEntity) {
-            entity.damage(world.getDamageSources().inFire(), 1.0F);
+            entity.hurt(world.damageSources().inFire(), 1.0F);
         }
 
-        super.onEntityCollision(state, world, pos, entity);
+        super.entityInside(state, world, pos, entity);
     }
 
-    public static void spawnSmokeParticle(World world, BlockPos pos, boolean lotsOfSmoke) {
-        Random random = world.getRandom();
+    public static void spawnSmokeParticle(Level world, BlockPos pos, boolean lotsOfSmoke) {
+        RandomSource random = world.getRandom();
         SimpleParticleType simpleParticleType = ParticleTypes.CAMPFIRE_COSY_SMOKE;
 
         world.addParticle(simpleParticleType, true, (double)pos.getX() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), 0.0, 0.07, 0.0);
@@ -122,59 +130,59 @@ public class PrimordialVentBlock extends BlockWithEntity implements Waterloggabl
 
     }
 
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        if ((Boolean)state.get(WATERLOGGED))
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+        if ((Boolean)state.getValue(WATERLOGGED))
         {
             if (random.nextInt(100) == 0) {
-                world.playSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_CAMPFIRE_CRACKLE, SoundCategory.BLOCKS, 0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
+                world.playLocalSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
             }
         }
     }
 
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new PrimordialVentEntity(pos, state);
     }
 
-    protected BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    protected RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        if (world.isClient) {
-            return  (Boolean)state.get(WATERLOGGED) ? validateTicker(type, JamiesModBlockEntities.PRIMORDIAL_VENT, PrimordialVentEntity::clientTick) : null;
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+        if (world.isClientSide) {
+            return  (Boolean)state.getValue(WATERLOGGED) ? createTickerHelper(type, JamiesModBlockEntities.PRIMORDIAL_VENT, PrimordialVentEntity::clientTick) : null;
         } else {
-            return  (Boolean)state.get(WATERLOGGED) ? validateTicker(type, JamiesModBlockEntities.PRIMORDIAL_VENT, PrimordialVentEntity::litServerTick) : null;
+            return  (Boolean)state.getValue(WATERLOGGED) ? createTickerHelper(type, JamiesModBlockEntities.PRIMORDIAL_VENT, PrimordialVentEntity::litServerTick) : null;
         }
     }
 
-    protected boolean canPathfindThrough(BlockState state, NavigationType type) {
+    protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
 
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        BlockPos blockPos = pos.down();
-        return world.getBlockState(blockPos).isSideSolidFullSquare(world, blockPos, Direction.UP);
+    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        BlockPos blockPos = pos.below();
+        return world.getBlockState(blockPos).isFaceSturdy(world, blockPos, Direction.UP);
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(new Property[]{WATERLOGGED});
     }
 
     protected FluidState getFluidState(BlockState state) {
-        return (Boolean)state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return (Boolean)state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        BlockState blockState = (BlockState)((BlockState)this.getDefaultState()).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
+        BlockState blockState = (BlockState)((BlockState)this.defaultBlockState()).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
         return blockState;
     }
 
 
     static {
-        WATERLOGGED = Properties.WATERLOGGED;
-        SIGNAL_FIRE = Properties.SIGNAL_FIRE;
-        SHAPE = Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 14.0, 14.0);
+        WATERLOGGED = BlockStateProperties.WATERLOGGED;
+        SIGNAL_FIRE = BlockStateProperties.SIGNAL_FIRE;
+        SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 14.0, 14.0);
     }
 }

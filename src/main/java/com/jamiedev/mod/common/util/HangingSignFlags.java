@@ -1,6 +1,6 @@
 package com.jamiedev.mod.common.util;
 
-import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class HangingSignFlags {
     static BlockEntityType<?> BE_TYPE_FLAG = null;

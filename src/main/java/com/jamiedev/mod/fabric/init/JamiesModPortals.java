@@ -3,7 +3,7 @@ package com.jamiedev.mod.fabric.init;
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
 import net.kyrptonaught.customportalapi.portal.PortalIgnitionSource;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class JamiesModPortals {
 
@@ -20,10 +20,10 @@ public class JamiesModPortals {
                     if (portalIgnitionSource.sourceType == PortalIgnitionSource.SourceType.USEITEM && player != null) {
                         if (player.isCreative())
                             return;
-                        ItemStack heldItem = player.getMainHandStack().getItem() == JamiesModItems.HOOK ?
-                                player.getMainHandStack() : player.getOffHandStack();
+                        ItemStack heldItem = player.getMainHandItem().getItem() == JamiesModItems.HOOK ?
+                                player.getMainHandItem() : player.getOffhandItem();
 
-                        heldItem.damage(1 , player, player.getPreferredEquipmentSlot(player.getActiveItem()));
+                        heldItem.hurtAndBreak(1 , player, player.getEquipmentSlotForItem(player.getUseItem()));
                     }
                 })
                 .registerPortal();
@@ -40,10 +40,10 @@ public class JamiesModPortals {
                     if (portalIgnitionSource.sourceType == PortalIgnitionSource.SourceType.USEITEM && player != null) {
                         if (player.isCreative())
                             return;
-                        ItemStack heldItem = player.getMainHandStack().getItem() == JamiesModItems.HOOK ?
-                                player.getMainHandStack() : player.getOffHandStack();
+                        ItemStack heldItem = player.getMainHandItem().getItem() == JamiesModItems.HOOK ?
+                                player.getMainHandItem() : player.getOffhandItem();
 
-                        heldItem.damage(1 , player, player.getPreferredEquipmentSlot(player.getActiveItem()));
+                        heldItem.hurtAndBreak(1 , player, player.getEquipmentSlotForItem(player.getUseItem()));
                     }
                 })
                 .registerPortal();
@@ -60,10 +60,10 @@ public class JamiesModPortals {
                     if (portalIgnitionSource.sourceType == PortalIgnitionSource.SourceType.USEITEM && player != null) {
                         if (player.isCreative())
                             return;
-                        ItemStack heldItem = player.getMainHandStack().getItem() == JamiesModItems.HOOK ?
-                                player.getMainHandStack() : player.getOffHandStack();
+                        ItemStack heldItem = player.getMainHandItem().getItem() == JamiesModItems.HOOK ?
+                                player.getMainHandItem() : player.getOffhandItem();
 
-                        heldItem.damage(1 , player, player.getPreferredEquipmentSlot(player.getActiveItem()));
+                        heldItem.hurtAndBreak(1 , player, player.getEquipmentSlotForItem(player.getUseItem()));
                     }
                 })
                 .registerPortal();

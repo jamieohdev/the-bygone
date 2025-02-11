@@ -2,17 +2,16 @@ package com.jamiedev.mod.common.worldgen.feature;
 
 import com.jamiedev.mod.common.blocks.PointedAmberBlock;
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.enums.Thickness;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.WorldAccess;
-
 import java.util.function.Consumer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 
 public class AmberHelper 
 {
@@ -34,7 +33,7 @@ public class AmberHelper
         return i / 0.384 * scale;
     }
 
-    public static boolean canGenerateBase(StructureWorldAccess world, BlockPos pos, int height) {
+    public static boolean canGenerateBase(WorldGenLevel world, BlockPos pos, int height) {
         if (canGenerateOrLava(world, pos)) {
             return false;
         } else {
@@ -42,9 +41,9 @@ public class AmberHelper
             float g = 6.0F / (float)height;
 
             for(float h = 0.0F; h < 6.2831855F; h += g) {
-                int i = (int)(MathHelper.cos(h) * (float)height);
-                int j = (int)(MathHelper.sin(h) * (float)height);
-                if (canGenerateOrLava(world, pos.add(i, 0, j))) {
+                int i = (int)(Mth.cos(h) * (float)height);
+                int j = (int)(Mth.sin(h) * (float)height);
+                if (canGenerateOrLava(world, pos.offset(i, 0, j))) {
                     return false;
                 }
             }
@@ -53,78 +52,78 @@ public class AmberHelper
         }
     }
 
-    public static boolean canGenerate(WorldAccess world, BlockPos pos) {
-        return world.testBlockState(pos, AmberHelper::canGenerate);
+    public static boolean canGenerate(LevelAccessor world, BlockPos pos) {
+        return world.isStateAtPosition(pos, AmberHelper::canGenerate);
     }
 
-    public static boolean canGenerateOrLava(WorldAccess world, BlockPos pos) {
-        return world.testBlockState(pos, AmberHelper::canGenerateOrLava);
+    public static boolean canGenerateOrLava(LevelAccessor world, BlockPos pos) {
+        return world.isStateAtPosition(pos, AmberHelper::canGenerateOrLava);
     }
 
     protected static void getAmberThickness(Direction direction, int height, boolean merge, Consumer<BlockState> callback) {
         if (height >= 3) {
-            callback.accept(getState(direction, Thickness.BASE));
+            callback.accept(getState(direction, DripstoneThickness.BASE));
 
             for(int i = 0; i < height - 3; ++i) {
-                callback.accept(getState(direction, Thickness.MIDDLE));
+                callback.accept(getState(direction, DripstoneThickness.MIDDLE));
             }
         }
 
         if (height >= 2) {
-            callback.accept(getState(direction, Thickness.FRUSTUM));
+            callback.accept(getState(direction, DripstoneThickness.FRUSTUM));
         }
 
         if (height >= 1) {
-            callback.accept(getState(direction, merge ? Thickness.TIP_MERGE : Thickness.TIP));
+            callback.accept(getState(direction, merge ? DripstoneThickness.TIP_MERGE : DripstoneThickness.TIP));
         }
 
     }
 
-    protected static void generatePointedAmber(WorldAccess world, BlockPos pos, Direction direction, int height, boolean merge) {
-        if (canReplace(world.getBlockState(pos.offset(direction.getOpposite())))) {
-            BlockPos.Mutable mutable = pos.mutableCopy();
+    protected static void generatePointedAmber(LevelAccessor world, BlockPos pos, Direction direction, int height, boolean merge) {
+        if (canReplace(world.getBlockState(pos.relative(direction.getOpposite())))) {
+            BlockPos.MutableBlockPos mutable = pos.mutable();
             getAmberThickness(direction, height, merge, (state) -> {
-                if (state.isOf(JamiesModBlocks.POINTED_AMBER)) {
-                    state = (BlockState)state.with(PointedAmberBlock.WATERLOGGED, world.isWater(mutable));
+                if (state.is(JamiesModBlocks.POINTED_AMBER)) {
+                    state = (BlockState)state.setValue(PointedAmberBlock.WATERLOGGED, world.isWaterAt(mutable));
                 }
 
-                world.setBlockState(mutable, state, 2);
+                world.setBlock(mutable, state, 2);
                 mutable.move(direction);
             });
         }
     }
 
-    protected static boolean generateAmberBlock(WorldAccess world, BlockPos pos) {
+    protected static boolean generateAmberBlock(LevelAccessor world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos);
-        if (blockState.isIn(BlockTags.DRIPSTONE_REPLACEABLE_BLOCKS)) {
-            world.setBlockState(pos, JamiesModBlocks.COBBLED_AMBER.getDefaultState(), 2);
+        if (blockState.is(BlockTags.DRIPSTONE_REPLACEABLE)) {
+            world.setBlock(pos, JamiesModBlocks.COBBLED_AMBER.defaultBlockState(), 2);
             return true;
         } else {
             return false;
         }
     }
 
-    private static BlockState getState(Direction direction, Thickness thickness) {
-        return (BlockState)((BlockState)JamiesModBlocks.POINTED_AMBER.getDefaultState().with(PointedAmberBlock.VERTICAL_DIRECTION, direction)).with(PointedAmberBlock.THICKNESS, thickness);
+    private static BlockState getState(Direction direction, DripstoneThickness thickness) {
+        return (BlockState)((BlockState)JamiesModBlocks.POINTED_AMBER.defaultBlockState().setValue(PointedAmberBlock.VERTICAL_DIRECTION, direction)).setValue(PointedAmberBlock.THICKNESS, thickness);
     }
 
     public static boolean canReplaceOrLava(BlockState state) {
-        return canReplace(state) || state.isOf(Blocks.LAVA);
+        return canReplace(state) || state.is(Blocks.LAVA);
     }
 
     public static boolean canReplace(BlockState state) {
-        return state.isOf(JamiesModBlocks.COBBLED_AMBER) || state.isIn(BlockTags.DRIPSTONE_REPLACEABLE_BLOCKS);
+        return state.is(JamiesModBlocks.COBBLED_AMBER) || state.is(BlockTags.DRIPSTONE_REPLACEABLE);
     }
 
     public static boolean canGenerate(BlockState state) {
-        return state.isAir() || state.isOf(Blocks.WATER);
+        return state.isAir() || state.is(Blocks.WATER);
     }
 
     public static boolean cannotGenerate(BlockState state) {
-        return !state.isAir() && !state.isOf(Blocks.WATER);
+        return !state.isAir() && !state.is(Blocks.WATER);
     }
 
     public static boolean canGenerateOrLava(BlockState state) {
-        return state.isAir() || state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA);
+        return state.isAir() || state.is(Blocks.WATER) || state.is(Blocks.LAVA);
     }
 }

@@ -3,43 +3,42 @@ package com.jamiedev.mod.fabric.datagen;
 import com.jamiedev.mod.fabric.init.JamiesModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.function.CopyNameLootFunction;
-import net.minecraft.loot.function.LimitCountLootFunction;
-import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.operator.BoundedIntUnaryOperator;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.registry.RegistryWrapper;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.IntRange;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.CopyNameFunction;
+import net.minecraft.world.level.storage.loot.functions.LimitCount;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.concurrent.CompletableFuture;
 public class JamiesModLootTableProvider  extends FabricBlockLootTableProvider {
 
 
-    public JamiesModLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+    public JamiesModLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
 
     @Override
     public void generate() {
-        addDrop(JamiesModBlocks.CLAYSTONE_BRICKS);
-        addDrop(JamiesModBlocks.CLAYSTONE_BRICKS_WALL);
-        addDrop(JamiesModBlocks.CLAYSTONE_BRICKS_STAIRS);
-        addDrop(JamiesModBlocks.CLAYSTONE_BRICKS_SLAB);;
+        dropSelf(JamiesModBlocks.CLAYSTONE_BRICKS);
+        dropSelf(JamiesModBlocks.CLAYSTONE_BRICKS_WALL);
+        dropSelf(JamiesModBlocks.CLAYSTONE_BRICKS_STAIRS);
+        dropSelf(JamiesModBlocks.CLAYSTONE_BRICKS_SLAB);;
     }
 
-    public LootTable.Builder mushroomBlockDrops(Block withSilkTouch, ItemConvertible withoutSilkTouch) {
-        return this.dropsWithSilkTouch(withSilkTouch, this.applyExplosionDecay(withSilkTouch,
-                ItemEntry.builder(withoutSilkTouch)
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(-6.0F, 2.0F)))
-                        .apply(LimitCountLootFunction.builder(BoundedIntUnaryOperator.createMin(0)))));
+    public LootTable.Builder createMushroomBlockDrop(Block withSilkTouch, ItemLike withoutSilkTouch) {
+        return this.createSilkTouchDispatchTable(withSilkTouch, this.applyExplosionDecay(withSilkTouch,
+                LootItem.lootTableItem(withoutSilkTouch)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(-6.0F, 2.0F)))
+                        .apply(LimitCount.limitCount(IntRange.lowerBound(0)))));
     }
 
-    public LootTable.Builder nameableContainerDrops(Block drop) {
-        return LootTable.builder().pool(this.addSurvivesExplosionCondition(drop, LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).with(ItemEntry.builder(drop).apply(CopyNameLootFunction.builder(CopyNameLootFunction.Source.BLOCK_ENTITY)))));
+    public LootTable.Builder createNameableBlockEntityTable(Block drop) {
+        return LootTable.lootTable().withPool(this.applyExplosionCondition(drop, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(drop).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)))));
     }
 }

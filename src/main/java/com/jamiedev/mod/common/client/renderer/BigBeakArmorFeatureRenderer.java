@@ -1,53 +1,53 @@
 package com.jamiedev.mod.common.client.renderer;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.HorseArmorLayer;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.FastColor;
+import net.minecraft.world.item.AnimalArmorItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
 import com.jamiedev.mod.common.client.JamiesModModelLayers;
 import com.jamiedev.mod.common.client.models.BigBeakModel;
 import com.jamiedev.mod.common.entities.BigBeakEntity;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.feature.HorseArmorFeatureRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLoader;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.component.type.DyedColorComponent;
-import net.minecraft.item.AnimalArmorItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.util.math.ColorHelper;
 
-public class BigBeakArmorFeatureRenderer extends FeatureRenderer<BigBeakEntity, BigBeakModel<BigBeakEntity>> {
+public class BigBeakArmorFeatureRenderer extends RenderLayer<BigBeakEntity, BigBeakModel<BigBeakEntity>> {
     private final BigBeakModel<BigBeakEntity> model;
 
 
-    HorseArmorFeatureRenderer ref;
+    HorseArmorLayer ref;
 
-    public BigBeakArmorFeatureRenderer(FeatureRendererContext<BigBeakEntity, BigBeakModel<BigBeakEntity>> context, EntityModelLoader loader) {
+    public BigBeakArmorFeatureRenderer(RenderLayerParent<BigBeakEntity, BigBeakModel<BigBeakEntity>> context, EntityModelSet loader) {
         super(context);
-        this.model = new BigBeakModel<>(loader.getModelPart(JamiesModModelLayers.BIG_BEAK_ARMOR));
+        this.model = new BigBeakModel<>(loader.bakeLayer(JamiesModModelLayers.BIG_BEAK_ARMOR));
     }
 
-    public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, BigBeakEntity BigBeakEntity, float f, float g, float h, float j, float k, float l) {
-        ItemStack itemStack = BigBeakEntity.getBodyArmor();
+    public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, BigBeakEntity BigBeakEntity, float f, float g, float h, float j, float k, float l) {
+        ItemStack itemStack = BigBeakEntity.getBodyArmorItem();
         Item var13 = itemStack.getItem();
         if (var13 instanceof AnimalArmorItem animalArmorItem) {
-            if (animalArmorItem.getType() == JamiesModFabric.BIG_BEAK_ARMOR) {
-                ((BigBeakModel)this.getContextModel()).copyStateTo(this.model);
-                this.model.animateModel(BigBeakEntity, f, g, h);
+            if (animalArmorItem.getBodyType() == JamiesModFabric.BIG_BEAK_ARMOR) {
+                ((BigBeakModel)this.getParentModel()).copyPropertiesTo(this.model);
+                this.model.prepareMobModel(BigBeakEntity, f, g, h);
                 this.model.setAngles(BigBeakEntity, f, g, j, k, l);
                 int m;
-                if (itemStack.isIn(ItemTags.DYEABLE)) {
-                    m = ColorHelper.Argb.fullAlpha(DyedColorComponent.getColor(itemStack, -6265536));
+                if (itemStack.is(ItemTags.DYEABLE)) {
+                    m = FastColor.ARGB32.opaque(DyedItemColor.getOrDefault(itemStack, -6265536));
                 } else {
                     m = -1;
                 }
 
-                VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(animalArmorItem.getEntityTexture()));
-                this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, m);
+                VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityCutoutNoCull(animalArmorItem.getTexture()));
+                this.model.renderToBuffer(matrixStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, m);
                 return;
             }
         }

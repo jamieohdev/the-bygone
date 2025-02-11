@@ -1,49 +1,49 @@
 package com.jamiedev.mod.common.entities;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemSteerable;
-import net.minecraft.entity.Saddleable;
-import net.minecraft.entity.mob.Angerable;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ItemSteerable;
+import net.minecraft.world.entity.NeutralMob;
+import net.minecraft.world.entity.Saddleable;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
-public class BrungleEntity  extends AnimalEntity implements ItemSteerable, Saddleable, Angerable
+public class BrungleEntity  extends Animal implements ItemSteerable, Saddleable, NeutralMob
 {
 
-    public BrungleEntity(EntityType<? extends BrungleEntity> entityType, World world) {
+    public BrungleEntity(EntityType<? extends BrungleEntity> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
+    public boolean isFood(ItemStack stack) {
         return false;
     }
 
     @Nullable
     @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
         return null;
     }
 
     @Override
-    public boolean consumeOnAStickItem() {
+    public boolean boost() {
         return false;
     }
 
     @Override
-    public boolean canBeSaddled() {
+    public boolean isSaddleable() {
         return false;
     }
 
     @Override
-    public void saddle(ItemStack stack, @Nullable SoundCategory soundCategory) {
+    public void equipSaddle(ItemStack stack, @Nullable SoundSource soundCategory) {
 
     }
 
@@ -53,28 +53,28 @@ public class BrungleEntity  extends AnimalEntity implements ItemSteerable, Saddl
     }
 
     @Override
-    public int getAngerTime() {
+    public int getRemainingPersistentAngerTime() {
         return 0;
     }
 
     @Override
-    public void setAngerTime(int angerTime) {
+    public void setRemainingPersistentAngerTime(int angerTime) {
 
     }
 
     @Nullable
     @Override
-    public UUID getAngryAt() {
+    public UUID getPersistentAngerTarget() {
         return null;
     }
 
     @Override
-    public void setAngryAt(@Nullable UUID angryAt) {
+    public void setPersistentAngerTarget(@Nullable UUID angryAt) {
 
     }
 
     @Override
-    public void chooseRandomAngerTime() {
+    public void startPersistentAngerTimer() {
 
     }
 }

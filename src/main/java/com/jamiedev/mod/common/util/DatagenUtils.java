@@ -2,133 +2,141 @@ package com.jamiedev.mod.common.util;
 
 import com.jamiedev.mod.fabric.JamiesModFabric;
 import com.jamiedev.mod.common.blocks.CasterBlock;
-import net.minecraft.block.Block;
+import net.minecraft.core.Direction;
 import net.minecraft.data.client.*;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
-
+import net.minecraft.data.models.BlockModelGenerators;
+import net.minecraft.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.data.models.blockstates.PropertyDispatch;
+import net.minecraft.data.models.blockstates.Variant;
+import net.minecraft.data.models.blockstates.VariantProperties;
+import net.minecraft.data.models.model.ModelTemplate;
+import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.data.models.model.TextureMapping;
+import net.minecraft.data.models.model.TextureSlot;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import java.util.Optional;
 
 public class DatagenUtils {
 
-    public static final Model ORIENTABLE_VERTICAL_WITH_BOTTOM = block("orientable_vertical", "_vertical", TextureKey.FRONT, TextureKey.SIDE, TextureKey.BOTTOM, TextureKey.DOWN);
+    public static final ModelTemplate ORIENTABLE_VERTICAL_WITH_BOTTOM = block("orientable_vertical", "_vertical", TextureSlot.FRONT, TextureSlot.SIDE, TextureSlot.BOTTOM, TextureSlot.DOWN);
     
-    public static final Identifier CASTER = JamiesModFabric.getModId("caster");
+    public static final ResourceLocation CASTER = JamiesModFabric.getModId("caster");
     
-    public static void registerCasterModel(Block block, BlockStateModelGenerator blockStateModelGenerator) {
-        TextureMap textureMap = new TextureMap()
-                .put(TextureKey.TOP, TextureMap.getSubId(block, "_top"))
-                .put(TextureKey.SIDE, TextureMap.getSubId(block, "_side"))
-                .put(TextureKey.FRONT, TextureMap.getSubId(block, "_front"))
-                .put(TextureKey.DOWN, TextureMap.getSubId(block, "_bottom"))
-                .put(TextureKey.BOTTOM, TextureMap.getSubId(block, "_bottom"));
+    public static void registerCasterModel(Block block, BlockModelGenerators blockStateModelGenerator) {
+        TextureMapping textureMap = new TextureMapping()
+                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top"))
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side"))
+                .put(TextureSlot.FRONT, TextureMapping.getBlockTexture(block, "_front"))
+                .put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block, "_bottom"))
+                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block, "_bottom"));
 
-        TextureMap textureMap2 = new TextureMap()
-                .put(TextureKey.SIDE, TextureMap.getSubId(block, "_side"))
-                .put(TextureKey.FRONT, TextureMap.getSubId(block, "_front"))
-                .put(TextureKey.DOWN, TextureMap.getSubId(block, "_bottom"))
-                .put(TextureKey.BOTTOM, TextureMap.getSubId(block, "_bottom"));
+        TextureMapping textureMap2 = new TextureMapping()
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side"))
+                .put(TextureSlot.FRONT, TextureMapping.getBlockTexture(block, "_front"))
+                .put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block, "_bottom"))
+                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block, "_bottom"));
 
-        TextureMap textureMap3 = new TextureMap()
-                .put(TextureKey.TOP, getCasterSubID("blaze_", "_top"))
-                .put(TextureKey.SIDE, getCasterSubID("blaze_", "_side"))
-                .put(TextureKey.FRONT, getCasterSubID("blaze_", "_front"))
-                .put(TextureKey.DOWN, getCasterSubID("blaze_", "_bottom"))
-                .put(TextureKey.BOTTOM, getCasterSubID("blaze_", "_bottom"));
+        TextureMapping textureMap3 = new TextureMapping()
+                .put(TextureSlot.TOP, getCasterSubID("blaze_", "_top"))
+                .put(TextureSlot.SIDE, getCasterSubID("blaze_", "_side"))
+                .put(TextureSlot.FRONT, getCasterSubID("blaze_", "_front"))
+                .put(TextureSlot.DOWN, getCasterSubID("blaze_", "_bottom"))
+                .put(TextureSlot.BOTTOM, getCasterSubID("blaze_", "_bottom"));
 
-        TextureMap textureMap4 = new TextureMap()
-                .put(TextureKey.SIDE, getCasterSubID("blaze_", "_side"))
-                .put(TextureKey.FRONT, getCasterSubID("blaze_", "_front"))
-                .put(TextureKey.DOWN, getCasterSubID("blaze_", "_bottom"))
-                .put(TextureKey.BOTTOM, getCasterSubID("blaze_", "_bottom"));
+        TextureMapping textureMap4 = new TextureMapping()
+                .put(TextureSlot.SIDE, getCasterSubID("blaze_", "_side"))
+                .put(TextureSlot.FRONT, getCasterSubID("blaze_", "_front"))
+                .put(TextureSlot.DOWN, getCasterSubID("blaze_", "_bottom"))
+                .put(TextureSlot.BOTTOM, getCasterSubID("blaze_", "_bottom"));
 
-        TextureMap textureMap5 = new TextureMap()
-                .put(TextureKey.TOP, getCasterSubID("breeze_", "_top"))
-                .put(TextureKey.SIDE, getCasterSubID("breeze_", "_side"))
-                .put(TextureKey.FRONT, getCasterSubID("breeze_", "_front"))
-                .put(TextureKey.DOWN, getCasterSubID("breeze_", "_bottom"))
-                .put(TextureKey.BOTTOM, getCasterSubID("breeze_", "_bottom"));
+        TextureMapping textureMap5 = new TextureMapping()
+                .put(TextureSlot.TOP, getCasterSubID("breeze_", "_top"))
+                .put(TextureSlot.SIDE, getCasterSubID("breeze_", "_side"))
+                .put(TextureSlot.FRONT, getCasterSubID("breeze_", "_front"))
+                .put(TextureSlot.DOWN, getCasterSubID("breeze_", "_bottom"))
+                .put(TextureSlot.BOTTOM, getCasterSubID("breeze_", "_bottom"));
 
-        TextureMap textureMap6 = new TextureMap()
-                .put(TextureKey.SIDE, getCasterSubID("breeze_", "_side"))
-                .put(TextureKey.FRONT, getCasterSubID("breeze_", "_front"))
-                .put(TextureKey.DOWN, getCasterSubID("breeze_", "_bottom"))
-                .put(TextureKey.BOTTOM, getCasterSubID("breeze_", "_bottom"));
+        TextureMapping textureMap6 = new TextureMapping()
+                .put(TextureSlot.SIDE, getCasterSubID("breeze_", "_side"))
+                .put(TextureSlot.FRONT, getCasterSubID("breeze_", "_front"))
+                .put(TextureSlot.DOWN, getCasterSubID("breeze_", "_bottom"))
+                .put(TextureSlot.BOTTOM, getCasterSubID("breeze_", "_bottom"));
 
-        TextureMap textureMap7 = new TextureMap()
-                .put(TextureKey.TOP, getCasterSubID("spike_", "_top"))
-                .put(TextureKey.SIDE, getCasterSubID("spike_", "_side"))
-                .put(TextureKey.FRONT, getCasterSubID("spike_", "_front"))
-                .put(TextureKey.DOWN, getCasterSubID("spike_", "_bottom"))
-                .put(TextureKey.BOTTOM, getCasterSubID("spike_", "_bottom"));
+        TextureMapping textureMap7 = new TextureMapping()
+                .put(TextureSlot.TOP, getCasterSubID("spike_", "_top"))
+                .put(TextureSlot.SIDE, getCasterSubID("spike_", "_side"))
+                .put(TextureSlot.FRONT, getCasterSubID("spike_", "_front"))
+                .put(TextureSlot.DOWN, getCasterSubID("spike_", "_bottom"))
+                .put(TextureSlot.BOTTOM, getCasterSubID("spike_", "_bottom"));
 
-        TextureMap textureMap8 = new TextureMap()
-                .put(TextureKey.SIDE, getCasterSubID("spike_", "_side"))
-                .put(TextureKey.FRONT, getCasterSubID("spike_", "_front"))
-                .put(TextureKey.DOWN, getCasterSubID("spike_", "_bottom"))
-                .put(TextureKey.BOTTOM, getCasterSubID("spike_", "_bottom"));
+        TextureMapping textureMap8 = new TextureMapping()
+                .put(TextureSlot.SIDE, getCasterSubID("spike_", "_side"))
+                .put(TextureSlot.FRONT, getCasterSubID("spike_", "_front"))
+                .put(TextureSlot.DOWN, getCasterSubID("spike_", "_bottom"))
+                .put(TextureSlot.BOTTOM, getCasterSubID("spike_", "_bottom"));
 
-        Identifier identifier = Models.ORIENTABLE_WITH_BOTTOM.upload(block, textureMap, blockStateModelGenerator.modelCollector);
-        Identifier identifier2 = ORIENTABLE_VERTICAL_WITH_BOTTOM.upload(block, textureMap2, blockStateModelGenerator.modelCollector);
-        Identifier identifier3 = Models.ORIENTABLE_WITH_BOTTOM.upload(CASTER.withPath((path) -> {
+        ResourceLocation identifier = ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM.create(block, textureMap, blockStateModelGenerator.modelOutput);
+        ResourceLocation identifier2 = ORIENTABLE_VERTICAL_WITH_BOTTOM.create(block, textureMap2, blockStateModelGenerator.modelOutput);
+        ResourceLocation identifier3 = ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM.create(CASTER.withPath((path) -> {
             return "block/" + "blaze_" + path;
-        }), textureMap3, blockStateModelGenerator.modelCollector);
-        Identifier identifier4 = ORIENTABLE_VERTICAL_WITH_BOTTOM.upload(CASTER.withPath((path) -> {
+        }), textureMap3, blockStateModelGenerator.modelOutput);
+        ResourceLocation identifier4 = ORIENTABLE_VERTICAL_WITH_BOTTOM.create(CASTER.withPath((path) -> {
             return "block/" + "blaze_" + path + "_vertical";
-        }), textureMap4, blockStateModelGenerator.modelCollector);
-        Identifier identifier5 = Models.ORIENTABLE_WITH_BOTTOM.upload(CASTER.withPath((path) -> {
+        }), textureMap4, blockStateModelGenerator.modelOutput);
+        ResourceLocation identifier5 = ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM.create(CASTER.withPath((path) -> {
             return "block/" + "breeze_" + path;
-        }), textureMap5, blockStateModelGenerator.modelCollector);
-        Identifier identifier6 = ORIENTABLE_VERTICAL_WITH_BOTTOM.upload(CASTER.withPath((path) -> {
+        }), textureMap5, blockStateModelGenerator.modelOutput);
+        ResourceLocation identifier6 = ORIENTABLE_VERTICAL_WITH_BOTTOM.create(CASTER.withPath((path) -> {
             return "block/" + "breeze_" + path + "_vertical";
-        }), textureMap6, blockStateModelGenerator.modelCollector);
-        Identifier identifier7 = Models.ORIENTABLE_WITH_BOTTOM.upload(CASTER.withPath((path) -> {
+        }), textureMap6, blockStateModelGenerator.modelOutput);
+        ResourceLocation identifier7 = ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM.create(CASTER.withPath((path) -> {
             return "block/" + "guardian_" + path;
-        }), textureMap7, blockStateModelGenerator.modelCollector);
-        Identifier identifier8 = ORIENTABLE_VERTICAL_WITH_BOTTOM.upload(CASTER.withPath((path) -> {
+        }), textureMap7, blockStateModelGenerator.modelOutput);
+        ResourceLocation identifier8 = ORIENTABLE_VERTICAL_WITH_BOTTOM.create(CASTER.withPath((path) -> {
             return "block/" + "guardian_" + path + "_vertical";
-        }), textureMap8, blockStateModelGenerator.modelCollector);
+        }), textureMap8, blockStateModelGenerator.modelOutput);
 
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(
-                BlockStateVariantMap.create(Properties.FACING, CasterBlock.TYPE)
-                    .register(Direction.DOWN, CasterBlock.CasterType.NONE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier2).put(VariantSettings.X, VariantSettings.Rotation.R180))
-                    .register(Direction.UP, CasterBlock.CasterType.NONE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier2))
-                    .register(Direction.NORTH, CasterBlock.CasterType.NONE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier))
-                    .register(Direction.EAST, CasterBlock.CasterType.NONE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier).put(VariantSettings.Y, VariantSettings.Rotation.R90))
-                    .register(Direction.SOUTH, CasterBlock.CasterType.NONE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier).put(VariantSettings.Y, VariantSettings.Rotation.R180))
-                    .register(Direction.WEST, CasterBlock.CasterType.NONE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier).put(VariantSettings.Y, VariantSettings.Rotation.R270))
-                        .register(Direction.DOWN, CasterBlock.CasterType.BLAZE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier4).put(VariantSettings.X, VariantSettings.Rotation.R180))
-                        .register(Direction.UP, CasterBlock.CasterType.BLAZE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier4))
-                        .register(Direction.NORTH, CasterBlock.CasterType.BLAZE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier3))
-                        .register(Direction.EAST, CasterBlock.CasterType.BLAZE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier3).put(VariantSettings.Y, VariantSettings.Rotation.R90))
-                        .register(Direction.SOUTH, CasterBlock.CasterType.BLAZE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier3).put(VariantSettings.Y, VariantSettings.Rotation.R180))
-                        .register(Direction.WEST, CasterBlock.CasterType.BLAZE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier3).put(VariantSettings.Y, VariantSettings.Rotation.R270))
+        blockStateModelGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(
+                PropertyDispatch.properties(BlockStateProperties.FACING, CasterBlock.TYPE)
+                    .select(Direction.DOWN, CasterBlock.CasterType.NONE, Variant.variant().with(VariantProperties.MODEL, identifier2).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180))
+                    .select(Direction.UP, CasterBlock.CasterType.NONE, Variant.variant().with(VariantProperties.MODEL, identifier2))
+                    .select(Direction.NORTH, CasterBlock.CasterType.NONE, Variant.variant().with(VariantProperties.MODEL, identifier))
+                    .select(Direction.EAST, CasterBlock.CasterType.NONE, Variant.variant().with(VariantProperties.MODEL, identifier).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                    .select(Direction.SOUTH, CasterBlock.CasterType.NONE, Variant.variant().with(VariantProperties.MODEL, identifier).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                    .select(Direction.WEST, CasterBlock.CasterType.NONE, Variant.variant().with(VariantProperties.MODEL, identifier).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                        .select(Direction.DOWN, CasterBlock.CasterType.BLAZE, Variant.variant().with(VariantProperties.MODEL, identifier4).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180))
+                        .select(Direction.UP, CasterBlock.CasterType.BLAZE, Variant.variant().with(VariantProperties.MODEL, identifier4))
+                        .select(Direction.NORTH, CasterBlock.CasterType.BLAZE, Variant.variant().with(VariantProperties.MODEL, identifier3))
+                        .select(Direction.EAST, CasterBlock.CasterType.BLAZE, Variant.variant().with(VariantProperties.MODEL, identifier3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.SOUTH, CasterBlock.CasterType.BLAZE, Variant.variant().with(VariantProperties.MODEL, identifier3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                        .select(Direction.WEST, CasterBlock.CasterType.BLAZE, Variant.variant().with(VariantProperties.MODEL, identifier3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
 
-                        .register(Direction.DOWN, CasterBlock.CasterType.BREEZE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier6).put(VariantSettings.X, VariantSettings.Rotation.R180))
-                        .register(Direction.UP, CasterBlock.CasterType.BREEZE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier6))
-                        .register(Direction.NORTH, CasterBlock.CasterType.BREEZE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier5))
-                        .register(Direction.EAST, CasterBlock.CasterType.BREEZE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier5).put(VariantSettings.Y, VariantSettings.Rotation.R90))
-                        .register(Direction.SOUTH, CasterBlock.CasterType.BREEZE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier5).put(VariantSettings.Y, VariantSettings.Rotation.R180))
-                        .register(Direction.WEST, CasterBlock.CasterType.BREEZE, BlockStateVariant.create().put(VariantSettings.MODEL, identifier5).put(VariantSettings.Y, VariantSettings.Rotation.R270))
+                        .select(Direction.DOWN, CasterBlock.CasterType.BREEZE, Variant.variant().with(VariantProperties.MODEL, identifier6).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180))
+                        .select(Direction.UP, CasterBlock.CasterType.BREEZE, Variant.variant().with(VariantProperties.MODEL, identifier6))
+                        .select(Direction.NORTH, CasterBlock.CasterType.BREEZE, Variant.variant().with(VariantProperties.MODEL, identifier5))
+                        .select(Direction.EAST, CasterBlock.CasterType.BREEZE, Variant.variant().with(VariantProperties.MODEL, identifier5).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.SOUTH, CasterBlock.CasterType.BREEZE, Variant.variant().with(VariantProperties.MODEL, identifier5).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                        .select(Direction.WEST, CasterBlock.CasterType.BREEZE, Variant.variant().with(VariantProperties.MODEL, identifier5).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
 
-                        .register(Direction.DOWN, CasterBlock.CasterType.GUARDIAN, BlockStateVariant.create().put(VariantSettings.MODEL, identifier8).put(VariantSettings.X, VariantSettings.Rotation.R180))
-                        .register(Direction.UP, CasterBlock.CasterType.GUARDIAN, BlockStateVariant.create().put(VariantSettings.MODEL, identifier8))
-                        .register(Direction.NORTH, CasterBlock.CasterType.GUARDIAN, BlockStateVariant.create().put(VariantSettings.MODEL, identifier7))
-                        .register(Direction.EAST, CasterBlock.CasterType.GUARDIAN, BlockStateVariant.create().put(VariantSettings.MODEL, identifier7).put(VariantSettings.Y, VariantSettings.Rotation.R90))
-                        .register(Direction.SOUTH, CasterBlock.CasterType.GUARDIAN, BlockStateVariant.create().put(VariantSettings.MODEL, identifier7).put(VariantSettings.Y, VariantSettings.Rotation.R180))
-                        .register(Direction.WEST, CasterBlock.CasterType.GUARDIAN, BlockStateVariant.create().put(VariantSettings.MODEL, identifier7).put(VariantSettings.Y, VariantSettings.Rotation.R270))
+                        .select(Direction.DOWN, CasterBlock.CasterType.GUARDIAN, Variant.variant().with(VariantProperties.MODEL, identifier8).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180))
+                        .select(Direction.UP, CasterBlock.CasterType.GUARDIAN, Variant.variant().with(VariantProperties.MODEL, identifier8))
+                        .select(Direction.NORTH, CasterBlock.CasterType.GUARDIAN, Variant.variant().with(VariantProperties.MODEL, identifier7))
+                        .select(Direction.EAST, CasterBlock.CasterType.GUARDIAN, Variant.variant().with(VariantProperties.MODEL, identifier7).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.SOUTH, CasterBlock.CasterType.GUARDIAN, Variant.variant().with(VariantProperties.MODEL, identifier7).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                        .select(Direction.WEST, CasterBlock.CasterType.GUARDIAN, Variant.variant().with(VariantProperties.MODEL, identifier7).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
                 )
         );
     }
 
-    public static Identifier getCasterSubID(String prefix, String suffix) {
+    public static ResourceLocation getCasterSubID(String prefix, String suffix) {
         return CASTER.withPath((path) -> {
             return "block/" + prefix + path + suffix;
         });
     }
 
-    private static Model block(String parent, String variant, TextureKey... requiredTextureKeys) {
-        return new Model(Optional.of(Identifier.ofVanilla("block/" + parent)), Optional.of(variant), requiredTextureKeys);
+    private static ModelTemplate block(String parent, String variant, TextureSlot... requiredTextureKeys) {
+        return new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("block/" + parent)), Optional.of(variant), requiredTextureKeys);
     }
 }
