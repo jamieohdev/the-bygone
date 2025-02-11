@@ -10,7 +10,12 @@
     "HangingSignBlockEntityMixin",
     "LivingEntityMixin",
     "PlayerMixin",
-    "SpawnRestrictMixin"
+    "SpawnRestrictMixin",
+    "client.DownloadingTerrainScreenMixin",
+    "client.MixinItemRenderer",
+    "client.BipedEntityModelMixin",
+    "client.MixinHeldItemRenderer",
+    "client.MixinPlayerEntityRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

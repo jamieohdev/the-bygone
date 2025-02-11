@@ -28,12 +28,11 @@ repositories {
 }
 
 loom {
-	splitEnvironmentSourceSets()
+	//splitEnvironmentSourceSets()
 	accessWidenerPath = file("src/main/resources/bygone.accesswidener")
 	mods {
 		"jamiesmod" {
 			sourceSet sourceSets.main
-			sourceSet sourceSets.client
 		}
 	}
 

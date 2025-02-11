@@ -34,7 +34,7 @@ public abstract class CowEntityMixin extends AnimalEntity {
     }
 
     protected void zombify(ServerWorld world) {
-        MoobooEntity MoobooEntity = (MoobooEntity) this.convertTo(JamiesModEntityTypes.MOOBOO, true);
+        MoobooEntity MoobooEntity = this.convertTo(JamiesModEntityTypes.MOOBOO, true);
         if (MoobooEntity != null) {
             MoobooEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200, 0));
         }
