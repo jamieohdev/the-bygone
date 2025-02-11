@@ -11,13 +11,16 @@
     "LivingEntityMixin",
     "PlayerMixin",
     "SpawnRestrictMixin",
-    "client.DownloadingTerrainScreenMixin",
-    "client.MixinItemRenderer",
     "client.BipedEntityModelMixin",
+    "client.DownloadingTerrainScreenMixin",
     "client.MixinHeldItemRenderer",
+    "client.MixinItemRenderer",
     "client.MixinPlayerEntityRenderer"
   ],
   "injectors": {
     "defaultRequire": 1
-	}
+  },
+  "client": [
+    "client.DimensionEffectsSkyTypeMixin"
+  ]
 }

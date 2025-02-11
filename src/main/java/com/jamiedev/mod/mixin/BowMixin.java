@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ProjectileWeaponItem.class)
 public class BowMixin {
-    @Inject(method = "createArrowEntity", at = @At("TAIL"), cancellable = true)
+    @Inject(method = "createProjectile", at = @At("TAIL"), cancellable = true)
     protected void bygone$createArrowEntity(Level world, LivingEntity shooter, ItemStack weaponStack, ItemStack projectileStack, boolean critical, CallbackInfoReturnable<Projectile> cir) {
         if (!(weaponStack.getItem() instanceof VerdigrisBowItem)) return;
         AbstractArrow persistentProjectileEntity = (AbstractArrow) cir.getReturnValue();

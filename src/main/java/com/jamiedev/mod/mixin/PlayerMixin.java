@@ -90,23 +90,23 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
         }
     }
 
-    @Inject(method = "writeCustomDataToNbt", at = @At("RETURN"))
+    @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
     private void post_writeCustomDataToNbt(CompoundTag nbt, CallbackInfo ci){
         if(this.hookUUID != null){
             nbt.putUUID("HookUUID", this.hookUUID);
         }
     }
 
-    @Inject(method = "readCustomDataFromNbt", at = @At("RETURN"))
+    @Inject(method = "readAdditionalSaveData", at = @At("RETURN"))
     private void post_readCustomDataFromNbt(CompoundTag nbt, CallbackInfo ci){
         if(nbt.hasUUID("HookUUID")){
             this.hookUUID = nbt.getUUID("HookUUID");
         }
     }
 
-    @Inject(method = "damage", at = @At("TAIL"), cancellable = true)
+    @Inject(method = "hurt", at = @At("TAIL"), cancellable = true)
     public void jamies_mod$damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (!(((Player)(Object)this).getUseItem().getItem() instanceof VerdigrisBladeItem)) return;
+        if (!(getUseItem().getItem() instanceof VerdigrisBladeItem)) return;
 
         boolean bl = cir.getReturnValue();
 

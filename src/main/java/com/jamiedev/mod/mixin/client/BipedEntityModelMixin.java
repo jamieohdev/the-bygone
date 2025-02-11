@@ -14,17 +14,17 @@ import com.jamiedev.mod.common.client.JamiesModClient;
 @Mixin(HumanoidModel.class)
 public abstract class BipedEntityModelMixin<T extends LivingEntity> {
     @Shadow
-    protected abstract void positionRightArm(T entity);
+    protected abstract void poseRightArm(T entity);
 
-    @Shadow protected abstract void positionLeftArm(T entity);
+    @Shadow protected abstract void poseLeftArm(T entity);
 
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/BipedEntityModel;animateArms(Lnet/minecraft/entity/LivingEntity;F)V", shift = At.Shift.BEFORE), method = "setAngles(Lnet/minecraft/entity/LivingEntity;FFFFF)V")
+    @Inject(method = "setupAnim(Lnet/minecraft/world/entity/LivingEntity;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/HumanoidModel;setupAttackAnimation(Lnet/minecraft/world/entity/LivingEntity;F)V", shift = At.Shift.BEFORE))
     private void swordblocking$setBlockingAngles(T livingEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
         if (!JamiesModClient.isWeaponBlocking(livingEntity))
             return;
         if (livingEntity.getOffhandItem().getItem() instanceof VerdigrisBladeItem)
-            this.positionRightArm(livingEntity);
+            this.poseRightArm(livingEntity);
         else
-            this.positionLeftArm(livingEntity);
+            this.poseLeftArm(livingEntity);
     }
 }

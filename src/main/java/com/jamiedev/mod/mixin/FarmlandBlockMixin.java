@@ -44,7 +44,7 @@ public class FarmlandBlockMixin extends Block
 
     @WrapOperation(
             method = "randomTick",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/FarmlandBlock;isWaterNearby(Lnet/minecraft/world/WorldView;Lnet/minecraft/util/math/BlockPos;)Z")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/FarmBlock;isNearWater(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z")
     )
     private boolean onRandomTick(LevelReader world, BlockPos pos, Operation<Boolean> original) {
         return original.call(world, pos) || isSprinklerNearby(world, pos);
