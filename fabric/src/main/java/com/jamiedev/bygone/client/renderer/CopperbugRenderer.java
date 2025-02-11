@@ -1,0 +1,35 @@
+package com.jamiedev.bygone.client.renderer;
+
+import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.client.JamiesModModelLayers;
+import com.jamiedev.bygone.client.models.CopperbugModel;
+import com.jamiedev.bygone.common.entities.CopperbugEntity;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.GlowSquidRenderer;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.monster.Silverfish;
+
+public class CopperbugRenderer  extends MobRenderer<CopperbugEntity, CopperbugModel<CopperbugEntity>> {
+    private static final ResourceLocation TEXTURE = Bygone.getModId("textures/entity/copperbug.png");
+    GlowSquidRenderer ref;
+    public CopperbugRenderer(EntityRendererProvider.Context context) {
+        super(context, new CopperbugModel<>(context.bakeLayer(JamiesModModelLayers.COPPERBUG)), 0.3F);
+    }
+
+    protected float getLyingAngle(Silverfish silverfishEntity) {
+        return 180.0F;
+    }
+
+    public ResourceLocation getTextureLocation(CopperbugEntity coelacanthEntity) {
+        return TEXTURE;
+    }
+
+    // protected float getAnimationProgress(CopperbugEntity coelacanthEntity, float f) {
+    //    return f;
+    // }
+    protected int getBlockLight(CopperbugEntity cop, BlockPos blockPos) {
+        return 15;
+    }
+}

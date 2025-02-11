@@ -1,0 +1,26 @@
+{
+  "required": true,
+  "package": "com.jamiedev.bygone.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AnimalArmorItemTypeMixin",
+    "BowMixin",
+    "CowEntityMixin",
+    "FarmlandBlockMixin",
+    "HangingSignBlockEntityMixin",
+    "LivingEntityMixin",
+    "PlayerMixin",
+    "SpawnRestrictMixin"
+
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "client.BipedEntityModelMixin",
+    "client.DownloadingTerrainScreenMixin",
+    "client.MixinHeldItemRenderer",
+    "client.MixinItemRenderer",
+    "client.MixinPlayerEntityRenderer"
+  ]
+}
