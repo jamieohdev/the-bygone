@@ -16,6 +16,7 @@ public class AncientVinesFeature extends Feature<NoneFeatureConfiguration> {
         super(codec);
     }
 
+    @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         WorldGenLevel structureWorldAccess = context.level();
         BlockPos blockPos = context.origin();
@@ -28,7 +29,7 @@ public class AncientVinesFeature extends Feature<NoneFeatureConfiguration> {
 
             for (Direction direction : var4) {
                 if (direction != Direction.DOWN && VineBlock.isAcceptableNeighbour(structureWorldAccess, blockPos.relative(direction), direction)) {
-                    structureWorldAccess.setBlock(blockPos, (BlockState) JamiesModBlocks.ANCIENT_VINE.defaultBlockState().setValue(VineBlock.getPropertyForFace(direction), true), 2);
+                    structureWorldAccess.setBlock(blockPos, JamiesModBlocks.ANCIENT_VINE.defaultBlockState().setValue(VineBlock.getPropertyForFace(direction), true), 2);
                     return true;
                 }
             }

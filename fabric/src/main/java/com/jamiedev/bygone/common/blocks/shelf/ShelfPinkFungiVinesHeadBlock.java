@@ -19,44 +19,53 @@ public class ShelfPinkFungiVinesHeadBlock extends GrowingPlantHeadBlock implemen
     public static final MapCodec<ShelfPinkFungiVinesHeadBlock> CODEC = simpleCodec(ShelfPinkFungiVinesHeadBlock::new);
     private static final float GROW_CHANCE = 0.11F;
 
+    @Override
     public MapCodec<ShelfPinkFungiVinesHeadBlock> codec() {
         return CODEC;
     }
 
     public ShelfPinkFungiVinesHeadBlock(Properties settings) {
         super(settings, Direction.DOWN, SHAPE, false, 0.1);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(AGE, 0)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
     }
 
+    @Override
     protected int getBlocksToGrowWhenBonemealed(RandomSource random) {
         return 1;
     }
 
+    @Override
     protected boolean canGrowInto(BlockState state) {
         return state.isAir();
     }
 
+    @Override
     protected Block getBodyBlock() {
         return JamiesModBlocks.PINK_FUNGI_VINES_PLANT;
     }
 
+    @Override
     public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
         return new ItemStack(JamiesModBlocks.PINK_FUNGI_VINES_PLANT);
     }
 
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
     }
 
+    @Override
     public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
         return false;
     }
 
+    @Override
     public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
+    @Override
     public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
 
     }

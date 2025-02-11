@@ -56,6 +56,7 @@ public class DuckEntity extends Animal
         this.setPathfindingMalus(PathType.WATER, 0.0F);
     }
 
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.4));
@@ -69,6 +70,7 @@ public class DuckEntity extends Animal
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
     }
 
+    @Override
     public EntityDimensions getDefaultDimensions(Pose pose) {
         return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getDefaultDimensions(pose);
     }
@@ -77,6 +79,7 @@ public class DuckEntity extends Animal
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0).add(Attributes.MOVEMENT_SPEED, 0.25);
     }
 
+    @Override
     public void aiStep() {
         super.aiStep();
         this.prevFlapProgress = this.flapProgress;
@@ -103,43 +106,53 @@ public class DuckEntity extends Animal
 
     }
 
+    @Override
     protected boolean isFlapping() {
         return this.flyDist > this.field_28639;
     }
 
+    @Override
     protected void onFlap() {
         this.field_28639 = this.flyDist + this.maxWingDeviation / 2.0F;
     }
 
+    @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.CHICKEN_AMBIENT;
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.CHICKEN_HURT;
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.CHICKEN_DEATH;
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
     }
 
+    @Override
     @Nullable
     public DuckEntity getBreedOffspring(ServerLevel serverWorld, AgeableMob passiveEntity) {
-        return (DuckEntity) JamiesModEntityTypes.DUCK.create(serverWorld);
+        return JamiesModEntityTypes.DUCK.create(serverWorld);
     }
 
+    @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(ItemTags.CHICKEN_FOOD);
     }
 
+    @Override
     protected int getBaseExperienceReward() {
         return this.hasJockey() ? 10 : super.getBaseExperienceReward();
     }
 
+    @Override
     public void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.hasJockey = nbt.getBoolean("IsDuckJockey");
@@ -149,16 +162,19 @@ public class DuckEntity extends Animal
 
     }
 
+    @Override
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putBoolean("IsDuckJockey", this.hasJockey);
         nbt.putInt("EggLayTime", this.eggLayTime);
     }
 
+    @Override
     public boolean removeWhenFarAway(double distanceSquared) {
         return this.hasJockey();
     }
 
+    @Override
     protected void positionRider(Entity passenger, Entity.MoveFunction positionUpdater) {
         super.positionRider(passenger, positionUpdater);
         if (passenger instanceof LivingEntity) {

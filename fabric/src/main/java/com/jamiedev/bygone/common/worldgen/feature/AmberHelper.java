@@ -84,7 +84,7 @@ public class AmberHelper
             BlockPos.MutableBlockPos mutable = pos.mutable();
             getAmberThickness(direction, height, merge, (state) -> {
                 if (state.is(JamiesModBlocks.POINTED_AMBER)) {
-                    state = (BlockState)state.setValue(PointedAmberBlock.WATERLOGGED, world.isWaterAt(mutable));
+                    state = state.setValue(PointedAmberBlock.WATERLOGGED, world.isWaterAt(mutable));
                 }
 
                 world.setBlock(mutable, state, 2);
@@ -104,7 +104,7 @@ public class AmberHelper
     }
 
     private static BlockState getState(Direction direction, DripstoneThickness thickness) {
-        return (BlockState)((BlockState)JamiesModBlocks.POINTED_AMBER.defaultBlockState().setValue(PointedAmberBlock.VERTICAL_DIRECTION, direction)).setValue(PointedAmberBlock.THICKNESS, thickness);
+        return JamiesModBlocks.POINTED_AMBER.defaultBlockState().setValue(PointedAmberBlock.VERTICAL_DIRECTION, direction).setValue(PointedAmberBlock.THICKNESS, thickness);
     }
 
     public static boolean canReplaceOrLava(BlockState state) {

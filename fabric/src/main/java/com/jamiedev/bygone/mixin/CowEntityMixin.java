@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.mixin;
 
 import com.jamiedev.bygone.common.entities.MoobooEntity;
-import com.jamiedev.bygone.fabric.init.JamiesModDimension;
+import com.jamiedev.bygone.init.JamiesModDimension;
 import com.jamiedev.bygone.fabric.init.JamiesModEntityTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;

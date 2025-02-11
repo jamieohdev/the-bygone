@@ -31,14 +31,17 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
     GrassBlock ref;
     public static final MapCodec<MossyClaystoneBlock> CODEC = simpleCodec(MossyClaystoneBlock::new);
 
+    @Override
     public MapCodec<MossyClaystoneBlock> codec() {
         return CODEC;
     }
 
+    @Override
     public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
         return world.getBlockState(pos.above()).isAir();
     }
 
+    @Override
     public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
@@ -64,6 +67,7 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
         return canBeGrass(state, world, pos) && !world.getFluidState(blockPos).is(FluidTags.WATER);
     }
 
+    @Override
     protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (!canBeGrass(state, world, pos)) {
             world.setBlockAndUpdate(pos, JamiesModBlocks.CLAYSTONE.defaultBlockState());
@@ -74,7 +78,7 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
                 for(int i = 0; i < 4; ++i) {
                     BlockPos blockPos = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
                     if (world.getBlockState(blockPos).is(JamiesModBlocks.CLAYSTONE) && canPropagate(blockState, world, blockPos)) {
-                        world.setBlockAndUpdate(blockPos, (BlockState)blockState.setValue(SNOWY, world.getBlockState(blockPos.above()).is(Blocks.MOSS_BLOCK)));
+                        world.setBlockAndUpdate(blockPos, blockState.setValue(SNOWY, world.getBlockState(blockPos.above()).is(Blocks.MOSS_BLOCK)));
                     }
                 }
             }
@@ -82,10 +86,12 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
         }
     }
 
+    @Override
     public BonemealableBlock.Type getType() {
         return Type.NEIGHBOR_SPREADER;
     }
 
+    @Override
     public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
         BlockPos blockPos = pos.above();
         BlockState blockState = Blocks.SHORT_GRASS.defaultBlockState();
@@ -110,7 +116,7 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
             if (blockState2.isAir()) {
                 Holder registryEntry;
                 if (random.nextInt(8) == 0) {
-                    List<ConfiguredFeature<?, ?>> list = ((Biome)world.getBiome(blockPos2).value()).getGenerationSettings().getFlowerFeatures();
+                    List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getFlowerFeatures();
                     if (list.isEmpty()) {
                         continue;
                     }
@@ -121,7 +127,7 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
                         continue;
                     }
 
-                    registryEntry = (Holder)optional.get();
+                    registryEntry = optional.get();
                 }
 
                 ((PlacedFeature)registryEntry.value()).place(world, world.getChunkSource().getGenerator(), random, blockPos2);

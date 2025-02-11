@@ -23,6 +23,7 @@ public class FollowFungalParentGoal extends Goal
         this.speed = speed;
     }
 
+    @Override
     public boolean canUse() {
         if (this.animal.getAge() >= 0) {
             return false;
@@ -54,6 +55,7 @@ public class FollowFungalParentGoal extends Goal
         }
     }
 
+    @Override
     public boolean canContinueToUse() {
         if (this.animal.getAge() >= 0) {
             return false;
@@ -65,14 +67,17 @@ public class FollowFungalParentGoal extends Goal
         }
     }
 
+    @Override
     public void start() {
         this.delay = 0;
     }
 
+    @Override
     public void stop() {
         this.parent = null;
     }
 
+    @Override
     public void tick() {
         if (--this.delay <= 0) {
             this.delay = this.adjustedTickDelay(10);

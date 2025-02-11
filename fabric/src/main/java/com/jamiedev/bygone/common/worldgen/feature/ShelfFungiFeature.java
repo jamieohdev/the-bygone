@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.common.worldgen.feature;
 
 import com.jamiedev.bygone.common.blocks.shelf.ShelfFungiWallFanBlock;
-import com.jamiedev.bygone.fabric.init.JamiesModTag;
+import com.jamiedev.bygone.init.JamiesModTag;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.core.BlockPos;
@@ -27,6 +27,7 @@ public class ShelfFungiFeature extends Feature<NoneFeatureConfiguration> {
 
     CoralFeature ref;
 
+    @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         WorldGenLevel structureWorldAccess = context.level();
         BlockPos blockPos = context.origin();
@@ -70,7 +71,7 @@ public class ShelfFungiFeature extends Feature<NoneFeatureConfiguration> {
                         BuiltInRegistries.BLOCK.getRandomElementOf(JamiesModTag.SHELF_FUNGI, random).map(Holder::value).ifPresent((block) -> {
                             BlockState blockState1 = block.defaultBlockState();
                             if (blockState1.hasProperty(ShelfFungiWallFanBlock.FACING)) {
-                                blockState1 = (BlockState)blockState1.setValue(ShelfFungiWallFanBlock.FACING, direction);
+                                blockState1 = blockState1.setValue(ShelfFungiWallFanBlock.FACING, direction);
                             }
 
                             world.setBlock(blockPos2, blockState1, 2);

@@ -22,11 +22,12 @@ public class CessLakeFeature  extends Feature<CessLakeFeature.Config> {
         super(codec);
     }
 
+    @Override
     public boolean place(FeaturePlaceContext<Config> context) {
         BlockPos blockPos = context.origin();
         WorldGenLevel structureWorldAccess = context.level();
         RandomSource random = context.random();
-        CessLakeFeature.Config config = (CessLakeFeature.Config)context.config();
+        CessLakeFeature.Config config = context.config();
         if (blockPos.getY() <= structureWorldAccess.getMinBuildHeight() + 4) {
             return false;
         } else {
@@ -124,7 +125,7 @@ public class CessLakeFeature  extends Feature<CessLakeFeature.Config> {
                     for(u = 0; u < 16; ++u) {
                         v = true;
                         BlockPos blockPos4 = blockPos.offset(t, 4, u);
-                        if (((Biome)structureWorldAccess.getBiome(blockPos4).value()).shouldFreeze(structureWorldAccess, blockPos4, false) && this.canReplace(structureWorldAccess.getBlockState(blockPos4))) {
+                        if (structureWorldAccess.getBiome(blockPos4).value().shouldFreeze(structureWorldAccess, blockPos4, false) && this.canReplace(structureWorldAccess.getBlockState(blockPos4))) {
                             structureWorldAccess.setBlock(blockPos4, Blocks.ICE.defaultBlockState(), 2);
                         }
                     }
@@ -143,7 +144,7 @@ public class CessLakeFeature  extends Feature<CessLakeFeature.Config> {
         CAVE_AIR = Blocks.CAVE_AIR.defaultBlockState();
     }
 
-    public static record Config(BlockStateProvider fluid, BlockStateProvider barrier) implements FeatureConfiguration {
+    public record Config(BlockStateProvider fluid, BlockStateProvider barrier) implements FeatureConfiguration {
         public static final Codec<CessLakeFeature.Config> CODEC = RecordCodecBuilder.create((instance) -> {
             return instance.group(BlockStateProvider.CODEC.fieldOf("fluid").forGetter(CessLakeFeature.Config::fluid),
                     BlockStateProvider.CODEC.fieldOf("barrier").forGetter(CessLakeFeature.Config::barrier)).apply(instance, CessLakeFeature.Config::new);
@@ -154,10 +155,12 @@ public class CessLakeFeature  extends Feature<CessLakeFeature.Config> {
             this.barrier = barrier;
         }
 
+        @Override
         public BlockStateProvider fluid() {
             return this.fluid;
         }
 
+        @Override
         public BlockStateProvider barrier() {
             return this.barrier;
         }

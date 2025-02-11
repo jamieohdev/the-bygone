@@ -83,7 +83,8 @@ public class CoelacanthModel<E extends Entity> extends HierarchicalModel<E> {
 		lowerbody.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 	}
 
-	public ModelPart root() {
+	@Override
+    public ModelPart root() {
 		return this.Fish;
 	}
 	@Override

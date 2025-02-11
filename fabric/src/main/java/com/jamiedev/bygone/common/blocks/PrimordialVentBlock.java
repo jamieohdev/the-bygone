@@ -57,6 +57,7 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
 
     public static BooleanProperty SIGNAL_FIRE;
 
+    @Override
     public MapCodec<PrimordialVentBlock> codec() {
         return CODEC;
     }
@@ -69,11 +70,11 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
     public PrimordialVentBlock(boolean emitsParticles, Properties settings) {
         super(settings);
         this.emitsParticles = emitsParticles;
-        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
     }
 
     protected static boolean isInWater(BlockState state, BlockGetter world, BlockPos pos) {
-        if ((Boolean)state.getValue(WATERLOGGED)) {
+        if (state.getValue(WATERLOGGED)) {
             return true;
         } else {
             Direction[] var3 = Direction.values();
@@ -89,8 +90,9 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
             return false;
         }
     }
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
-        if ((Boolean)state.getValue(WATERLOGGED)) {
+        if (state.getValue(WATERLOGGED)) {
             world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
@@ -99,18 +101,21 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
 
     CoralFanBlock ref2;
 
+    @Override
     protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (!isInWater(state, world, pos)) {
-            world.setBlock(pos, (BlockState)this.defaultBlockState().setValue(WATERLOGGED, false), 2);
+            world.setBlock(pos, this.defaultBlockState().setValue(WATERLOGGED, false), 2);
         }
 
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         Vec3 vec3d = state.getOffset(world, pos);
         return SHAPE.move(vec3d.x, vec3d.y, vec3d.z);
     }
 
+    @Override
     protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
         if (entity instanceof LivingEntity) {
             entity.hurt(world.damageSources().inFire(), 1.0F);
@@ -130,8 +135,9 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
 
     }
 
+    @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
-        if ((Boolean)state.getValue(WATERLOGGED))
+        if (state.getValue(WATERLOGGED))
         {
             if (random.nextInt(100) == 0) {
                 world.playLocalSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
@@ -139,43 +145,51 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
         }
     }
 
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new PrimordialVentEntity(pos, state);
     }
 
+    @Override
     protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
 
+    @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
         if (world.isClientSide) {
-            return  (Boolean)state.getValue(WATERLOGGED) ? createTickerHelper(type, JamiesModBlockEntities.PRIMORDIAL_VENT, PrimordialVentEntity::clientTick) : null;
+            return  state.getValue(WATERLOGGED) ? createTickerHelper(type, JamiesModBlockEntities.PRIMORDIAL_VENT, PrimordialVentEntity::clientTick) : null;
         } else {
-            return  (Boolean)state.getValue(WATERLOGGED) ? createTickerHelper(type, JamiesModBlockEntities.PRIMORDIAL_VENT, PrimordialVentEntity::litServerTick) : null;
+            return  state.getValue(WATERLOGGED) ? createTickerHelper(type, JamiesModBlockEntities.PRIMORDIAL_VENT, PrimordialVentEntity::litServerTick) : null;
         }
     }
 
+    @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
 
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         BlockPos blockPos = pos.below();
         return world.getBlockState(blockPos).isFaceSturdy(world, blockPos, Direction.UP);
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{WATERLOGGED});
+        builder.add(WATERLOGGED);
     }
 
+    @Override
     protected FluidState getFluidState(BlockState state) {
-        return (Boolean)state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
-        BlockState blockState = (BlockState)((BlockState)this.defaultBlockState()).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+        BlockState blockState = this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
         return blockState;
     }
 

@@ -65,7 +65,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
 {
 
     protected static final ImmutableList<SensorType<? extends Sensor<? super GlareEntity>>> SENSORS;
-    protected static final ImmutableList MEMORY_MODULES;
+    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES;
 
     /*
     Glare will be pretty different, has different sizes that the smaller ones gather to.
@@ -95,7 +95,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
     }
 
     @Override
-    protected Brain.Provider brainProvider() {
+    protected Brain.Provider<GlareEntity> brainProvider() {
         return Brain.provider(MEMORY_MODULES, SENSORS);
     }
     @Override
@@ -108,11 +108,13 @@ public class GlareEntity extends Animal implements FlyingAnimal
         return (Brain<GlareEntity>) super.getBrain();
     }
 
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(GLARE_SIZE, 1);
     }
 
+    @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> data) {
         if (GLARE_SIZE.equals(data)) {
             this.setYRot(this.yHeadRot);
@@ -124,6 +126,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
         super.onSyncedDataUpdated(data);
     }
 
+    @Override
     protected void registerGoals() {
 
         this.goalSelector.addGoal(1, new BreedGoal(this, 1.0));
@@ -149,24 +152,27 @@ public class GlareEntity extends Animal implements FlyingAnimal
     }
 
     public int getSize() {
-        return (Integer)this.entityData.get(GLARE_SIZE);
+        return this.entityData.get(GLARE_SIZE);
     }
 
     private void onSizeChanged() {
         this.refreshDimensions();
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)(6 + this.getSize()));
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(6 + this.getSize());
     }
 
+    @Override
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putInt("Size", this.getSize());
     }
 
+    @Override
     public void readAdditionalSaveData(CompoundTag nbt) {
         this.setSize(nbt.getInt("Size") + 1);
         super.readAdditionalSaveData(nbt);
     }
 
+    @Override
     public EntityDimensions getDefaultDimensions(Pose pose) {
         int i = this.getSize();
         EntityDimensions entityDimensions = super.getDefaultDimensions(pose);
@@ -240,6 +246,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
         this.calculateEntityAnimation(false);
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.AZALEA_LEAVES_BREAK;
     }
@@ -273,19 +280,23 @@ public class GlareEntity extends Animal implements FlyingAnimal
 
     Pig ref;
 
+    @Override
     @Nullable
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
-        return (GlareEntity)JamiesModEntityTypes.GLARE.create(world);
+        return JamiesModEntityTypes.GLARE.create(world);
     }
 
+    @Override
     public boolean isFlying() {
         return !this.onGround();
     }
 
+    @Override
     protected void jumpInLiquid(TagKey<Fluid> tagKey) {
         this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.01, 0.0));
     }
 
+    @Override
     public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
     }
@@ -303,6 +314,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
     protected PathNavigation createNavigation(Level world) {
         FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, world)
         {
+            @Override
             public boolean isStableDestination(BlockPos pos) {
                 boolean isValidPos = !this.level.getBlockState(pos.below()).isAir() && !this.level.getBlockState(pos.below()).liquid();
 
@@ -337,6 +349,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
     protected void playStepSound(BlockPos pos, BlockState state) {
     }
 
+    @Override
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
         RandomSource random = world.getRandom();
@@ -363,6 +376,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(JamiesModBlocks.MOSSY_CLAYSTONE);
     }
 
+    @Override
     public boolean removeWhenFarAway(double distanceSquared) {
         return true;
     }
@@ -380,9 +394,10 @@ public class GlareEntity extends Animal implements FlyingAnimal
     static {
         GLARE_SIZE = SynchedEntityData.defineId(GlareEntity.class, EntityDataSerializers.INT);
         SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY, SensorType.NEAREST_ITEMS);
-        MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.HURT_BY, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.LIKED_PLAYER, MemoryModuleType.LIKED_NOTEBLOCK_POSITION, MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS, MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, MemoryModuleType.IS_PANICKING, new MemoryModuleType[0]);
+        MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.HURT_BY, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.LIKED_PLAYER, MemoryModuleType.LIKED_NOTEBLOCK_POSITION, MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS, MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, MemoryModuleType.IS_PANICKING);
     }
 
+    @Override
     public boolean checkSpawnObstruction(LevelReader world) {
         return world.isUnobstructed(this);
     }

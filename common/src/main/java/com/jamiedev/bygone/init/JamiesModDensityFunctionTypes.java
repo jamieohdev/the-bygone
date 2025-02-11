@@ -1,4 +1,4 @@
-package com.jamiedev.bygone.fabric.init;
+package com.jamiedev.bygone.init;
 
 import java.util.ArrayList;
 import java.util.List;

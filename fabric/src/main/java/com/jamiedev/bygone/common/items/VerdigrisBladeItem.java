@@ -35,21 +35,25 @@ public class VerdigrisBladeItem extends TieredItem
     }
 
     public static ItemAttributeModifiers createAttributeModifiers(Tier material, int baseAttackDamage, float attackSpeed) {
-        return ItemAttributeModifiers.builder().add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, (double)((float)baseAttackDamage + material.getAttackDamageBonus()), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, (double)attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).build();
+        return ItemAttributeModifiers.builder().add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, (float)baseAttackDamage + material.getAttackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).build();
     }
 
+    @Override
     public boolean canAttackBlock(BlockState state, Level world, BlockPos pos, Player miner) {
         return !miner.isCreative();
     }
 
+    @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         return true;
     }
 
+    @Override
     public void postHurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         stack.hurtAndBreak(1, attacker, EquipmentSlot.MAINHAND);
     }
 
+    @Override
     public boolean isValidRepairItem(ItemStack stack, ItemStack ingredient) {
         return ingredient.is(JamiesModItems.VERDIGRIS_INGOT);
     }

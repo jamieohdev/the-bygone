@@ -50,6 +50,7 @@ public class BygoneItemEntity  extends Entity implements ItemSupplier {
         this.direction = Direction.UP;
     }
 
+    @Override
     public Direction getDirection() {
         return this.direction;
     }
@@ -68,14 +69,17 @@ public class BygoneItemEntity  extends Entity implements ItemSupplier {
 
     }
 
+    @Override
     public ItemStack getItem() {
-        return (ItemStack)this.getEntityData().get(ITEM);
+        return this.getEntityData().get(ITEM);
     }
 
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         builder.define(ITEM, this.getItem());
     }
 
+    @Override
     public boolean shouldRenderAtSqrDistance(double distance) {
         double d = this.getBoundingBox().getSize() * 4.0;
         if (Double.isNaN(d)) {
@@ -133,7 +137,7 @@ public class BygoneItemEntity  extends Entity implements ItemSupplier {
                     direction = Direction.getRandom(this.random);
                 }
             } else {
-                direction = (Direction)list.get(this.random.nextInt(list.size()));
+                direction = list.get(this.random.nextInt(list.size()));
             }
 
             e = this.getX() + (double)direction.getStepX();
@@ -161,9 +165,9 @@ public class BygoneItemEntity  extends Entity implements ItemSupplier {
     }
 
     public void initTargetPos(BlockPos pos) {
-        double d = (double)pos.getX();
+        double d = pos.getX();
         int i = pos.getY();
-        double e = (double)pos.getZ();
+        double e = pos.getZ();
         double f = d - this.getX();
         double g = e - this.getZ();
         double h = Math.sqrt(f * f + g * g);
@@ -173,7 +177,7 @@ public class BygoneItemEntity  extends Entity implements ItemSupplier {
             this.targetY = this.getY() + 8.0;
         } else {
             this.targetX = d;
-            this.targetY = (double)i;
+            this.targetY = i;
             this.targetZ = e;
         }
 
@@ -181,6 +185,7 @@ public class BygoneItemEntity  extends Entity implements ItemSupplier {
         this.dropsItem = this.random.nextInt(5) > 0;
     }
 
+    @Override
     public void lerpMotion(double x, double y, double z) {
         this.setDeltaMovement(x, y, z);
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
@@ -205,11 +210,13 @@ public class BygoneItemEntity  extends Entity implements ItemSupplier {
         return Mth.lerp(0.2F, prevRot, newRot);
     }
 
+    @Override
     protected double getDefaultGravity() {
         return 0.01;
     }
 
 
+    @Override
     public void tick() {
         super.tick();
         Vec3 vec3d = this.getDeltaMovement();
@@ -224,7 +231,7 @@ public class BygoneItemEntity  extends Entity implements ItemSupplier {
             double i = this.targetZ - f;
             float j = (float)Math.sqrt(h * h + i * i);
             float k = (float)Mth.atan2(i, h);
-            double l = Mth.lerp(0.0025, g, (double)j);
+            double l = Mth.lerp(0.0025, g, j);
             double m = vec3d.y;
             if (j < 1.0F) {
                 l *= 0.8;
@@ -296,6 +303,7 @@ public class BygoneItemEntity  extends Entity implements ItemSupplier {
 
     }
 
+    @Override
     public void addAdditionalSaveData(CompoundTag nbt) {
         nbt.put("Item", this.getItem().save(this.registryAccess()));
         if (this.target != null) {
@@ -311,9 +319,10 @@ public class BygoneItemEntity  extends Entity implements ItemSupplier {
         nbt.putDouble("TZD", this.targetZ);
     }
 
+    @Override
     public void readAdditionalSaveData(CompoundTag nbt) {
         if (nbt.contains("Item", 10)) {
-            this.setItem((ItemStack)ItemStack.parse(this.registryAccess(), nbt.getCompound("Item")).orElse(this.getItem()));
+            this.setItem(ItemStack.parse(this.registryAccess(), nbt.getCompound("Item")).orElse(this.getItem()));
         } else {
             this.setItem(this.getItem());
         }
@@ -332,13 +341,16 @@ public class BygoneItemEntity  extends Entity implements ItemSupplier {
         return new ItemStack(JamiesModItems.BEIGE_SLICE);
     }
 
+    @Override
     public float getLightLevelDependentMagicValue() {
         return 1.0F;
     }
 
+    @Override
     public boolean isAttackable() {
         return false;
     }
+    @Override
     public void recreateFromPacket(ClientboundAddEntityPacket packet) {
         super.recreateFromPacket(packet);
         double d = packet.getXa();

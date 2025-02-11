@@ -91,7 +91,7 @@ JawsEntity ref;
         this.goalSelector.addGoal(5, new JawsEntity.LeaveWaterGoal(this, 1.0));
         this.goalSelector.addGoal(6, new JawsEntity.TargetAboveWaterGoal(this, 1.0, this.level().getSeaLevel()));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, new Class[]{JawsEntity.class})).setAlertOthers(new Class[]{ZombifiedPiglin.class}));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, JawsEntity.class)).setAlertOthers(ZombifiedPiglin.class));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::canDrownedAttackTarget));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
@@ -107,6 +107,7 @@ JawsEntity ref;
         }
     }
 
+    @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
         entityData = super.finalizeSpawn(world, difficulty, spawnReason, entityData);
         if (this.getItemBySlot(EquipmentSlot.OFFHAND).isEmpty() && world.getRandom().nextFloat() < 0.03F) {
@@ -143,14 +144,17 @@ JawsEntity ref;
         return false;
     }
 
+    @Override
     protected SoundEvent getAmbientSound() {
         return this.isInWater() ? SoundEvents.DROWNED_AMBIENT_WATER : SoundEvents.DROWNED_AMBIENT;
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return this.isInWater() ? SoundEvents.DROWNED_HURT_WATER : SoundEvents.DROWNED_HURT;
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return this.isInWater() ? SoundEvents.DROWNED_DEATH_WATER : SoundEvents.DROWNED_DEATH;
     }
@@ -159,6 +163,7 @@ JawsEntity ref;
         return SoundEvents.DROWNED_STEP;
     }
 
+    @Override
     protected SoundEvent getSwimSound() {
         return SoundEvents.DROWNED_SWIM;
     }
@@ -167,6 +172,7 @@ JawsEntity ref;
         return ItemStack.EMPTY;
     }
 
+    @Override
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance localDifficulty) {
         if ((double)random.nextFloat() > 0.9) {
             int i = random.nextInt(16);
@@ -179,6 +185,7 @@ JawsEntity ref;
 
     }
 
+    @Override
     protected boolean canReplaceCurrentItem(ItemStack newStack, ItemStack oldStack) {
         if (oldStack.is(Items.NAUTILUS_SHELL)) {
             return false;
@@ -189,7 +196,7 @@ JawsEntity ref;
                 return false;
             }
         } else {
-            return newStack.is(Items.TRIDENT) ? true : super.canReplaceCurrentItem(newStack, oldStack);
+            return newStack.is(Items.TRIDENT) || super.canReplaceCurrentItem(newStack, oldStack);
         }
     }
 
@@ -197,6 +204,7 @@ JawsEntity ref;
         return false;
     }
 
+    @Override
     public boolean checkSpawnObstruction(LevelReader world) {
         return world.isUnobstructed(this);
     }
@@ -209,6 +217,7 @@ JawsEntity ref;
         }
     }
 
+    @Override
     public boolean isPushedByFluid() {
         return !this.isSwimming();
     }
@@ -222,6 +231,7 @@ JawsEntity ref;
         }
     }
 
+    @Override
     public void travel(Vec3 movementInput) {
         if (this.isControlledByLocalInstance() && this.isInWater() && this.isTargetingUnderwater()) {
             this.moveRelative(0.01F, movementInput);
@@ -233,6 +243,7 @@ JawsEntity ref;
 
     }
 
+    @Override
     public void updateSwimming() {
         if (!this.level().isClientSide) {
             if (this.isEffectiveAi() && this.isInWater() && this.isTargetingUnderwater()) {
@@ -246,6 +257,7 @@ JawsEntity ref;
 
     }
 
+    @Override
     public boolean isVisuallySwimming() {
         return this.isSwimming();
     }
@@ -255,10 +267,8 @@ JawsEntity ref;
         if (path != null) {
             BlockPos blockPos = path.getTarget();
             if (blockPos != null) {
-                double d = this.distanceToSqr((double)blockPos.getX(), (double)blockPos.getY(), (double)blockPos.getZ());
-                if (d < 4.0) {
-                    return true;
-                }
+                double d = this.distanceToSqr(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                return d < 4.0;
             }
         }
 
@@ -288,6 +298,7 @@ JawsEntity ref;
             this.drowned = drowned;
         }
 
+        @Override
         public void tick() {
             LivingEntity livingEntity = this.drowned.getTarget();
             if (this.drowned.isTargetingUnderwater() && this.drowned.isInWater()) {
@@ -338,6 +349,7 @@ JawsEntity ref;
             this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
+        @Override
         public boolean canUse() {
             if (!this.world.isDay()) {
                 return false;
@@ -356,10 +368,12 @@ JawsEntity ref;
             }
         }
 
+        @Override
         public boolean canContinueToUse() {
             return !this.mob.getNavigation().isDone();
         }
 
+        @Override
         public void start() {
             this.mob.getNavigation().moveTo(this.x, this.y, this.z, this.speed);
         }
@@ -388,16 +402,19 @@ JawsEntity ref;
             this.drowned = (JawsEntity)rangedAttackMob;
         }
 
+        @Override
         public boolean canUse() {
             return super.canUse() && this.drowned.getMainHandItem().is(Items.TRIDENT);
         }
 
+        @Override
         public void start() {
             super.start();
             this.drowned.setAggressive(true);
             this.drowned.startUsingItem(InteractionHand.MAIN_HAND);
         }
 
+        @Override
         public void stop() {
             super.stop();
             this.drowned.stopUsingItem();
@@ -413,10 +430,12 @@ JawsEntity ref;
             this.drowned = drowned;
         }
 
+        @Override
         public boolean canUse() {
             return super.canUse() && this.drowned.canJawsAttackTarget(this.drowned.getTarget());
         }
 
+        @Override
         public boolean canContinueToUse() {
             return super.canContinueToUse() && this.drowned.canJawsAttackTarget(this.drowned.getTarget());
         }
@@ -430,25 +449,30 @@ JawsEntity ref;
             this.drowned = drowned;
         }
 
+        @Override
         public boolean canUse() {
             return super.canUse() && !this.drowned.level().isDay() && this.drowned.isInWater() && this.drowned.getY() >= (double)(this.drowned.level().getSeaLevel() - 3);
         }
 
+        @Override
         public boolean canContinueToUse() {
             return super.canContinueToUse();
         }
 
+        @Override
         protected boolean isValidTarget(LevelReader world, BlockPos pos) {
             BlockPos blockPos = pos.above();
-            return world.isEmptyBlock(blockPos) && world.isEmptyBlock(blockPos.above()) ? world.getBlockState(pos).entityCanStandOn(world, pos, this.drowned) : false;
+            return world.isEmptyBlock(blockPos) && world.isEmptyBlock(blockPos.above()) && world.getBlockState(pos).entityCanStandOn(world, pos, this.drowned);
         }
 
+        @Override
         public void start() {
             this.drowned.setTargetingUnderwater(false);
             this.drowned.navigation = this.drowned.landNavigation;
             super.start();
         }
 
+        @Override
         public void stop() {
             super.stop();
         }
@@ -466,17 +490,20 @@ JawsEntity ref;
             this.minY = minY;
         }
 
+        @Override
         public boolean canUse() {
             return !this.drowned.level().isDay() && this.drowned.isInWater() && this.drowned.getY() < (double)(this.minY - 2);
         }
 
+        @Override
         public boolean canContinueToUse() {
             return this.canUse() && !this.foundTarget;
         }
 
+        @Override
         public void tick() {
             if (this.drowned.getY() < (double)(this.minY - 1) && (this.drowned.getNavigation().isDone() || this.drowned.hasFinishedCurrentPath())) {
-                Vec3 vec3d = DefaultRandomPos.getPosTowards(this.drowned, 4, 8, new Vec3(this.drowned.getX(), (double)(this.minY - 1), this.drowned.getZ()), 1.5707963705062866);
+                Vec3 vec3d = DefaultRandomPos.getPosTowards(this.drowned, 4, 8, new Vec3(this.drowned.getX(), this.minY - 1, this.drowned.getZ()), 1.5707963705062866);
                 if (vec3d == null) {
                     this.foundTarget = true;
                     return;
@@ -487,11 +514,13 @@ JawsEntity ref;
 
         }
 
+        @Override
         public void start() {
             this.drowned.setTargetingUnderwater(true);
             this.foundTarget = false;
         }
 
+        @Override
         public void stop() {
             this.drowned.setTargetingUnderwater(false);
         }

@@ -16,6 +16,6 @@ public class JamiesModCriteria
     }
 
     public static <T extends CriterionTrigger<?>> T register(String id, T criterion) {
-        return (T) Registry.register(BuiltInRegistries.TRIGGER_TYPES, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, id), criterion);
+        return Registry.register(BuiltInRegistries.TRIGGER_TYPES, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, id), criterion);
     }
 }

@@ -45,6 +45,7 @@ public class BygoneBrushableBlock extends BaseEntityBlock implements Fallable {
     private final SoundEvent brushingSound;
     private final SoundEvent brushingCompleteSound;
 
+    @Override
     public MapCodec<BygoneBrushableBlock> codec() {
         return CODEC;
     }
@@ -54,26 +55,31 @@ public class BygoneBrushableBlock extends BaseEntityBlock implements Fallable {
         this.baseBlock = baseBlock;
         this.brushingSound = brushingSound;
         this.brushingCompleteSound = brushingCompleteSound;
-        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(DUSTED, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(DUSTED, 0));
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{DUSTED});
+        builder.add(DUSTED);
     }
 
+    @Override
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
 
+    @Override
     public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean notify) {
         world.scheduleTick(pos, this, 2);
     }
 
+    @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         world.scheduleTick(pos, this, 2);
         return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    @Override
     public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         BlockEntity var6 = world.getBlockEntity(pos);
         if (var6 instanceof BrushableBlockEntity brushableBlockEntity) {
@@ -86,12 +92,14 @@ public class BygoneBrushableBlock extends BaseEntityBlock implements Fallable {
         }
     }
 
+    @Override
     public void onBrokenAfterFall(Level world, BlockPos pos, FallingBlockEntity fallingBlockEntity) {
         Vec3 vec3d = fallingBlockEntity.getBoundingBox().getCenter();
         world.levelEvent(2001, BlockPos.containing(vec3d), Block.getId(fallingBlockEntity.getBlockState()));
         world.gameEvent(fallingBlockEntity, GameEvent.BLOCK_DESTROY, vec3d);
     }
 
+    @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         if (random.nextInt(16) == 0) {
             BlockPos blockPos = pos.below();
@@ -105,6 +113,7 @@ public class BygoneBrushableBlock extends BaseEntityBlock implements Fallable {
 
     }
 
+    @Override
     @Nullable
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new BygoneBrushableBlockEntity(pos, state);

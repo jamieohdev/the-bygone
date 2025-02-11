@@ -87,32 +87,36 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
     private static final float field_31204 = 0.125F;
     private static final VoxelShape DRIP_COLLISION_SHAPE;
 
+    @Override
     public MapCodec<PointedAmberBlock> codec() {
         return CODEC;
     }
 
     public PointedAmberBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(VERTICAL_DIRECTION, Direction.UP)).setValue(THICKNESS, DripstoneThickness.TIP)).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(VERTICAL_DIRECTION, Direction.UP).setValue(THICKNESS, DripstoneThickness.TIP).setValue(WATERLOGGED, false));
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{VERTICAL_DIRECTION, THICKNESS, WATERLOGGED});
+        builder.add(VERTICAL_DIRECTION, THICKNESS, WATERLOGGED);
     }
 
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
-        return canPlaceAtWithDirection(world, pos, (Direction)state.getValue(VERTICAL_DIRECTION));
+        return canPlaceAtWithDirection(world, pos, state.getValue(VERTICAL_DIRECTION));
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
-        if ((Boolean)state.getValue(WATERLOGGED)) {
+        if (state.getValue(WATERLOGGED)) {
             world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
         if (direction != Direction.UP && direction != Direction.DOWN) {
             return state;
         } else {
-            Direction direction2 = (Direction)state.getValue(VERTICAL_DIRECTION);
+            Direction direction2 = state.getValue(VERTICAL_DIRECTION);
             if (direction2 == Direction.DOWN && world.getBlockTicks().hasScheduledTick(pos, this)) {
                 return state;
             } else if (direction == direction2.getOpposite() && !this.canSurvive(state, world, pos)) {
@@ -126,11 +130,12 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
             } else {
                 boolean bl = state.getValue(THICKNESS) == DripstoneThickness.TIP_MERGE;
                 DripstoneThickness thickness = getThickness(world, pos, direction2, bl);
-                return (BlockState)state.setValue(THICKNESS, thickness);
+                return state.setValue(THICKNESS, thickness);
             }
         }
     }
 
+    @Override
     protected void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
         if (!world.isClientSide) {
             BlockPos blockPos = hit.getBlockPos();
@@ -141,6 +146,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
         }
     }
 
+    @Override
     public void fallOn(Level world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
         if (state.getValue(VERTICAL_DIRECTION) == Direction.UP && state.getValue(THICKNESS) == DripstoneThickness.TIP) {
             entity.causeFallDamage(fallDistance + 2.0F, 2.0F, world.damageSources().stalagmite());
@@ -150,6 +156,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
 
     }
 
+    @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         if (canDrip(state)) {
             float f = random.nextFloat();
@@ -163,6 +170,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
         }
     }
 
+    @Override
     protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (isPointingDown(state) && !this.canSurvive(state, world, pos)) {
             world.destroyBlock(pos, true);
@@ -172,6 +180,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
 
     }
 
+    @Override
     protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         dripTick(state, world, pos, random.nextFloat());
         if (random.nextFloat() < 0.011377778F && isHeldByPointedAmber(state, world, pos)) {
@@ -186,7 +195,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
             if (isHeldByPointedAmber(state, world, pos)) {
                 Optional<PointedAmberBlock.DrippingFluid> optional = getFluid(world, pos, state);
                 if (optional.isPresent()) {
-                    Fluid fluid = ((PointedAmberBlock.DrippingFluid)optional.get()).fluid;
+                    Fluid fluid = optional.get().fluid;
                     float f;
                     if (fluid == Fluids.WATER) {
                         f = 0.17578125F;
@@ -201,11 +210,11 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
                     if (!(dripChance >= f)) {
                         BlockPos blockPos = getTipPos(state, world, pos, 11, false);
                         if (blockPos != null) {
-                            if (((PointedAmberBlock.DrippingFluid)optional.get()).state.is(Blocks.MUD) && fluid == Fluids.WATER) {
+                            if (optional.get().state.is(Blocks.MUD) && fluid == Fluids.WATER) {
                                 BlockState blockState = Blocks.CLAY.defaultBlockState();
-                                world.setBlockAndUpdate(((PointedAmberBlock.DrippingFluid)optional.get()).pos, blockState);
-                                Block.pushEntitiesUp(((DrippingFluid)optional.get()).state, blockState, world, ((PointedAmberBlock.DrippingFluid)optional.get()).pos);
-                                world.gameEvent(GameEvent.BLOCK_CHANGE, ((PointedAmberBlock.DrippingFluid)optional.get()).pos, GameEvent.Context.of(blockState));
+                                world.setBlockAndUpdate(optional.get().pos, blockState);
+                                Block.pushEntitiesUp(optional.get().state, blockState, world, optional.get().pos);
+                                world.gameEvent(GameEvent.BLOCK_CHANGE, optional.get().pos, GameEvent.Context.of(blockState));
                                 world.levelEvent(1504, blockPos, 0);
                             } else {
                                 BlockPos blockPos2 = getCauldronPos(world, blockPos, fluid);
@@ -224,6 +233,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
         }
     }
 
+    @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         LevelAccessor worldAccess = ctx.getLevel();
@@ -235,20 +245,23 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
         } else {
             boolean bl = !ctx.isSecondaryUseActive();
             DripstoneThickness thickness = getThickness(worldAccess, blockPos, direction2, bl);
-            return thickness == null ? null : (BlockState)((BlockState)((BlockState)this.defaultBlockState().setValue(VERTICAL_DIRECTION, direction2)).setValue(THICKNESS, thickness)).setValue(WATERLOGGED, worldAccess.getFluidState(blockPos).getType() == Fluids.WATER);
+            return thickness == null ? null : this.defaultBlockState().setValue(VERTICAL_DIRECTION, direction2).setValue(THICKNESS, thickness).setValue(WATERLOGGED, worldAccess.getFluidState(blockPos).getType() == Fluids.WATER);
         }
     }
 
+    @Override
     protected FluidState getFluidState(BlockState state) {
-        return (Boolean)state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
+    @Override
     protected VoxelShape getOcclusionShape(BlockState state, BlockGetter world, BlockPos pos) {
         return Shapes.empty();
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        DripstoneThickness thickness = (DripstoneThickness)state.getValue(THICKNESS);
+        DripstoneThickness thickness = state.getValue(THICKNESS);
         VoxelShape voxelShape;
         if (thickness == DripstoneThickness.TIP_MERGE) {
             voxelShape = TIP_MERGE_SHAPE;
@@ -270,14 +283,17 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
         return voxelShape.move(vec3d.x, 0.0, vec3d.z);
     }
 
+    @Override
     protected boolean isCollisionShapeFullBlock(BlockState state, BlockGetter world, BlockPos pos) {
         return false;
     }
 
+    @Override
     protected float getMaxHorizontalOffset() {
         return 0.125F;
     }
 
+    @Override
     public void onDestroyedOnLanding(Level world, BlockPos pos, RisingBlockEntity fallingBlockEntity) {
         if (!fallingBlockEntity.isSilent()) {
             world.levelEvent(9045, pos, 0);
@@ -285,6 +301,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
 
     }
 
+    @Override
     public DamageSource getFallDamageSource(Entity attacker) {
         return attacker.damageSources().fallingStalactite(attacker);
     }
@@ -382,7 +399,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
     }
 
     private static void place(LevelAccessor world, BlockPos pos, Direction direction, DripstoneThickness thickness) {
-        BlockState blockState = (BlockState)((BlockState)((BlockState)Blocks.POINTED_DRIPSTONE.defaultBlockState().setValue(VERTICAL_DIRECTION, direction)).setValue(THICKNESS, thickness)).setValue(WATERLOGGED, world.getFluidState(pos).getType() == Fluids.WATER);
+        BlockState blockState = Blocks.POINTED_DRIPSTONE.defaultBlockState().setValue(VERTICAL_DIRECTION, direction).setValue(THICKNESS, thickness).setValue(WATERLOGGED, world.getFluidState(pos).getType() == Fluids.WATER);
         world.setBlock(pos, blockState, 3);
     }
 
@@ -423,13 +440,13 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
         if (isTip(state, allowMerged)) {
             return pos;
         } else {
-            Direction direction = (Direction)state.getValue(VERTICAL_DIRECTION);
+            Direction direction = state.getValue(VERTICAL_DIRECTION);
             BiPredicate<BlockPos, BlockState> biPredicate = (posx, statex) -> {
                 return statex.is(Blocks.POINTED_DRIPSTONE) && statex.getValue(VERTICAL_DIRECTION) == direction;
             };
-            return (BlockPos)searchInDirection(world, pos, direction.getAxisDirection(), biPredicate, (statex) -> {
+            return searchInDirection(world, pos, direction.getAxisDirection(), biPredicate, (statex) -> {
                 return isTip(statex, allowMerged);
-            }, range).orElse((BlockPos) null);
+            }, range).orElse(null);
         }
     }
 
@@ -457,7 +474,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
         } else if (!isPointedAmberFacingDirection(blockState, direction)) {
             return DripstoneThickness.TIP;
         } else {
-            DripstoneThickness thickness = (DripstoneThickness)blockState.getValue(THICKNESS);
+            DripstoneThickness thickness = blockState.getValue(THICKNESS);
             if (thickness != DripstoneThickness.TIP && thickness != DripstoneThickness.TIP_MERGE) {
                 BlockState blockState2 = world.getBlockState(pos.relative(direction2));
                 return !isPointedAmberFacingDirection(blockState2, direction) ? DripstoneThickness.BASE : DripstoneThickness.MIDDLE;
@@ -472,18 +489,18 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
     }
 
     private static boolean canGrow(BlockState state, ServerLevel world, BlockPos pos) {
-        Direction direction = (Direction)state.getValue(VERTICAL_DIRECTION);
+        Direction direction = state.getValue(VERTICAL_DIRECTION);
         BlockPos blockPos = pos.relative(direction);
         BlockState blockState = world.getBlockState(blockPos);
         if (!blockState.getFluidState().isEmpty()) {
             return false;
         } else {
-            return blockState.isAir() ? true : isTip(blockState, direction.getOpposite());
+            return blockState.isAir() || isTip(blockState, direction.getOpposite());
         }
     }
 
     private static Optional<BlockPos> getSupportingPos(Level world, BlockPos pos, BlockState state, int range) {
-        Direction direction = (Direction)state.getValue(VERTICAL_DIRECTION);
+        Direction direction = state.getValue(VERTICAL_DIRECTION);
         BiPredicate<BlockPos, BlockState> biPredicate = (posx, statex) -> {
             return statex.is(Blocks.POINTED_DRIPSTONE) && statex.getValue(VERTICAL_DIRECTION) == direction;
         };
@@ -502,7 +519,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
         if (!state.is(Blocks.POINTED_DRIPSTONE)) {
             return false;
         } else {
-            DripstoneThickness thickness = (DripstoneThickness)state.getValue(THICKNESS);
+            DripstoneThickness thickness = state.getValue(THICKNESS);
             return thickness == DripstoneThickness.TIP || allowMerged && thickness == DripstoneThickness.TIP_MERGE;
         }
     }
@@ -523,6 +540,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
         return isPointingDown(state) && !world.getBlockState(pos.above()).is(Blocks.POINTED_DRIPSTONE);
     }
 
+    @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
@@ -539,7 +557,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
         BiPredicate<BlockPos, BlockState> biPredicate = (posx, state) -> {
             return canDripThrough(world, posx, state);
         };
-        return (BlockPos)searchInDirection(world, pos, Direction.DOWN.getAxisDirection(), biPredicate, predicate, 11).orElse((BlockPos) null);
+        return searchInDirection(world, pos, Direction.DOWN.getAxisDirection(), biPredicate, predicate, 11).orElse(null);
     }
 
     @Nullable
@@ -547,11 +565,11 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
         BiPredicate<BlockPos, BlockState> biPredicate = (posx, state) -> {
             return canDripThrough(world, posx, state);
         };
-        return (BlockPos)searchInDirection(world, pos, Direction.UP.getAxisDirection(), biPredicate, PointedAmberBlock::canDrip, 11).orElse((BlockPos) null);
+        return searchInDirection(world, pos, Direction.UP.getAxisDirection(), biPredicate, PointedAmberBlock::canDrip, 11).orElse(null);
     }
 
     public static Fluid getDripFluid(ServerLevel world, BlockPos pos) {
-        return (Fluid)getFluid(world, pos, world.getBlockState(pos)).map((fluid) -> {
+        return getFluid(world, pos, world.getBlockState(pos)).map((fluid) -> {
             return fluid.fluid;
         }).filter(PointedAmberBlock::isFluidLiquid).orElse(Fluids.EMPTY);
     }
@@ -632,7 +650,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
         DRIP_COLLISION_SHAPE = Block.box(6.0, 0.0, 6.0, 10.0, 16.0, 10.0);
     }
 
-    static record DrippingFluid(BlockPos pos, Fluid fluid, BlockState state) {
+    record DrippingFluid(BlockPos pos, Fluid fluid, BlockState state) {
 
     }
 }

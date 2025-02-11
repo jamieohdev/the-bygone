@@ -16,6 +16,7 @@ public class PrimordialCoralClawFeature extends PrimordialCoralFeature {
         super(codec);
     }
 
+    @Override
     protected boolean generateCoral(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state) {
         if (!this.generateCoralPiece(world, random, pos, state)) {
             return false;
@@ -37,7 +38,7 @@ public class PrimordialCoralClawFeature extends PrimordialCoralFeature {
                 } else {
                     mutable.move(Direction.UP);
                     Direction[] directions = new Direction[]{direction2, Direction.UP};
-                    direction3 = (Direction) Util.getRandom(directions, random);
+                    direction3 = Util.getRandom(directions, random);
                     k = random.nextInt(3) + 3;
                 }
 

@@ -22,6 +22,7 @@ public class CopperbugRenderer  extends MobRenderer<CopperbugEntity, CopperbugMo
         return 180.0F;
     }
 
+    @Override
     public ResourceLocation getTextureLocation(CopperbugEntity coelacanthEntity) {
         return TEXTURE;
     }

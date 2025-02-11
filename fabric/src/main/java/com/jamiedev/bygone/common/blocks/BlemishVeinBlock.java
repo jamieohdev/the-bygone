@@ -3,7 +3,7 @@ package com.jamiedev.bygone.common.blocks;
 import com.jamiedev.bygone.common.blocks.entity.BlemishSpreadManager;
 import com.jamiedev.bygone.common.blocks.entity.BlemishSpreadable;
 import com.jamiedev.bygone.fabric.init.JamiesModBlocks;
-import com.jamiedev.bygone.fabric.init.JamiesModTag;
+import com.jamiedev.bygone.init.JamiesModTag;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;
@@ -41,6 +41,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
     private final MultifaceSpreader allGrowTypeGrower;
     private final MultifaceSpreader samePositionOnlyGrower;
 
+    @Override
     public MapCodec<BlemishVeinBlock> codec() {
         return CODEC;
     }
@@ -48,10 +49,11 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
     public BlemishVeinBlock(BlockBehaviour.Properties settings) {
         super(settings);
         this.allGrowTypeGrower = new MultifaceSpreader(new BlemishVeinBlock.BlemishVeinGrowChecker(this, MultifaceSpreader.DEFAULT_SPREAD_ORDER));
-        this.samePositionOnlyGrower = new MultifaceSpreader(new BlemishVeinBlock.BlemishVeinGrowChecker(this, new MultifaceSpreader.SpreadType[]{MultifaceSpreader.SpreadType.SAME_POSITION}));
-        this.registerDefaultState((BlockState)this.defaultBlockState().setValue(WATERLOGGED, false));
+        this.samePositionOnlyGrower = new MultifaceSpreader(new BlemishVeinBlock.BlemishVeinGrowChecker(this, MultifaceSpreader.SpreadType.SAME_POSITION));
+        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
     }
 
+    @Override
     public MultifaceSpreader getSpreader() {
         return this.allGrowTypeGrower;
     }
@@ -69,7 +71,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
             Direction direction = (Direction)var6.next();
             BlockPos blockPos = pos.relative(direction);
             if (canAttachTo(world, direction, blockPos, world.getBlockState(blockPos))) {
-                blockState = (BlockState)blockState.setValue(getFaceProperty(direction), true);
+                blockState = blockState.setValue(getFaceProperty(direction), true);
                 bl = true;
             }
         }
@@ -78,7 +80,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
             return false;
         } else {
             if (!state.getFluidState().isEmpty()) {
-                blockState = (BlockState)blockState.setValue(WATERLOGGED, true);
+                blockState = blockState.setValue(WATERLOGGED, true);
             }
 
             world.setBlock(pos, blockState, 3);
@@ -86,6 +88,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
         }
     }
 
+    @Override
     public void spreadAtSamePosition(LevelAccessor world, BlockState state, BlockPos pos, RandomSource random) {
         if (state.is(this)) {
             Direction[] var5 = DIRECTIONS;
@@ -94,8 +97,8 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
             for(int var7 = 0; var7 < var6; ++var7) {
                 Direction direction = var5[var7];
                 BooleanProperty booleanProperty = getFaceProperty(direction);
-                if ((Boolean)state.getValue(booleanProperty) && world.getBlockState(pos.relative(direction)).is(JamiesModBlocks.BLEMISH)) {
-                    state = (BlockState)state.setValue(booleanProperty, false);
+                if (state.getValue(booleanProperty) && world.getBlockState(pos.relative(direction)).is(JamiesModBlocks.BLEMISH)) {
+                    state = state.setValue(booleanProperty, false);
                 }
             }
 
@@ -109,6 +112,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
         }
     }
 
+    @Override
     public int spread(BlemishSpreadManager.Cursor cursor, LevelAccessor world, BlockPos catalystPos, RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock) {
         if (shouldConvertToBlock && this.convertToBlock(spreadManager, world, cursor.getPos(), random)) {
             return cursor.getCharge() - 1;
@@ -131,7 +135,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
                     BlockState blockState3 = JamiesModBlocks.BLEMISH.defaultBlockState();
                     world.setBlock(blockPos, blockState3, 3);
                     Block.pushEntitiesUp(blockState2, blockState3, world, blockPos);
-                    world.playSound((Player)null, blockPos, SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    world.playSound(null, blockPos, SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.BLOCKS, 1.0F, 1.0F);
                     this.allGrowTypeGrower.spreadAll(blockState3, world, blockPos, spreadManager.isWorldGen());
                     Direction direction2 = direction.getOpposite();
                     Direction[] var13 = DIRECTIONS;
@@ -174,25 +178,29 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
         }
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
-        if ((Boolean)state.getValue(WATERLOGGED)) {
+        if (state.getValue(WATERLOGGED)) {
             world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
         return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(new Property[]{WATERLOGGED});
+        builder.add(WATERLOGGED);
     }
 
+    @Override
     protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
         return !context.getItemInHand().is(Item.byBlock(JamiesModBlocks.BLEMISH_VEIN)) || super.canBeReplaced(state, context);
     }
 
+    @Override
     protected FluidState getFluidState(BlockState state) {
-        return (Boolean)state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     static {
@@ -207,6 +215,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
             this.growTypes = growTypes;
         }
 
+        @Override
         public boolean stateCanBeReplaced(BlockGetter world, BlockPos pos, BlockPos growPos, Direction direction, BlockState state) {
             BlockState blockState = world.getBlockState(growPos.relative(direction));
             if (!blockState.is(JamiesModBlocks.BLEMISH) && !blockState.is(JamiesModBlocks.BLEMISH_CATALYST) && !blockState.is(Blocks.MOVING_PISTON)) {
@@ -230,10 +239,12 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
             }
         }
 
+        @Override
         public MultifaceSpreader.SpreadType[] getSpreadTypes() {
             return this.growTypes;
         }
 
+        @Override
         public boolean isOtherBlockValidAsSource(BlockState state) {
             return !state.is(JamiesModBlocks.BLEMISH_VEIN);
         }

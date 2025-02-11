@@ -57,7 +57,8 @@ public class ScuttleModel extends HierarchicalModel<ScuttleEntity> {
 		this.spine4 = this.body.getChild("spine4");
 	}
 
-	public ModelPart root() {
+	@Override
+    public ModelPart root() {
 		return this.root;
 	}
 

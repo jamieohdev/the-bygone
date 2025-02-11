@@ -44,7 +44,7 @@ public class JamiesModStructures
             Bygone.getModId("bygone_portal"), BygonePortalGenerator.Piece::new);
 
     private static StructurePieceType register(StructurePieceType type, String id) {
-        return (StructurePieceType)Registry.register(BuiltInRegistries.STRUCTURE_PIECE, id.toLowerCase(Locale.ROOT), type);
+        return Registry.register(BuiltInRegistries.STRUCTURE_PIECE, id.toLowerCase(Locale.ROOT), type);
     }
 
     private static StructurePieceType register(StructurePieceType.ContextlessType type, String id) {

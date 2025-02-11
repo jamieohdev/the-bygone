@@ -30,46 +30,54 @@ public class BygonePortalFramePlaceableBlock extends Block {
 
     private static BlockPattern COMPLETED_FRAME;
 
+    @Override
     public MapCodec<BygonePortalFramePlaceableBlock> codec() {
         return CODEC;
     }
 
     public BygonePortalFramePlaceableBlock(Properties settings) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(FACING, Direction.NORTH)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
+    @Override
     protected boolean useShapeForLightOcclusion(BlockState state) {
         return true;
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return FRAME_SHAPE;
     }
 
+    @Override
     protected boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
+    @Override
     protected int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
         return 0;
     }
 
+    @Override
     protected BlockState rotate(BlockState state, Rotation rotation) {
-        return (BlockState)state.setValue(FACING, rotation.rotate((Direction)state.getValue(FACING)));
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
+    @Override
     protected BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation((Direction)state.getValue(FACING)));
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{FACING});
+        builder.add(FACING);
     }
 
     public static BlockPattern getCompletedFramePattern() {
         if (COMPLETED_FRAME == null) {
-            COMPLETED_FRAME = BlockPatternBuilder.start().aisle(new String[]{"?vvv?", ">???<", ">???<", ">???<", "?^^^?"}).where('?',
+            COMPLETED_FRAME = BlockPatternBuilder.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?").where('?',
                     BlockInWorld.hasState(BlockStatePredicate.ANY))
                     .where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(JamiesModBlocks.BYGONE_PORTAL_FRAME).where(FACING, Predicates.equalTo(Direction.SOUTH))))
                     .where('>', BlockInWorld.hasState(BlockStatePredicate.forBlock(JamiesModBlocks.BYGONE_PORTAL_FRAME).where(FACING, Predicates.equalTo(Direction.WEST))))
@@ -80,6 +88,7 @@ public class BygonePortalFramePlaceableBlock extends Block {
         return COMPLETED_FRAME;
     }
 
+    @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }

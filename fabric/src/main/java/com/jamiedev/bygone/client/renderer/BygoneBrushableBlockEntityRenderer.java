@@ -21,9 +21,10 @@ public class BygoneBrushableBlockEntityRenderer  implements BlockEntityRenderer<
         this.itemRenderer = context.getItemRenderer();
     }
 
+    @Override
     public void render(BygoneBrushableBlockEntity brushableBlockEntity, float f, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, int j) {
         if (brushableBlockEntity.getLevel() != null) {
-            int k = (Integer)brushableBlockEntity.getBlockState().getValue(BlockStateProperties.DUSTED);
+            int k = brushableBlockEntity.getBlockState().getValue(BlockStateProperties.DUSTED);
             if (k > 0) {
                 Direction direction = brushableBlockEntity.getHitDirection();
                 if (direction != null) {

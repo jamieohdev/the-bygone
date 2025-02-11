@@ -25,6 +25,7 @@ public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
         super(codec);
     }
 
+    @Override
     public boolean place(FeaturePlaceContext<AncientTreeFeatureConfig> context) {
         WorldGenLevel structureWorldAccess = context.level();
         BlockPos blockPos = context.origin();
@@ -32,7 +33,7 @@ public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
             return false;
         } else {
             RandomSource random = context.random();
-            AncientTreeFeatureConfig twistingVinesFeatureConfig = (AncientTreeFeatureConfig)context.config();
+            AncientTreeFeatureConfig twistingVinesFeatureConfig = context.config();
             int i = twistingVinesFeatureConfig.spreadWidth();
             int j = twistingVinesFeatureConfig.spreadHeight();
             int k = twistingVinesFeatureConfig.maxHeight();
@@ -74,7 +75,7 @@ public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
         for(int i = 1; i <= maxLength; ++i) {
             if (world.isEmptyBlock(pos)) {
                 if (i == maxLength || !world.isEmptyBlock(pos.above())) {
-                    world.setBlock(pos, (BlockState)Blocks.JUNGLE_LOG.defaultBlockState(), 2);
+                    world.setBlock(pos, Blocks.JUNGLE_LOG.defaultBlockState(), 2);
                     break;
                 }
 
@@ -115,7 +116,7 @@ public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
         if (pos.distManhattan(origin) >= 7) {
             return false;
         } else {
-            return random.nextFloat() > chance ? false : placeFoliageBlock(world, placer, random, config, pos);
+            return !(random.nextFloat() > chance) && placeFoliageBlock(world, placer, random, config, pos);
         }
     }
 
@@ -125,7 +126,7 @@ public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
         } else {
             BlockState blockState = config.foliageProvider.getState(random, pos);
             if (blockState.hasProperty(BlockStateProperties.WATERLOGGED)) {
-                blockState = (BlockState)blockState.setValue(BlockStateProperties.WATERLOGGED, world.isFluidAtPosition(pos, (fluidState) -> {
+                blockState = blockState.setValue(BlockStateProperties.WATERLOGGED, world.isFluidAtPosition(pos, (fluidState) -> {
                     return fluidState.isSourceOfType(Fluids.WATER);
                 }));
             }

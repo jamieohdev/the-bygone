@@ -16,6 +16,7 @@ public class GourdVineBlock extends GrowingPlantHeadBlock {
     public static final MapCodec<GourdVineBlock> CODEC = simpleCodec(GourdVineBlock::new);
     protected static final VoxelShape SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 16.0, 12.0);
 
+    @Override
     public MapCodec<GourdVineBlock> codec() {
         return CODEC;
     }
@@ -24,14 +25,17 @@ public class GourdVineBlock extends GrowingPlantHeadBlock {
         super(settings, Direction.DOWN, SHAPE, false, 0.1);
     }
 
+    @Override
     protected int getBlocksToGrowWhenBonemealed(RandomSource random) {
         return NetherVines.getBlocksToGrowWhenBonemealed(random);
     }
 
+    @Override
     protected Block getBodyBlock() {
         return JamiesModBlocks.GOURD_VINE;
     }
 
+    @Override
     protected boolean canGrowInto(BlockState state) {
         return NetherVines.isValidGrowthState(state);
     }

@@ -7,6 +7,7 @@ import com.jamiedev.bygone.client.renderer.*;
 import com.jamiedev.bygone.common.items.VerdigrisBladeItem;
 import com.jamiedev.bygone.common.blocks.JamiesModWoodType;
 import com.jamiedev.bygone.fabric.init.*;
+import com.jamiedev.bygone.init.JamiesModDimension;
 import com.jamiedev.bygone.network.SyncPlayerHookS2C;
 import com.jamiedev.bygone.client.network.SyncPlayerHookPacketHandler;
 import com.jamiedev.bygone.common.util.PlayerWithHook;

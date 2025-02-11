@@ -120,6 +120,7 @@ public class RuinStructure extends Structure {
         return structurePiecesGenerator;
     }
 
+    @Override
     public StructureType<?> type() {
         return JamiesModStructures.BLEMISH_RUINS;
     }

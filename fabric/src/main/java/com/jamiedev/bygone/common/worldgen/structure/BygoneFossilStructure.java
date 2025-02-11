@@ -30,6 +30,7 @@ public class BygoneFossilStructure extends Structure
         this.height = height;
     }
 
+    @Override
     public Optional<GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
         WorldgenRandom chunkRandom = context.random();
         int i = context.chunkPos().getMinBlockX() + chunkRandom.nextInt(16);
@@ -59,6 +60,7 @@ public class BygoneFossilStructure extends Structure
         }
     }
 
+    @Override
     public StructureType<?> type() {
         return JamiesModStructures.BYGONE_FOSSIL;
     }

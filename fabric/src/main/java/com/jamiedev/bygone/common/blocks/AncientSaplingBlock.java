@@ -38,6 +38,7 @@ public class AncientSaplingBlock  extends BushBlock implements BonemealableBlock
     protected static final VoxelShape SHAPE;
     protected final TreeGrower generator;
 
+    @Override
     public MapCodec<? extends AncientSaplingBlock> codec() {
         return CODEC;
     }
@@ -45,13 +46,15 @@ public class AncientSaplingBlock  extends BushBlock implements BonemealableBlock
     public AncientSaplingBlock(TreeGrower generator, BlockBehaviour.Properties settings) {
         super(settings);
         this.generator = generator;
-        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(STAGE, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0));
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
+    @Override
     protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (world.getMaxLocalRawBrightness(pos.above()) >= 9 && random.nextInt(7) == 0) {
             this.generate(world, pos, state, random);
@@ -60,47 +63,56 @@ public class AncientSaplingBlock  extends BushBlock implements BonemealableBlock
     }
 
     public void generate(ServerLevel world, BlockPos pos, BlockState state, RandomSource random) {
-        if ((Integer)state.getValue(STAGE) == 0) {
-            world.setBlock(pos, (BlockState)state.cycle(STAGE), 4);
+        if (state.getValue(STAGE) == 0) {
+            world.setBlock(pos, state.cycle(STAGE), 4);
         } else {
             this.generator.growTree(world, world.getChunkSource().getGenerator(), pos, state, random);
         }
 
     }
 
+    @Override
     public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
         return true;
     }
 
+    @Override
     public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return (double)world.random.nextFloat() < 0.45;
     }
 
+    @Override
     public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
         this.generate(world, pos, state, random);
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{STAGE});
+        builder.add(STAGE);
     }
 
+    @Override
     protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
         return floor.is(BlockTags.DIRT) || floor.is(Blocks.FARMLAND);
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         return !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         BlockPos blockPos = pos.above();
         return this.mayPlaceOn(world.getBlockState(blockPos), world, blockPos);
     }
 
+    @Override
     protected boolean propagatesSkylightDown(BlockState state, BlockGetter world, BlockPos pos) {
         return state.getFluidState().isEmpty();
     }
 
+    @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return type == PathComputationType.AIR && !this.hasCollision || super.isPathfindable(state, type);
     }

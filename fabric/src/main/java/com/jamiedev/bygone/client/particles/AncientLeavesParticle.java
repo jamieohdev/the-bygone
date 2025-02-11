@@ -26,10 +26,12 @@ public class AncientLeavesParticle extends TextureSheetParticle {
         this.friction = 1.0F;
     }
 
+    @Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
+    @Override
     public void tick() {
         this.xo = this.x;
         this.yo = this.y;
@@ -41,11 +43,11 @@ public class AncientLeavesParticle extends TextureSheetParticle {
         if (!this.removed) {
             float f = (float)(300 - this.lifetime);
             float g = Math.min(f / 300.0F, 1.0F);
-            double d = Math.cos(Math.toRadians((double)(this.field_43370 * 60.0F))) * 2.0 * Math.pow((double)g, 1.25);
-            double e = Math.sin(Math.toRadians((double)(this.field_43370 * 60.0F))) * 2.0 * Math.pow((double)g, 1.25);
+            double d = Math.cos(Math.toRadians(this.field_43370 * 60.0F)) * 2.0 * Math.pow(g, 1.25);
+            double e = Math.sin(Math.toRadians(this.field_43370 * 60.0F)) * 2.0 * Math.pow(g, 1.25);
             this.xd += d * 0.0024999999441206455;
             this.zd += e * 0.0024999999441206455;
-            this.yd -= (double)this.gravity;
+            this.yd -= this.gravity;
             this.field_43369 += this.field_43371 / 20.0F;
             this.oRoll = this.roll;
             this.roll += this.field_43369 / 20.0F;
@@ -55,9 +57,9 @@ public class AncientLeavesParticle extends TextureSheetParticle {
             }
 
             if (!this.removed) {
-                this.xd *= (double)this.friction;
-                this.yd *= (double)this.friction;
-                this.zd *= (double)this.friction;
+                this.xd *= this.friction;
+                this.yd *= this.friction;
+                this.zd *= this.friction;
             }
         }
     }
@@ -71,6 +73,7 @@ public class AncientLeavesParticle extends TextureSheetParticle {
             this.spriteProvider = spriteProvider;
         }
 
+        @Override
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i) {
 
             return new AncientLeavesParticle(clientWorld, d, e, f, spriteProvider);

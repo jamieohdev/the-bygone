@@ -16,6 +16,7 @@ public class AncientLeavesBlock extends LeavesBlock
 {
     public static final MapCodec<AncientLeavesBlock> CODEC = simpleCodec(AncientLeavesBlock::new);
 
+    @Override
     public MapCodec<AncientLeavesBlock> codec() {
         return CODEC;
     }
@@ -24,6 +25,7 @@ public class AncientLeavesBlock extends LeavesBlock
         super(settings);
     }
 
+    @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         super.animateTick(state, world, pos, random);
         if (random.nextInt(10) == 0) {

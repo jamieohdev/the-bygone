@@ -2,7 +2,7 @@ package com.jamiedev.bygone.mixin.client;
 
 import com.jamiedev.bygone.client.JamiesModUtilClient;
 import com.jamiedev.bygone.client.screen.DimensionScreen;
-import com.jamiedev.bygone.fabric.init.JamiesModDimension;
+import com.jamiedev.bygone.init.JamiesModDimension;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ReceivingLevelScreen;
 import net.minecraft.client.gui.screens.Screen;

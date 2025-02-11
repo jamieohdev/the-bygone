@@ -35,7 +35,7 @@ public class AncientRootGenerator
 
     public static void addPieces(StructureTemplateManager manager, StructurePieceAccessor holder, RandomSource random, BlockPos pos) {
         Rotation blockRotation = Rotation.getRandom(random);
-        holder.addPiece(new AncientRootGenerator.Piece(manager, (ResourceLocation) Util.getRandom(FOSSILS, random), pos, blockRotation));
+        holder.addPiece(new AncientRootGenerator.Piece(manager, Util.getRandom(FOSSILS, random), pos, blockRotation));
     }
 
     public static class Piece extends TemplateStructurePiece {
@@ -60,14 +60,17 @@ public class AncientRootGenerator
             return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_AND_AIR);
         }
 
+        @Override
         protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag nbt) {
             super.addAdditionalSaveData(context, nbt);
             nbt.putString("Rot", this.placeSettings.getRotation().name());
         }
 
+        @Override
         protected void handleDataMarker(String metadata, BlockPos pos, ServerLevelAccessor world, RandomSource random, BoundingBox boundingBox) {
         }
 
+        @Override
         public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
             chunkBox.encapsulate(this.template.getBoundingBox(this.placeSettings, this.templatePosition));
             super.postProcess(world, structureAccessor, chunkGenerator, random, chunkBox, chunkPos, pivot);

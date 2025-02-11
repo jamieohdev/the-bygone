@@ -26,10 +26,11 @@ public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatu
         super(codec);
     }
 
+    @Override
     public boolean place(FeaturePlaceContext<PointedAmberClusterFeatureConfig> context) {
         WorldGenLevel structureWorldAccess = context.level();
         BlockPos blockPos = context.origin();
-        PointedAmberClusterFeatureConfig PointedAmberClusterFeatureConfig = (PointedAmberClusterFeatureConfig)context.config();
+        PointedAmberClusterFeatureConfig PointedAmberClusterFeatureConfig = context.config();
         RandomSource random = context.random();
         if (!AmberHelper.canGenerate(structureWorldAccess, blockPos)) {
             return false;
@@ -55,17 +56,17 @@ public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatu
     private void generate(WorldGenLevel world, RandomSource random, BlockPos pos, int localX, int localZ, float wetness, double amberChance, int height, float density, PointedAmberClusterFeatureConfig config) {
         Optional<Column> optional = Column.scan(world, pos, config.floorToCeilingSearchRange, AmberHelper::canGenerate, AmberHelper::cannotGenerate);
         if (!optional.isEmpty()) {
-            OptionalInt optionalInt = ((Column)optional.get()).getCeiling();
-            OptionalInt optionalInt2 = ((Column)optional.get()).getFloor();
+            OptionalInt optionalInt = optional.get().getCeiling();
+            OptionalInt optionalInt2 = optional.get().getFloor();
             if (!optionalInt.isEmpty() || !optionalInt2.isEmpty()) {
                 boolean bl = random.nextFloat() < wetness;
                 Column caveSurface;
                 if (bl && optionalInt2.isPresent() && this.canWaterSpawn(world, pos.atY(optionalInt2.getAsInt()))) {
                     int i = optionalInt2.getAsInt();
-                    caveSurface = ((Column)optional.get()).withFloor(OptionalInt.of(i - 1));
+                    caveSurface = optional.get().withFloor(OptionalInt.of(i - 1));
                     world.setBlock(pos.atY(i), Blocks.WATER.defaultBlockState(), 2);
                 } else {
-                    caveSurface = (Column)optional.get();
+                    caveSurface = optional.get();
                 }
 
                 OptionalInt optionalInt3 = caveSurface.getFloor();
@@ -138,7 +139,7 @@ public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatu
             return 0;
         } else {
             int i = Math.abs(localX) + Math.abs(localZ);
-            float f = (float)Mth.clampedMap((double)i, 0.0, (double)config.maxDistanceFromCenterAffectingHeightBias, (double)height / 2.0, 0.0);
+            float f = (float)Mth.clampedMap(i, 0.0, config.maxDistanceFromCenterAffectingHeightBias, (double)height / 2.0, 0.0);
             return (int)clampedGaussian(random, 0.0F, (float)height, f, (float)config.heightDeviation);
         }
     }
@@ -189,7 +190,7 @@ public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatu
         int i = radiusX - Math.abs(localX);
         int j = radiusZ - Math.abs(localZ);
         int k = Math.min(i, j);
-        return (double)Mth.clampedMap((float)k, 0.0F, (float)config.maxDistanceFromCenterAffectingChanceOfAmberColumn, config.chanceOfAmberColumnAtMaxDistanceFromCenter, 1.0F);
+        return Mth.clampedMap((float)k, 0.0F, (float)config.maxDistanceFromCenterAffectingChanceOfAmberColumn, config.chanceOfAmberColumnAtMaxDistanceFromCenter, 1.0F);
     }
 
     private static float clampedGaussian(RandomSource random, float min, float max, float mean, float deviation) {

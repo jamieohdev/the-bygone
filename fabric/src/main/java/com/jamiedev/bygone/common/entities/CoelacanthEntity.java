@@ -46,6 +46,7 @@ public class CoelacanthEntity extends AbstractSchoolingFish
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4.0);
     }
+    @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.0, 1.2));
@@ -54,18 +55,22 @@ public class CoelacanthEntity extends AbstractSchoolingFish
         }, false));
     }
 
+    @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.SALMON_AMBIENT;
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.SALMON_DEATH;
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.SALMON_HURT;
     }
 
+    @Override
     protected SoundEvent getFlopSound() {
         return SoundEvents.SALMON_FLOP;
     }
@@ -75,14 +80,14 @@ public class CoelacanthEntity extends AbstractSchoolingFish
         return Items.WATER_BUCKET.getDefaultInstance();
     }
 
+    @Override
     public boolean hurt(DamageSource source, float amount) {
         if (this.level().isClientSide) {
             return false;
         } else {
             if (!source.is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !source.is(DamageTypes.THORNS)) {
                 Entity var4 = source.getDirectEntity();
-                if (var4 instanceof LivingEntity) {
-                    LivingEntity livingEntity = (LivingEntity)var4;
+                if (var4 instanceof LivingEntity livingEntity) {
                     livingEntity.hurt(this.damageSources().thorns(this), 0.1F);
                     livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0), this);
                     this.playSound(SoundEvents.CALCITE_HIT, 1.0F, 1.0F);

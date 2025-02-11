@@ -33,42 +33,50 @@ public class ShelfFungiWallFanBlock extends ShelfFungiFanBlock
     public static final DirectionProperty FACING;
     private static final Map<Direction, VoxelShape> FACING_TO_SHAPE;
 
+    @Override
     public MapCodec<? extends ShelfFungiWallFanBlock> codec() {
         return CODEC;
     }
 
     public ShelfFungiWallFanBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(FACING, Direction.NORTH)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return (VoxelShape)FACING_TO_SHAPE.get(state.getValue(FACING));
+        return FACING_TO_SHAPE.get(state.getValue(FACING));
     }
 
+    @Override
     protected BlockState rotate(BlockState state, Rotation rotation) {
-        return (BlockState)state.setValue(FACING, rotation.rotate((Direction)state.getValue(FACING)));
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
+    @Override
     protected BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation((Direction)state.getValue(FACING)));
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{FACING});
+        builder.add(FACING);
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         return direction.getOpposite() == state.getValue(FACING) && !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : state;
     }
 
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
-        Direction direction = (Direction)state.getValue(FACING);
+        Direction direction = state.getValue(FACING);
         BlockPos blockPos = pos.relative(direction.getOpposite());
         BlockState blockState = world.getBlockState(blockPos);
         return blockState.isFaceSturdy(world, blockPos, direction);
     }
 
+    @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         BlockState blockState = super.getStateForPlacement(ctx);
@@ -81,7 +89,7 @@ public class ShelfFungiWallFanBlock extends ShelfFungiFanBlock
         for(int var8 = 0; var8 < var7; ++var8) {
             Direction direction = var6[var8];
             if (direction.getAxis().isHorizontal()) {
-                blockState = (BlockState)blockState.setValue(FACING, direction.getOpposite());
+                blockState = blockState.setValue(FACING, direction.getOpposite());
                 if (blockState.canSurvive(worldView, blockPos)) {
                     return blockState;
                 }

@@ -61,6 +61,7 @@ public class LubberEntity  extends Monster implements RangedAttackMob
     public void performRangedAttack(LivingEntity target, float pullProgress) {
 
     }
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new AvoidEntityGoal(this, BigBeakEntity.class, 6.0F, 1.0, 1.2, (entity) -> {
@@ -71,20 +72,23 @@ public class LubberEntity  extends Monster implements RangedAttackMob
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this, new Class[0]));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new LubberEntity.TargetGoal<>(this, Player.class));
         this.targetSelector.addGoal(3, new LubberEntity.TargetGoal<>(this, IronGolem.class));
     }
 
+    @Override
     protected PathNavigation createNavigation(Level world) {
         return new LubberNavigation(this, world);
     }
 
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(LUBBER_FLAGS, (byte)0);
     }
 
+    @Override
     public void tick() {
         super.tick();
         if (!this.level().isClientSide) {
@@ -97,26 +101,32 @@ public class LubberEntity  extends Monster implements RangedAttackMob
         return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 16.0).add(Attributes.MOVEMENT_SPEED, 0.30000001192092896);
     }
 
+    @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.SILVERFISH_AMBIENT;
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.SILVERFISH_HURT;
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.SILVERFISH_DEATH;
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.SILVERFISH_STEP, 0.15F, 1.0F);
     }
 
+    @Override
     public boolean onClimbable() {
         return this.isClimbingWall();
     }
 
+    @Override
     public void makeStuckInBlock(BlockState state, Vec3 multiplier) {
         if (!state.is(Blocks.COBWEB)) {
             super.makeStuckInBlock(state, multiplier);
@@ -124,16 +134,17 @@ public class LubberEntity  extends Monster implements RangedAttackMob
 
     }
 
+    @Override
     public boolean canBeAffected(MobEffectInstance effect) {
-        return effect.is(MobEffects.POISON) ? false : super.canBeAffected(effect);
+        return !effect.is(MobEffects.POISON) && super.canBeAffected(effect);
     }
 
     public boolean isClimbingWall() {
-        return ((Byte)this.entityData.get(LUBBER_FLAGS) & 1) != 0;
+        return (this.entityData.get(LUBBER_FLAGS) & 1) != 0;
     }
 
     public void setClimbingWall(boolean climbing) {
-        byte b = (Byte)this.entityData.get(LUBBER_FLAGS);
+        byte b = this.entityData.get(LUBBER_FLAGS);
         if (climbing) {
             b = (byte)(b | 1);
         } else {
@@ -143,15 +154,16 @@ public class LubberEntity  extends Monster implements RangedAttackMob
         this.entityData.set(LUBBER_FLAGS, b);
     }
 
+    @Override
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
         SpawnGroupData entityData1 = super.finalizeSpawn(world, difficulty, spawnReason, entityData);
         RandomSource random = world.getRandom();
         if (random.nextInt(100) == 0) {
-            Skeleton skeletonEntity = (Skeleton)EntityType.SKELETON.create(this.level());
+            Skeleton skeletonEntity = EntityType.SKELETON.create(this.level());
             if (skeletonEntity != null) {
                 skeletonEntity.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-                skeletonEntity.finalizeSpawn(world, difficulty, spawnReason, (SpawnGroupData)null);
+                skeletonEntity.finalizeSpawn(world, difficulty, spawnReason, null);
                 skeletonEntity.startRiding(this);
             }
         }
@@ -170,9 +182,10 @@ public class LubberEntity  extends Monster implements RangedAttackMob
             }
         }
 
-        return (SpawnGroupData)entityData1;
+        return entityData1;
     }
 
+    @Override
     public Vec3 getVehicleAttachmentPoint(Entity vehicle) {
         return vehicle.getBbWidth() <= this.getBbWidth() ? new Vec3(0.0, 0.3125 * (double)this.getScale(), 0.0) : super.getVehicleAttachmentPoint(vehicle);
     }
@@ -186,14 +199,16 @@ public class LubberEntity  extends Monster implements RangedAttackMob
             super(spider, 1.0, true);
         }
 
+        @Override
         public boolean canUse() {
             return super.canUse() && !this.mob.isVehicle();
         }
 
+        @Override
         public boolean canContinueToUse() {
             float f = this.mob.getLightLevelDependentMagicValue();
             if (f >= 0.5F && this.mob.getRandom().nextInt(100) == 0) {
-                this.mob.setTarget((LivingEntity)null);
+                this.mob.setTarget(null);
                 return false;
             } else {
                 return super.canContinueToUse();
@@ -206,9 +221,10 @@ public class LubberEntity  extends Monster implements RangedAttackMob
             super(spider, targetEntityClass, true);
         }
 
+        @Override
         public boolean canUse() {
             float f = this.mob.getLightLevelDependentMagicValue();
-            return f >= 0.5F ? false : super.canUse();
+            return !(f >= 0.5F) && super.canUse();
         }
     }
 

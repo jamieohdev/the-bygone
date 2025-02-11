@@ -51,49 +51,53 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
     private static final VoxelShape NORTH_SHAPE;
     private final Map<BlockState, VoxelShape> shapesByState;
 
+    @Override
     public MapCodec<ShelfFungiWallFanBlock2> codec() {
         return CODEC;
     }
 
     public ShelfFungiWallFanBlock2(BlockBehaviour.Properties settings) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(UP, false)).setValue(NORTH, false)).setValue(EAST, false)).setValue(SOUTH, false)).setValue(WEST, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(UP, false).setValue(NORTH, false).setValue(EAST, false).setValue(SOUTH, false).setValue(WEST, false));
         this.shapesByState = ImmutableMap.copyOf((Map)this.stateDefinition.getPossibleStates().stream().collect(Collectors.toMap(Function.identity(), ShelfFungiWallFanBlock2::getShapeForState)));
     }
 
     private static VoxelShape getShapeForState(BlockState state) {
         VoxelShape voxelShape = Shapes.empty();
-        if ((Boolean)state.getValue(UP)) {
+        if (state.getValue(UP)) {
             voxelShape = UP_SHAPE;
         }
 
-        if ((Boolean)state.getValue(NORTH)) {
+        if (state.getValue(NORTH)) {
             voxelShape = Shapes.or(voxelShape, SOUTH_SHAPE);
         }
 
-        if ((Boolean)state.getValue(SOUTH)) {
+        if (state.getValue(SOUTH)) {
             voxelShape = Shapes.or(voxelShape, NORTH_SHAPE);
         }
 
-        if ((Boolean)state.getValue(EAST)) {
+        if (state.getValue(EAST)) {
             voxelShape = Shapes.or(voxelShape, WEST_SHAPE);
         }
 
-        if ((Boolean)state.getValue(WEST)) {
+        if (state.getValue(WEST)) {
             voxelShape = Shapes.or(voxelShape, EAST_SHAPE);
         }
 
         return voxelShape.isEmpty() ? Shapes.block() : voxelShape;
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return (VoxelShape)this.shapesByState.get(state);
+        return this.shapesByState.get(state);
     }
 
+    @Override
     protected boolean propagatesSkylightDown(BlockState state, BlockGetter world, BlockPos pos) {
         return true;
     }
 
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         return this.hasAdjacentBlocks(this.getPlacementShape(state, world, pos));
     }
@@ -108,7 +112,7 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
 
         while(var3.hasNext()) {
             BooleanProperty booleanProperty = (BooleanProperty)var3.next();
-            if ((Boolean)state.getValue(booleanProperty)) {
+            if (state.getValue(booleanProperty)) {
                 ++i;
             }
         }
@@ -126,9 +130,9 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
             } else if (side.getAxis() == Direction.Axis.Y) {
                 return false;
             } else {
-                BooleanProperty booleanProperty = (BooleanProperty)FACING_PROPERTIES.get(side);
+                BooleanProperty booleanProperty = FACING_PROPERTIES.get(side);
                 BlockState blockState = world.getBlockState(pos.above());
-                return blockState.is(this) && (Boolean)blockState.getValue(booleanProperty);
+                return blockState.is(this) && blockState.getValue(booleanProperty);
             }
         }
     }
@@ -139,8 +143,8 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
 
     private BlockState getPlacementShape(BlockState state, BlockGetter world, BlockPos pos) {
         BlockPos blockPos = pos.above();
-        if ((Boolean)state.getValue(UP)) {
-            state = (BlockState)state.setValue(UP, shouldConnectTo(world, blockPos, Direction.DOWN));
+        if (state.getValue(UP)) {
+            state = state.setValue(UP, shouldConnectTo(world, blockPos, Direction.DOWN));
         }
 
         BlockState blockState = null;
@@ -164,13 +168,14 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
                     blockState = world.getBlockState(blockPos);
                 }
 
-                bl = blockState.is(this) && (Boolean)blockState.getValue(booleanProperty);
+                bl = blockState.is(this) && blockState.getValue(booleanProperty);
             }
 
-            state = (BlockState)state.setValue(booleanProperty, bl);
+            state = state.setValue(booleanProperty, bl);
         }
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         if (direction == Direction.DOWN) {
             return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
@@ -180,6 +185,7 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
         }
     }
 
+    @Override
     protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (world.getGameRules().getBoolean(GameRules.RULE_DO_VINES_SPREAD)) {
             if (random.nextInt(4) == 0) {
@@ -195,33 +201,33 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
                         if (blockState.isAir()) {
                             direction2 = direction.getClockWise();
                             Direction direction3 = direction.getCounterClockWise();
-                            boolean bl = (Boolean)state.getValue(getFacingProperty(direction2));
-                            boolean bl2 = (Boolean)state.getValue(getFacingProperty(direction3));
+                            boolean bl = state.getValue(getFacingProperty(direction2));
+                            boolean bl2 = state.getValue(getFacingProperty(direction3));
                             BlockPos blockPos3 = blockPos2.relative(direction2);
                             BlockPos blockPos4 = blockPos2.relative(direction3);
                             if (bl && shouldConnectTo(world, blockPos3, direction2)) {
-                                world.setBlock(blockPos2, (BlockState)this.defaultBlockState().setValue(getFacingProperty(direction2), true), 2);
+                                world.setBlock(blockPos2, this.defaultBlockState().setValue(getFacingProperty(direction2), true), 2);
                             } else if (bl2 && shouldConnectTo(world, blockPos4, direction3)) {
-                                world.setBlock(blockPos2, (BlockState)this.defaultBlockState().setValue(getFacingProperty(direction3), true), 2);
+                                world.setBlock(blockPos2, this.defaultBlockState().setValue(getFacingProperty(direction3), true), 2);
                             } else {
                                 Direction direction4 = direction.getOpposite();
                                 if (bl && world.isEmptyBlock(blockPos3) && shouldConnectTo(world, pos.relative(direction2), direction4)) {
-                                    world.setBlock(blockPos3, (BlockState)this.defaultBlockState().setValue(getFacingProperty(direction4), true), 2);
+                                    world.setBlock(blockPos3, this.defaultBlockState().setValue(getFacingProperty(direction4), true), 2);
                                 } else if (bl2 && world.isEmptyBlock(blockPos4) && shouldConnectTo(world, pos.relative(direction3), direction4)) {
-                                    world.setBlock(blockPos4, (BlockState)this.defaultBlockState().setValue(getFacingProperty(direction4), true), 2);
+                                    world.setBlock(blockPos4, this.defaultBlockState().setValue(getFacingProperty(direction4), true), 2);
                                 } else if ((double)random.nextFloat() < 0.05 && shouldConnectTo(world, blockPos2.above(), Direction.UP)) {
-                                    world.setBlock(blockPos2, (BlockState)this.defaultBlockState().setValue(UP, true), 2);
+                                    world.setBlock(blockPos2, this.defaultBlockState().setValue(UP, true), 2);
                                 }
                             }
                         } else if (shouldConnectTo(world, blockPos2, direction)) {
-                            world.setBlock(pos, (BlockState)state.setValue(getFacingProperty(direction), true), 2);
+                            world.setBlock(pos, state.setValue(getFacingProperty(direction), true), 2);
                         }
 
                     }
                 } else {
                     if (direction == Direction.UP && pos.getY() < world.getMaxBuildHeight() - 1) {
                         if (this.shouldHaveSide(world, pos, direction)) {
-                            world.setBlock(pos, (BlockState)state.setValue(UP, true), 2);
+                            world.setBlock(pos, state.setValue(UP, true), 2);
                             return;
                         }
 
@@ -246,7 +252,7 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
                                     direction2 = (Direction)var17.next();
                                 } while(!random.nextBoolean() && shouldConnectTo(world, blockPos.relative(direction2), direction2));
 
-                                blockState2 = (BlockState)blockState2.setValue(getFacingProperty(direction2), false);
+                                blockState2 = blockState2.setValue(getFacingProperty(direction2), false);
                             }
                         }
                     }
@@ -275,8 +281,8 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
             Direction direction = (Direction)var4.next();
             if (random.nextBoolean()) {
                 BooleanProperty booleanProperty = getFacingProperty(direction);
-                if ((Boolean)above.getValue(booleanProperty)) {
-                    state = (BlockState)state.setValue(booleanProperty, true);
+                if (above.getValue(booleanProperty)) {
+                    state = state.setValue(booleanProperty, true);
                 }
             }
         }
@@ -285,7 +291,7 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
     }
 
     private boolean hasHorizontalSide(BlockState state) {
-        return (Boolean)state.getValue(NORTH) || (Boolean)state.getValue(EAST) || (Boolean)state.getValue(SOUTH) || (Boolean)state.getValue(WEST);
+        return state.getValue(NORTH) || state.getValue(EAST) || state.getValue(SOUTH) || state.getValue(WEST);
     }
 
     private boolean canGrowAt(BlockGetter world, BlockPos pos) {
@@ -307,6 +313,7 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
         return true;
     }
 
+    @Override
     protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
         BlockState blockState = context.getLevel().getBlockState(context.getClickedPos());
         if (blockState.is(this)) {
@@ -316,6 +323,7 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
         }
     }
 
+    @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         BlockState blockState = ctx.getLevel().getBlockState(ctx.getClickedPos());
@@ -328,9 +336,9 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
             Direction direction = var5[var7];
             if (direction != Direction.DOWN) {
                 BooleanProperty booleanProperty = getFacingProperty(direction);
-                boolean bl2 = bl && (Boolean)blockState.getValue(booleanProperty);
+                boolean bl2 = bl && blockState.getValue(booleanProperty);
                 if (!bl2 && this.shouldHaveSide(ctx.getLevel(), ctx.getClickedPos(), direction)) {
-                    return (BlockState)blockState2.setValue(booleanProperty, true);
+                    return blockState2.setValue(booleanProperty, true);
                 }
             }
         }
@@ -338,36 +346,39 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
         return bl ? blockState2 : null;
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{UP, NORTH, EAST, SOUTH, WEST});
+        builder.add(UP, NORTH, EAST, SOUTH, WEST);
     }
 
+    @Override
     protected BlockState rotate(BlockState state, Rotation rotation) {
         switch (rotation) {
             case CLOCKWISE_180:
-                return (BlockState)((BlockState)((BlockState)((BlockState)state.setValue(NORTH, (Boolean)state.getValue(SOUTH))).setValue(EAST, (Boolean)state.getValue(WEST))).setValue(SOUTH, (Boolean)state.getValue(NORTH))).setValue(WEST, (Boolean)state.getValue(EAST));
+                return state.setValue(NORTH, state.getValue(SOUTH)).setValue(EAST, state.getValue(WEST)).setValue(SOUTH, state.getValue(NORTH)).setValue(WEST, state.getValue(EAST));
             case COUNTERCLOCKWISE_90:
-                return (BlockState)((BlockState)((BlockState)((BlockState)state.setValue(NORTH, (Boolean)state.getValue(EAST))).setValue(EAST, (Boolean)state.getValue(SOUTH))).setValue(SOUTH, (Boolean)state.getValue(WEST))).setValue(WEST, (Boolean)state.getValue(NORTH));
+                return state.setValue(NORTH, state.getValue(EAST)).setValue(EAST, state.getValue(SOUTH)).setValue(SOUTH, state.getValue(WEST)).setValue(WEST, state.getValue(NORTH));
             case CLOCKWISE_90:
-                return (BlockState)((BlockState)((BlockState)((BlockState)state.setValue(NORTH, (Boolean)state.getValue(WEST))).setValue(EAST, (Boolean)state.getValue(NORTH))).setValue(SOUTH, (Boolean)state.getValue(EAST))).setValue(WEST, (Boolean)state.getValue(SOUTH));
+                return state.setValue(NORTH, state.getValue(WEST)).setValue(EAST, state.getValue(NORTH)).setValue(SOUTH, state.getValue(EAST)).setValue(WEST, state.getValue(SOUTH));
             default:
                 return state;
         }
     }
 
+    @Override
     protected BlockState mirror(BlockState state, Mirror mirror) {
         switch (mirror) {
             case LEFT_RIGHT:
-                return (BlockState)((BlockState)state.setValue(NORTH, (Boolean)state.getValue(SOUTH))).setValue(SOUTH, (Boolean)state.getValue(NORTH));
+                return state.setValue(NORTH, state.getValue(SOUTH)).setValue(SOUTH, state.getValue(NORTH));
             case FRONT_BACK:
-                return (BlockState)((BlockState)state.setValue(EAST, (Boolean)state.getValue(WEST))).setValue(WEST, (Boolean)state.getValue(EAST));
+                return state.setValue(EAST, state.getValue(WEST)).setValue(WEST, state.getValue(EAST));
             default:
                 return super.mirror(state, mirror);
         }
     }
 
     public static BooleanProperty getFacingProperty(Direction direction) {
-        return (BooleanProperty)FACING_PROPERTIES.get(direction);
+        return FACING_PROPERTIES.get(direction);
     }
 
     static {
@@ -376,7 +387,7 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
         EAST = PipeBlock.EAST;
         SOUTH = PipeBlock.SOUTH;
         WEST = PipeBlock.WEST;
-        FACING_PROPERTIES = (Map)PipeBlock.PROPERTY_BY_DIRECTION.entrySet().stream().filter((entry) -> {
+        FACING_PROPERTIES = PipeBlock.PROPERTY_BY_DIRECTION.entrySet().stream().filter((entry) -> {
             return entry.getKey() != Direction.DOWN;
         }).collect(Util.toMap());
         UP_SHAPE = Block.box(0.0, 15.0, 0.0, 16.0, 16.0, 16.0);

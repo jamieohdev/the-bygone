@@ -9,13 +9,13 @@ import net.minecraft.core.registries.BuiltInRegistries;
 public class JamiesModParticleTypes
 {
 
-    public static final ParticleType<SimpleParticleType> AMBER_DUST = FabricParticleTypes.simple();
-    public static final ParticleType<SimpleParticleType> RAFFLESIA_SPORES = FabricParticleTypes.simple();
-    public static final ParticleType<SimpleParticleType> ALGAE_BLOOM = FabricParticleTypes.simple();
+    public static final ParticleType<SimpleParticleType> AMBER_DUST = simple();
+    public static final ParticleType<SimpleParticleType> RAFFLESIA_SPORES = simple();
+    public static final ParticleType<SimpleParticleType> ALGAE_BLOOM = simple();
 
-    public static final ParticleType<SimpleParticleType> BLEMISH = FabricParticleTypes.simple();
-    public static final ParticleType<SimpleParticleType> SHELF = FabricParticleTypes.simple();
-    public static final ParticleType<SimpleParticleType> ANCIENT_LEAVES = FabricParticleTypes.simple();
+    public static final ParticleType<SimpleParticleType> BLEMISH = simple();
+    public static final ParticleType<SimpleParticleType> SHELF = simple();
+    public static final ParticleType<SimpleParticleType> ANCIENT_LEAVES = simple();
 
     public static void init() {
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.getModId( "rafflesia_spores"), RAFFLESIA_SPORES);
@@ -25,4 +25,9 @@ public class JamiesModParticleTypes
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.getModId( "shelf"), SHELF);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.getModId( "ancient_leaves"), ANCIENT_LEAVES);
     }
+
+    public static SimpleParticleType simple() {
+        return new SimpleParticleType(false) { };
+    }
+
 }

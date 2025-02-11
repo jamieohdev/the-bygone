@@ -22,6 +22,7 @@ public class MoobooTransRenderer <T extends LivingEntity> extends RenderLayer<T,
         this.model = new CowModel<>(loader.bakeLayer(JamiesModModelLayers.MOOBOO_TRANS));
     }
 
+    @Override
     public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l) {
         Minecraft minecraftClient = Minecraft.getInstance();
         boolean bl = minecraftClient.shouldEntityAppearGlowing(livingEntity) && livingEntity.isInvisible();
@@ -33,7 +34,7 @@ public class MoobooTransRenderer <T extends LivingEntity> extends RenderLayer<T,
                 vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucent(this.getTextureLocation(livingEntity)));
             }
 
-            ((CowModel) this.getParentModel()).copyPropertiesTo(this.model);
+            this.getParentModel().copyPropertiesTo(this.model);
             this.model.prepareMobModel(livingEntity, f, g, h);
             this.model.setupAnim(livingEntity, f, g, j, k, l);
             this.model.renderToBuffer(matrixStack, vertexConsumer, i, LivingEntityRenderer.getOverlayCoords(livingEntity, 0.0F));

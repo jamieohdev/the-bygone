@@ -57,15 +57,18 @@ public class CasterBlock extends BaseEntityBlock implements BlockEntityTicker<Ca
         return CODEC;
     }
 
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         return this.defaultBlockState().setValue(FACING, ctx.getNearestLookingDirection().getOpposite());
     }
 
+    @Override
     protected void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
         Containers.dropContentsOnDestroy(state, newState, world, pos);
         super.onRemove(state, world, pos, newState, moved);
     }
 
+    @Override
     protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (world.isClientSide) {
             return InteractionResult.SUCCESS;
@@ -90,22 +93,27 @@ public class CasterBlock extends BaseEntityBlock implements BlockEntityTicker<Ca
         return new CasterBlockEntity(pos, state);
     }
 
+    @Override
     protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
 
+    @Override
     protected BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
+    @Override
     protected BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, TRIGGERED, TYPE);
     }
 
+    @Override
     protected void neighborChanged(BlockState state, Level world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
         boolean bl = world.hasNeighborSignal(pos) || world.hasNeighborSignal(pos.above());
         boolean bl2 = state.getValue(TRIGGERED);
@@ -116,10 +124,12 @@ public class CasterBlock extends BaseEntityBlock implements BlockEntityTicker<Ca
         }
     }
 
+    @Override
     protected boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
+    @Override
     protected int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof CasterBlockEntity && ((CasterBlockEntity) entity).cooldownTicks > 0) {

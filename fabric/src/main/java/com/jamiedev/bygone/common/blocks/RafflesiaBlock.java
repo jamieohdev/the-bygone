@@ -30,6 +30,7 @@ public class RafflesiaBlock  extends Block
     private static final int field_31253 = 10;
     private static final int field_31254 = 10;
 
+    @Override
     public MapCodec<SporeBlossomBlock> codec() {
         return CODEC;
     }
@@ -43,16 +44,19 @@ public class RafflesiaBlock  extends Block
     }
 
 
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         BlockPos blockPos = pos.below();
         return this.canPlantOnTop(world.getBlockState(blockPos), world, blockPos);
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         return direction == Direction.DOWN && !this.canSurvive(state, world, pos) ? Blocks.AIR.defaultBlockState()
                 : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         int i = pos.getX();
         int j = pos.getY();
@@ -73,6 +77,7 @@ public class RafflesiaBlock  extends Block
 
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }

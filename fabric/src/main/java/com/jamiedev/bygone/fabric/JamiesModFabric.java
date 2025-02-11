@@ -56,7 +56,7 @@ public class JamiesModFabric implements ModInitializer {
 		JamiesModCriteria.init();
 		JamiesModTradeOffers.init();
 
-		Bygone.LOGGER.info("Registering Entities for " + Bygone.MOD_ID);
+        Bygone.LOGGER.info("Registering Entities for {}", Bygone.MOD_ID);
 
 		PayloadTypeRegistry.playS2C().register(SyncPlayerHookS2C.PACkET_ID, SyncPlayerHookS2C.CODEC);
 	}

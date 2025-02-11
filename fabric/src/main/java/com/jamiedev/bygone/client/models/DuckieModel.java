@@ -53,11 +53,13 @@ public class DuckieModel<T extends Entity> extends AgeableListModel<T> {
 		tail.render(matrices, vertexConsumer, light, overlay, color);
 	}
 
-	protected Iterable<ModelPart> headParts() {
+	@Override
+    protected Iterable<ModelPart> headParts() {
 		return ImmutableList.of(this.head);
 	}
 
-	protected Iterable<ModelPart> bodyParts() {
+	@Override
+    protected Iterable<ModelPart> bodyParts() {
 		return ImmutableList.of(this.body,  this.wing_right, this.wing_left, this.tail);
 	}
 

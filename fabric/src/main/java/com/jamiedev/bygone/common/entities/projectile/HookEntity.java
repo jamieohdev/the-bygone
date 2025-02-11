@@ -72,11 +72,11 @@ public class HookEntity extends AbstractArrow
             return false;
         } else {
             float f = this.getDimensions(this.getPose()).width() * 0.8F;
-            AABB box = AABB.ofSize(this.getEyePosition(), (double)f, 1.0E-6, (double)f);
+            AABB box = AABB.ofSize(this.getEyePosition(), f, 1.0E-6, f);
             return BlockPos.betweenClosedStream(box).anyMatch((pos) -> {
                 BlockState blockState = this.level().getBlockState(pos);
                 return !blockState.isAir() && Shapes.joinIsNotEmpty(blockState.getCollisionShape(this.level(), pos)
-                        .move((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), Shapes.create(box), BooleanOp.AND);
+                        .move(pos.getX(), pos.getY(), pos.getZ()), Shapes.create(box), BooleanOp.AND);
             });
         }
     }

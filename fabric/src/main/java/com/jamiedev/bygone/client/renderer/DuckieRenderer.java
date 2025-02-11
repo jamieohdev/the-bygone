@@ -16,6 +16,7 @@ public class DuckieRenderer  extends MobRenderer<DuckEntity, DuckieModel<DuckEnt
         super(context, new DuckieModel<>(context.bakeLayer(JamiesModModelLayers.DUCKIE)), 0.3F);
     }
 
+    @Override
     public ResourceLocation getTextureLocation(DuckEntity chickenEntity) {
         return TEXTURE;
     }

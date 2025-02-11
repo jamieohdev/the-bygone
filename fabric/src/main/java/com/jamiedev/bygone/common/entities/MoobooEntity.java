@@ -38,6 +38,7 @@ public class MoobooEntity extends Cow
                 .add(Attributes.MOVEMENT_SPEED, 0.20000000298023224);
     }
 
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 2.0));
@@ -46,10 +47,12 @@ public class MoobooEntity extends Cow
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
     }
 
+    @Override
     public boolean isFood(ItemStack stack) {
         return false;
     }
 
+    @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (itemStack.is(Items.BUCKET) && !this.isBaby()) {
@@ -62,6 +65,7 @@ public class MoobooEntity extends Cow
         }
     }
 
+    @Override
     public boolean hurt(DamageSource source, float amount) {
         if (this.level().isClientSide) {
             return false;
@@ -84,14 +88,17 @@ public class MoobooEntity extends Cow
         }
     }
 
+    @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.COW_AMBIENT;
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.COW_HURT;
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.COW_DEATH;
     }

@@ -30,40 +30,47 @@ public class BlemishCatalystBlock  extends BaseEntityBlock {
     public static final BooleanProperty BLOOM;
     private final IntProvider experience = ConstantInt.of(5);
 
+    @Override
     public MapCodec<BlemishCatalystBlock> codec() {
         return CODEC;
     }
 
     public BlemishCatalystBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(BLOOM, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(BLOOM, false));
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{BLOOM});
+        builder.add(BLOOM);
     }
 
+    @Override
     protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
-        if ((Boolean)state.getValue(BLOOM)) {
-            world.setBlock(pos, (BlockState)state.setValue(BLOOM, false), 3);
+        if (state.getValue(BLOOM)) {
+            world.setBlock(pos, state.setValue(BLOOM, false), 3);
         }
 
     }
 
+    @Override
     @Nullable
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new BlemishCatalystBlockEntity(pos, state);
     }
 
+    @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
         return world.isClientSide ? null : createTickerHelper(type, JamiesModBlockEntities.BLEMISH_CATALYST, BlemishCatalystBlockEntity::tick);
     }
 
+    @Override
     protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
 
+    @Override
     protected void spawnAfterBreak(BlockState state, ServerLevel world, BlockPos pos, ItemStack tool, boolean dropExperience) {
         super.spawnAfterBreak(state, world, pos, tool, dropExperience);
         if (dropExperience) {

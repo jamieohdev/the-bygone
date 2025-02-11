@@ -19,12 +19,13 @@ public class ShelfMushroomBlock extends Block
     public int variation;
     BedBlock ref;
 
-    public static final MapCodec<ShelfMushroomBlock> CODEC = simpleCodec((Function<Properties, ShelfMushroomBlock>) ShelfMushroomBlock::new);
+    public static final MapCodec<ShelfMushroomBlock> CODEC = simpleCodec(ShelfMushroomBlock::new);
 
     public ShelfMushroomBlock(BlockBehaviour.Properties settings) {
         super(settings);
     }
 
+    @Override
     public MapCodec<ShelfMushroomBlock> codec() {
         return CODEC;
     }
@@ -35,6 +36,7 @@ public class ShelfMushroomBlock extends Block
     }
 
 
+    @Override
     public void fallOn(Level world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
         if (entity.isSuppressingBounce()) {
             super.fallOn(world, state, pos, entity, fallDistance);
@@ -44,6 +46,7 @@ public class ShelfMushroomBlock extends Block
 
     }
 
+    @Override
     public void updateEntityAfterFallOn(BlockGetter world, Entity entity) {
         if (entity.isSuppressingBounce()) {
             super.updateEntityAfterFallOn(world, entity);
@@ -91,6 +94,7 @@ public class ShelfMushroomBlock extends Block
         }
     }
 
+    @Override
     public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity) {
         double d = Math.abs(entity.getDeltaMovement().y);
         if (d < 0.1 && !entity.isSteppingCarefully()) {

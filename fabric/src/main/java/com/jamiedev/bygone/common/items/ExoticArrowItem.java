@@ -20,12 +20,14 @@ public class ExoticArrowItem extends ArrowItem {
 
     TridentItem ref;
 
+    @Override
     public AbstractArrow createArrow(Level world, ItemStack stack, LivingEntity shooter, @Nullable ItemStack shotFrom) {
         return new ExoticArrowEntity(world, shooter, stack.copyWithCount(1), shotFrom);
     }
 
+    @Override
     public Projectile asProjectile(Level world, Position pos, ItemStack stack, Direction direction) {
-        ExoticArrowEntity arrowEntity = new ExoticArrowEntity(world, pos.x(), pos.y(), pos.z(), stack.copyWithCount(1), (ItemStack)null);
+        ExoticArrowEntity arrowEntity = new ExoticArrowEntity(world, pos.x(), pos.y(), pos.z(), stack.copyWithCount(1), null);
         arrowEntity.pickup = AbstractArrow.Pickup.DISALLOWED;
         return arrowEntity;
     }

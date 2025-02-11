@@ -58,6 +58,7 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
         super(JamiesModBlockEntities.BRUSHABLE_BLOCK, pos, state);
         this.item = ItemStack.EMPTY;
     }
+    @Override
     public BlockEntityType<?> getType() {
         return JamiesModBlockEntities.BRUSHABLE_BLOCK;
     }
@@ -79,7 +80,7 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
                 int j = this.getDustedLevel();
                 if (i != j) {
                     BlockState blockState = this.getBlockState();
-                    BlockState blockState2 = (BlockState)blockState.setValue(BlockStateProperties.DUSTED, j);
+                    BlockState blockState2 = blockState.setValue(BlockStateProperties.DUSTED, j);
                     this.level.setBlock(this.getBlockPos(), blockState2, 3);
                 }
 
@@ -93,8 +94,7 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
     public void generateItem(Player player) {
         if (this.lootTable != null && this.level != null && !this.level.isClientSide() && this.level.getServer() != null) {
             LootTable lootTable = this.level.getServer().reloadableRegistries().getLootTable(this.lootTable);
-            if (player instanceof ServerPlayer) {
-                ServerPlayer serverPlayerEntity = (ServerPlayer)player;
+            if (player instanceof ServerPlayer serverPlayerEntity) {
                 CriteriaTriggers.GENERATE_LOOT.trigger(serverPlayerEntity, this.lootTable);
             }
 
@@ -106,11 +106,11 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
                     var10001 = ItemStack.EMPTY;
                     break;
                 case 1:
-                    var10001 = (ItemStack)objectArrayList.get(0);
+                    var10001 = objectArrayList.get(0);
                     break;
                 default:
                     LOGGER.warn("Expected max 1 loot from loot table {}, but got {}", this.lootTable.location(), objectArrayList.size());
-                    var10001 = (ItemStack)objectArrayList.get(0);
+                    var10001 = objectArrayList.get(0);
             }
 
             this.item = var10001;
@@ -126,8 +126,7 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
             this.level.levelEvent(3008, this.getBlockPos(), Block.getId(blockState));
             Block block = this.getBlockState().getBlock();
             Block block2;
-            if (block instanceof BrushableBlock) {
-                BrushableBlock brushableBlock = (BrushableBlock)block;
+            if (block instanceof BrushableBlock brushableBlock) {
                 block2 = brushableBlock.getTurnsInto();
             } else {
                 block2 = Blocks.AIR;
@@ -141,10 +140,10 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
         if (this.level != null && this.level.getServer() != null) {
             this.generateItem(player);
             if (!this.item.isEmpty()) {
-                double d = (double) EntityType.ITEM.getWidth();
+                double d = EntityType.ITEM.getWidth();
                 double e = 1.0 - d;
                 double f = d / 2.0;
-                Direction direction = (Direction) Objects.requireNonNullElse(this.hitDirection, Direction.UP);
+                Direction direction = Objects.requireNonNullElse(this.hitDirection, Direction.UP);
                 BlockPos blockPos = this.worldPosition.relative(direction, 1);
                 double g = (double)blockPos.getX() + 0.5 * e + f;
                 double h = (double)blockPos.getY() + 0.5 + (double)(EntityType.ITEM.getHeight() / 2.0F);
@@ -165,7 +164,7 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
                 this.brushesCount = Math.max(0, this.brushesCount - 2);
                 int j = this.getDustedLevel();
                 if (i != j) {
-                    this.level.setBlock(this.getBlockPos(), (BlockState)this.getBlockState().setValue(BlockStateProperties.DUSTED, j), 3);
+                    this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(BlockStateProperties.DUSTED, j), 3);
                 }
 
                 this.nextDustTime = this.level.getGameTime() + 4L;
@@ -205,6 +204,7 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
         }
     }
 
+    @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registryLookup) {
         CompoundTag nbtCompound = super.getUpdateTag(registryLookup);
         if (this.hitDirection != null) {
@@ -218,14 +218,16 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
         return nbtCompound;
     }
 
+    @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
+    @Override
     protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider registryLookup) {
         super.loadAdditional(nbt, registryLookup);
         if (!this.readLootTableFromNbt(nbt) && nbt.contains("item")) {
-            this.item = (ItemStack)ItemStack.parse(registryLookup, nbt.getCompound("item")).orElse(ItemStack.EMPTY);
+            this.item = ItemStack.parse(registryLookup, nbt.getCompound("item")).orElse(ItemStack.EMPTY);
         } else {
             this.item = ItemStack.EMPTY;
         }
@@ -236,6 +238,7 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
 
     }
 
+    @Override
     protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider registryLookup) {
         super.saveAdditional(nbt, registryLookup);
         if (!this.writeLootTableToNbt(nbt) && !this.item.isEmpty()) {

@@ -25,22 +25,26 @@ public class AlphaMossBlock extends Block implements BonemealableBlock
         super(settings);
     }
 
+    @Override
     public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
         return world.getBlockState(pos.above()).isAir();
     }
 
+    @Override
     public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
+    @Override
     public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
         world.registryAccess().registry(Registries.CONFIGURED_FEATURE).flatMap((key) -> {
             return key.getHolder(CaveFeatures.MOSS_PATCH_BONEMEAL);
         }).ifPresent((entry) -> {
-            ((ConfiguredFeature)entry.value()).place(world, world.getChunkSource().getGenerator(), random, pos.above());
+            entry.value().place(world, world.getChunkSource().getGenerator(), random, pos.above());
         });
     }
 
+    @Override
     public BonemealableBlock.Type getType() {
         return Type.NEIGHBOR_SPREADER;
     }

@@ -28,9 +28,10 @@ public class JamiesModLootTableProvider  extends FabricBlockLootTableProvider {
         dropSelf(JamiesModBlocks.CLAYSTONE_BRICKS);
         dropSelf(JamiesModBlocks.CLAYSTONE_BRICKS_WALL);
         dropSelf(JamiesModBlocks.CLAYSTONE_BRICKS_STAIRS);
-        dropSelf(JamiesModBlocks.CLAYSTONE_BRICKS_SLAB);;
+        dropSelf(JamiesModBlocks.CLAYSTONE_BRICKS_SLAB);
     }
 
+    @Override
     public LootTable.Builder createMushroomBlockDrop(Block withSilkTouch, ItemLike withoutSilkTouch) {
         return this.createSilkTouchDispatchTable(withSilkTouch, this.applyExplosionDecay(withSilkTouch,
                 LootItem.lootTableItem(withoutSilkTouch)
@@ -38,6 +39,7 @@ public class JamiesModLootTableProvider  extends FabricBlockLootTableProvider {
                         .apply(LimitCount.limitCount(IntRange.lowerBound(0)))));
     }
 
+    @Override
     public LootTable.Builder createNameableBlockEntityTable(Block drop) {
         return LootTable.lootTable().withPool(this.applyExplosionCondition(drop, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(drop).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)))));
     }

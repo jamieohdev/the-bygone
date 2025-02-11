@@ -13,6 +13,7 @@ public class PrimordialCoralMushroomFeature extends PrimordialCoralFeature {
         super(codec);
     }
 
+    @Override
     protected boolean generateCoral(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state) {
         int i = random.nextInt(3) + 3;
         int j = random.nextInt(3) + 3;

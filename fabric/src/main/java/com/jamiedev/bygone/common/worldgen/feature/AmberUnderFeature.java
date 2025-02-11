@@ -16,6 +16,7 @@ public class AmberUnderFeature  extends Feature<NoneFeatureConfiguration> {
         super(codec);
     }
 
+    @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         WorldGenLevel structureWorldAccess = context.level();
         BlockPos blockPos = context.origin();

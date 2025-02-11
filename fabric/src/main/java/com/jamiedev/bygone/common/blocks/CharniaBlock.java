@@ -35,6 +35,7 @@ public class CharniaBlock extends DoublePlantBlock implements LiquidBlockContain
     protected static final float field_31262 = 6.0F;
     protected static final VoxelShape SHAPE;
 
+    @Override
     public MapCodec<CharniaBlock> codec() {
         return CODEC;
     }
@@ -43,18 +44,22 @@ public class CharniaBlock extends DoublePlantBlock implements LiquidBlockContain
         super(settings);
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
+    @Override
     protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
         return floor.isFaceSturdy(world, pos, Direction.UP) && !floor.is(Blocks.MAGMA_BLOCK);
     }
 
+    @Override
     public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
         return new ItemStack(JamiesModBlocks.CHARNIA);
     }
 
+    @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         BlockState blockState = super.getStateForPlacement(ctx);
@@ -68,6 +73,7 @@ public class CharniaBlock extends DoublePlantBlock implements LiquidBlockContain
         return null;
     }
 
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
             BlockState blockState = world.getBlockState(pos.below());
@@ -78,14 +84,17 @@ public class CharniaBlock extends DoublePlantBlock implements LiquidBlockContain
         }
     }
 
+    @Override
     protected FluidState getFluidState(BlockState state) {
         return Fluids.WATER.getSource(false);
     }
 
+    @Override
     public boolean canPlaceLiquid(@Nullable Player player, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
         return false;
     }
 
+    @Override
     public boolean placeLiquid(LevelAccessor world, BlockPos pos, BlockState state, FluidState fluidState) {
         return false;
     }

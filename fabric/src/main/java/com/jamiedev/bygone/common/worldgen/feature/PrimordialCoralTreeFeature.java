@@ -14,6 +14,7 @@ public class PrimordialCoralTreeFeature extends PrimordialCoralFeature {
         super(codec);
     }
 
+    @Override
     protected boolean generateCoral(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state) {
         BlockPos.MutableBlockPos mutable = pos.mutable();
         int i = random.nextInt(3) + 1;

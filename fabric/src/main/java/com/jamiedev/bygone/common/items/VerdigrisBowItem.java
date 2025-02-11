@@ -24,7 +24,7 @@ public class VerdigrisBowItem extends BowItem {
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {};
+    public void releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {}
 
     @Override
     public void onUseTick(Level world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
@@ -37,19 +37,19 @@ public class VerdigrisBowItem extends BowItem {
             ItemStack itemStack = playerEntity.getProjectile(stack);
             if (!itemStack.isEmpty()) {
                 List<ItemStack> list = draw(stack, itemStack, playerEntity);
-                if (world instanceof ServerLevel) {
-                    ServerLevel serverWorld = (ServerLevel) world;
+                if (world instanceof ServerLevel serverWorld) {
                     if (!list.isEmpty()) {
-                        this.shoot(serverWorld, playerEntity, playerEntity.getUsedItemHand(), stack, list, 1 * 3.0F, 1.0F, false, (LivingEntity) null);
+                        this.shoot(serverWorld, playerEntity, playerEntity.getUsedItemHand(), stack, list, 1 * 3.0F, 1.0F, false, null);
                     }
                 }
 
-                world.playSound((Player) null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + 1 * 0.5F);
+                world.playSound(null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + 1 * 0.5F);
                 playerEntity.awardStat(Stats.ITEM_USED.get(this));
             }
         }
     }
 
+    @Override
     public boolean isValidRepairItem(ItemStack stack, ItemStack ingredient) {
         return ingredient.is(JamiesModItems.VERDIGRIS_INGOT);
     }

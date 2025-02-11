@@ -21,11 +21,13 @@ public class BlemishParticle extends PortalParticle
         this.startZ = this.z;
     }
 
+    @Override
     public float getQuadSize(float p_107608_) {
         float f = 1.0F - ((float)this.age + p_107608_) / ((float)this.lifetime * 1.5F);
         return this.quadSize * f;
     }
 
+    @Override
     public void tick() {
         this.xo = this.x;
         this.yo = this.y;
@@ -52,6 +54,7 @@ public class BlemishParticle extends PortalParticle
             this.sprite = p_107611_;
         }
 
+        @Override
         public Particle createParticle(SimpleParticleType p_107622_, ClientLevel p_107623_, double p_107624_, double p_107625_, double p_107626_, double p_107627_, double p_107628_, double p_107629_) {
             BlemishParticle particle = new BlemishParticle(p_107623_, p_107624_, p_107625_, p_107626_, p_107627_, p_107628_, p_107629_);
             particle.pickSprite(this.sprite);

@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.common.blocks;
 
-import com.jamiedev.bygone.fabric.init.JamiesModTag;
+import com.jamiedev.bygone.init.JamiesModTag;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;
@@ -17,6 +17,7 @@ public class CreosoteBlock extends BushBlock {
     protected static final float field_31080 = 6.0F;
     protected static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 13.0, 14.0);
 
+    @Override
     public MapCodec<CreosoteBlock> codec() {
         return CODEC;
     }
@@ -25,10 +26,12 @@ public class CreosoteBlock extends BushBlock {
         super(settings);
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
+    @Override
     protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
         return floor.is(JamiesModTag.CREOSOTE_MAY_PLACE_ON);
     }

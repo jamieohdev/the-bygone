@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.common.worldgen.feature;
 
-import com.jamiedev.bygone.fabric.init.JamiesModTag;
+import com.jamiedev.bygone.init.JamiesModTag;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.core.BlockPos;
@@ -25,12 +25,13 @@ public abstract class PrimordialCoralFeature extends Feature<NoneFeatureConfigur
         super(codec);
     }
 
+    @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         RandomSource random = context.random();
         WorldGenLevel structureWorldAccess = context.level();
         BlockPos blockPos = context.origin();
         Optional<Block> optional = BuiltInRegistries.BLOCK.getRandomElementOf(JamiesModTag.CORAL_BLOCKS, random).map(Holder::value);
-        return optional.filter(block -> this.generateCoral(structureWorldAccess, random, blockPos, ((Block) block).defaultBlockState())).isPresent();
+        return optional.filter(block -> this.generateCoral(structureWorldAccess, random, blockPos, block.defaultBlockState())).isPresent();
     }
 
     protected abstract boolean generateCoral(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state);
@@ -45,7 +46,7 @@ public abstract class PrimordialCoralFeature extends Feature<NoneFeatureConfigur
                     world.setBlock(blockPos, block.defaultBlockState(), 2);
                 });
             } else if (random.nextFloat() < 0.05F) {
-                world.setBlock(blockPos, (BlockState)Blocks.SEA_PICKLE.defaultBlockState().setValue(SeaPickleBlock.PICKLES, random.nextInt(4) + 1), 2);
+                world.setBlock(blockPos, Blocks.SEA_PICKLE.defaultBlockState().setValue(SeaPickleBlock.PICKLES, random.nextInt(4) + 1), 2);
             }
 
             for (Direction direction : Direction.Plane.HORIZONTAL) {
@@ -55,7 +56,7 @@ public abstract class PrimordialCoralFeature extends Feature<NoneFeatureConfigur
                         BuiltInRegistries.BLOCK.getRandomElementOf(JamiesModTag.WALL_CORALS, random).map(Holder::value).ifPresent((block) -> {
                             BlockState blockState2 = block.defaultBlockState();
                             if (blockState2.hasProperty(BaseCoralWallFanBlock.FACING)) {
-                                blockState2 = (BlockState) blockState2.setValue(BaseCoralWallFanBlock.FACING, direction);
+                                blockState2 = blockState2.setValue(BaseCoralWallFanBlock.FACING, direction);
                             }
 
                             world.setBlock(blockPos2, blockState2, 2);

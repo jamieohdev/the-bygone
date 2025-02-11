@@ -75,15 +75,18 @@ public class FungalChildEntity extends FungalParentEntity
         super(entityType, world);
     }
 
+    @Override
     @Nullable
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
-        return (AgeableMob)JamiesModEntityTypes.FUNGAL_PARENT.create(world);
+        return JamiesModEntityTypes.FUNGAL_PARENT.create(world);
     }
 
+    @Override
     public boolean isFood(ItemStack stack) {
         return false;
     }
 
+    @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -115,53 +118,65 @@ public class FungalChildEntity extends FungalParentEntity
         }
     }
 
+    @Override
     public void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.readPersistentAngerSaveData(this.level(), nbt);
     }
 
+    @Override
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         this.addPersistentAngerSaveData(nbt);
     }
 
+    @Override
     public void startPersistentAngerTimer() {
         this.setRemainingPersistentAngerTime(ANGER_TIME_RANGE.sample(this.random));
     }
 
+    @Override
     public void setRemainingPersistentAngerTime(int angerTime) {
         this.angerTime = angerTime;
     }
 
+    @Override
     public int getRemainingPersistentAngerTime() {
         return this.angerTime;
     }
 
+    @Override
     public void setPersistentAngerTarget(@Nullable UUID angryAt) {
         this.angryAt = angryAt;
     }
 
+    @Override
     @Nullable
     public UUID getPersistentAngerTarget() {
         return this.angryAt;
     }
 
+    @Override
     protected SoundEvent getAmbientSound() {
         return this.isBaby() ? SoundEvents.POLAR_BEAR_AMBIENT_BABY : SoundEvents.POLAR_BEAR_AMBIENT;
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.POLAR_BEAR_HURT;
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.POLAR_BEAR_DEATH;
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.POLAR_BEAR_STEP, 0.15F, 1.0F);
     }
 
+    @Override
     protected void playWarningSound() {
         if (this.warningSoundCooldown <= 0) {
             this.makeSound(SoundEvents.POLAR_BEAR_WARNING);
@@ -170,11 +185,13 @@ public class FungalChildEntity extends FungalParentEntity
 
     }
 
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(WARNING, false);
     }
 
+    @Override
     public void tick() {
         super.tick();
         if (this.level().isClientSide) {
@@ -200,6 +217,7 @@ public class FungalChildEntity extends FungalParentEntity
 
     }
 
+    @Override
     public EntityDimensions getDefaultDimensions(Pose pose) {
         if (this.warningAnimationProgress > 0.0F) {
             float f = this.warningAnimationProgress / 6.0F;
@@ -210,28 +228,33 @@ public class FungalChildEntity extends FungalParentEntity
         }
     }
 
+    @Override
     public boolean isWarning() {
-        return (Boolean)this.entityData.get(WARNING);
+        return this.entityData.get(WARNING);
     }
 
+    @Override
     public void setWarning(boolean warning) {
         this.entityData.set(WARNING, warning);
     }
 
+    @Override
     public float getWarningAnimationProgress(float tickDelta) {
         return Mth.lerp(tickDelta, this.lastWarningAnimationProgress, this.warningAnimationProgress) / 6.0F;
     }
 
+    @Override
     protected float getWaterSlowDown() {
         return 0.98F;
     }
 
+    @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
         if (entityData == null) {
             entityData = new AgeableMobGroupData(1.0F);
         }
 
-        return super.finalizeSpawn(world, difficulty, spawnReason, (SpawnGroupData)entityData);
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
     static {
@@ -244,6 +267,7 @@ public class FungalChildEntity extends FungalParentEntity
             super(FungalChildEntity.this, 1.25, true);
         }
 
+        @Override
         protected void checkAndPerformAttack(LivingEntity target) {
             if (this.canPerformAttack(target)) {
                 this.resetAttackCooldown();
@@ -266,6 +290,7 @@ public class FungalChildEntity extends FungalParentEntity
 
         }
 
+        @Override
         public void stop() {
             FungalChildEntity.this.setWarning(false);
             super.stop();
@@ -274,9 +299,10 @@ public class FungalChildEntity extends FungalParentEntity
 
     class FungalParentRevengeGoal extends HurtByTargetGoal {
         public FungalParentRevengeGoal() {
-            super(FungalChildEntity.this, new Class[0]);
+            super(FungalChildEntity.this);
         }
 
+        @Override
         public void start() {
             super.start();
             if (FungalChildEntity.this.isBaby()) {
@@ -286,6 +312,7 @@ public class FungalChildEntity extends FungalParentEntity
 
         }
 
+        @Override
         protected void alertOther(Mob mob, LivingEntity target) {
             if (mob instanceof FungalChildEntity && !mob.isBaby()) {
                 super.alertOther(mob, target);
@@ -296,9 +323,10 @@ public class FungalChildEntity extends FungalParentEntity
 
     class ProtectBabiesGoal extends NearestAttackableTargetGoal<Player> {
         public ProtectBabiesGoal() {
-            super(FungalChildEntity.this, Player.class, 20, true, true, (Predicate)null);
+            super(FungalChildEntity.this, Player.class, 20, true, true, null);
         }
 
+        @Override
         public boolean canUse() {
             if (FungalChildEntity.this.isBaby()) {
                 return false;
@@ -324,6 +352,7 @@ public class FungalChildEntity extends FungalParentEntity
             }
         }
 
+        @Override
         protected double getFollowDistance() {
             return super.getFollowDistance() * 0.5;
         }

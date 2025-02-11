@@ -17,14 +17,17 @@ public record AncientTreeFeatureConfig (int spreadWidth, int spreadHeight, int m
         this.maxHeight = maxHeight;
     }
 
+    @Override
     public int spreadWidth() {
         return this.spreadWidth;
     }
 
+    @Override
     public int spreadHeight() {
         return this.spreadHeight;
     }
 
+    @Override
     public int maxHeight() {
         return this.maxHeight;
     }

@@ -56,8 +56,8 @@ public class JamiesModConfiguredFeatures
         
         FeatureUtils.register(featureRegisterable, ANCIENT_TREE, Feature.TREE, naturalAncientConfig().build());
         FeatureUtils.register(featureRegisterable, POINTED_AMBER, Feature.SIMPLE_RANDOM_SELECTOR,
-                new SimpleRandomFeatureConfiguration(HolderSet.direct(new Holder[]{PlacementUtils.inlinePlaced(JamiesModFeatures.POINTED_AMBER,
-                        new PointedAmberFeatureConfig(0.2F, 0.7F, 0.5F, 0.5F), new PlacementModifier[]{EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1))}), PlacementUtils.inlinePlaced(JamiesModFeatures.POINTED_AMBER, new PointedAmberFeatureConfig(0.2F, 0.7F, 0.5F, 0.5F), new PlacementModifier[]{EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(-1))})})));
+                new SimpleRandomFeatureConfiguration(HolderSet.direct(PlacementUtils.inlinePlaced(JamiesModFeatures.POINTED_AMBER,
+                        new PointedAmberFeatureConfig(0.2F, 0.7F, 0.5F, 0.5F), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1))), PlacementUtils.inlinePlaced(JamiesModFeatures.POINTED_AMBER, new PointedAmberFeatureConfig(0.2F, 0.7F, 0.5F, 0.5F), EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(-1))))));
         FeatureUtils.register(featureRegisterable, AMBER_CLUSTER, JamiesModFeatures.AMBER_CLUSTER, new PointedAmberClusterFeatureConfig(12, UniformInt.of(3, 6), UniformInt.of(2, 8), 1, 3, UniformInt.of(2, 4), UniformFloat.of(0.3F, 0.7F), ClampedNormalFloat.of(0.1F, 0.3F, 0.1F, 0.9F), 0.1F, 3, 8));
 
     }

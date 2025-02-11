@@ -32,7 +32,7 @@ public class DimensionEffectsSkyTypeMixin
     }
 
     @Unique
-    private static DimensionSpecialEffects.SkyType BYGONE_SKY = bygone$addVariant("bygone_sky", id ->
+    private static final DimensionSpecialEffects.SkyType BYGONE_SKY = bygone$addVariant("bygone_sky", id ->
             Bygone.getModId( "textures/environment/" + id.getPath()), SoundEvents.ITEM_BREAK);
 
     @Invoker("<init>")

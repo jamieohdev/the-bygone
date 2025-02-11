@@ -4,7 +4,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.jamiedev.bygone.common.blocks.BlemishVeinBlock;
-import com.jamiedev.bygone.fabric.init.JamiesModTag;
+import com.jamiedev.bygone.init.JamiesModTag;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
@@ -108,7 +108,7 @@ public class BlemishSpreadManager {
             DataResult<List> var10000 = Cursor.CODEC.listOf().parse(new Dynamic(NbtOps.INSTANCE, nbt.getList("cursors", 10)));
             Logger var10001 = LOGGER;
             Objects.requireNonNull(var10001);
-            List list = (List)var10000.resultOrPartial(var10001::error).orElseGet(ArrayList::new);
+            List list = var10000.resultOrPartial(var10001::error).orElseGet(ArrayList::new);
             int i = Math.min(list.size(), 32);
 
             for(int j = 0; j < i; ++j) {
@@ -123,7 +123,7 @@ public class BlemishSpreadManager {
         Logger var10001 = LOGGER;
         Objects.requireNonNull(var10001);
         var10000.resultOrPartial(var10001::error).ifPresent((cursorsNbt) -> {
-            nbt.put("cursors", (Tag) cursorsNbt);
+            nbt.put("cursors", cursorsNbt);
         });
     }
 
@@ -152,7 +152,7 @@ public class BlemishSpreadManager {
             while(true) {
                 BlockPos blockPos;
                 while(var8.hasNext()) {
-                    BlemishSpreadManager.Cursor cursor = (BlemishSpreadManager.Cursor)var8.next();
+                    BlemishSpreadManager.Cursor cursor = var8.next();
                     cursor.spread(world, pos, random, this, shouldConvertToBlock);
                     if (cursor.charge <= 0) {
                         world.levelEvent(6006, cursor.getPos(), 0);
@@ -161,7 +161,7 @@ public class BlemishSpreadManager {
                         object2IntMap.computeInt(blockPos, (posx, charge) -> {
                             return (charge == null ? 0 : charge) + cursor.charge;
                         });
-                        BlemishSpreadManager.Cursor cursor2 = (BlemishSpreadManager.Cursor)map.get(blockPos);
+                        BlemishSpreadManager.Cursor cursor2 = map.get(blockPos);
                         if (cursor2 == null) {
                             map.put(blockPos, cursor);
                             list.add(cursor);
@@ -180,12 +180,12 @@ public class BlemishSpreadManager {
 
                 while(var16.hasNext()) {
                     Object2IntMap.Entry<BlockPos> entry = (Object2IntMap.Entry)var16.next();
-                    blockPos = (BlockPos)entry.getKey();
+                    blockPos = entry.getKey();
                     int i = entry.getIntValue();
-                    BlemishSpreadManager.Cursor cursor3 = (BlemishSpreadManager.Cursor)map.get(blockPos);
+                    BlemishSpreadManager.Cursor cursor3 = map.get(blockPos);
                     Collection<Direction> collection = cursor3 == null ? null : cursor3.getFaces();
                     if (i > 0 && collection != null) {
-                        int j = (int)(Math.log1p((double)i) / 2.299999952316284) + 1;
+                        int j = (int)(Math.log1p(i) / 2.299999952316284) + 1;
                         int k = (j << 6) + MultifaceBlock.pack(collection);
                         world.levelEvent(6006, blockPos, k);
                     }
@@ -198,7 +198,7 @@ public class BlemishSpreadManager {
     }
 
     public static class Cursor {
-        private static final ObjectArrayList OFFSETS = (ObjectArrayList) Util.make(new ObjectArrayList(18), (list) -> {
+        private static final ObjectArrayList OFFSETS = Util.make(new ObjectArrayList(18), (list) -> {
             Stream var10000 = BlockPos.betweenClosedStream(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1)).filter((pos) -> {
                 return (pos.getX() == 0 || pos.getY() == 0 || pos.getZ() == 0) && !pos.equals(BlockPos.ZERO);
             }).map(BlockPos::immutable);
@@ -220,7 +220,7 @@ public class BlemishSpreadManager {
             this.charge = charge;
             this.decay = decay;
             this.update = update;
-            this.faces = (Set)faces.orElse((Set<Direction>) null);
+            this.faces = faces.orElse(null);
         }
 
         public Cursor(BlockPos pos, int charge) {
@@ -249,8 +249,7 @@ public class BlemishSpreadManager {
                 return false;
             } else if (worldGen) {
                 return true;
-            } else if (world instanceof ServerLevel) {
-                ServerLevel serverWorld = (ServerLevel)world;
+            } else if (world instanceof ServerLevel serverWorld) {
                 return serverWorld.shouldTickBlocksAt(pos);
             } else {
                 return false;
@@ -270,7 +269,7 @@ public class BlemishSpreadManager {
                             BlemishSpreadable = getSpreadable(blockState);
                         }
 
-                        world.playSound((Player)null, this.pos, SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        world.playSound(null, this.pos, SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.BLOCKS, 1.0F, 1.0F);
                     }
 
                     this.charge = BlemishSpreadable.spread(this, world, pos, random, spreadManager, shouldConvertToBlock);
@@ -332,7 +331,7 @@ public class BlemishSpreadManager {
                 Vec3i vec3i = (Vec3i)var5.next();
                 mutable2.setWithOffset(pos, vec3i);
                 BlockState blockState = world.getBlockState(mutable2);
-                if (blockState.getBlock() instanceof BlemishSpreadable && canSpread(world, pos, (BlockPos)mutable2)) {
+                if (blockState.getBlock() instanceof BlemishSpreadable && canSpread(world, pos, mutable2)) {
                     mutable.set(mutable2);
                     if (BlemishVeinBlock.veinCoversBlemishReplaceable(world, blockState, mutable2)) {
                         break;

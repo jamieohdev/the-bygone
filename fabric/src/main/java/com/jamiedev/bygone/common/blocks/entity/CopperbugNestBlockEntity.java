@@ -6,7 +6,7 @@ import com.jamiedev.bygone.common.blocks.CopperbugNestBlock;
 import com.jamiedev.bygone.fabric.init.JamiesModBlockEntities;
 import com.jamiedev.bygone.fabric.init.JamiesModDataComponentTypes;
 import com.jamiedev.bygone.fabric.init.JamiesModEntityTypes;
-import com.jamiedev.bygone.fabric.init.JamiesModTag;
+import com.jamiedev.bygone.init.JamiesModTag;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -61,9 +61,10 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         super(JamiesModBlockEntities.COPPERBUGNEST, pos, state);
     }
 
+    @Override
     public void setChanged() {
         if (this.isNearFire()) {
-            this.angerCopperbugs((Player)null, this.level.getBlockState(this.getBlockPos()), CopperbugNestBlockEntity.CopperbugState.EMERGENCY);
+            this.angerCopperbugs(null, this.level.getBlockState(this.getBlockPos()), CopperbugNestBlockEntity.CopperbugState.EMERGENCY);
         }
 
         super.setChanged();
@@ -103,8 +104,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
 
             while(var5.hasNext()) {
                 Entity entity = (Entity)var5.next();
-                if (entity instanceof CopperbugEntity) {
-                    CopperbugEntity beeEntity = (CopperbugEntity)entity;
+                if (entity instanceof CopperbugEntity beeEntity) {
                     if (player.position().distanceToSqr(entity.position()) <= 16.0) {
                         if (!this.isSmoked()) {
                             beeEntity.setTarget(player);
@@ -136,7 +136,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
     }
 
     public static int getOxidizationLevel(BlockState state) {
-        return (Integer)state.getValue(CopperbugNestBlock.OXIDIZATION_LEVEL);
+        return state.getValue(CopperbugNestBlock.OXIDIZATION_LEVEL);
     }
 
     @VisibleForDebug
@@ -150,15 +150,14 @@ public class CopperbugNestBlockEntity  extends BlockEntity
             entity.ejectPassengers();
             this.addCopperbug(CopperbugNestBlockEntity.CopperbugData.of(entity));
             if (this.level != null) {
-                if (entity instanceof CopperbugEntity) {
-                    CopperbugEntity beeEntity = (CopperbugEntity)entity;
+                if (entity instanceof CopperbugEntity beeEntity) {
                     if (beeEntity.hasCopperBlock() && (!this.hasCopperBlockPos() || this.level.random.nextBoolean())) {
                         this.flowerPos = beeEntity.getCopperBlockPos();
                     }
                 }
 
                 BlockPos blockPos = this.getBlockPos();
-                this.level.playSound((Player)null, (double)blockPos.getX(), (double)blockPos.getY(), (double)blockPos.getZ(), SoundEvents.COPPER_BULB_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                this.level.playSound(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.COPPER_BULB_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 this.level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(entity, this.getBlockState()));
             }
 
@@ -175,7 +174,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         if ((world.isNight() || world.isRaining()) && beeState != CopperbugNestBlockEntity.CopperbugState.EMERGENCY) {
             return false;
         } else {
-            Direction direction = (Direction)state.getValue(CopperbugNestBlock.FACING);
+            Direction direction = state.getValue(CopperbugNestBlock.FACING);
             BlockPos blockPos = pos.relative(direction);
             boolean bl = !world.getBlockState(blockPos).getCollisionShape(world, blockPos).isEmpty();
             if (bl && beeState != CopperbugNestBlockEntity.CopperbugState.EMERGENCY) {
@@ -183,8 +182,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
             } else {
                 Entity entity = bee.loadEntity(world, pos);
                 if (entity != null) {
-                    if (entity instanceof CopperbugEntity) {
-                        CopperbugEntity beeEntity = (CopperbugEntity)entity;
+                    if (entity instanceof CopperbugEntity beeEntity) {
                         if (flowerPos != null && !beeEntity.hasCopperBlock() && world.random.nextFloat() < 0.9F) {
                             beeEntity.setCopperBlockPos(flowerPos);
                         }
@@ -201,7 +199,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
                                         --j;
                                     }
 
-                                    world.setBlockAndUpdate(pos, (BlockState)state.setValue(CopperbugNestBlock.OXIDIZATION_LEVEL, i + j));
+                                    world.setBlockAndUpdate(pos, state.setValue(CopperbugNestBlock.OXIDIZATION_LEVEL, i + j));
                                 }
                             }
                         }
@@ -218,7 +216,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
                         entity.moveTo(e, g, h, entity.getYRot(), entity.getXRot());
                     }
 
-                    world.playSound((Player)null, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    world.playSound(null, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
                     world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, world.getBlockState(pos)));
                     return world.addFreshEntity(entity);
                 } else {
@@ -237,10 +235,10 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         Iterator<CopperbugNestBlockEntity.Copperbug> iterator = copperbugs.iterator();
 
         while(iterator.hasNext()) {
-            CopperbugNestBlockEntity.Copperbug bee = (CopperbugNestBlockEntity.Copperbug)iterator.next();
+            CopperbugNestBlockEntity.Copperbug bee = iterator.next();
             if (bee.canExitNest()) {
                 CopperbugNestBlockEntity.CopperbugState beeState = bee.hasNectar() ? CopperbugNestBlockEntity.CopperbugState.HONEY_DELIVERED : CopperbugNestBlockEntity.CopperbugState.COPPERBUG_RELEASED;
-                if (releaseCopperbug(world, pos, state, bee.createData(), (List)null, beeState, flowerPos)) {
+                if (releaseCopperbug(world, pos, state, bee.createData(), null, beeState, flowerPos)) {
                     bl = true;
                     iterator.remove();
                 }
@@ -257,14 +255,15 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         tickCopperbugs(world, pos, state, blockEntity.copperbugs, blockEntity.flowerPos);
         if (!blockEntity.copperbugs.isEmpty() && world.getRandom().nextDouble() < 0.005) {
             double d = (double)pos.getX() + 0.5;
-            double e = (double)pos.getY();
+            double e = pos.getY();
             double f = (double)pos.getZ() + 0.5;
-            world.playSound((Player)null, d, e, f, SoundEvents.COPPER_GRATE_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
+            world.playSound(null, d, e, f, SoundEvents.COPPER_GRATE_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
         }
 
       //  DebugInfoSender.sendBeehiveDebugData(world, pos, state, blockEntity);
     }
 
+    @Override
     protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider registryLookup) {
         super.loadAdditional(nbt, registryLookup);
         this.copperbugs.clear();
@@ -276,18 +275,20 @@ public class CopperbugNestBlockEntity  extends BlockEntity
             });
         }
 
-        this.flowerPos = (BlockPos) NbtUtils.readBlockPos(nbt, "flower_pos").orElse((BlockPos) null);
+        this.flowerPos = NbtUtils.readBlockPos(nbt, "flower_pos").orElse(null);
     }
 
+    @Override
     protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider registryLookup) {
         super.saveAdditional(nbt, registryLookup);
-        nbt.put("copperbugs", (Tag)CopperbugNestBlockEntity.CopperbugData.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.createCopperbugsData()).getOrThrow());
+        nbt.put("copperbugs", CopperbugData.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.createCopperbugsData()).getOrThrow());
         if (this.hasCopperBlockPos()) {
             nbt.put("flower_pos", NbtUtils.writeBlockPos(this.flowerPos));
         }
 
     }
 
+    @Override
     protected void applyImplicitComponents(BlockEntity.DataComponentInput components) {
         super.applyImplicitComponents(components);
         this.copperbugs.clear();
@@ -295,11 +296,13 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         list.forEach(this::addCopperbug);
     }
 
+    @Override
     protected void collectImplicitComponents(DataComponentMap.Builder componentMapBuilder) {
         super.collectImplicitComponents(componentMapBuilder);
         componentMapBuilder.set(JamiesModDataComponentTypes.COPPERBUGS, this.createCopperbugsData());
     }
 
+    @Override
     public void removeComponentsFromTag(CompoundTag nbt) {
         super.removeComponentsFromTag(nbt);
         nbt.remove("copperbugs");
@@ -309,16 +312,16 @@ public class CopperbugNestBlockEntity  extends BlockEntity
         return this.copperbugs.stream().map(CopperbugNestBlockEntity.Copperbug::createData).toList();
     }
 
-    public static enum CopperbugState {
+    public enum CopperbugState {
         HONEY_DELIVERED,
         COPPERBUG_RELEASED,
         EMERGENCY;
 
-        private CopperbugState() {
+        CopperbugState() {
         }
     }
 
-    public static record CopperbugData(CustomData entityData, int ticksInNest, int minTicksInNest) {
+    public record CopperbugData(CustomData entityData, int ticksInNest, int minTicksInNest) {
         static CustomData nbt;
         static int minTicksInNests;
 
@@ -363,8 +366,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
             var10000.forEach(nbtCompound::remove);
             if (entity != null && entity.getType().is(JamiesModTag.COPPERBUGNEST_INHABITORS)) {
                 entity.setNoGravity(true);
-                if (entity instanceof CopperbugEntity) {
-                    CopperbugEntity beeEntity = (CopperbugEntity)entity;
+                if (entity instanceof CopperbugEntity beeEntity) {
                     beeEntity.setNestPos(pos);
                     tickEntity(this.ticksInNest, beeEntity);
                 }
@@ -386,14 +388,17 @@ public class CopperbugNestBlockEntity  extends BlockEntity
             beeEntity.setInLoveTime(Math.max(0, beeEntity.getInLoveTime() - ticksInNest));
         }
 
+        @Override
         public CustomData entityData() {
             return this.entityData;
         }
 
+        @Override
         public int ticksInNest() {
             return this.ticksInNest;
         }
 
+        @Override
         public int minTicksInNest() {
             return this.minTicksInNest;
         }

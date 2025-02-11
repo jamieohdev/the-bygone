@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.client.renderer;
 
-import com.jamiedev.bygone.fabric.init.JamiesModDimension;
+import com.jamiedev.bygone.init.JamiesModDimension;
 import com.mojang.blaze3d.shaders.FogShape;
 import java.util.function.Consumer;
 import net.minecraft.client.Minecraft;

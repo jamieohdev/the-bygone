@@ -28,6 +28,7 @@ public class BlueAlgueBlock extends BushBlock {
     protected SimpleParticleType particle;
     Blocks ref;
 
+    @Override
     public MapCodec<BlueAlgueBlock> codec() {
         return CODEC;
     }
@@ -44,6 +45,7 @@ public class BlueAlgueBlock extends BushBlock {
         super(settings);
     }
 
+    @Override
     protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
         super.entityInside(state, world, pos, entity);
         if (world instanceof ServerLevel && entity instanceof Boat) {
@@ -51,15 +53,17 @@ public class BlueAlgueBlock extends BushBlock {
             double d = (double)pos.getX() + 0.5;
             double e = (double)pos.getY() + 0.7;
             double f = (double)pos.getZ() + 0.5;
-            ((ServerLevel) world).sendParticles((SimpleParticleType) JamiesModParticleTypes.ALGAE_BLOOM, (double)pos.getX() + 0.7, (double)pos.getY(),
+            ((ServerLevel) world).sendParticles((SimpleParticleType) JamiesModParticleTypes.ALGAE_BLOOM, (double)pos.getX() + 0.7, pos.getY(),
                     (double)pos.getZ() + 0.7, 1, 0.5, 0.0, 0.5, 0.0);
         }
 
     }
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
+    @Override
     protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
         FluidState fluidState = world.getFluidState(pos);
         FluidState fluidState2 = world.getFluidState(pos.above());

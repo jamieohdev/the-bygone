@@ -16,6 +16,7 @@ public class TestFungiVineFeature extends Feature<NoneFeatureConfiguration> {
         super(codec);
     }
 
+    @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         WorldGenLevel structureWorldAccess = context.level();
         BlockPos blockPos = context.origin();
@@ -30,17 +31,17 @@ public class TestFungiVineFeature extends Feature<NoneFeatureConfiguration> {
                 if (direction != Direction.DOWN && VineBlock.isAcceptableNeighbour(structureWorldAccess, blockPos.relative(direction), direction)) {
                     if (structureWorldAccess.getRandom().nextInt(5) == 1)
                     {
-                        structureWorldAccess.setBlock(blockPos, (BlockState) JamiesModBlocks.ORANGE_FUNGI_VINES.defaultBlockState().setValue(VineBlock.getPropertyForFace(direction), true), 2);
+                        structureWorldAccess.setBlock(blockPos, JamiesModBlocks.ORANGE_FUNGI_VINES.defaultBlockState().setValue(VineBlock.getPropertyForFace(direction), true), 2);
 
                     }
                     if (structureWorldAccess.getRandom().nextInt(4) == 1)
                     {
-                        structureWorldAccess.setBlock(blockPos, (BlockState) JamiesModBlocks.PINK_FUNGI_VINES.defaultBlockState().setValue(VineBlock.getPropertyForFace(direction), true), 2);
+                        structureWorldAccess.setBlock(blockPos, JamiesModBlocks.PINK_FUNGI_VINES.defaultBlockState().setValue(VineBlock.getPropertyForFace(direction), true), 2);
 
                     }
                     else
                     {
-                        structureWorldAccess.setBlock(blockPos, (BlockState) JamiesModBlocks.PURPLE_FUNGI_VINES.defaultBlockState().setValue(VineBlock.getPropertyForFace(direction), true), 2);
+                        structureWorldAccess.setBlock(blockPos, JamiesModBlocks.PURPLE_FUNGI_VINES.defaultBlockState().setValue(VineBlock.getPropertyForFace(direction), true), 2);
 
                     }
                     return true;

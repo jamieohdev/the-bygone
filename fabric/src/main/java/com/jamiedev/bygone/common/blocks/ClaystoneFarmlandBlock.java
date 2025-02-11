@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.common.blocks;
 
 import com.jamiedev.bygone.fabric.init.JamiesModBlocks;
-import com.jamiedev.bygone.fabric.init.JamiesModTag;
+import com.jamiedev.bygone.init.JamiesModTag;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;
@@ -43,15 +43,17 @@ public class ClaystoneFarmlandBlock extends Block
     protected static final VoxelShape SHAPE;
     public static final int MAX_MOISTURE = 7;
 
+    @Override
     public MapCodec<ClaystoneFarmlandBlock> codec() {
         return CODEC;
     }
 
     public ClaystoneFarmlandBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(MOISTURE, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(MOISTURE, 0));
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         if (direction == Direction.UP && !state.canSurvive(world, pos)) {
             world.scheduleTick(pos, this, 1);
@@ -60,44 +62,51 @@ public class ClaystoneFarmlandBlock extends Block
         return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos.above());
         return !blockState.isSolid() || blockState.getBlock() instanceof FenceGateBlock || blockState.getBlock() instanceof MovingPistonBlock;
     }
 
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         return !this.defaultBlockState().canSurvive(ctx.getLevel(), ctx.getClickedPos()) ? JamiesModBlocks.CLAYSTONE.defaultBlockState() : super.getStateForPlacement(ctx);
     }
 
+    @Override
     protected boolean useShapeForLightOcclusion(BlockState state) {
         return true;
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
+    @Override
     protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (!state.canSurvive(world, pos)) {
-            setToDirt((Entity)null, state, world, pos);
+            setToDirt(null, state, world, pos);
         }
 
     }
 
+    @Override
     protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
-        int i = (Integer)state.getValue(MOISTURE);
+        int i = state.getValue(MOISTURE);
         if ((!isSprinklerNearby(world, pos)) && !world.isRainingAt(pos.above())) {
             if (i > 0) {
-                world.setBlock(pos, (BlockState)state.setValue(MOISTURE, i - 1), 2);
+                world.setBlock(pos, state.setValue(MOISTURE, i - 1), 2);
             } else if (!hasCrop(world, pos)) {
-                setToDirt((Entity)null, state, world, pos);
+                setToDirt(null, state, world, pos);
             }
         } else if (i < 7) {
-            world.setBlock(pos, (BlockState)state.setValue(MOISTURE, 7), 2);
+            world.setBlock(pos, state.setValue(MOISTURE, 7), 2);
         }
 
     }
 
+    @Override
     public void fallOn(Level world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
         if (!world.isClientSide && world.random.nextFloat() < fallDistance - 0.5F && entity instanceof LivingEntity && (entity instanceof Player || world.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) && entity.getBbWidth() * entity.getBbWidth() * entity.getBbHeight() > 0.512F) {
             setToDirt(entity, state, world, pos);
@@ -146,10 +155,12 @@ public class ClaystoneFarmlandBlock extends Block
         return true;
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{MOISTURE});
+        builder.add(MOISTURE);
     }
 
+    @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }

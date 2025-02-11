@@ -15,6 +15,7 @@ public interface LandingBlock2 extends Fallable {
     default void onDestroyedOnLanding(Level world, BlockPos pos, RisingBlockEntity fallingBlockEntity) {
     }
 
+    @Override
     default DamageSource getFallDamageSource(Entity attacker) {
         return attacker.damageSources().fallingBlock(attacker);
     }

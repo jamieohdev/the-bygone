@@ -24,17 +24,21 @@ public abstract class RisingBlock  extends Block implements Fallable {
         super(settings);
     }
 
+    @Override
     protected abstract MapCodec<? extends RisingBlock> codec();
 
+    @Override
     protected void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean notify) {
         world.scheduleTick(pos, this, this.getRiseDelay());
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         world.scheduleTick(pos, this, this.getRiseDelay());
         return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    @Override
     protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (canRiseThrough(world.getBlockState(pos.above())) && pos.getY() >= world.getMaxBuildHeight()) {
             RisingBlockEntity fallingBlockEntity = RisingBlockEntity.fall(world, pos, state);
@@ -53,6 +57,7 @@ public abstract class RisingBlock  extends Block implements Fallable {
         return state.isAir() || state.is(BlockTags.FIRE) || state.liquid() || state.canBeReplaced();
     }
 
+    @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         if (random.nextInt(16) == 0) {
             BlockPos blockPos = pos.above();

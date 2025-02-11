@@ -15,19 +15,20 @@ public class PointedAmberFeature  extends Feature<PointedAmberFeatureConfig> {
         super(codec);
     }
 
+    @Override
     public boolean place(FeaturePlaceContext<PointedAmberFeatureConfig> context) {
         LevelAccessor worldAccess = context.level();
         BlockPos blockPos = context.origin();
         RandomSource random = context.random();
-        PointedAmberFeatureConfig smallAmberFeatureConfig = (PointedAmberFeatureConfig)context.config();
+        PointedAmberFeatureConfig smallAmberFeatureConfig = context.config();
         Optional<Direction> optional = getDirection(worldAccess, blockPos, random);
         if (optional.isEmpty()) {
             return false;
         } else {
-            BlockPos blockPos2 = blockPos.relative(((Direction)optional.get()).getOpposite());
+            BlockPos blockPos2 = blockPos.relative(optional.get().getOpposite());
             generateAmberBlocks(worldAccess, random, blockPos2, smallAmberFeatureConfig);
-            int i = random.nextFloat() < smallAmberFeatureConfig.chanceOfTallerAmber && AmberHelper.canGenerate(worldAccess.getBlockState(blockPos.relative((Direction)optional.get()))) ? 2 : 1;
-            AmberHelper.generatePointedAmber(worldAccess, blockPos, (Direction)optional.get(), i, false);
+            int i = random.nextFloat() < smallAmberFeatureConfig.chanceOfTallerAmber && AmberHelper.canGenerate(worldAccess.getBlockState(blockPos.relative(optional.get()))) ? 2 : 1;
+            AmberHelper.generatePointedAmber(worldAccess, blockPos, optional.get(), i, false);
             return true;
         }
     }

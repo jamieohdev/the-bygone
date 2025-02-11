@@ -199,8 +199,8 @@ public class JamiesModBlocks {
     public static final Block CLAYSTONE_BRICKS_WALL = registerBlock("claystone_bricks_wall",
             new WallBlock(BlockBehaviour.Properties.ofFullCopy(JamiesModBlocks.CLAYSTONE_BRICKS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
 
-    public static final Block MOSSY_CLAYSTONE = registerBlock((String)"mossy_claystone", new MossyClaystoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block GRASSY_CLAYSTONE = registerBlockWithoutBlockItem((String)"grassy_claystone", new MossyClaystoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block MOSSY_CLAYSTONE = registerBlock("mossy_claystone", new MossyClaystoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block GRASSY_CLAYSTONE = registerBlockWithoutBlockItem("grassy_claystone", new MossyClaystoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block ANCIENT_ROOTS = registerBlock("ancient_roots",
             new AncientRootBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GLOW_LICHEN).instrument(NoteBlockInstrument.BASS).strength(0.7F).sound(SoundType.MANGROVE_ROOTS).noOcclusion().isSuffocating(Blocks::never).isViewBlocking(Blocks::never).noOcclusion().ignitedByLava()), JamiesModItemGroup.JAMIES_MOD);
 
@@ -266,7 +266,7 @@ public class JamiesModBlocks {
             new CarpetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS_CARPET).pushReaction(PushReaction.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
     public static final Block ALPHA_MOSS_BLOCK = registerBlock("alpha_moss_block",
             new AlphaMossBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS).pushReaction(PushReaction.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block ALPHA_MOSSY_CLAYSTONE = registerBlock((String)"alpha_mossy_claystone", new GrassBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block ALPHA_MOSSY_CLAYSTONE = registerBlock("alpha_mossy_claystone", new GrassBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)), JamiesModItemGroup.JAMIES_MOD);
 
     public static final Block CASTER = registerBlock("caster",
             new CasterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
@@ -487,11 +487,11 @@ public class JamiesModBlocks {
     public static final Block PROTOTAXITE_STEM = registerBlock("prototaxite_stem",
             new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
 
-    public static final Block SHELF_MYCELIUM = registerBlock((String)"shelf_mycelium", new ShelfMyceliumBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block SHELF_MOLD_BLOCK = registerBlock((String)"shelf_mold_block", new ShelfMoldBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)), JamiesModItemGroup.JAMIES_MOD);
-    public static final Block SHELF_MOLD = registerBlock((String)"shelf_mold", new DoublePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).replaceable().noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block SHELF_MYCELIUM = registerBlock("shelf_mycelium", new ShelfMyceliumBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block SHELF_MOLD_BLOCK = registerBlock("shelf_mold_block", new ShelfMoldBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block SHELF_MOLD = registerBlock("shelf_mold", new DoublePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).replaceable().noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
 
-    public static final Block SHELF_MOLD_MOSS = registerBlock((String)"shelf_mold_moss_block", new Block(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)), JamiesModItemGroup.JAMIES_MOD);
+    public static final Block SHELF_MOLD_MOSS = registerBlock("shelf_mold_moss_block", new Block(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)), JamiesModItemGroup.JAMIES_MOD);
 
     public static final Block ORANGE_MUSHROOM_BLOCK = registerBlock("orange_mushroom_block", new ShelfMushroomBlock(
             BlockBehaviour.Properties.of().sound(SoundType.WOOD).mapColor(MapColor.COLOR_ORANGE).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
@@ -554,9 +554,9 @@ public class JamiesModBlocks {
     public static final Block PURPLE_FUNGAL_WALL = registerBlock("purple_fungal_wall",
             new WallBlock(BlockBehaviour.Properties.ofFullCopy(JamiesModBlocks.PURPLE_FUNGAL_BRICKS).strength(2.0f)), JamiesModItemGroup.JAMIES_MOD);
 
-    public static Block SHELF_ROOTS = registerBlock((String)"shelf_roots", new RootsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).replaceable().noCollission().instabreak().sound(SoundType.ROOTS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+    public static Block SHELF_ROOTS = registerBlock("shelf_roots", new RootsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).replaceable().noCollission().instabreak().sound(SoundType.ROOTS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
     public static Block SHELF_WART_BLOCK = registerBlockWithoutBlockItem("shelf_wart_block", new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_WART_BLOCK).strength(1.0F).sound(SoundType.WART_BLOCK)), JamiesModItemGroup.JAMIES_MOD);
-    public static Block SHELF_FUNGUS = registerBlock((String)"shelf_fungus", new FungusBlock(TreeFeatures.WARPED_FUNGUS_PLANTED, SHELF_MYCELIUM, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).instabreak().noCollission().sound(SoundType.FUNGUS).pushReaction(PushReaction.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
+    public static Block SHELF_FUNGUS = registerBlock("shelf_fungus", new FungusBlock(TreeFeatures.WARPED_FUNGUS_PLANTED, SHELF_MYCELIUM, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).instabreak().noCollission().sound(SoundType.FUNGUS).pushReaction(PushReaction.DESTROY)), JamiesModItemGroup.JAMIES_MOD);
 
     public static Block SHELF_SPROUTS = registerBlock("shelf_sprouts", new CreosoteSproutsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).replaceable()
             .noCollission().instabreak().sound(SoundType.GRASS).ignitedByLava().pushReaction(PushReaction.DESTROY).lightLevel((state) -> {

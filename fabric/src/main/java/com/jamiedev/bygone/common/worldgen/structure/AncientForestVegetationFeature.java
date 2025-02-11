@@ -13,11 +13,12 @@ public class AncientForestVegetationFeature extends Feature<AncientForestVegetat
         super(codec);
     }
 
+    @Override
     public boolean place(FeaturePlaceContext<AncientForestVegetationFeatureConfig> context) {
         WorldGenLevel structureWorldAccess = context.level();
         BlockPos blockPos = context.origin();
         BlockState blockState = structureWorldAccess.getBlockState(blockPos.below());
-        AncientForestVegetationFeatureConfig AncientForestVegetationFeatureConfig = (AncientForestVegetationFeatureConfig)context.config();
+        AncientForestVegetationFeatureConfig AncientForestVegetationFeatureConfig = context.config();
         RandomSource random = context.random();
 
             int i = blockPos.getY();

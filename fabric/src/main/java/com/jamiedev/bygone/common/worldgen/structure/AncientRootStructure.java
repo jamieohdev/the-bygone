@@ -121,6 +121,7 @@ public class AncientRootStructure extends Structure {
         return structurePiecesGenerator;
     }
 
+    @Override
     public StructureType<?> type() {
         return JamiesModStructures.ANCIENT_ROOTS;
     }

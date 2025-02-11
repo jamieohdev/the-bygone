@@ -83,6 +83,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
     private static final float field_31204 = 0.125F;
     private static final VoxelShape DRIP_COLLISION_SHAPE;
 
+    @Override
     public MapCodec<PointedAmberBlock2> codec() {
         return CODEC;
     }
@@ -92,14 +93,17 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
         this.registerDefaultState(this.stateDefinition.any().setValue(VERTICAL_DIRECTION, Direction.UP).setValue(THICKNESS, DripstoneThickness.TIP).setValue(WATERLOGGED, false));
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(VERTICAL_DIRECTION, THICKNESS, WATERLOGGED);
     }
 
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         return canPlaceAtWithDirection(world, pos, state.getValue(VERTICAL_DIRECTION));
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
@@ -127,6 +131,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
         }
     }
 
+    @Override
     protected void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
         if (!world.isClientSide) {
             BlockPos blockPos = hit.getBlockPos();
@@ -137,6 +142,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
         }
     }
 
+    @Override
     public void fallOn(Level world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
         if (state.getValue(VERTICAL_DIRECTION) == Direction.UP && state.getValue(THICKNESS) == DripstoneThickness.TIP) {
             entity.causeFallDamage(fallDistance + 2.0F, 2.0F, world.damageSources().stalagmite());
@@ -146,6 +152,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
 
     }
 
+    @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         if (canDrip(state)) {
             float f = random.nextFloat();
@@ -159,6 +166,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
         }
     }
 
+    @Override
     protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (isPointingUp(state) && !this.canSurvive(state, world, pos)) {
             world.destroyBlock(pos, true);
@@ -168,6 +176,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
 
     }
 
+    @Override
     protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         dripTick(state, world, pos, random.nextFloat());
         if (random.nextFloat() < 0.011377778F && isHeldByPointedDripstone(state, world, pos)) {
@@ -220,6 +229,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
         }
     }
 
+    @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         LevelAccessor worldAccess = ctx.getLevel();
@@ -235,14 +245,17 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
         }
     }
 
+    @Override
     protected FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
+    @Override
     protected VoxelShape getOcclusionShape(BlockState state, BlockGetter world, BlockPos pos) {
         return Shapes.empty();
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         DripstoneThickness thickness = state.getValue(THICKNESS);
         VoxelShape voxelShape;
@@ -266,14 +279,17 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
         return voxelShape.move(vec3d.x, 0.0, vec3d.z);
     }
 
+    @Override
     protected boolean isCollisionShapeFullBlock(BlockState state, BlockGetter world, BlockPos pos) {
         return false;
     }
 
+    @Override
     protected float getMaxHorizontalOffset() {
         return 0.125F;
     }
 
+    @Override
     public void onBrokenAfterFall(Level world, BlockPos pos, FallingBlockEntity fallingBlockEntity) {
         if (!fallingBlockEntity.isSilent()) {
             world.levelEvent(1045, pos, 0);
@@ -281,6 +297,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
 
     }
 
+    @Override
     public DamageSource getFallDamageSource(Entity attacker) {
         return attacker.damageSources().fallingStalactite(attacker);
     }
@@ -502,6 +519,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
         return isPointingDown(state) && !world.getBlockState(pos.above()).is(JamiesModBlocks.POINTED_AMBER);
     }
 
+    @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
@@ -622,14 +640,17 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
             this.sourceState = sourceState;
         }
 
+        @Override
         public BlockPos pos() {
             return this.pos;
         }
 
+        @Override
         public Fluid fluid() {
             return this.fluid;
         }
 
+        @Override
         public BlockState sourceState() {
             return this.sourceState;
         }

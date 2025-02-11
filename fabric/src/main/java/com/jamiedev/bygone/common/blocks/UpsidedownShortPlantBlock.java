@@ -23,6 +23,7 @@ public class UpsidedownShortPlantBlock extends UpsidedownPlantBlock implements B
     protected static final float field_31261 = 6.0F;
     protected static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
 
+    @Override
     public MapCodec<UpsidedownShortPlantBlock> codec() {
         return CODEC;
     }
@@ -31,18 +32,22 @@ public class UpsidedownShortPlantBlock extends UpsidedownPlantBlock implements B
         super(settings);
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
+    @Override
     public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
         return true;
     }
 
+    @Override
     public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
+    @Override
     public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
         DoublePlantBlock tallPlantBlock = (DoublePlantBlock)(state.is(Blocks.FERN) ? Blocks.LARGE_FERN : Blocks.TALL_GRASS);
         if (tallPlantBlock.defaultBlockState().canSurvive(world, pos) && world.isEmptyBlock(pos.above())) {

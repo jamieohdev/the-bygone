@@ -47,6 +47,7 @@ public class ShelfParticle extends TextureSheetParticle {
         super(clientWorld, d, e, f);
     }
 
+    @Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
@@ -58,9 +59,11 @@ public class ShelfParticle extends TextureSheetParticle {
             this.spriteProvider = spriteProvider;
         }
 
+        @Override
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i) {
             ShelfParticle waterSuspendParticle = new ShelfParticle(this, clientWorld,
                     this.spriteProvider, d, e, f, 0.0, -0.800000011920929, 0.0) {
+                @Override
                 public Optional<ParticleGroup> getParticleGroup() {
                     return Optional.of(ParticleGroup.SPORE_BLOSSOM);
                 }
@@ -80,6 +83,7 @@ public class ShelfParticle extends TextureSheetParticle {
             this.spriteProvider = spriteProvider;
         }
 
+        @Override
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i) {
             double j = (double)clientWorld.random.nextFloat() * -1.9 * (double)clientWorld.random.nextFloat() * 0.1;
             ShelfParticle waterSuspendParticle = new ShelfParticle(clientWorld, this.spriteProvider, d, e, f, 0.0, j, 0.0);

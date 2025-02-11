@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.mixin;
 
-import com.jamiedev.bygone.fabric.init.JamiesModTag;
+import com.jamiedev.bygone.init.JamiesModTag;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,7 +31,7 @@ public class FarmlandBlockMixin extends Block
                 return false;
             }
 
-            blockPos = (BlockPos)var2.next();
+            blockPos = var2.next();
         } while(world.getBlockState(blockPos).is(JamiesModTag.SPRINKLERS));
 
         return true;

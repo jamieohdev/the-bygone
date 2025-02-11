@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.common.items;
 
 import com.jamiedev.bygone.common.entities.projectile.BygoneItemEntity;
-import com.jamiedev.bygone.fabric.init.JamiesModTag;
+import com.jamiedev.bygone.init.JamiesModTag;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -30,10 +30,12 @@ public class BygoneItem extends Item
 
 EnderEyeItem ref;
 
+    @Override
     public int getUseDuration(ItemStack stack, LivingEntity user) {
         return 0;
     }
 
+    @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
         ItemStack itemStack = user.getItemInHand(hand);
         BlockHitResult blockHitResult = getPlayerPOVHitResult(world, user, ClipContext.Fluid.NONE);
@@ -52,7 +54,7 @@ EnderEyeItem ref;
                     }
 
                     float f = Mth.lerp(world.random.nextFloat(), 0.33F, 0.5F);
-                    world.playSound((Player)null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENDER_EYE_LAUNCH, SoundSource.NEUTRAL, 1.0F, f);
+                    world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENDER_EYE_LAUNCH, SoundSource.NEUTRAL, 1.0F, f);
                     itemStack.consume(1, user);
                     user.awardStat(Stats.ITEM_USED.get(this));
                     user.swing(hand, true);

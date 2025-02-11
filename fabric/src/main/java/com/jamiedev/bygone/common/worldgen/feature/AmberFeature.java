@@ -19,13 +19,14 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
         super(codec);
     }
 
+    @Override
     public boolean place(FeaturePlaceContext<BlockStateConfiguration> context) {
         BlockPos blockPos;// = context.getOrigin();
         WorldGenLevel structureWorldAccess = context.level();
         blockPos = context.origin();//= new BlockPos(blockPos.getX(), context.getGenerator().getMinimumY(), blockPos.getZ());
         RandomSource random = context.random();
         boolean bl = random.nextDouble() > 0.7;
-        BlockState blockState = ((BlockStateConfiguration)context.config()).state;
+        BlockState blockState = context.config().state;
         double d = random.nextDouble() * 2.0 * Math.PI;
         int i = 11 - random.nextInt(5);
         int j = 3 + random.nextInt(3);
@@ -59,7 +60,7 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
         for(p = -o; p < o; ++p) {
             for(q = -o; q < o; ++q) {
                 for(r = -1; r > -m; --r) {
-                    s = bl2 ? Mth.ceil((float)o * (1.0F - (float)Math.pow((double)r, 2.0) / ((float)m * 16.0F))) : o;
+                    s = bl2 ? Mth.ceil((float)o * (1.0F - (float)Math.pow(r, 2.0) / ((float)m * 16.0F))) : o;
                     int t = this.method_13427(random, -r, m, n);
                     if (p < t) {
                         this.placeAt(structureWorldAccess, random, blockPos, m, p, r , q , t -1, s, bl2, j, d, bl, JamiesModBlocks.FLOWING_AMBER.defaultBlockState());
@@ -180,7 +181,7 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
 
     private double method_13421(int x, int z, BlockPos pos, int i, RandomSource random) {
         float f = 10.0F * Mth.clamp(random.nextFloat(), 0.2F, 0.8F) / (float)i;
-        return (double)f + Math.pow((double)(x - pos.getX()), 2.0) + Math.pow((double)(z - pos.getZ()), 2.0) - Math.pow((double)i, 2.0);
+        return (double)f + Math.pow(x - pos.getX(), 2.0) + Math.pow(z - pos.getZ(), 2.0) - Math.pow(i, 2.0);
     }
 
     private double getDistance(int x, int z, BlockPos pos, int divisor1, int divisor2, double randomSine) {
@@ -189,7 +190,7 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
 
     private int method_13419(RandomSource random, int y, int height, int factor) {
         float f = 3.5F - random.nextFloat();
-        float g = (1.0F - (float)Math.pow((double)y, 2.0) / ((float)height * f)) * (float)factor;
+        float g = (1.0F - (float)Math.pow(y, 2.0) / ((float)height * f)) * (float)factor;
         if (height > 15 + random.nextInt(5)) {
             int i = y < 3 + random.nextInt(6) ? y / 2 : y;
             g = (1.0F - (float)i / ((float)height * f * 0.4F)) * (float)factor;
@@ -200,7 +201,7 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
 
     private int method_13417(int y, int height, int factor) {
         float f = 1.0F;
-        float g = (1.0F - (float)Math.pow((double)y, 2.0) / ((float) height)) * (float)factor;
+        float g = (1.0F - (float)Math.pow(y, 2.0) / ((float) height)) * (float)factor;
         return Mth.ceil(g / 2.0F);
     }
 

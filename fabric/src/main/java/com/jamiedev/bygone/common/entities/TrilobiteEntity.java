@@ -37,16 +37,19 @@ public class TrilobiteEntity extends AbstractFish
                 .add(Attributes.MOVEMENT_SPEED, 0.35);
     }
 
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DARK_TICKS_REMAINING1, 0);
     }
 
+    @Override
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putInt("DarkTicksRemaining", this.getDarkTicksRemaining());
     }
 
+    @Override
     public void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.setDarkTicksRemaining(nbt.getInt("DarkTicksRemaining"));
@@ -77,7 +80,7 @@ public class TrilobiteEntity extends AbstractFish
     }
 
     public int getDarkTicksRemaining() {
-        return (Integer)this.entityData.get(DARK_TICKS_REMAINING1);
+        return this.entityData.get(DARK_TICKS_REMAINING1);
     }
 
 

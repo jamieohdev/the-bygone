@@ -29,7 +29,7 @@ public class JamiesModLootTables
         if (LOOT_TABLES.add(key)) {
             return key;
         } else {
-            throw new IllegalArgumentException(String.valueOf(key.location()) + " is already a registered built-in loot table");
+            throw new IllegalArgumentException(key.location() + " is already a registered built-in loot table");
         }
     }
 

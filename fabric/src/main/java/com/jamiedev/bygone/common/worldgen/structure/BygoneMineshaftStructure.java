@@ -34,6 +34,7 @@ public class BygoneMineshaftStructure extends Structure {
         this.type = type;
     }
 
+    @Override
     public Optional<GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
         context.random().nextDouble();
         ChunkPos chunkPos = context.chunkPos();
@@ -56,21 +57,22 @@ public class BygoneMineshaftStructure extends Structure {
 
     }
 
+    @Override
     public StructureType<?> type() {
         return JamiesModStructures.BYGONE_MINESHAFT;
     }
 
-    public static enum Type implements StringRepresentable {
+    public enum Type implements StringRepresentable {
         NORMAL("ancient", JamiesModBlocks.ANCIENT_LOG, JamiesModBlocks.ANCIENT_PLANKS, JamiesModBlocks.ANCIENT_FENCE);
 
         public static final Codec<BygoneMineshaftStructure.Type> CODEC = StringRepresentable.fromEnum(BygoneMineshaftStructure.Type::values);
-        private static final IntFunction<BygoneMineshaftStructure.Type> BY_ID = ByIdMap.continuous((ToIntFunction<Type>) Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
+        private static final IntFunction<BygoneMineshaftStructure.Type> BY_ID = ByIdMap.continuous(Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
         private final String name;
         private final BlockState log;
         private final BlockState planks;
         private final BlockState fence;
 
-        private Type(final String name, final Block log, final Block planks, final Block fence) {
+        Type(final String name, final Block log, final Block planks, final Block fence) {
             this.name = name;
             this.log = log.defaultBlockState();
             this.planks = planks.defaultBlockState();
@@ -97,6 +99,7 @@ public class BygoneMineshaftStructure extends Structure {
             return this.fence;
         }
 
+        @Override
         public String getSerializedName() {
             return this.name;
         }

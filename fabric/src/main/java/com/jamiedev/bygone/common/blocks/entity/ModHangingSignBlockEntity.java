@@ -27,14 +27,17 @@ public class ModHangingSignBlockEntity extends SignBlockEntity
         return JamiesModBlockEntities.MOD_HANGING_SIGN_BLOCK_ENTITY;
     }
 
+    @Override
     public int getTextLineHeight() {
         return 9;
     }
 
+    @Override
     public int getMaxTextLineWidth() {
         return 60;
     }
 
+    @Override
     public SoundEvent getSignInteractionFailedSoundEvent() {
         return SoundEvents.WAXED_HANGING_SIGN_INTERACT_FAIL;
     }

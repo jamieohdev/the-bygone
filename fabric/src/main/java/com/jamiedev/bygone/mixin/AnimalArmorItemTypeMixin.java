@@ -34,7 +34,7 @@ public class AnimalArmorItemTypeMixin {
     }
 
     @Unique
-    private static AnimalArmorItem.BodyType BIG_BEAK = bygone$addVariant("big_beak", id ->
+    private static final AnimalArmorItem.BodyType BIG_BEAK = bygone$addVariant("big_beak", id ->
             Bygone.getModId( "textures/entity/big_beak/beak_" + id.getPath()), SoundEvents.ITEM_BREAK);
 
     @Invoker("<init>")

@@ -79,15 +79,18 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
         super(entityType, world);
     }
 
+    @Override
     @Nullable
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
-        return (AgeableMob)JamiesModEntityTypes.FUNGAL_PARENT.create(world);
+        return JamiesModEntityTypes.FUNGAL_PARENT.create(world);
     }
 
+    @Override
     public boolean isFood(ItemStack stack) {
         return false;
     }
 
+    @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -119,49 +122,60 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
         }
     }
 
+    @Override
     public void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.readPersistentAngerSaveData(this.level(), nbt);
     }
 
+    @Override
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         this.addPersistentAngerSaveData(nbt);
     }
 
+    @Override
     public void startPersistentAngerTimer() {
         this.setRemainingPersistentAngerTime(ANGER_TIME_RANGE.sample(this.random));
     }
 
+    @Override
     public void setRemainingPersistentAngerTime(int angerTime) {
         this.angerTime = angerTime;
     }
 
+    @Override
     public int getRemainingPersistentAngerTime() {
         return this.angerTime;
     }
 
+    @Override
     public void setPersistentAngerTarget(@Nullable UUID angryAt) {
         this.angryAt = angryAt;
     }
 
+    @Override
     @Nullable
     public UUID getPersistentAngerTarget() {
         return this.angryAt;
     }
 
+    @Override
     protected SoundEvent getAmbientSound() {
         return this.isBaby() ? JamiesModSoundEvents.FUNGUSPARENT_AMBIENT_BABY_ADDITIONS_EVENT : JamiesModSoundEvents.FUNGUSPARENT_AMBIENT_ADDITIONS_EVENT;
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return JamiesModSoundEvents.FUNGUSPARENT_HURT_ADDITIONS_EVENT;
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return JamiesModSoundEvents.FUNGUSPARENT_DEATH_ADDITIONS_EVENT;
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
     }
@@ -174,11 +188,13 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
 
     }
 
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(WARNING, false);
     }
 
+    @Override
     public void tick() {
         super.tick();
         if (this.level().isClientSide) {
@@ -204,6 +220,7 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
 
     }
 
+    @Override
     public EntityDimensions getDefaultDimensions(Pose pose) {
         if (this.warningAnimationProgress > 0.0F) {
             float f = this.warningAnimationProgress / 6.0F;
@@ -215,7 +232,7 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
     }
 
     public boolean isWarning() {
-        return (Boolean)this.entityData.get(WARNING);
+        return this.entityData.get(WARNING);
     }
 
     public void setWarning(boolean warning) {
@@ -226,16 +243,18 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
         return Mth.lerp(tickDelta, this.lastWarningAnimationProgress, this.warningAnimationProgress) / 6.0F;
     }
 
+    @Override
     protected float getWaterSlowDown() {
         return 0.98F;
     }
 
+    @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
         if (entityData == null) {
             entityData = new AgeableMob.AgeableMobGroupData(1.0F);
         }
 
-        return super.finalizeSpawn(world, difficulty, spawnReason, (SpawnGroupData)entityData);
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
     static {
@@ -248,6 +267,7 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
             super(FungalParentEntity.this, 1.25, true);
         }
 
+        @Override
         protected void checkAndPerformAttack(LivingEntity target) {
             if (this.canPerformAttack(target)) {
                 this.resetAttackCooldown();
@@ -270,6 +290,7 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
 
         }
 
+        @Override
         public void stop() {
             FungalParentEntity.this.setWarning(false);
             super.stop();
@@ -289,9 +310,10 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
 
     class FungalParentRevengeGoal extends HurtByTargetGoal {
         public FungalParentRevengeGoal() {
-            super(FungalParentEntity.this, new Class[0]);
+            super(FungalParentEntity.this);
         }
 
+        @Override
         public void start() {
             super.start();
             if (FungalParentEntity.this.isBaby()) {
@@ -301,6 +323,7 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
 
         }
 
+        @Override
         protected void alertOther(Mob mob, LivingEntity target) {
             if (mob instanceof FungalParentEntity && !mob.isBaby()) {
                 super.alertOther(mob, target);
@@ -311,9 +334,10 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
 
     class ProtectBabiesGoal extends NearestAttackableTargetGoal<Player> {
         public ProtectBabiesGoal() {
-            super(FungalParentEntity.this, Player.class, 20, true, true, (Predicate)null);
+            super(FungalParentEntity.this, Player.class, 20, true, true, null);
         }
 
+        @Override
         public boolean canUse() {
             if (FungalParentEntity.this.isBaby()) {
                 return false;
@@ -339,6 +363,7 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
             }
         }
 
+        @Override
         protected double getFollowDistance() {
             return super.getFollowDistance() * 0.5;
         }

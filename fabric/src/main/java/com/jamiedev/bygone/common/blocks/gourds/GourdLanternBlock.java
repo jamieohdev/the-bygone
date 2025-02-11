@@ -38,14 +38,16 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock {
     WeepingVinesPlantBlock ref;
 
 
+    @Override
     public MapCodec<GourdLanternBlock> codec() {
         return CODEC;
     }
 
     public GourdLanternBlock(BlockBehaviour.Properties settings) {
         super(settings, Direction.DOWN, HANGING_SHAPE, false);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(HANGING, false)).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false));
     }
+    @Override
     protected void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
         BlockPos blockPos = hit.getBlockPos();
         if (!world.isClientSide) {
@@ -54,6 +56,7 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock {
 
     }
 
+    @Override
     protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (!state.canSurvive(world, pos)) {
             world.destroyBlock(pos, true);
@@ -62,23 +65,28 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock {
 
 
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return (Boolean)state.getValue(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
+        return state.getValue(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{HANGING, WATERLOGGED});
+        builder.add(HANGING, WATERLOGGED);
     }
 
 
 
+    @Override
     protected FluidState getFluidState(BlockState state) {
-        return (Boolean)state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
+    @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
+    @Override
     protected GrowingPlantHeadBlock getHeadBlock() {
         return (GrowingPlantHeadBlock) JamiesModBlocks.GOURD_VINE;
     }

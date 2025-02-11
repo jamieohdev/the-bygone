@@ -58,6 +58,7 @@ public class ExoticArrowEntity extends AbstractArrow {
         this.initColor();
     }
 
+    @Override
     protected void setPickupItemStack(ItemStack stack) {
         super.setPickupItemStack(stack);
         this.initColor();
@@ -72,11 +73,13 @@ public class ExoticArrowEntity extends AbstractArrow {
         this.setPotionContents(this.getPotionContents().withEffectAdded(effect));
     }
 
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(COLOR, -1);
     }
 
+    @Override
     public void tick() {
         super.tick();
         if (this.level().isClientSide) {
@@ -106,6 +109,7 @@ public class ExoticArrowEntity extends AbstractArrow {
         return this.entityData.get(COLOR);
     }
 
+    @Override
     protected void doPostHurtEffects(LivingEntity target) {
         super.doPostHurtEffects(target);
         Entity entity = this.getEffectSource();
@@ -132,6 +136,7 @@ public class ExoticArrowEntity extends AbstractArrow {
         this.returns = true;
     }
 
+    @Override
     protected void onHitBlock(BlockHitResult blockHitResult) {
         super.onHitBlock(blockHitResult);
 
@@ -139,6 +144,7 @@ public class ExoticArrowEntity extends AbstractArrow {
         this.setPickupItemStack(new ItemStack(JamiesModItems.EXOTIC_ARROW));
     }
 
+    @Override
     protected void hitBlockEnchantmentEffects(ServerLevel world, BlockHitResult blockHitResult, ItemStack weaponStack) {
         super.hitBlockEnchantmentEffects(world, blockHitResult, weaponStack);
         this.level().broadcastEntityEvent(this, (byte)0);
@@ -167,17 +173,21 @@ public class ExoticArrowEntity extends AbstractArrow {
         }, stack);
     }
 
+    @Override
     protected ItemStack getDefaultPickupItem() {
         return new ItemStack(JamiesModItems.EXOTIC_ARROW);
     }
 
+    @Override
     public double getBaseDamage() {
         return 1.0D;
     }
+    @Override
     protected double getDefaultGravity() {
         return 0.07;
     }
 
+    @Override
     public void handleEntityEvent(byte status) {
         if (status == 0) {
             int i = this.getColor();

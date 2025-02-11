@@ -119,6 +119,7 @@ public class AmberRuinsStructure extends Structure {
         return structurePiecesGenerator;
     }
 
+    @Override
     public StructureType<?> type() {
         return JamiesModStructures.AMBER_RUINS;
     }

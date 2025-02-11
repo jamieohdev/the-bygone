@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.jamiedev.bygone.common.blocks.entity.CopperbugNestBlockEntity;
 import com.jamiedev.bygone.fabric.init.JamiesModBlockEntities;
 import com.jamiedev.bygone.fabric.init.JamiesModPOI;
-import com.jamiedev.bygone.fabric.init.JamiesModTag;
+import com.jamiedev.bygone.init.JamiesModTag;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
@@ -136,6 +136,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0).add(Attributes.FOLLOW_RANGE, 20.0).add(Attributes.MOVEMENT_SPEED, 0.25).add(Attributes.ATTACK_DAMAGE, 3.0);
     }
 
+    @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -168,9 +169,10 @@ public class CopperbugEntity extends Animal implements NeutralMob
         return this.goalSelector;
     }
 
+    @Override
     public void readAdditionalSaveData(CompoundTag nbt) {
-        this.nestPos = (BlockPos)NbtUtils.readBlockPos(nbt, "nest_pos").orElse((BlockPos) null);
-        this.copperPos = (BlockPos)NbtUtils.readBlockPos(nbt, "copper_pos").orElse((BlockPos) null);
+        this.nestPos = NbtUtils.readBlockPos(nbt, "nest_pos").orElse(null);
+        this.copperPos = NbtUtils.readBlockPos(nbt, "copper_pos").orElse(null);
         super.readAdditionalSaveData(nbt);
         this.setHasOxidization(nbt.getBoolean("HasOxidization"));
         this.ticksSinceScraping = nbt.getInt("TicksSinceScraping");
@@ -182,6 +184,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
 
 
+    @Override
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
 
@@ -205,12 +208,14 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
 
 
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(COPPERBUG_FLAGS, (byte)0);
         builder.define(WARNING, false);
     }
 
+    @Override
     public void tick() {
         super.tick();
 
@@ -243,6 +248,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
     }
 
+    @Override
     public void aiStep() {
         super.aiStep();
         if (!this.level().isClientSide) {
@@ -269,6 +275,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
         world.addParticle(effect, Mth.lerp(world.random.nextDouble(), lastX, x), y, Mth.lerp(world.random.nextDouble(), lastZ, z), 0.0, 0.0, 0.0);
     }
 
+    @Override
     public EntityDimensions getDefaultDimensions(Pose pose) {
         if (this.warningAnimationProgress > 0.0F) {
             float f = this.warningAnimationProgress / 6.0F;
@@ -291,29 +298,34 @@ public class CopperbugEntity extends Animal implements NeutralMob
         return null;
     }
 
+    @Override
     public void startPersistentAngerTimer() {
         this.setRemainingPersistentAngerTime(ANGER_TIME_RANGE.sample(this.random));
     }
 
+    @Override
     public void setRemainingPersistentAngerTime(int angerTime) {
         this.angerTime = angerTime;
     }
 
+    @Override
     public int getRemainingPersistentAngerTime() {
         return this.angerTime;
     }
 
+    @Override
     public void setPersistentAngerTarget(@Nullable UUID angryAt) {
         this.angryAt = angryAt;
     }
 
+    @Override
     @Nullable
     public UUID getPersistentAngerTarget() {
         return this.angryAt;
     }
 
     public boolean isWarning() {
-        return (Boolean)this.entityData.get(WARNING);
+        return this.entityData.get(WARNING);
     }
 
     public void setWarning(boolean warning) {
@@ -324,22 +336,27 @@ public class CopperbugEntity extends Animal implements NeutralMob
         return Mth.lerp(tickDelta, this.lastWarningAnimationProgress, this.warningAnimationProgress) / 6.0F;
     }
 
+    @Override
     protected float getWaterSlowDown() {
         return 0.98F;
     }
 
+    @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.SILVERFISH_AMBIENT;
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.SILVERFISH_HURT;
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.SILVERFISH_DEATH;
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.SILVERFISH_STEP, 0.15F, 1.0F);
     }
@@ -357,12 +374,14 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
     }
 
+    @Override
     public void baseTick() {
         int i = this.getAirSupply();
         super.baseTick();
         this.tickWaterBreathingAir(i);
     }
 
+    @Override
     protected void customServerAiStep() {
 
         if (!this.hasOxidization()) {
@@ -375,10 +394,12 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
     }
 
+    @Override
     public boolean isPushedByFluid() {
         return false;
     }
 
+    @Override
     public boolean canBeLeashed() {
         return false;
     }
@@ -450,7 +471,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
     }
 
     boolean isWithinDistance(BlockPos pos, int distance) {
-        return pos.closerThan(this.blockPosition(), (double)distance);
+        return pos.closerThan(this.blockPosition(), distance);
     }
 
     boolean isTooFar(BlockPos pos) {
@@ -535,15 +556,15 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
     private void setCopperbugFlag(int bit, boolean value) {
         if (value) {
-            this.entityData.set(COPPERBUG_FLAGS, (byte)((Byte)this.entityData.get(COPPERBUG_FLAGS) | bit));
+            this.entityData.set(COPPERBUG_FLAGS, (byte)(this.entityData.get(COPPERBUG_FLAGS) | bit));
         } else {
-            this.entityData.set(COPPERBUG_FLAGS, (byte)((Byte)this.entityData.get(COPPERBUG_FLAGS) & ~bit));
+            this.entityData.set(COPPERBUG_FLAGS, (byte)(this.entityData.get(COPPERBUG_FLAGS) & ~bit));
         }
 
     }
 
     private boolean getCopperbugFlag(int location) {
-        return ((Byte)this.entityData.get(COPPERBUG_FLAGS) & location) != 0;
+        return (this.entityData.get(COPPERBUG_FLAGS) & location) != 0;
     }
 
 
@@ -552,6 +573,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
             super(CopperbugEntity.this, 1.25, true);
         }
 
+        @Override
         protected void checkAndPerformAttack(LivingEntity target) {
             if (this.canPerformAttack(target)) {
                 this.resetAttackCooldown();
@@ -574,6 +596,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
         }
 
+        @Override
         public void stop() {
             CopperbugEntity.this.setWarning(false);
             super.stop();
@@ -585,6 +608,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
             super(CopperbugEntity.this, Player.class, 20, true, true, null);
         }
 
+        @Override
         public boolean canUse() {
             if (!CopperbugEntity.this.isBaby()) {
                 if (super.canUse()) {
@@ -602,6 +626,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
         }
 
 
+        @Override
         protected double getFollowDistance() {
             return super.getFollowDistance() * 0.5;
         }
@@ -609,9 +634,10 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
     class CopperbugRevengeGoal extends HurtByTargetGoal {
         public CopperbugRevengeGoal() {
-            super(CopperbugEntity.this, new Class[0]);
+            super(CopperbugEntity.this);
         }
 
+        @Override
         public void start() {
             super.start();
             if (CopperbugEntity.this.isTriggerItem()) {
@@ -621,6 +647,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
         }
 
+        @Override
         protected void alertOther(Mob mob, LivingEntity target) {
             if (mob instanceof CopperbugEntity || !((CopperbugEntity) mob).isTriggerItem()) {
                 super.alertOther(mob, target);
@@ -634,7 +661,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
         private static final int field_30301 = 20;
         private static final int field_30302 = 60;
         private final Predicate<BlockState> copperPredicate = (state) -> {
-            if (state.hasProperty(BlockStateProperties.WATERLOGGED) && (Boolean)state.getValue(BlockStateProperties.WATERLOGGED)) {
+            if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
                 return false;
             } else return state.is(JamiesModTag.COPPER_BLOCKS_1);
         };
@@ -656,6 +683,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
             this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
+        @Override
         public boolean canUse() {
             if (CopperbugEntity.this.ticksUntilCanScraping > 0) {
                 return false;
@@ -664,7 +692,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
             } else {
                 Optional<BlockPos> optional = this.getFlower();
                 if (optional.isPresent()) {
-                    CopperbugEntity.this.copperPos = (BlockPos)optional.get();
+                    CopperbugEntity.this.copperPos = optional.get();
                     CopperbugEntity.this.navigation.moveTo((double)CopperbugEntity.this.copperPos.getX() + 0.5, (double)CopperbugEntity.this.copperPos.getY() + 0.5, (double)CopperbugEntity.this.copperPos.getZ() + 0.5, 1.2000000476837158);
                     return true;
                 } else {
@@ -674,6 +702,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
             }
         }
 
+        @Override
         public boolean canContinueToUse() {
             if (!this.running) {
                 return false;
@@ -703,6 +732,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
             this.running = false;
         }
 
+        @Override
         public void start() {
             this.pollinationTicks = 0;
             this.ticks = 0;
@@ -711,6 +741,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
             CopperbugEntity.this.resetScrapingTicks();
         }
 
+        @Override
         public void stop() {
             if (this.completedPollination()) {
                 CopperbugEntity.this.setHasOxidization(true);
@@ -721,10 +752,12 @@ public class CopperbugEntity extends Animal implements NeutralMob
             CopperbugEntity.this.ticksUntilCanScraping = 200;
         }
 
+        @Override
         public boolean requiresUpdateEveryTick() {
             return true;
         }
 
+        @Override
         public void tick() {
             ++this.ticks;
             if (this.ticks > 600) {
@@ -810,6 +843,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
             super();
         }
 
+        @Override
         public boolean canUse() {
             if (CopperbugEntity.this.hasNest() && CopperbugEntity.this.canEnterNest()) {
                 assert CopperbugEntity.this.nestPos != null;
@@ -828,10 +862,12 @@ public class CopperbugEntity extends Animal implements NeutralMob
             return false;
         }
 
+        @Override
         public boolean canContinueToUse() {
             return false;
         }
 
+        @Override
         public void start() {
             BlockEntity blockEntity = CopperbugEntity.this.level().getBlockEntity(CopperbugEntity.this.nestPos);
             if (blockEntity instanceof CopperbugNestBlockEntity beenestBlockEntity) {
@@ -850,7 +886,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
                 break;
             }
 
-            mutablePos.set((Vec3i)optional.get());
+            mutablePos.set(optional.get());
         }
 
     }
@@ -884,14 +920,17 @@ public class CopperbugEntity extends Animal implements NeutralMob
             super();
         }
 
+        @Override
         public boolean canUse() {
             return CopperbugEntity.this.ticksLeftToFindNest == 0 && !CopperbugEntity.this.hasNest() && CopperbugEntity.this.canEnterNest();
         }
 
+        @Override
         public boolean canContinueToUse() {
             return false;
         }
 
+        @Override
         public void start() {
             CopperbugEntity.this.ticksLeftToFindNest = 200;
             List<BlockPos> list = this.getNearbyFreeNests();
@@ -902,7 +941,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
                 do {
                     if (!var2.hasNext()) {
                         CopperbugEntity.this.moveToNestGoal.clearPossibleNests();
-                        CopperbugEntity.this.nestPos = (BlockPos)list.get(0);
+                        CopperbugEntity.this.nestPos = list.get(0);
                         return;
                     }
 
@@ -943,20 +982,24 @@ public class CopperbugEntity extends Animal implements NeutralMob
             this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
+        @Override
         public boolean canUse() {
             return CopperbugEntity.this.nestPos != null && !CopperbugEntity.this.hasRestriction() && CopperbugEntity.this.canEnterNest() && !this.isCloseEnough(CopperbugEntity.this.nestPos) && CopperbugEntity.this.level().getBlockState(CopperbugEntity.this.nestPos).is(JamiesModTag.COPPERBUGNESTS);
         }
 
+        @Override
         public boolean canContinueToUse() {
             return this.canUse();
         }
 
+        @Override
         public void start() {
             this.ticks = 0;
             this.ticksUntilLost = 0;
             super.start();
         }
 
+        @Override
         public void stop() {
             this.ticks = 0;
             this.ticksUntilLost = 0;
@@ -964,6 +1007,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
             CopperbugEntity.this.navigation.resetMaxVisitedNodesMultiplier();
         }
 
+        @Override
         public void tick() {
             if (CopperbugEntity.this.nestPos != null) {
                 ++this.ticks;
@@ -997,7 +1041,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
         private boolean startMovingToFar(BlockPos pos) {
             CopperbugEntity.this.navigation.setMaxVisitedNodesMultiplier(10.0F);
-            CopperbugEntity.this.navigation.moveTo((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 2, 1.0);
+            CopperbugEntity.this.navigation.moveTo(pos.getX(), pos.getY(), pos.getZ(), 2, 1.0);
             return CopperbugEntity.this.navigation.getPath() != null && CopperbugEntity.this.navigation.getPath().canReach();
         }
 
@@ -1078,25 +1122,30 @@ public class CopperbugEntity extends Animal implements NeutralMob
             this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
+        @Override
         public boolean canUse() {
             return CopperbugEntity.this.copperPos != null && !CopperbugEntity.this.hasRestriction() && this.shouldMoveToFlower() && CopperbugEntity.this.isCopperBlock(CopperbugEntity.this.copperPos) && !CopperbugEntity.this.isWithinDistance(CopperbugEntity.this.copperPos, 2);
         }
 
+        @Override
         public boolean canContinueToUse() {
             return this.canUse();
         }
 
+        @Override
         public void start() {
             this.ticks = 0;
             super.start();
         }
 
+        @Override
         public void stop() {
             this.ticks = 0;
             CopperbugEntity.this.navigation.stop();
             CopperbugEntity.this.navigation.resetMaxVisitedNodesMultiplier();
         }
 
+        @Override
         public void tick() {
             if (CopperbugEntity.this.copperPos != null) {
                 ++this.ticks;
@@ -1125,6 +1174,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
             super();
         }
 
+        @Override
         public boolean canUse() {
             if (CopperbugEntity.this.getCopperOxidizedSinceScraping() >= 10) {
                 return false;
@@ -1135,10 +1185,12 @@ public class CopperbugEntity extends Animal implements NeutralMob
             }
         }
 
+        @Override
         public boolean canContinueToUse() {
             return this.canUse();
         }
 
+        @Override
         public void tick() {
         //    @Nullable PlayerEntity player = CopperbugEntity.this.attackingPlayer;
 
@@ -1153,8 +1205,8 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
                         if (block instanceof WeatheringCopperFullBlock copperBlock) {
                             if (optional2.isPresent()) {
-                                CopperbugEntity.this.level().playSound((Player)null, blockPos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                                CopperbugEntity.this.level().levelEvent((Player)null, 3005, blockPos, 0);
+                                CopperbugEntity.this.level().playSound(null, blockPos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                                CopperbugEntity.this.level().levelEvent(null, 3005, blockPos, 0);
                                // optional2;
                             }
 
@@ -1165,22 +1217,21 @@ public class CopperbugEntity extends Animal implements NeutralMob
                             }
                         }
 
-                        if (block instanceof CropBlock) {
-                            CropBlock cropBlock = (CropBlock)block;
+                        if (block instanceof CropBlock cropBlock) {
                             if (!cropBlock.isMaxAge(blockState)) {
                                 blockState2 = cropBlock.getStateForAge(cropBlock.getAge(blockState) + 1);
                             }
                         } else {
                             int j;
                             if (block instanceof StemBlock) {
-                                j = (Integer)blockState.getValue(StemBlock.AGE);
+                                j = blockState.getValue(StemBlock.AGE);
                                 if (j < 7) {
-                                    blockState2 = (BlockState)blockState.setValue(StemBlock.AGE, j + 1);
+                                    blockState2 = blockState.setValue(StemBlock.AGE, j + 1);
                                 }
                             } else if (blockState.is(Blocks.SWEET_BERRY_BUSH)) {
-                                j = (Integer)blockState.getValue(SweetBerryBushBlock.AGE);
+                                j = blockState.getValue(SweetBerryBushBlock.AGE);
                                 if (j < 3) {
-                                    blockState2 = (BlockState)blockState.setValue(SweetBerryBushBlock.AGE, j + 1);
+                                    blockState2 = blockState.setValue(SweetBerryBushBlock.AGE, j + 1);
                                 }
                             } else if (blockState.is(Blocks.CAVE_VINES) || blockState.is(Blocks.CAVE_VINES_PLANT)) {
                                 ((BonemealableBlock)blockState.getBlock()).performBonemeal((ServerLevel)CopperbugEntity.this.level(), CopperbugEntity.this.random, blockPos, blockState);

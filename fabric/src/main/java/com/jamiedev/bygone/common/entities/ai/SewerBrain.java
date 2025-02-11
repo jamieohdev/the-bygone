@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.common.entities.ai;
 
-import com.jamiedev.bygone.fabric.init.JamiesModTag;
+import com.jamiedev.bygone.init.JamiesModTag;
 import net.minecraft.world.item.ItemStack;
 
 public class SewerBrain

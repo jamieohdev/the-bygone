@@ -16,18 +16,21 @@ public class LubberNavigation  extends GroundPathNavigation {
         super(mobEntity, world);
     }
 
+    @Override
     public Path createPath(BlockPos target, int distance) {
         this.targetPos = target;
         return super.createPath(target, distance);
     }
 
+    @Override
     public Path createPath(Entity entity, int distance) {
         this.targetPos = entity.blockPosition();
         return super.createPath(entity, distance);
     }
 
+    @Override
     public boolean moveTo(Entity entity, double speed) {
-        Path path = this.createPath((Entity)entity, 0);
+        Path path = this.createPath(entity, 0);
         if (path != null) {
             return this.moveTo(path, speed);
         } else {
@@ -37,13 +40,14 @@ public class LubberNavigation  extends GroundPathNavigation {
         }
     }
 
+    @Override
     public void tick() {
         if (!this.isDone()) {
             super.tick();
         } else {
             if (this.targetPos != null) {
-                if (!this.targetPos.closerToCenterThan(this.mob.position(), (double)this.mob.getBbWidth()) && (!(this.mob.getY() > (double)this.targetPos.getY()) || !BlockPos.containing((double)this.targetPos.getX(), this.mob.getY(), (double)this.targetPos.getZ()).closerToCenterThan(this.mob.position(), (double)this.mob.getBbWidth()))) {
-                    this.mob.getMoveControl().setWantedPosition((double)this.targetPos.getX(), (double)this.targetPos.getY(), (double)this.targetPos.getZ(), this.speedModifier);
+                if (!this.targetPos.closerToCenterThan(this.mob.position(), this.mob.getBbWidth()) && (!(this.mob.getY() > (double)this.targetPos.getY()) || !BlockPos.containing(this.targetPos.getX(), this.mob.getY(), this.targetPos.getZ()).closerToCenterThan(this.mob.position(), this.mob.getBbWidth()))) {
+                    this.mob.getMoveControl().setWantedPosition(this.targetPos.getX(), this.targetPos.getY(), this.targetPos.getZ(), this.speedModifier);
                 } else {
                     this.targetPos = null;
                 }

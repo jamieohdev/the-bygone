@@ -26,38 +26,45 @@ public class ArcaneCoreBlock extends Block implements SimpleWaterloggedBlock {
 
     public ArcaneCoreBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(BlockStateProperties.WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.WATERLOGGED, false));
     }
 
+    @Override
     public MapCodec<ArcaneCoreBlock> codec() {
         return CODEC;
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{BlockStateProperties.WATERLOGGED});
+        builder.add(BlockStateProperties.WATERLOGGED);
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
-        if ((Boolean)state.getValue(BlockStateProperties.WATERLOGGED)) {
+        if (state.getValue(BlockStateProperties.WATERLOGGED)) {
             world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
         return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    @Override
     protected FluidState getFluidState(BlockState state) {
-        return (Boolean)state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+        return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
-        return (BlockState)this.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, fluidState.is(Fluids.WATER));
+        return this.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, fluidState.is(Fluids.WATER));
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return OUTLINE_SHAPE;
     }
 
+    @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }

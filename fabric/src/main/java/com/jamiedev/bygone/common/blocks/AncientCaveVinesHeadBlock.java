@@ -25,57 +25,69 @@ public class AncientCaveVinesHeadBlock extends GrowingPlantHeadBlock implements 
     public static final MapCodec<AncientCaveVinesHeadBlock> CODEC = simpleCodec(AncientCaveVinesHeadBlock::new);
     private static final float GROW_CHANCE = 0.11F;
 
+    @Override
     public MapCodec<AncientCaveVinesHeadBlock> codec() {
         return CODEC;
     }
 
     public AncientCaveVinesHeadBlock(BlockBehaviour.Properties settings) {
         super(settings, Direction.DOWN, SHAPE, false, 0.1);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(AGE, 0)).setValue(BERRIES, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(BERRIES, false));
     }
 
+    @Override
     protected int getBlocksToGrowWhenBonemealed(RandomSource random) {
         return 1;
     }
 
+    @Override
     protected boolean canGrowInto(BlockState state) {
         return state.isAir();
     }
 
+    @Override
     protected Block getBodyBlock() {
         return JamiesModBlocks.CAVE_VINES_PLANT;
     }
 
+    @Override
     protected BlockState updateBodyAfterConvertedFromHead(BlockState from, BlockState to) {
-        return (BlockState)to.setValue(BERRIES, (Boolean)from.getValue(BERRIES));
+        return to.setValue(BERRIES, from.getValue(BERRIES));
     }
 
+    @Override
     protected BlockState getGrowIntoState(BlockState state, RandomSource random) {
-        return (BlockState)super.getGrowIntoState(state, random).setValue(BERRIES, random.nextFloat() < 0.11F);
+        return super.getGrowIntoState(state, random).setValue(BERRIES, random.nextFloat() < 0.11F);
     }
 
+    @Override
     public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
         return new ItemStack(JamiesModBlocks.CAVE_VINES_PLANT);
     }
 
+    @Override
     protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         return AncientCaveVines.pickBerries(player, state, world, pos);
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(new Property[]{BERRIES});
+        builder.add(BERRIES);
     }
 
+    @Override
     public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
         return !(Boolean)state.getValue(BERRIES);
     }
 
+    @Override
     public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
+    @Override
     public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
-        world.setBlock(pos, (BlockState)state.setValue(BERRIES, true), 2);
+        world.setBlock(pos, state.setValue(BERRIES, true), 2);
     }
 }

@@ -4,7 +4,7 @@ import com.jamiedev.bygone.fabric.JamiesModFabric;
 import com.jamiedev.bygone.fabric.init.JamiesModBlocks;
 import com.jamiedev.bygone.fabric.init.JamiesModEntityTypes;
 import com.jamiedev.bygone.fabric.init.JamiesModSoundEvents;
-import com.jamiedev.bygone.fabric.init.JamiesModTag;
+import com.jamiedev.bygone.init.JamiesModTag;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 
@@ -94,17 +94,21 @@ public class BigBeakEntity  extends AbstractHorse
     private float field_28639 = 1.0F;
 
     private final Container inventory = new ContainerSingleItem() {
+        @Override
         public ItemStack getTheItem() {
             return BigBeakEntity.this.getBodyArmorItem();
         }
 
+        @Override
         public void setTheItem(ItemStack stack) {
             BigBeakEntity.this.setBodyArmorItem(stack);
         }
 
+        @Override
         public void setChanged() {
         }
 
+        @Override
         public boolean stillValid(Player player) {
             return player.getVehicle() == BigBeakEntity.this || player.canInteractWithEntity(
                     BigBeakEntity.this, 4.0);
@@ -119,7 +123,7 @@ public class BigBeakEntity  extends AbstractHorse
         AttributeInstance var10000 = this.getAttribute(Attributes.MAX_HEALTH);
         Objects.requireNonNull(random);
         assert var10000 != null;
-        var10000.setBaseValue((double)generateMaxHealth(random::nextInt));
+        var10000.setBaseValue(generateMaxHealth(random::nextInt));
         var10000 = this.getAttribute(Attributes.MOVEMENT_SPEED);
         Objects.requireNonNull(random);
         assert var10000 != null;
@@ -140,6 +144,7 @@ public class BigBeakEntity  extends AbstractHorse
                 .add(Attributes.FALL_DAMAGE_MULTIPLIER, 0.5);
     }
 
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.2));
         this.goalSelector.addGoal(1, new RunAroundLikeCrazyGoal(this, 1.2));
@@ -158,6 +163,7 @@ public class BigBeakEntity  extends AbstractHorse
         this.addBehaviourGoals();
     }
 
+    @Override
     public void aiStep() {
         this.prevFlapProgress = this.flapProgress;
         this.prevMaxWingDeviation = this.maxWingDeviation;
@@ -200,19 +206,23 @@ public class BigBeakEntity  extends AbstractHorse
     }
 
 
+    @Override
     public float getLightLevelDependentMagicValue() {
         return 1.0F;
     }
 
+    @Override
     protected boolean isFlapping() {
         return this.flyDist > this.field_28639;
     }
 
+    @Override
     protected void onFlap() {
         this.field_28639 = this.flyDist + this.maxWingDeviation / 2.0F;
     }
 
 
+    @Override
     public void containerChanged(Container sender) {
         ItemStack itemStack = this.getBodyArmorItem();
         super.containerChanged(sender);
@@ -231,6 +241,7 @@ public class BigBeakEntity  extends AbstractHorse
         }
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         if (!state.liquid()) {
             BlockState blockState = this.level().getBlockState(pos.above());
@@ -265,24 +276,29 @@ public class BigBeakEntity  extends AbstractHorse
     }
 
 
+    @Override
     public boolean removeWhenFarAway(double distanceSquared) {
         return this.isPassenger();
     }
 
 
+    @Override
     protected SoundEvent getAmbientSound() {
         return JamiesModSoundEvents.BIGBEAK_AMBIENT_ADDITIONS_EVENT;
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return JamiesModSoundEvents.BIGBEAK_DEATH_ADDITIONS_EVENT;
     }
 
+    @Override
     @Nullable
     protected SoundEvent getEatingSound() {
         return SoundEvents.PARROT_EAT;
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return JamiesModSoundEvents.BIGBEAK_HURT_ADDITIONS_EVENT;
     }
@@ -310,6 +326,7 @@ public class BigBeakEntity  extends AbstractHorse
         return stack.is(ItemTags.CHICKEN_FOOD);
     }
 
+    @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         boolean bl = !this.isBaby() && this.isTamed() && player.isSecondaryUseActive();
         if (!this.isVehicle() && !bl) {
@@ -345,15 +362,17 @@ public class BigBeakEntity  extends AbstractHorse
     }
 
 
+    @Override
     public boolean canMate(Animal other) {
         return false;
     }
 
+    @Override
     @Nullable
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
 
             BigBeakEntity BigBeakEntity = (BigBeakEntity)entity;
-            BigBeakEntity BigBeakEntity2 = (BigBeakEntity)JamiesModEntityTypes.BIG_BEAK.create(world);
+            BigBeakEntity BigBeakEntity2 = JamiesModEntityTypes.BIG_BEAK.create(world);
             if (BigBeakEntity2 != null) {
                 int i = this.random.nextInt(9);
                 this.setOffspringAttributes(entity, BigBeakEntity2);
@@ -363,6 +382,7 @@ public class BigBeakEntity  extends AbstractHorse
 
     }
 
+    @Override
     public boolean canUseSlot(EquipmentSlot slot) {
         return true;
     }
@@ -407,8 +427,9 @@ public class BigBeakEntity  extends AbstractHorse
     }
 
 
+    @Override
     protected void setOffspringAttributes(AgeableMob other, AbstractHorse child) {
-        this.setOffspringAttribute(other, child, Attributes.MAX_HEALTH, (double)MIN_HEALTH_BONUS, (double)MAX_HEALTH_BONUS);
+        this.setOffspringAttribute(other, child, Attributes.MAX_HEALTH, MIN_HEALTH_BONUS, MAX_HEALTH_BONUS);
     }
 
     private void setOffspringAttribute(AgeableMob other, AbstractHorse child, Holder<Attribute> attribute, double min, double max) {
@@ -425,13 +446,15 @@ public class BigBeakEntity  extends AbstractHorse
         return world.getRawBrightness(pos, 0) > 1;
     }
 
+    @Override
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
         RandomSource random = world.getRandom();
 
-        return super.finalizeSpawn(world, difficulty, spawnReason, (SpawnGroupData)entityData);
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
+    @Override
     public EntityDimensions getDefaultDimensions(Pose pose) {
         return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getDefaultDimensions(pose);
     }
@@ -451,6 +474,7 @@ public class BigBeakEntity  extends AbstractHorse
                 serverWorldAccess.getBlockState(blockPos.below()).is(JamiesModBlocks.MOSSY_CLAYSTONE);
     }
 
+    @Override
     public boolean checkSpawnObstruction(LevelReader world) {
         return world.isUnobstructed(this);
     }
@@ -475,6 +499,6 @@ public class BigBeakEntity  extends AbstractHorse
 
 
     public enum State {
-        FLAPPING, IDLE;
+        FLAPPING, IDLE
     }
 }

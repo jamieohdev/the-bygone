@@ -35,17 +35,19 @@ public class ScuttleSpikeEntity  extends AbstractArrow
     }
 
     public ScuttleSpikeEntity(Level world, LivingEntity owner, ItemStack stack) {
-        super(JamiesModEntityTypes.SCUTTLE_SPIKE, owner, world, stack, (ItemStack)null);
+        super(JamiesModEntityTypes.SCUTTLE_SPIKE, owner, world, stack, null);
     }
 
     public ScuttleSpikeEntity(Level world, double x, double y, double z, ItemStack stack) {
         super(JamiesModEntityTypes.SCUTTLE_SPIKE, x, y, z, world, stack, stack);
     }
 
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
     }
 
+    @Override
     public void tick() {
         if (this.inGroundTime > 4) {
             this.dealtDamage = true;
@@ -58,16 +60,18 @@ public class ScuttleSpikeEntity  extends AbstractArrow
 
         super.tick();
     }
+    @Override
     @Nullable
     protected EntityHitResult findHitEntity(Vec3 currentPosition, Vec3 nextPosition) {
         return this.dealtDamage ? null : super.findHitEntity(currentPosition, nextPosition);
     }
 
+    @Override
     protected void onHitEntity(EntityHitResult entityHitResult) {
         Entity entity = entityHitResult.getEntity();
         float f = 8.0F;
         Entity entity2 = this.getOwner();
-        DamageSource damageSource = this.damageSources().trident(this, (Entity)(entity2 == null ? this : entity2));
+        DamageSource damageSource = this.damageSources().trident(this, entity2 == null ? this : entity2);
         Level var7 = this.level();
         if (var7 instanceof ServerLevel serverWorld) {
             f = EnchantmentHelper.modifyDamage(serverWorld, Objects.requireNonNull(this.getWeaponItem()), entity, damageSource, f);
@@ -88,7 +92,7 @@ public class ScuttleSpikeEntity  extends AbstractArrow
             if (entity instanceof LivingEntity livingEntity) {
                 this.doKnockback(livingEntity, damageSource);
                 this.doPostHurtEffects(livingEntity);
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200), (Entity) MoreObjects.firstNonNull(entity2, this));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200), MoreObjects.firstNonNull(entity2, this));
             }
         }
 
@@ -96,26 +100,32 @@ public class ScuttleSpikeEntity  extends AbstractArrow
         this.playSound(SoundEvents.GLOW_INK_SAC_USE, 1.0F, 1.0F);
     }
 
+    @Override
     protected void hitBlockEnchantmentEffects(ServerLevel world, BlockHitResult blockHitResult, ItemStack weaponStack) {
         this.kill();
     }
 
+    @Override
     public ItemStack getWeaponItem() {
         return this.getPickupItemStackOrigin();
     }
 
+    @Override
     protected boolean tryPickup(Player player) {
         return super.tryPickup(player) || this.isNoPhysics() && this.ownedBy(player) && player.getInventory().add(this.getPickupItem());
     }
 
+    @Override
     protected ItemStack getDefaultPickupItem() {
         return new ItemStack(Items.TRIDENT);
     }
 
+    @Override
     protected SoundEvent getDefaultHitGroundSoundEvent() {
         return SoundEvents.TRIDENT_HIT_GROUND;
     }
 
+    @Override
     public void playerTouch(Player player) {
         if (this.ownedBy(player) || this.getOwner() == null) {
             super.playerTouch(player);
@@ -123,21 +133,25 @@ public class ScuttleSpikeEntity  extends AbstractArrow
 
     }
 
+    @Override
     public void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.dealtDamage = nbt.getBoolean("DealtDamage");
     }
 
+    @Override
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putBoolean("DealtDamage", this.dealtDamage);
     }
 
 
+    @Override
     protected float getWaterInertia() {
         return 0.99F;
     }
 
+    @Override
     public boolean shouldRender(double cameraX, double cameraY, double cameraZ) {
         return true;
     }

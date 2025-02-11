@@ -51,6 +51,7 @@ public class JellyshroomModel<T extends Entity> extends HierarchicalModel<T> {
         return LayerDefinition.create(modelData, 64, 32);
     }
 
+    @Override
     public void setupAnim(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         ModelPart[] var7 = this.tentacles;
         int var8 = var7.length;
@@ -62,6 +63,7 @@ public class JellyshroomModel<T extends Entity> extends HierarchicalModel<T> {
 
     }
 
+    @Override
     public ModelPart root() {
         return this.root;
     }

@@ -19,26 +19,31 @@ public abstract class UpsidedownPlantBlock  extends Block {
         super(settings);
     }
 
+    @Override
     protected abstract MapCodec<? extends UpsidedownPlantBlock> codec();
 
     protected boolean canPlantOnTop(BlockState floor, BlockGetter world, BlockPos pos) {
         return floor.is(BlockTags.DIRT) || floor.is(JamiesModBlocks.LIMBOSTONE)|| floor.is(JamiesModBlocks.LIMBOSLATE);
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         return !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         BlockPos blockPos = pos.above();
         return this.canPlantOnTop(world.getBlockState(blockPos), world, blockPos);
     }
 
+    @Override
     protected boolean propagatesSkylightDown(BlockState state, BlockGetter world, BlockPos pos) {
         return state.getFluidState().isEmpty();
     }
 
+    @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
-        return type == PathComputationType.AIR && !this.hasCollision ? true : super.isPathfindable(state, type);
+        return type == PathComputationType.AIR && !this.hasCollision || super.isPathfindable(state, type);
     }
 }

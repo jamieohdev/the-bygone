@@ -29,6 +29,7 @@ public class BygonePortalBlock extends CustomPortalBlock
     EndPortalBlock ref;
     public static final MapCodec<BygonePortalBlock> CODEC = simpleCodec(BygonePortalBlock::new);
 
+    @Override
     public MapCodec<BygonePortalBlock> codec() {
         return CODEC;
     }
@@ -46,10 +47,12 @@ public class BygonePortalBlock extends CustomPortalBlock
         return SHAPE;
     }
 
+    @Override
     public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
         return ItemStack.EMPTY;
     }
 
+    @Override
     protected boolean canBeReplaced(BlockState state, Fluid fluid) {
         return false;
     }

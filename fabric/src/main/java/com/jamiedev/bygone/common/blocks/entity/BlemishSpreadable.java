@@ -15,6 +15,7 @@ import net.minecraft.world.level.material.Fluids;
 
 public interface BlemishSpreadable {
     BlemishSpreadable VEIN_ONLY_SPREADER = new BlemishSpreadable() {
+        @Override
         public boolean spread(LevelAccessor world, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
             if (directions == null) {
                 return ((BlemishVeinBlock) JamiesModBlocks.BLEMISH_VEIN).getSamePositionOnlyGrower().spreadAll(world.getBlockState(pos), world, pos, markForPostProcessing) > 0L;
@@ -25,10 +26,12 @@ public interface BlemishSpreadable {
             }
         }
 
+        @Override
         public int spread(BlemishSpreadManager.Cursor cursor, LevelAccessor world, BlockPos catalystPos, RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock) {
             return cursor.getDecay() > 0 ? cursor.getCharge() : 0;
         }
 
+        @Override
         public int getDecay(int oldDecay) {
             return Math.max(oldDecay - 1, 0);
         }

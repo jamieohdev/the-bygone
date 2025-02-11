@@ -24,12 +24,13 @@ public class AncientFungusFeature  extends Feature<HugeFungusConfiguration> {
         super(codec);
     }
 
+    @Override
     public boolean place(FeaturePlaceContext<HugeFungusConfiguration> context) {
         WorldGenLevel structureWorldAccess = context.level();
         BlockPos blockPos = context.origin();
         RandomSource random = context.random();
         ChunkGenerator chunkGenerator = context.chunkGenerator();
-        HugeFungusConfiguration hugeFungusFeatureConfig = (HugeFungusConfiguration)context.config();
+        HugeFungusConfiguration hugeFungusFeatureConfig = context.config();
         Block block = hugeFungusFeatureConfig.validBaseState.getBlock();
         BlockPos blockPos2 = null;
         BlockState blockState = structureWorldAccess.getBlockState(blockPos.above());
@@ -64,7 +65,7 @@ public class AncientFungusFeature  extends Feature<HugeFungusConfiguration> {
         if (world.isStateAtPosition(pos, BlockBehaviour.BlockStateBase::canBeReplaced)) {
             return true;
         } else {
-            return checkConfig ? config.replaceableBlocks.test(world, pos) : false;
+            return checkConfig && config.replaceableBlocks.test(world, pos);
         }
     }
 

@@ -38,55 +38,65 @@ public class BygonePortalFrameBlock extends Block {
     protected static final VoxelShape FRAME_WITH_EYE_SHAPE;
     private static BlockPattern COMPLETED_FRAME;
 
+    @Override
     public MapCodec<BygonePortalFrameBlock> codec() {
         return CODEC;
     }
 
     public BygonePortalFrameBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(FACING, Direction.NORTH)).setValue(EYE, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(EYE, false));
     }
 
+    @Override
     protected boolean useShapeForLightOcclusion(BlockState state) {
         return true;
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return (Boolean)state.getValue(EYE) ? FRAME_WITH_EYE_SHAPE : FRAME_SHAPE;
+        return state.getValue(EYE) ? FRAME_WITH_EYE_SHAPE : FRAME_SHAPE;
     }
 
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return (BlockState)((BlockState)this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite())).setValue(EYE, false);
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(EYE, false);
     }
 
+    @Override
     protected boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
+    @Override
     protected int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-        return (Boolean)state.getValue(EYE) ? 15 : 0;
+        return state.getValue(EYE) ? 15 : 0;
     }
 
+    @Override
     protected BlockState rotate(BlockState state, Rotation rotation) {
-        return (BlockState)state.setValue(FACING, rotation.rotate((Direction)state.getValue(FACING)));
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
+    @Override
     protected BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation((Direction)state.getValue(FACING)));
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{FACING, EYE});
+        builder.add(FACING, EYE);
     }
 
     public static BlockPattern getCompletedFramePattern() {
         if (COMPLETED_FRAME == null) {
-            COMPLETED_FRAME = BlockPatternBuilder.start().aisle(new String[]{"?vvv?", ">???<", ">???<", ">???<", "?^^^?"}).where('?', BlockInWorld.hasState(BlockStatePredicate.ANY)).where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(JamiesModBlocks.BYGONE_PORTAL_FRAME).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.SOUTH)))).where('>', BlockInWorld.hasState(BlockStatePredicate.forBlock(JamiesModBlocks.BYGONE_PORTAL_FRAME).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.WEST)))).where('v', BlockInWorld.hasState(BlockStatePredicate.forBlock(JamiesModBlocks.BYGONE_PORTAL_FRAME).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.NORTH)))).where('<', BlockInWorld.hasState(BlockStatePredicate.forBlock(JamiesModBlocks.BYGONE_PORTAL_FRAME).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.EAST)))).build();
+            COMPLETED_FRAME = BlockPatternBuilder.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?").where('?', BlockInWorld.hasState(BlockStatePredicate.ANY)).where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(JamiesModBlocks.BYGONE_PORTAL_FRAME).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.SOUTH)))).where('>', BlockInWorld.hasState(BlockStatePredicate.forBlock(JamiesModBlocks.BYGONE_PORTAL_FRAME).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.WEST)))).where('v', BlockInWorld.hasState(BlockStatePredicate.forBlock(JamiesModBlocks.BYGONE_PORTAL_FRAME).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.NORTH)))).where('<', BlockInWorld.hasState(BlockStatePredicate.forBlock(JamiesModBlocks.BYGONE_PORTAL_FRAME).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.EAST)))).build();
         }
 
         return COMPLETED_FRAME;
     }
 
+    @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }

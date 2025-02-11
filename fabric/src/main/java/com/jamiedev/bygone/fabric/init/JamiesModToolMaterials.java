@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.Block;
 public enum JamiesModToolMaterials implements Tier {
 
     VERDIGRIS(BlockTags.INCORRECT_FOR_IRON_TOOL, 250, 6.0F, 2.0F, 0, () -> {
-        return Ingredient.of(new ItemLike[]{JamiesModItems.VERDIGRIS_INGOT});
+        return Ingredient.of(JamiesModItems.VERDIGRIS_INGOT);
     });
 
     private final TagKey<Block> inverseTag;
@@ -23,7 +23,7 @@ public enum JamiesModToolMaterials implements Tier {
     private final int enchantability;
     private final Supplier<Ingredient> repairIngredient;
 
-    private JamiesModToolMaterials(final TagKey inverseTag, final int itemDurability, final float miningSpeed, final float attackDamage, final int enchantability, final Supplier<Ingredient> repairIngredient) {
+    JamiesModToolMaterials(final TagKey inverseTag, final int itemDurability, final float miningSpeed, final float attackDamage, final int enchantability, final Supplier<Ingredient> repairIngredient) {
         this.inverseTag = inverseTag;
         this.itemDurability = itemDurability;
         this.miningSpeed = miningSpeed;
@@ -33,27 +33,33 @@ public enum JamiesModToolMaterials implements Tier {
         this.repairIngredient = Suppliers.memoize(repairIngredient::get);
     }
 
+    @Override
     public int getUses() {
         return this.itemDurability;
     }
 
+    @Override
     public float getSpeed() {
         return this.miningSpeed;
     }
 
+    @Override
     public float getAttackDamageBonus() {
         return this.attackDamage;
     }
 
+    @Override
     public TagKey<Block> getIncorrectBlocksForDrops() {
         return this.inverseTag;
     }
 
+    @Override
     public int getEnchantmentValue() {
         return this.enchantability;
     }
 
+    @Override
     public Ingredient getRepairIngredient() {
-        return (Ingredient)this.repairIngredient.get();
+        return this.repairIngredient.get();
     }
 }

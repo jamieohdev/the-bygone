@@ -79,23 +79,27 @@ public class CopperbugNestBlock extends BaseEntityBlock
     public static final int FULL_OXIDIZATION_LEVEL = 5;
     private static final int DROPPED_HONEYCOMB_COUNT = 3;
 
+    @Override
     public MapCodec<CopperbugNestBlock> codec() {
         return CODEC;
     }
 
     public CopperbugNestBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(OXIDIZATION_LEVEL, 0)).setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(OXIDIZATION_LEVEL, 0).setValue(FACING, Direction.NORTH));
     }
 
+    @Override
     protected boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
+    @Override
     protected int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-        return (Integer)state.getValue(OXIDIZATION_LEVEL);
+        return state.getValue(OXIDIZATION_LEVEL);
     }
 
+    @Override
     public void playerDestroy(Level world, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
         super.playerDestroy(world, player, pos, state, blockEntity, tool);
         if (!world.isClientSide && blockEntity instanceof CopperbugNestBlockEntity beehiveBlockEntity) {
@@ -124,7 +128,7 @@ public class CopperbugNestBlock extends BaseEntityBlock
             while(var6.hasNext()) {
                 CopperbugEntity beeEntity = (CopperbugEntity)var6.next();
                 if (beeEntity.getTarget() == null) {
-                    Player playerEntity = (Player) Util.getRandom(list2, world.random);
+                    Player playerEntity = Util.getRandom(list2, world.random);
                     beeEntity.setTarget(playerEntity);
                 }
             }
@@ -143,8 +147,9 @@ public class CopperbugNestBlock extends BaseEntityBlock
         }
     }
 
+    @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        int i = (Integer)state.getValue(OXIDIZATION_LEVEL);
+        int i = state.getValue(OXIDIZATION_LEVEL);
         boolean bl = false;
         if (i >= 5) {
             Item item = stack.getItem();
@@ -208,11 +213,12 @@ public class CopperbugNestBlock extends BaseEntityBlock
     }
 
     public void takeOxidization(Level world, BlockState state, BlockPos pos) {
-        world.setBlock(pos, (BlockState)state.setValue(OXIDIZATION_LEVEL, 0), 3);
+        world.setBlock(pos, state.setValue(OXIDIZATION_LEVEL, 0), 3);
     }
 
+    @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
-        if ((Integer)state.getValue(OXIDIZATION_LEVEL) >= 5) {
+        if (state.getValue(OXIDIZATION_LEVEL) >= 5) {
             for(int i = 0; i < random.nextInt(1) + 1; ++i) {
                 this.spawnHoneyParticles(world, pos, state);
             }
@@ -250,40 +256,45 @@ public class CopperbugNestBlock extends BaseEntityBlock
         world.addParticle(ParticleTypes.DRIPPING_HONEY, Mth.lerp(world.random.nextDouble(), minX, maxX), height, Mth.lerp(world.random.nextDouble(), minZ, maxZ), 0.0, 0.0, 0.0);
     }
 
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return (BlockState)this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{OXIDIZATION_LEVEL, FACING});
+        builder.add(OXIDIZATION_LEVEL, FACING);
     }
 
+    @Override
     protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
 
+    @Override
     @Nullable
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new CopperbugNestBlockEntity(pos, state);
     }
 
+    @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
         return world.isClientSide ? null : createTickerHelper(type, JamiesModBlockEntities.COPPERBUGNEST, CopperbugNestBlockEntity::serverTick);
     }
 
+    @Override
     public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
         if (!world.isClientSide && player.isCreative() && world.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof CopperbugNestBlockEntity) {
-                CopperbugNestBlockEntity beehiveBlockEntity = (CopperbugNestBlockEntity)blockEntity;
-                int i = (Integer)state.getValue(OXIDIZATION_LEVEL);
+            if (blockEntity instanceof CopperbugNestBlockEntity beehiveBlockEntity) {
+                int i = state.getValue(OXIDIZATION_LEVEL);
                 boolean bl = !beehiveBlockEntity.hasNoCopperbugs();
                 if (bl || i > 0) {
                     ItemStack itemStack = new ItemStack(this);
                     itemStack.applyComponents(beehiveBlockEntity.collectComponents());
                     itemStack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(OXIDIZATION_LEVEL, i));
-                    ItemEntity itemEntity = new ItemEntity(world, (double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), itemStack);
+                    ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
                     itemEntity.setDefaultPickUpDelay();
                     world.addFreshEntity(itemEntity);
                 }
@@ -293,37 +304,39 @@ public class CopperbugNestBlock extends BaseEntityBlock
         return super.playerWillDestroy(world, pos, state, player);
     }
 
+    @Override
     protected List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-        Entity entity = (Entity)builder.getOptionalParameter(LootContextParams.THIS_ENTITY);
+        Entity entity = builder.getOptionalParameter(LootContextParams.THIS_ENTITY);
         if (entity instanceof PrimedTnt || entity instanceof Creeper || entity instanceof WitherSkull || entity instanceof WitherBoss || entity instanceof MinecartTNT) {
-            BlockEntity blockEntity = (BlockEntity)builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
-            if (blockEntity instanceof CopperbugNestBlockEntity) {
-                CopperbugNestBlockEntity beehiveBlockEntity = (CopperbugNestBlockEntity)blockEntity;
-                beehiveBlockEntity.angerCopperbugs((Player)null, state, CopperbugNestBlockEntity.CopperbugState.EMERGENCY);
+            BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+            if (blockEntity instanceof CopperbugNestBlockEntity beehiveBlockEntity) {
+                beehiveBlockEntity.angerCopperbugs(null, state, CopperbugNestBlockEntity.CopperbugState.EMERGENCY);
             }
         }
 
         return super.getDrops(state, builder);
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         if (world.getBlockState(neighborPos).getBlock() instanceof FireBlock) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof CopperbugNestBlockEntity) {
-                CopperbugNestBlockEntity beehiveBlockEntity = (CopperbugNestBlockEntity)blockEntity;
-                beehiveBlockEntity.angerCopperbugs((Player)null, state, CopperbugNestBlockEntity.CopperbugState.EMERGENCY);
+            if (blockEntity instanceof CopperbugNestBlockEntity beehiveBlockEntity) {
+                beehiveBlockEntity.angerCopperbugs(null, state, CopperbugNestBlockEntity.CopperbugState.EMERGENCY);
             }
         }
 
         return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    @Override
     public BlockState rotate(BlockState state, Rotation rotation) {
-        return (BlockState)state.setValue(FACING, rotation.rotate((Direction)state.getValue(FACING)));
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
+    @Override
     public BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation((Direction)state.getValue(FACING)));
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     static {

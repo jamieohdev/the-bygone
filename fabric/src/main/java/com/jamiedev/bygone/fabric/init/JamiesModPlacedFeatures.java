@@ -37,15 +37,14 @@ public class JamiesModPlacedFeatures
         Holder<ConfiguredFeature<?, ?>> registryEntry6 = holderGetter.getOrThrow(JamiesModConfiguredFeatures.POINTED_AMBER);
         Holder<ConfiguredFeature<?, ?>> fir = holderGetter.getOrThrow(JamiesModConfiguredFeatures.ANCIENT_TREE);
         PlacementUtils.register(featureRegisterable, ANCIENT_TREE_CHECKED, fir, PlacementUtils.filteredByBlockSurvival(JamiesModBlocks.ANCIENT_SAPLING));
-        PlacementUtils.register(featureRegisterable, POINTED_AMBER, registryEntry6, new PlacementModifier[]{
-                CountPlacement.of(UniformInt.of(192, 256)),
+        PlacementUtils.register(featureRegisterable, POINTED_AMBER, registryEntry6, CountPlacement.of(UniformInt.of(192, 256)),
                 InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
                 CountPlacement.of(UniformInt.of(1, 5)),
                 RandomOffsetPlacement.of(ClampedNormalInt.of(0.0F, 3.0F, -10, 10),
-                        ClampedNormalInt.of(0.0F, 0.6F, -2, 2)), BiomeFilter.biome()});
-        PlacementUtils.register(featureRegisterable, AMBER_CLUSTER, registryEntry4, new PlacementModifier[]{CountPlacement.of(
+                        ClampedNormalInt.of(0.0F, 0.6F, -2, 2)), BiomeFilter.biome());
+        PlacementUtils.register(featureRegisterable, AMBER_CLUSTER, registryEntry4, CountPlacement.of(
                 UniformInt.of(48, 96)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-                BiomeFilter.biome()});
+                BiomeFilter.biome());
 
     }
 

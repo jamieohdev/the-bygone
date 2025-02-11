@@ -36,7 +36,6 @@ public class MixinItemRenderer {
             matrices.mulPose(Axis.XP.rotationDegrees(0f));
             matrices.mulPose(Axis.YP.rotationDegrees(0f));
             matrices.mulPose(Axis.ZP.rotationDegrees(-20f));
-            ;
         }
     }
 

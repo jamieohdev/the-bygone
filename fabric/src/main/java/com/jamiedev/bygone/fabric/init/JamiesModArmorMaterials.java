@@ -19,7 +19,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class JamiesModArmorMaterials
 {
-    public static Holder<ArmorMaterial> SCALE = register("scale", Util.make(new EnumMap(ArmorItem.Type.class), map -> {
+    public static Holder<ArmorMaterial> SCALE = register("scale", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
         map.put(ArmorItem.Type.BOOTS, 3);
         map.put(ArmorItem.Type.LEGGINGS, 6);
         map.put(ArmorItem.Type.CHESTPLATE, 8);
@@ -58,7 +58,7 @@ public class JamiesModArmorMaterials
         EnumMap<ArmorItem.Type, Integer> enumMap = new EnumMap(ArmorItem.Type.class);
 
         for (ArmorItem.Type type : ArmorItem.Type.values()) {
-            enumMap.put(type, (Integer)defense.get(type));
+            enumMap.put(type, defense.get(type));
         }
 
         return Registry.registerForHolder(

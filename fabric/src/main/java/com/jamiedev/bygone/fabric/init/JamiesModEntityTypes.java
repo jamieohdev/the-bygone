@@ -130,7 +130,7 @@ public class JamiesModEntityTypes {
 
     public static final  EntityType<RisingBlockEntity> RISING_BLOCK = Registry.register(BuiltInRegistries.ENTITY_TYPE,
             Bygone.getModId("rising_block"),
-            FabricEntityTypeBuilder.<RisingBlockEntity>create(MobCategory.MISC, RisingBlockEntity::new)
+            FabricEntityTypeBuilder.create(MobCategory.MISC, RisingBlockEntity::new)
                     .dimensions(EntityDimensions.fixed(0.98F, 0.98F))
                     .trackRangeChunks(10)
                     .trackedUpdateRate(20)
@@ -138,7 +138,7 @@ public class JamiesModEntityTypes {
 
     public static final  EntityType<CopperbugEntity> COPPERBUG = Registry.register(BuiltInRegistries.ENTITY_TYPE,
             Bygone.getModId("copperbug"),
-            FabricEntityTypeBuilder.<CopperbugEntity>create(MobCategory.CREATURE, CopperbugEntity::new)
+            FabricEntityTypeBuilder.create(MobCategory.CREATURE, CopperbugEntity::new)
                     .dimensions(EntityDimensions.fixed(0.4F, 0.3F).withEyeHeight(0.13F)).trackRangeChunks(8)
                     .trackedUpdateRate(8)
                     .build());

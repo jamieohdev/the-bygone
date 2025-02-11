@@ -25,11 +25,11 @@ public interface AncientCaveVines {
     BooleanProperty BERRIES = BlockStateProperties.BERRIES;
 
     static InteractionResult pickBerries(@Nullable Entity picker, BlockState state, Level world, BlockPos pos) {
-        if ((Boolean)state.getValue(BERRIES)) {
+        if (state.getValue(BERRIES)) {
             Block.popResource(world, pos, new ItemStack(Blocks.GLOWSTONE, 1));
             float f = Mth.randomBetween(world.random, 0.8F, 1.2F);
-            world.playSound((Player)null, pos, SoundEvents.CAVE_VINES_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, f);
-            BlockState blockState = (BlockState)state.setValue(BERRIES, false);
+            world.playSound(null, pos, SoundEvents.CAVE_VINES_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, f);
+            BlockState blockState = state.setValue(BERRIES, false);
             world.setBlock(pos, blockState, 2);
             world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(picker, blockState));
             return InteractionResult.sidedSuccess(world.isClientSide);
@@ -39,7 +39,7 @@ public interface AncientCaveVines {
     }
 
     static boolean hasBerries(BlockState state) {
-        return state.hasProperty(BERRIES) && (Boolean)state.getValue(BERRIES);
+        return state.hasProperty(BERRIES) && state.getValue(BERRIES);
     }
 
     static ToIntFunction<BlockState> getLuminanceSupplier(int luminance) {

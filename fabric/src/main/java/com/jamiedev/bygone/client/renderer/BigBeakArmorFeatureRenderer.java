@@ -31,6 +31,7 @@ public class BigBeakArmorFeatureRenderer extends RenderLayer<BigBeakEntity, BigB
         this.model = new BigBeakModel<>(loader.bakeLayer(JamiesModModelLayers.BIG_BEAK_ARMOR));
     }
 
+    @Override
     public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, BigBeakEntity BigBeakEntity, float f, float g, float h, float j, float k, float l) {
         ItemStack itemStack = BigBeakEntity.getBodyArmorItem();
         Item var13 = itemStack.getItem();

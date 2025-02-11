@@ -17,6 +17,7 @@ public class ShelfFungiFanBlock  extends Block
     public static final MapCodec<ShelfFungiFanBlock> CODEC = simpleCodec(ShelfFungiFanBlock::new);
     private static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 4.0, 14.0);
 
+    @Override
     public MapCodec<? extends ShelfFungiFanBlock> codec() {
         return CODEC;
     }
@@ -25,6 +26,7 @@ public class ShelfFungiFanBlock  extends Block
         super(settings);
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }

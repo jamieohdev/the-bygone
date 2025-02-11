@@ -34,7 +34,7 @@ import java.util.Iterator;
 
 public class SprinklerBlock extends BaseEntityBlock implements BonemealableBlock
 {
-    public static final VoxelShape SHAPE= Block.box((double)5.0F, (double)0.0F, (double)5.0F, (double)11.0F, (double)6.0F, (double)11.0F);
+    public static final VoxelShape SHAPE= Block.box(5.0F, 0.0F, 5.0F, 11.0F, 6.0F, 11.0F);
     public static final MapCodec<SprinklerBlock> CODEC = simpleCodec(SprinklerBlock::new);
    // public static final IntProperty FERTILIZERS;
     public static final IntegerProperty AGE;
@@ -42,13 +42,14 @@ public class SprinklerBlock extends BaseEntityBlock implements BonemealableBlock
 
     public SprinklerBlock(Properties settings) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(this.getAgeProperty(), 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(this.getAgeProperty(), 0));
     }
     protected IntegerProperty getAgeProperty() {
         return AGE;
     }
 
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
@@ -58,6 +59,7 @@ public class SprinklerBlock extends BaseEntityBlock implements BonemealableBlock
         return CODEC;
     }
 
+    @Override
     protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
@@ -77,14 +79,14 @@ public class SprinklerBlock extends BaseEntityBlock implements BonemealableBlock
                 return false;
             }
 
-            blockPos = (BlockPos)var2.next();
+            blockPos = var2.next();
         } while(world.getBlockState(blockPos).is(BlockTags.CROPS));
 
         return true;
     }
 
     private static boolean canFertilize(BlockState state) {
-        return (Integer)state.getValue(AGE) < 2;
+        return state.getValue(AGE) < 2;
     }
 
 
@@ -92,6 +94,7 @@ public class SprinklerBlock extends BaseEntityBlock implements BonemealableBlock
         return stack.is(Items.BONE_MEAL);
     }
 
+    @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (isFertilizerItem(stack)) {
             stack.consume(1, player);
@@ -125,8 +128,9 @@ public class SprinklerBlock extends BaseEntityBlock implements BonemealableBlock
         }
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{AGE});
+        builder.add(AGE);
     }
 
     @Override

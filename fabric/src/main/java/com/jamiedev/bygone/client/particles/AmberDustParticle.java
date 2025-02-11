@@ -47,6 +47,7 @@ public class AmberDustParticle extends TextureSheetParticle {
         super(clientWorld, d, e, f);
     }
 
+    @Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
@@ -58,9 +59,11 @@ public class AmberDustParticle extends TextureSheetParticle {
             this.spriteProvider = spriteProvider;
         }
 
+        @Override
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i) {
             AmberDustParticle waterSuspendParticle = new AmberDustParticle(this, clientWorld,
                     this.spriteProvider, d, e, f, 0.0, -0.800000011920929, 0.0) {
+                @Override
                 public Optional<ParticleGroup> getParticleGroup() {
                     return Optional.of(ParticleGroup.SPORE_BLOSSOM);
                 }
@@ -81,6 +84,7 @@ public class AmberDustParticle extends TextureSheetParticle {
             this.spriteProvider = spriteProvider;
         }
 
+        @Override
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i) {
             double j = (double)clientWorld.random.nextFloat() * -1.9 * (double)clientWorld.random.nextFloat() * 0.1;
             AmberDustParticle waterSuspendParticle = new  AmberDustParticle(clientWorld, this.spriteProvider, d, e, f, 0.0, j, 0.0);

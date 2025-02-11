@@ -20,6 +20,7 @@ public class ArcaneCoreItem extends BlockItem
         super(block, settings);
     }
 
+    @Override
     public InteractionResult useOn(UseOnContext context) {
         Level world = context.getLevel();
         BlockPos blockPos = context.getClickedPos();
@@ -29,7 +30,7 @@ public class ArcaneCoreItem extends BlockItem
             if (world.isClientSide) {
                // return ActionResult.SUCCESS;
             } else {
-                BlockState blockState2 = (BlockState)blockState.setValue(BygonePortalFrameBlock.EYE, true);
+                BlockState blockState2 = blockState.setValue(BygonePortalFrameBlock.EYE, true);
                 Block.pushEntitiesUp(blockState, blockState2, world, blockPos);
                 world.setBlock(blockPos, blockState2, 2);
                 world.updateNeighbourForOutputSignal(blockPos, JamiesModBlocks.BYGONE_PORTAL_FRAME);

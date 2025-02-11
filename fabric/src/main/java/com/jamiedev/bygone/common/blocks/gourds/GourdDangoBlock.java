@@ -20,6 +20,7 @@ public class GourdDangoBlock extends Block
     TorchBlock ref;
     protected static final int field_46270 = 2;
     public static MapCodec<GourdDangoBlock> CODEC;
+    @Override
     protected MapCodec<? extends GourdDangoBlock> codec() { return CODEC; }
 
     protected static final VoxelShape SHAPE = Block.box(6.0, 0.0, 6.0, 10.0, 10.0, 10.0);
@@ -28,14 +29,17 @@ public class GourdDangoBlock extends Block
         super(settings);
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         return direction == Direction.DOWN && !this.canSurvive(state, world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         return canSupportCenter(world, pos.below(), Direction.UP);
     }

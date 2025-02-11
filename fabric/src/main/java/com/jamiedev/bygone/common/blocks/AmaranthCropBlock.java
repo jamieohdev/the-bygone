@@ -35,19 +35,22 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock
     public static final IntegerProperty AGE;
     private static final VoxelShape[] AGE_TO_SHAPE;
 
+    @Override
     public MapCodec<? extends AmaranthCropBlock> codec() {
         return CODEC;
     }
 
     public AmaranthCropBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(this.getAgeProperty(), 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(this.getAgeProperty(), 0));
     }
 
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return AGE_TO_SHAPE[this.getAge(state)];
     }
 
+    @Override
     protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
         return floor.is(JamiesModBlocks.CLAYSTONE_FARMLAND);
     }
@@ -61,21 +64,23 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock
     }
 
     public int getAge(BlockState state) {
-        return (Integer)state.getValue(this.getAgeProperty());
+        return state.getValue(this.getAgeProperty());
     }
 
     public BlockState withAge(int age) {
-        return (BlockState)this.defaultBlockState().setValue(this.getAgeProperty(), age);
+        return this.defaultBlockState().setValue(this.getAgeProperty(), age);
     }
 
     public final boolean isMature(BlockState state) {
         return this.getAge(state) >= this.getMaxAge();
     }
 
+    @Override
     protected boolean isRandomlyTicking(BlockState state) {
         return !this.isMature(state);
     }
 
+    @Override
     protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (world.getRawBrightness(pos, 0) <= 10) {
             int i = this.getAge(state);
@@ -113,7 +118,7 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock
                 BlockState blockState = world.getBlockState(blockPos.offset(i, 0, j));
                 if (blockState.is(JamiesModBlocks.CLAYSTONE_FARMLAND)) {
                     g = 1.0F;
-                    if ((Integer)blockState.getValue(ClaystoneFarmlandBlock.MOISTURE) > 0) {
+                    if (blockState.getValue(ClaystoneFarmlandBlock.MOISTURE) > 0) {
                         g = 3.0F;
                     }
                 }
@@ -144,6 +149,7 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock
         return f;
     }
 
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         return hasEnoughLightAt(world, pos) && super.canSurvive(state, world, pos);
     }
@@ -152,6 +158,7 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock
         return world.getRawBrightness(pos, 0) <= 10;
     }
 
+    @Override
     protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
         if (entity instanceof Ravager && world.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
             world.destroyBlock(pos, true, entity);
@@ -164,24 +171,29 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock
         return JamiesModItems.AMARANTH_SEEDS;
     }
 
+    @Override
     public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
         return new ItemStack(this.getSeedsItem());
     }
 
+    @Override
     public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
         return !this.isMature(state);
     }
 
+    @Override
     public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
+    @Override
     public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
         this.applyGrowth(world, pos, state);
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{AGE});
+        builder.add(AGE);
     }
 
     static {
