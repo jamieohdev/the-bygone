@@ -38,10 +38,7 @@ public class JamiesModItemGroup
     public static final ResourceKey<CreativeModeTab> JAMIES_MOD = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Bygone.id("test"));
 
     public static void registerItemgroups() {
-      //  Registry.register(Registries.ITEM_GROUP, JAMIES_MOD, FabricItemGroup.builder()
-       ////         .icon(() -> new ItemStack(JamiesModBlocks.AMBERSTONE))
-       //         .displayName(Text.translatable("itemgroup.bygone"))
-      //          .build());
+
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, JAMIES_MOD, CreativeModeTab.builder(null,-1)
                 .icon(() -> new ItemStack(JamiesModBlocks.SHELF_FUNGUS))
                         .displayItems((itemDisplayParameters, output) -> {
@@ -50,7 +47,6 @@ public class JamiesModItemGroup
                             output.accept(JamiesModItems.ORANGE_FUNGI);
                             output.accept(JamiesModItems.PINK_FUNGI);
                             output.accept(JamiesModItems.PURPLE_FUNGI);
-                            //addToItemGroup(SCALE);
                             output.accept(JamiesModItems.EXOTIC_ARROW);
                             output.accept(JamiesModItems.EXOTIC_PLUMAGE);
                             output.accept(JamiesModItems.COELECANTH);
@@ -81,35 +77,21 @@ public class JamiesModItemGroup
                             output.accept(JamiesModItems.VERDIGRIS_BOW);
 
 
-
-
                             output.accept(JamiesModBlocks.BYGONE_PORTAL_FRAME_BLOCK);
-
                             output.accept(JamiesModBlocks. BYGONESLATE_IRON_ORE);
-
                             output.accept(JamiesModBlocks. BYGONESTONE_COAL_ORE);
-
                             output.accept(JamiesModBlocks. BYGONESTONE_COPPER_ORE);
                             output.accept(JamiesModBlocks.BYGONESLATE_COPPER_ORE);
-
                             output.accept(JamiesModBlocks.LIMBOSTONE);
-
                             output.accept(JamiesModBlocks.LIMBOSLATE);
-
                             output.accept(JamiesModBlocks.COBBLED_BYSTONE);
                             output.accept(JamiesModBlocks.COBBLED_BYSTONE_STAIRS);
-
                             output.accept(JamiesModBlocks.COBBLED_BYSTONE_SLAB);
-
                             output.accept(JamiesModBlocks.COBBLED_BYSTONE_WALL);
                             output.accept(JamiesModBlocks.COBBLED_BYSLATE);
-
                             output.accept(JamiesModBlocks.COBBLED_BYSLATE_STAIRS);
-
                             output.accept(JamiesModBlocks.COBBLED_BYSLATE_SLAB);
-
                             output.accept(JamiesModBlocks.COBBLED_BYSLATE_WALL);
-
                             output.accept(JamiesModBlocks.CLOUD);
 
                             // Start of the Ancient Forests unique Blocks
@@ -117,21 +99,13 @@ public class JamiesModItemGroup
                             output.accept(JamiesModBlocks.SHORT_GRASS);
 
                             output.accept(JamiesModBlocks.MONTSECHIA);
-
                             output.accept(JamiesModBlocks.SAGARIA);
-
-                            output.accept(JamiesModBlocks.POTTED_SAGARIA);
                             output.accept(JamiesModBlocks.RAFFLESIA);
-
-                            output.accept(JamiesModBlocks.GOURD_VINE);
                             output.accept(JamiesModBlocks.GOURD_LANTERN_VERDANT);
                             output.accept(JamiesModBlocks.GOURD_LANTERN_BEIGE);
                             output.accept(JamiesModBlocks.GOURD_LANTERN_MUAVE);
-
                             output.accept(JamiesModBlocks.BIG_WHIRLIWEED);
                             output.accept(JamiesModBlocks.WHIRLIWEED);
-
-
                             output.accept(JamiesModBlocks.CLAYSTONE);
                             output.accept(JamiesModBlocks.COARSE_CLAYSTONE);
                             output.accept(JamiesModBlocks.CLAYSTONE_BRICKS);
@@ -139,47 +113,25 @@ public class JamiesModItemGroup
                             output.accept(JamiesModBlocks.CLAYSTONE_BRICKS_STAIRS);
 
                             output.accept(JamiesModBlocks.CLAYSTONE_BRICKS_SLAB);
-
                             output.accept(JamiesModBlocks.CLAYSTONE_BRICKS_WALL);
-
                             output.accept(JamiesModBlocks.MOSSY_CLAYSTONE);
-                            output.accept(JamiesModBlocks.GRASSY_CLAYSTONE);
                             output.accept(JamiesModBlocks.ANCIENT_ROOTS);
-
                             output.accept(JamiesModBlocks.ANCIENT_VINE);
-
                             output.accept(JamiesModBlocks.ANCIENT_SAPLING);
                             output.accept(JamiesModBlocks.ANCIENT_LOG);
                             output.accept(JamiesModBlocks.ANCIENT_LEAVES);
                             output.accept(JamiesModBlocks.ANCIENT_WOOD);
-
                             output.accept(JamiesModBlocks.STRIPPED_ANCIENT_LOG);
-
                             output.accept(JamiesModBlocks.STRIPPED_ANCIENT_WOOD);
-
                             output.accept(JamiesModBlocks.ANCIENT_PLANKS);
-
                             output.accept(JamiesModBlocks.ANCIENT_STAIRS);
-
                             output.accept(JamiesModBlocks.ANCIENT_SLAB);
-
                             output.accept(JamiesModBlocks.ANCIENT_FENCE);
-
                             output.accept(JamiesModBlocks.ANCIENT_FENCE_GATE);
-
                             output.accept(JamiesModBlocks.ANCIENT_DOOR);
-
                             output.accept(JamiesModBlocks.ANCIENT_TRAPDOOR);
-
                             output.accept(JamiesModBlocks.ANCIENT_PRESSURE_PLATE);
                             output.accept(JamiesModBlocks.ANCIENT_BUTTON);
-
-                            output.accept(JamiesModBlocks.ANCIENT_SIGN);
-
-                            output.accept(JamiesModBlocks.ANCIENT_WALL_SIGN);
-
-                            output.accept(JamiesModBlocks.ANCIENT_HANGING_SIGN);
-
                             output.accept(JamiesModBlocks.ALPHA_MOSS_CARPET);
                             output.accept(JamiesModBlocks.ALPHA_MOSS_BLOCK);
                             output.accept(JamiesModBlocks.ALPHA_MOSSY_CLAYSTONE);
@@ -201,47 +153,28 @@ public class JamiesModItemGroup
                             output.accept(JamiesModBlocks.MALACHITE_PILLAR);
                             output.accept(JamiesModBlocks.MALACHITE_TILE);
                             output.accept(JamiesModBlocks.MALACHITE_DOOR);
-
                             output.accept(JamiesModBlocks.MALACHITE_STAIRS);
-
                             output.accept(JamiesModBlocks.MALACHITE_SLAB);
-
                             output.accept(JamiesModBlocks.MALACHITE_WALL);
-
                             output.accept(JamiesModBlocks.MALACHITE_TILE_STAIRS);
-
                             output.accept(JamiesModBlocks.MALACHITE_TILE_SLAB);
-
                             output.accept(JamiesModBlocks.MALACHITE_TILE_WALL);
-
                             output.accept(JamiesModBlocks.PRIMORDIAL_VENT);
-
                             output.accept(JamiesModBlocks.PRIMORDIAL_VENTSTONE);
-
                             output.accept(JamiesModBlocks.CRINOID);
-
                             output.accept(JamiesModBlocks.PRIMORDIAL_URCHIN);
-
                             output.accept(JamiesModBlocks.DEAD_ORANGE_CORAL_BLOCK);
                             output.accept(JamiesModBlocks.ORANGE_CORAL_BLOCK);
                             output.accept(JamiesModBlocks.DEAD_ORANGE_CORAL);
                             output.accept(JamiesModBlocks.ORANGE_CORAL);
-
                             output.accept(JamiesModBlocks.DEAD_ORANGE_CORAL_FAN);
                             output.accept(JamiesModBlocks.ORANGE_CORAL_FAN);
-                            output.accept(JamiesModBlocks.DEAD_ORANGE_CORAL_WALL_FAN);
-
                             output.accept(JamiesModBlocks.DEAD_BLUE_CORAL_BLOCK);
                             output.accept(JamiesModBlocks.BLUE_CORAL_BLOCK);
                             output.accept(JamiesModBlocks.DEAD_BLUE_CORAL);
                             output.accept(JamiesModBlocks.BLUE_CORAL);
-
                             output.accept(JamiesModBlocks.DEAD_BLUE_CORAL_FAN);
                             output.accept(JamiesModBlocks.BLUE_CORAL_FAN);
-                            output.accept(JamiesModBlocks.DEAD_BLUE_CORAL_WALL_FAN);
-                            output.accept(JamiesModBlocks.BLUE_CORAL_WALL_FAN);
-
-
                             output.accept(JamiesModBlocks.CHARNIA);
 
 
@@ -262,22 +195,14 @@ public class JamiesModItemGroup
                             output.accept(JamiesModBlocks.COBBLED_AMBER);
 
                             output.accept(JamiesModBlocks.AMBERSTONE);
-
                             output.accept(JamiesModBlocks.COBBLED_AMBERSTONE);
-
                             output.accept(JamiesModBlocks.POINTED_AMBER);
-
                             output.accept(JamiesModBlocks.CREOSOTE);
                             output.accept(JamiesModBlocks.CREOSOTE_SPROUTS);
 
 // Farming / Agriculture blocksets
 
-                            output.accept(JamiesModBlocks.CLAYSTONE_FARMLAND);
-
-                            output.accept(JamiesModBlocks.AMARANTH_CROP);
-
                             output.accept(JamiesModBlocks.SPRINKER);
-
                             output.accept(JamiesModBlocks.BELLADONNA);
                             output.accept(JamiesModBlocks.COLEUS);
 
@@ -285,57 +210,27 @@ public class JamiesModItemGroup
 // Shelf Hollows blocksets
 
                             output.accept(JamiesModBlocks.PROTOTAXITE_STEM);
-
                             output.accept(JamiesModBlocks.SHELF_MYCELIUM);
                             output.accept(JamiesModBlocks.SHELF_MOLD_BLOCK);
                             output.accept(JamiesModBlocks.SHELF_MOLD);
-
                             output.accept(JamiesModBlocks.SHELF_MOLD_MOSS);
-
                             output.accept(JamiesModBlocks.ORANGE_MUSHROOM_BLOCK);
                             output.accept(JamiesModBlocks.PINK_MUSHROOM_BLOCK);
                             output.accept(JamiesModBlocks.PURPLE_MUSHROOM_BLOCK);
-
                             output.accept(JamiesModBlocks.ORANGE_FUNGAL_BRICKS);
-
                             output.accept(JamiesModBlocks.ORANGE_FUNGAL_STAIRS);
-
                             output.accept(JamiesModBlocks.ORANGE_FUNGAL_SLAB);
-
                             output.accept(JamiesModBlocks.ORANGE_FUNGAL_WALL);
-
                             output.accept(JamiesModBlocks.PINK_FUNGAL_BRICKS);
-
                             output.accept(JamiesModBlocks.PINK_FUNGAL_STAIRS);
-
                             output.accept(JamiesModBlocks.PINK_FUNGAL_SLAB);
-
                             output.accept(JamiesModBlocks.PINK_FUNGAL_WALL);
-
                             output.accept(JamiesModBlocks.PURPLE_FUNGAL_BRICKS);
-
                             output.accept(JamiesModBlocks.PURPLE_FUNGAL_STAIRS);
-
                             output.accept(JamiesModBlocks.PURPLE_FUNGAL_SLAB);
-
                             output.accept(JamiesModBlocks.PURPLE_FUNGAL_WALL);
-
                             output.accept(JamiesModBlocks.SHELF_ROOTS);
-                            output.accept(JamiesModBlocks.SHELF_WART_BLOCK);
                             output.accept(JamiesModBlocks.SHELF_SPROUTS);
-
-                            output.accept(JamiesModBlocks.ORANGE_FUNGI_VINES);
-                            output.accept(JamiesModBlocks.ORANGE_FUNGI_PLANT);
-                            output.accept(JamiesModBlocks.PINK_FUNGI_VINES);
-                            output.accept(JamiesModBlocks.PINK_FUNGI_VINES_PLANT);
-                            output.accept(JamiesModBlocks.PURPLE_FUNGI_VINES);
-                            output.accept(JamiesModBlocks.PURPLE_FUNGI_VINES_PLANT);
-                            
-                            
-                            
-                            
-                            
-                            
                             
                         })
                 .title(Component.translatable("itemGroup.test"))
