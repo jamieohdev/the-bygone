@@ -8,8 +8,7 @@ import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import com.jamiedev.bygone.block.JamiesModWoodType;
 import com.jamiedev.bygone.init.*;
 import com.jamiedev.bygone.network.SyncPlayerHookS2C;
-import com.jamiedev.bygone.client.network.SyncPlayerHookPacketHandler;
-import com.jamiedev.bygone.common.util.PlayerWithHook;
+import com.jamiedev.bygone.PlayerWithHook;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -187,7 +186,7 @@ public class JamiesModClient implements ClientModInitializer {
         registerModelPredicateProviders();
 
         ClientPlayNetworking.registerGlobalReceiver(SyncPlayerHookS2C.PACkET_ID, (payload, context) -> {
-            context.client().execute(() -> SyncPlayerHookPacketHandler.handle(payload, context));
+            context.client().execute(() -> ClientPacketHandler.handle(payload));
         });
 
         Sheets.SIGN_MATERIALS.put(JamiesModWoodType.ANCIENT, Sheets.getSignMaterial(JamiesModWoodType.ANCIENT));

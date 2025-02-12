@@ -3,7 +3,7 @@ package com.jamiedev.bygone.block;
 import com.jamiedev.bygone.block.entity.BlemishSpreadManager;
 import com.jamiedev.bygone.block.entity.BlemishSpreadable;
 import com.jamiedev.bygone.init.JamiesModBlocks;
-import com.jamiedev.bygone.fabric.init.JamiesModParticleTypes;
+import com.jamiedev.bygone.init.JamiesModParticleTypes;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;
@@ -76,7 +76,7 @@ public class BlemishBlock extends Block implements BlemishSpreadable
             double e = pos.getY() + 1.0;
             double f = pos.getZ() + 0.5 + (0.5 - random.nextDouble());
             double g = random.nextFloat() * 0.04;
-            world.addParticle((ParticleOptions)JamiesModParticleTypes.BLEMISH, d, e, f, 0.0, g, 0.0);
+            world.addParticle((ParticleOptions) JamiesModParticleTypes.BLEMISH, d, e, f, 0.0, g, 0.0);
 
     }
 

@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.block.entity;
 
-import com.jamiedev.bygone.fabric.init.JamiesModBlockEntities;
+import com.jamiedev.bygone.init.JamiesModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SignBlockEntity;

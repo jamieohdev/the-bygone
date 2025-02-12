@@ -2,7 +2,7 @@ package com.jamiedev.bygone.entities;
 
 import com.google.common.collect.Lists;
 import com.jamiedev.bygone.block.entity.CopperbugNestBlockEntity;
-import com.jamiedev.bygone.fabric.init.JamiesModBlockEntities;
+import com.jamiedev.bygone.init.JamiesModBlockEntities;
 import com.jamiedev.bygone.init.JamiesModPOI;
 import com.jamiedev.bygone.init.JamiesModTag;
 

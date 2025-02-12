@@ -31,8 +31,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
-public class SprinklerBlock extends BaseEntityBlock implements BonemealableBlock
-{
+public class SprinklerBlock extends BaseEntityBlock {
     public static final VoxelShape SHAPE= Block.box(5.0F, 0.0F, 5.0F, 11.0F, 6.0F, 11.0F);
     public static final MapCodec<SprinklerBlock> CODEC = simpleCodec(SprinklerBlock::new);
    // public static final IntProperty FERTILIZERS;
@@ -105,9 +104,8 @@ public class SprinklerBlock extends BaseEntityBlock implements BonemealableBlock
                         for(BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-15, 0, -15), pos.offset(15, 1, 15))) {
                             BlockState blockState = world.getBlockState(blockPos);
                             Block block = blockState.getBlock();
-                            BlockState blockState2 = null;
                             if (block instanceof AmaranthCropBlock cropBlock) {
-                                if (world.random.nextFloat() <= 0.3 && !cropBlock.isMature(blockState)) {
+                                if (world.random.nextFloat() <= 0.3 && !cropBlock.isMaxAge(blockState)) {
                                     if (world instanceof ServerLevel) {
                                         if (cropBlock.isBonemealSuccess(world, world.random, blockPos, blockState)) {
                                             cropBlock.performBonemeal((ServerLevel)world, world.random, blockPos, blockState);
@@ -130,21 +128,6 @@ public class SprinklerBlock extends BaseEntityBlock implements BonemealableBlock
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(AGE);
-    }
-
-    @Override
-    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
-        return false;
-    }
-
-    @Override
-    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
-        return false;
-    }
-
-    @Override
-    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
-
     }
 
     static

@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.block.entity;
 
 import com.jamiedev.bygone.block.PrimordialVentBlock;
-import com.jamiedev.bygone.fabric.init.JamiesModBlockEntities;
+import com.jamiedev.bygone.init.JamiesModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Clearable;

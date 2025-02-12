@@ -51,7 +51,7 @@ public class AncientCaveVinesBodyBlock  extends GrowingPlantBodyBlock implements
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
-        return pickBerries(player, state, world, pos);
+        return AncientCaveVines.pickBerries(player, state, world, pos);
     }
 
     @Override

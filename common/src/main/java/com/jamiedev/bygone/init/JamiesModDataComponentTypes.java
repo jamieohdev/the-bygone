@@ -14,11 +14,11 @@ import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 
 public class JamiesModDataComponentTypes
 {
-   public static final DataComponentType<List<CopperbugNestBlockEntity.CopperbugData>> COPPERBUGS = register("copperbugs", (builder) -> {
+   public static final DataComponentType<List<CopperbugNestBlockEntity.CopperbugData>> COPPERBUGS = register("copperbugs", builder -> {
      return builder.persistent(CopperbugNestBlockEntity.CopperbugData.LIST_CODEC).networkSynchronized(
                CopperbugNestBlockEntity.CopperbugData.PACKET_CODEC.apply(ByteBufCodecs.list())).cacheEncoding();
    });
-    public static final DataComponentType<List<BeehiveBlockEntity.Occupant>> BEES = register("bees", (builder) -> {
+    public static final DataComponentType<List<BeehiveBlockEntity.Occupant>> BEES = register("bees", builder -> {
         return builder.persistent(BeehiveBlockEntity.Occupant.LIST_CODEC).networkSynchronized(BeehiveBlockEntity.Occupant.STREAM_CODEC.apply(ByteBufCodecs.list())).cacheEncoding();
     });
 
@@ -36,7 +36,7 @@ public class JamiesModDataComponentTypes
 
     private static <T> DataComponentType<T> register(String id, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
 
-        return (DataComponentType)Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Bygone.id(id), ((DataComponentType.Builder)builderOperator.apply(DataComponentType.builder())).build());
+        return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Bygone.id(id), builderOperator.apply(DataComponentType.builder()).build());
     }
 
     static {

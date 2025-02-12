@@ -2,7 +2,7 @@ package com.jamiedev.bygone.block.entity;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.jamiedev.bygone.block.BlemishCatalystBlock;
-import com.jamiedev.bygone.fabric.init.JamiesModBlockEntities;
+import com.jamiedev.bygone.init.JamiesModBlockEntities;
 import com.jamiedev.bygone.init.JamiesModCriteria;
 import net.minecraft.Optionull;
 import net.minecraft.core.BlockPos;

@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.block;
 
 import com.jamiedev.bygone.block.entity.PrimordialVentEntity;
-import com.jamiedev.bygone.fabric.init.JamiesModBlockEntities;
+import com.jamiedev.bygone.init.JamiesModBlockEntities;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

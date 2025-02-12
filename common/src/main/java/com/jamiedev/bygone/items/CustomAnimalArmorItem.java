@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.items;
 
 import java.util.function.Function;
-import javax.annotation.Nullable;
 
 import com.jamiedev.bygone.Bygone;
 import net.minecraft.core.Holder;
@@ -9,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.*;
+import org.jetbrains.annotations.Nullable;
 
 public class CustomAnimalArmorItem extends ArmorItem {
     private final ResourceLocation textureLocation;

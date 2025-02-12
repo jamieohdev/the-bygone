@@ -105,7 +105,7 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
         this.targetSelector.addGoal(1, new FungalParentEntity.FungalParentRevengeGoal());
         this.targetSelector.addGoal(2, new FungalParentEntity.ProtectBabiesGoal());
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, GlareEntity.class, 10, true, true, (Predicate)null));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, GlareEntity.class, 10, true, true, null));
         this.targetSelector.addGoal(5, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 

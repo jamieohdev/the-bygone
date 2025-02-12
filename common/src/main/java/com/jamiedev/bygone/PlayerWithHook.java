@@ -1,4 +1,4 @@
-package com.jamiedev.bygone.common.util;
+package com.jamiedev.bygone;
 
 import com.jamiedev.bygone.entities.projectile.HookEntity;
 import org.jetbrains.annotations.Nullable;

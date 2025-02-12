@@ -1,15 +1,11 @@
 package com.jamiedev.bygone.init;
 
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.common.items.*;
-import com.jamiedev.bygone.fabric.BygoneFabric;
-import com.jamiedev.bygone.items.CustomAnimalArmorItem;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import com.jamiedev.bygone.items.*;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -18,8 +14,6 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.BowItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
@@ -132,10 +126,6 @@ public class JamiesModItems
 
     }
 
-
-    private static void addToItemGroup(ResourceKey<CreativeModeTab> group, Item item) {
-        ItemGroupEvents.modifyEntriesEvent(group).register(entries -> entries.accept((item)));
-    }
 
     public static void init(){
       /*  ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {

@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.block;
 
-import com.jamiedev.bygone.fabric.init.JamiesModParticleTypes;
+import com.jamiedev.bygone.init.JamiesModParticleTypes;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;

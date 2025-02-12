@@ -3,7 +3,7 @@ package com.jamiedev.bygone.mixin;
 import com.jamiedev.bygone.entities.projectile.HookEntity;
 import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import com.jamiedev.bygone.network.SyncPlayerHookS2C;
-import com.jamiedev.bygone.common.util.PlayerWithHook;
+import com.jamiedev.bygone.PlayerWithHook;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.nbt.CompoundTag;

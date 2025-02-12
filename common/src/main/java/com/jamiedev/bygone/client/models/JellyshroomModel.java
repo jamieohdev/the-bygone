@@ -1,7 +1,5 @@
 package com.jamiedev.bygone.client.models;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -13,7 +11,6 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.world.entity.Entity;
 import java.util.Arrays;
 
-@Environment(EnvType.CLIENT)
 public class JellyshroomModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart[] tentacles = new ModelPart[8];
     private final ModelPart root;

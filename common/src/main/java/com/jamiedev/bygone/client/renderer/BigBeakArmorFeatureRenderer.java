@@ -2,7 +2,7 @@ package com.jamiedev.bygone.client.renderer;
 
 import com.jamiedev.bygone.client.JamiesModModelLayers;
 import com.jamiedev.bygone.client.models.BigBeakModel;
-import com.jamiedev.bygone.fabric.BygoneFabric;
+import com.jamiedev.bygone.items.CustomAnimalArmorItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.FastColor;
-import net.minecraft.world.item.AnimalArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
@@ -35,8 +34,8 @@ public class BigBeakArmorFeatureRenderer extends RenderLayer<BigBeakEntity, BigB
     public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, BigBeakEntity BigBeakEntity, float f, float g, float h, float j, float k, float l) {
         ItemStack itemStack = BigBeakEntity.getBodyArmorItem();
         Item var13 = itemStack.getItem();
-        if (var13 instanceof AnimalArmorItem animalArmorItem) {
-            if (animalArmorItem.getBodyType() == BygoneFabric.BIG_BEAK_ARMOR) {
+        if (var13 instanceof CustomAnimalArmorItem animalArmorItem) {
+            if (animalArmorItem.getBodyType() == CustomAnimalArmorItem.BodyType.BIG_BEAK) {
                 this.getParentModel().copyPropertiesTo(this.model);
                 this.model.prepareMobModel(BigBeakEntity, f, g, h);
                 this.model.setupAnim(BigBeakEntity, f, g, j, k, l);

@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.block;
 
-import com.jamiedev.bygone.fabric.init.JamiesModParticleTypes;
+import com.jamiedev.bygone.init.JamiesModParticleTypes;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;
@@ -61,9 +61,9 @@ public class RafflesiaBlock  extends Block
         int i = pos.getX();
         int j = pos.getY();
         int k = pos.getZ();
-        double d = (double)i + random.nextDouble();
-        double e = (double)j + 0.7;
-        double f = (double)k + random.nextDouble();
+        double d = i + random.nextDouble();
+        double e = j + 0.7;
+        double f = k + random.nextDouble();
         world.addParticle((ParticleOptions) JamiesModParticleTypes.RAFFLESIA_SPORES, d, e, f, 0.0, 0.0, 0.0);
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 

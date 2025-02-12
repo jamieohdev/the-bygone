@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.items;
 
+import com.jamiedev.bygone.PlayerWithHook;
 import com.jamiedev.bygone.entities.projectile.HookEntity;
-import com.jamiedev.bygone.common.util.PlayerWithHook;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;

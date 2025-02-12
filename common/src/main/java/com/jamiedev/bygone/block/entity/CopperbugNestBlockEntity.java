@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.jamiedev.bygone.block.CopperbugNestBlock;
 import com.jamiedev.bygone.entities.CopperbugEntity;
 import com.jamiedev.bygone.init.JamiesModBlockEntities;
+import com.jamiedev.bygone.init.JamiesModDataComponentTypes;
 import com.jamiedev.bygone.init.JamiesModEntityTypes;
 import com.jamiedev.bygone.init.JamiesModTag;
 import com.mojang.logging.LogUtils;

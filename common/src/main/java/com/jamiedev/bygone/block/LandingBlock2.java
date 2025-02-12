@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.block;
 
-import com.jamiedev.bygone.common.entities.RisingBlockEntity;
+import com.jamiedev.bygone.entities.RisingBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;

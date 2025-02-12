@@ -1,11 +1,12 @@
-package com.jamiedev.bygone.init;
+package com.jamiedev.bygone;
 
-import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.init.JamiesModBlocks;
+import com.jamiedev.bygone.init.JamiesModItems;
 import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
 import net.kyrptonaught.customportalapi.portal.PortalIgnitionSource;
 import net.minecraft.world.item.ItemStack;
 
-public class JamiesModPortals {
+public class JamiesModPortalsFabric {
 
     public static void init() {
         CustomPortalBuilder.beginPortal()

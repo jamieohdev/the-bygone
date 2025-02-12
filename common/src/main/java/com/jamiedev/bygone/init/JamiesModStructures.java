@@ -3,6 +3,8 @@ package com.jamiedev.bygone.init;
 import com.jamiedev.bygone.Bygone;
 
 import java.util.Locale;
+
+import com.jamiedev.bygone.worldgen.structure.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;

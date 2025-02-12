@@ -391,7 +391,7 @@ public class BigBeakEntity  extends AbstractHorse
     public boolean isBodyArmorItem(ItemStack stack) {
         Item var3 = stack.getItem();
         if (var3 instanceof CustomAnimalArmorItem animalArmorItem) {
-            return animalArmorItem.getBodyType() == BygoneFabric.BIG_BEAK_ARMOR;
+            return animalArmorItem.getBodyType() == CustomAnimalArmorItem.BodyType.BIG_BEAK;
         }
 
         return false;

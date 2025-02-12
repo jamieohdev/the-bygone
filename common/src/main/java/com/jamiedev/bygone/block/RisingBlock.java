@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.block;
 
-import com.jamiedev.bygone.common.entities.RisingBlockEntity;
+import com.jamiedev.bygone.entities.RisingBlockEntity;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;

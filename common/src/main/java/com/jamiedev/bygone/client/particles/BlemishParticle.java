@@ -1,7 +1,5 @@
 package com.jamiedev.bygone.client.particles;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -46,7 +44,6 @@ public class BlemishParticle extends PortalParticle
         }
     }
 
-    @Environment(value = EnvType.CLIENT)
     public static class BlemishBlockProvider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprite;
 

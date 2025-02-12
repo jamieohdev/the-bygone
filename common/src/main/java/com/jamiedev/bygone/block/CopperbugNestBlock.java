@@ -1,8 +1,9 @@
 package com.jamiedev.bygone.block;
 
 import com.jamiedev.bygone.block.entity.CopperbugNestBlockEntity;
-import com.jamiedev.bygone.fabric.init.JamiesModBlockEntities;
-import com.jamiedev.bygone.fabric.init.JamiesModItems;
+import com.jamiedev.bygone.entities.CopperbugEntity;
+import com.jamiedev.bygone.init.JamiesModBlockEntities;
+import com.jamiedev.bygone.init.JamiesModItems;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -64,8 +65,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-import com.jamiedev.bygone.common.entities.CopperbugEntity;
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -114,7 +113,7 @@ public class CopperbugNestBlock extends BaseEntityBlock
     }
 
     private void angerNearbyCopperbugs(Level world, BlockPos pos) {
-        AABB box = (new AABB(pos)).inflate(8.0, 6.0, 8.0);
+        AABB box = new AABB(pos).inflate(8.0, 6.0, 8.0);
         List<CopperbugEntity> list = world.getEntitiesOfClass(CopperbugEntity.class, box);
         if (!list.isEmpty()) {
             List<Player> list2 = world.getEntitiesOfClass(Player.class, box);
@@ -122,10 +121,7 @@ public class CopperbugNestBlock extends BaseEntityBlock
                 return;
             }
 
-            Iterator<CopperbugEntity> var6 = list.iterator();
-
-            while(var6.hasNext()) {
-                CopperbugEntity beeEntity = (CopperbugEntity)var6.next();
+            for (CopperbugEntity beeEntity : list) {
                 if (beeEntity.getTarget() == null) {
                     Player playerEntity = Util.getRandom(list2, world.random);
                     beeEntity.setTarget(playerEntity);

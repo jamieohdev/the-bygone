@@ -2,6 +2,8 @@ package com.jamiedev.bygone.block;
 
 import com.google.common.base.Predicates;
 import com.jamiedev.bygone.block.entity.CasterBlockEntity;
+import com.jamiedev.bygone.init.JamiesModBlockEntities;
+import com.jamiedev.bygone.init.JamiesModBlocks;
 import com.jamiedev.bygone.init.JamiesModDamageTypes;
 import com.jamiedev.bygone.init.JamiesModItems;
 import com.mojang.serialization.MapCodec;
@@ -44,9 +46,9 @@ import java.util.List;
 public class CasterBlock extends BaseEntityBlock implements BlockEntityTicker<CasterBlockEntity>
 {
     public static final MapCodec<CasterBlock> CODEC = simpleCodec(CasterBlock::new);
-    public static final DirectionProperty FACING;
-    public static final BooleanProperty TRIGGERED;
-    public static final EnumProperty<CasterType> TYPE;
+    public static final DirectionProperty FACING = DirectionalBlock.FACING;
+    public static final BooleanProperty TRIGGERED = BlockStateProperties.POWERED;
+    public static final EnumProperty<CasterType> TYPE = EnumProperty.create("caster_type", CasterType.class);
 
     public CasterBlock(Properties settings) {
         super(settings);
@@ -133,16 +135,10 @@ public class CasterBlock extends BaseEntityBlock implements BlockEntityTicker<Ca
     @Override
     protected int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
         BlockEntity entity = world.getBlockEntity(pos);
-        if (entity instanceof CasterBlockEntity && ((CasterBlockEntity) entity).cooldownTicks > 0) {
-            return (int) Math.max(Math.min(Math.round((double) ((CasterBlockEntity) entity).cooldownTicks / 6), 15), 1);
+        if (entity instanceof CasterBlockEntity casterBlockEntity && casterBlockEntity.cooldownTicks > 0) {
+            return (int) Math.max(Math.min(Math.round((double) casterBlockEntity.cooldownTicks / 6), 15), 1);
         }
         return 0;
-    }
-
-    static {
-        FACING = DirectionalBlock.FACING;
-        TRIGGERED = BlockStateProperties.POWERED;
-        TYPE = EnumProperty.create("caster_type", CasterType.class);
     }
 
     @Override
