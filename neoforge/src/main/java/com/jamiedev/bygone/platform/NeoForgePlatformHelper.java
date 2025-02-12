@@ -58,7 +58,8 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public void sendToTracking(S2CModPacket<?> msg, Entity entity) {
-        PacketDistributor.sendToPlayersTrackingEntityAndSelf(entity,msg);
+    public void sendToTracking(S2CModPacket<?> msg, Entity entity, boolean includeSelf) {
+        if (includeSelf) PacketDistributor.sendToPlayersTrackingEntityAndSelf(entity, msg);
+        else PacketDistributor.sendToPlayersTrackingEntity(entity, msg);
     }
 }

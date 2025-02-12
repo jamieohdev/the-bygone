@@ -1,4 +1,4 @@
-![banner](src/main/resources/banner.png)
+![banner](common/src/main/resources/banner.png)
 
 
 ## 

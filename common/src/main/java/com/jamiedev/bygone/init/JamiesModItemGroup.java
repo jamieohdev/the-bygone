@@ -83,12 +83,8 @@ public class JamiesModItemGroup
 
 
 
-                            output.accept(JamiesModBlocks.BYGONE_PORTAL);
-                            output.accept(JamiesModBlocks.BYGONE_PORTAL_FRAME);
                             output.accept(JamiesModBlocks.BYGONE_PORTAL_FRAME_BLOCK);
-                            output.accept(JamiesModBlocks.BYGONE_PORTAL_FRAME_PLACEABLE);
 
-                            output.accept(JamiesModBlocks.ARCANE_CORE);
                             output.accept(JamiesModBlocks. BYGONESLATE_IRON_ORE);
 
                             output.accept(JamiesModBlocks. BYGONESTONE_COAL_ORE);
@@ -118,16 +114,10 @@ public class JamiesModItemGroup
 
                             // Start of the Ancient Forests unique Blocks
 
-                            output.accept(JamiesModBlocks.TALL_GRASS);
                             output.accept(JamiesModBlocks.SHORT_GRASS);
-
-
-                            output.accept(JamiesModBlocks.CAVE_VINES);
-                            output.accept(JamiesModBlocks.CAVE_VINES_PLANT);
 
                             output.accept(JamiesModBlocks.MONTSECHIA);
 
-                            output.accept(JamiesModBlocks.POTTED_MONTSECHIA);
                             output.accept(JamiesModBlocks.SAGARIA);
 
                             output.accept(JamiesModBlocks.POTTED_SAGARIA);
@@ -137,10 +127,6 @@ public class JamiesModItemGroup
                             output.accept(JamiesModBlocks.GOURD_LANTERN_VERDANT);
                             output.accept(JamiesModBlocks.GOURD_LANTERN_BEIGE);
                             output.accept(JamiesModBlocks.GOURD_LANTERN_MUAVE);
-
-                            output.accept(JamiesModBlocks.GOURD_DANGO);
-
-                            output.accept(JamiesModBlocks.GOURD_DANGO_WALL);
 
                             output.accept(JamiesModBlocks.BIG_WHIRLIWEED);
                             output.accept(JamiesModBlocks.WHIRLIWEED);
@@ -194,8 +180,6 @@ public class JamiesModItemGroup
 
                             output.accept(JamiesModBlocks.ANCIENT_HANGING_SIGN);
 
-                            output.accept(JamiesModBlocks.ANCIENT_WALL_HANGING_SIGN);
-
                             output.accept(JamiesModBlocks.ALPHA_MOSS_CARPET);
                             output.accept(JamiesModBlocks.ALPHA_MOSS_BLOCK);
                             output.accept(JamiesModBlocks.ALPHA_MOSSY_CLAYSTONE);
@@ -246,7 +230,6 @@ public class JamiesModItemGroup
                             output.accept(JamiesModBlocks.DEAD_ORANGE_CORAL_FAN);
                             output.accept(JamiesModBlocks.ORANGE_CORAL_FAN);
                             output.accept(JamiesModBlocks.DEAD_ORANGE_CORAL_WALL_FAN);
-                            output.accept(JamiesModBlocks.ORANGE_CORAL_WALL_FAN);
 
                             output.accept(JamiesModBlocks.DEAD_BLUE_CORAL_BLOCK);
                             output.accept(JamiesModBlocks.BLUE_CORAL_BLOCK);

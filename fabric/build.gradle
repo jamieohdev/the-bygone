@@ -21,11 +21,12 @@ dependencies {
     // Custom Portal API
     modImplementation "net.kyrptonaught:customportalapi:${portal_api_version}" // can't use `project.minecraft_version` because 1.21.1 and not 1.21
     include "net.kyrptonaught:customportalapi:${portal_api_version}"
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 
 }
 
 loom {
-    def aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")
+    def aw = file("src/main/resources/${mod_id}.accesswidener")
     if (aw.exists()) {
         accessWidenerPath.set(aw)
     }

@@ -4,8 +4,7 @@ import com.jamiedev.bygone.entities.projectile.HookEntity;
 import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import com.jamiedev.bygone.network.SyncPlayerHookS2C;
 import com.jamiedev.bygone.PlayerWithHook;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import com.jamiedev.bygone.platform.Services;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -76,14 +75,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
         this.hookId = pHook == null ? 0 : pHook.getId();
         // Sync our hook to the client-side counterparts of other players and ourselves
         if(changed && !this.level().isClientSide){
-            Collection<ServerPlayer> trackingMe = PlayerLookup.tracking(this);
-            boolean sendToSelf = !trackingMe.contains(this);
-            for (ServerPlayer player : trackingMe) {
-                ServerPlayNetworking.send(player, new SyncPlayerHookS2C(pHook == null ? 0 : pHook.getId(), this.getUUID()));
-            }
-            if(sendToSelf){
-                ServerPlayNetworking.send((ServerPlayer)(Object)this, new SyncPlayerHookS2C(pHook == null ? 0 : pHook.getId(), this.getUUID()));
-            }
+            Services.PLATFORM.sendToTracking(new SyncPlayerHookS2C(pHook == null ? 0 : pHook.getId(), this.getUUID()),this,true);
         }
     }
 
