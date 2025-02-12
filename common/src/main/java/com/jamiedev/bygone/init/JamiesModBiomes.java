@@ -15,7 +15,7 @@ public class JamiesModBiomes
 {
     public static List<ResourceKey<Biome>> biomes = new ArrayList<>();
     public static ResourceKey<Biome> createBiomeKey(String id){
-        ResourceKey<Biome> registryKey = ResourceKey.create(Registries.BIOME, Bygone.getModId(Bygone.MOD_ID));
+        ResourceKey<Biome> registryKey = ResourceKey.create(Registries.BIOME, Bygone.id(Bygone.MOD_ID));
         biomes.add(registryKey);
         return registryKey;
     }

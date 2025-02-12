@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class DimensionScreen {
     private static final Component DOWNLOADING_BYGONE_TERRAIN_TEXT  = Component.translatable("system.bygone.entering_into_bygone");
-    private static final ResourceLocation BACKGROUND_LOCATION = Bygone.getModId( "bg.png");
+    private static final ResourceLocation BACKGROUND_LOCATION = Bygone.id( "bg.png");
 
     public static void renderScreenAndText(ReceivingLevelScreen screen, GuiGraphics guiGraphics) {
         Tesselator tesselator = Tesselator.getInstance();

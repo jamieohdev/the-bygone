@@ -9,11 +9,11 @@ import net.minecraft.world.level.dimension.LevelStem;
 public class JamiesModDimension
 {
     public static final ResourceKey<LevelStem> BYGONE = ResourceKey.create(Registries.LEVEL_STEM,
-            Bygone.getModId( "bygone"));
+            Bygone.id( "bygone"));
     public static final ResourceKey<Level> BYGONE_LEVEL_KEY = ResourceKey.create(Registries.DIMENSION,
-            Bygone.getModId( "bygone"));
+            Bygone.id( "bygone"));
 
     public static final ResourceKey<DimensionType> BYGONE_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE,
-            Bygone.getModId( "bygone_type"));
+            Bygone.id( "bygone_type"));
 }
 

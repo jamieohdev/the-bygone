@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.common.util;
 
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.common.blocks.CasterBlock;
+import com.jamiedev.bygone.block.CasterBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.blockstates.MultiVariantGenerator;
@@ -21,7 +21,7 @@ public class DatagenUtils {
 
     public static final ModelTemplate ORIENTABLE_VERTICAL_WITH_BOTTOM = block("orientable_vertical", "_vertical", TextureSlot.FRONT, TextureSlot.SIDE, TextureSlot.BOTTOM, TextureSlot.DOWN);
     
-    public static final ResourceLocation CASTER = Bygone.getModId("caster");
+    public static final ResourceLocation CASTER = Bygone.id("caster");
     
     public static void registerCasterModel(Block block, BlockModelGenerators blockStateModelGenerator) {
         TextureMapping textureMap = new TextureMapping()

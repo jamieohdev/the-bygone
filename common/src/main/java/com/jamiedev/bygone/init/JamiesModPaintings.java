@@ -19,6 +19,6 @@ public class JamiesModPaintings
     }
 
     private static ResourceKey<PaintingVariant> of(String id) {
-        return ResourceKey.create(Registries.PAINTING_VARIANT, Bygone.getModId( id));
+        return ResourceKey.create(Registries.PAINTING_VARIANT, Bygone.id( id));
     }
 }

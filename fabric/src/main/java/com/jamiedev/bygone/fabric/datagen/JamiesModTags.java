@@ -10,7 +10,7 @@ public class JamiesModTags
 {
     public static class Blocks {
         private static TagKey<Block> createTag(String name) {
-            return TagKey.create(Registries.BLOCK, Bygone.getModId(name));
+            return TagKey.create(Registries.BLOCK, Bygone.id(name));
         }
     }
 
@@ -21,7 +21,7 @@ public class JamiesModTags
 
 
         private static TagKey<Item> createTag(String name) {
-            return TagKey.create(Registries.ITEM, Bygone.getModId(name));
+            return TagKey.create(Registries.ITEM, Bygone.id(name));
         }
     }
 
@@ -29,7 +29,7 @@ public class JamiesModTags
         public static final TagKey<Fluid> EXAMPLE_LIQUID = of("example_liquid");
 
         private static TagKey<Fluid> of(String name) {
-            return TagKey.create(Registries.FLUID, Bygone.getModId(name));
+            return TagKey.create(Registries.FLUID, Bygone.id(name));
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.mixin.client;
 
 import com.jamiedev.bygone.client.JamiesModClient;
-import com.jamiedev.bygone.common.items.VerdigrisBladeItem;
+import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HumanoidModel;

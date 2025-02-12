@@ -2,8 +2,8 @@ package com.jamiedev.bygone.fabric;
 
 import com.jamiedev.bygone.fabric.datagen.*;
 import com.jamiedev.bygone.init.JamiesModBiomes;
-import com.jamiedev.bygone.fabric.init.JamiesModConfiguredFeatures;
-import com.jamiedev.bygone.fabric.init.JamiesModPlacedFeatures;
+import com.jamiedev.bygone.init.JamiesModConfiguredFeatures;
+import com.jamiedev.bygone.init.JamiesModPlacedFeatures;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;

@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.mixin;
 
-import com.jamiedev.bygone.common.items.VerdigrisBladeItem;
+import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;

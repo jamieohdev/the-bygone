@@ -9,6 +9,6 @@ public class JamiesModDamageTypes {
     public static final ResourceKey<DamageType> SPIKE = register("spike");
 
     private static ResourceKey<DamageType> register(String name) {
-        return ResourceKey.create(Registries.DAMAGE_TYPE, Bygone.getModId(name));
+        return ResourceKey.create(Registries.DAMAGE_TYPE, Bygone.id(name));
     }
 }

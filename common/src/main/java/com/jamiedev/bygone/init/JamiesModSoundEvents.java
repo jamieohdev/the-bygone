@@ -8,28 +8,28 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 public class JamiesModSoundEvents
 {
-    public static final ResourceLocation AMBIENT_ANCIENTFOREST_ADDITIONS = Bygone.getModId("ambient.underhang.additions");
-    public static final ResourceLocation AMBIENT_AMBERDESERT_ADDITIONS = Bygone.getModId("ambient.amber_desert.additions");
-    public static final ResourceLocation AMBIENT_PRIMORDIALOCEAN_ADDITIONS = Bygone.getModId("ambient.primordial_ocean.additions");
-    public static final ResourceLocation MUSIC_ANCIENTFOREST_ADDITIONS = Bygone.getModId("music.bygone.underhang");
-    public static final ResourceLocation MUSIC_PRIMORDIALOCEAN_ADDITIONS = Bygone.getModId("music.bygone.primordial_ocean");
-    public static final ResourceLocation AMBIENT_SHELFHOLLOW_ADDITIONS = Bygone.getModId("ambient.shelfhollow.additions");
-    public static final ResourceLocation ENTITY_BIGBEAK_AMBIENT = Bygone.getModId("entity.bigbeak.ambient");
-    public static final ResourceLocation ENTITY_BIGBEAK_HURT = Bygone.getModId("entity.bigbeak.hurt");
-    public static final ResourceLocation ENTITY_BIGBEAK_DEATH = Bygone.getModId("entity.bigbeak.death");
-    public static final ResourceLocation ENTITY_BIGBEAK_JUMP = Bygone.getModId("entity.bigbeak.jump");
-    public static final ResourceLocation ENTITY_BIGBEAK_STEP = Bygone.getModId("entity.bigbeak.step");
-    public static final ResourceLocation ENTITY_BIGBEAK_STEP_WOOD = Bygone.getModId("entity.bigbeak.step_wood");
-    public static final ResourceLocation ENTITY_BIGBEAK_GALLOP = Bygone.getModId("entity.bigbeak.gallop");
+    public static final ResourceLocation AMBIENT_ANCIENTFOREST_ADDITIONS = Bygone.id("ambient.underhang.additions");
+    public static final ResourceLocation AMBIENT_AMBERDESERT_ADDITIONS = Bygone.id("ambient.amber_desert.additions");
+    public static final ResourceLocation AMBIENT_PRIMORDIALOCEAN_ADDITIONS = Bygone.id("ambient.primordial_ocean.additions");
+    public static final ResourceLocation MUSIC_ANCIENTFOREST_ADDITIONS = Bygone.id("music.bygone.underhang");
+    public static final ResourceLocation MUSIC_PRIMORDIALOCEAN_ADDITIONS = Bygone.id("music.bygone.primordial_ocean");
+    public static final ResourceLocation AMBIENT_SHELFHOLLOW_ADDITIONS = Bygone.id("ambient.shelfhollow.additions");
+    public static final ResourceLocation ENTITY_BIGBEAK_AMBIENT = Bygone.id("entity.bigbeak.ambient");
+    public static final ResourceLocation ENTITY_BIGBEAK_HURT = Bygone.id("entity.bigbeak.hurt");
+    public static final ResourceLocation ENTITY_BIGBEAK_DEATH = Bygone.id("entity.bigbeak.death");
+    public static final ResourceLocation ENTITY_BIGBEAK_JUMP = Bygone.id("entity.bigbeak.jump");
+    public static final ResourceLocation ENTITY_BIGBEAK_STEP = Bygone.id("entity.bigbeak.step");
+    public static final ResourceLocation ENTITY_BIGBEAK_STEP_WOOD = Bygone.id("entity.bigbeak.step_wood");
+    public static final ResourceLocation ENTITY_BIGBEAK_GALLOP = Bygone.id("entity.bigbeak.gallop");
 
-    public static final ResourceLocation ENTITY_MOOBOO_AMBIENT = Bygone.getModId("entity.mooboo.ambient");
-    public static final ResourceLocation ENTITY_MOOBOO_HURT = Bygone.getModId("entity.mooboo.hurt");
-    public static final ResourceLocation ENTITY_MOOBOO_DEATH = Bygone.getModId("entity.mooboo.death");
+    public static final ResourceLocation ENTITY_MOOBOO_AMBIENT = Bygone.id("entity.mooboo.ambient");
+    public static final ResourceLocation ENTITY_MOOBOO_HURT = Bygone.id("entity.mooboo.hurt");
+    public static final ResourceLocation ENTITY_MOOBOO_DEATH = Bygone.id("entity.mooboo.death");
 
-    public static final ResourceLocation ENTITY_FUNGUSPARENT_AMBIENT = Bygone.getModId("entity.fungus_parent.ambient");
-    public static final ResourceLocation ENTITY_FUNGUSPARENT_BABY_AMBIENT = Bygone.getModId("entity.fungus_parent.ambient_baby");
-    public static final ResourceLocation ENTITY_FUNGUSPARENT_HURT = Bygone.getModId("entity.fungus_parent.hurt");
-    public static final ResourceLocation ENTITY_FUNGUSPARENT_DEATH = Bygone.getModId("entity.fungus_parent.death");
+    public static final ResourceLocation ENTITY_FUNGUSPARENT_AMBIENT = Bygone.id("entity.fungus_parent.ambient");
+    public static final ResourceLocation ENTITY_FUNGUSPARENT_BABY_AMBIENT = Bygone.id("entity.fungus_parent.ambient_baby");
+    public static final ResourceLocation ENTITY_FUNGUSPARENT_HURT = Bygone.id("entity.fungus_parent.hurt");
+    public static final ResourceLocation ENTITY_FUNGUSPARENT_DEATH = Bygone.id("entity.fungus_parent.death");
     
     public static SoundEvent AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_ANCIENTFOREST_ADDITIONS);
     public static SoundEvent AMBIENT_AMBERDESERT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_AMBERDESERT_ADDITIONS);
@@ -57,11 +57,11 @@ public class JamiesModSoundEvents
 
 
     private static SoundEvent register(String id) {
-        return Registry.register(BuiltInRegistries.SOUND_EVENT, Bygone.getModId(id), SoundEvent.createVariableRangeEvent(Bygone.getModId(id)));
+        return Registry.register(BuiltInRegistries.SOUND_EVENT, Bygone.id(id), SoundEvent.createVariableRangeEvent(Bygone.id(id)));
     }
 
     private static Holder.Reference<SoundEvent> registerReference(String id) {
-        return registerReference(Bygone.getModId(id), Bygone.getModId(id));
+        return registerReference(Bygone.id(id), Bygone.id(id));
     }
 
     private static Holder.Reference<SoundEvent> registerReference(ResourceLocation id, ResourceLocation soundId) {

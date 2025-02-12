@@ -91,3 +91,6 @@ accessible field net/minecraft/client/render/model/json/Transformation$Deseriali
 accessible field net/minecraft/data/client/BlockStateVariant properties Ljava/util/Map;
 
 accessible field net/minecraft/data/client/VariantSetting$Value value Ljava/lang/Object;
+
+accessible field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
+mutable field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;

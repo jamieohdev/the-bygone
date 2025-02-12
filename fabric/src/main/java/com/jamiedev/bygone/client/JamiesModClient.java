@@ -4,10 +4,9 @@ import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.models.*;
 import com.jamiedev.bygone.client.particles.*;
 import com.jamiedev.bygone.client.renderer.*;
-import com.jamiedev.bygone.common.items.VerdigrisBladeItem;
-import com.jamiedev.bygone.common.blocks.JamiesModWoodType;
-import com.jamiedev.bygone.fabric.init.*;
-import com.jamiedev.bygone.init.JamiesModDimension;
+import com.jamiedev.bygone.items.VerdigrisBladeItem;
+import com.jamiedev.bygone.block.JamiesModWoodType;
+import com.jamiedev.bygone.init.*;
 import com.jamiedev.bygone.network.SyncPlayerHookS2C;
 import com.jamiedev.bygone.client.network.SyncPlayerHookPacketHandler;
 import com.jamiedev.bygone.common.util.PlayerWithHook;
@@ -36,7 +35,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import java.util.Objects;
 public class JamiesModClient implements ClientModInitializer {
-    public static ResourceLocation BYGONE = Bygone.getModId("bygone");
+    public static ResourceLocation BYGONE = Bygone.id("bygone");
     public  static DimensionSpecialEffects.SkyType BYGONE_SKY;
 
     public static boolean isWeaponBlocking(LivingEntity entity) {
@@ -200,7 +199,7 @@ public class JamiesModClient implements ClientModInitializer {
 
     }
     public static void registerModelPredicateProviders() {
-        ItemProperties.register(JamiesModItems.HOOK, Bygone.getModId("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
+        ItemProperties.register(JamiesModItems.HOOK, Bygone.id("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
             if (livingEntity instanceof Player) {
                 for (InteractionHand value : InteractionHand.values())
                 {
@@ -217,7 +216,7 @@ public class JamiesModClient implements ClientModInitializer {
             return 0;
         });
 
-        ItemProperties.register(JamiesModItems.VERDIGRIS_BLADE, Bygone.getModId("blocking"),
+        ItemProperties.register(JamiesModItems.VERDIGRIS_BLADE, Bygone.id("blocking"),
                 (itemStack, clientWorld, livingEntity, seed) -> {
                     if (livingEntity == null) return 0;
                     if (livingEntity instanceof Player && livingEntity.isBlocking()) return 1;

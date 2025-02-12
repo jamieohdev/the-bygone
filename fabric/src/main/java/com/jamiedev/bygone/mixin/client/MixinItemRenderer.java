@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.mixin.client;
 
 
-import com.jamiedev.bygone.common.items.VerdigrisBladeItem;
+import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;

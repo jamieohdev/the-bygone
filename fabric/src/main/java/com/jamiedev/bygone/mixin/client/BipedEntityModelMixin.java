@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.mixin.client;
 
-import com.jamiedev.bygone.common.items.VerdigrisBladeItem;
+import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;

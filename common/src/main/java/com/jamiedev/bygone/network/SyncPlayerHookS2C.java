@@ -10,7 +10,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
 public record SyncPlayerHookS2C(int hookId, UUID playerUUID) implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<SyncPlayerHookS2C> PACkET_ID = new Type<>(Bygone.getModId("sync_player_hook"));
+    public static final CustomPacketPayload.Type<SyncPlayerHookS2C> PACkET_ID = new Type<>(Bygone.id("sync_player_hook"));
     public static final StreamCodec<FriendlyByteBuf, SyncPlayerHookS2C> CODEC = StreamCodec.composite(
             ByteBufCodecs.VAR_INT, SyncPlayerHookS2C::hookId,
             UUIDUtil.STREAM_CODEC, SyncPlayerHookS2C::playerUUID,

@@ -11,6 +11,6 @@ public class JamiesModPOI
 
 
     private static TagKey<PoiType> of(String id) {
-        return TagKey.create(Registries.POINT_OF_INTEREST_TYPE, Bygone.getModId(id));
+        return TagKey.create(Registries.POINT_OF_INTEREST_TYPE, Bygone.id(id));
     }
 }

@@ -41,13 +41,13 @@ public class JamiesModTag
     public static class Blocks {
 
         private static TagKey<Block> createTag(String name) {
-            return TagKey.create(Registries.BLOCK, Bygone.getModId(name));
+            return TagKey.create(Registries.BLOCK, Bygone.id(name));
         }
     }
 
     public static class Entities {
         private static TagKey<EntityType<?>> createTag(String id) {
-            return TagKey.create(Registries.ENTITY_TYPE, Bygone.getModId(id));
+            return TagKey.create(Registries.ENTITY_TYPE, Bygone.id(id));
         }
     }
 
@@ -55,14 +55,14 @@ public class JamiesModTag
         public static final TagKey<Item> TRANSFORMABLE_ITEMS = createTag("transformable_items");
 
         private static TagKey<Item> createTag(String name) {
-            return TagKey.create(Registries.ITEM, Bygone.getModId(name));
+            return TagKey.create(Registries.ITEM, Bygone.id(name));
         }
     }
 
     public static class Structures {
 
         private static TagKey<Structure> createTag(String id) {
-            return TagKey.create(Registries.STRUCTURE, Bygone.getModId(id));
+            return TagKey.create(Registries.STRUCTURE, Bygone.id(id));
         }
     }
 }

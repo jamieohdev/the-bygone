@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.fabric.datagen;
 
-import com.jamiedev.bygone.fabric.init.JamiesModBlocks;
+import com.jamiedev.bygone.init.JamiesModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.core.HolderLookup;

@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.mixin;
 
-import com.jamiedev.bygone.common.entities.projectile.HookEntity;
-import com.jamiedev.bygone.common.items.VerdigrisBladeItem;
+import com.jamiedev.bygone.entities.projectile.HookEntity;
+import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import com.jamiedev.bygone.network.SyncPlayerHookS2C;
 import com.jamiedev.bygone.common.util.PlayerWithHook;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;

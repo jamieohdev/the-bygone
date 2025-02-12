@@ -3,7 +3,6 @@
   "package": "com.jamiedev.bygone.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "AnimalArmorItemTypeMixin",
     "BowMixin",
     "CowEntityMixin",
     "FarmlandBlockMixin",

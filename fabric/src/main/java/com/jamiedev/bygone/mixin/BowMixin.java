@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.mixin;
 
-import com.jamiedev.bygone.common.items.VerdigrisBowItem;
+import com.jamiedev.bygone.items.VerdigrisBowItem;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;

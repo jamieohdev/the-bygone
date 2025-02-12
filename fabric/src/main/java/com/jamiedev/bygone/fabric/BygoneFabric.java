@@ -1,16 +1,14 @@
 package com.jamiedev.bygone.fabric;
 
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.common.entities.*;
-import com.jamiedev.bygone.fabric.init.*;
-import com.jamiedev.bygone.init.JamiesModBiomes;
-import com.jamiedev.bygone.init.JamiesModCriteria;
-import com.jamiedev.bygone.init.JamiesModSoundEvents;
+import com.jamiedev.bygone.entities.*;
+import com.jamiedev.bygone.init.*;
 import com.jamiedev.bygone.mixin.SpawnRestrictMixin;
 import com.jamiedev.bygone.network.SyncPlayerHookS2C;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -24,11 +22,24 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 
-import static com.jamiedev.bygone.fabric.init.JamiesModEntityTypes.*;
+import static com.jamiedev.bygone.init.JamiesModEntityTypes.*;
 
 public class BygoneFabric implements ModInitializer {
 
 	public static AnimalArmorItem.BodyType BIG_BEAK_ARMOR;
+
+	public static void init()
+	{
+		FabricDefaultAttributeRegistry.register(DUCK, DuckEntity.createDuckAttributes());
+		FabricDefaultAttributeRegistry.register(BIG_BEAK, BigBeakEntity.createBigBeakAttributes());
+		FabricDefaultAttributeRegistry.register(GLARE, GlareEntity.createGlareAttributes());
+		FabricDefaultAttributeRegistry.register(SCUTTLE, ScuttleEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(COELACANTH, CoelacanthEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(TRILOBITE, TrilobiteEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(MOOBOO, MoobooEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(COPPERBUG, CopperbugEntity.createCopperbugAttributes());
+		FabricDefaultAttributeRegistry.register(FUNGAL_PARENT, FungalParentEntity.createFungieAttributes());
+	}
 
 	@Override
 	public void onInitialize() {
@@ -46,7 +57,7 @@ public class BygoneFabric implements ModInitializer {
 		JamiesModBlocks.init();
 		JamiesModBlockEntities.init();
 		JamiesModItems.init();
-		JamiesModEntityTypes.init();
+		init();
 		JamiesModEntityTypes.postInit();
 		JamiesModBiomes.init();
 		JamiesModItemGroup.registerItemgroups();
@@ -59,6 +70,7 @@ public class BygoneFabric implements ModInitializer {
 		JamiesModCriteria.init();
 		JamiesModTradeOffers.init();
 
+		Bygone.registerStrippables();
         Bygone.LOGGER.info("Registering Entities for {}", Bygone.MOD_ID);
 
 		PayloadTypeRegistry.playS2C().register(SyncPlayerHookS2C.PACkET_ID, SyncPlayerHookS2C.CODEC);

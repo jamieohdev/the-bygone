@@ -12,7 +12,7 @@ public class JamiesModCriteria
     public static final KilledTrigger KILLED_BY_BLEMISH_CRITERION = new KilledTrigger();
 
     public static void init() {
-        Registry.register(BuiltInRegistries.TRIGGER_TYPES, Bygone.getModId("killed_by_blemish"), KILLED_BY_BLEMISH_CRITERION);
+        Registry.register(BuiltInRegistries.TRIGGER_TYPES, Bygone.id("killed_by_blemish"), KILLED_BY_BLEMISH_CRITERION);
     }
 
     public static <T extends CriterionTrigger<?>> T register(String id, T criterion) {
