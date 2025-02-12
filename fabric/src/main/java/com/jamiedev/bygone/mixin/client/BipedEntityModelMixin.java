@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.jamiedev.bygone.client.JamiesModClient;
+import com.jamiedev.bygone.client.BygoneClientFabric;
 
 @Mixin(HumanoidModel.class)
 public abstract class BipedEntityModelMixin<T extends LivingEntity> {
@@ -20,7 +20,7 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> {
 
     @Inject(method = "setupAnim(Lnet/minecraft/world/entity/LivingEntity;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/HumanoidModel;setupAttackAnimation(Lnet/minecraft/world/entity/LivingEntity;F)V", shift = At.Shift.BEFORE))
     private void swordblocking$setBlockingAngles(T livingEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
-        if (!JamiesModClient.isWeaponBlocking(livingEntity))
+        if (!BygoneClientFabric.isWeaponBlocking(livingEntity))
             return;
         if (livingEntity.getOffhandItem().getItem() instanceof VerdigrisBladeItem)
             this.poseRightArm(livingEntity);

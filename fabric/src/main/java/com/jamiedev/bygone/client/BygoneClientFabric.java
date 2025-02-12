@@ -33,7 +33,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import java.util.Objects;
-public class JamiesModClient implements ClientModInitializer {
+public class BygoneClientFabric implements ClientModInitializer {
     public static ResourceLocation BYGONE = Bygone.id("bygone");
     public  static DimensionSpecialEffects.SkyType BYGONE_SKY;
 
@@ -54,83 +54,7 @@ public class JamiesModClient implements ClientModInitializer {
     }
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.AMBER, RenderType.translucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CLOUD, RenderType.translucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BYGONE_PORTAL, RenderType.translucent());
-
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_LEAVES, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_ROOTS, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_SAPLING, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_VINE, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CHARNIA, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_BEIGE, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_MUAVE, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_LANTERN_VERDANT, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_DANGO, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_DANGO_WALL, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.GOURD_VINE, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BIG_WHIRLIWEED, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.WHIRLIWEED, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.RAFFLESIA, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CAVE_VINES, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CAVE_VINES_PLANT, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.MONTSECHIA, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SAGARIA, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_DOOR, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ANCIENT_TRAPDOOR, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.POTTED_MONTSECHIA, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.POTTED_SAGARIA, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHORT_GRASS, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.TALL_GRASS, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_ALGAE, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.MALACHITE_DOOR, RenderType.cutout());
-
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLEMISH_VEIN, RenderType.cutoutMipped());
-
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CRINOID, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PRIMORDIAL_URCHIN, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PRIMORDIAL_VENT, RenderType.cutout());
-
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_ORANGE_CORAL, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_ORANGE_CORAL_WALL_FAN, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_ORANGE_CORAL_FAN, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_CORAL, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_CORAL_FAN, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_CORAL_WALL_FAN, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_BLUE_CORAL, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_BLUE_CORAL_WALL_FAN, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.DEAD_BLUE_CORAL_FAN, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL_FAN, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BLUE_CORAL_WALL_FAN, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.BELLADONNA, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.COLEUS, RenderType.cutout());
-
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_FUNGUS, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_ROOTS, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_SPROUTS, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SHELF_MOLD, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_FUNGI_VINES, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_FUNGI_PLANT, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PINK_FUNGI_VINES, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PINK_FUNGI_VINES_PLANT, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PURPLE_FUNGI_VINES, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PURPLE_FUNGI_VINES_PLANT, RenderType.cutout());
-
-        // BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_FUNGI_FAN, RenderLayer.getCutout());
-        //BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.ORANGE_FUNGI_WALL_FAN, RenderLayer.getCutout());
-       // BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PINK_FUNGI_FAN, RenderLayer.getCutout());
-       // BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PINK_FUNGI_WALL_FAN, RenderLayer.getCutout());
-       // BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PURPLE_FUNGI_FAN, RenderLayer.getCutout());
-       // BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.PURPLE_FUNGI_WALL_FAN, RenderLayer.getCutout());
-
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CLAYSTONE_FARMLAND, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.AMARANTH_CROP, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.SPRINKER, RenderType.cutout());
-
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.POINTED_AMBER, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CREOSOTE, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(JamiesModBlocks.CREOSOTE_SPROUTS, RenderType.cutout());
+        BygoneClient.registerRenderLayers(BlockRenderLayerMap.INSTANCE::putBlock);
 
         EntityRendererRegistry.register(JamiesModEntityTypes.COELACANTH, CoelacanthRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(JamiesModModelLayers.COELACANTH, CoelacanthModel::getTexturedModelData);

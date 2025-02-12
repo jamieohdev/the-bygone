@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.mixin.client;
 
-import com.jamiedev.bygone.client.JamiesModClient;
+import com.jamiedev.bygone.client.BygoneClientFabric;
 import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -22,10 +22,10 @@ public abstract class MixinPlayerEntityRenderer {
 
         ItemStack handStack = player.getItemInHand(hand);
         ItemStack offStack = player.getItemInHand(hand.equals(InteractionHand.MAIN_HAND) ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND);
-        if ((handStack.getItem() instanceof VerdigrisBladeItem) && !JamiesModClient.canWeaponBlock(player))
+        if ((handStack.getItem() instanceof VerdigrisBladeItem) && !BygoneClientFabric.canWeaponBlock(player))
             return;
 
-        if (JamiesModClient.isWeaponBlocking(player)) {
+        if (BygoneClientFabric.isWeaponBlocking(player)) {
             cir.setReturnValue(HumanoidModel.ArmPose.BLOCK);
         } else if (handStack.getItem() instanceof VerdigrisBladeItem &&
                 (cir.getReturnValue() == HumanoidModel.ArmPose.ITEM || cir.getReturnValue() == HumanoidModel.ArmPose.BLOCK)) {

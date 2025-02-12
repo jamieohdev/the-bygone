@@ -4,7 +4,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import com.jamiedev.bygone.client.JamiesModClient;
+import com.jamiedev.bygone.client.BygoneClientFabric;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 public abstract class MixinHeldItemRenderer {
     @Inject(method = "renderArmWithItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/ItemInHandRenderer;renderItem(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemDisplayContext;ZLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", shift = At.Shift.BEFORE, ordinal = 1))
     public void swordblocking$blockingPosition(AbstractClientPlayer player, float tickDelta, float pitch, InteractionHand hand, float swingProgress, ItemStack item, float equipProgress, PoseStack matrices, MultiBufferSource vertexConsumers, int light, CallbackInfo ci) {
-        if (!JamiesModClient.isWeaponBlocking(player))
+        if (!BygoneClientFabric.isWeaponBlocking(player))
             return;
         boolean bl = hand == InteractionHand.MAIN_HAND;
         HumanoidArm arm = bl ? player.getMainArm() : player.getMainArm().getOpposite();

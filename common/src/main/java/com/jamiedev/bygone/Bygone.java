@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class Bygone {
 
 
-    public static String MOD_ID = "bygone";
+    public static final String MOD_ID = "bygone";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static void init() {

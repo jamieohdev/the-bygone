@@ -1,8 +1,8 @@
 package com.jamiedev.bygone.mixin.client;
 
-import com.jamiedev.bygone.client.JamiesModUtilClient;
 import com.jamiedev.bygone.client.screen.DimensionScreen;
 import com.jamiedev.bygone.init.JamiesModDimension;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ReceivingLevelScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -21,7 +21,7 @@ public class DownloadingTerrainScreenMixin extends Screen {
     @Inject(method = "render",
             at = @At(value = "HEAD"), cancellable = true, require = 0)
     private void bygone$renderNewScreenWhenEnteringBygone(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
-        if (JamiesModUtilClient.getClientPlayer() != null && JamiesModUtilClient.getClientPlayer().level().dimension() == JamiesModDimension.BYGONE_LEVEL_KEY) {
+        if (Minecraft.getInstance().player != null && Minecraft.getInstance().level.dimension() == JamiesModDimension.BYGONE_LEVEL_KEY) {
             DimensionScreen.renderScreenAndText(((ReceivingLevelScreen)(Object)this), guiGraphics);
             ci.cancel();
         }
