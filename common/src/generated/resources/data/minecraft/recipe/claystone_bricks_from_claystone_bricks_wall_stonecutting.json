@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "bygone:claystone_bricks_wall"
+  },
+  "result": {
+    "count": 1,
+    "id": "bygone:claystone_bricks"
+  }
+}

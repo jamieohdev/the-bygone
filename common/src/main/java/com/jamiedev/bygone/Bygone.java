@@ -6,13 +6,19 @@ import com.jamiedev.bygone.init.*;
 import com.jamiedev.bygone.util.Consumer4;
 import com.mojang.datafixers.util.Function6;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.apache.commons.lang3.function.Consumers;
@@ -25,6 +31,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 // This class is part of the common project meaning it is shared between all supported loaders. Code written here can only
 // import and access the vanilla codebase, libraries used by vanilla, and optionally third party libraries that provide
@@ -99,6 +106,80 @@ public class Bygone {
         consumer.accept(BlockEntityType.HANGING_SIGN,JamiesModBlocks.ANCIENT_WALL_HANGING_SIGN);
     }
 
+    public static void addFurnaceFuels(BiConsumer<ItemLike,Integer> consumer) {
+        consumer.accept(JamiesModBlocks.ANCIENT_SAPLING, 300);
+        consumer.accept(JamiesModBlocks.CAVE_VINES_PLANT, 200);
+        consumer.accept(JamiesModBlocks.CAVE_VINES, 200);
+        consumer.accept(JamiesModBlocks.CHARNIA, 50);
+        consumer.accept(JamiesModBlocks.MONTSECHIA, 50);
+        consumer.accept(JamiesModBlocks.RAFFLESIA, 500);
+        consumer.accept(JamiesModBlocks.SAGARIA, 50);
+        consumer.accept(JamiesModBlocks.SHORT_GRASS, 300);
+        consumer.accept(JamiesModBlocks.TALL_GRASS, 200);
+        consumer.accept(JamiesModBlocks.ANCIENT_ROOTS, 50);
+        consumer.accept(JamiesModBlocks.ALPHA_MOSS_CARPET, 30);
+        consumer.accept(JamiesModBlocks.ALPHA_MOSS_BLOCK, 60);
+        consumer.accept(JamiesModBlocks.BELLADONNA, 50);
+        consumer.accept(JamiesModBlocks.COLEUS, 50);
+
+        consumer.accept(JamiesModBlocks.ANCIENT_WOOD, 300);
+        consumer.accept(JamiesModBlocks.ANCIENT_LOG, 300);
+        consumer.accept(JamiesModBlocks.ANCIENT_PLANKS, 300);
+        consumer.accept(JamiesModBlocks.ANCIENT_SLAB, 150);
+        consumer.accept(JamiesModBlocks.ANCIENT_STAIRS, 300);
+        consumer.accept(JamiesModBlocks.ANCIENT_PRESSURE_PLATE, 300);
+        consumer.accept(JamiesModBlocks.ANCIENT_BUTTON, 100);
+        consumer.accept(JamiesModBlocks.ANCIENT_TRAPDOOR, 300);
+        consumer.accept(JamiesModBlocks.ANCIENT_FENCE_GATE, 300);
+        consumer.accept(JamiesModBlocks.ANCIENT_FENCE, 300);
+        consumer.accept(JamiesModBlocks.ANCIENT_DOOR, 200);
+
+    }
+
+    public static void addCompostables(BiConsumer<ItemLike,Float> consumer) {
+        consumer.accept(JamiesModBlocks.ANCIENT_SAPLING, 0.5F);
+        consumer.accept(JamiesModBlocks.CAVE_VINES_PLANT, 0.3F);
+        consumer.accept(JamiesModBlocks.CAVE_VINES, 0.3F);
+        consumer.accept(JamiesModBlocks.CHARNIA, 0.2F);
+        consumer.accept(JamiesModBlocks.MONTSECHIA, 0.2F);
+        consumer.accept(JamiesModBlocks.RAFFLESIA, 0.8F);
+        consumer.accept(JamiesModBlocks.SAGARIA, 0.2F);
+        consumer.accept(JamiesModBlocks.SHORT_GRASS, 0.2F);
+        consumer.accept(JamiesModBlocks.TALL_GRASS, 0.4F);
+        consumer.accept(JamiesModBlocks.ANCIENT_ROOTS, 0.3F);
+        consumer.accept(JamiesModBlocks.ANCIENT_VINE, 0.3F);
+        consumer.accept(JamiesModBlocks.ANCIENT_LEAVES, 0.3F);
+
+        consumer.accept(JamiesModBlocks.ALPHA_MOSS_CARPET, 0.3F);
+        consumer.accept(JamiesModBlocks.ALPHA_MOSS_BLOCK, 0.3F);
+
+        consumer.accept(JamiesModBlocks.CREOSOTE_SPROUTS, 0.2F);
+        consumer.accept(JamiesModBlocks.SHELF_MOLD, 0.2F);
+        consumer.accept(JamiesModBlocks.SHELF_ROOTS, 0.2F);
+        consumer.accept(JamiesModBlocks.SHELF_FUNGUS, 0.2F);
+        consumer.accept(JamiesModBlocks.SHELF_SPROUTS, 0.2F);
+
+        consumer.accept(JamiesModBlocks.ORANGE_FUNGI_VINES, 0.1F);
+        consumer.accept(JamiesModBlocks.PINK_FUNGI_VINES, 0.1F);
+        consumer.accept(JamiesModBlocks.PURPLE_FUNGI_VINES, 0.1F);
+        consumer.accept(JamiesModBlocks.BELLADONNA,0.1F);
+        consumer.accept(JamiesModBlocks.COLEUS, 0.1F);
+    }
+
+        public static void addFlammable() {
+        ((FireBlock)Blocks.FIRE).setFlammable(JamiesModBlocks.ANCIENT_WOOD, 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(JamiesModBlocks.ANCIENT_LOG, 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(JamiesModBlocks.ANCIENT_PLANKS, 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(JamiesModBlocks.ANCIENT_SLAB, 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(JamiesModBlocks.ANCIENT_STAIRS, 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(JamiesModBlocks.ANCIENT_PRESSURE_PLATE, 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(JamiesModBlocks.ANCIENT_BUTTON, 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(JamiesModBlocks.ANCIENT_TRAPDOOR, 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(JamiesModBlocks.ANCIENT_FENCE_GATE, 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(JamiesModBlocks.ANCIENT_FENCE, 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(JamiesModBlocks.ANCIENT_DOOR, 5, 20);
+    }
+
     public static boolean isSprinklerNearby(LevelReader world, BlockPos pos) {
         Iterable<BlockPos> var2 = BlockPos.betweenClosed(pos.offset(-15, 0, -15), pos.offset(15, 1, 15));
 
@@ -110,4 +191,16 @@ public class Bygone {
 
         return false;
     }
+
+    public static Stream<Block> getKnownBlocks() {
+        return getKnown(BuiltInRegistries.BLOCK);
+    }
+    public static Stream<Item> getKnownItems() {
+        return getKnown(BuiltInRegistries.ITEM);
+    }
+
+    public static <V> Stream<V> getKnown(Registry<V> registry) {
+        return registry.stream().filter(o -> registry.getKey(o).getNamespace().equals(MOD_ID));
+    }
+
 }

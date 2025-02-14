@@ -20,8 +20,6 @@ public class JamiesModBlockEntities {
 
     public static BlockEntityType<PrimordialUrchinEntity> PRIMORDIAL_URCHIN;
 
-    public static BlockEntityType<ModSignBlockEntity> MOD_SIGN_BLOCK_ENTITY;
-
 
     public static BlockEntityType<BlemishCatalystBlockEntity> BLEMISH_CATALYST;
 
