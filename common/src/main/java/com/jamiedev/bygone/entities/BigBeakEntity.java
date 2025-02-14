@@ -47,7 +47,6 @@ import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AnimalArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
@@ -79,12 +78,8 @@ public class BigBeakEntity  extends AbstractHorse
 
     Horse ref;
     Pig ref3;
-    private static final float MIN_HEALTH_BONUS = generateMaxHealth((max) -> {
-        return 0;
-    });
-    private static final float MAX_HEALTH_BONUS = generateMaxHealth((max) -> {
-        return max;
-    });
+    private static final float MIN_HEALTH_BONUS = generateMaxHealth(max -> 0);
+    private static final float MAX_HEALTH_BONUS = generateMaxHealth(max -> max);
     private static final EntityDimensions BABY_BASE_DIMENSIONS;
     public float flapProgress;
     public float maxWingDeviation;
@@ -150,7 +145,7 @@ public class BigBeakEntity  extends AbstractHorse
         this.goalSelector.addGoal(1, new RunAroundLikeCrazyGoal(this, 1.2));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0, BigBeakEntity.class));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2, (stack) -> {
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2, stack -> {
             return stack.is(JamiesModTag.BIGBEAK_FOOD);
         }, false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.7));

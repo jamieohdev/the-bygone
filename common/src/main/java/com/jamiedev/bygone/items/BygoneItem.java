@@ -1,6 +1,5 @@
 package com.jamiedev.bygone.items;
 
-import com.jamiedev.bygone.entities.projectile.BygoneItemEntity;
 import com.jamiedev.bygone.init.JamiesModTag;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -43,15 +42,15 @@ EnderEyeItem ref;
             user.startUsingItem(hand);
             if (world instanceof ServerLevel serverWorld) {
                 BlockPos blockPos = serverWorld.findNearestMapStructure(JamiesModTag.BYGONE_ITEM_LOCATED, user.blockPosition(), 100, false);
-                if (blockPos != null) {
-                    BygoneItemEntity eyeOfEnderEntity = new BygoneItemEntity(world, user.getX(), user.getY(0.5), user.getZ());
+                if (blockPos != null) {//todo
+                   /* BygoneItemEntity eyeOfEnderEntity = new BygoneItemEntity(world, user.getX(), user.getY(0.5), user.getZ());
                     eyeOfEnderEntity.setItem(itemStack);
                     eyeOfEnderEntity.initTargetPos(blockPos);
                     world.gameEvent(GameEvent.PROJECTILE_SHOOT, eyeOfEnderEntity.position(), GameEvent.Context.of(user));
                     world.addFreshEntity(eyeOfEnderEntity);
                     if (user instanceof ServerPlayer serverPlayerEntity) {
                         CriteriaTriggers.USED_ENDER_EYE.trigger(serverPlayerEntity, blockPos);
-                    }
+                    }*/
 
                     float f = Mth.lerp(world.random.nextFloat(), 0.33F, 0.5F);
                     world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENDER_EYE_LAUNCH, SoundSource.NEUTRAL, 1.0F, f);

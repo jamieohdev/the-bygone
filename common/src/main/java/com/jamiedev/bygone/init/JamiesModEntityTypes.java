@@ -2,7 +2,6 @@ package com.jamiedev.bygone.init;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.entities.*;
-import com.jamiedev.bygone.entities.projectile.BygoneItemEntity;
 import com.jamiedev.bygone.entities.projectile.ExoticArrowEntity;
 import com.jamiedev.bygone.entities.projectile.HookEntity;
 import com.jamiedev.bygone.entities.projectile.ScuttleSpikeEntity;
@@ -111,15 +110,6 @@ public class JamiesModEntityTypes {
             Bygone.id( "trilobite"),
             EntityType.Builder.of(TrilobiteEntity::new, MobCategory.WATER_CREATURE)
                     .sized(0.4F, 0.3F).build(""));
-
-
-    public static final  EntityType<BygoneItemEntity> BYGONE_ITEM = Registry.register(BuiltInRegistries.ENTITY_TYPE,
-            Bygone.id( "bygone_item"),
-            EntityType.Builder.<BygoneItemEntity>of(BygoneItemEntity::new, MobCategory.MISC)
-                    .sized(0.25F, 0.25F)
-                    .clientTrackingRange(4)
-                    .updateInterval(4)
-                    .build(""));
 
     public static final  EntityType<RisingBlockEntity> RISING_BLOCK = Registry.register(BuiltInRegistries.ENTITY_TYPE,
             Bygone.id("rising_block"),

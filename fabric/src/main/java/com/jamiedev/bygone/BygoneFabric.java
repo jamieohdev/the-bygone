@@ -1,7 +1,5 @@
-package com.jamiedev.bygone.fabric;
+package com.jamiedev.bygone;
 
-import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.JamiesModPortalsFabric;
 import com.jamiedev.bygone.entities.*;
 import com.jamiedev.bygone.init.*;
 import com.jamiedev.bygone.mixin.SpawnRestrictMixin;
@@ -30,8 +28,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
 
-import static com.jamiedev.bygone.init.JamiesModEntityTypes.*;
-
 public class BygoneFabric implements ModInitializer {
 
 
@@ -40,25 +36,18 @@ public class BygoneFabric implements ModInitializer {
 		initEvents();
 
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
-		SpawnPlacements.register(SCUTTLE, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScuttleEntity::checkSurfaceWaterAnimalSpawnRules);
-		SpawnPlacements.register(GLARE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
-		SpawnPlacements.register(BIG_BEAK, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, BigBeakEntity::canSpawn);
-		SpawnPlacements.register(TRILOBITE, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TrilobiteEntity::checkSurfaceWaterAnimalSpawnRules);
-		SpawnPlacements.register(COPPERBUG, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, CopperbugEntity::canSpawn);
+		SpawnPlacements.register(JamiesModEntityTypes.SCUTTLE, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScuttleEntity::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(JamiesModEntityTypes.GLARE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
+		SpawnPlacements.register(JamiesModEntityTypes.BIG_BEAK, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, BigBeakEntity::canSpawn);
+		SpawnPlacements.register(JamiesModEntityTypes.TRILOBITE, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TrilobiteEntity::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(JamiesModEntityTypes.COPPERBUG, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, CopperbugEntity::canSpawn);
 		//SpawnRestriction.register(COPPERBUG, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CopperbugEntity::canSpawn);
 
-		SpawnRestrictMixin.callRegister(COELACANTH, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CoelacanthEntity::checkSurfaceWaterAnimalSpawnRules);
-		JamiesModBlocks.init();
-		JamiesModBlockEntities.init();
-		JamiesModItems.init();
-		JamiesModEntityTypes.postInit();
-		JamiesModBiomes.init();
-		JamiesModItemGroup.registerItemgroups();
-		JamiesModFeatures.init();
-		JamiesModStructures.init();
-		JamiesModParticleTypes.init();
+		SpawnRestrictMixin.callRegister(JamiesModEntityTypes.COELACANTH, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CoelacanthEntity::checkSurfaceWaterAnimalSpawnRules);
+
+		Bygone.registerBuiltIn();
+
 		JamiesModPortalsFabric.init();
-		JamiesModSoundEvents.init();
 
 		BygoneFabric.addCompostables();
 		BygoneFabric.addFuels();
@@ -82,15 +71,15 @@ public class BygoneFabric implements ModInitializer {
 
 	public static void initAttributes()
 	{
-		FabricDefaultAttributeRegistry.register(DUCK, DuckEntity.createDuckAttributes());
-		FabricDefaultAttributeRegistry.register(BIG_BEAK, BigBeakEntity.createBigBeakAttributes());
-		FabricDefaultAttributeRegistry.register(GLARE, GlareEntity.createGlareAttributes());
-		FabricDefaultAttributeRegistry.register(SCUTTLE, ScuttleEntity.createAttributes());
-		FabricDefaultAttributeRegistry.register(COELACANTH, CoelacanthEntity.createAttributes());
-		FabricDefaultAttributeRegistry.register(TRILOBITE, TrilobiteEntity.createAttributes());
-		FabricDefaultAttributeRegistry.register(MOOBOO, MoobooEntity.createAttributes());
-		FabricDefaultAttributeRegistry.register(COPPERBUG, CopperbugEntity.createCopperbugAttributes());
-		FabricDefaultAttributeRegistry.register(FUNGAL_PARENT, FungalParentEntity.createFungieAttributes());
+		FabricDefaultAttributeRegistry.register(JamiesModEntityTypes.DUCK, DuckEntity.createDuckAttributes());
+		FabricDefaultAttributeRegistry.register(JamiesModEntityTypes.BIG_BEAK, BigBeakEntity.createBigBeakAttributes());
+		FabricDefaultAttributeRegistry.register(JamiesModEntityTypes.GLARE, GlareEntity.createGlareAttributes());
+		FabricDefaultAttributeRegistry.register(JamiesModEntityTypes.SCUTTLE, ScuttleEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(JamiesModEntityTypes.COELACANTH, CoelacanthEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(JamiesModEntityTypes.TRILOBITE, TrilobiteEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(JamiesModEntityTypes.MOOBOO, MoobooEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(JamiesModEntityTypes.COPPERBUG, CopperbugEntity.createCopperbugAttributes());
+		FabricDefaultAttributeRegistry.register(JamiesModEntityTypes.FUNGAL_PARENT, FungalParentEntity.createFungieAttributes());
 	}
 
 	public static void addCompostables() {

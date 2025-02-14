@@ -1,6 +1,5 @@
-package com.jamiedev.bygone.fabric.datagen;
+package com.jamiedev.bygone;
 
-import com.jamiedev.bygone.Bygone;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;

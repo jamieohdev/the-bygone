@@ -1,7 +1,7 @@
 package com.jamiedev.bygone;
 
 import com.google.common.collect.ImmutableMap;
-import com.jamiedev.bygone.init.JamiesModBlocks;
+import com.jamiedev.bygone.init.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.AxeItem;
 import org.apache.logging.log4j.LogManager;
@@ -37,4 +37,18 @@ public class Bygone {
     public static ResourceLocation id(String id){
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, id);
     }
+
+    public static void registerBuiltIn() {
+        JamiesModBlocks.init();
+        JamiesModBlockEntities.init();
+        JamiesModItems.init();
+        JamiesModEntityTypes.postInit();
+        JamiesModBiomes.init();
+        JamiesModItemGroup.registerItemgroups();
+        JamiesModFeatures.init();
+        JamiesModStructures.init();
+        JamiesModParticleTypes.init();
+        JamiesModSoundEvents.init();
+    }
+
 }
