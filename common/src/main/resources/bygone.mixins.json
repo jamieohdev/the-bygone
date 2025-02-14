@@ -4,8 +4,15 @@
   "package": "com.jamiedev.bygone.mixin",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": [
+    "FarmlandBlockMixin",
+    "LivingEntityMixin"
+  ],
   "client": [
+    "client.BipedEntityModelMixin",
+    "client.MixinHeldItemRenderer",
+    "client.MixinItemRenderer",
+    "client.MixinPlayerEntityRenderer"
   ],
   "server": [],
   "injectors": {

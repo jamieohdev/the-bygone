@@ -1,15 +1,11 @@
 package com.jamiedev.bygone.mixin;
 
 import com.jamiedev.bygone.entities.projectile.HookEntity;
-import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import com.jamiedev.bygone.network.SyncPlayerHookS2C;
 import com.jamiedev.bygone.PlayerWithHook;
 import com.jamiedev.bygone.platform.Services;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,9 +17,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Collection;
 import java.util.UUID;
 
 @Mixin(Player.class)
@@ -93,6 +87,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
         }
     }
 
+    /*todo use forge event
     @Inject(method = "hurt", at = @At("TAIL"), cancellable = true)
     public void jamies_mod$damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (!(getUseItem().getItem() instanceof VerdigrisBladeItem)) return;
@@ -111,6 +106,6 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
         }
 
         cir.setReturnValue(bl);
-    }
+    }*/
 
 }

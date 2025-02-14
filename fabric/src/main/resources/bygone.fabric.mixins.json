@@ -5,7 +5,6 @@
   "mixins": [
     "CowEntityMixin",
     "FarmlandBlockMixin",
-    "LivingEntityMixin",
     "PlayerMixin"
 
   ],
@@ -13,10 +12,6 @@
     "defaultRequire": 1
   },
   "client": [
-    "client.BipedEntityModelMixin",
-    "client.DownloadingTerrainScreenMixin",
-    "client.MixinHeldItemRenderer",
-    "client.MixinItemRenderer",
-    "client.MixinPlayerEntityRenderer"
+
   ]
 }

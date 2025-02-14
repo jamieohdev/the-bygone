@@ -7,13 +7,16 @@ import com.jamiedev.bygone.client.renderer.*;
 import com.jamiedev.bygone.init.JamiesModBlocks;
 import com.jamiedev.bygone.init.JamiesModEntityTypes;
 import com.jamiedev.bygone.init.JamiesModItems;
+import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
@@ -158,5 +161,17 @@ public class BygoneClient {
                     return 0;
                 }
         );
+    }
+
+    public static boolean isWeaponBlocking(LivingEntity entity) {
+        return entity.isUsingItem() && (canWeaponBlock(entity));
+    }
+
+    public static boolean canWeaponBlock(LivingEntity entity) {
+        if ((entity.getMainHandItem().getItem() instanceof VerdigrisBladeItem)) {
+            Item weaponItem = entity.getOffhandItem().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandItem().getItem() : entity.getOffhandItem().getItem();
+            return weaponItem instanceof VerdigrisBladeItem;
+        }
+       return false;
     }
 }

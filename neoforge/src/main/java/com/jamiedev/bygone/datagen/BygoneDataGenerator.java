@@ -9,6 +9,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
@@ -26,9 +27,13 @@ public class BygoneDataGenerator  {
 		generator.addProvider(true,new BygoneItemTagProvider(output,lookupProvider,blockTagsProvider.contentsGetter(),existingFileHelper));
 		generator.addProvider(true,BygoneLootTableProvider.create(output,lookupProvider));
 		generator.addProvider(true, new BygoneRecipeProvider(output,lookupProvider));
+
+		generator.addProvider(true,new BygoneDataPackProvider(output,buildRegistry(),lookupProvider));
+		generator.addProvider(true,new BygoneDataMapProvider(output,lookupProvider));
 	}
 
-	public void buildRegistry(RegistrySetBuilder registryBuilder) {
+	public static RegistrySetBuilder buildRegistry() {
+		RegistrySetBuilder registryBuilder =new RegistrySetBuilder();
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, JamiesModConfiguredFeatures::bootstrap);
 		registryBuilder.add(Registries.PLACED_FEATURE, JamiesModPlacedFeatures::bootstrap);
 		registryBuilder.add(Registries.BIOME, JamiesModBiomes::bootstrap);
@@ -37,5 +42,6 @@ public class BygoneDataGenerator  {
 		registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, JamiesModStructureSets::bootstrap);
 		registryBuilder.addRegistry(RegistryKeys.STRUCTURE, JamiesModStructures::bootstrap);
 		registryBuilder.addRegistry(RegistryKeys.TEMPLATE_POOL, JamiesModStructurePools::bootstrap);**/
+		return registryBuilder;
 	}
 }

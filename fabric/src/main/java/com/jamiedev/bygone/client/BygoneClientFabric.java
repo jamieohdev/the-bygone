@@ -12,7 +12,6 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.particle.SoulParticle;
-import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
@@ -24,19 +23,7 @@ import net.minecraft.world.item.Item;
 import java.util.Objects;
 public class BygoneClientFabric implements ClientModInitializer {
     public static ResourceLocation BYGONE = Bygone.id("bygone");
-    public  static DimensionSpecialEffects.SkyType BYGONE_SKY;
 
-    public static boolean isWeaponBlocking(LivingEntity entity) {
-        return entity.isUsingItem() && (canWeaponBlock(entity));
-    }
-
-    public static boolean canWeaponBlock(LivingEntity entity) {
-        if ((entity.getMainHandItem().getItem() instanceof VerdigrisBladeItem)) {
-            Item weaponItem = entity.getOffhandItem().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandItem().getItem() : entity.getOffhandItem().getItem();
-            return weaponItem instanceof VerdigrisBladeItem;
-        }
-       return false;
-    }
     public static boolean isBlockingOnViaVersion(LivingEntity entity) {
         Item item = entity.getMainHandItem().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandItem().getItem() : entity.getOffhandItem().getItem();
         return item instanceof VerdigrisBladeItem && item.components() != null && item.components().has(DataComponents.FOOD) && Objects.requireNonNull(item.components().get(DataComponents.FOOD)).eatSeconds() == 3600;

@@ -3,6 +3,7 @@ package com.jamiedev.bygone.mixin;
 import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,7 +31,7 @@ public abstract class LivingEntityMixin {
     @Inject(method = "handleEntityEvent", at = @At("HEAD"), cancellable = true)
     public void jamies_mod$handleStatus(byte status, CallbackInfo ci) {
         if ((LivingEntity) (Object) this instanceof Player player && player.getUseItem().getItem() instanceof VerdigrisBladeItem) {
-            if (status == 29) ci.cancel();
+            if (status == EntityEvent.ATTACK_BLOCKED) ci.cancel();
             this.makeSound(SoundEvents.GENERIC_HURT);
         }
     }

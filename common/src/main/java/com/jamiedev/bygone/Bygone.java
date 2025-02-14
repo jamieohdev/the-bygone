@@ -5,11 +5,13 @@ import com.jamiedev.bygone.entities.*;
 import com.jamiedev.bygone.init.*;
 import com.jamiedev.bygone.util.Consumer4;
 import com.mojang.datafixers.util.Function6;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -17,8 +19,10 @@ import org.apache.commons.lang3.function.Consumers;
 import org.apache.commons.lang3.function.TriConsumer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -95,4 +99,15 @@ public class Bygone {
         consumer.accept(BlockEntityType.HANGING_SIGN,JamiesModBlocks.ANCIENT_WALL_HANGING_SIGN);
     }
 
+    public static boolean isSprinklerNearby(LevelReader world, BlockPos pos) {
+        Iterable<BlockPos> var2 = BlockPos.betweenClosed(pos.offset(-15, 0, -15), pos.offset(15, 1, 15));
+
+        for (BlockPos pos1 : var2) {
+            if (world.getBlockState(pos1).is(JamiesModTag.SPRINKLERS)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

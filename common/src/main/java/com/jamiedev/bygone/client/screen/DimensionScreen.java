@@ -33,6 +33,6 @@ public class DimensionScreen {
         BufferUploader.draw(bufferbuilder.buildOrThrow());
 
         guiGraphics.drawCenteredString(Minecraft.getInstance().font, DOWNLOADING_BYGONE_TERRAIN_TEXT, screen.width / 2 + 1, screen.height / 2 - 9, 0);
-        guiGraphics.drawCenteredString(Minecraft.getInstance().font, DOWNLOADING_BYGONE_TERRAIN_TEXT, screen.width / 2, screen.height / 2 - 10, 16774120);
+        guiGraphics.drawCenteredString(Minecraft.getInstance().font, DOWNLOADING_BYGONE_TERRAIN_TEXT, screen.width / 2, screen.height / 2 - 10, 0xfff3e8);
     }
 }

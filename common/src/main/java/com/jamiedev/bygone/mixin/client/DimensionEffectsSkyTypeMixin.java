@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.mixin.client;
 
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.client.BygoneClientFabric;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
@@ -47,7 +46,7 @@ public class DimensionEffectsSkyTypeMixin
         variants.add(beakArmor);
         DimensionEffectsSkyTypeMixin.bygone$values = variants.toArray(new DimensionSpecialEffects.SkyType[0]);
 
-        BygoneClientFabric.BYGONE_SKY = beakArmor;
+        //BygoneClientFabric.BYGONE_SKY = beakArmor;
 
         return beakArmor;
     }
