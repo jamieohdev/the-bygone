@@ -3,16 +3,21 @@ package com.jamiedev.bygone.client;
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.PlayerWithHook;
 import com.jamiedev.bygone.client.models.*;
+import com.jamiedev.bygone.client.particles.*;
 import com.jamiedev.bygone.client.renderer.*;
-import com.jamiedev.bygone.init.JamiesModBlocks;
-import com.jamiedev.bygone.init.JamiesModEntityTypes;
-import com.jamiedev.bygone.init.JamiesModItems;
+import com.jamiedev.bygone.init.*;
 import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.particle.ParticleEngine;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.SoulParticle;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -107,6 +112,8 @@ public class BygoneClient {
     }
 
     public static void createEntityRenderers() {
+        BlockEntityRenderers.register(JamiesModBlockEntities.CASTER, CasterBlockEntityRenderer::new);
+
         EntityRenderers.register(JamiesModEntityTypes.GLARE, GlareRenderer::new);
         EntityRenderers.register(JamiesModEntityTypes.COELACANTH, CoelacanthRenderer::new);
         EntityRenderers.register(JamiesModEntityTypes.DUCK, DuckieRenderer::new);
@@ -161,6 +168,17 @@ public class BygoneClient {
                     return 0;
                 }
         );
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends ParticleOptions> void registerParticleFactories(BiConsumer<ParticleType<T>, ParticleEngine.SpriteParticleRegistration<T>> consumer) {
+        consumer.accept((ParticleType<T>) JamiesModParticleTypes.BLEMISH, p_107611_ -> (ParticleProvider<T>) new BlemishParticle.BlemishBlockProvider(p_107611_));
+        consumer.accept((ParticleType<T>) JamiesModParticleTypes.RAFFLESIA_SPORES, spriteProvider -> (ParticleProvider<T>) new RafflesiaSporeParticle.Factory(spriteProvider));
+        consumer.accept((ParticleType<T>) JamiesModParticleTypes.ALGAE_BLOOM, sprite -> (ParticleProvider<T>) new SoulParticle.EmissiveProvider(sprite));
+        consumer.accept((ParticleType<T>) JamiesModParticleTypes.SHELF, spriteProvider -> (ParticleProvider<T>) new ShelfParticle.Factory(spriteProvider));
+
+        consumer.accept((ParticleType<T>) JamiesModParticleTypes.AMBER_DUST, spriteProvider -> (ParticleProvider<T>) new AmberDustParticle.Factory(spriteProvider));
+        consumer.accept((ParticleType<T>) JamiesModParticleTypes.ANCIENT_LEAVES, spriteProvider -> (ParticleProvider<T>) new AncientLeavesParticle.Factory(spriteProvider));
     }
 
     public static boolean isWeaponBlocking(LivingEntity entity) {

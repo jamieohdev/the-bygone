@@ -5,6 +5,7 @@ import com.jamiedev.bygone.entities.*;
 import com.jamiedev.bygone.init.*;
 import com.jamiedev.bygone.util.Consumer4;
 import com.mojang.datafixers.util.Function6;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.apache.commons.lang3.function.Consumers;
 import org.apache.commons.lang3.function.TriConsumer;
@@ -87,6 +89,7 @@ public class Bygone {
         consumer.accept(JamiesModEntityTypes.FUNGAL_PARENT, FungalParentEntity.createFungieAttributes().build());
     }
 
+    @SuppressWarnings("unchecked")
     public static<T extends Mob> void registerSpawnPlacements(Consumer4<EntityType<T>,SpawnPlacementType,Heightmap.Types,SpawnPlacements.SpawnPredicate<T>> consumer) {
         consumer.accept((EntityType<T>) JamiesModEntityTypes.SCUTTLE, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, iServerWorld, reason1, pos1, random1) -> ScuttleEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<? extends WaterAnimal>) entityType, iServerWorld, reason1, pos1, random1));
         consumer.accept((EntityType<T>) JamiesModEntityTypes.GLARE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
@@ -166,7 +169,11 @@ public class Bygone {
         consumer.accept(JamiesModBlocks.COLEUS, 0.1F);
     }
 
-        public static void addFlammable() {
+    public static void addWoodTypes() {
+
+    }
+
+    public static void addFlammable() {
         ((FireBlock)Blocks.FIRE).setFlammable(JamiesModBlocks.ANCIENT_WOOD, 5, 20);
         ((FireBlock)Blocks.FIRE).setFlammable(JamiesModBlocks.ANCIENT_LOG, 5, 20);
         ((FireBlock)Blocks.FIRE).setFlammable(JamiesModBlocks.ANCIENT_PLANKS, 5, 20);

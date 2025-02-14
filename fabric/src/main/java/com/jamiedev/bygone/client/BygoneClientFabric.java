@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.client;
 
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.client.particles.*;
 import com.jamiedev.bygone.client.renderer.*;
 import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import com.jamiedev.bygone.block.JamiesModWoodType;
@@ -11,10 +10,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.minecraft.client.particle.SoulParticle;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,15 +29,8 @@ public class BygoneClientFabric implements ClientModInitializer {
         BygoneClient.registerRenderLayers(BlockRenderLayerMap.INSTANCE::putBlock);
         BygoneClient.createEntityRenderers();
         BygoneClient.createModelLayers((modelLayerLocation, layerDefinitionSupplier) -> EntityModelLayerRegistry.registerModelLayer(modelLayerLocation, layerDefinitionSupplier::get));
+        BygoneClient.registerParticleFactories((particleType, spriteParticleRegistration) -> ParticleFactoryRegistry.getInstance().register(particleType, spriteParticleRegistration::create));
 
-
-        ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.BLEMISH, BlemishParticle.BlemishBlockProvider::new);
-        ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.RAFFLESIA_SPORES, RafflesiaSporeParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.ALGAE_BLOOM, SoulParticle.EmissiveProvider::new);
-        ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.SHELF, ShelfParticle.Factory::new);
-
-        ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.AMBER_DUST, AmberDustParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(JamiesModParticleTypes.ANCIENT_LEAVES, AncientLeavesParticle.Factory::new);
 
         DimensionRenderingRegistry.registerDimensionEffects(BYGONE, BygoneDimensionEffects.INSTANCE);
         DimensionRenderingRegistry.registerSkyRenderer(JamiesModDimension.BYGONE_LEVEL_KEY, BygoneSkyRenderer.INSTANCE);
@@ -49,12 +38,8 @@ public class BygoneClientFabric implements ClientModInitializer {
         BygoneClient.registerModelPredicateProviders();
 
         Sheets.SIGN_MATERIALS.put(JamiesModWoodType.ANCIENT, Sheets.getSignMaterial(JamiesModWoodType.ANCIENT));
-        BlockEntityRenderers.register(JamiesModBlockEntities.MOD_SIGN_BLOCK_ENTITY, SignRenderer::new);
+        Sheets.HANGING_SIGN_MATERIALS.put(JamiesModWoodType.ANCIENT, Sheets.getHangingSignMaterial(JamiesModWoodType.ANCIENT));
+
      //   BlockEntityRendererFactories.register(JamiesModBlockEntities.BRUSHABLE_BLOCK, BygoneBrushableBlockEntityRenderer::new);
-        BlockEntityRenderers.register(JamiesModBlockEntities.CASTER, CasterBlockEntityRenderer::new);
-
-
     }
-
-
 }
