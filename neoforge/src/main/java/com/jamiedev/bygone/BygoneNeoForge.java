@@ -9,6 +9,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
@@ -24,15 +25,20 @@ public class BygoneNeoForge {
         eventBus.addListener(BygoneDataGenerator::onInitializeDataGenerator);
         eventBus.addListener(this::setup);
         eventBus.addListener(this::spawnPlacements);
+        eventBus.addListener(this::createAttributes);
         Bygone.init();
     }
 
-    void spawnPlacements(RegisterSpawnPlacementsEvent event) {
+    void createAttributes(EntityAttributeCreationEvent event) {
+        Bygone.initAttributes(event::put);
+    }
 
+    void spawnPlacements(RegisterSpawnPlacementsEvent event) {
+        Bygone.registerSpawnPlacements((entityType, spawnPlacementType, types, spawnPredicate) -> event.register(entityType,spawnPlacementType,types,spawnPredicate, RegisterSpawnPlacementsEvent.Operation.REPLACE));
     }
 
     void setup(FMLCommonSetupEvent event) {
-
+        Bygone.registerStrippables();
     }
 
     void registerEvent(RegisterEvent event) {

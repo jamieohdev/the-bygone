@@ -372,7 +372,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
         return world.getRawBrightness(pos, 0) > 1;
     }
 
-    public static boolean canSpawn(EntityType<GlareEntity> glareEntityEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, RandomSource random) {
+    public static boolean canSpawn(EntityType<? extends Mob> glareEntityEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, RandomSource random) {
        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(JamiesModBlocks.MOSSY_CLAYSTONE);
     }
 

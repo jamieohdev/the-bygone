@@ -454,7 +454,7 @@ public class BigBeakEntity  extends AbstractHorse
                 JamiesModEntityTypes.BIG_BEAK.getHeight() + 0.125F, 0.0F)).scale(0.5F);
     }
     public static boolean canSpawn(
-            EntityType<BigBeakEntity> moobloomEntityType,
+            EntityType<? extends Mob> moobloomEntityType,
             LevelAccessor serverWorldAccess,
             MobSpawnType spawnReason,
             BlockPos blockPos,

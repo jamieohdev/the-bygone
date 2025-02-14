@@ -13,12 +13,8 @@ import java.util.Locale;
 
 public class PacketHandler {
 
-    public static void registerPackets()
-    {
-
+    public static void registerPackets() {
         Services.PLATFORM.registerClientPlayPacket(SyncPlayerHookS2C.PACkET_ID, SyncPlayerHookS2C.CODEC);
-
-
     }
 
     public static void sendToServer(C2SModPacket<?> packet) {

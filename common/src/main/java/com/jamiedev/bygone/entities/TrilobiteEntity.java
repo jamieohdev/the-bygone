@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 public class TrilobiteEntity extends AbstractFish
 {
     GlowSquid ref;
-    private static final EntityDataAccessor<Integer> DARK_TICKS_REMAINING1;
+    private static final EntityDataAccessor<Integer> DARK_TICKS_REMAINING1 = SynchedEntityData.defineId(TrilobiteEntity.class, EntityDataSerializers.INT);
     public TrilobiteEntity(EntityType<? extends TrilobiteEntity> entityType, Level world) {
         super(entityType, world);
     }
@@ -55,7 +55,7 @@ public class TrilobiteEntity extends AbstractFish
         this.setDarkTicksRemaining(nbt.getInt("DarkTicksRemaining"));
     }
 
-    public static boolean checkSurfaceWaterAnimalSpawnRules(EntityType<? extends WaterAnimal> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, RandomSource random) {
+    public static boolean checkSurfaceWaterAnimalSpawnRule(EntityType<? extends WaterAnimal> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, RandomSource random) {
         int i = world.getSeaLevel();
         int j = i - 13;
 
@@ -84,8 +84,4 @@ public class TrilobiteEntity extends AbstractFish
     }
 
 
-
-    static {
-        DARK_TICKS_REMAINING1 = SynchedEntityData.defineId(TrilobiteEntity.class, EntityDataSerializers.INT);
-    }
 }

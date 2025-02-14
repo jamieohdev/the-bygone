@@ -48,25 +48,6 @@ public class JamiesModFeatures
         return Registry.register(BuiltInRegistries.FEATURE, Bygone.id(name), feature);
     }
 
-    public static void init() {
-        Registry.register(BuiltInRegistries.FEATURE, Bygone.id("ancient_tree"), ANCIENT_TREE);
-        Registry.register(BuiltInRegistries.FEATURE, Bygone.id("ancient_vines"), ANCIENT_VINES);
-        Registry.register(BuiltInRegistries.FEATURE, Bygone.id("underhang_vegetation"), ANCIENT_FOREST_VEGATATION);
-        Registry.register(BuiltInRegistries.FEATURE, Bygone.id("ancient_flowers"), ANCIENT_FLOWERS);
-        Registry.register(BuiltInRegistries.FEATURE, Bygone.id("small_cloud"), SMALL_CLOUD);
-        Registry.register(BuiltInRegistries.FEATURE, Bygone.id("amber"), AMBER);
-        Registry.register(BuiltInRegistries.FEATURE, Bygone.id("amber_under"), AMBER_UNDER);
-        Registry.register(BuiltInRegistries.FEATURE, Bygone.id("pointed_amber"), POINTED_AMBER);
-        Registry.register(BuiltInRegistries.FEATURE, Bygone.id("amber_cluster"), AMBER_CLUSTER);
-        Registry.register(BuiltInRegistries.FEATURE, Bygone.id("shelf_fungi"), SHELF_FUNGI);
-        Registry.register(BuiltInRegistries.FEATURE, Bygone.id("fungi_vines"), FUNGI_VINES);
-
-        Registry.register(BuiltInRegistries.FEATURE, Bygone.id("primordial_coral_claw"), PRIMORDIAL_CORAL_CLAW);
-        Registry.register(BuiltInRegistries.FEATURE, Bygone.id("primordial_coral_mushroom"), PRIMORDIAL_CORAL_MUSHROOM);
-        Registry.register(BuiltInRegistries.FEATURE, Bygone.id("primordial_coral_tree"), PRIMORDIAL_CORAL_TREE);
-
-
-
-    }
+    public static void init() {}
 }
 

@@ -320,7 +320,7 @@ public class ScuttleEntity extends WaterAnimal implements RangedAttackMob
     }
 
 
-    public static boolean checkSurfaceWaterAnimalSpawnRules(EntityType<? extends WaterAnimal> entityType,
+    public static boolean checkSurfaceWaterAnimalSpawnRule(EntityType<? extends WaterAnimal> entityType,
                                    LevelAccessor iServerWorld,
                                    MobSpawnType reason,
                                    BlockPos pos,
