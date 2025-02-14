@@ -3,6 +3,7 @@ package com.jamiedev.bygone;
 import com.google.common.collect.ImmutableMap;
 import com.jamiedev.bygone.entities.*;
 import com.jamiedev.bygone.init.*;
+import com.jamiedev.bygone.platform.Services;
 import com.jamiedev.bygone.util.Consumer4;
 import com.mojang.datafixers.util.Function6;
 import net.minecraft.client.renderer.Sheets;
@@ -10,8 +11,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
@@ -197,6 +202,33 @@ public class Bygone {
         }
 
         return false;
+    }
+
+    public static void tickCow(Cow cow) {
+
+        if (canCowZombify(cow)) {
+            int timeInBygone = Services.PLATFORM.getTimeInBygone(cow);
+
+            if (timeInBygone > 300) {
+                zombify(cow);
+            }
+            Services.PLATFORM.setTimeInBygone(cow,++timeInBygone);
+
+        } else {
+            Services.PLATFORM.setTimeInBygone(cow,0);
+        }
+
+    }
+
+    public static boolean canCowZombify(Cow cow) {
+        return cow.level().dimension() == JamiesModDimension.BYGONE_LEVEL_KEY && !cow.isNoAi();
+    }
+
+    protected static void zombify(Cow cow) {
+        MoobooEntity moobooEntity = cow.convertTo(JamiesModEntityTypes.MOOBOO, true);
+        if (moobooEntity != null) {
+            moobooEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0));
+        }
     }
 
     public static Stream<Block> getKnownBlocks() {

@@ -48,4 +48,7 @@ public interface IPlatformHelper {
     void sendToClient(S2CModPacket<?> msg, ServerPlayer player);
     void sendToServer(C2SModPacket<?> msg);
     void sendToTracking(S2CModPacket<?> msg, Entity entity,boolean includeSelf);
+
+    int getTimeInBygone(Entity entity);
+    void setTimeInBygone(Entity entity,int time);
 }

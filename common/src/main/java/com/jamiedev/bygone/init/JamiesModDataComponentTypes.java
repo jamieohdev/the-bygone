@@ -24,7 +24,7 @@ public class JamiesModDataComponentTypes
 
     public static final DataComponentType<CopperbugNestBlockEntity.CopperbugData> COPPERBUG_1 = Registry.register(
             BuiltInRegistries.DATA_COMPONENT_TYPE,
-            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "copperbugs"),
+            Bygone.id("copperbugs"),
             DataComponentType.<CopperbugNestBlockEntity.CopperbugData>builder().persistent(null).build()
     );
 

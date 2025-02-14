@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.platform;
 
 import com.jamiedev.bygone.PacketHandlerNeoForge;
+import com.jamiedev.bygone.init.AttachmentTypesNeoForge;
 import com.jamiedev.bygone.network.C2SModPacket;
 import com.jamiedev.bygone.network.S2CModPacket;
 import com.jamiedev.bygone.platform.services.IPlatformHelper;
@@ -61,5 +62,15 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     public void sendToTracking(S2CModPacket<?> msg, Entity entity, boolean includeSelf) {
         if (includeSelf) PacketDistributor.sendToPlayersTrackingEntityAndSelf(entity, msg);
         else PacketDistributor.sendToPlayersTrackingEntity(entity, msg);
+    }
+
+    @Override
+    public int getTimeInBygone(Entity entity) {
+        return entity.getData(AttachmentTypesNeoForge.TIME_IN_BYGONE);
+    }
+
+    @Override
+    public void setTimeInBygone(Entity entity, int time) {
+        entity.setData(AttachmentTypesNeoForge.TIME_IN_BYGONE,time);
     }
 }

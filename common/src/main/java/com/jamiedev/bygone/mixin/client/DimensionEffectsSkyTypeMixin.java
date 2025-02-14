@@ -13,7 +13,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
 
-//todo CRASHES
+//todo CRASHES, needs a replacement that doesn't involve adding enum entries
 @Unique
 @Mixin(DimensionSpecialEffects.SkyType.class)
 public class DimensionEffectsSkyTypeMixin 
