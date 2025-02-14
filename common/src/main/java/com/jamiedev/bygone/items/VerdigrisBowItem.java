@@ -9,6 +9,8 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -47,6 +49,13 @@ public class VerdigrisBowItem extends BowItem {
                 playerEntity.awardStat(Stats.ITEM_USED.get(this));
             }
         }
+    }
+
+    @Override
+    protected Projectile createProjectile(Level level, LivingEntity shooter, ItemStack weapon, ItemStack ammo, boolean isCrit) {
+        AbstractArrow projectile = (AbstractArrow) super.createProjectile(level, shooter, weapon, ammo, isCrit);
+        projectile.setBaseDamage(projectile.getBaseDamage() * 0.1);
+        return projectile;
     }
 
     @Override

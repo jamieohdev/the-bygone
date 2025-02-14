@@ -10,6 +10,8 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.apache.commons.lang3.function.Consumers;
 import org.apache.commons.lang3.function.TriConsumer;
@@ -83,6 +85,14 @@ public class Bygone {
         //SpawnRestriction.register(COPPERBUG, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CopperbugEntity::canSpawn);
 
         consumer.accept((EntityType<T>) JamiesModEntityTypes.COELACANTH, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, world, reason, pos, random) -> CoelacanthEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<CoelacanthEntity>) type, world, reason, pos, random));
+    }
+
+    public static void addValidBlocks(BiConsumer<BlockEntityType<?>, Block> consumer) {
+        consumer.accept(BlockEntityType.SIGN,JamiesModBlocks.ANCIENT_SIGN);
+        consumer.accept(BlockEntityType.SIGN,JamiesModBlocks.ANCIENT_WALL_SIGN);
+
+        consumer.accept(BlockEntityType.HANGING_SIGN,JamiesModBlocks.ANCIENT_HANGING_SIGN);
+        consumer.accept(BlockEntityType.HANGING_SIGN,JamiesModBlocks.ANCIENT_WALL_HANGING_SIGN);
     }
 
 }

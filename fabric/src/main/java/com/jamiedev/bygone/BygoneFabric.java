@@ -22,6 +22,7 @@ import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
 
@@ -51,10 +52,14 @@ public class BygoneFabric implements ModInitializer {
 
 		initAttributes();
 
+
+		Bygone.addValidBlocks((type, block) -> type.addSupportedBlock(block));
+
 		Bygone.registerStrippables();
         Bygone.LOGGER.info("Registering Entities for {}", Bygone.MOD_ID);
 
 		PacketHandler.registerPackets();
+
 	}
 
 	public static void initAttributes() {

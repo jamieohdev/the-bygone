@@ -22,7 +22,6 @@ public class JamiesModBlockEntities {
 
     public static BlockEntityType<ModSignBlockEntity> MOD_SIGN_BLOCK_ENTITY;
 
-    public static BlockEntityType<ModHangingSignBlockEntity> MOD_HANGING_SIGN_BLOCK_ENTITY;
 
     public static BlockEntityType<BlemishCatalystBlockEntity> BLEMISH_CATALYST;
 
@@ -52,14 +51,7 @@ public class JamiesModBlockEntities {
         PRIMORDIAL_URCHIN = register("primordial_urchin",
                 BlockEntityType.Builder.of(PrimordialUrchinEntity::new, JamiesModBlocks.PRIMORDIAL_URCHIN)
                         .build(null));
-        MOD_SIGN_BLOCK_ENTITY = Registry.register(
-                BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                Bygone.id("ancient_sign_entity"),
-                BlockEntityType.Builder.of(ModSignBlockEntity::new, ANCIENT_SIGN, ANCIENT_WALL_SIGN).build(null)
-        );
-        MOD_HANGING_SIGN_BLOCK_ENTITY = register("ancient_hanging_sign_entity",
-                BlockEntityType.Builder.of(ModHangingSignBlockEntity::new, JamiesModBlocks.ANCIENT_HANGING_SIGN, JamiesModBlocks.ANCIENT_WALL_HANGING_SIGN).build(null)
-        );
+
        // BRUSHABLE_BLOCK = register("brushable_block",
         //        BlockEntityType.Builder.create(BygoneBrushableBlockEntity::new, SUSPICIOUS_UMBER)
         //                .build());

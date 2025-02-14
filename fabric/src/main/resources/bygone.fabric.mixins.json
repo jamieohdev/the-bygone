@@ -3,10 +3,8 @@
   "package": "com.jamiedev.bygone.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "BowMixin",
     "CowEntityMixin",
     "FarmlandBlockMixin",
-    "HangingSignBlockEntityMixin",
     "LivingEntityMixin",
     "PlayerMixin"
 

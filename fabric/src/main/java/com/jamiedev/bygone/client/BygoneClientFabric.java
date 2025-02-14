@@ -6,10 +6,8 @@ import com.jamiedev.bygone.client.renderer.*;
 import com.jamiedev.bygone.items.VerdigrisBladeItem;
 import com.jamiedev.bygone.block.JamiesModWoodType;
 import com.jamiedev.bygone.init.*;
-import com.jamiedev.bygone.network.SyncPlayerHookS2C;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -17,7 +15,6 @@ import net.minecraft.client.particle.SoulParticle;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
@@ -64,13 +61,8 @@ public class BygoneClientFabric implements ClientModInitializer {
 
         BygoneClient.registerModelPredicateProviders();
 
-        ClientPlayNetworking.registerGlobalReceiver(SyncPlayerHookS2C.PACkET_ID, (payload, context) -> {
-            context.client().execute(() -> ClientPacketHandler.handle(payload));
-        });
-
         Sheets.SIGN_MATERIALS.put(JamiesModWoodType.ANCIENT, Sheets.getSignMaterial(JamiesModWoodType.ANCIENT));
         BlockEntityRenderers.register(JamiesModBlockEntities.MOD_SIGN_BLOCK_ENTITY, SignRenderer::new);
-        BlockEntityRenderers.register(JamiesModBlockEntities.MOD_HANGING_SIGN_BLOCK_ENTITY, HangingSignRenderer::new);
      //   BlockEntityRendererFactories.register(JamiesModBlockEntities.BRUSHABLE_BLOCK, BygoneBrushableBlockEntityRenderer::new);
         BlockEntityRenderers.register(JamiesModBlockEntities.CASTER, CasterBlockEntityRenderer::new);
 

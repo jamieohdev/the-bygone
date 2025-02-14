@@ -9,6 +9,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
@@ -26,6 +27,7 @@ public class BygoneNeoForge {
         eventBus.addListener(this::setup);
         eventBus.addListener(this::spawnPlacements);
         eventBus.addListener(this::createAttributes);
+        eventBus.addListener(this::addValidBlocks);
         Bygone.init();
     }
 
@@ -39,6 +41,10 @@ public class BygoneNeoForge {
 
     void setup(FMLCommonSetupEvent event) {
         Bygone.registerStrippables();
+    }
+
+    void addValidBlocks(BlockEntityTypeAddBlocksEvent event) {
+        Bygone.addValidBlocks(event::modify);
     }
 
     void registerEvent(RegisterEvent event) {
