@@ -1,0 +1,37 @@
+{
+    "schemaVersion": 1,
+    "id": "${mod_id}",
+    "version": "${version}",
+    "name": "${mod_name}",
+    "description": "${description}",
+    "authors": [
+        "Programmers: Jamie, soumeh, TheLyingCake (BIG BEAK ARMOR), TelepathicGrunt(Generation code!), TheInfamous1 (Hook!), Catalyst (Trees & Features!) & Klinbee (World gen!!)",
+        "Artists: boomsh0t (concept art), patchouli, CrispyTwig, gladosedition (Scuttle concept!) & betwixer (textures)",
+        "Music / Sounds: LudoCrypt, MistaJubb & Quizzly_",
+        "Playtesters: reider, vibrissae, Ethan_4D (The Bug Finder) & DsTheSecond"
+    ],
+    "contact": {
+        "homepage": "https://fabricmc.net/",
+        "sources": "https://github.com/FabricMC/fabric-example-mod"
+    },
+    "license": "${license}",
+    "icon": "${mod_id}.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+          "com.jamiedev.bygone.BygoneFabric"
+        ],
+        "client": ["com.jamiedev.bygone.client.BygoneClientFabric"]
+    },
+    "mixins": [
+        "${mod_id}.mixins.json",
+        "${mod_id}.fabric.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=${fabric_loader_version}",
+        "fabric-api": "*",
+        "minecraft": ">=${minecraft_version}",
+        "java": ">=${java_version}"
+    }
+}
+  
