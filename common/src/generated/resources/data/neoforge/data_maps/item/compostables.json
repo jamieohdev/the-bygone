@@ -1,0 +1,70 @@
+{
+  "values": {
+    "bygone:alpha_moss_block": {
+      "chance": 0.3
+    },
+    "bygone:alpha_moss_carpet": {
+      "chance": 0.3
+    },
+    "bygone:ancient_leaves": {
+      "chance": 0.3
+    },
+    "bygone:ancient_roots": {
+      "chance": 0.3
+    },
+    "bygone:ancient_sapling": {
+      "chance": 0.5
+    },
+    "bygone:ancient_vines": {
+      "chance": 0.3
+    },
+    "bygone:belladonna": {
+      "chance": 0.1
+    },
+    "bygone:charnia": {
+      "chance": 0.2
+    },
+    "bygone:coleus": {
+      "chance": 0.1
+    },
+    "bygone:creosote_sprouts": {
+      "chance": 0.2
+    },
+    "bygone:montsechia": {
+      "chance": 0.2
+    },
+    "bygone:orange_fungi_vines": {
+      "chance": 0.1
+    },
+    "bygone:pink_fungi_vines": {
+      "chance": 0.1
+    },
+    "bygone:purple_fungi_vines": {
+      "chance": 0.1
+    },
+    "bygone:rafflesia": {
+      "chance": 0.8
+    },
+    "bygone:sagaria": {
+      "chance": 0.2
+    },
+    "bygone:shelf_fungus": {
+      "chance": 0.2
+    },
+    "bygone:shelf_mold": {
+      "chance": 0.2
+    },
+    "bygone:shelf_roots": {
+      "chance": 0.2
+    },
+    "bygone:shelf_sprouts": {
+      "chance": 0.2
+    },
+    "bygone:under_grass": {
+      "chance": 0.2
+    },
+    "minecraft:air": {
+      "chance": 0.4
+    }
+  }
+}

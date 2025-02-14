@@ -1,0 +1,73 @@
+{
+  "values": {
+    "bygone:alpha_moss_block": {
+      "burn_time": 60
+    },
+    "bygone:alpha_moss_carpet": {
+      "burn_time": 30
+    },
+    "bygone:ancient_button": {
+      "burn_time": 100
+    },
+    "bygone:ancient_door": {
+      "burn_time": 200
+    },
+    "bygone:ancient_fence": {
+      "burn_time": 300
+    },
+    "bygone:ancient_fence_gate": {
+      "burn_time": 300
+    },
+    "bygone:ancient_log": {
+      "burn_time": 300
+    },
+    "bygone:ancient_planks": {
+      "burn_time": 300
+    },
+    "bygone:ancient_pressure_plate": {
+      "burn_time": 300
+    },
+    "bygone:ancient_roots": {
+      "burn_time": 50
+    },
+    "bygone:ancient_sapling": {
+      "burn_time": 300
+    },
+    "bygone:ancient_slab": {
+      "burn_time": 150
+    },
+    "bygone:ancient_stairs": {
+      "burn_time": 300
+    },
+    "bygone:ancient_trapdoor": {
+      "burn_time": 300
+    },
+    "bygone:ancient_wood": {
+      "burn_time": 300
+    },
+    "bygone:belladonna": {
+      "burn_time": 50
+    },
+    "bygone:charnia": {
+      "burn_time": 50
+    },
+    "bygone:coleus": {
+      "burn_time": 50
+    },
+    "bygone:montsechia": {
+      "burn_time": 50
+    },
+    "bygone:rafflesia": {
+      "burn_time": 500
+    },
+    "bygone:sagaria": {
+      "burn_time": 50
+    },
+    "bygone:under_grass": {
+      "burn_time": 300
+    },
+    "minecraft:air": {
+      "burn_time": 200
+    }
+  }
+}

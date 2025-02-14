@@ -1,0 +1,65 @@
+plugins {
+    id 'multiloader-loader'
+    id 'fabric-loom'
+    id "com.modrinth.minotaur" version "2.+"
+}
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${parchment_minecraft}:${parchment_version}@zip")
+    }
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+
+    if (project.use_rei.toBoolean()) {
+        modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
+        modImplementation "me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version"
+        modImplementation "dev.architectury:architectury-fabric:$architectury_version"
+    }
+
+    // Custom Portal API
+    modImplementation "net.kyrptonaught:customportalapi:${portal_api_version}" // can't use `project.minecraft_version` because 1.21.1 and not 1.21
+    include "net.kyrptonaught:customportalapi:${portal_api_version}"
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+
+}
+
+loom {
+    def aw = file("src/main/resources/${mod_id}.accesswidener")
+    if (aw.exists()) {
+        accessWidenerPath.set(aw)
+    }
+    mixin {
+        defaultRefmapName.set("${mod_id}.refmap.json")
+    }
+    runs {
+        client {
+            client()
+            setConfigName('Fabric Client')
+            ideConfigGenerated(true)
+            runDir('runs/client')
+        }
+        server {
+            server()
+            setConfigName('Fabric Server')
+            ideConfigGenerated(true)
+            runDir('runs/server')
+        }
+    }
+}
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")// Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
+    projectId = modrinth_project_id // This can be the project ID or the slug. Either will work!
+    versionNumber = "fabric-$minecraft_version-$version" // You don't need to set this manually. Will fail if Modrinth has this version already
+    versionType = "release" // This is the default -- can also be `beta` or `alpha`
+    uploadFile = remapJar // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    gameVersions = [minecraft_version] // Must be an array, even with only one version
+    dependencies { // A special DSL for creating dependencies
+        // scope.type
+        // The scope can be `required`, `optional`, `incompatible`, or `embedded`
+        // The type can either be `project` or `version`
+        required.project "fabric-api" // Creates a new required dependency on Fabric API
+        //   optional.version "sodium", "mc1.19.3-0.4.8" // Creates a new optional dependency on this specific version of Sodium
+    }
+}

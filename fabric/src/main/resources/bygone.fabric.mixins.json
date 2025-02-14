@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "com.jamiedev.bygone.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "CowEntityMixinFabric",
+    "FarmlandBlockMixin",
+    "PlayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+  ]
+}
