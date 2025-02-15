@@ -155,6 +155,8 @@ public class Bygone {
         consumer.accept(JamiesModBlocks.ANCIENT_FENCE_GATE, 300);
         consumer.accept(JamiesModBlocks.ANCIENT_FENCE, 300);
         consumer.accept(JamiesModBlocks.ANCIENT_DOOR, 200);
+        consumer.accept(JamiesModBlocks.WHIRLIWEED, 75);
+        consumer.accept(JamiesModBlocks.BIG_WHIRLIWEED, 125);
 
     }
 
@@ -186,6 +188,8 @@ public class Bygone {
         consumer.accept(JamiesModBlocks.PURPLE_FUNGI_VINES, 0.1F);
         consumer.accept(JamiesModBlocks.BELLADONNA,0.1F);
         consumer.accept(JamiesModBlocks.COLEUS, 0.1F);
+        consumer.accept(JamiesModBlocks.WHIRLIWEED, 0.3F);
+        consumer.accept(JamiesModBlocks.BIG_WHIRLIWEED, 0.4F);
     }
 
     public static void addWoodTypes() {
