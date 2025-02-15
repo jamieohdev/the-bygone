@@ -4,8 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "CowEntityMixinFabric",
-    "FarmlandBlockMixin",
-    "PlayerMixin"
+    "FarmlandBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
