@@ -1,4 +1,8 @@
-// 1.21.1	2025-02-15T21:20:32.6884659	Tags for minecraft:block mod id bygone
+// 1.21.1	2025-02-15T21:32:02.0097607	Tags for minecraft:block mod id bygone
+0e8831cd617b121e55906dc96a77790eed160d78 data/minecraft/tags/block/bamboo_plantable_on.json
+0e8831cd617b121e55906dc96a77790eed160d78 data/minecraft/tags/block/enderman_holdable.json
 923431b0673da3b8000967252defb431c987e0ab data/minecraft/tags/block/flowers.json
+0e8831cd617b121e55906dc96a77790eed160d78 data/minecraft/tags/block/goats_spawnable_on.json
 923431b0673da3b8000967252defb431c987e0ab data/minecraft/tags/block/inside_step_sound_blocks.json
+0e8831cd617b121e55906dc96a77790eed160d78 data/minecraft/tags/block/sculk_replaceable.json
 923431b0673da3b8000967252defb431c987e0ab data/minecraft/tags/block/sword_efficient.json

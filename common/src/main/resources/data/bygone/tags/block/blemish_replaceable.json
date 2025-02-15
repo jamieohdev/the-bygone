@@ -19,6 +19,7 @@
     "minecraft:sandstone",
     "bygone:bystone",
     "bygone:byslate",
-    "minecraft:moss_block"
+    "minecraft:moss_block",
+    "bygone:glow_gravel"
   ]
 }

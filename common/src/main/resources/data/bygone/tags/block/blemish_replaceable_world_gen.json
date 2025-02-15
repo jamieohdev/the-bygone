@@ -25,6 +25,7 @@
     "minecraft:cobbled_deepslate",
     "minecraft:cracked_deepslate_bricks",
     "minecraft:cracked_deepslate_tiles",
-    "minecraft:polished_deepslate"
+    "minecraft:polished_deepslate",
+    "bygone:glow_gravel"
   ]
 }

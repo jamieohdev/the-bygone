@@ -24,6 +24,10 @@ public class BygoneBlockTagProvider extends BlockTagsProvider {
         flowers();
         insideStepSoundBlocks();
         //mineableWithHoe();
+        endermanHoldable();
+        goatSpawnableOn();
+        bambooPlantable();
+        sculkReplaceable();
        /* tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(JamiesModBlocks.CLAYSTONE_BRICKS)
                 .add(JamiesModBlocks.CLAYSTONE_BRICKS_STAIRS)
@@ -54,5 +58,25 @@ public class BygoneBlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.MINEABLE_WITH_HOE)
                 .add(JamiesModBlocks.BELLADONNA)
                 .add(JamiesModBlocks.COLEUS);
+    }
+
+    private void endermanHoldable() {
+        this.tag(BlockTags.ENDERMAN_HOLDABLE)
+                .add(JamiesModBlocks.GLOW_GRAVEL);
+    }
+
+    private void bambooPlantable() {
+        this.tag(BlockTags.BAMBOO_PLANTABLE_ON)
+                .add(JamiesModBlocks.GLOW_GRAVEL);
+    }
+
+    private void goatSpawnableOn() {
+        this.tag(BlockTags.GOATS_SPAWNABLE_ON)
+                .add(JamiesModBlocks.GLOW_GRAVEL);
+    }
+
+    private void sculkReplaceable() {
+        this.tag(BlockTags.SCULK_REPLACEABLE)
+                .add(JamiesModBlocks.GLOW_GRAVEL);
     }
 }
