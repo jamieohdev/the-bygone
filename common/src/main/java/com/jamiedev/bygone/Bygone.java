@@ -171,7 +171,7 @@ public class Bygone {
         consumer.accept(JamiesModBlocks.SHORT_GRASS, 0.2F);
         consumer.accept(JamiesModBlocks.TALL_GRASS, 0.4F);
         consumer.accept(JamiesModBlocks.ANCIENT_ROOTS, 0.3F);
-        consumer.accept(JamiesModBlocks.ANCIENT_VINE, 0.3F);
+        consumer.accept(JamiesModBlocks.ANCIENT_VINE, 0.5F);
         consumer.accept(JamiesModBlocks.ANCIENT_LEAVES, 0.3F);
 
         consumer.accept(JamiesModBlocks.ALPHA_MOSS_CARPET, 0.3F);
@@ -183,9 +183,9 @@ public class Bygone {
         consumer.accept(JamiesModBlocks.SHELF_FUNGUS, 0.2F);
         consumer.accept(JamiesModBlocks.SHELF_SPROUTS, 0.2F);
 
-        consumer.accept(JamiesModBlocks.ORANGE_FUNGI_VINES, 0.1F);
-        consumer.accept(JamiesModBlocks.PINK_FUNGI_VINES, 0.1F);
-        consumer.accept(JamiesModBlocks.PURPLE_FUNGI_VINES, 0.1F);
+        consumer.accept(JamiesModBlocks.ORANGE_FUNGI_VINES, 0.5F);
+        consumer.accept(JamiesModBlocks.PINK_FUNGI_VINES, 0.5F);
+        consumer.accept(JamiesModBlocks.PURPLE_FUNGI_VINES, 0.5F);
         consumer.accept(JamiesModBlocks.BELLADONNA,0.1F);
         consumer.accept(JamiesModBlocks.COLEUS, 0.1F);
         consumer.accept(JamiesModBlocks.WHIRLIWEED, 0.3F);
