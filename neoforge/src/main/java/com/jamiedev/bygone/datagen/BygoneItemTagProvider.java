@@ -1,9 +1,12 @@
 package com.jamiedev.bygone.datagen;
 
 import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.init.JamiesModBlocks;
+import com.jamiedev.bygone.init.JamiesModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -18,7 +21,19 @@ public class BygoneItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider arg) {
+        signs();
+        woodenSlabs();
+   }
 
+   private void signs() {
+        this.tag(ItemTags.SIGNS)
+                .add(JamiesModBlocks.ANCIENT_SIGN.asItem());
+       this.tag(ItemTags.HANGING_SIGNS)
+               .add(JamiesModItems.ANCIENT_HANGING_SIGN);
+   }
 
+   private void woodenSlabs() {
+       this.tag(ItemTags.WOODEN_SLABS)
+               .add(JamiesModBlocks.ANCIENT_SLAB.asItem());
    }
 }
