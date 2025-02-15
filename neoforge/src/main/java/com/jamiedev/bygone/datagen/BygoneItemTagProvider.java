@@ -22,6 +22,7 @@ public class BygoneItemTagProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider arg) {
         signs();
+        woodenSlabs();
    }
 
    private void signs() {
@@ -29,5 +30,10 @@ public class BygoneItemTagProvider extends ItemTagsProvider {
                 .add(JamiesModBlocks.ANCIENT_SIGN.asItem());
        this.tag(ItemTags.HANGING_SIGNS)
                .add(JamiesModItems.ANCIENT_HANGING_SIGN);
+   }
+
+   private void woodenSlabs() {
+       this.tag(ItemTags.WOODEN_SLABS)
+               .add(JamiesModBlocks.ANCIENT_SLAB.asItem());
    }
 }
