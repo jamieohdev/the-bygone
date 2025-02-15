@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block.shelf;
 
+import org.jetbrains.annotations.NotNull;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.Util;
@@ -185,7 +186,7 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (world.getGameRules().getBoolean(GameRules.RULE_DO_VINES_SPREAD)) {
             if (random.nextInt(4) == 0) {
                 Direction direction = Direction.getRandom(random);
@@ -273,7 +274,7 @@ public class ShelfFungiWallFanBlock2 extends ShelfFungiFanBlock
         }
     }
 
-    private BlockState getGrownState(BlockState above, BlockState state, RandomSource random) {
+    private BlockState getGrownState(BlockState above, BlockState state, @NotNull RandomSource random) {
         Iterator<Direction> var4 = Direction.Plane.HORIZONTAL.iterator();
 
         while(var4.hasNext()) {

@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block;
 
+import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.block.entity.PrimordialUrchinEntity;
 import com.mojang.serialization.MapCodec;
 
@@ -38,7 +39,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
-import java.util.List;
+import java.util.List;import org.jetbrains.annotations.NotNull;
 
 public class PrimordialUrchinBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
@@ -91,7 +92,7 @@ public class PrimordialUrchinBlock extends BaseEntityBlock implements SimpleWate
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (!isInWater(state, world, pos)) {
             world.setBlock(pos, this.defaultBlockState().setValue(WATERLOGGED, false), 2);
         }

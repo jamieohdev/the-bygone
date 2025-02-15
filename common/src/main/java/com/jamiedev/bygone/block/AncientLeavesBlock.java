@@ -10,6 +10,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import org.jetbrains.annotations.NotNull;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class AncientLeavesBlock extends LeavesBlock
@@ -26,7 +27,7 @@ public class AncientLeavesBlock extends LeavesBlock
     }
 
     @Override
-    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, @NotNull RandomSource random) {
         super.animateTick(state, world, pos, random);
         if (random.nextInt(10) == 0) {
             BlockPos blockPos = pos.below();

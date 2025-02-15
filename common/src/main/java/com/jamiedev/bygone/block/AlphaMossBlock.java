@@ -11,6 +11,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 public class AlphaMossBlock extends Block implements BonemealableBlock
 {
@@ -30,12 +31,12 @@ public class AlphaMossBlock extends Block implements BonemealableBlock
     }
 
     @Override
-    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         world.registryAccess().registry(Registries.CONFIGURED_FEATURE).flatMap((key) -> {
             return key.getHolder(CaveFeatures.MOSS_PATCH_BONEMEAL);
         }).ifPresent((entry) -> {

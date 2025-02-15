@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block;
 
+import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.block.entity.BlemishCatalystBlockEntity;
 import com.jamiedev.bygone.init.JamiesModBlockEntities;
 import com.mojang.serialization.MapCodec;
@@ -45,7 +46,7 @@ public class BlemishCatalystBlock  extends BaseEntityBlock {
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (state.getValue(BLOOM)) {
             world.setBlock(pos, state.setValue(BLOOM, false), 3);
         }

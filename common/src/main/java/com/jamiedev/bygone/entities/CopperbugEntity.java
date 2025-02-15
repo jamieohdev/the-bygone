@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.entities;
 
+import org.jetbrains.annotations.NotNull;
 import com.google.common.collect.Lists;
 import com.jamiedev.bygone.block.entity.CopperbugNestBlockEntity;
 import com.jamiedev.bygone.init.JamiesModBlockEntities;
@@ -417,7 +418,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
         }
     }
 
-    public static boolean canSpawn(EntityType<CopperbugEntity> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+    public static boolean canSpawn(EntityType<CopperbugEntity> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, @NotNull RandomSource random) {
         return world.getBlockState(pos.below()).is(Blocks.WATER) || world.getBlockState(pos.below()).is(Blocks.MOSS_BLOCK) || world.getBlockState(pos.below()).is(Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS);
     }
 

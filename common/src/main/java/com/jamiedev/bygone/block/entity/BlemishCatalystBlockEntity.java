@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block.entity;
 
+import org.jetbrains.annotations.NotNull;
 import com.google.common.annotations.VisibleForTesting;
 import com.jamiedev.bygone.block.BlemishCatalystBlock;
 import com.jamiedev.bygone.init.JamiesModBlockEntities;
@@ -115,7 +116,7 @@ public class BlemishCatalystBlockEntity extends BlockEntity implements GameEvent
             return this.spreadManager;
         }
 
-        private void bloom(ServerLevel world, BlockPos pos, BlockState state, RandomSource random) {
+        private void bloom(ServerLevel world, BlockPos pos, BlockState state, @NotNull RandomSource random) {
             world.setBlock(pos, state.setValue(BlemishCatalystBlock.BLOOM, true), 3);
             world.scheduleTick(pos, state.getBlock(), 8);
             world.sendParticles(ParticleTypes.WITCH, (double)pos.getX() + 0.5, (double)pos.getY() + 1.15, (double)pos.getZ() + 0.5, 2, 0.2, 0.0, 0.2, 0.0);

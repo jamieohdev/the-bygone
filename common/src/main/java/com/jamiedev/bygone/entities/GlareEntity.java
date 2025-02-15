@@ -363,7 +363,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
         return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
-    public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> type, LevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, RandomSource random) {
+    public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> type, LevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, @NotNull RandomSource random) {
         boolean bl = MobSpawnType.ignoresLightRequirements(spawnReason) || isBrightEnoughToSpawn(serverWorldAccess, blockPos);
         return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(JamiesModBlocks.MOSSY_CLAYSTONE) && bl;
     }
@@ -372,7 +372,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
         return world.getRawBrightness(pos, 0) > 1;
     }
 
-    public static boolean canSpawn(EntityType<? extends Mob> glareEntityEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, RandomSource random) {
+    public static boolean canSpawn(EntityType<? extends Mob> glareEntityEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, @NotNull RandomSource random) {
        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(JamiesModBlocks.MOSSY_CLAYSTONE);
     }
 

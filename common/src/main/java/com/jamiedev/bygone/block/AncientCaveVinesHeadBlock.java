@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import org.jetbrains.annotations.NotNull;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class AncientCaveVinesHeadBlock extends GrowingPlantHeadBlock implements BonemealableBlock, AncientCaveVines {
@@ -55,7 +56,7 @@ public class AncientCaveVinesHeadBlock extends GrowingPlantHeadBlock implements 
     }
 
     @Override
-    protected BlockState getGrowIntoState(BlockState state, RandomSource random) {
+    protected BlockState getGrowIntoState(BlockState state, @NotNull RandomSource random) {
         return super.getGrowIntoState(state, random).setValue(BERRIES, random.nextFloat() < 0.11F);
     }
 
@@ -81,12 +82,12 @@ public class AncientCaveVinesHeadBlock extends GrowingPlantHeadBlock implements 
     }
 
     @Override
-    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         world.setBlock(pos, state.setValue(BERRIES, true), 2);
     }
 }

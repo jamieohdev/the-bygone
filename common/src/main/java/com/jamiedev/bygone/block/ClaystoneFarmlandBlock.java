@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block;
 
+import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.init.JamiesModBlocks;
 import com.jamiedev.bygone.init.JamiesModTag;
 import com.mojang.serialization.MapCodec;
@@ -83,7 +84,7 @@ public class ClaystoneFarmlandBlock extends Block
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (!state.canSurvive(world, pos)) {
             setToDirt(null, state, world, pos);
         }
@@ -91,7 +92,7 @@ public class ClaystoneFarmlandBlock extends Block
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         int i = state.getValue(MOISTURE);
         if ((!isSprinklerNearby(world, pos)) && !world.isRainingAt(pos.above())) {
             if (i > 0) {

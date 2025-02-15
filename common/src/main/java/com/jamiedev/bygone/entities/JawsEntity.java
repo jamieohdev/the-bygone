@@ -120,7 +120,7 @@ JawsEntity ref;
 
 
 
-    public static boolean canSpawn(EntityType<JawsEntity> type, ServerLevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+    public static boolean canSpawn(EntityType<JawsEntity> type, ServerLevelAccessor world, MobSpawnType spawnReason, BlockPos pos, @NotNull RandomSource random) {
         if (!world.getFluidState(pos.below()).is(FluidTags.WATER) && !MobSpawnType.isSpawner(spawnReason)) {
             return false;
         } else {

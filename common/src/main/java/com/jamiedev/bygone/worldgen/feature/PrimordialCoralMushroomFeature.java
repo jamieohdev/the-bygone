@@ -14,7 +14,7 @@ public class PrimordialCoralMushroomFeature extends PrimordialCoralFeature {
     }
 
     @Override
-    protected boolean generateCoral(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state) {
+    protected boolean generateCoral(LevelAccessor world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         int i = random.nextInt(3) + 3;
         int j = random.nextInt(3) + 3;
         int k = random.nextInt(3) + 3;

@@ -57,7 +57,7 @@ public class RafflesiaBlock  extends Block
     }
 
     @Override
-    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, @NotNull RandomSource random) {
         int i = pos.getX();
         int j = pos.getY();
         int k = pos.getZ();

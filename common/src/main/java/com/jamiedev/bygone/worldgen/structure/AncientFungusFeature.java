@@ -69,7 +69,7 @@ public class AncientFungusFeature  extends Feature<HugeFungusConfiguration> {
         }
     }
 
-    private void generateStem(WorldGenLevel world, RandomSource random, HugeFungusConfiguration config, BlockPos pos, int stemHeight, boolean thickStem) {
+    private void generateStem(WorldGenLevel world, @NotNull RandomSource random, HugeFungusConfiguration config, BlockPos pos, int stemHeight, boolean thickStem) {
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
         BlockState blockState = config.stemState;
         int i = thickStem ? 1 : 0;
@@ -101,7 +101,7 @@ public class AncientFungusFeature  extends Feature<HugeFungusConfiguration> {
 
     }
 
-    private void generateHat(WorldGenLevel world, RandomSource random, HugeFungusConfiguration config, BlockPos pos, int hatHeight, boolean thickStem) {
+    private void generateHat(WorldGenLevel world, @NotNull RandomSource random, HugeFungusConfiguration config, BlockPos pos, int hatHeight, boolean thickStem) {
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
         boolean bl = config.hatState.is(Blocks.JUNGLE_LEAVES);
         int i = Math.min(random.nextInt(1 + hatHeight / 3) + 5, hatHeight);
@@ -148,7 +148,7 @@ public class AncientFungusFeature  extends Feature<HugeFungusConfiguration> {
 
     }
 
-    private void placeHatBlock(LevelAccessor world, RandomSource random, HugeFungusConfiguration config, BlockPos.MutableBlockPos pos, float decorationChance, float generationChance, float vineChance) {
+    private void placeHatBlock(LevelAccessor world, @NotNull RandomSource random, HugeFungusConfiguration config, BlockPos.MutableBlockPos pos, float decorationChance, float generationChance, float vineChance) {
         if (random.nextFloat() < decorationChance) {
             this.setBlock(world, pos, config.decorState);
         } else if (random.nextFloat() < generationChance) {
@@ -160,7 +160,7 @@ public class AncientFungusFeature  extends Feature<HugeFungusConfiguration> {
 
     }
 
-    private void placeWithOptionalVines(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state, boolean vines) {
+    private void placeWithOptionalVines(LevelAccessor world, @NotNull RandomSource random, BlockPos pos, BlockState state, boolean vines) {
         if (world.getBlockState(pos.above()).is(state.getBlock())) {
             this.setBlock(world, pos, state);
         } else if ((double)random.nextFloat() < 0.15) {
@@ -172,7 +172,7 @@ public class AncientFungusFeature  extends Feature<HugeFungusConfiguration> {
 
     }
 
-    private static void generateVines(BlockPos pos, LevelAccessor world, RandomSource random) {
+    private static void generateVines(BlockPos pos, LevelAccessor world, @NotNull RandomSource random) {
         BlockPos.MutableBlockPos mutable = pos.mutable().move(Direction.UP);
         if (world.isEmptyBlock(mutable)) {
             int i = Mth.nextInt(random, 1, 5);

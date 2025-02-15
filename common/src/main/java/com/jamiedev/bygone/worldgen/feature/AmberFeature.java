@@ -142,7 +142,7 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
 
     }
 
-    private void placeAt(LevelAccessor world, RandomSource random, BlockPos pos, int height, int offsetX, int offsetY, int offsetZ, int i, int j, boolean bl, int k, double randomSine, boolean placeSnow, BlockState state) {
+    private void placeAt(LevelAccessor world, @NotNull RandomSource random, BlockPos pos, int height, int offsetX, int offsetY, int offsetZ, int i, int j, boolean bl, int k, double randomSine, boolean placeSnow, BlockState state) {
         double d = bl ? this.getDistance(offsetX, offsetZ, BlockPos.ZERO, j, this.decreaseValueNearTop(offsetY, height, k), randomSine) : this.method_13421(offsetX, offsetZ, BlockPos.ZERO, i, random);
         if (d < 0.0) {
             BlockPos blockPos = pos.offset(offsetX, offsetY, offsetZ);
@@ -156,7 +156,7 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
 
     }
 
-    private void placeBlockOrSnow(BlockPos pos, LevelAccessor world, RandomSource random, int heightRemaining, int height, boolean lessSnow, boolean placeSnow, BlockState state) {
+    private void placeBlockOrSnow(BlockPos pos, LevelAccessor world, @NotNull RandomSource random, int heightRemaining, int height, boolean lessSnow, boolean placeSnow, BlockState state) {
         BlockState blockState = world.getBlockState(pos);
         if (blockState.isAir() || blockState.is(JamiesModBlocks.COBBLED_AMBER) || blockState.is(JamiesModBlocks.AMBER) || blockState.is(JamiesModBlocks.UMBER)) {
             boolean bl = !lessSnow || random.nextDouble() > 0.05;
@@ -179,7 +179,7 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
         return i;
     }
 
-    private double method_13421(int x, int z, BlockPos pos, int i, RandomSource random) {
+    private double method_13421(int x, int z, BlockPos pos, int i, @NotNull RandomSource random) {
         float f = 10.0F * Mth.clamp(random.nextFloat(), 0.2F, 0.8F) / (float)i;
         return (double)f + Math.pow(x - pos.getX(), 2.0) + Math.pow(z - pos.getZ(), 2.0) - Math.pow(i, 2.0);
     }

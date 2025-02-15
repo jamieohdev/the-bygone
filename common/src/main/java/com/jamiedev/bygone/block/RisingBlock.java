@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block;
 
+import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.entities.RisingBlockEntity;
 import com.mojang.serialization.MapCodec;
 
@@ -39,7 +40,7 @@ public abstract class RisingBlock  extends Block implements Fallable {
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (canRiseThrough(world.getBlockState(pos.above())) && pos.getY() >= world.getMaxBuildHeight()) {
             RisingBlockEntity fallingBlockEntity = RisingBlockEntity.fall(world, pos, state);
             this.configureRisingBlockEntity(fallingBlockEntity);
@@ -58,7 +59,7 @@ public abstract class RisingBlock  extends Block implements Fallable {
     }
 
     @Override
-    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, @NotNull RandomSource random) {
         if (random.nextInt(16) == 0) {
             BlockPos blockPos = pos.above();
             if (canRiseThrough(world.getBlockState(blockPos))) {

@@ -392,7 +392,7 @@ public class BigBeakEntity  extends AbstractHorse
         return false;
     }
 
-    static double createOffspringAttribute(double parentBase, double otherParentBase, double min, double max, RandomSource random) {
+    static double createOffspringAttribute(double parentBase, double otherParentBase, double min, double max, @NotNull RandomSource random) {
         if (max <= min) {
             throw new IllegalArgumentException("Incorrect range for an attribute");
         } else {
@@ -427,7 +427,7 @@ public class BigBeakEntity  extends AbstractHorse
         Objects.requireNonNull(child.getAttribute(attribute)).setBaseValue(d);
     }
 
-    public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> type, LevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, RandomSource random) {
+    public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> type, LevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, @NotNull RandomSource random) {
         boolean bl = MobSpawnType.ignoresLightRequirements(spawnReason) || isBrightEnoughToSpawn(serverWorldAccess, blockPos);
         return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(JamiesModBlocks.MOSSY_CLAYSTONE) && bl;
     }

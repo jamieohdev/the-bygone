@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 //todo, support forge events
 public class AmaranthCropBlock extends CropBlock
 {
@@ -36,7 +37,7 @@ public class AmaranthCropBlock extends CropBlock
 
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (world.getRawBrightness(pos, 0) <= 10) {
             int i = this.getAge(state);
             if (i < this.getMaxAge()) {

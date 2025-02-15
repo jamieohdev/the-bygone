@@ -54,7 +54,7 @@ public class ShelfFungiFeature extends Feature<NoneFeatureConfiguration> {
             return false;
         }
     }
-    protected boolean generateCoralPiece(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state) {
+    protected boolean generateCoralPiece(LevelAccessor world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         BlockPos blockPos = pos.above();
         BlockState blockState = world.getBlockState(pos);
         if ((blockState.is(BlockTags.MINEABLE_WITH_PICKAXE))) {

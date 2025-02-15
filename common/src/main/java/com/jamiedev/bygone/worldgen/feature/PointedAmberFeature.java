@@ -33,7 +33,7 @@ public class PointedAmberFeature  extends Feature<PointedAmberFeatureConfig> {
         }
     }
 
-    private static Optional<Direction> getDirection(LevelAccessor world, BlockPos pos, RandomSource random) {
+    private static Optional<Direction> getDirection(LevelAccessor world, BlockPos pos, @NotNull RandomSource random) {
         boolean bl = AmberHelper.canReplace(world.getBlockState(pos.above()));
         boolean bl2 = AmberHelper.canReplace(world.getBlockState(pos.below()));
         if (bl && bl2) {
@@ -45,7 +45,7 @@ public class PointedAmberFeature  extends Feature<PointedAmberFeatureConfig> {
         }
     }
 
-    private static void generateAmberBlocks(LevelAccessor world, RandomSource random, BlockPos pos, PointedAmberFeatureConfig config) {
+    private static void generateAmberBlocks(LevelAccessor world, @NotNull RandomSource random, BlockPos pos, PointedAmberFeatureConfig config) {
         AmberHelper.generateAmberBlock(world, pos);
         Iterator<Direction> var4 = Direction.Plane.HORIZONTAL.iterator();
 

@@ -17,7 +17,7 @@ public class PrimordialCoralClawFeature extends PrimordialCoralFeature {
     }
 
     @Override
-    protected boolean generateCoral(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state) {
+    protected boolean generateCoral(LevelAccessor world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         if (!this.generateCoralPiece(world, random, pos, state)) {
             return false;
         } else {

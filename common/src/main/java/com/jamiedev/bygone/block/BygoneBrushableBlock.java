@@ -29,6 +29,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BygoneBrushableBlock extends BaseEntityBlock implements Fallable {
@@ -79,7 +80,7 @@ public class BygoneBrushableBlock extends BaseEntityBlock implements Fallable {
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    public void tick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         BlockEntity var6 = world.getBlockEntity(pos);
         if (var6 instanceof BrushableBlockEntity brushableBlockEntity) {
             brushableBlockEntity.checkReset();
@@ -99,7 +100,7 @@ public class BygoneBrushableBlock extends BaseEntityBlock implements Fallable {
     }
 
     @Override
-    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, @NotNull RandomSource random) {
         if (random.nextInt(16) == 0) {
             BlockPos blockPos = pos.below();
             if (FallingBlock.isFree(world.getBlockState(blockPos))) {

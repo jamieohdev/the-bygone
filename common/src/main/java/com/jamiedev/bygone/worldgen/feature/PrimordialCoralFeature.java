@@ -34,9 +34,9 @@ public abstract class PrimordialCoralFeature extends Feature<NoneFeatureConfigur
         return optional.filter(block -> this.generateCoral(structureWorldAccess, random, blockPos, block.defaultBlockState())).isPresent();
     }
 
-    protected abstract boolean generateCoral(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state);
+    protected abstract boolean generateCoral(LevelAccessor world, @NotNull RandomSource random, BlockPos pos, BlockState state);
 
-    protected boolean generateCoralPiece(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state) {
+    protected boolean generateCoralPiece(LevelAccessor world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         BlockPos blockPos = pos.above();
         BlockState blockState = world.getBlockState(pos);
         if ((blockState.is(Blocks.WATER) || blockState.is(JamiesModTag.CORALS)) && world.getBlockState(blockPos).is(Blocks.WATER)) {

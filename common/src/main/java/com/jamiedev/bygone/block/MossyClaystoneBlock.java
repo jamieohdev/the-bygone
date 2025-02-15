@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block;
 
+import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.init.JamiesModBlocks;
 import com.mojang.serialization.MapCodec;
 
@@ -41,7 +42,7 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
     }
 
     @Override
-    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
@@ -67,7 +68,7 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (!canBeGrass(state, world, pos)) {
             world.setBlockAndUpdate(pos, JamiesModBlocks.CLAYSTONE.defaultBlockState());
         } else {
@@ -91,7 +92,7 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
     }
 
     @Override
-    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         BlockPos blockPos = pos.above();
         BlockState blockState = Blocks.SHORT_GRASS.defaultBlockState();
         Optional<Holder.Reference<PlacedFeature>> optional = world.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(VegetationPlacements.GRASS_BONEMEAL);
@@ -120,9 +121,9 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
                         continue;
                     }
 
-                    registryEntry = ((RandomPatchConfiguration)((ConfiguredFeature)list.get(0)).config()).feature();
+                    registryEntry = ((RandomPatchConfiguration)((ConfiguredFeature<?, ?>)list.get(0)).config()).feature();
                 } else {
-                    if (!optional.isPresent()) {
+                    if (optional.isEmpty()) {
                         continue;
                     }
 

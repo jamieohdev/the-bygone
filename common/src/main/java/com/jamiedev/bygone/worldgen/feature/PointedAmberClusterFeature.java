@@ -53,7 +53,7 @@ public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatu
         }
     }
 
-    private void generate(WorldGenLevel world, RandomSource random, BlockPos pos, int localX, int localZ, float wetness, double amberChance, int height, float density, PointedAmberClusterFeatureConfig config) {
+    private void generate(WorldGenLevel world, @NotNull RandomSource random, BlockPos pos, int localX, int localZ, float wetness, double amberChance, int height, float density, PointedAmberClusterFeatureConfig config) {
         Optional<Column> optional = Column.scan(world, pos, config.floorToCeilingSearchRange, AmberHelper::canGenerate, AmberHelper::cannotGenerate);
         if (!optional.isEmpty()) {
             OptionalInt optionalInt = optional.get().getCeiling();
