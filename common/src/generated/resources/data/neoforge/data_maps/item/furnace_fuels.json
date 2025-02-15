@@ -48,6 +48,9 @@
     "bygone:belladonna": {
       "burn_time": 50
     },
+    "bygone:big_whirliweed": {
+      "burn_time": 125
+    },
     "bygone:charnia": {
       "burn_time": 50
     },
@@ -65,6 +68,9 @@
     },
     "bygone:under_grass": {
       "burn_time": 300
+    },
+    "bygone:whirliweed": {
+      "burn_time": 75
     },
     "minecraft:air": {
       "burn_time": 200

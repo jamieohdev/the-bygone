@@ -21,6 +21,9 @@
     "bygone:belladonna": {
       "chance": 0.1
     },
+    "bygone:big_whirliweed": {
+      "chance": 0.4
+    },
     "bygone:charnia": {
       "chance": 0.2
     },
@@ -62,6 +65,9 @@
     },
     "bygone:under_grass": {
       "chance": 0.2
+    },
+    "bygone:whirliweed": {
+      "chance": 0.3
     },
     "minecraft:air": {
       "chance": 0.4
