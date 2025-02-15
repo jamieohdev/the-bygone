@@ -8,6 +8,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import org.jetbrains.annotations.NotNull;
 
 public class PrimordialCoralTreeFeature extends PrimordialCoralFeature {
     public PrimordialCoralTreeFeature(Codec<NoneFeatureConfiguration> codec) {

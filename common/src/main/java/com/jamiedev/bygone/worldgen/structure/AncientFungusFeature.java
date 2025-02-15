@@ -16,6 +16,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.HugeFungusConfiguration;
 import net.minecraft.world.level.levelgen.feature.WeepingVinesFeature;
+import org.jetbrains.annotations.NotNull;
 
 public class AncientFungusFeature  extends Feature<HugeFungusConfiguration> {
     private static final float field_31507 = 0.06F;

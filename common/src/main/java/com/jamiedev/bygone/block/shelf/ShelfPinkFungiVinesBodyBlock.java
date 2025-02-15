@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block.shelf;
 
+import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.block.AncientCaveVines;
 import com.jamiedev.bygone.init.JamiesModBlocks;
 import com.mojang.serialization.MapCodec;

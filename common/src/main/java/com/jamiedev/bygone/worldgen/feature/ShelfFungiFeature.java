@@ -18,6 +18,8 @@ import net.minecraft.world.level.levelgen.feature.CoralFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
 
 public class ShelfFungiFeature extends Feature<NoneFeatureConfiguration> {

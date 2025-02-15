@@ -19,6 +19,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 
 public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
     public AncientTreeFeature(Codec<AncientTreeFeatureConfig> codec) {

@@ -9,6 +9,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import org.jetbrains.annotations.NotNull;
 
 public class PointedAmberFeature  extends Feature<PointedAmberFeatureConfig> {
     public PointedAmberFeature(Codec<PointedAmberFeatureConfig> codec) {

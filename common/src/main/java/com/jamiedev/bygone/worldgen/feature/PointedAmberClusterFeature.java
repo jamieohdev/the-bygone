@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Column;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import org.jetbrains.annotations.NotNull;
 
 public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatureConfig> {
     public PointedAmberClusterFeature(Codec<PointedAmberClusterFeatureConfig> codec) {
