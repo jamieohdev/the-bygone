@@ -23,7 +23,7 @@ public class BygoneBlockTagProvider extends BlockTagsProvider {
         swordEfficient();
         flowers();
         insideStepSoundBlocks();
-        mineableWithHoe();
+        //mineableWithHoe();
        /* tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(JamiesModBlocks.CLAYSTONE_BRICKS)
                 .add(JamiesModBlocks.CLAYSTONE_BRICKS_STAIRS)
