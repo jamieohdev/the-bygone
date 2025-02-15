@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block.entity;
 
+import org.jetbrains.annotations.NotNull;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -141,7 +142,7 @@ public class BlemishSpreadManager {
         }
     }
 
-    public void tick(LevelAccessor world, BlockPos pos, RandomSource random, boolean shouldConvertToBlock) {
+    public void tick(LevelAccessor world, BlockPos pos, @NotNull RandomSource random, boolean shouldConvertToBlock) {
         if (!this.cursors.isEmpty()) {
             List<BlemishSpreadManager.Cursor> list = new ArrayList<>();
             Map<BlockPos, BlemishSpreadManager.Cursor> map = new HashMap<>();
@@ -255,7 +256,7 @@ public class BlemishSpreadManager {
             }
         }
 
-        public void spread(LevelAccessor world, BlockPos pos, RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock) {
+        public void spread(LevelAccessor world, BlockPos pos, @NotNull RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock) {
             if (this.canSpread(world, pos, spreadManager.worldGen)) {
                 if (this.update > 0) {
                     --this.update;
@@ -321,7 +322,7 @@ public class BlemishSpreadManager {
         }
 
         @Nullable
-        private static BlockPos getSpreadPos(LevelAccessor world, BlockPos pos, RandomSource random) {
+        private static BlockPos getSpreadPos(LevelAccessor world, BlockPos pos, @NotNull RandomSource random) {
             BlockPos.MutableBlockPos mutable = pos.mutable();
             BlockPos.MutableBlockPos mutable2 = pos.mutable();
             Iterator<Vec3i> var5 = shuffleOffsets(random).iterator();

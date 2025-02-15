@@ -19,6 +19,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 
 public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
     public AncientTreeFeature(Codec<AncientTreeFeatureConfig> codec) {
@@ -71,7 +72,7 @@ public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
         return true;
     }
 
-    public static void generateVineColumn(LevelAccessor world, RandomSource random, BlockPos.MutableBlockPos pos, int maxLength, int minAge, int maxAge) {
+    public static void generateVineColumn(LevelAccessor world, @NotNull RandomSource random, BlockPos.MutableBlockPos pos, int maxLength, int minAge, int maxAge) {
         for(int i = 1; i <= maxLength; ++i) {
             if (world.isEmptyBlock(pos)) {
                 if (i == maxLength || !world.isEmptyBlock(pos.above())) {
@@ -112,7 +113,7 @@ public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
 
         return this.isInvalidForLeaves(random, i, y, j, radius, giantTrunk);
     }
-    private static boolean placeFoliageBlock(LevelSimulatedReader world, FoliagePlacer.FoliageSetter placer, RandomSource random, TreeConfiguration config, float chance, BlockPos origin, BlockPos.MutableBlockPos pos) {
+    private static boolean placeFoliageBlock(LevelSimulatedReader world, FoliagePlacer.FoliageSetter placer, @NotNull RandomSource random, TreeConfiguration config, float chance, BlockPos origin, BlockPos.MutableBlockPos pos) {
         if (pos.distManhattan(origin) >= 7) {
             return false;
         } else {
@@ -120,7 +121,7 @@ public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
         }
     }
 
-    protected static boolean placeFoliageBlock(LevelSimulatedReader world, FoliagePlacer.FoliageSetter placer, RandomSource random, TreeConfiguration config, BlockPos pos) {
+    protected static boolean placeFoliageBlock(LevelSimulatedReader world, FoliagePlacer.FoliageSetter placer, @NotNull RandomSource random, TreeConfiguration config, BlockPos pos) {
         if (!TreeFeature.validTreePos(world, pos)) {
             return false;
         } else {
@@ -136,7 +137,7 @@ public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
         }
     }
 
-    protected void generateSquare(LevelSimulatedReader world, FoliagePlacer.FoliageSetter placer, RandomSource random, TreeConfiguration config, BlockPos centerPos, int radius, int y, boolean giantTrunk) {
+    protected void generateSquare(LevelSimulatedReader world, FoliagePlacer.FoliageSetter placer, @NotNull RandomSource random, TreeConfiguration config, BlockPos centerPos, int radius, int y, boolean giantTrunk) {
         int i = giantTrunk ? 1 : 0;
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
@@ -151,7 +152,7 @@ public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
 
     }
 
-    protected void generate(LevelSimulatedReader world, FoliagePlacer.FoliageSetter placer, RandomSource random, TreeConfiguration config, int trunkHeight, FoliagePlacer.FoliageAttachment treeNode, int foliageHeight, int radius, int offset) {
+    protected void generate(LevelSimulatedReader world, FoliagePlacer.FoliageSetter placer, @NotNull RandomSource random, TreeConfiguration config, int trunkHeight, FoliagePlacer.FoliageAttachment treeNode, int foliageHeight, int radius, int offset) {
         boolean bl = treeNode.doubleTrunk();
         BlockPos blockPos = treeNode.pos().above(offset);
         this.generateSquare(world, placer, random, config, blockPos, radius + treeNode.radiusOffset(), -1 - foliageHeight, bl);

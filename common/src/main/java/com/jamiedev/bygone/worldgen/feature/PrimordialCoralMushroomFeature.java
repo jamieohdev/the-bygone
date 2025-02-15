@@ -7,6 +7,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import org.jetbrains.annotations.NotNull;
 
 public class PrimordialCoralMushroomFeature extends PrimordialCoralFeature {
     public PrimordialCoralMushroomFeature(Codec<NoneFeatureConfiguration> codec) {
@@ -14,7 +15,7 @@ public class PrimordialCoralMushroomFeature extends PrimordialCoralFeature {
     }
 
     @Override
-    protected boolean generateCoral(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state) {
+    protected boolean generateCoral(LevelAccessor world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         int i = random.nextInt(3) + 3;
         int j = random.nextInt(3) + 3;
         int k = random.nextInt(3) + 3;

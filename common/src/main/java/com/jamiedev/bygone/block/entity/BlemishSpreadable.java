@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block.entity;
 
+import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.block.BlemishVeinBlock;
 import com.jamiedev.bygone.init.JamiesModBlocks;
 import org.jetbrains.annotations.Nullable;
@@ -27,7 +28,7 @@ public interface BlemishSpreadable {
         }
 
         @Override
-        public int spread(BlemishSpreadManager.Cursor cursor, LevelAccessor world, BlockPos catalystPos, RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock) {
+        public int spread(BlemishSpreadManager.Cursor cursor, LevelAccessor world, BlockPos catalystPos, @NotNull RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock) {
             return cursor.getDecay() > 0 ? cursor.getCharge() : 0;
         }
 
@@ -41,10 +42,10 @@ public interface BlemishSpreadable {
         return 1;
     }
 
-    default void spreadAtSamePosition(LevelAccessor world, BlockState state, BlockPos pos, RandomSource random) {
+    default void spreadAtSamePosition(LevelAccessor world, BlockState state, BlockPos pos, @NotNull RandomSource random) {
     }
 
-    default boolean method_41470(LevelAccessor world, BlockPos pos, RandomSource random) {
+    default boolean method_41470(LevelAccessor world, BlockPos pos, @NotNull RandomSource random) {
         return false;
     }
 
@@ -60,5 +61,5 @@ public interface BlemishSpreadable {
         return 1;
     }
 
-    int spread(BlemishSpreadManager.Cursor cursor, LevelAccessor world, BlockPos catalystPos, RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock);
+    int spread(BlemishSpreadManager.Cursor cursor, LevelAccessor world, BlockPos catalystPos, @NotNull RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock);
 }

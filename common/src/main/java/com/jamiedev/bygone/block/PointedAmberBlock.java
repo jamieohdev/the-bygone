@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block;
 
+import org.jetbrains.annotations.NotNull;
 import com.google.common.annotations.VisibleForTesting;
 import com.jamiedev.bygone.entities.RisingBlockEntity;
 import com.mojang.serialization.MapCodec;
@@ -156,7 +157,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
     }
 
     @Override
-    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, @NotNull RandomSource random) {
         if (canDrip(state)) {
             float f = random.nextFloat();
             if (!(f > 0.12F)) {
@@ -170,7 +171,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (isPointingDown(state) && !this.canSurvive(state, world, pos)) {
             world.destroyBlock(pos, true);
         } else {
@@ -180,7 +181,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         dripTick(state, world, pos, random.nextFloat());
         if (random.nextFloat() < 0.011377778F && isHeldByPointedAmber(state, world, pos)) {
             tryGrow(state, world, pos, random);
@@ -340,7 +341,7 @@ public class PointedAmberBlock   extends Block implements LandingBlock2, SimpleW
     }
 
     @VisibleForTesting
-    public static void tryGrow(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    public static void tryGrow(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         BlockState blockState = world.getBlockState(pos.above(1));
         BlockState blockState2 = world.getBlockState(pos.above(2));
         if (canGrow(blockState, blockState2)) {

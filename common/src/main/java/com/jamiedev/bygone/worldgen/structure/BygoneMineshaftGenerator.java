@@ -40,6 +40,7 @@ import net.minecraft.world.level.levelgen.structure.StructurePieceAccessor;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.storage.loot.LootTable;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
@@ -62,7 +63,7 @@ public class BygoneMineshaftGenerator {
     public BygoneMineshaftGenerator() {
     }
 
-    private static BygoneMineshaftGenerator.BygoneMineshaftPart pickPiece(StructurePieceAccessor holder, RandomSource random, int x, int y, int z, @Nullable Direction orientation, int chainLength, BygoneMineshaftStructure.Type type) {
+    private static BygoneMineshaftGenerator.BygoneMineshaftPart pickPiece(StructurePieceAccessor holder, @NotNull RandomSource random, int x, int y, int z, @Nullable Direction orientation, int chainLength, BygoneMineshaftStructure.Type type) {
         int i = random.nextInt(100);
         BoundingBox blockBox;
         if (i >= 80) {
@@ -86,7 +87,7 @@ public class BygoneMineshaftGenerator {
         return null;
     }
 
-    static BygoneMineshaftGenerator.BygoneMineshaftPart pieceGenerator(StructurePiece start, StructurePieceAccessor holder, RandomSource random, int x, int y, int z, Direction orientation, int chainLength) {
+    static BygoneMineshaftGenerator.BygoneMineshaftPart pieceGenerator(StructurePiece start, StructurePieceAccessor holder, @NotNull RandomSource random, int x, int y, int z, Direction orientation, int chainLength) {
         if (chainLength > 8) {
             return null;
         } else if (Math.abs(x - start.getBoundingBox().minX()) <= 80 && Math.abs(z - start.getBoundingBox().minZ()) <= 80) {
@@ -124,7 +125,7 @@ public class BygoneMineshaftGenerator {
         }
 
         @Nullable
-        public static BoundingBox getBoundingBox(StructurePieceAccessor holder, RandomSource random, int x, int y, int z, Direction orientation) {
+        public static BoundingBox getBoundingBox(StructurePieceAccessor holder, @NotNull RandomSource random, int x, int y, int z, Direction orientation) {
             byte i;
             if (random.nextInt(4) == 0) {
                 i = 6;
@@ -153,7 +154,7 @@ public class BygoneMineshaftGenerator {
         }
 
         @Override
-        public void addChildren(StructurePiece start, StructurePieceAccessor holder, RandomSource random) {
+        public void addChildren(StructurePiece start, StructurePieceAccessor holder, @NotNull RandomSource random) {
             int i = this.getGenDepth();
             switch (this.direction) {
                 case NORTH:
@@ -183,7 +184,7 @@ public class BygoneMineshaftGenerator {
         }
 
         @Override
-        public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
+        public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, @NotNull RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
             if (!this.cannotGenerate(world, chunkBox)) {
                 BlockState blockState = this.mineshaftType.getPlanks();
                 this.generateBox(world, chunkBox, this.boundingBox.minX() + 1, this.boundingBox.minY(), this.boundingBox.minZ(), this.boundingBox.maxX() - 1, this.boundingBox.maxY(), this.boundingBox.maxZ(), CAVE_AIR, CAVE_AIR, false);
@@ -224,7 +225,7 @@ public class BygoneMineshaftGenerator {
         }
 
         @Nullable
-        public static BoundingBox getBoundingBox(StructurePieceAccessor holder, RandomSource random, int x, int y, int z, Direction orientation) {
+        public static BoundingBox getBoundingBox(StructurePieceAccessor holder, @NotNull RandomSource random, int x, int y, int z, Direction orientation) {
             BoundingBox blockBox;
             switch (orientation) {
                 case NORTH:
@@ -246,7 +247,7 @@ public class BygoneMineshaftGenerator {
         }
 
         @Override
-        public void addChildren(StructurePiece start, StructurePieceAccessor holder, RandomSource random) {
+        public void addChildren(StructurePiece start, StructurePieceAccessor holder, @NotNull RandomSource random) {
             int i = this.getGenDepth();
             Direction direction = this.getOrientation();
             if (direction != null) {
@@ -269,7 +270,7 @@ public class BygoneMineshaftGenerator {
         }
 
         @Override
-        public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
+        public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, @NotNull RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
             if (!this.cannotGenerate(world, chunkBox)) {
                 this.generateBox(world, chunkBox, 0, 5, 0, 2, 7, 1, CAVE_AIR, CAVE_AIR, false);
                 this.generateBox(world, chunkBox, 0, 0, 7, 2, 2, 8, CAVE_AIR, CAVE_AIR, false);
@@ -313,7 +314,7 @@ public class BygoneMineshaftGenerator {
             nbt.putInt("Num", this.length);
         }
 
-        public BygoneMineshaftCorridor(int chainLength, RandomSource random, BoundingBox boundingBox, Direction orientation, BygoneMineshaftStructure.Type type) {
+        public BygoneMineshaftCorridor(int chainLength, @NotNull RandomSource random, BoundingBox boundingBox, Direction orientation, BygoneMineshaftStructure.Type type) {
             super(JamiesModStructures.BYGONE_MINESHAFT_CORRIDOR, chainLength, type, boundingBox);
             this.setOrientation(orientation);
             this.hasRails = random.nextInt(3) == 0;
@@ -327,7 +328,7 @@ public class BygoneMineshaftGenerator {
         }
 
         @Nullable
-        public static BoundingBox getBoundingBox(StructurePieceAccessor holder, RandomSource random, int x, int y, int z, Direction orientation) {
+        public static BoundingBox getBoundingBox(StructurePieceAccessor holder, @NotNull RandomSource random, int x, int y, int z, Direction orientation) {
             for(int i = random.nextInt(3) + 2; i > 0; --i) {
                 int j = i * 5;
                 BoundingBox blockBox;
@@ -356,7 +357,7 @@ public class BygoneMineshaftGenerator {
         }
 
         @Override
-        public void addChildren(StructurePiece start, StructurePieceAccessor holder, RandomSource random) {
+        public void addChildren(StructurePiece start, StructurePieceAccessor holder, @NotNull RandomSource random) {
             int i = this.getGenDepth();
             int j = random.nextInt(4);
             Direction direction = this.getOrientation();
@@ -428,7 +429,7 @@ public class BygoneMineshaftGenerator {
         }
 
         @Override
-        protected boolean createChest(WorldGenLevel world, BoundingBox boundingBox, RandomSource random, int x, int y, int z, ResourceKey<LootTable> lootTable) {
+        protected boolean createChest(WorldGenLevel world, BoundingBox boundingBox, @NotNull RandomSource random, int x, int y, int z, ResourceKey<LootTable> lootTable) {
             BlockPos blockPos = this.getWorldPos(x, y, z);
             if (boundingBox.isInside(blockPos) && world.getBlockState(blockPos).isAir() && !world.getBlockState(blockPos.below()).isAir()) {
                 BlockState blockState = Blocks.RAIL.defaultBlockState().setValue(RailBlock.SHAPE, random.nextBoolean() ? RailShape.NORTH_SOUTH : RailShape.EAST_WEST);
@@ -443,7 +444,7 @@ public class BygoneMineshaftGenerator {
         }
 
         @Override
-        public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
+        public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, @NotNull RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
             if (!this.cannotGenerate(world, chunkBox)) {
 
                 int m = this.length * 5 - 1;
@@ -605,7 +606,7 @@ public class BygoneMineshaftGenerator {
             return Block.canSupportCenter(world, pos, Direction.DOWN) && !(state.getBlock() instanceof FallingBlock);
         }
 
-        private void generateSupports(WorldGenLevel world, BoundingBox boundingBox, int minX, int minY, int z, int maxY, int maxX, RandomSource random) {
+        private void generateSupports(WorldGenLevel world, BoundingBox boundingBox, int minX, int minY, int z, int maxY, int maxX, @NotNull RandomSource random) {
             if (this.isSolidCeiling(world, boundingBox, minX, maxX, maxY, z)) {
                 BlockState blockState = this.mineshaftType.getPlanks();
                 BlockState blockState2 = this.mineshaftType.getFence();
@@ -623,7 +624,7 @@ public class BygoneMineshaftGenerator {
             }
         }
 
-        private void addCobwebsUnderground(WorldGenLevel world, BoundingBox box, RandomSource random, float threshold, int x, int y, int z) {
+        private void addCobwebsUnderground(WorldGenLevel world, BoundingBox box, @NotNull RandomSource random, float threshold, int x, int y, int z) {
             if (this.isInterior(world, x, y, z, box) && random.nextFloat() < threshold && this.hasSolidNeighborBlocks(world, box, x, y, z, 2)) {
                 this.placeBlock(world, Blocks.COBWEB.defaultBlockState(), x, y, z, box);
             }
@@ -755,7 +756,7 @@ public class BygoneMineshaftGenerator {
     public static class BygoneMineshaftRoom extends BygoneMineshaftGenerator.BygoneMineshaftPart {
         private final List<BoundingBox> entrances = Lists.newLinkedList();
 
-        public BygoneMineshaftRoom(int chainLength, RandomSource random, int x, int z, BygoneMineshaftStructure.Type type) {
+        public BygoneMineshaftRoom(int chainLength, @NotNull RandomSource random, int x, int z, BygoneMineshaftStructure.Type type) {
             super(JamiesModStructures.BYGONE_MINESHAFT_ROOM, chainLength, type, new BoundingBox(x, 100, z, x + 7 + random.nextInt(6), 200, z + 7 + random.nextInt(6)));
             this.mineshaftType = type;
         }
@@ -772,7 +773,7 @@ public class BygoneMineshaftGenerator {
         }
 
         @Override
-        public void addChildren(StructurePiece start, StructurePieceAccessor holder, RandomSource random) {
+        public void addChildren(StructurePiece start, StructurePieceAccessor holder, @NotNull RandomSource random) {
             int i = this.getGenDepth();
             int j = this.boundingBox.getYSpan() - 3 - 1;
             if (j <= 0) {
@@ -837,7 +838,7 @@ public class BygoneMineshaftGenerator {
         }
 
         @Override
-        public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
+        public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, @NotNull RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
             if (!this.cannotGenerate(world, chunkBox)) {
                 this.generateBox(world, chunkBox, this.boundingBox.minX(), this.boundingBox.minY() + 1, this.boundingBox.minZ(), this.boundingBox.maxX(), Math.min(this.boundingBox.minY() + 3, this.boundingBox.maxY()), this.boundingBox.maxZ(), CAVE_AIR, CAVE_AIR, false);
                 Iterator<BoundingBox> var8 = this.entrances.iterator();

@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block.gourds;
 
+import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.init.JamiesModBlocks;
 import com.mojang.serialization.MapCodec;
 
@@ -56,7 +57,7 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock {
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (!state.canSurvive(world, pos)) {
             world.destroyBlock(pos, true);
         }

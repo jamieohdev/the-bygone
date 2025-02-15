@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import org.jetbrains.annotations.NotNull;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class AncientSaplingBlock  extends BushBlock implements BonemealableBlock {
@@ -54,14 +55,14 @@ public class AncientSaplingBlock  extends BushBlock implements BonemealableBlock
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (world.getMaxLocalRawBrightness(pos.above()) >= 9 && random.nextInt(7) == 0) {
             this.generate(world, pos, state, random);
         }
 
     }
 
-    public void generate(ServerLevel world, BlockPos pos, BlockState state, RandomSource random) {
+    public void generate(ServerLevel world, BlockPos pos, BlockState state, @NotNull RandomSource random) {
         if (state.getValue(STAGE) == 0) {
             world.setBlock(pos, state.cycle(STAGE), 4);
         } else {
@@ -76,12 +77,12 @@ public class AncientSaplingBlock  extends BushBlock implements BonemealableBlock
     }
 
     @Override
-    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         return (double)world.random.nextFloat() < 0.45;
     }
 
     @Override
-    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         this.generate(world, pos, state, random);
     }
 

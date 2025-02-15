@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block;
 
+import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.block.entity.CopperbugNestBlockEntity;
 import com.jamiedev.bygone.entities.CopperbugEntity;
 import com.jamiedev.bygone.init.JamiesModBlockEntities;
@@ -212,7 +213,7 @@ public class CopperbugNestBlock extends BaseEntityBlock
     }
 
     @Override
-    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, @NotNull RandomSource random) {
         if (state.getValue(OXIDIZATION_LEVEL) >= 5) {
             for(int i = 0; i < random.nextInt(1) + 1; ++i) {
                 this.spawnHoneyParticles(world, pos, state);

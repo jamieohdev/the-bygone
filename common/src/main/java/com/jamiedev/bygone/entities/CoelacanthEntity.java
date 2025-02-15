@@ -31,6 +31,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.NotNull;
 
 public class CoelacanthEntity extends AbstractSchoolingFish
 {
@@ -97,7 +98,7 @@ public class CoelacanthEntity extends AbstractSchoolingFish
         }
     }
 
-    public static boolean checkSurfaceWaterAnimalSpawnRule(EntityType<CoelacanthEntity> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, RandomSource random) {
+    public static boolean checkSurfaceWaterAnimalSpawnRule(EntityType<CoelacanthEntity> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, @NotNull RandomSource random) {
         int i = world.getSeaLevel();
         int j = i - 13;
         return pos.getY() >= j && pos.getY() <= i && world.getFluidState(pos.below()).is(FluidTags.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER);

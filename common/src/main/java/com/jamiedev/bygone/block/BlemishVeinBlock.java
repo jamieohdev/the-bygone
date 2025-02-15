@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block;
 
+import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.block.entity.BlemishSpreadManager;
 import com.jamiedev.bygone.block.entity.BlemishSpreadable;
 import com.jamiedev.bygone.init.JamiesModBlocks;
@@ -87,7 +88,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
     }
 
     @Override
-    public void spreadAtSamePosition(LevelAccessor world, BlockState state, BlockPos pos, RandomSource random) {
+    public void spreadAtSamePosition(LevelAccessor world, BlockState state, BlockPos pos, @NotNull RandomSource random) {
         if (state.is(this)) {
             Direction[] var5 = DIRECTIONS;
             int var6 = var5.length;
@@ -111,7 +112,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
     }
 
     @Override
-    public int spread(BlemishSpreadManager.Cursor cursor, LevelAccessor world, BlockPos catalystPos, RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock) {
+    public int spread(BlemishSpreadManager.Cursor cursor, LevelAccessor world, BlockPos catalystPos, @NotNull RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock) {
         if (shouldConvertToBlock && this.convertToBlock(spreadManager, world, cursor.getPos(), random)) {
             return cursor.getCharge() - 1;
         } else {
@@ -119,7 +120,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
         }
     }
 
-    private boolean convertToBlock(BlemishSpreadManager spreadManager, LevelAccessor world, BlockPos pos, RandomSource random) {
+    private boolean convertToBlock(BlemishSpreadManager spreadManager, LevelAccessor world, BlockPos pos, @NotNull RandomSource random) {
         BlockState blockState = world.getBlockState(pos);
         TagKey<Block> tagKey = spreadManager.getReplaceableTag();
         Iterator<Direction> var7 = Direction.allShuffled(random).iterator();

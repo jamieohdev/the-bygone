@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block.shelf;
 
+import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.init.JamiesModBlocks;
 import com.mojang.serialization.MapCodec;
 
@@ -41,7 +42,7 @@ public class ShelfMoldBlock extends SpreadingSnowyDirtBlock implements Bonemeala
     }
 
     @Override
-    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
@@ -67,7 +68,7 @@ public class ShelfMoldBlock extends SpreadingSnowyDirtBlock implements Bonemeala
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (!canBeGrass(state, world, pos)) {
             world.setBlockAndUpdate(pos, JamiesModBlocks.LIMBOSTONE.defaultBlockState());
         } else {
@@ -91,7 +92,7 @@ public class ShelfMoldBlock extends SpreadingSnowyDirtBlock implements Bonemeala
     }
 
     @Override
-    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         BlockPos blockPos = pos.above();
         BlockState blockState = Blocks.SHORT_GRASS.defaultBlockState();
         Optional<Holder.Reference<PlacedFeature>> optional = world.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(VegetationPlacements.GRASS_BONEMEAL);

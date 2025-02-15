@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Column;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import org.jetbrains.annotations.NotNull;
 
 public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatureConfig> {
     public PointedAmberClusterFeature(Codec<PointedAmberClusterFeatureConfig> codec) {
@@ -53,7 +54,7 @@ public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatu
         }
     }
 
-    private void generate(WorldGenLevel world, RandomSource random, BlockPos pos, int localX, int localZ, float wetness, double amberChance, int height, float density, PointedAmberClusterFeatureConfig config) {
+    private void generate(WorldGenLevel world, @NotNull RandomSource random, BlockPos pos, int localX, int localZ, float wetness, double amberChance, int height, float density, PointedAmberClusterFeatureConfig config) {
         Optional<Column> optional = Column.scan(world, pos, config.floorToCeilingSearchRange, AmberHelper::canGenerate, AmberHelper::cannotGenerate);
         if (!optional.isEmpty()) {
             OptionalInt optionalInt = optional.get().getCeiling();

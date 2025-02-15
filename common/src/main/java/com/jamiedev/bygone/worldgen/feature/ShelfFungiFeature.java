@@ -18,6 +18,8 @@ import net.minecraft.world.level.levelgen.feature.CoralFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
 
 public class ShelfFungiFeature extends Feature<NoneFeatureConfiguration> {
@@ -54,7 +56,7 @@ public class ShelfFungiFeature extends Feature<NoneFeatureConfiguration> {
             return false;
         }
     }
-    protected boolean generateCoralPiece(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state) {
+    protected boolean generateCoralPiece(LevelAccessor world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         BlockPos blockPos = pos.above();
         BlockState blockState = world.getBlockState(pos);
         if ((blockState.is(BlockTags.MINEABLE_WITH_PICKAXE))) {

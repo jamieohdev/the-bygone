@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import java.util.Iterator;
 
 public class BlemishBlock extends Block implements BlemishSpreadable
@@ -66,7 +67,7 @@ public class BlemishBlock extends Block implements BlemishSpreadable
     }
 
     @Override
-    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, @NotNull RandomSource random) {
 
             if (random.nextInt(100) == 0) {
                 //world.playSoundAtBlockCenter(pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_AMBIENT, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
@@ -81,7 +82,7 @@ public class BlemishBlock extends Block implements BlemishSpreadable
     }
 
     @Override
-    public int spread(BlemishSpreadManager.Cursor cursor, LevelAccessor world, BlockPos catalystPos, RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock) {
+    public int spread(BlemishSpreadManager.Cursor cursor, LevelAccessor world, BlockPos catalystPos, @NotNull RandomSource random, BlemishSpreadManager spreadManager, boolean shouldConvertToBlock) {
         int i = cursor.getCharge();
         if (i != 0 && random.nextInt(spreadManager.getSpreadChance()) == 0) {
             BlockPos blockPos = cursor.getPos();
@@ -112,7 +113,7 @@ public class BlemishBlock extends Block implements BlemishSpreadable
         return Math.max(1, (int)((float)charge * g * 0.5F));
     }
 
-    private BlockState getExtraBlockState(LevelAccessor world, BlockPos pos, RandomSource random, boolean allowShrieker) {
+    private BlockState getExtraBlockState(LevelAccessor world, BlockPos pos, @NotNull RandomSource random, boolean allowShrieker) {
         BlockState blockState;
         blockState = JamiesModBlocks.BLEMISH_VEIN.defaultBlockState();
         return blockState.hasProperty(BlockStateProperties.WATERLOGGED) && !world.getFluidState(pos).isEmpty() ? blockState.setValue(BlockStateProperties.WATERLOGGED, true) : blockState;

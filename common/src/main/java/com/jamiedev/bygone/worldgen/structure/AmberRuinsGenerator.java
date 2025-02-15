@@ -22,6 +22,7 @@ import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSeriali
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
+import org.jetbrains.annotations.NotNull;
 
 public class AmberRuinsGenerator
 {
@@ -31,7 +32,7 @@ public class AmberRuinsGenerator
     public AmberRuinsGenerator() {
     }
 
-    public static void addPieces(StructureTemplateManager manager, StructurePieceAccessor holder, RandomSource random, BlockPos pos) {
+    public static void addPieces(StructureTemplateManager manager, StructurePieceAccessor holder, @NotNull RandomSource random, BlockPos pos) {
         Rotation blockRotation = Rotation.getRandom(random);
         holder.addPiece(new AmberRuinsGenerator.Piece(manager, Util.getRandom(FOSSILS, random), pos, blockRotation));
     }
@@ -65,11 +66,11 @@ public class AmberRuinsGenerator
         }
 
         @Override
-        protected void handleDataMarker(String metadata, BlockPos pos, ServerLevelAccessor world, RandomSource random, BoundingBox boundingBox) {
+        protected void handleDataMarker(String metadata, BlockPos pos, ServerLevelAccessor world, @NotNull RandomSource random, BoundingBox boundingBox) {
         }
 
         @Override
-        public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
+        public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, @NotNull RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
             chunkBox.encapsulate(this.template.getBoundingBox(this.placeSettings, this.templatePosition));
             super.postProcess(world, structureAccessor, chunkGenerator, random, chunkBox, chunkPos, pivot);
         }

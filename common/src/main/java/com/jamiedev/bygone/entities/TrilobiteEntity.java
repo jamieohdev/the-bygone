@@ -22,6 +22,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.NotNull;
 
 public class TrilobiteEntity extends AbstractFish
 {
@@ -55,7 +56,7 @@ public class TrilobiteEntity extends AbstractFish
         this.setDarkTicksRemaining(nbt.getInt("DarkTicksRemaining"));
     }
 
-    public static boolean checkSurfaceWaterAnimalSpawnRule(EntityType<? extends WaterAnimal> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, RandomSource random) {
+    public static boolean checkSurfaceWaterAnimalSpawnRule(EntityType<? extends WaterAnimal> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, @NotNull RandomSource random) {
         int i = world.getSeaLevel();
         int j = i - 13;
 

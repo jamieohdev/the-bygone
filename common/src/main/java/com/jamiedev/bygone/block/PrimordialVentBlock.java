@@ -41,6 +41,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
@@ -101,7 +102,7 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
     CoralFanBlock ref2;
 
     @Override
-    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (!isInWater(state, world, pos)) {
             world.setBlock(pos, this.defaultBlockState().setValue(WATERLOGGED, false), 2);
         }
@@ -135,7 +136,7 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
-    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, @NotNull RandomSource random) {
         if (state.getValue(WATERLOGGED))
         {
             if (random.nextInt(100) == 0) {
