@@ -78,9 +78,11 @@ public class JamiesModItemGroup
 
 
                             output.accept(JamiesModBlocks.BYGONE_PORTAL_FRAME_BLOCK);
-                            output.accept(JamiesModBlocks. BYGONESLATE_IRON_ORE);
-                            output.accept(JamiesModBlocks. BYGONESTONE_COAL_ORE);
-                            output.accept(JamiesModBlocks. BYGONESTONE_COPPER_ORE);
+                            output.accept(JamiesModBlocks.BYGONESTONE_IRON_ORE);
+                            output.accept(JamiesModBlocks.BYGONESLATE_IRON_ORE);
+                            output.accept(JamiesModBlocks.BYGONESTONE_COAL_ORE);
+                            output.accept(JamiesModBlocks.BYGONESLATE_COAL_ORE);
+                            output.accept(JamiesModBlocks.BYGONESTONE_COPPER_ORE);
                             output.accept(JamiesModBlocks.BYGONESLATE_COPPER_ORE);
                             output.accept(JamiesModBlocks.LIMBOSTONE);
                             output.accept(JamiesModBlocks.LIMBOSLATE);
@@ -187,7 +189,6 @@ public class JamiesModItemGroup
 // Start of Amber Desert blocksets!
                             output.accept(JamiesModBlocks.UMBER);
                             output.accept(JamiesModBlocks.UMBER_BRICKS);
-                            //output.accept(JamiesModBlocks.SUSPICIOUS_UMBER);
                             output.accept(JamiesModBlocks.AMBER);
 
                             output.accept(JamiesModBlocks.AMBER_BRICKS);
@@ -201,7 +202,7 @@ public class JamiesModItemGroup
                             output.accept(JamiesModBlocks.CREOSOTE_SPROUTS);
 
 // Farming / Agriculture blocksets
-
+                            output.accept(JamiesModBlocks.AMARANTH_BLOCK);
                             output.accept(JamiesModBlocks.SPRINKER);
                             output.accept(JamiesModBlocks.BELLADONNA);
                             output.accept(JamiesModBlocks.COLEUS);

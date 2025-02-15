@@ -3,6 +3,7 @@ package com.jamiedev.bygone;
 import com.google.common.collect.ImmutableMap;
 import com.jamiedev.bygone.entities.*;
 import com.jamiedev.bygone.init.*;
+import com.jamiedev.bygone.mixin.AxeItemAccess;
 import com.jamiedev.bygone.platform.Services;
 import com.jamiedev.bygone.util.Consumer4;
 import com.mojang.datafixers.util.Function6;
@@ -35,7 +36,9 @@ import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Unique;
 
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -57,12 +60,23 @@ public class Bygone {
 
     public static void registerStrippables() {
 
-        if (AxeItem.STRIPPABLES instanceof ImmutableMap) {
+       /** if (AxeItem.STRIPPABLES instanceof ImmutableMap) {
             AxeItem.STRIPPABLES = new HashMap<>(AxeItem.STRIPPABLES);
         }
 
         AxeItem.STRIPPABLES.put(JamiesModBlocks.ANCIENT_LOG, JamiesModBlocks.STRIPPED_ANCIENT_LOG);
-        AxeItem.STRIPPABLES.put(JamiesModBlocks.ANCIENT_WOOD, JamiesModBlocks.STRIPPED_ANCIENT_WOOD);
+        AxeItem.STRIPPABLES.put(JamiesModBlocks.ANCIENT_WOOD, JamiesModBlocks.STRIPPED_ANCIENT_WOOD);**/
+
+        Bygone.LOGGER.debug("Bygone: Registering strippable Blocks...");
+
+        Map<Block, Block> stripables = new IdentityHashMap<>(AxeItemAccess.getStripables());
+
+        stripables.put(JamiesModBlocks.ANCIENT_LOG, JamiesModBlocks.STRIPPED_ANCIENT_LOG);
+        stripables.put(JamiesModBlocks.ANCIENT_WOOD, JamiesModBlocks.STRIPPED_ANCIENT_WOOD);
+
+
+        AxeItemAccess.setStripables(stripables);
+        Bygone.LOGGER.info("Bygone: Strippables registered!");
     }
 
     public static ResourceLocation id(String id){

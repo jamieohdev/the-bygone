@@ -2,6 +2,7 @@ plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
     id "com.modrinth.minotaur" version "2.+"
+
 }
 
 neoForge {
@@ -49,6 +50,8 @@ neoForge {
     }
 }
 
+
+
 dependencies {
     if (project.use_rei.toBoolean()) {
         implementation "me.shedaniel:RoughlyEnoughItems-neoforge:$rei_version"
@@ -56,7 +59,31 @@ dependencies {
         implementation "dev.architectury:architectury-neoforge:$architectury_version"
     }
 
+
     implementation "net.kyrptonaught.customportalapi:cpapireforged-neo-1.21.1:1.0.11"
+}
+
+
+
+repositories {
+    maven {
+        url = "https://maven.kyrptonaught.dev"
+    }
+
+    maven {
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroupByRegex("software\\.bernie.*")
+            includeGroup("com.eliotlash.mclib")
+        }
+    }
+}
+
+
+
+tasks.named('build').configure {
+    dependsOn('jarJar')
 }
 
 modrinth {
@@ -75,5 +102,7 @@ modrinth {
         //   optional.version "sodium", "mc1.19.3-0.4.8" // Creates a new optional dependency on this specific version of Sodium
     }
 }
+
+
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }

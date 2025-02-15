@@ -39,6 +39,8 @@ public class BygoneNeoForge {
         Bygone.init();
     }
 
+    //
+
     void entityTick(EntityTickEvent.Post event) {
         Entity entity = event.getEntity();
         if (entity instanceof Cow cow && !entity.level().isClientSide) {
@@ -61,6 +63,7 @@ public class BygoneNeoForge {
     void setup(FMLCommonSetupEvent event) {
         Bygone.registerStrippables();
         Bygone.addFlammable();
+        JamiesModPortalsNeoForge.init();
     }
 
     void addValidBlocks(BlockEntityTypeAddBlocksEvent event) {

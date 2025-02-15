@@ -1,10 +1,9 @@
 {
 	"schemaVersion": 1,
-	"id": "bygone",
+	"id": "${mod_id}",
 	"version": "${version}",
-	"accessWidener": "bygone.accesswidener",
-	"name": "bygone",
-	"description": "The Bygone adds a new prehistoric dimension where everything wound up- Including you.",
+	"name": "${mod_name}",
+	"description": "${description}",
 	"authors": [
 		"Programmers: Jamie, soumeh, TheLyingCake (BIG BEAK ARMOR), TelepathicGrunt(Generation code!), TheInfamous1 (Hook!), Catalyst (Trees & Features!) & Klinbee (World gen!!)",
 		"Artists: boomsh0t (concept art), patchouli, CrispyTwig, gladosedition (Scuttle concept!) & betwixer (textures)",
@@ -13,42 +12,25 @@
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/jamieohdev/bygone"
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
-	"license": "CC0-1.0",
-	"icon": "assets/bygone/icon.png",
+	"license": "${license}",
+	"icon": "${mod_id}.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.jamiedev.mod.fabric.JamiesModFabric"
+			"com.jamiedev.bygone.BygoneFabric"
 		],
-		"client": [
-          "com.jamiedev.mod.common.client.JamiesModClient"
-		],
-		"fabric-datagen": [
-          "com.jamiedev.mod.fabric.JamiesModDataGenerator"
-		],
-		"cardinal-components-block": ["com.jamiedev.mod.fabric.init.JamiesModComponents"]
+		"client": ["com.jamiedev.bygone.client.BygoneClientFabric"]
 	},
 	"mixins": [
-		"bygone.mixins.json",
-		{
-			"config": "bygone.client.mixins.json",
-			"environment": "client"
-		}
+		"${mod_id}.mixins.json",
+		"${mod_id}.fabric.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.4",
-		"minecraft": "~1.21",
-		"java": ">=21",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
-	},
-	"custom": {
-		"cardinal-components": [
-			"bygone:caster"
-		]
+		"fabricloader": ">=${fabric_loader_version}",
+		"fabric-api": "*",
+		"minecraft": ">=${minecraft_version}",
+		"java": ">=${java_version}"
 	}
 }

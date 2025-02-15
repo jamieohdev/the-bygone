@@ -2,6 +2,7 @@ package com.jamiedev.bygone.entities.projectile;
 
 import com.jamiedev.bygone.init.JamiesModEntityTypes;
 import com.jamiedev.bygone.init.JamiesModItems;
+import net.minecraft.world.entity.projectile.Arrow;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -32,6 +33,8 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public class ExoticArrowEntity extends AbstractArrow {
     private static final EntityDataAccessor<Integer> COLOR;
+
+    Arrow ref;
 
     boolean returns = false;
 
@@ -141,6 +144,7 @@ public class ExoticArrowEntity extends AbstractArrow {
         super.onHitBlock(blockHitResult);
 
         this.level().broadcastEntityEvent(this, (byte)0);
+
         this.setPickupItemStack(new ItemStack(JamiesModItems.EXOTIC_ARROW));
     }
 

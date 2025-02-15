@@ -2,6 +2,7 @@
     "schemaVersion": 1,
     "id": "${mod_id}",
     "version": "${version}",
+    "accessWidener": "bygone.accesswidener",
     "name": "${mod_name}",
     "description": "${description}",
     "authors": [

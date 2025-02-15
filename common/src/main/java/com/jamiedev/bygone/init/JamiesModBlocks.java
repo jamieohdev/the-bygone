@@ -448,6 +448,9 @@ public class JamiesModBlocks {
             .mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP)
             .pushReaction(PushReaction.DESTROY)));
 
+    public static final Block AMARANTH_BLOCK = registerBlock("bale_block", new HayBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BANJO).strength(0.5F).sound(SoundType.GRASS)));
+
+
     public static final Block SPRINKER = registerBlock("ancient_sprinkler", new SprinklerBlock(BlockBehaviour.Properties.of().randomTicks().instabreak().sound(SoundType.METAL)
             .pushReaction(PushReaction.DESTROY).noOcclusion()));
 

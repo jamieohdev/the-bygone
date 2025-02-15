@@ -1,4 +1,4 @@
-## **Updates in 1.1.2a / 1.2.0a**
+## **Updates in 1.2.0a**
 
 # This is hopefully the last minor upddate before 1.2! We have some major things coming up that we look forward to sharing with you all!
 # This update contains some new additions towards the major theme of the next major update, quite a few texture tweaks, and some bug fixes!
