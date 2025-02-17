@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.apache.commons.lang3.function.Consumers;
 import org.apache.commons.lang3.function.TriConsumer;
@@ -59,13 +60,6 @@ public class Bygone {
     }
 
     public static void registerStrippables() {
-
-       /** if (AxeItem.STRIPPABLES instanceof ImmutableMap) {
-            AxeItem.STRIPPABLES = new HashMap<>(AxeItem.STRIPPABLES);
-        }
-
-        AxeItem.STRIPPABLES.put(JamiesModBlocks.ANCIENT_LOG, JamiesModBlocks.STRIPPED_ANCIENT_LOG);
-        AxeItem.STRIPPABLES.put(JamiesModBlocks.ANCIENT_WOOD, JamiesModBlocks.STRIPPED_ANCIENT_WOOD);**/
 
         Bygone.LOGGER.debug("Bygone: Registering strippable Blocks...");
 
@@ -108,6 +102,8 @@ public class Bygone {
         consumer.accept(JamiesModEntityTypes.FUNGAL_PARENT, FungalParentEntity.createFungieAttributes().build());
     }
 
+
+
     @SuppressWarnings("unchecked")
     public static<T extends Mob> void registerSpawnPlacements(Consumer4<EntityType<T>,SpawnPlacementType,Heightmap.Types,SpawnPlacements.SpawnPredicate<T>> consumer) {
         consumer.accept((EntityType<T>) JamiesModEntityTypes.SCUTTLE, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, iServerWorld, reason1, pos1, random1) -> ScuttleEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<? extends WaterAnimal>) entityType, iServerWorld, reason1, pos1, random1));
@@ -115,8 +111,6 @@ public class Bygone {
         consumer.accept((EntityType<T>) JamiesModEntityTypes.BIG_BEAK, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, BigBeakEntity::canSpawn);
         consumer.accept((EntityType<T>) JamiesModEntityTypes.TRILOBITE, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type1, world1, reason1, pos1, random1) -> TrilobiteEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<? extends WaterAnimal>) type1, world1, reason1, pos1, random1));
         consumer.accept((EntityType<T>) JamiesModEntityTypes.COPPERBUG, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, (type1, world1, spawnReason, pos1, random1) -> CopperbugEntity.canSpawn((EntityType<CopperbugEntity>) type1, world1, spawnReason, pos1, random1));
-        //SpawnRestriction.register(COPPERBUG, SpawnLocationTypes.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CopperbugEntity::canSpawn);
-
         consumer.accept((EntityType<T>) JamiesModEntityTypes.COELACANTH, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, world, reason, pos, random) -> CoelacanthEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<CoelacanthEntity>) type, world, reason, pos, random));
     }
 

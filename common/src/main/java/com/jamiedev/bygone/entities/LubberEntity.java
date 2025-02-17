@@ -158,7 +158,7 @@ public class LubberEntity  extends Monster implements RangedAttackMob
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
         SpawnGroupData entityData1 = super.finalizeSpawn(world, difficulty, spawnReason, entityData);
-        RandomSource random = world.getRandom();
+        RandomSource random = this.getRandom();
         if (random.nextInt(100) == 0) {
             Skeleton skeletonEntity = EntityType.SKELETON.create(this.level());
             if (skeletonEntity != null) {

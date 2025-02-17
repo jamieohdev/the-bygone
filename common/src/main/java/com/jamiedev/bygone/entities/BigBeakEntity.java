@@ -440,7 +440,7 @@ public class BigBeakEntity  extends AbstractHorse
     @Override
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
-        RandomSource random = world.getRandom();
+        RandomSource random = this.getRandom();
 
         return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }

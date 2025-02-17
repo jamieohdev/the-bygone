@@ -353,7 +353,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
     @Override
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
-        RandomSource random = world.getRandom();
+        RandomSource random = this.random;
         int i = random.nextInt(8);
         if (i < 2 && random.nextFloat() < 0.5F * difficulty.getSpecialMultiplier()) {
             ++i;

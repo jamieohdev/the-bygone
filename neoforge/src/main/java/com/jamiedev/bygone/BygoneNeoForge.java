@@ -3,11 +3,17 @@ package com.jamiedev.bygone;
 
 import com.jamiedev.bygone.client.BygoneClientNeoForge;
 import com.jamiedev.bygone.datagen.BygoneDataGenerator;
+import com.jamiedev.bygone.entities.BigBeakEntity;
+import com.jamiedev.bygone.entities.GlareEntity;
 import com.jamiedev.bygone.init.AttachmentTypesNeoForge;
+import com.jamiedev.bygone.init.JamiesModEntityTypes;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -55,10 +61,11 @@ public class BygoneNeoForge {
     void createAttributes(EntityAttributeCreationEvent event) {
         Bygone.initAttributes(event::put);
     }
+    
 
     void spawnPlacements(RegisterSpawnPlacementsEvent event) {
         Bygone.registerSpawnPlacements((entityType, spawnPlacementType, types, spawnPredicate) -> event.register(entityType,spawnPlacementType,types,spawnPredicate, RegisterSpawnPlacementsEvent.Operation.REPLACE));
-    }
+  }
 
     void setup(FMLCommonSetupEvent event) {
         Bygone.registerStrippables();

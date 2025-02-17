@@ -96,20 +96,6 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
     CopperbugEntity ref;
 
-    private static final int HAS_OXIDIZATION_FLAG = 8;
-    private static final int COPPER_NAVIGATION_START_TICKS = 2400;
-    private static final int SCRAPING_FAIL_TICKS = 3600;
-    private static final int MAX_SCRAPED_COPPER = 8;
-    private static final int MIN_MAX_RETURN_DISTANCE = 16;
-
-    public static final String COPPERS_UPDATED_SINCE_SCRAPING_KEY = "CoppersUpdatedSinceScraping";
-    public static final String CANNOT_ENTER_NEST_TICKS_KEY = "CannotEnterNestTicks";
-    public static final String TICKS_SINCE_SCRAPING_KEY = "TicksSinceScraping";
-
-    public static final String HAS_OXIDIZATION_KEY = "HasOxidization";
-    public static final String COPPER_POS_KEY = "copper_pos";
-    public static final String NEST_POS_KEY = "nest_pos";
-
     int ticksSinceScraping;
     private int cannotEnterNestTicks;
     private int copperUpdatedSinceScraping;
@@ -149,11 +135,6 @@ public class CopperbugEntity extends Animal implements NeutralMob
         this.scrapeGoal = new ScrapeGoal();
         this.goalSelector.addGoal(4, this.scrapeGoal);
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0));
-        this.goalSelector.addGoal(5, new FindNestGoal());
-        this.moveToNestGoal = new MoveToNestGoal();
-        this.goalSelector.addGoal(5, this.moveToNestGoal);
-        this.moveToCopperGoal = new MoveToCopperGoal();
-        this.goalSelector.addGoal(6, this.moveToCopperGoal);
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new OxidizeCopperGoal());
@@ -657,26 +638,20 @@ public class CopperbugEntity extends Animal implements NeutralMob
     }
     
     class ScrapeGoal extends Goal {
-        private static final int field_30300 = 400;
-        private static final int field_30301 = 20;
-        private static final int field_30302 = 60;
+
         private final Predicate<BlockState> copperPredicate = (state) -> {
             if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
                 return false;
             } else return state.is(JamiesModTag.COPPER_BLOCKS_1);
         };
-        private static final double field_30303 = 0.1;
-        private static final int field_30304 = 25;
-        private static final float field_30305 = 0.35F;
-        private static final float field_30306 = 0.6F;
-        private static final float field_30307 = 0.33333334F;
+
         private int pollinationTicks;
         private int lastPollinationTick;
         private boolean running;
         @Nullable
         private Vec3 nextTarget;
         private int ticks;
-        private static final int field_30308 = 600;
+
 
         ScrapeGoal() {
             super();
@@ -1192,7 +1167,6 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
         @Override
         public void tick() {
-        //    @Nullable PlayerEntity player = CopperbugEntity.this.attackingPlayer;
 
             if (CopperbugEntity.this.random.nextInt(this.adjustedTickDelay(30)) == 0) {
                 for(int i = 1; i <= 2; ++i) {
