@@ -111,7 +111,7 @@ JawsEntity ref;
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
         entityData = super.finalizeSpawn(world, difficulty, spawnReason, entityData);
-        if (this.getItemBySlot(EquipmentSlot.OFFHAND).isEmpty() && world.getRandom().nextFloat() < 0.03F) {
+        if (this.getItemBySlot(EquipmentSlot.OFFHAND).isEmpty() && this.getRandom().nextFloat() < 0.03F) {
             this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.NAUTILUS_SHELL));
             this.setGuaranteedDrop(EquipmentSlot.OFFHAND);
         }

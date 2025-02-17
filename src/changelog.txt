@@ -1,21 +1,44 @@
-## **Updates in 1.2.1a**
+## **Updates in 1.2.1**
 
-# desc here
+### A very important patch is here with a fix to a major crash, along with some minor bug fixes.
+### We've also updated our Fabric and NeoForge requirements to 0.16.10 and 21.1.119 respectively!
+### And please note that currently (Custom Portal API Reforged)[https://modrinth.com/mod/custom-portal-api-reforged] is currently required for the NeoForge port!
 
-# New features in 1.2.1a
-* Added XXXX
-
-> XXXX
-
-* XXXX
 
 # Changes to existing features:
 
-* Example
+* [FABRIC ONLY] Updated from Fabric 0.16.7 to 0.16.10!
+
+* [NEOFORGE ONLY]  Updated from NeoForge 21.1.80 to 21.1.119!
+
 
 # Bugs fixed:
 
+* Updated the credits!
+
+* Fixed 1.21 not being compatable!
+
+* Fixed a crash regarding LegacyRandomSource! (Thanks for TelepathicGrunt and Commoble for their help!)
+
 * Fixed Ancient Hanging Signs not having a texture!
+
+* Fixed Ancient Vines and Fungal Vines not matching Weeping/Twisted/Normal Vine compost chance.
+
+* Fixed Ancient Sign not being usable as fuel.
+
+* Fixed Ancient Hanging Sign not being usable as fuel.
+
+* Fixed Ancient Slab lacking the #minecraft:wooden_slabs tag.
+
+* Fixed Ancient Slab can now be used in composter recipe as well
+
+* Fixed Whirlweeds and Big Whirlweeds not being compostable
+
+* Fixed Whirlweeds and Big Whirlweeds not being usable as fuel
+
+* Fixed Belladonna and Coelus missing the #minecraft:flowers, #minecraft:sword_efficient, #minecraft:inside_step_sound_blocks and #minecraft:mineable/hoe tags
+
+* Fixed Glow Gravel lacking many tags that regular gravel uses (Including bygone tags)
 
 ## **Updates in 1.2.0a**
 
