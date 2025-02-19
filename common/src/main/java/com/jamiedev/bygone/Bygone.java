@@ -100,6 +100,7 @@ public class Bygone {
         consumer.accept(JamiesModEntityTypes.MOOBOO, MoobooEntity.createAttributes().build());
         consumer.accept(JamiesModEntityTypes.COPPERBUG, CopperbugEntity.createCopperbugAttributes().build());
         consumer.accept(JamiesModEntityTypes.FUNGAL_PARENT, FungalParentEntity.createFungieAttributes().build());
+        consumer.accept(JamiesModEntityTypes.PEST, PestEntity.createAttributes().build());
     }
 
 
@@ -112,6 +113,7 @@ public class Bygone {
         consumer.accept((EntityType<T>) JamiesModEntityTypes.TRILOBITE, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type1, world1, reason1, pos1, random1) -> TrilobiteEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<? extends WaterAnimal>) type1, world1, reason1, pos1, random1));
         consumer.accept((EntityType<T>) JamiesModEntityTypes.COPPERBUG, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, (type1, world1, spawnReason, pos1, random1) -> CopperbugEntity.canSpawn((EntityType<CopperbugEntity>) type1, world1, spawnReason, pos1, random1));
         consumer.accept((EntityType<T>) JamiesModEntityTypes.COELACANTH, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, world, reason, pos, random) -> CoelacanthEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<CoelacanthEntity>) type, world, reason, pos, random));
+        consumer.accept((EntityType<T>) JamiesModEntityTypes.PEST, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
     }
 
     public static void addValidBlocks(BiConsumer<BlockEntityType<?>, Block> consumer) {

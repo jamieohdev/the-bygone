@@ -127,6 +127,14 @@ public class JamiesModEntityTypes {
                     .updateInterval(8)
                     .build(""));
 
+    public static final  EntityType<PestEntity> PEST = Registry.register(BuiltInRegistries.ENTITY_TYPE,
+            Bygone.id("pest"),
+            EntityType.Builder.of(PestEntity::new, MobCategory.CREATURE)
+                    .sized(0.5F, 0.5F).eyeHeight(.13f)
+                    .clientTrackingRange(8)
+                    .updateInterval(8)
+                    .build(""));
+
 
     public static void postInit() {
         initSpawnRestrictions();

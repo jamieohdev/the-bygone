@@ -1,5 +1,7 @@
 accessWidener	v1	named
 
+accessible field net/minecraft/world/entity/ai/Brain sensors Ljava/util/Map;
+accessible class net/minecraft/world/entity/ai/sensing/SensorType
 accessible method net/minecraft/world/entity/SpawnPlacements register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
 accessible class net/minecraft/client/particle/ParticleEngine$SpriteParticleRegistration
 accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;

@@ -1,3 +1,26 @@
+## **Updates in 1.2.2**
+
+### Two twos?!
+
+
+# New features in 1.2.2:
+* Example
+
+> Example
+
+* Example text
+
+
+# Changes to existing features:
+
+* Changed the Underhang ceiling to be made out of Moss Blocks.
+
+
+# Bugs fixed:
+
+* Fixed a random bug!
+
+
 ## **Updates in 1.2.1**
 
 ### A very important patch is here with a fix to a major crash, along with some minor bug fixes.

@@ -85,6 +85,31 @@
       {
         "type": "minecraft:condition",
         "if_true": {
+          "type": "minecraft:biome",
+          "biome_is": [
+            "bygone:underhang"
+          ]
+        },
+        "then_run": {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:stone_depth",
+            "offset": 0,
+            "surface_type": "ceiling",
+            "add_surface_depth": true,
+            "secondary_depth_range": 5
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": {
+              "Name": "minecraft:moss_block"
+            }
+          }
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
           "type": "minecraft:y_above",
           "add_stone_depth": true,
           "anchor": {
@@ -838,6 +863,7 @@
           ]
         }
       },
+
       {
         "type": "minecraft:condition",
         "if_true": {

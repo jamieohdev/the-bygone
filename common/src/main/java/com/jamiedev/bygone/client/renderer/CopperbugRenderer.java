@@ -11,9 +11,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Silverfish;
 
-public class CopperbugRenderer  extends MobRenderer<CopperbugEntity, CopperbugModel<CopperbugEntity>> {
+public class CopperbugRenderer extends MobRenderer<CopperbugEntity, CopperbugModel<CopperbugEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/copperbug.png");
-    GlowSquidRenderer ref;
+
     public CopperbugRenderer(EntityRendererProvider.Context context) {
         super(context, new CopperbugModel<>(context.bakeLayer(JamiesModModelLayers.COPPERBUG)), 0.3F);
     }
@@ -27,10 +27,7 @@ public class CopperbugRenderer  extends MobRenderer<CopperbugEntity, CopperbugMo
         return TEXTURE;
     }
 
-    // protected float getAnimationProgress(CopperbugEntity coelacanthEntity, float f) {
-    //    return f;
-    // }
     protected int getBlockLight(CopperbugEntity cop, BlockPos blockPos) {
-        return 15;
+        return 8;
     }
 }

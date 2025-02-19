@@ -126,6 +126,7 @@ public class BygoneClient {
         EntityRenderers.register(JamiesModEntityTypes.MOOBOO, MoobooRenderer::new);
         EntityRenderers.register(JamiesModEntityTypes.FUNGAL_PARENT, FungalParentRenderer::new);
         EntityRenderers.register(JamiesModEntityTypes.BIG_BEAK, BigBeakRenderer::new);
+        EntityRenderers.register(JamiesModEntityTypes.PEST, PestRenderer::new);
     }
     
     public static void createModelLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> consumer) {
@@ -141,6 +142,7 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.BIG_BEAK, BigBeakModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.BIG_BEAK_SADDLE, BigBeakModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.BIG_BEAK_ARMOR, BigBeakModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.PEST, PestModel::getTexturedModelData);
     }
 
     public static void registerModelPredicateProviders() {
