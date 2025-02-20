@@ -105,6 +105,9 @@ public class BygoneClient {
         consumer.accept(JamiesModBlocks.CLAYSTONE_FARMLAND, RenderType.cutout());
         consumer.accept(JamiesModBlocks.AMARANTH_CROP, RenderType.cutout());
         consumer.accept(JamiesModBlocks.SPRINKER, RenderType.cutout());
+        consumer.accept(JamiesModBlocks.PLAGA_WALL, RenderType.cutout());
+        consumer.accept(JamiesModBlocks.PLAGA, RenderType.cutout());
+        consumer.accept(JamiesModBlocks.PLAGA_CROP, RenderType.cutout());
 
         consumer.accept(JamiesModBlocks.POINTED_AMBER, RenderType.cutout());
         consumer.accept(JamiesModBlocks.CREOSOTE, RenderType.cutout());

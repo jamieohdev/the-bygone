@@ -2,6 +2,7 @@ package com.jamiedev.bygone.entities.ai;
 
 import java.util.EnumSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 import javax.annotation.Nullable;
 
@@ -18,66 +19,86 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 
-public class AvoidBlockGoal<T extends Block> extends Goal
+public class AvoidBlockGoal extends Goal
 {
+
+    /**
+     * @author CrimsonCrips (https://github.com/CrimsonCrips)
+     * Please check them out!!
+     */
     protected final PathfinderMob mob;
-    protected final T toAvoid;
-    protected final float maxDist;
     private final double walkSpeedModifier;
     private final double sprintSpeedModifier;
-
+    protected final float maxDist;
     @Nullable
     protected Path path;
+    protected final PathNavigation pathNav;
+    protected final Predicate<BlockPos> posFilter;
 
     @Nullable
-    public BlockPos blockPos;
+    protected BlockPos toAvoid;
 
-    public AvoidBlockGoal(PathfinderMob mob, T toAvoid, float maxDist, double walkSpeedModifier, double sprintSpeedModifier) {
-        this.mob = mob;
-        this.toAvoid = toAvoid;
-        this.maxDist = maxDist;
-        this.walkSpeedModifier = walkSpeedModifier;
-        this.sprintSpeedModifier = sprintSpeedModifier;
+    /**
+     * Goal that helps mobs avoid mobs of a specific class
+     */
+    public AvoidBlockGoal(PathfinderMob pMob, float pMaxDistance, double pWalkSpeedModifier, double pSprintSpeedModifier, Predicate<BlockPos> posFilter) {
+        this.mob = pMob;
+        this.maxDist = pMaxDistance;
+        this.walkSpeedModifier = pWalkSpeedModifier;
+        this.sprintSpeedModifier = pSprintSpeedModifier;
+        this.posFilter = posFilter;
+        this.pathNav = pMob.getNavigation();
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
-    @Override
+    /**
+     * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+     * method as well.
+     */
     public boolean canUse() {
-        if(this.blockPos == null || this.mob.getTarget() != null) {
-            return false;
+        Optional<BlockPos> blockPos = BlockPos.findClosestMatch(this.mob.blockPosition(), 8, 4, posFilter);
+        if (blockPos.isPresent()) {
+            Vec3 posAway = DefaultRandomPos.getPosAway(mob, 16, 7, blockPos.get().getCenter());
+            if (posAway != null && this.mob.distanceToSqr(posAway.x, posAway.y, posAway.z) > this.mob.distanceToSqr(blockPos.get().getCenter())) {
+                this.path = this.pathNav.createPath(posAway.x, posAway.y, posAway.z, 0);
+                if (this.path != null) {
+                    this.toAvoid = blockPos.get();
+                    return true;
+                }
+            }
         }
-        if(!this.blockPos.closerThan(this.mob.blockPosition(), this.maxDist)) {
-            return false;
-        }
-        Vec3 avoidTarget = Vec3.atCenterOf(this.blockPos);
-        Vec3 vec3 = DefaultRandomPos.getPosAway(this.mob, 16, 7, avoidTarget);
-        if (vec3 == null) {
-            return false;
-        }
-        if (vec3.distanceToSqr(avoidTarget) < this.mob.distanceToSqr(avoidTarget)) {
-            return false;
-        }
-        this.path = this.mob.getNavigation().createPath(vec3.x, vec3.y, vec3.z, 0);
-        return this.path != null;
+        return false;
     }
 
-    @Override
+    /**
+     * Returns whether an in-progress EntityAMIBase should continue executing
+     */
     public boolean canContinueToUse() {
-        return !this.mob.getNavigation().isDone();
+        return !this.pathNav.isDone();
     }
 
-    @Override
+    /**
+     * Execute a one shot task or start executing a continuous task
+     */
     public void start() {
-        this.mob.getNavigation().moveTo(this.path, this.walkSpeedModifier);
+        this.pathNav.moveTo(this.path, this.walkSpeedModifier);
     }
 
-    @Override
+    /**
+     * Reset the task's internal state. Called when this task is interrupted by another one
+     */
     public void stop() {
-        this.blockPos = null;
+        this.toAvoid = null;
     }
 
-    @Override
+    /**
+     * Keep ticking a continuous task that has already been started
+     */
     public void tick() {
-        if (this.blockPos != null && this.mob.distanceToSqr(Vec3.atCenterOf(this.blockPos)) < 49.0D) {
+        if (this.toAvoid == null) {
+            return;
+        }
+        if (this.mob.distanceToSqr(this.toAvoid.getCenter()) < 49.0D) {
             this.mob.getNavigation().setSpeedModifier(this.sprintSpeedModifier);
         } else {
             this.mob.getNavigation().setSpeedModifier(this.walkSpeedModifier);

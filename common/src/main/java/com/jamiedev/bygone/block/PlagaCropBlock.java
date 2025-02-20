@@ -3,7 +3,6 @@ package com.jamiedev.bygone.block;
 import com.jamiedev.bygone.init.JamiesModBlocks;
 import com.jamiedev.bygone.init.JamiesModItems;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -11,9 +10,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -22,21 +22,31 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
-//todo, support forge events
-public class AmaranthCropBlock extends BushBlock implements BonemealableBlock {
-    public static final MapCodec<AmaranthCropBlock> CODEC = simpleCodec(AmaranthCropBlock::new);
+
+import java.util.Properties;
+
+public class PlagaCropBlock extends AmaranthCropBlock {
+
+    FlowerBlock ref;
+
+    /**
+     * Last stage drops actual "crop / block"
+     *
+     * @param properties
+     */
+
+    public static final MapCodec<PlagaCropBlock> CODEC = simpleCodec(PlagaCropBlock::new);
     public static final int MAX_AGE = 7;
     public static final IntegerProperty AGE;
     private static final VoxelShape[] SHAPE_BY_AGE;
 
-    public MapCodec<? extends AmaranthCropBlock> codec() {
+    public MapCodec<? extends PlagaCropBlock> codec() {
         return CODEC;
     }
 
-    public AmaranthCropBlock(BlockBehaviour.Properties properties) {
+    public PlagaCropBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(this.getAgeProperty(), 0));
+        this.registerDefaultState((BlockState) ((BlockState) this.stateDefinition.any()).setValue(this.getAgeProperty(), 0));
     }
 
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
@@ -56,14 +66,14 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock {
     }
 
     public int getAge(BlockState state) {
-        return (Integer)state.getValue(this.getAgeProperty());
+        return (Integer) state.getValue(this.getAgeProperty());
     }
 
     public BlockState getStateForAge(int age) {
-        return (BlockState)this.defaultBlockState().setValue(this.getAgeProperty(), age);
+        return (BlockState) this.defaultBlockState().setValue(this.getAgeProperty(), age);
     }
 
-    public boolean isMaxAge(BlockState state) {
+    public final boolean isMaxAge(BlockState state) {
         return this.getAge(state) >= this.getMaxAge();
     }
 
@@ -76,7 +86,7 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock {
             int i = this.getAge(state);
             if (i < this.getMaxAge()) {
                 float f = getGrowthSpeed(this, level, pos);
-                if (random.nextInt((int)(25.0F / f) + 1) == 0) {
+                if (random.nextInt((int) (55.0F / f) + 1) == 0) {
                     level.setBlock(pos, this.getStateForAge(i + 1), 2);
                 }
             }
@@ -95,20 +105,20 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock {
     }
 
     protected int getBonemealAgeIncrease(Level level) {
-        return Mth.nextInt(level.random, 2, 5);
+        return Mth.nextInt(level.random, 1, 2);
     }
 
     protected static float getGrowthSpeed(Block block, BlockGetter level, BlockPos pos) {
         float f = 1.0F;
         BlockPos blockpos = pos.below();
 
-        for(int i = -1; i <= 1; ++i) {
-            for(int j = -1; j <= 1; ++j) {
+        for (int i = -1; i <= 1; ++i) {
+            for (int j = -1; j <= 1; ++j) {
                 float f1 = 0.0F;
                 BlockState blockstate = level.getBlockState(blockpos.offset(i, 0, j));
                 if (blockstate.is(JamiesModBlocks.CLAYSTONE_FARMLAND)) {
                     f1 = 1.0F;
-                    if ((Integer)blockstate.getValue(FarmBlock.MOISTURE) > 0) {
+                    if ((Integer) blockstate.getValue(FarmBlock.MOISTURE) > 0) {
                         f1 = 3.0F;
                     }
                 }
@@ -156,7 +166,7 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock {
     }
 
     protected ItemLike getBaseSeedId() {
-        return JamiesModItems.AMARANTH_SEEDS;
+        return JamiesModItems.PLAGA_SEEDS;
     }
 
     public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
@@ -181,6 +191,14 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock {
 
     static {
         AGE = BlockStateProperties.AGE_7;
-        SHAPE_BY_AGE = new VoxelShape[]{Block.box((double)0.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)2.0F, (double)16.0F), Block.box((double)0.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)4.0F, (double)16.0F), Block.box((double)0.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)6.0F, (double)16.0F), Block.box((double)0.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)8.0F, (double)16.0F), Block.box((double)0.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)10.0F, (double)16.0F), Block.box((double)0.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)12.0F, (double)16.0F), Block.box((double)0.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)14.0F, (double)16.0F), Block.box((double)0.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)16.0F, (double)16.0F)};
+        SHAPE_BY_AGE = new VoxelShape[]{
+                Block.box((double)5.0F, (double)0.0F, (double)5.0F, (double)11.0F, (double)7.0F, (double)11.0F),
+                Block.box((double)5.0F, (double)0.0F, (double)5.0F, (double)11.0F, (double)11.0F, (double)11.0F),
+                Block.box((double)5.0F, (double)0.0F, (double)5.0F, (double)11.0F, (double)12.0F, (double)11.0F),
+                Block.box((double)5.0F, (double)0.0F, (double)5.0F, (double)11.0F, (double)13.0F, (double)11.0F),
+                Block.box((double)5.0F, (double)0.0F, (double)5.0F, (double)11.0F, (double)16.0F, (double)11.0F),
+                Block.box((double)5.0F, (double)0.0F, (double)5.0F, (double)11.0F, (double)16.0F, (double)11.0F),
+                Block.box((double)5.0F, (double)0.0F, (double)5.0F, (double)11.0F, (double)16.0F, (double)11.0F),
+                Block.box((double)5.0F, (double)0.0F, (double)5.0F, (double)11.0F, (double)16.0F, (double)11.0F)};
     }
 }

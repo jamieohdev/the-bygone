@@ -4,11 +4,34 @@
 
 
 # New features in 1.2.2:
-* Example
+* Added the Plaga Crop.
+* Added the Pest mob.
+(TODO): Added the Abandoned Farms
 
-> Example
+> Plaga Crop
 
-* Example text
+* The Plaga Crop can be planted on Claystone Farmland and grows into the Plaga.
+
+* Plaga Seeds can be found in numerous  structures across the Bygone! (For now!)
+
+
+> Plaga
+
+* The Plaga can be placed on floors and walls (Like a torch)
+
+* Repels Pests away from any crops!
+
+* Has a light level of five.
+
+
+> Pest
+
+* The Pest can be found rarely in the Underhang, and more commonly around Abandoned Farms.
+
+* The Pest will eat any crops it finds, and will hop away from nearby Players.
+
+ TODO: Abandoned Farm stuff
+
 
 
 # Changes to existing features:
@@ -16,9 +39,12 @@
 * Changed the Underhang ceiling to be made out of Moss Blocks.
 
 
+
 # Bugs fixed:
 
-* Fixed a random bug!
+* Fixed Amaranth Crops not being placable.
+
+* Fixed Amaranth Crops not dropping Amaranth Seeds.
 
 
 ## **Updates in 1.2.1**

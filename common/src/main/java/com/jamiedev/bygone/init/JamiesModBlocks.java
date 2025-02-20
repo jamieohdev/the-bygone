@@ -450,6 +450,21 @@ public class JamiesModBlocks {
             .mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP)
             .pushReaction(PushReaction.DESTROY)));
 
+    public static final Block PLAGA_CROP = registerBlockWithoutBlockItem("plaga_crop", new PlagaCropBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP)
+            .pushReaction(PushReaction.DESTROY)));
+
+    public static final Block PLAGA = registerBlockWithoutBlockItem("plaga", new GourdDangoBlock(BlockBehaviour.Properties.of().instabreak()
+            .sound(SoundType.BAMBOO).lightLevel((state) -> {
+                return 5;
+            })));
+
+    public static final Block PLAGA_WALL = registerBlockWithoutBlockItem("plaga_wall", new GourdDangoWallBlock(BlockBehaviour.Properties.of().instabreak()
+            .sound(SoundType.BAMBOO).lightLevel((state) -> {
+                return 5;
+            })));
+
+
     public static final Block AMARANTH_BLOCK = registerBlock("bale_block", new HayBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BANJO).strength(0.5F).sound(SoundType.GRASS)));
 
 
