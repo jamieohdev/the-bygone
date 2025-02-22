@@ -40,7 +40,7 @@
                 ]
             },
             "vegetation_feature": {
-                "feature": "bygone:underhang/small_ancient_trees",
+                "feature": "bygone:underhang/medium_underhang_trees",
                 "placement": []
             }
         }
@@ -48,7 +48,7 @@
     "placement": [
         {
             "type": "minecraft:count",
-            "count": 100
+            "count": 48
         },
         {
             "type": "minecraft:in_square"
@@ -63,23 +63,6 @@
                 "max_inclusive": {
                     "below_top": 0
                 }
-            }
-        },
-        {
-            "type": "minecraft:environment_scan",
-            "direction_of_search": "up",
-            "max_steps": 16,
-            "target_condition": {
-                "type": "minecraft:solid"
-            },
-            "allowed_search_condition": {
-                "type": "minecraft:matching_blocks",
-                "offset": [
-                    0,
-                    0,
-                    0
-                ],
-                "blocks": "#minecraft:air"
             }
         }
     ]

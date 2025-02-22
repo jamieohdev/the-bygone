@@ -17,7 +17,7 @@
                 }
             },
             "vegetation_feature": {
-                "feature": "bygone:underhang/small_ancient_trees",
+                "feature": "bygone:underhang/small_underhang_trees",
                 "placement": []
             }
         }
