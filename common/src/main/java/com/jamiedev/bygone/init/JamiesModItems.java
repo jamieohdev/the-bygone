@@ -115,6 +115,9 @@ public class JamiesModItems
     public static final Item PLAGA = registerItem("plaga", new StandingAndWallBlockItem(JamiesModBlocks.PLAGA, JamiesModBlocks.PLAGA_WALL,
             new Item.Properties(), Direction.DOWN));
 
+    public static final Item CHANTRELLE_SEEDS = registerItem("chantrelle_seeds", new ItemNameBlockItem(JamiesModBlocks.CHANTRELLE, new Item.Properties()));
+    public static final Item CHANTRELLE = registerItem("chantrelle", new Item(new Item.Properties().food(AMARANTH_LOAF_COMP)));
+
     //  public static final Item ORANGE_FUNGI = registerItem("orange_fungi_fan", (BlockItem)(new VerticallyAttachableBlockItem(JamiesModBlocks.ORANGE_FUNGI_FAN, JamiesModBlocks.ORANGE_FUNGI_WALL_FAN, new Item.Settings(), Direction.DOWN)));
 
   //  public static final Item PINK_FUNGI = registerItem("pink_fungi_fan", (BlockItem)(new VerticallyAttachableBlockItem(JamiesModBlocks.PINK_FUNGI_FAN, JamiesModBlocks.PINK_FUNGI_WALL_FAN, new Item.Settings(), Direction.DOWN)));
