@@ -43,7 +43,7 @@ public class JamiesModConfiguredFeatures
         features.add(registryKey);
         return registryKey;
     }
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE = of("ancient_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE = of("underhang/small_underhang_trees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> POINTED_AMBER = FeatureUtils.createKey("pointed_amber");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AMBER_CLUSTER = FeatureUtils.createKey("amber_cluster");
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> featureRegisterable) {

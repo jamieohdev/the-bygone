@@ -12,10 +12,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,7 +24,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.NotNull;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class AncientSaplingBlock  extends BushBlock implements BonemealableBlock {
+public class AncientSaplingBlock  extends SaplingBlock {
     public static final MapCodec<AncientSaplingBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
         return instance.group(TreeGrower.CODEC.fieldOf("tree").forGetter((block) -> {
             return block.generator;
@@ -44,51 +41,9 @@ public class AncientSaplingBlock  extends BushBlock implements BonemealableBlock
     }
 
     public AncientSaplingBlock(TreeGrower generator, BlockBehaviour.Properties settings) {
-        super(settings);
+        super(generator, settings);
         this.generator = generator;
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0));
-    }
-
-    @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return SHAPE;
-    }
-
-    @Override
-    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
-        if (world.getMaxLocalRawBrightness(pos.above()) >= 9 && random.nextInt(7) == 0) {
-            this.generate(world, pos, state, random);
-        }
-
-    }
-
-    public void generate(ServerLevel world, BlockPos pos, BlockState state, @NotNull RandomSource random) {
-        if (state.getValue(STAGE) == 0) {
-            world.setBlock(pos, state.cycle(STAGE), 4);
-        } else {
-            this.generator.growTree(world, world.getChunkSource().getGenerator(), pos, state, random);
-        }
-
-    }
-
-    @Override
-    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
-        return true;
-    }
-
-    @Override
-    public boolean isBonemealSuccess(Level world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
-        return (double)world.random.nextFloat() < 0.45;
-    }
-
-    @Override
-    public void performBonemeal(ServerLevel world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
-        this.generate(world, pos, state, random);
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(STAGE);
     }
 
     @Override
@@ -101,11 +56,6 @@ public class AncientSaplingBlock  extends BushBlock implements BonemealableBlock
         return !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
-    @Override
-    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
-        BlockPos blockPos = pos.above();
-        return this.mayPlaceOn(world.getBlockState(blockPos), world, blockPos);
-    }
 
     @Override
     protected boolean propagatesSkylightDown(BlockState state, BlockGetter world, BlockPos pos) {
@@ -115,6 +65,12 @@ public class AncientSaplingBlock  extends BushBlock implements BonemealableBlock
     @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return type == PathComputationType.AIR && !this.hasCollision || super.isPathfindable(state, type);
+    }
+
+    @Override
+    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        BlockPos blockPos = pos.above();
+        return this.mayPlaceOn(world.getBlockState(blockPos), world, blockPos);
     }
 
     static {
