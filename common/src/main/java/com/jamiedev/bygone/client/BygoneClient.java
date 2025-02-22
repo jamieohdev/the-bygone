@@ -108,6 +108,7 @@ public class BygoneClient {
         consumer.accept(JamiesModBlocks.PLAGA_WALL, RenderType.cutout());
         consumer.accept(JamiesModBlocks.PLAGA, RenderType.cutout());
         consumer.accept(JamiesModBlocks.PLAGA_CROP, RenderType.cutout());
+        consumer.accept(JamiesModBlocks.CHANTRELLE, RenderType.cutout());
 
         consumer.accept(JamiesModBlocks.POINTED_AMBER, RenderType.cutout());
         consumer.accept(JamiesModBlocks.CREOSOTE, RenderType.cutout());

@@ -27,6 +27,8 @@
   "item.bygone.amaranth_grain": "Amaranth Grain",
   "item.bygone.amaranth_loaf": "Amaranth Loaf",
   "item.bygone.amaranth_seeds": "Amaranth Seeds",
+  "item.bygone.chantrelle": "Chantrelle",
+  "item.bygone.chantrelle_seeds": "Chantrelle Seeds",
   "item.bygone.plaga_seeds": "Plaga Seeds",
   "item.bygone.plaga": "Plaga",
   "item.bygone.exotic_arrow": "Exotic Arrow",
@@ -90,6 +92,7 @@
   "block.bygone.ancient_sprinkler": "Ancient Sprinkler",
   "block.bygone.plaga_crop": "Plaga Crop",
   "block.bygone.plaga": "Plaga",
+  "block.bygone.chantrelle": "Chantrelle",
 
   "block.bygone.big_whirliweed": "Big Whirliweed",
   "block.bygone.whirliweed": "Whirliweed",

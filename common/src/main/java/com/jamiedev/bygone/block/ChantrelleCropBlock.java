@@ -11,10 +11,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -28,6 +25,7 @@ public class ChantrelleCropBlock extends BushBlock implements BonemealableBlock 
     public static final MapCodec<ChantrelleCropBlock> CODEC = simpleCodec(ChantrelleCropBlock::new);
     public static final IntegerProperty AGE;
     private static final VoxelShape[] SHAPE_BY_AGE;
+
 
     public MapCodec<? extends ChantrelleCropBlock> codec() {
         return CODEC;
@@ -51,7 +49,7 @@ public class ChantrelleCropBlock extends BushBlock implements BonemealableBlock 
     }
 
     public int getMaxAge() {
-        return 4;
+        return 3;
     }
 
     public int getAge(BlockState state) {
@@ -176,7 +174,7 @@ public class ChantrelleCropBlock extends BushBlock implements BonemealableBlock 
     }
 
     static {
-        AGE = BlockStateProperties.AGE_4;
+        AGE = BlockStateProperties.AGE_3;
         SHAPE_BY_AGE = new VoxelShape[]{
                 Block.box((double)5.0F, (double)0.0F, (double)5.0F, (double)11.0F, (double)7.0F, (double)11.0F),
                 Block.box((double)5.0F, (double)0.0F, (double)5.0F, (double)11.0F, (double)8.0F, (double)11.0F),
