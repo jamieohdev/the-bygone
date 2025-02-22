@@ -16,6 +16,9 @@ public class JamiesModStructures
     public static StructureType<AncientRootStructure> ANCIENT_ROOTS;
     public static StructurePieceType ANCIENT_ROOTS_PIECES = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
             Bygone.id("ancient_roots"),  AncientRootGenerator.Piece::new);
+    public static StructureType<AncientRootStructure> ABANDONED_FARM;
+    public static StructurePieceType ABANDONED_FARM_PIECES = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
+            Bygone.id("abandoned_farm"),  AbandonedFarmGenerator.Piece::new);
 
     public static StructureType<RuinStructure> BLEMISH_RUINS;
     public static StructureType<AmberRuinsStructure> AMBER_RUINS;
@@ -59,6 +62,8 @@ public class JamiesModStructures
 
     public static void init()
     {
+        ABANDONED_FARM = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "abandoned_farm"),
+                () -> AncientRootStructure.CODEC);
         ANCIENT_ROOTS = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "ancient_roots"), () -> AncientRootStructure.CODEC);
         BYGONE_FOSSIL = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID , "bygone_fossil"), () -> BygoneFossilStructure.CODEC);
         BYGONE_PORTAL = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID , "bygone_portal"), () -> BygonePortalStructure.CODEC);

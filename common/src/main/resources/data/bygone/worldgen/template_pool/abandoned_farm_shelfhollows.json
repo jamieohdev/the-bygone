@@ -1,0 +1,14 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 2,
+      "element": {
+        "location": "bygone:abandoned_farm_shelfhollows/abandoned_farm_9",
+        "projection": "rigid",
+        "processors": "bygone:randomize_farm_shelfhollows",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

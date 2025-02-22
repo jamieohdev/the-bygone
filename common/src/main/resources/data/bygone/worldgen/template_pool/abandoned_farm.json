@@ -1,0 +1,23 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 2,
+      "element": {
+        "location": "bygone:abandoned_farm/abandoned_farm_1",
+        "projection": "rigid",
+        "processors": "bygone:randomize_farm",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "location": "bygone:abandoned_farm/abandoned_farm_2",
+        "projection": "rigid",
+        "processors": "bygone:randomize_farm",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

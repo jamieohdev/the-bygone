@@ -1,0 +1,62 @@
+{
+ "processors": [
+    {
+      "processor_type": "minecraft:rule",
+
+      "rules": [
+        {
+          "input_predicate": {
+            "block": "bygone:claystone",
+            "probability": 0.4,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:moss_block"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "bygone:claystone",
+            "probability": 0.5,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "bygone:mossy_claystone"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "bygone:claystone_farmland",
+            "probability": 0.1,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "bygone:claystone"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "bygone:claystone_farmland",
+            "probability": 0.1,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "bygone:mossy_claystone"
+          }
+        }
+      ]
+    }
+  ]
+}

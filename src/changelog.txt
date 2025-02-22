@@ -32,7 +32,9 @@
 
  TODO: Abandoned Farm stuff
 
+# Technical features:
 
+* Added #pest_repellents tag
 
 # Changes to existing features:
 
