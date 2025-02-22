@@ -181,10 +181,7 @@ public class JamiesModBlocks {
     public static final Block ANCIENT_VINE = registerBlock("ancient_vines",
             new VineBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).replaceable().noCollission().randomTicks().strength(0.2F).sound(SoundType.VINE).ignitedByLava().pushReaction(PushReaction.DESTROY)));
 
-    public static final Block ANCIENT_SAPLING = createBlockWithItem("ancient_sapling", new AncientSaplingBlock(new TreeGrower(Bygone.id( "ancient_tree").toString(),
-            Optional.empty(),
-            Optional.of(JamiesModConfiguredFeatures.ANCIENT_TREE),
-            Optional.empty()),BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
+    public static final Block ANCIENT_SAPLING = createBlockWithItem("ancient_sapling", new AncientSaplingBlock(JamiesModTreeGrowers.ANCIENT_TREE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
     public static final Block ANCIENT_LOG = registerBlock("ancient_log",
             new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).strength(2.0f)));
     public static final Block ANCIENT_LEAVES = registerBlock("ancient_leaves",
