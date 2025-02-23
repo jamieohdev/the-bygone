@@ -4,7 +4,6 @@ import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.JamiesModModelLayers;
 import com.jamiedev.bygone.client.models.PestModel;
 import com.jamiedev.bygone.entities.PestEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;

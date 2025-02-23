@@ -93,6 +93,7 @@ public class PestEntity extends Animal
                 return state.getValue(PlagaCropBlock.AGE) < 5;
             } else return false;
         }));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Wolf.class, 6.0F, (double)1.0F, 1.2));
 
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8));
         this.goalSelector.addGoal(3, new TemptGoal(this, (double)1.0F, (p_335873_) -> p_335873_.is(ItemTags.ARMOR_ENCHANTABLE), false));
@@ -100,7 +101,7 @@ public class PestEntity extends Animal
         this.goalSelector.addGoal(4, new PestEntity.PestAvoidEntityGoal<>(this, BigBeakEntity.class, 16.0F, 0.8, 1.33));
         this.goalSelector.addGoal(5, this.eatBlockGoal);
         this.goalSelector.addGoal(5, new RaidGardenGoal(this));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.6));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
     }
 
@@ -191,14 +192,14 @@ public class PestEntity extends Animal
             return super.canContinueToUse();
         }
     }
-    
+
     static class RaidGardenGoal extends MoveToBlockGoal {
         private final PestEntity pest;
         private boolean wantsToRaid;
         private boolean canRaid;
 
         public RaidGardenGoal(PestEntity pest) {
-            super(pest, (double)0.7F, 16);
+            super(pest, (double)0.7F, 64);
             this.pest = pest;
         }
 
@@ -283,11 +284,11 @@ public class PestEntity extends Animal
     }
 
     static {
-         SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.NEAREST_ITEMS,
-                 SensorType.HURT_BY, SensorType.PIGLIN_SPECIFIC_SENSOR);
-         MEMORY_TYPES = ImmutableList.of(MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_LIVING_ENTITIES,
-                 MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.ATE_RECENTLY,
-                 MemoryModuleType.NEAREST_REPELLENT);
+        SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.NEAREST_ITEMS,
+                SensorType.HURT_BY, SensorType.PIGLIN_SPECIFIC_SENSOR);
+        MEMORY_TYPES = ImmutableList.of(MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_LIVING_ENTITIES,
+                MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.ATE_RECENTLY,
+                MemoryModuleType.NEAREST_REPELLENT);
 
     }
 }

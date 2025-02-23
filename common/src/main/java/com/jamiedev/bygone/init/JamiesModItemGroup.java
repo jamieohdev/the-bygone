@@ -61,6 +61,8 @@ public class JamiesModItemGroup
                             output.accept(JamiesModItems.AMARANTH_LOAF);
                             output.accept(JamiesModItems.CHANTRELLE_SEEDS);
                             output.accept(JamiesModItems.CHANTRELLE);
+                            output.accept(JamiesModItems.PLAGA_SEEDS);
+                            output.accept(JamiesModItems.PLAGA);
                             output.accept(JamiesModItems.BIG_BEAK_SPAWN_EGG);
                             output.accept(JamiesModItems.COELACANTH_SPAWN_EGG);
                             output.accept(JamiesModItems.COPPERBUG_SPAWN_EGG);

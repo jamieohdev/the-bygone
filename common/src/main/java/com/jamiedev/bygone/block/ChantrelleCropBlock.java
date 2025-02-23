@@ -5,6 +5,7 @@ import com.jamiedev.bygone.init.JamiesModItems;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -20,6 +21,8 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import java.util.Iterator;
 
 public class ChantrelleCropBlock extends BushBlock implements BonemealableBlock {
     public static final MapCodec<ChantrelleCropBlock> CODEC = simpleCodec(ChantrelleCropBlock::new);
@@ -79,6 +82,44 @@ public class ChantrelleCropBlock extends BushBlock implements BonemealableBlock 
             }
         }
 
+        if (isCropsNearby(level, pos))
+        {
+            if (level.random.nextInt(2) == 1) {
+                for(int i = 1; i <= 2; ++i) {
+
+                    for(BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-8, -2, -8), pos.offset(8, 2, 8))) {
+                        BlockState blockState = level.getBlockState(blockPos);
+                        Block block = blockState.getBlock();
+                        if (block instanceof AmaranthCropBlock cropBlock) {
+                            if (level.random.nextFloat() <= 0.3 && !cropBlock.isMaxAge(blockState)) {
+                                if (level instanceof ServerLevel) {
+                                    if (cropBlock.isBonemealSuccess(level, level.random, blockPos, blockState)) {
+                                        cropBlock.performBonemeal((ServerLevel)level, level.random, blockPos, blockState);
+                                        level.levelEvent(1505, blockPos, 15);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    private static boolean isCropsNearby(LevelReader world, BlockPos pos) {
+        Iterator<BlockPos> var2 = BlockPos.betweenClosed(pos.offset(-8, 0, -8), pos.offset(15, 1, 15)).iterator();
+
+        BlockPos blockPos;
+        do {
+            if (!var2.hasNext()) {
+                return false;
+            }
+
+            blockPos = var2.next();
+        } while(world.getBlockState(blockPos).is(BlockTags.CROPS));
+
+        return true;
     }
 
     public void growCrops(Level level, BlockPos pos, BlockState state) {
@@ -89,6 +130,8 @@ public class ChantrelleCropBlock extends BushBlock implements BonemealableBlock 
         }
 
         level.setBlock(pos, this.getStateForAge(i), 2);
+
+
     }
 
     protected int getBonemealAgeIncrease(Level level) {
@@ -105,6 +148,8 @@ public class ChantrelleCropBlock extends BushBlock implements BonemealableBlock 
                 BlockState blockstate = level.getBlockState(blockpos.offset(i, 0, j));
                 if (blockstate.is(JamiesModBlocks.SHELF_MYCELIUM)) {
                     f1 = 2.0F;
+
+
                 }
 
                 if (i != 0 || j != 0) {

@@ -4,9 +4,11 @@
 
 
 # New features in 1.2.2:
+* Added the Chantrelle.
 * Added the Plaga Crop.
 * Added the Pest mob.
-(TODO): Added the Abandoned Farms
+* Added Abandoned Farms
+
 
 > Plaga Crop
 
@@ -24,17 +26,44 @@
 * Has a light level of five.
 
 
+> Chantrelle
+
+* The Chantrelle is a extremely slow growing mushroom found in the Shelfhollows.
+
+* While growing, the Chantrelle can -slowly- age other crops around it as well in a 8x2x8 radius!
+
+* When finished growing, the Chantrelle can be popped off and eaten (Which restores 3 hearts!)
+
+
 > Pest
+
+TODO: UPDATED MODEL + ART
 
 * The Pest can be found rarely in the Underhang, and more commonly around Abandoned Farms.
 
 * The Pest will eat any crops it finds, and will hop away from nearby Players.
 
- TODO: Abandoned Farm stuff
+
+
+
+> Abandoned Farms
+
+* Currently found in variations in the Underhang and Shelfhollows biomes!
+
+* Contains barrels with seeds, local plants, and occasionly some rare items in it!
+
+
+> Ancient Saplings
+
+* Can be placed on the ceiling and grown into Ancient Trees!
+
+
 
 # Technical features:
 
 * Added #pest_repellents tag
+
+
 
 # Changes to existing features:
 

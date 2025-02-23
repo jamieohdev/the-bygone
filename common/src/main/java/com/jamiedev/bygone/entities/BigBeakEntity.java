@@ -42,7 +42,10 @@ import net.minecraft.world.entity.ai.goal.RandomStandGoal;
 import net.minecraft.world.entity.ai.goal.RunAroundLikeCrazyGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Horse;
@@ -77,8 +80,6 @@ public class BigBeakEntity  extends AbstractHorse
     public final AnimationState flappingAnimationState = new AnimationState();
     public int flappingAnimationTimeout = 0;
 
-    Horse ref;
-    Pig ref3;
     private static final float MIN_HEALTH_BONUS = generateMaxHealth(max -> 0);
     private static final float MAX_HEALTH_BONUS = generateMaxHealth(max -> max);
     private static final EntityDimensions BABY_BASE_DIMENSIONS;
@@ -88,6 +89,8 @@ public class BigBeakEntity  extends AbstractHorse
     public float prevFlapProgress;
     public float flapSpeed = 1.0F;
     private float field_28639 = 1.0F;
+
+    Ocelot ref3;
 
     private final Container inventory = new ContainerSingleItem() {
         @Override
@@ -155,6 +158,8 @@ public class BigBeakEntity  extends AbstractHorse
         if (this.canPerformRearing()) {
             this.goalSelector.addGoal(9, new RandomStandGoal(this));
         }
+
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PestEntity.class, true));
 
         this.addBehaviourGoals();
     }
