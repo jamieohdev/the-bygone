@@ -97,9 +97,14 @@
         "type": "bygone:big_beak",
         "maxCount": 4,
         "minCount": 2,
-        "weight": 3
+        "weight": 4
       },
-
+      {
+        "type": "bygone:pest",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 1
+      },
       {
         "type": "bygone:glare",
         "maxCount": 5,

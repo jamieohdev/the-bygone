@@ -34,8 +34,8 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -48,6 +48,8 @@ public class PestEntity extends Animal
     private int eatAnimationTick;
     private EatCropGoal eatBlockGoal;
 
+    Rabbit ref;
+
     public PestEntity(EntityType<? extends PestEntity> entityType, Level level) {
         super(JamiesModEntityTypes.PEST, level);
         this.setSpeedModifier((double)0.1F);
@@ -59,7 +61,10 @@ public class PestEntity extends Animal
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, (double)6.0F).add(Attributes.MOVEMENT_SPEED, (double)0.3F).add(Attributes.KNOCKBACK_RESISTANCE, (double)1.0F).add(Attributes.ATTACK_DAMAGE, (double)5.0F).add(Attributes.STEP_HEIGHT, (double)1.0F);
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, (double)6.0F)
+                .add(Attributes.MOVEMENT_SPEED, (double)0.3F)
+                .add(Attributes.KNOCKBACK_RESISTANCE, (double)1.0F).add(Attributes.ATTACK_DAMAGE, (double)5.0F).add(Attributes.STEP_HEIGHT, (double)3.0F);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -101,6 +106,7 @@ public class PestEntity extends Animal
         this.goalSelector.addGoal(4, new PestEntity.PestAvoidEntityGoal<>(this, BigBeakEntity.class, 16.0F, 0.8, 1.33));
         this.goalSelector.addGoal(5, this.eatBlockGoal);
         this.goalSelector.addGoal(5, new RaidGardenGoal(this));
+        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0, 10));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
     }
@@ -139,43 +145,14 @@ public class PestEntity extends Animal
     }
 
     @Override
-    public @Nullable LivingEntity getLastHurtByMob() {
-        return null;
+    public boolean isFood(ItemStack stack) {
+        return stack.is(ItemTags.VILLAGER_PLANTABLE_SEEDS);
     }
 
     @Override
-    public void setLastHurtByMob(@Nullable LivingEntity livingEntity) {
-
-    }
-
-    @Override
-    public void setLastHurtByPlayer(@Nullable Player player) {
-
-    }
-
-    @Override
-    public void setTarget(@Nullable LivingEntity livingEntity) {
-
-    }
-
-    @Override
-    public boolean canAttack(LivingEntity livingEntity) {
-        return false;
-    }
-
-    @Override
-    public @Nullable LivingEntity getTarget() {
-        return null;
-    }
-
-    @Override
-    public boolean isFood(ItemStack itemStack) {
-        return false;
-    }
-
-    @Override
-    public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return null;
+    @Nullable
+    public PestEntity getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+        return JamiesModEntityTypes.PEST.create(level);
     }
 
 

@@ -64,10 +64,7 @@ public class JamiesModEntityTypes {
                     .updateInterval(8)
                     .build(""));
 // .dimensions(0.6F, 2.9F).eyeHeight(2.55F).passengerAttachments(2.80625F).maxTrackingRange(8));
-    public static final EntityType<BrungleEntity> BRUNGLE = Registry.register(BuiltInRegistries.ENTITY_TYPE,
-            Bygone.id( "brungle"),
-            EntityType.Builder.of(BrungleEntity::new, MobCategory.CREATURE)
-                    .sized(1.5F, 1.0F).build(""));
+
 
     public static final EntityType<ExoticArrowEntity> EXOTIC_ARROW = Registry.register(BuiltInRegistries.ENTITY_TYPE,
             Bygone.id( "exotic_arrow"),

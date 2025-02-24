@@ -2,17 +2,21 @@ package com.jamiedev.bygone.init;
 
 import com.jamiedev.bygone.Bygone;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.material.Fluid;
 
 public class JamiesModTag
 {
+
     public static final TagKey<Block> BIG_BEAK_SPAWNABLE_ON = Blocks.createTag("big_beak_spawnable_on");
     public static final TagKey<Block> GLARE_SPAWNABLE_ON = Blocks.createTag("glare_spawnable_on");
-
+    
     public static final TagKey<Block> SPRINKLERS = Blocks.createTag("sprinklers");
     public static final TagKey<Block> COPPER_BLOCKS_1 = Blocks.createTag("copper_blocks");
 
@@ -46,6 +50,13 @@ public class JamiesModTag
             return TagKey.create(Registries.BLOCK, Bygone.id(name));
         }
     }
+
+    public static class Fluids {
+        private static TagKey<Fluid> create(String name) {
+            return TagKey.create(Registries.FLUID, Bygone.id(name));
+        }
+    }
+
 
     public static class Entities {
         private static TagKey<EntityType<?>> createTag(String id) {

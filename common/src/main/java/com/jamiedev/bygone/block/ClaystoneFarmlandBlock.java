@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.block;
 
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.init.JamiesModBlocks;
 import com.jamiedev.bygone.init.JamiesModTag;
@@ -100,7 +101,8 @@ public class ClaystoneFarmlandBlock extends Block
             } else if (!hasCrop(world, pos)) {
                 setToDirt(null, state, world, pos);
             }
-        } else if (i < 7) {
+        }
+        else if (i < 7) {
             world.setBlock(pos, state.setValue(MOISTURE, 7), 2);
         }
 
@@ -137,6 +139,7 @@ public class ClaystoneFarmlandBlock extends Block
             blockPos = (BlockPos)var2.next();
         } while(!world.getFluidState(blockPos).is(FluidTags.WATER));
 
+
         return true;
     }
 
@@ -150,7 +153,11 @@ public class ClaystoneFarmlandBlock extends Block
             }
 
             blockPos = (BlockPos)var2.next();
-        } while(world.getBlockState(blockPos).is(JamiesModTag.SPRINKLERS));
+            BlockState blockstate1 = world.getBlockState(blockPos);
+        } while(!world.getBlockState(blockPos).is(JamiesModBlocks.SPRINKER));
+
+
+
 
         return true;
     }

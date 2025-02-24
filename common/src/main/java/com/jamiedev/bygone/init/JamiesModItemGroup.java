@@ -68,6 +68,7 @@ public class JamiesModItemGroup
                             output.accept(JamiesModItems.COPPERBUG_SPAWN_EGG);
                             output.accept(JamiesModItems.FUNGALPARENT_SPAWN_EGG);
                             output.accept(JamiesModItems.MOOBOO_SPAWN_EGG);
+                            output.accept(JamiesModItems.PEST_SPAWN_EGG);
                             output.accept(JamiesModItems.SCUTTLE_SPAWN_EGG);
                             output.accept(JamiesModItems.TRILOBITE_SPAWN_EGG);
                             output.accept(JamiesModItems.ARCANE_CORE);

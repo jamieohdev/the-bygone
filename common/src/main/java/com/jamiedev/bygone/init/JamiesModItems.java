@@ -37,7 +37,6 @@ public class JamiesModItems
 
     Items items;
 
-   // public static final Item JAMIES_ITEM = registerItem("jamies_item", new Item(new Item.Settings().fireproof()));
 
     public static final Item VERDIGRIS_BLADE = registerItem("verdigris_blade", new VerdigrisBladeItem(JamiesModToolMaterials.VERDIGRIS, new Item.Properties().stacksTo(1).attributes(HoeItem.createAttributes(Tiers.IRON, -2.0F, 3.0F))));
     public static final Item VERDIGRIS_BOW = registerItem("verdigris_bow", new VerdigrisBowItem(new Item.Properties().durability(100).stacksTo(1)));
@@ -54,10 +53,6 @@ public class JamiesModItems
 
     public static final Item SCALE = registerItem("scale", new Item(new Item.Properties().fireResistant()));
 
-
-    public static final Item ANCIENT_BOAT = registerItem("ancient_boat", new BoatItem(false, net.minecraft.world.entity.vehicle.Boat.Type.OAK, (new Item.Properties()).stacksTo(1)));
-    public static final Item ANCIENT_CHEST_BOAT = registerItem("ancient_chest_boat", new BoatItem(true, net.minecraft.world.entity.vehicle.Boat.Type.OAK, (new Item.Properties()).stacksTo(1)));
-
     public static final Item COELECANTH = registerItem("coelacanth", new Item(new Item.Properties().food(Foods.CHICKEN)));
     public static final Item COELECANTH_COOKED = registerItem("cooked_coelacanth", new Item(new Item.Properties().food(Foods.PUFFERFISH)));
     public static final Item EXOTIC_ARROW = registerItem("exotic_arrow", new ExoticArrowItem(new Item.Properties().fireResistant()));
@@ -69,7 +64,6 @@ public class JamiesModItems
     public static final Item BEIGE_SLICE = registerItem("glow_gourd_beige_slice", new Item(new Item.Properties().food(Foods.CARROT)));
     public static final Item MUAVE_SLICE = registerItem("glow_gourd_muave_slice", new Item(new Item.Properties().food(Foods.CARROT)));
     public static final Item VERDANT_SLICE = registerItem("glow_gourd_verdant_slice", new Item(new Item.Properties().food(Foods.CARROT)));
-    //public static final Item GOURD_DANGO = registerItem("glow_gourd_dango", (Item)(new AliasedBlockItem(JamiesModBlocks.GOURD_DANGO, (new Item.Settings()).food(FoodComponents.SWEET_BERRIES))));
 
     public static final Item GOURD_SOUP = registerItem("glow_gourd_soup", new Item(new Item.Properties().food(Foods.RABBIT_STEW).stacksTo(1)));
     public static final Item GOURD_DANGO = registerItem("glow_gourd_dango", new StandingAndWallBlockItem(JamiesModBlocks.GOURD_DANGO, JamiesModBlocks.GOURD_DANGO_WALL,
@@ -97,6 +91,7 @@ public class JamiesModItems
 
 
     public static final Item MOOBOO_SPAWN_EGG = registerItem("mooboo_spawn_egg", new SpawnEggItem(JamiesModEntityTypes.MOOBOO, 0x5be3e8, 0xb2c7c8, new Item.Properties()));
+    public static final Item PEST_SPAWN_EGG = registerItem("pest_spawn_egg", new SpawnEggItem(JamiesModEntityTypes.PEST, 0x846B3C, 0x6C8031, new Item.Properties()));
     public static final Item SCUTTLE_SPAWN_EGG = registerItem("scuttle_spawn_egg", new SpawnEggItem(JamiesModEntityTypes.SCUTTLE, 0x274772, 0xeab033, new Item.Properties()));
     public static final Item TRILOBITE_SPAWN_EGG = registerItem("trilobite_spawn_egg", new SpawnEggItem(JamiesModEntityTypes.TRILOBITE, 0x233c56, 0x14a4aa, new Item.Properties()));
 
@@ -117,12 +112,6 @@ public class JamiesModItems
 
     public static final Item CHANTRELLE_SEEDS = registerItem("chantrelle_seeds", new ItemNameBlockItem(JamiesModBlocks.CHANTRELLE, new Item.Properties()));
     public static final Item CHANTRELLE = registerItem("chantrelle", new Item(new Item.Properties().food(AMARANTH_LOAF_COMP)));
-
-    //  public static final Item ORANGE_FUNGI = registerItem("orange_fungi_fan", (BlockItem)(new VerticallyAttachableBlockItem(JamiesModBlocks.ORANGE_FUNGI_FAN, JamiesModBlocks.ORANGE_FUNGI_WALL_FAN, new Item.Settings(), Direction.DOWN)));
-
-  //  public static final Item PINK_FUNGI = registerItem("pink_fungi_fan", (BlockItem)(new VerticallyAttachableBlockItem(JamiesModBlocks.PINK_FUNGI_FAN, JamiesModBlocks.PINK_FUNGI_WALL_FAN, new Item.Settings(), Direction.DOWN)));
-    
-  //  public static final Item PURPLE_FUNGI = registerItem("purple_fungi_fan", (BlockItem)(new VerticallyAttachableBlockItem(JamiesModBlocks.PURPLE_FUNGI_FAN, JamiesModBlocks.PURPLE_FUNGI_WALL_FAN, new Item.Settings(), Direction.DOWN)));
 
     public static final Item ORANGE_FUNGI  = registerItem("orange_fungi_vines", new ItemNameBlockItem(JamiesModBlocks.ORANGE_FUNGI_VINES, (new Item.Properties())));
     public static final Item PINK_FUNGI  = registerItem("pink_fungi_vines", new ItemNameBlockItem(JamiesModBlocks.PINK_FUNGI_VINES, (new Item.Properties())));

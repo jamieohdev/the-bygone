@@ -1,12 +1,13 @@
 ## **Updates in 1.2.2**
 
-### Two twos?!
+### Hello all! We were hoping to release
 
 
 # New features in 1.2.2:
 * Added the Chantrelle.
 * Added the Plaga Crop.
 * Added the Pest mob.
+* Added the Pest Spawn Egg.
 * Added Abandoned Farms
 
 
@@ -25,7 +26,6 @@
 
 * Has a light level of five.
 
-
 > Chantrelle
 
 * The Chantrelle is a extremely slow growing mushroom found in the Shelfhollows.
@@ -37,13 +37,13 @@
 
 > Pest
 
-TODO: UPDATED MODEL + ART
-
 * The Pest can be found rarely in the Underhang, and more commonly around Abandoned Farms.
 
-* The Pest will eat any crops it finds, and will hop away from nearby Players.
+* The Pest will eat any crops it finds, and flee from any nearby Plaga or growing Plaga Crops.
 
+* KNOWN ISSUE: We still don't have any basic animations for the Pests!
 
+TODO: MISSING ANIAMTIONS
 
 
 > Abandoned Farms
@@ -73,10 +73,13 @@ TODO: UPDATED MODEL + ART
 
 # Bugs fixed:
 
+* Fixed crash involving "Brungle" entity.
+
 * Fixed Amaranth Crops not being placable.
 
 * Fixed Amaranth Crops not dropping Amaranth Seeds.
 
+* Removed unused "Brungle" and "Jaws" entities.
 
 ## **Updates in 1.2.1**
 
