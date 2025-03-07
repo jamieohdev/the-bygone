@@ -1,3 +1,4 @@
-// 1.21.1	2025-02-15T21:20:32.6688913	Registries
-bd6716627b84584fbb339b195681396ccdc52b61 data/bygone/worldgen/configured_feature/ancient_tree.json
-e6349050108e976ff30d2018badbfe7d99055871 data/bygone/worldgen/placed_feature/ancient_tree_checked.json
+// 1.21.1	2025-02-28T17:55:59.4234569	Registries
+bd6716627b84584fbb339b195681396ccdc52b61 data/bygone/worldgen/configured_feature/underhang/medium_underhang_trees.json
+bd6716627b84584fbb339b195681396ccdc52b61 data/bygone/worldgen/configured_feature/underhang/small_underhang_trees.json
+233a56ef6a7cde40a872180a50263d688d1d5d9f data/bygone/worldgen/placed_feature/ancient_tree_checked.json

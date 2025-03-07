@@ -45,10 +45,7 @@ public class ShelfOrangeFungiVinesBodyBlock extends GrowingPlantBodyBlock implem
         return new ItemStack(JamiesModBlocks.ORANGE_FUNGI_PLANT);
     }
 
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
-        return AncientCaveVines.pickBerries(player, state, world, pos);
-    }
+
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {

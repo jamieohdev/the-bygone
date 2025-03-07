@@ -93,7 +93,7 @@ public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
             return true;
         } else {
             BlockState blockState = world.getBlockState(pos.below());
-            return !blockState.is(JamiesModBlocks.LIMBOSLATE) && !blockState.is(JamiesModBlocks.LIMBOSTONE) && !blockState.is(Blocks.MOSS_BLOCK);
+            return !blockState.is(JamiesModBlocks.BYSLATE) && !blockState.is(JamiesModBlocks.BYSTONE) && !blockState.is(Blocks.MOSS_BLOCK);
         }
     }
 

@@ -9,8 +9,7 @@ import java.util.Optional;
 
 public class JamiesModTreeGrowers {
 
-    public static final TreeGrower ANCIENT_TREE = register("ancient_tree", Optional.of(JamiesModConfiguredFeatures.ANCIENT_TREE), Optional.empty());
-
+    public static final TreeGrower ANCIENT_TREE = register("ancient_tree", 0.0F, Optional.of(JamiesModConfiguredFeatures.ANCIENT_TREE_MEDIUM), Optional.empty(), Optional.of(JamiesModConfiguredFeatures.ANCIENT_TREE), Optional.empty(), Optional.empty(), Optional.empty());
 
     private static TreeGrower register(String name, float secondaryChance, Optional<ResourceKey<ConfiguredFeature<?, ?>>> megaTree, Optional<ResourceKey<ConfiguredFeature<?, ?>>> secondaryMegaTree, Optional<ResourceKey<ConfiguredFeature<?, ?>>> tree, Optional<ResourceKey<ConfiguredFeature<?, ?>>> secondaryTree, Optional<ResourceKey<ConfiguredFeature<?, ?>>> flowers, Optional<ResourceKey<ConfiguredFeature<?, ?>>> secondaryFlowers)
     {

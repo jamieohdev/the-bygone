@@ -22,18 +22,36 @@ public class BygoneItemTagProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider arg) {
         signs();
-        woodenSlabs();
+        slabs();
+        stairs();
+        walls();
    }
 
    private void signs() {
-        this.tag(ItemTags.SIGNS)
-                .add(JamiesModBlocks.ANCIENT_SIGN.asItem());
-       this.tag(ItemTags.HANGING_SIGNS)
-               .add(JamiesModItems.ANCIENT_HANGING_SIGN);
+
    }
 
-   private void woodenSlabs() {
-       this.tag(ItemTags.WOODEN_SLABS)
-               .add(JamiesModBlocks.ANCIENT_SLAB.asItem());
+   private void slabs() {
+       this.tag(ItemTags.SLABS)
+               .add(JamiesModBlocks.POLISHED_BYSTONE_BRICK_SLAB.asItem())
+               .add(JamiesModBlocks.POLISHED_BYSTONE_SLAB.asItem())
+               .add(JamiesModBlocks.POLISHED_BYSLATE_BRICK_SLAB.asItem())
+               .add(JamiesModBlocks.POLISHED_BYSLATE_SLAB.asItem());
    }
+
+    private void stairs() {
+        this.tag(ItemTags.STAIRS)
+                .add(JamiesModBlocks.POLISHED_BYSTONE_BRICK_STAIRS.asItem())
+                .add(JamiesModBlocks.POLISHED_BYSTONE_STAIRS.asItem())
+                .add(JamiesModBlocks.POLISHED_BYSLATE_BRICK_STAIRS.asItem())
+                .add(JamiesModBlocks.POLISHED_BYSLATE_STAIRS.asItem());
+    }
+
+    private void walls() {
+        this.tag(ItemTags.WALLS)
+                .add(JamiesModBlocks.POLISHED_BYSTONE_BRICK_WALL.asItem())
+                .add(JamiesModBlocks.POLISHED_BYSTONE_WALL.asItem())
+                .add(JamiesModBlocks.POLISHED_BYSLATE_BRICK_WALL.asItem())
+                .add(JamiesModBlocks.POLISHED_BYSLATE_WALL.asItem());
+    }
 }

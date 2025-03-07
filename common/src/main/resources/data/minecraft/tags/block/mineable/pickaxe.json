@@ -59,6 +59,26 @@
     "bygone:claystone_bricks",
     "bygone:claystone_bricks_stairs",
     "bygone:claystone_bricks_wall",
-    "bygone:claystone_bricks_slab"
+    "bygone:claystone_bricks_slab",
+    "bygone:polished_bystone",
+    "bygone:polished_bystone_slab",
+    "bygone:polished_bystone_stairs",
+    "bygone:polished_bystone_wall",
+    "bygone:polished_bystone_bricks",
+    "bygone:polished_bystone_bricks_slab",
+    "bygone:polished_bystone_bricks_stairs",
+    "bygone:polished_bystone_bricks_wall",
+    "bygone:chiseled_polished_bystone",
+    "bygone:polished_bystone_shingles",
+    "bygone:polished_byslate",
+    "bygone:polished_byslate_slab",
+    "bygone:polished_byslate_stairs",
+    "bygone:polished_byslate_wall",
+    "bygone:polished_byslate_bricks",
+    "bygone:polished_byslate_bricks_slab",
+    "bygone:polished_byslate_bricks_stairs",
+    "bygone:polished_byslate_bricks_wall",
+    "bygone:chiseled_polished_byslate",
+    "bygone:polished_byslate_shingles"
   ]
 }

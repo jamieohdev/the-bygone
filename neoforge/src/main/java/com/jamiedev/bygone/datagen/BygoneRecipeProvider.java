@@ -20,25 +20,51 @@ public class BygoneRecipeProvider extends RecipeProvider {
 
     @Override
     public void buildRecipes(RecipeOutput exporter) {
-        this.BricksRecipe(exporter, JamiesModBlocks.CLAYSTONE, JamiesModBlocks.CLAYSTONE_BRICKS);
-        this.SlabRecipe(exporter, JamiesModBlocks.CLAYSTONE_BRICKS, JamiesModBlocks.CLAYSTONE_BRICKS_SLAB);
-        this.StairsRecipe(exporter, JamiesModBlocks.CLAYSTONE_BRICKS, JamiesModBlocks.CLAYSTONE_BRICKS_STAIRS);
-        this.WallsRecipe(exporter, JamiesModBlocks.CLAYSTONE_BRICKS, JamiesModBlocks.CLAYSTONE_BRICKS_WALL);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.CLAYSTONE_BRICKS, JamiesModBlocks.CLAYSTONE_BRICKS_SLAB, 2);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.CLAYSTONE_BRICKS, JamiesModBlocks.CLAYSTONE_BRICKS_STAIRS, 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.CLAYSTONE_BRICKS, JamiesModBlocks.CLAYSTONE_BRICKS_WALL, 1);
+        this.BricksRecipe(exporter, JamiesModBlocks.BYSTONE, JamiesModBlocks.POLISHED_BYSTONE);
+        this.BricksRecipe(exporter, JamiesModBlocks.POLISHED_BYSTONE, JamiesModBlocks.POLISHED_BYSTONE_BRICK);
+        this.BricksRecipe(exporter, JamiesModBlocks.POLISHED_BYSTONE_BRICK, JamiesModBlocks.POLISHED_BYSTONE_SHINGLES);
+        
+        this.SlabRecipe(exporter, JamiesModBlocks.POLISHED_BYSTONE, JamiesModBlocks.POLISHED_BYSTONE_SLAB);
+        this.StairsRecipe(exporter, JamiesModBlocks.POLISHED_BYSTONE, JamiesModBlocks.POLISHED_BYSTONE_STAIRS);
+        this.WallsRecipe(exporter, JamiesModBlocks.POLISHED_BYSTONE, JamiesModBlocks.POLISHED_BYSTONE_WALL);
 
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.ORANGE_FUNGAL_BRICKS, JamiesModBlocks.ORANGE_FUNGAL_SLAB, 2);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.ORANGE_FUNGAL_BRICKS, JamiesModBlocks.ORANGE_FUNGAL_STAIRS, 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.ORANGE_FUNGAL_BRICKS, JamiesModBlocks.ORANGE_FUNGAL_WALL, 1);
-        
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.PURPLE_FUNGAL_BRICKS, JamiesModBlocks.PURPLE_FUNGAL_SLAB, 2);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.PURPLE_FUNGAL_BRICKS, JamiesModBlocks.PURPLE_FUNGAL_STAIRS, 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.PURPLE_FUNGAL_BRICKS, JamiesModBlocks.PURPLE_FUNGAL_WALL, 1);
-        
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.PINK_FUNGAL_BRICKS, JamiesModBlocks.PINK_FUNGAL_SLAB, 2);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.PINK_FUNGAL_BRICKS, JamiesModBlocks.PINK_FUNGAL_STAIRS, 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.PINK_FUNGAL_BRICKS, JamiesModBlocks.PINK_FUNGAL_WALL, 1);
+        this.SlabRecipe(exporter, JamiesModBlocks.POLISHED_BYSTONE_BRICK, JamiesModBlocks.POLISHED_BYSTONE_BRICK_SLAB);
+        this.StairsRecipe(exporter, JamiesModBlocks.POLISHED_BYSTONE_BRICK, JamiesModBlocks.POLISHED_BYSTONE_BRICK_STAIRS);
+        this.WallsRecipe(exporter, JamiesModBlocks.POLISHED_BYSTONE_BRICK, JamiesModBlocks.POLISHED_BYSTONE_BRICK_WALL);
+
+        this.BricksRecipe(exporter, JamiesModBlocks.BYSLATE, JamiesModBlocks.POLISHED_BYSLATE);
+        this.BricksRecipe(exporter, JamiesModBlocks.POLISHED_BYSLATE, JamiesModBlocks.POLISHED_BYSLATE_BRICK);
+        this.BricksRecipe(exporter, JamiesModBlocks.POLISHED_BYSLATE_BRICK, JamiesModBlocks.POLISHED_BYSLATE_SHINGLES);
+
+        this.SlabRecipe(exporter, JamiesModBlocks.POLISHED_BYSLATE, JamiesModBlocks.POLISHED_BYSLATE_SLAB);
+        this.StairsRecipe(exporter, JamiesModBlocks.POLISHED_BYSLATE, JamiesModBlocks.POLISHED_BYSLATE_STAIRS);
+        this.WallsRecipe(exporter, JamiesModBlocks.POLISHED_BYSLATE, JamiesModBlocks.POLISHED_BYSLATE_WALL);
+
+        this.SlabRecipe(exporter, JamiesModBlocks.POLISHED_BYSLATE_BRICK, JamiesModBlocks.POLISHED_BYSLATE_BRICK_SLAB);
+        this.StairsRecipe(exporter, JamiesModBlocks.POLISHED_BYSLATE_BRICK, JamiesModBlocks.POLISHED_BYSLATE_BRICK_STAIRS);
+        this.WallsRecipe(exporter, JamiesModBlocks.POLISHED_BYSLATE_BRICK, JamiesModBlocks.POLISHED_BYSLATE_BRICK_WALL);
+
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.BYSTONE, JamiesModBlocks.POLISHED_BYSTONE, 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSTONE, JamiesModBlocks.POLISHED_BYSTONE_SLAB, 2);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSTONE, JamiesModBlocks.POLISHED_BYSTONE_STAIRS, 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSTONE, JamiesModBlocks.POLISHED_BYSTONE_WALL, 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSTONE, JamiesModBlocks.POLISHED_BYSTONE_BRICK, 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSTONE_BRICK, JamiesModBlocks.POLISHED_BYSTONE_BRICK_SLAB, 2);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSTONE_BRICK, JamiesModBlocks.POLISHED_BYSTONE_BRICK_STAIRS, 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSTONE_BRICK, JamiesModBlocks.POLISHED_BYSTONE_BRICK_WALL, 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSTONE, JamiesModBlocks.CHISELED_POLISHED_BYSTONE, 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSTONE, JamiesModBlocks.POLISHED_BYSTONE_SHINGLES, 1);
+
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.BYSLATE, JamiesModBlocks.POLISHED_BYSLATE, 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSLATE, JamiesModBlocks.POLISHED_BYSLATE_SLAB, 2);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSLATE, JamiesModBlocks.POLISHED_BYSLATE_STAIRS, 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSLATE, JamiesModBlocks.POLISHED_BYSLATE_WALL, 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSLATE, JamiesModBlocks.POLISHED_BYSLATE_BRICK, 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSLATE_BRICK, JamiesModBlocks.POLISHED_BYSLATE_BRICK_SLAB, 2);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSLATE_BRICK, JamiesModBlocks.POLISHED_BYSLATE_BRICK_STAIRS, 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSLATE_BRICK, JamiesModBlocks.POLISHED_BYSLATE_BRICK_WALL, 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSLATE, JamiesModBlocks.CHISELED_POLISHED_BYSLATE, 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, JamiesModBlocks.POLISHED_BYSLATE, JamiesModBlocks.POLISHED_BYSLATE_SHINGLES, 1);
     }
 
 

@@ -1,6 +1,36 @@
+## **Updates in 1.2.3**
+
+### Another (part) of the 1.2 Update is here, featuring--
+###
+
+# New features in 1.2.3:
+* Added <TEST>
+
+> TEST
+
+* DESC
+
+
+# Technical features:
+
+* Added all Bygone Vegetation to the #replaceable (and by extension, the #enchantment_power_transmitter) tags.
+
+
+# Changes to existing features:
+
+* DID WHAT
+
+
+# Bugs fixed:
+
+* Fixed blan
+
+
 ## **Updates in 1.2.2**
 
-### Hello all! We were hoping to release
+### Hello all! We were hoping to release 1.2.2 a bit later with the rest of the planned content, but we encountered an unfortunate crash that occurs with other mods installed.
+### We've added two new crops, a new mob, and a new structure found  throughout the Bygone! We have even more content planned, and we'd appreciate your feedback if possible!
+### Please join us in the official [Discord](https://discord.gg/DMW28XH235)!
 
 
 # New features in 1.2.2:
@@ -26,6 +56,7 @@
 
 * Has a light level of five.
 
+
 > Chantrelle
 
 * The Chantrelle is a extremely slow growing mushroom found in the Shelfhollows.
@@ -41,10 +72,6 @@
 
 * The Pest will eat any crops it finds, and flee from any nearby Plaga or growing Plaga Crops.
 
-* KNOWN ISSUE: We still don't have any basic animations for the Pests!
-
-TODO: MISSING ANIAMTIONS
-
 
 > Abandoned Farms
 
@@ -52,10 +79,12 @@ TODO: MISSING ANIAMTIONS
 
 * Contains barrels with seeds, local plants, and occasionly some rare items in it!
 
+* [1.2.3+:] Even more iterations of the Abandoned Farms are coming as well in the near future!
+
 
 > Ancient Saplings
 
-* Can be placed on the ceiling and grown into Ancient Trees!
+* Can be placed on ceilings and grown into Ancient Trees!
 
 
 

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "bygone:block/polished_bystone_bricks",
+    "side": "bygone:block/polished_bystone_bricks",
+    "top": "bygone:block/polished_bystone_bricks"
+  }
+}

@@ -89,16 +89,40 @@ public class JamiesModItemGroup
                             output.accept(JamiesModBlocks.BYGONESLATE_COAL_ORE);
                             output.accept(JamiesModBlocks.BYGONESTONE_COPPER_ORE);
                             output.accept(JamiesModBlocks.BYGONESLATE_COPPER_ORE);
-                            output.accept(JamiesModBlocks.LIMBOSTONE);
-                            output.accept(JamiesModBlocks.LIMBOSLATE);
+                            
+                            output.accept(JamiesModBlocks.BYSTONE);
                             output.accept(JamiesModBlocks.COBBLED_BYSTONE);
                             output.accept(JamiesModBlocks.COBBLED_BYSTONE_STAIRS);
                             output.accept(JamiesModBlocks.COBBLED_BYSTONE_SLAB);
                             output.accept(JamiesModBlocks.COBBLED_BYSTONE_WALL);
+                            output.accept(JamiesModBlocks.POLISHED_BYSTONE);
+                            output.accept(JamiesModBlocks.POLISHED_BYSTONE_STAIRS);
+                            output.accept(JamiesModBlocks.POLISHED_BYSTONE_SLAB);
+                            output.accept(JamiesModBlocks.POLISHED_BYSTONE_WALL);
+                            output.accept(JamiesModBlocks.POLISHED_BYSTONE_BRICK);
+                            output.accept(JamiesModBlocks.POLISHED_BYSTONE_BRICK_STAIRS);
+                            output.accept(JamiesModBlocks.POLISHED_BYSTONE_BRICK_SLAB);
+                            output.accept(JamiesModBlocks.POLISHED_BYSTONE_BRICK_WALL);
+                            output.accept(JamiesModBlocks.POLISHED_BYSTONE_SHINGLES);
+                            output.accept(JamiesModBlocks.CHISELED_POLISHED_BYSTONE);
+                            
+                            
+                            output.accept(JamiesModBlocks.BYSLATE);
                             output.accept(JamiesModBlocks.COBBLED_BYSLATE);
                             output.accept(JamiesModBlocks.COBBLED_BYSLATE_STAIRS);
                             output.accept(JamiesModBlocks.COBBLED_BYSLATE_SLAB);
                             output.accept(JamiesModBlocks.COBBLED_BYSLATE_WALL);
+                            output.accept(JamiesModBlocks.POLISHED_BYSLATE);
+                            output.accept(JamiesModBlocks.POLISHED_BYSLATE_STAIRS);
+                            output.accept(JamiesModBlocks.POLISHED_BYSLATE_SLAB);
+                            output.accept(JamiesModBlocks.POLISHED_BYSLATE_WALL);
+                            output.accept(JamiesModBlocks.POLISHED_BYSLATE_BRICK);
+                            output.accept(JamiesModBlocks.POLISHED_BYSLATE_BRICK_STAIRS);
+                            output.accept(JamiesModBlocks.POLISHED_BYSLATE_BRICK_SLAB);
+                            output.accept(JamiesModBlocks.POLISHED_BYSLATE_BRICK_WALL);
+                            output.accept(JamiesModBlocks.POLISHED_BYSLATE_SHINGLES);
+                            output.accept(JamiesModBlocks.CHISELED_POLISHED_BYSLATE);
+                            
                             output.accept(JamiesModBlocks.CLOUD);
 
                             // Start of the Ancient Forests unique Blocks

@@ -34,19 +34,13 @@
           "entries": [
             {
               "data": {
-                "Name": "bygone:orange_fungi_vines_plant",
-                "Properties": {
-                  "berries": "false"
-                }
+                "Name": "bygone:orange_fungi_vines_plant"
               },
               "weight": 4
             },
             {
               "data": {
-                "Name": "bygone:orange_fungi_vines_plant",
-                "Properties": {
-                  "berries": "true"
-                }
+                "Name": "bygone:orange_fungi_vines_plant"
               },
               "weight": 1
             }
@@ -65,8 +59,7 @@
                 "data": {
                   "Name": "bygone:orange_fungi_vines",
                   "Properties": {
-                    "age": "0",
-                    "berries": "false"
+                    "age": "0"
                   }
                 },
                 "weight": 4
@@ -75,8 +68,7 @@
                 "data": {
                   "Name": "bygone:orange_fungi_vines",
                   "Properties": {
-                    "age": "0",
-                    "berries": "true"
+                    "age": "0"
                   }
                 },
                 "weight": 1

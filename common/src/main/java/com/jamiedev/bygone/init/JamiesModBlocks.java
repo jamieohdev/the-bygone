@@ -40,7 +40,86 @@ public class JamiesModBlocks {
         createBlockItem(blockID, block);
         return Registry.register(BuiltInRegistries.BLOCK, Bygone.id(blockID), block);
     }
-    Blocks blocks; // using this as a reference
+
+
+    /**
+     * TODO:
+     *
+     * Bystone / Byslate Polished (Textures WIP), Bricks, Shingles Chiseled variants (And stairs / slabs / walls)
+     * Claystone Bricks Chiseled Shingles variants (And stairs / slabs / walls)
+     * "Oceanstone" Normal Bricks Chiseled Shingles  (And stairs / slabs / walls)
+     * "Ventstone" Normal Bricks Chiseled Shingles (And stairs / slabs / walls)
+     * "Whitestone" Normal Bricks Chiseled Shingles  (And stairs / slabs / walls)
+     * RATTAN woodset???
+     * Redplume Crop
+     * Spiral Sprouts flower block
+     *
+     * Add "replaceables" and "enchantment_power_transmitter" tags
+     * Fix Undergrass model
+     */
+
+    public static final Block POLISHED_BYSTONE = registerBlock("polished_bystone",
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
+
+    public static final Block POLISHED_BYSTONE_SLAB = registerBlock("polished_bystone_slab",
+            new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.STONE).ignitedByLava()));
+
+    public static final Block POLISHED_BYSTONE_STAIRS = registerBlock("polished_bystone_stairs",
+            new StairBlock(JamiesModBlocks.POLISHED_BYSTONE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+
+    public static final Block POLISHED_BYSTONE_WALL = registerBlock("polished_bystone_wall",
+            new WallBlock(BlockBehaviour.Properties.ofFullCopy(JamiesModBlocks.POLISHED_BYSTONE).strength(2.0f)));
+
+    public static final Block POLISHED_BYSLATE = registerBlock("polished_byslate",
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE)));
+
+    public static final Block POLISHED_BYSLATE_SLAB = registerBlock("polished_byslate_slab",
+            new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.STONE).ignitedByLava()));
+
+    public static final Block POLISHED_BYSLATE_STAIRS = registerBlock("polished_byslate_stairs",
+            new StairBlock(JamiesModBlocks.POLISHED_BYSLATE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+
+    public static final Block POLISHED_BYSLATE_WALL = registerBlock("polished_byslate_wall",
+            new WallBlock(BlockBehaviour.Properties.ofFullCopy(JamiesModBlocks.POLISHED_BYSLATE).strength(2.0f)));
+
+    public static final Block POLISHED_BYSTONE_BRICK = registerBlock("polished_bystone_bricks",
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
+
+    public static final Block POLISHED_BYSTONE_BRICK_SLAB = registerBlock("polished_bystone_bricks_slab",
+            new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.STONE).ignitedByLava()));
+
+    public static final Block POLISHED_BYSTONE_BRICK_STAIRS = registerBlock("polished_bystone_bricks_stairs",
+            new StairBlock(JamiesModBlocks.POLISHED_BYSTONE_BRICK.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+
+    public static final Block POLISHED_BYSTONE_BRICK_WALL = registerBlock("polished_bystone_bricks_wall",
+            new WallBlock(BlockBehaviour.Properties.ofFullCopy(JamiesModBlocks.POLISHED_BYSTONE_BRICK).strength(2.0f)));
+
+    public static final Block POLISHED_BYSLATE_BRICK = registerBlock("polished_byslate_bricks",
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE)));
+
+    public static final Block POLISHED_BYSLATE_BRICK_SLAB = registerBlock("polished_byslate_bricks_slab",
+            new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.STONE).ignitedByLava()));
+
+    public static final Block POLISHED_BYSLATE_BRICK_STAIRS = registerBlock("polished_byslate_bricks_stairs",
+            new StairBlock(JamiesModBlocks.POLISHED_BYSLATE_BRICK.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+
+    public static final Block POLISHED_BYSLATE_BRICK_WALL = registerBlock("polished_byslate_bricks_wall",
+            new WallBlock(BlockBehaviour.Properties.ofFullCopy(JamiesModBlocks.POLISHED_BYSLATE_BRICK).strength(2.0f)));
+
+    public static final Block CHISELED_POLISHED_BYSTONE = registerBlock("chiseled_polished_bystone",
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
+
+    public static final Block CHISELED_POLISHED_BYSLATE = registerBlock("chiseled_polished_byslate",
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE)));
+
+    public static final Block POLISHED_BYSTONE_SHINGLES = registerBlock("polished_bystone_shingles",
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
+
+    public static final Block POLISHED_BYSLATE_SHINGLES = registerBlock("polished_byslate_shingles",
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE)));
+
+
+
     public static final CustomPortalBlock BYGONE_PORTAL =  registerBlockWithoutBlockItem("bygone_portal",
             new BygonePortalBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_PORTAL).lightLevel((state) -> 6).noLootTable().noCollission().strength(-1.0f,3600000.0f)) );
     public static final Block BYGONE_PORTAL_FRAME = registerBlockWithoutBlockItem("bygone_portal_frame",
@@ -67,19 +146,19 @@ public class JamiesModBlocks {
     public static final Block BYGONESLATE_COPPER_ORE = registerBlock("byslate_copper_ore", new DropExperienceBlock(ConstantInt.of(0),
             BlockBehaviour.Properties.ofLegacyCopy(BYGONESTONE_COPPER_ORE).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
 
-    public static final Block LIMBOSTONE = registerBlock("bystone",
-            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
+    public static final Block BYSTONE = registerBlock("bystone",
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
 
-    public static final Block LIMBOSLATE = registerBlock("byslate",
+    public static final Block BYSLATE = registerBlock("byslate",
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE)));
 
     public static final Block COBBLED_BYSTONE = registerBlock("cobbled_bystone",
-            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.4F)));
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.4F)));
     public static final Block COBBLED_BYSTONE_STAIRS = registerBlock("cobbled_bystone_stairs",
             new StairBlock(JamiesModBlocks.COBBLED_BYSTONE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
 
     public static final Block COBBLED_BYSTONE_SLAB = registerBlock("cobbled_bystone_slab",
-            new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava()));
+            new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.STONE).ignitedByLava()));
 
     public static final Block COBBLED_BYSTONE_WALL = registerBlock("cobbled_bystone_wall",
             new WallBlock(BlockBehaviour.Properties.ofFullCopy(JamiesModBlocks.COBBLED_BYSTONE).strength(2.0f)));

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_bystone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "bygone:bystone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:polished_bystone"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_bystone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:polished_bystone"
+    ]
+  }
+}

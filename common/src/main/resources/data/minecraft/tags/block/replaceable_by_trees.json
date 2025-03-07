@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "bygone:tall_grass",
+    "bygone:under_grass",
+    "bygone:montsechia",
+    "bygone:sagaria",
+    "bygone:rafflesia",
+    "bygone:gourd_vine",
+    "bygone:creosote",
+    "bygone:creosote_sprouts",
+    "bygone:belladonna",
+    "bygone:coleus",
+    "bygone:shelf_roots",
+    "bygone:shelf_mold",
+    "bygone:shelf_fungus",
+    "bygone:shelf_sprouts"
+  ]
+}

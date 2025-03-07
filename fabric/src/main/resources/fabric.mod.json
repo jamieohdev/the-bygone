@@ -22,7 +22,10 @@
         "main": [
           "com.jamiedev.bygone.BygoneFabric"
         ],
-        "client": ["com.jamiedev.bygone.client.BygoneClientFabric"]
+        "client": ["com.jamiedev.bygone.client.BygoneClientFabric"],
+        "fabric-datagen": [
+            "com.jamiedev.bygone.FabricDatagen"
+        ]
     },
     "mixins": [
         "${mod_id}.mixins.json",

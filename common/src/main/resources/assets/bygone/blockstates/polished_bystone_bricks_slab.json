@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "bygone:block/polished_bystone_bricks_slab"
+    },
+    "type=double": {
+      "model": "bygone:block/polished_bystone_bricks"
+    },
+    "type=top": {
+      "model": "bygone:block/polished_bystone_bricks_slab_top"
+    }
+  }
+}

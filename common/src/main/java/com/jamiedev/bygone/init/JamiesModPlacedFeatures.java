@@ -35,6 +35,7 @@ public class JamiesModPlacedFeatures
         Holder<ConfiguredFeature<?, ?>> registryEntry4 = holderGetter.getOrThrow(JamiesModConfiguredFeatures.AMBER_CLUSTER);
         Holder<ConfiguredFeature<?, ?>> registryEntry6 = holderGetter.getOrThrow(JamiesModConfiguredFeatures.POINTED_AMBER);
         Holder<ConfiguredFeature<?, ?>> fir = holderGetter.getOrThrow(JamiesModConfiguredFeatures.ANCIENT_TREE);
+        Holder<ConfiguredFeature<?, ?>> fir2 = holderGetter.getOrThrow(JamiesModConfiguredFeatures.ANCIENT_TREE_MEDIUM);
         PlacementUtils.register(featureRegisterable, ANCIENT_TREE_CHECKED, fir, PlacementUtils.filteredByBlockSurvival(JamiesModBlocks.ANCIENT_SAPLING));
         PlacementUtils.register(featureRegisterable, POINTED_AMBER, registryEntry6, CountPlacement.of(UniformInt.of(192, 256)),
                 InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,

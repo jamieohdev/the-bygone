@@ -5,6 +5,7 @@ import com.jamiedev.bygone.init.JamiesModBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -28,55 +29,78 @@ public class BygoneBlockTagProvider extends BlockTagsProvider {
         goatSpawnableOn();
         bambooPlantable();
         sculkReplaceable();
-       /* tag(BlockTags.MINEABLE_WITH_AXE)
-                .add(JamiesModBlocks.CLAYSTONE_BRICKS)
-                .add(JamiesModBlocks.CLAYSTONE_BRICKS_STAIRS)
-                .add(JamiesModBlocks.CLAYSTONE_BRICKS_WALL)
-                .add(JamiesModBlocks.CLAYSTONE_BRICKS_SLAB);*///todo
+       tag(BlockTags.MINEABLE_WITH_PICKAXE)
+        .add(JamiesModBlocks.POLISHED_BYSTONE)
+        .add(JamiesModBlocks.POLISHED_BYSTONE_SLAB)
+        .add(JamiesModBlocks.POLISHED_BYSTONE_STAIRS)
+        .add(JamiesModBlocks.POLISHED_BYSTONE_WALL)
+
+        .add(JamiesModBlocks.POLISHED_BYSTONE_BRICK)
+        .add(JamiesModBlocks.POLISHED_BYSTONE_BRICK_SLAB)
+        .add(JamiesModBlocks.POLISHED_BYSTONE_BRICK_STAIRS)
+        .add(JamiesModBlocks.POLISHED_BYSTONE_BRICK_WALL)
+
+        .add(JamiesModBlocks.CHISELED_POLISHED_BYSTONE)
+        .add(JamiesModBlocks.POLISHED_BYSTONE_SHINGLES)
+
+        .add(JamiesModBlocks.POLISHED_BYSLATE)
+        .add(JamiesModBlocks.POLISHED_BYSLATE_SLAB)
+        .add(JamiesModBlocks.POLISHED_BYSLATE_STAIRS)
+        .add(JamiesModBlocks.POLISHED_BYSLATE_WALL)
+
+        .add(JamiesModBlocks.POLISHED_BYSLATE_BRICK)
+        .add(JamiesModBlocks.POLISHED_BYSLATE_BRICK_SLAB)
+        .add(JamiesModBlocks.POLISHED_BYSLATE_BRICK_STAIRS)
+        .add(JamiesModBlocks.POLISHED_BYSLATE_BRICK_WALL)
+
+        .add(JamiesModBlocks.CHISELED_POLISHED_BYSLATE)
+        .add(JamiesModBlocks.POLISHED_BYSLATE_SHINGLES);
         
     }
 
     private void swordEfficient() {
-        this.tag(BlockTags.SWORD_EFFICIENT)
-                .add(JamiesModBlocks.BELLADONNA)
-                .add(JamiesModBlocks.COLEUS);
+        tag(BlockTags.SLABS)
+                .add(JamiesModBlocks.POLISHED_BYSTONE_BRICK_SLAB)
+                .add(JamiesModBlocks.POLISHED_BYSTONE_SLAB)
+                .add(JamiesModBlocks.POLISHED_BYSLATE_BRICK_SLAB)
+                .add(JamiesModBlocks.POLISHED_BYSLATE_SLAB);
+        tag(BlockTags.STAIRS)
+                .add(JamiesModBlocks.POLISHED_BYSTONE_BRICK_STAIRS)
+                .add(JamiesModBlocks.POLISHED_BYSTONE_STAIRS)
+                .add(JamiesModBlocks.POLISHED_BYSLATE_BRICK_STAIRS)
+                .add(JamiesModBlocks.POLISHED_BYSLATE_STAIRS);
+        tag(BlockTags.SLABS)
+                .add(JamiesModBlocks.POLISHED_BYSTONE_BRICK_WALL)
+                .add(JamiesModBlocks.POLISHED_BYSTONE_WALL)
+                .add(JamiesModBlocks.POLISHED_BYSLATE_BRICK_WALL)
+                .add(JamiesModBlocks.POLISHED_BYSLATE_WALL);
     }
 
     private void flowers() {
-        this.tag(BlockTags.FLOWERS)
-                .add(JamiesModBlocks.BELLADONNA)
-                .add(JamiesModBlocks.COLEUS);
+
     }
 
     private void insideStepSoundBlocks() {
-        this.tag(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
-                .add(JamiesModBlocks.BELLADONNA)
-                .add(JamiesModBlocks.COLEUS);
+
     }
 
     private void mineableWithHoe() {
-        this.tag(BlockTags.MINEABLE_WITH_HOE)
-                .add(JamiesModBlocks.BELLADONNA)
-                .add(JamiesModBlocks.COLEUS);
+
     }
 
     private void endermanHoldable() {
-        this.tag(BlockTags.ENDERMAN_HOLDABLE)
-                .add(JamiesModBlocks.GLOW_GRAVEL);
+
     }
 
     private void bambooPlantable() {
-        this.tag(BlockTags.BAMBOO_PLANTABLE_ON)
-                .add(JamiesModBlocks.GLOW_GRAVEL);
+
     }
 
     private void goatSpawnableOn() {
-        this.tag(BlockTags.GOATS_SPAWNABLE_ON)
-                .add(JamiesModBlocks.GLOW_GRAVEL);
+
     }
 
     private void sculkReplaceable() {
-        this.tag(BlockTags.SCULK_REPLACEABLE)
-                .add(JamiesModBlocks.GLOW_GRAVEL);
+
     }
 }

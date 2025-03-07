@@ -44,6 +44,7 @@ public class JamiesModConfiguredFeatures
         return registryKey;
     }
     public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE = of("underhang/small_underhang_trees");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE_MEDIUM = of("underhang/medium_underhang_trees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> POINTED_AMBER = FeatureUtils.createKey("pointed_amber");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AMBER_CLUSTER = FeatureUtils.createKey("amber_cluster");
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> featureRegisterable) {
@@ -53,6 +54,7 @@ public class JamiesModConfiguredFeatures
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = featureRegisterable.lookup(Registries.CONFIGURED_FEATURE);
         
         FeatureUtils.register(featureRegisterable, ANCIENT_TREE, Feature.TREE, naturalAncientConfig().build());
+        FeatureUtils.register(featureRegisterable, ANCIENT_TREE_MEDIUM, Feature.TREE, naturalAncientConfig().build());
         FeatureUtils.register(featureRegisterable, POINTED_AMBER, Feature.SIMPLE_RANDOM_SELECTOR,
                 new SimpleRandomFeatureConfiguration(HolderSet.direct(PlacementUtils.inlinePlaced(JamiesModFeatures.POINTED_AMBER,
                         new PointedAmberFeatureConfig(0.2F, 0.7F, 0.5F, 0.5F), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1))), PlacementUtils.inlinePlaced(JamiesModFeatures.POINTED_AMBER, new PointedAmberFeatureConfig(0.2F, 0.7F, 0.5F, 0.5F), EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(-1))))));

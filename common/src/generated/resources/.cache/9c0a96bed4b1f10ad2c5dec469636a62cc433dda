@@ -1,4 +1,4 @@
-// 1.21.1	2025-02-15T21:20:32.691507	Tags for minecraft:item mod id bygone
-e1e2fd139e21c1d3f8e7f377527b3d8873165784 data/minecraft/tags/item/hanging_signs.json
-c1e16725b5d5a936573e7d2a1006fd5ffd9c814e data/minecraft/tags/item/signs.json
-dc9c64eba6e4afab866abc9fbaf153c5f9a2c78f data/minecraft/tags/item/wooden_slabs.json
+// 1.21.1	2025-02-28T17:55:59.4279975	Tags for minecraft:item mod id bygone
+e254b4768bebd65eb6c22f7ebccbbc277eab9b76 data/minecraft/tags/item/slabs.json
+696c3c109d8eadde65801310dc471cc29b64e25c data/minecraft/tags/item/stairs.json
+ed640f07e875c69dc9102d2663835e3ebe0a5b40 data/minecraft/tags/item/walls.json

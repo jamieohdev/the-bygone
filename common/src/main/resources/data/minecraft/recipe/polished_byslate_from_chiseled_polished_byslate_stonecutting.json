@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "bygone:chiseled_polished_byslate"
+  },
+  "result": {
+    "count": 1,
+    "id": "bygone:polished_byslate"
+  }
+}
