@@ -28,7 +28,6 @@ public class BygoneDataGenerator  {
 		generator.addProvider(true, new BygoneRecipeProvider(output,lookupProvider));
 
 		generator.addProvider(true,new BygoneDataPackProvider(output,buildRegistry(),lookupProvider));
-		generator.addProvider(true,new BygoneDataMapProvider(output,lookupProvider));
 	}
 
 	public static RegistrySetBuilder buildRegistry() {

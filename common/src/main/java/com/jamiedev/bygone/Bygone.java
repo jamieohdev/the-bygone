@@ -106,37 +106,6 @@ public class Bygone {
         consumer.accept(BlockEntityType.HANGING_SIGN, BGBlocks.ANCIENT_WALL_HANGING_SIGN.get());
     }
 
-    public static void addFurnaceFuels(BiConsumer<ItemLike,Integer> consumer) {
-        consumer.accept(BGBlocks.ANCIENT_SAPLING.get(), 300);
-        consumer.accept(BGBlocks.CAVE_VINES_PLANT.get(), 200);
-        consumer.accept(BGBlocks.CAVE_VINES.get(), 200);
-        consumer.accept(BGBlocks.CHARNIA.get(), 50);
-        consumer.accept(BGBlocks.MONTSECHIA.get(), 50);
-        consumer.accept(BGBlocks.RAFFLESIA.get(), 500);
-        consumer.accept(BGBlocks.SAGARIA.get(), 50);
-        consumer.accept(BGBlocks.SHORT_GRASS.get(), 300);
-        consumer.accept(BGBlocks.TALL_GRASS.get(), 200);
-        consumer.accept(BGBlocks.ANCIENT_ROOTS.get(), 50);
-        consumer.accept(BGBlocks.ALPHA_MOSS_CARPET.get(), 30);
-        consumer.accept(BGBlocks.ALPHA_MOSS_BLOCK.get(), 60);
-        consumer.accept(BGBlocks.BELLADONNA.get(), 50);
-        consumer.accept(BGBlocks.COLEUS.get(), 50);
-
-        consumer.accept(BGBlocks.ANCIENT_WOOD.get(), 300);
-        consumer.accept(BGBlocks.ANCIENT_LOG.get(), 300);
-        consumer.accept(BGBlocks.ANCIENT_PLANKS.get(), 300);
-        consumer.accept(BGBlocks.ANCIENT_SLAB.get(), 150);
-        consumer.accept(BGBlocks.ANCIENT_STAIRS.get(), 300);
-        consumer.accept(BGBlocks.ANCIENT_PRESSURE_PLATE.get(), 300);
-        consumer.accept(BGBlocks.ANCIENT_BUTTON.get(), 100);
-        consumer.accept(BGBlocks.ANCIENT_TRAPDOOR.get(), 300);
-        consumer.accept(BGBlocks.ANCIENT_FENCE_GATE.get(), 300);
-        consumer.accept(BGBlocks.ANCIENT_FENCE.get(), 300);
-        consumer.accept(BGBlocks.ANCIENT_DOOR.get(), 200);
-        consumer.accept(BGBlocks.WHIRLIWEED.get(), 75);
-        consumer.accept(BGBlocks.BIG_WHIRLIWEED.get(), 125);
-
-    }
 
     public static void addFlammable() {
         ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_WOOD.get(), 5, 20);

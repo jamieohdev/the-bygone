@@ -8,8 +8,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -34,8 +32,6 @@ public class BygoneFabric implements ModInitializer {
 
 		Bygone.registerSpawnPlacements(SpawnPlacements::register);
 		JamiesModPortalsFabric.init();
-
-		Bygone.addFurnaceFuels(FuelRegistry.INSTANCE::add);
 
 		BGCriteria.init();
 

@@ -1,0 +1,28 @@
+{
+  "values": {
+    "bygone:ancient_sapling": 300,
+    "bygone:charnia": 50,
+    "bygone:montsechia": 50,
+    "bygone:rafflesia": 500,
+    "bygone:sagaria": 50,
+    "bygone:under_grass": 300,
+    "bygone:ancient_roots": 50,
+    "bygone:alpha_moss_carpet": 30,
+    "bygone:alpha_moss_block": 60,
+    "bygone:belladonna": 50,
+    "bygone:coleus": 50,
+    "bygone:ancient_wood": 300,
+    "bygone:ancient_log": 300,
+    "bygone:ancient_planks": 300,
+    "bygone:ancient_slab": 150,
+    "bygone:ancient_stairs": 300,
+    "bygone:ancient_pressure_plate": 300,
+    "bygone:ancient_button": 100,
+    "bygone:ancient_trapdoor": 300,
+    "bygone:ancient_fence_gate": 300,
+    "bygone:ancient_fence": 300,
+    "bygone:ancient_door": 200,
+    "bygone:whirliweed": 75,
+    "bygone:big_whirliweed": 125
+  }
+}
