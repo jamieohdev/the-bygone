@@ -26,7 +26,5 @@ public class BygoneDataMapProvider extends DataMapProvider {
     protected void gather() {
         Builder<FurnaceFuel, Item> builder = builder(NeoForgeDataMaps.FURNACE_FUELS);
         Bygone.addFurnaceFuels((itemLike, integer) -> builder.add(itemLike.asItem().builtInRegistryHolder(),new FurnaceFuel(integer),false));
-        Builder<Compostable, Item> compostables = builder(NeoForgeDataMaps.COMPOSTABLES);
-        Bygone.addCompostables((itemLike, aFloat) -> compostables.add(itemLike.asItem().builtInRegistryHolder(), new Compostable(aFloat),false));
     }
 }

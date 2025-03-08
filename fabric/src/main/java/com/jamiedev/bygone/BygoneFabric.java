@@ -35,7 +35,6 @@ public class BygoneFabric implements ModInitializer {
 		Bygone.registerSpawnPlacements(SpawnPlacements::register);
 		JamiesModPortalsFabric.init();
 
-		Bygone.addCompostables(CompostingChanceRegistry.INSTANCE::add);
 		Bygone.addFurnaceFuels(FuelRegistry.INSTANCE::add);
 
 		BGCriteria.init();

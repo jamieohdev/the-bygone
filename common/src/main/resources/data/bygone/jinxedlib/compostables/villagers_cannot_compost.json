@@ -1,0 +1,28 @@
+{
+  "values": {
+    "bygone:ancient_sapling": 0.5,
+    "bygone:charnia": 0.2,
+    "bygone:montsechia": 0.2,
+    "bygone:rafflesia": 0.8,
+    "bygone:sagaria": 0.2,
+    "bygone:under_grass": 0.2,
+    "bygone:ancient_roots": 0.3,
+    "bygone:ancient_vines": 0.5,
+    "bygone:ancient_leaves": 0.3,
+    "bygone:alpha_moss_carpet": 0.3,
+    "bygone:alpha_moss_block": 0.3,
+    "bygone:creosote_sprouts": 0.2,
+    "bygone:shelf_mold": 0.2,
+    "bygone:shelf_roots": 0.2,
+    "bygone:shelf_fungus": 0.2,
+    "bygone:shelf_sprouts": 0.2,
+    "bygone:orange_fungi_vines": 0.5,
+    "bygone:purple_fungi_vines": 0.5,
+    "bygone:pink_fungi_vines": 0.5,
+    "bygone:belladonna": 0.1,
+    "bygone:coleus": 0.1,
+    "bygone:whirliweed": 0.3,
+    "bygone:big_whirliweed": 0.4
+  },
+  "can_villager_compost": false
+}

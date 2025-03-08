@@ -138,42 +138,6 @@ public class Bygone {
 
     }
 
-    public static void addCompostables(BiConsumer<ItemLike,Float> consumer) {
-        consumer.accept(BGBlocks.ANCIENT_SAPLING.get(), 0.5F);
-        consumer.accept(BGBlocks.CAVE_VINES_PLANT.get(), 0.3F);
-        consumer.accept(BGBlocks.CAVE_VINES.get(), 0.3F);
-        consumer.accept(BGBlocks.CHARNIA.get(), 0.2F);
-        consumer.accept(BGBlocks.MONTSECHIA.get(), 0.2F);
-        consumer.accept(BGBlocks.RAFFLESIA.get(), 0.8F);
-        consumer.accept(BGBlocks.SAGARIA.get(), 0.2F);
-        consumer.accept(BGBlocks.SHORT_GRASS.get(), 0.2F);
-        consumer.accept(BGBlocks.TALL_GRASS.get(), 0.4F);
-        consumer.accept(BGBlocks.ANCIENT_ROOTS.get(), 0.3F);
-        consumer.accept(BGBlocks.ANCIENT_VINE.get(), 0.5F);
-        consumer.accept(BGBlocks.ANCIENT_LEAVES.get(), 0.3F);
-
-        consumer.accept(BGBlocks.ALPHA_MOSS_CARPET.get(), 0.3F);
-        consumer.accept(BGBlocks.ALPHA_MOSS_BLOCK.get(), 0.3F);
-
-        consumer.accept(BGBlocks.CREOSOTE_SPROUTS.get(), 0.2F);
-        consumer.accept(BGBlocks.SHELF_MOLD.get(), 0.2F);
-        consumer.accept(BGBlocks.SHELF_ROOTS.get(), 0.2F);
-        consumer.accept(BGBlocks.SHELF_FUNGUS.get(), 0.2F);
-        consumer.accept(BGBlocks.SHELF_SPROUTS.get(), 0.2F);
-
-        consumer.accept(BGBlocks.ORANGE_FUNGI_VINES.get(), 0.5F);
-        consumer.accept(BGBlocks.PINK_FUNGI_VINES.get(), 0.5F);
-        consumer.accept(BGBlocks.PURPLE_FUNGI_VINES.get(), 0.5F);
-        consumer.accept(BGBlocks.BELLADONNA.get(),0.1F);
-        consumer.accept(BGBlocks.COLEUS.get(), 0.1F);
-        consumer.accept(BGBlocks.WHIRLIWEED.get(), 0.3F);
-        consumer.accept(BGBlocks.BIG_WHIRLIWEED.get(), 0.4F);
-    }
-
-    public static void addWoodTypes() {
-
-    }
-
     public static void addFlammable() {
         ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_WOOD.get(), 5, 20);
         ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_LOG.get(), 5, 20);
