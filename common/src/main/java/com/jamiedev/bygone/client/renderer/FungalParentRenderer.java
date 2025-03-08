@@ -3,7 +3,7 @@ package com.jamiedev.bygone.client.renderer;
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.JamiesModModelLayers;
 import com.jamiedev.bygone.client.models.FungalParentModel;
-import com.jamiedev.bygone.entities.FungalParentEntity;
+import com.jamiedev.bygone.common.entity.FungalParentEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

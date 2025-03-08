@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.client;
 
 
-import com.jamiedev.bygone.entities.projectile.HookEntity;
+import com.jamiedev.bygone.common.entity.projectile.HookEntity;
 import java.util.UUID;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;

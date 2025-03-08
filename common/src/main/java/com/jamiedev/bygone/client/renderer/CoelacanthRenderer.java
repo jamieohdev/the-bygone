@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.SalmonRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import com.jamiedev.bygone.entities.CoelacanthEntity;
+import com.jamiedev.bygone.common.entity.CoelacanthEntity;
 
 public class CoelacanthRenderer extends MobRenderer<CoelacanthEntity, CoelacanthModel<CoelacanthEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/coelacanth.png");

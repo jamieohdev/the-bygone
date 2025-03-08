@@ -5,7 +5,7 @@ package com.jamiedev.bygone.client.models;
 
 
 import com.jamiedev.bygone.client.models.animations.GlareAnimations;
-import com.jamiedev.bygone.entities.GlareEntity;
+import com.jamiedev.bygone.common.entity.GlareEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.*;

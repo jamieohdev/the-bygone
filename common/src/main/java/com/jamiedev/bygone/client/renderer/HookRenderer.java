@@ -1,8 +1,8 @@
 package com.jamiedev.bygone.client.renderer;
 
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.entities.projectile.HookEntity;
-import com.jamiedev.bygone.init.JamiesModItems;
+import com.jamiedev.bygone.common.entity.projectile.HookEntity;
+import com.jamiedev.bygone.core.registry.BGItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
@@ -45,7 +45,7 @@ public class HookRenderer extends EntityRenderer<HookEntity>
             matrixStack.popPose();
             float handSwingProgress = playerOwner.getAttackAnim(tickDelta);
             float handBob = Mth.sin(Mth.sqrt(handSwingProgress) * Mth.PI);
-            Vec3 handPos = this.getHandPos(playerOwner, handBob, tickDelta, JamiesModItems.HOOK);
+            Vec3 handPos = this.getHandPos(playerOwner, handBob, tickDelta, BGItems.HOOK);
             Vec3 lerpedPos = hook.getPosition(tickDelta).add(0.0, 0.25, 0.0);
             float xDiff = (float)(handPos.x - lerpedPos.x);
             float yDiff = (float)(handPos.y - lerpedPos.y);

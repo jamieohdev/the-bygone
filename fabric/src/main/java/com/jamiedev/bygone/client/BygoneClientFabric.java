@@ -2,9 +2,9 @@ package com.jamiedev.bygone.client;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.renderer.*;
-import com.jamiedev.bygone.items.VerdigrisBladeItem;
-import com.jamiedev.bygone.block.JamiesModWoodType;
-import com.jamiedev.bygone.init.*;
+import com.jamiedev.bygone.core.registry.BGDimensions;
+import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
+import com.jamiedev.bygone.common.block.JamiesModWoodType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -33,7 +33,7 @@ public class BygoneClientFabric implements ClientModInitializer {
 
 
         DimensionRenderingRegistry.registerDimensionEffects(BYGONE, BygoneDimensionEffects.INSTANCE);
-        DimensionRenderingRegistry.registerSkyRenderer(JamiesModDimension.BYGONE_LEVEL_KEY, BygoneSkyRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(BGDimensions.BYGONE_LEVEL_KEY, BygoneSkyRenderer.INSTANCE);
 
         BygoneClient.registerModelPredicateProviders();
 

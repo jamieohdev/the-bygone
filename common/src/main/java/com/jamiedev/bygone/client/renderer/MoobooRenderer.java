@@ -5,7 +5,7 @@ import com.jamiedev.bygone.client.JamiesModModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.jamiedev.bygone.client.models.MoobooModel;
-import com.jamiedev.bygone.entities.MoobooEntity;
+import com.jamiedev.bygone.common.entity.MoobooEntity;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;

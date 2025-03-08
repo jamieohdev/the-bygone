@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.client.renderer;
 
-import com.jamiedev.bygone.init.JamiesModDimension;
+import com.jamiedev.bygone.core.registry.BGDimensions;
 import com.mojang.blaze3d.shaders.FogShape;
 import java.util.function.Consumer;
 import net.minecraft.client.Minecraft;
@@ -61,7 +61,7 @@ public class BygoneDimensionEffects extends DimensionSpecialEffects
                 fogType == FogRenderer.FogMode.FOG_TERRAIN &&
                 thickFog &&
                 player != null &&
-                player.level().dimension() == JamiesModDimension.BYGONE_LEVEL_KEY)
+                player.level().dimension() == BGDimensions.BYGONE_LEVEL_KEY)
         {
 
 

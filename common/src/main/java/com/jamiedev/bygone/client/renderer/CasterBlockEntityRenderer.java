@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.client.renderer;
 
-import com.jamiedev.bygone.block.entity.CasterBlockEntity;
+import com.jamiedev.bygone.common.block.entity.CasterBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;

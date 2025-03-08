@@ -5,7 +5,7 @@ import com.jamiedev.bygone.client.JamiesModModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.jamiedev.bygone.client.models.ScuttleModel;
-import com.jamiedev.bygone.entities.ScuttleEntity;
+import com.jamiedev.bygone.common.entity.ScuttleEntity;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;

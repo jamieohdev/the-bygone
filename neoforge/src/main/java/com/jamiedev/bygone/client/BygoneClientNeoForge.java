@@ -1,8 +1,8 @@
 package com.jamiedev.bygone.client;
 
-import com.jamiedev.bygone.block.JamiesModWoodType;
+import com.jamiedev.bygone.common.block.JamiesModWoodType;
 import com.jamiedev.bygone.client.particles.BlemishParticle;
-import com.jamiedev.bygone.init.JamiesModParticleTypes;
+import com.jamiedev.bygone.core.registry.BGParticleTypes;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.Sheets;
 import net.neoforged.bus.api.IEventBus;
@@ -37,7 +37,7 @@ public class BygoneClientNeoForge {
 
     static void registerParticleFactories(RegisterParticleProvidersEvent event) {
         BygoneClient.registerParticleFactories(event::registerSpriteSet);
-        event.registerSpriteSet(JamiesModParticleTypes.BLEMISH, BlemishParticle.BlemishBlockProvider::new);
+        event.registerSpriteSet(BGParticleTypes.BLEMISH, BlemishParticle.BlemishBlockProvider::new);
 
     }
 

@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.client.renderer;
 
-import com.jamiedev.bygone.block.entity.BygoneBrushableBlockEntity;
+import com.jamiedev.bygone.common.block.entity.BygoneBrushableBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.LevelRenderer;

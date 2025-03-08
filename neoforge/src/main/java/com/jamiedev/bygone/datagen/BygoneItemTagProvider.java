@@ -1,8 +1,7 @@
 package com.jamiedev.bygone.datagen;
 
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.init.JamiesModBlocks;
-import com.jamiedev.bygone.init.JamiesModItems;
+import com.jamiedev.bygone.core.registry.BGBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -33,25 +32,25 @@ public class BygoneItemTagProvider extends ItemTagsProvider {
 
    private void slabs() {
        this.tag(ItemTags.SLABS)
-               .add(JamiesModBlocks.POLISHED_BYSTONE_BRICK_SLAB.asItem())
-               .add(JamiesModBlocks.POLISHED_BYSTONE_SLAB.asItem())
-               .add(JamiesModBlocks.POLISHED_BYSLATE_BRICK_SLAB.asItem())
-               .add(JamiesModBlocks.POLISHED_BYSLATE_SLAB.asItem());
+               .add(BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.asItem())
+               .add(BGBlocks.POLISHED_BYSTONE_SLAB.asItem())
+               .add(BGBlocks.POLISHED_BYSLATE_BRICK_SLAB.asItem())
+               .add(BGBlocks.POLISHED_BYSLATE_SLAB.asItem());
    }
 
     private void stairs() {
         this.tag(ItemTags.STAIRS)
-                .add(JamiesModBlocks.POLISHED_BYSTONE_BRICK_STAIRS.asItem())
-                .add(JamiesModBlocks.POLISHED_BYSTONE_STAIRS.asItem())
-                .add(JamiesModBlocks.POLISHED_BYSLATE_BRICK_STAIRS.asItem())
-                .add(JamiesModBlocks.POLISHED_BYSLATE_STAIRS.asItem());
+                .add(BGBlocks.POLISHED_BYSTONE_BRICK_STAIRS.asItem())
+                .add(BGBlocks.POLISHED_BYSTONE_STAIRS.asItem())
+                .add(BGBlocks.POLISHED_BYSLATE_BRICK_STAIRS.asItem())
+                .add(BGBlocks.POLISHED_BYSLATE_STAIRS.asItem());
     }
 
     private void walls() {
         this.tag(ItemTags.WALLS)
-                .add(JamiesModBlocks.POLISHED_BYSTONE_BRICK_WALL.asItem())
-                .add(JamiesModBlocks.POLISHED_BYSTONE_WALL.asItem())
-                .add(JamiesModBlocks.POLISHED_BYSLATE_BRICK_WALL.asItem())
-                .add(JamiesModBlocks.POLISHED_BYSLATE_WALL.asItem());
+                .add(BGBlocks.POLISHED_BYSTONE_BRICK_WALL.asItem())
+                .add(BGBlocks.POLISHED_BYSTONE_WALL.asItem())
+                .add(BGBlocks.POLISHED_BYSLATE_BRICK_WALL.asItem())
+                .add(BGBlocks.POLISHED_BYSLATE_WALL.asItem());
     }
 }

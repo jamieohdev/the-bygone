@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.datagen;
 
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.init.JamiesModBlocks;
+import com.jamiedev.bygone.core.registry.BGBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
@@ -19,31 +19,31 @@ public class BygoneBlockLootSubProvider extends BlockLootSubProvider {
     @Override
     public void generate() {
 
-        dropSelf(JamiesModBlocks.POLISHED_BYSTONE);
-        dropSelf(JamiesModBlocks.POLISHED_BYSTONE_SLAB);
-        dropSelf(JamiesModBlocks.POLISHED_BYSTONE_STAIRS);
-        dropSelf(JamiesModBlocks.POLISHED_BYSTONE_WALL);
+        dropSelf(BGBlocks.POLISHED_BYSTONE);
+        dropSelf(BGBlocks.POLISHED_BYSTONE_SLAB);
+        dropSelf(BGBlocks.POLISHED_BYSTONE_STAIRS);
+        dropSelf(BGBlocks.POLISHED_BYSTONE_WALL);
 
-        dropSelf(JamiesModBlocks.POLISHED_BYSTONE_BRICK);
-        dropSelf(JamiesModBlocks.POLISHED_BYSTONE_BRICK_SLAB);
-        dropSelf(JamiesModBlocks.POLISHED_BYSTONE_BRICK_STAIRS);
-        dropSelf(JamiesModBlocks.POLISHED_BYSTONE_BRICK_WALL);
+        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK);
+        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK_SLAB);
+        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK_STAIRS);
+        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK_WALL);
 
-        dropSelf(JamiesModBlocks.CHISELED_POLISHED_BYSTONE);
-        dropSelf(JamiesModBlocks.POLISHED_BYSTONE_SHINGLES);
+        dropSelf(BGBlocks.CHISELED_POLISHED_BYSTONE);
+        dropSelf(BGBlocks.POLISHED_BYSTONE_SHINGLES);
 
-        dropSelf(JamiesModBlocks.POLISHED_BYSLATE);
-        dropSelf(JamiesModBlocks.POLISHED_BYSLATE_SLAB);
-        dropSelf(JamiesModBlocks.POLISHED_BYSLATE_STAIRS);
-        dropSelf(JamiesModBlocks.POLISHED_BYSLATE_WALL);
+        dropSelf(BGBlocks.POLISHED_BYSLATE);
+        dropSelf(BGBlocks.POLISHED_BYSLATE_SLAB);
+        dropSelf(BGBlocks.POLISHED_BYSLATE_STAIRS);
+        dropSelf(BGBlocks.POLISHED_BYSLATE_WALL);
 
-        dropSelf(JamiesModBlocks.POLISHED_BYSLATE_BRICK);
-        dropSelf(JamiesModBlocks.POLISHED_BYSLATE_BRICK_SLAB);
-        dropSelf(JamiesModBlocks.POLISHED_BYSLATE_BRICK_STAIRS);
-        dropSelf(JamiesModBlocks.POLISHED_BYSLATE_BRICK_WALL);
+        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK);
+        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK_SLAB);
+        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK_STAIRS);
+        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK_WALL);
 
-        dropSelf(JamiesModBlocks.CHISELED_POLISHED_BYSLATE);
-        dropSelf(JamiesModBlocks.POLISHED_BYSLATE_SHINGLES);
+        dropSelf(BGBlocks.CHISELED_POLISHED_BYSLATE);
+        dropSelf(BGBlocks.POLISHED_BYSLATE_SHINGLES);
     }
 
     @Override

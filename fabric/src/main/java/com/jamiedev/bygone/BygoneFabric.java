@@ -1,7 +1,9 @@
 package com.jamiedev.bygone;
 
-import com.jamiedev.bygone.init.*;
-import com.jamiedev.bygone.network.PacketHandler;
+import com.jamiedev.bygone.core.init.JamiesModTag;
+import com.jamiedev.bygone.core.registry.BGBlocks;
+import com.jamiedev.bygone.core.registry.BGCriteria;
+import com.jamiedev.bygone.core.network.PacketHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -36,12 +38,12 @@ public class BygoneFabric implements ModInitializer {
 		Bygone.addCompostables(CompostingChanceRegistry.INSTANCE::add);
 		Bygone.addFurnaceFuels(FuelRegistry.INSTANCE::add);
 
-		JamiesModCriteria.init();
+		BGCriteria.init();
 
 		TradeOfferHelper.registerVillagerOffers(VillagerProfession.CARTOGRAPHER, 2, //10 1 12 10
 				factories -> factories.add(new VillagerTrades.TreasureMapForEmeralds(10, JamiesModTag.ON_BYGONE_PORTAL_MAPS, "Bygone Portal Map", MapDecorationTypes.GREEN_BANNER, 12, 10)));
 		TradeOfferHelper.registerWanderingTraderOffers(1, factories -> {
-			factories.add(new VillagerTrades.ItemsForEmeralds(JamiesModBlocks.ALPHA_MOSS_BLOCK, 2, 1, 6, 8));
+			factories.add(new VillagerTrades.ItemsForEmeralds(BGBlocks.ALPHA_MOSS_BLOCK, 2, 1, 6, 8));
 			factories.add(new VillagerTrades.TreasureMapForEmeralds(10, JamiesModTag.ON_BYGONE_PORTAL_MAPS, "Bygone Portal Map", MapDecorationTypes.GREEN_BANNER, 12, 10));
 		});
 
@@ -67,12 +69,12 @@ public class BygoneFabric implements ModInitializer {
 			ItemStack stack = player.getItemInHand(hand);
 
 
-			if (stack.getItem() instanceof HoeItem && (state.is(JamiesModBlocks.CLAYSTONE) || state.is(JamiesModBlocks.MOSSY_CLAYSTONE))) {
+			if (stack.getItem() instanceof HoeItem && (state.is(BGBlocks.CLAYSTONE) || state.is(BGBlocks.MOSSY_CLAYSTONE))) {
 				BlockPos blockAbovePos = pos.above();
 				BlockState blockAboveState = world.getBlockState(blockAbovePos);
 				if (blockAboveState.isAir()) {
 					world.playSound(null, pos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
-					world.setBlock(pos, JamiesModBlocks.CLAYSTONE_FARMLAND.defaultBlockState(), Block.UPDATE_CLIENTS);
+					world.setBlock(pos, BGBlocks.CLAYSTONE_FARMLAND.defaultBlockState(), Block.UPDATE_CLIENTS);
 
 					if (!player.isCreative()) {
 						stack.hurtAndBreak(1, player,  player.getEquipmentSlotForItem(player.getUseItem()));
@@ -82,12 +84,12 @@ public class BygoneFabric implements ModInitializer {
 					return InteractionResult.SUCCESS;
 				}
 			}
-			if (stack.getItem() instanceof HoeItem && (state.is(JamiesModBlocks.COARSE_CLAYSTONE))) {
+			if (stack.getItem() instanceof HoeItem && (state.is(BGBlocks.COARSE_CLAYSTONE))) {
 				BlockPos blockAbovePos = pos.above();
 				BlockState blockAboveState = world.getBlockState(blockAbovePos);
 				if (blockAboveState.isAir()) {
 					world.playSound(null, pos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
-					world.setBlock(pos, JamiesModBlocks.CLAYSTONE.defaultBlockState(), Block.UPDATE_CLIENTS);
+					world.setBlock(pos, BGBlocks.CLAYSTONE.defaultBlockState(), Block.UPDATE_CLIENTS);
 
 					if (!player.isCreative()) {
 						stack.hurtAndBreak(1, player,  player.getEquipmentSlotForItem(player.getUseItem()));

@@ -1,9 +1,9 @@
 package com.jamiedev.bygone.platform;
 
 import com.jamiedev.bygone.init.AttachmentTypesFabric;
-import com.jamiedev.bygone.network.C2SModPacket;
-import com.jamiedev.bygone.network.S2CModPacket;
-import com.jamiedev.bygone.platform.services.IPlatformHelper;
+import com.jamiedev.bygone.core.network.C2SModPacket;
+import com.jamiedev.bygone.core.network.S2CModPacket;
+import com.jamiedev.bygone.core.platform.services.IPlatformHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;

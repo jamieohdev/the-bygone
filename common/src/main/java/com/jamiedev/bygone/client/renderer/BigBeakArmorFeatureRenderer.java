@@ -2,7 +2,7 @@ package com.jamiedev.bygone.client.renderer;
 
 import com.jamiedev.bygone.client.JamiesModModelLayers;
 import com.jamiedev.bygone.client.models.BigBeakModel;
-import com.jamiedev.bygone.items.CustomAnimalArmorItem;
+import com.jamiedev.bygone.common.item.CustomAnimalArmorItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -17,7 +17,7 @@ import net.minecraft.util.FastColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
-import com.jamiedev.bygone.entities.BigBeakEntity;
+import com.jamiedev.bygone.common.entity.BigBeakEntity;
 
 public class BigBeakArmorFeatureRenderer extends RenderLayer<BigBeakEntity, BigBeakModel<BigBeakEntity>> {
     private final BigBeakModel<BigBeakEntity> model;

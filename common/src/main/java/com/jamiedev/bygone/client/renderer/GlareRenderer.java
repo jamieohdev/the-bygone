@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import com.jamiedev.bygone.client.JamiesModModelLayers;
 import com.jamiedev.bygone.client.models.GlareModel;
-import com.jamiedev.bygone.entities.GlareEntity;
+import com.jamiedev.bygone.common.entity.GlareEntity;
 
 public class GlareRenderer  extends MobRenderer<GlareEntity, GlareModel<GlareEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/glare.png");

@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.client.models;
 
-import com.jamiedev.bygone.entities.FungalParentEntity;
+import com.jamiedev.bygone.common.entity.FungalParentEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.*;

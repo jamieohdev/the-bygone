@@ -2,9 +2,9 @@ package com.jamiedev.bygone.platform;
 
 import com.jamiedev.bygone.PacketHandlerNeoForge;
 import com.jamiedev.bygone.init.AttachmentTypesNeoForge;
-import com.jamiedev.bygone.network.C2SModPacket;
-import com.jamiedev.bygone.network.S2CModPacket;
-import com.jamiedev.bygone.platform.services.IPlatformHelper;
+import com.jamiedev.bygone.core.network.C2SModPacket;
+import com.jamiedev.bygone.core.network.S2CModPacket;
+import com.jamiedev.bygone.core.platform.services.IPlatformHelper;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

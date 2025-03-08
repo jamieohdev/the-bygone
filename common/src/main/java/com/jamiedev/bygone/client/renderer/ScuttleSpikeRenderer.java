@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import com.jamiedev.bygone.client.models.ScuttleSpikeModel;
-import com.jamiedev.bygone.entities.projectile.ScuttleSpikeEntity;
+import com.jamiedev.bygone.common.entity.projectile.ScuttleSpikeEntity;
 
 public class ScuttleSpikeRenderer  extends EntityRenderer<ScuttleSpikeEntity> {
     public static final ResourceLocation TEXTURE = Bygone.id("textures/entity/scuttlespike.png");

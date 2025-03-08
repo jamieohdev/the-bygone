@@ -1,15 +1,14 @@
 package com.jamiedev.bygone.datagen;
 
-import com.jamiedev.bygone.init.JamiesModBiomes;
-import com.jamiedev.bygone.init.JamiesModConfiguredFeatures;
-import com.jamiedev.bygone.init.JamiesModPlacedFeatures;
+import com.jamiedev.bygone.core.registry.BGBiomes;
+import com.jamiedev.bygone.core.registry.BGConfiguredFeatures;
+import com.jamiedev.bygone.core.registry.BGPlacedFeatures;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
@@ -34,9 +33,9 @@ public class BygoneDataGenerator  {
 
 	public static RegistrySetBuilder buildRegistry() {
 		RegistrySetBuilder registryBuilder =new RegistrySetBuilder();
-		registryBuilder.add(Registries.CONFIGURED_FEATURE, JamiesModConfiguredFeatures::bootstrap);
-		registryBuilder.add(Registries.PLACED_FEATURE, JamiesModPlacedFeatures::bootstrap);
-		registryBuilder.add(Registries.BIOME, JamiesModBiomes::bootstrap);
+		registryBuilder.add(Registries.CONFIGURED_FEATURE, BGConfiguredFeatures::bootstrap);
+		registryBuilder.add(Registries.PLACED_FEATURE, BGPlacedFeatures::bootstrap);
+		registryBuilder.add(Registries.BIOME, BGBiomes::bootstrap);
 
 		/**registryBuilder.addRegistry(RegistryKeys.PROCESSOR_LIST, JamiesModProcessorLists::bootstrap);
 		registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, JamiesModStructureSets::bootstrap);

@@ -1,9 +1,9 @@
 package com.jamiedev.bygone.client;
 
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.PlayerWithHook;
-import com.jamiedev.bygone.entities.projectile.HookEntity;
-import com.jamiedev.bygone.network.SyncPlayerHookS2C;
+import com.jamiedev.bygone.common.util.PlayerWithHook;
+import com.jamiedev.bygone.common.entity.projectile.HookEntity;
+import com.jamiedev.bygone.core.network.SyncPlayerHookS2C;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.Entity;

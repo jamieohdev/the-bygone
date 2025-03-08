@@ -9,7 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import com.jamiedev.bygone.client.models.TrilobiteModel;
-import com.jamiedev.bygone.entities.TrilobiteEntity;
+import com.jamiedev.bygone.common.entity.TrilobiteEntity;
 
 public class TrilobiteRenderer extends MobRenderer<TrilobiteEntity, TrilobiteModel<TrilobiteEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/trilobite.png");

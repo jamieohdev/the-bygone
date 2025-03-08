@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.common.util;
 
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.block.CasterBlock;
+import com.jamiedev.bygone.common.block.CasterBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.blockstates.MultiVariantGenerator;

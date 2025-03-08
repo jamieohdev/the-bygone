@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.layers.HorseArmorLayer;
 import net.minecraft.client.renderer.entity.layers.SaddleLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import com.jamiedev.bygone.entities.BigBeakEntity;
+import com.jamiedev.bygone.common.entity.BigBeakEntity;
 
 public class BigBeakRenderer  extends MobRenderer<BigBeakEntity, BigBeakModel<BigBeakEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/big_beak.png");

@@ -1,8 +1,8 @@
 package com.jamiedev.bygone.client;
 
 
-import com.jamiedev.bygone.entities.projectile.HookEntity;
-import com.jamiedev.bygone.init.JamiesModEntityTypes;
+import com.jamiedev.bygone.common.entity.projectile.HookEntity;
+import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import java.util.function.Supplier;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -14,7 +14,7 @@ public class RecordHookHandler {
         if(level == null) {
             return;
         }
-        HookEntity entity = JamiesModEntityTypes.HOOK.create(level);
+        HookEntity entity = BGEntityTypes.HOOK.create(level);
         if (entity == null) {
             return;
         }
