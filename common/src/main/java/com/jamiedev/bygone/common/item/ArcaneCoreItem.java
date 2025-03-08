@@ -26,14 +26,14 @@ public class ArcaneCoreItem extends BlockItem
         BlockPos blockPos = context.getClickedPos();
         BlockState blockState = world.getBlockState(blockPos);
         InteractionResult actionResult = this.place(new BlockPlaceContext(context));
-        if (blockState.is(BGBlocks.BYGONE_PORTAL_FRAME) && !(Boolean)blockState.getValue(BygonePortalFrameBlock.EYE)) {
+        if (blockState.is(BGBlocks.BYGONE_PORTAL_FRAME.get()) && !(Boolean)blockState.getValue(BygonePortalFrameBlock.EYE)) {
             if (world.isClientSide) {
                // return ActionResult.SUCCESS;
             } else {
                 BlockState blockState2 = blockState.setValue(BygonePortalFrameBlock.EYE, true);
                 Block.pushEntitiesUp(blockState, blockState2, world, blockPos);
                 world.setBlock(blockPos, blockState2, 2);
-                world.updateNeighbourForOutputSignal(blockPos, BGBlocks.BYGONE_PORTAL_FRAME);
+                world.updateNeighbourForOutputSignal(blockPos, BGBlocks.BYGONE_PORTAL_FRAME.get());
                 context.getItemInHand().shrink(1);
                 world.levelEvent(2503, blockPos, 0);
                 BlockPattern.BlockPatternMatch result = BygonePortalFrameBlock.getCompletedFramePattern().find(world, blockPos);
@@ -42,7 +42,7 @@ public class ArcaneCoreItem extends BlockItem
 
                     for(int i = 0; i < 3; ++i) {
                         for(int j = 0; j < 3; ++j) {
-                            world.setBlock(blockPos2.offset(i, 0, j), BGBlocks.BYGONE_PORTAL.defaultBlockState(), 2);
+                            world.setBlock(blockPos2.offset(i, 0, j), BGBlocks.BYGONE_PORTAL.get().defaultBlockState(), 2);
                         }
                     }
 
@@ -52,7 +52,7 @@ public class ArcaneCoreItem extends BlockItem
                 return InteractionResult.CONSUME;
             }
         }
-        else if (!blockState.is(BGBlocks.BYGONE_PORTAL_FRAME))
+        else if (!blockState.is(BGBlocks.BYGONE_PORTAL_FRAME.get()))
         {
             return actionResult;
         }
@@ -67,7 +67,7 @@ public class ArcaneCoreItem extends BlockItem
     protected boolean canPlace(BlockPlaceContext context, BlockState state) {
         Player playerEntity = context.getPlayer();
         CollisionContext shapeContext = playerEntity == null ? CollisionContext.empty() : CollisionContext.of(playerEntity);
-        return (!this.mustSurvive() || state.canSurvive(context.getLevel(), context.getClickedPos())) && context.getLevel().isUnobstructed(state, context.getClickedPos(), shapeContext) && !state.is(BGBlocks.BYGONE_PORTAL_FRAME);
+        return (!this.mustSurvive() || state.canSurvive(context.getLevel(), context.getClickedPos())) && context.getLevel().isUnobstructed(state, context.getClickedPos(), shapeContext) && !state.is(BGBlocks.BYGONE_PORTAL_FRAME.get());
     }
 
 }

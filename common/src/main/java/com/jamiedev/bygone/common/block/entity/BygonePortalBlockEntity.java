@@ -14,7 +14,7 @@ public class BygonePortalBlockEntity extends BlockEntity
     }
 
     public BygonePortalBlockEntity(BlockPos pos, BlockState state) {
-        super(BGBlockEntities.BYGONE_PORTAL, pos, state);
+        super(BGBlockEntities.BYGONE_PORTAL.get(), pos, state);
     }
 
 

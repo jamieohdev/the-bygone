@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
+import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -9,17 +10,16 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
-public class BGItemGroups
-{
-   // public static final RegistryKey<ItemGroup> JAMIES_MOD = RegistryKey.of(RegistryKeys.ITEM_GROUP, BygoneFabric.getModId("bygone"));
-    public static final ResourceKey<CreativeModeTab> JAMIES_MOD = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Bygone.id("test"));
+import java.util.function.Supplier;
 
-    public static void registerItemgroups() {
+public class BGItemGroups {
 
-        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, JAMIES_MOD, CreativeModeTab.builder(null,-1)
-                .icon(() -> new ItemStack(BGBlocks.SHELF_FUNGUS))
-                        .displayItems((itemDisplayParameters, output) -> {
-                            output.accept( BGItems.ANCIENT_SIGN);
+    public static final Supplier<CreativeModeTab> EXAMPLE_TAB = registerTab("test", () -> CreativeModeTab.builder(null, -1)
+            .icon(() -> new ItemStack(BGBlocks.SHELF_FUNGUS.get()))
+            .displayItems((itemDisplayParameters, output) -> {
+
+                output.accept(BGItems.ANCIENT_SIGN.get());
+                            /*
                             output.accept(BGItems.ANCIENT_HANGING_SIGN);
                             output.accept(BGItems.ORANGE_FUNGI);
                             output.accept(BGItems.PINK_FUNGI);
@@ -72,7 +72,7 @@ public class BGItemGroups
                             output.accept(BGBlocks.COBBLED_BYSTONE_STAIRS);
                             output.accept(BGBlocks.COBBLED_BYSTONE_SLAB);
                             output.accept(BGBlocks.COBBLED_BYSTONE_WALL);
-                            output.accept(BGBlocks.POLISHED_BYSTONE);
+                            output.accept(BGBlocks.POLISHED_BYSTONE.get());
                             output.accept(BGBlocks.POLISHED_BYSTONE_STAIRS);
                             output.accept(BGBlocks.POLISHED_BYSTONE_SLAB);
                             output.accept(BGBlocks.POLISHED_BYSTONE_WALL);
@@ -238,9 +238,17 @@ public class BGItemGroups
                             output.accept(BGBlocks.PURPLE_FUNGAL_WALL);
                             output.accept(BGBlocks.SHELF_ROOTS);
                             output.accept(BGBlocks.SHELF_SPROUTS);
-                            
-                        })
-                .title(Component.translatable("itemGroup.test"))
-                .build());
+
+                             */
+
+            })
+            .title(Component.translatable("itemGroup.test"))
+            .build());
+
+    public static Supplier<CreativeModeTab> registerTab(String name, Supplier<CreativeModeTab> supplier) {
+        return JinxedRegistryHelper.register(BuiltInRegistries.CREATIVE_MODE_TAB, Bygone.MOD_ID, name, supplier);
     }
+
+    public static void register() {}
+
 }

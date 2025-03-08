@@ -69,7 +69,7 @@ public class ClaystoneFarmlandBlock extends Block
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return !this.defaultBlockState().canSurvive(ctx.getLevel(), ctx.getClickedPos()) ? BGBlocks.CLAYSTONE.defaultBlockState() : super.getStateForPlacement(ctx);
+        return !this.defaultBlockState().canSurvive(ctx.getLevel(), ctx.getClickedPos()) ? BGBlocks.CLAYSTONE.get().defaultBlockState() : super.getStateForPlacement(ctx);
     }
 
     @Override
@@ -116,7 +116,7 @@ public class ClaystoneFarmlandBlock extends Block
     }
 
     public static void setToDirt(@Nullable Entity entity, BlockState state, Level world, BlockPos pos) {
-        BlockState blockState = pushEntitiesUp(state, BGBlocks.CLAYSTONE.defaultBlockState(), world, pos);
+        BlockState blockState = pushEntitiesUp(state, BGBlocks.CLAYSTONE.get().defaultBlockState(), world, pos);
         world.setBlockAndUpdate(pos, blockState);
         world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, blockState));
     }
@@ -152,7 +152,7 @@ public class ClaystoneFarmlandBlock extends Block
 
             blockPos = (BlockPos)var2.next();
             BlockState blockstate1 = world.getBlockState(blockPos);
-        } while(!world.getBlockState(blockPos).is(BGBlocks.SPRINKER));
+        } while(!world.getBlockState(blockPos).is(BGBlocks.SPRINKER.get()));
 
 
 

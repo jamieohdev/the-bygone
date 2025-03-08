@@ -43,12 +43,12 @@ public class ExoticArrowEntity extends AbstractArrow {
     }
 
     public ExoticArrowEntity(Level world, double x, double y, double z, ItemStack stack, @Nullable ItemStack shotFrom) {
-        super(BGEntityTypes.EXOTIC_ARROW, x, y, z, world, stack, shotFrom);
+        super(BGEntityTypes.EXOTIC_ARROW.get(), x, y, z, world, stack, shotFrom);
         this.initColor();
     }
 
     public ExoticArrowEntity(Level world, LivingEntity owner, ItemStack stack, @Nullable ItemStack shotFrom) {
-        super(BGEntityTypes.EXOTIC_ARROW, owner, world, stack, shotFrom);
+        super(BGEntityTypes.EXOTIC_ARROW.get(), owner, world, stack, shotFrom);
         this.initColor();
     }
 
@@ -145,20 +145,20 @@ public class ExoticArrowEntity extends AbstractArrow {
 
         this.level().broadcastEntityEvent(this, (byte)0);
 
-        this.setPickupItemStack(new ItemStack(BGItems.EXOTIC_ARROW));
+        this.setPickupItemStack(new ItemStack(BGItems.EXOTIC_ARROW.get()));
     }
 
     @Override
     protected void hitBlockEnchantmentEffects(ServerLevel world, BlockHitResult blockHitResult, ItemStack weaponStack) {
         super.hitBlockEnchantmentEffects(world, blockHitResult, weaponStack);
         this.level().broadcastEntityEvent(this, (byte)0);
-        this.setPickupItemStack(new ItemStack(BGItems.EXOTIC_ARROW, 64));
+        this.setPickupItemStack(new ItemStack(BGItems.EXOTIC_ARROW.get(), 64));
         dropArrow(world, Objects.requireNonNull(getOwner()).blockPosition());
         this.discard();
 
     }
     public static void dropArrow(Level world, BlockPos pos) {
-        dropStack(world, pos, new ItemStack(BGItems.EXOTIC_ARROW, 1));
+        dropStack(world, pos, new ItemStack(BGItems.EXOTIC_ARROW.get(), 1));
     }
     private static void dropStack(Level world, Supplier<ItemEntity> itemEntitySupplier, ItemStack stack) {
         if (!world.isClientSide && !stack.isEmpty() && world.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
@@ -179,7 +179,7 @@ public class ExoticArrowEntity extends AbstractArrow {
 
     @Override
     protected ItemStack getDefaultPickupItem() {
-        return new ItemStack(BGItems.EXOTIC_ARROW);
+        return new ItemStack(BGItems.EXOTIC_ARROW.get());
     }
 
     @Override

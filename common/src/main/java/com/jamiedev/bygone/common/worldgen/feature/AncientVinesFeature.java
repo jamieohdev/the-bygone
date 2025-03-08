@@ -28,7 +28,7 @@ public class AncientVinesFeature extends Feature<NoneFeatureConfiguration> {
 
             for (Direction direction : var4) {
                 if (direction != Direction.DOWN && VineBlock.isAcceptableNeighbour(structureWorldAccess, blockPos.relative(direction), direction)) {
-                    structureWorldAccess.setBlock(blockPos, BGBlocks.ANCIENT_VINE.defaultBlockState().setValue(VineBlock.getPropertyForFace(direction), true), 2);
+                    structureWorldAccess.setBlock(blockPos, BGBlocks.ANCIENT_VINE.get().defaultBlockState().setValue(VineBlock.getPropertyForFace(direction), true), 2);
                     return true;
                 }
             }

@@ -33,7 +33,7 @@ public class BlemishCatalystBlockEntity extends BlockEntity implements GameEvent
     private final BlemishCatalystBlockEntity.Listener eventListener;
 
     public BlemishCatalystBlockEntity(BlockPos pos, BlockState state) {
-        super(BGBlockEntities.BLEMISH_CATALYST, pos, state);
+        super(BGBlockEntities.BLEMISH_CATALYST.get(), pos, state);
         this.eventListener = new BlemishCatalystBlockEntity.Listener(state, new BlockPositionSource(pos));
     }
 

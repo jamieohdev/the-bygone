@@ -2,59 +2,62 @@ package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.block.entity.*;
+import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BrushableBlockEntity;
+
+import java.util.function.Supplier;
 
 public class BGBlockEntities {
-    public static BlockEntityType<CopperbugNestBlockEntity> COPPERBUGNEST;
-    public static BlockEntityType<BygonePortalBlockEntity> BYGONE_PORTAL;
-    public static BlockEntityType<PrimordialVentEntity> PRIMORDIAL_VENT;
+    public static Supplier<BlockEntityType<CopperbugNestBlockEntity>> COPPERBUGNEST;
+    public static Supplier<BlockEntityType<BygonePortalBlockEntity>> BYGONE_PORTAL;
+    public static Supplier<BlockEntityType<PrimordialVentEntity>> PRIMORDIAL_VENT;
 
-    public static BlockEntityType<SprinklerEntity> SPRINKLER;
+    public static Supplier<BlockEntityType<SprinklerEntity>> SPRINKLER;
 
-    public static BlockEntityType<CasterBlockEntity> CASTER;
+    public static Supplier<BlockEntityType<CasterBlockEntity>> CASTER;
 
-    public static BlockEntityType<PrimordialUrchinEntity> PRIMORDIAL_URCHIN;
+    public static Supplier<BlockEntityType<PrimordialUrchinEntity>> PRIMORDIAL_URCHIN;
 
 
-    public static BlockEntityType<BlemishCatalystBlockEntity> BLEMISH_CATALYST;
+    public static Supplier<BlockEntityType<BlemishCatalystBlockEntity>> BLEMISH_CATALYST;
 
-    public static BlockEntityType<BygoneBrushableBlockEntity> BRUSHABLE_BLOCK;
+    public static Supplier<BlockEntityType<BrushableBlockEntity>> BRUSHABLE_BLOCK;
 
-    public static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> type) {
-        return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, Bygone.id(name), type);
+    public static <T extends BlockEntity> Supplier<BlockEntityType<T>> register(String name, Supplier<BlockEntityType<T>> type) {
+        return JinxedRegistryHelper.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, Bygone.MOD_ID, name, type);
     }
 
     public static void init()
     {
-        BLEMISH_CATALYST = register("blemish_catalyst",
-                BlockEntityType.Builder.of(BlemishCatalystBlockEntity::new, BGBlocks.BLEMISH_CATALYST)
+        BLEMISH_CATALYST = register("blemish_catalyst", () ->
+                BlockEntityType.Builder.of(BlemishCatalystBlockEntity::new, BGBlocks.BLEMISH_CATALYST.get())
                         .build(null));
-        CASTER = register("caster",
-                BlockEntityType.Builder.of(CasterBlockEntity::new, BGBlocks.CASTER)
+        CASTER = register("caster", () ->
+                BlockEntityType.Builder.of(CasterBlockEntity::new, BGBlocks.CASTER.get())
                         .build(null));
       //  COPPERBUGNEST = register("copperbug_nest",
        //         BlockEntityType.Builder.create(CopperbugNestBlockEntity::new, JamiesModBlocks.COPPERBUG_NEST)
        //                 .build());
-        SPRINKLER = register("ancient_sprinkler",
-                BlockEntityType.Builder.of(SprinklerEntity::new, BGBlocks.SPRINKER)
+        SPRINKLER = register("ancient_sprinkler", () ->
+                BlockEntityType.Builder.of(SprinklerEntity::new, BGBlocks.SPRINKER.get())
                         .build(null));
-        PRIMORDIAL_VENT = register("primordial_vent",
-                BlockEntityType.Builder.of(PrimordialVentEntity::new, BGBlocks.PRIMORDIAL_VENT)
+        PRIMORDIAL_VENT = register("primordial_vent", () ->
+                BlockEntityType.Builder.of(PrimordialVentEntity::new, BGBlocks.PRIMORDIAL_VENT.get())
                         .build(null));
-        PRIMORDIAL_URCHIN = register("primordial_urchin",
-                BlockEntityType.Builder.of(PrimordialUrchinEntity::new, BGBlocks.PRIMORDIAL_URCHIN)
+        PRIMORDIAL_URCHIN = register("primordial_urchin", () ->
+                BlockEntityType.Builder.of(PrimordialUrchinEntity::new, BGBlocks.PRIMORDIAL_URCHIN.get())
                         .build(null));
 
        // BRUSHABLE_BLOCK = register("brushable_block",
         //        BlockEntityType.Builder.create(BygoneBrushableBlockEntity::new, SUSPICIOUS_UMBER)
         //                .build());
-        BYGONE_PORTAL =  Registry.register(
-                BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                Bygone.id("bygone_portal"),
-                BlockEntityType.Builder.of(BygonePortalBlockEntity::new, BGBlocks.BYGONE_PORTAL).build(null));
+        BYGONE_PORTAL =  register(
+                "bygone_portal", () ->
+                BlockEntityType.Builder.of(BygonePortalBlockEntity::new, BGBlocks.BYGONE_PORTAL.get()).build(null));
 
     }
 }

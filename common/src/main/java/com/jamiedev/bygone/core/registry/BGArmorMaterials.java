@@ -25,12 +25,12 @@ public class BGArmorMaterials
         map.put(ArmorItem.Type.CHESTPLATE, 8);
         map.put(ArmorItem.Type.HELMET, 3);
         map.put(ArmorItem.Type.BODY, 11);
-    }), 9, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, 0.3F, () -> Ingredient.of(BGItems.SCALE));
+    }), 9, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, 0.3F, () -> Ingredient.of(BGItems.SCALE.get()));
 
 
     public static Holder<ArmorMaterial> BIG_BEAK = register("big_beak", Util.make(new EnumMap(AnimalArmorItem.BodyType.class), map -> {
         map.put(AnimalArmorItem.BodyType.EQUESTRIAN, 1);
-    }), 9, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, 0.3F, () -> Ingredient.of(BGItems.SCALE));
+    }), 9, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, 0.3F, () -> Ingredient.of(BGItems.SCALE.get()));
 
     private static Holder<ArmorMaterial> register(
             String id,

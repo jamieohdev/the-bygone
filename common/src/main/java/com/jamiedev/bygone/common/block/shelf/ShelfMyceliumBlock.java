@@ -70,15 +70,15 @@ public class ShelfMyceliumBlock  extends SpreadingSnowyDirtBlock implements Bone
     @Override
     protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (!canBeGrass(state, world, pos)) {
-            world.setBlockAndUpdate(pos, BGBlocks.BYSTONE.defaultBlockState());
+            world.setBlockAndUpdate(pos, BGBlocks.BYSTONE.get().defaultBlockState());
         } else {
             if (world.getMaxLocalRawBrightness(pos.above()) >= 0) {
                 BlockState blockState = this.defaultBlockState();
 
                 for(int i = 0; i < 4; ++i) {
                     BlockPos blockPos = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
-                    if (world.getBlockState(blockPos).is(BGBlocks.BYSTONE) && canPropagate(blockState, world, blockPos)) {
-                        world.setBlockAndUpdate(blockPos, blockState.setValue(SNOWY, world.getBlockState(blockPos.above()).is(BGBlocks.SHELF_MYCELIUM)));
+                    if (world.getBlockState(blockPos).is(BGBlocks.BYSTONE.get()) && canPropagate(blockState, world, blockPos)) {
+                        world.setBlockAndUpdate(blockPos, blockState.setValue(SNOWY, world.getBlockState(blockPos.above()).is(BGBlocks.SHELF_MYCELIUM.get())));
                     }
                 }
             }

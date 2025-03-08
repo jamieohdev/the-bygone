@@ -69,6 +69,6 @@ public class BygonePortalBlock extends CustomPortalBlock
         }
         //todo handle unknown portallink
 
-        return BGBlocks.BYGONE_PORTAL.defaultBlockState();
+        return BGBlocks.BYGONE_PORTAL.get().defaultBlockState();
     }
 }

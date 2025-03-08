@@ -134,7 +134,7 @@ public class CopperbugNestBlock extends BaseEntityBlock
     public static void dropItems(Level world, BlockPos pos) {
         if (world.random.nextInt(10) == 1)
         {
-            popResource(world, pos, new ItemStack(BGItems.VERDIGRIS_SCRAP, 1));
+            popResource(world, pos, new ItemStack(BGItems.VERDIGRIS_SCRAP.get(), 1));
         }
         else
         {
@@ -275,7 +275,7 @@ public class CopperbugNestBlock extends BaseEntityBlock
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return world.isClientSide ? null : createTickerHelper(type, BGBlockEntities.COPPERBUGNEST, CopperbugNestBlockEntity::serverTick);
+        return world.isClientSide ? null : createTickerHelper(type, BGBlockEntities.COPPERBUGNEST.get(), CopperbugNestBlockEntity::serverTick);
     }
 
     @Override

@@ -32,7 +32,7 @@ public class GourdVineBlock extends GrowingPlantHeadBlock {
 
     @Override
     protected Block getBodyBlock() {
-        return BGBlocks.GOURD_VINE;
+        return BGBlocks.GOURD_VINE.get();
     }
 
     @Override

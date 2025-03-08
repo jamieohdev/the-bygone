@@ -29,50 +29,50 @@ public class BygoneBlockTagProvider extends BlockTagsProvider {
         bambooPlantable();
         sculkReplaceable();
        tag(BlockTags.MINEABLE_WITH_PICKAXE)
-        .add(BGBlocks.POLISHED_BYSTONE)
-        .add(BGBlocks.POLISHED_BYSTONE_SLAB)
-        .add(BGBlocks.POLISHED_BYSTONE_STAIRS)
-        .add(BGBlocks.POLISHED_BYSTONE_WALL)
+        .add(BGBlocks.POLISHED_BYSTONE.get())
+        .add(BGBlocks.POLISHED_BYSTONE_SLAB.get())
+        .add(BGBlocks.POLISHED_BYSTONE_STAIRS.get())
+        .add(BGBlocks.POLISHED_BYSTONE_WALL.get())
 
-        .add(BGBlocks.POLISHED_BYSTONE_BRICK)
-        .add(BGBlocks.POLISHED_BYSTONE_BRICK_SLAB)
-        .add(BGBlocks.POLISHED_BYSTONE_BRICK_STAIRS)
-        .add(BGBlocks.POLISHED_BYSTONE_BRICK_WALL)
+        .add(BGBlocks.POLISHED_BYSTONE_BRICK.get())
+        .add(BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.get())
+        .add(BGBlocks.POLISHED_BYSTONE_BRICK_STAIRS.get())
+        .add(BGBlocks.POLISHED_BYSTONE_BRICK_WALL.get())
 
-        .add(BGBlocks.CHISELED_POLISHED_BYSTONE)
-        .add(BGBlocks.POLISHED_BYSTONE_SHINGLES)
+        .add(BGBlocks.CHISELED_POLISHED_BYSTONE.get())
+        .add(BGBlocks.POLISHED_BYSTONE_SHINGLES.get())
 
-        .add(BGBlocks.POLISHED_BYSLATE)
-        .add(BGBlocks.POLISHED_BYSLATE_SLAB)
-        .add(BGBlocks.POLISHED_BYSLATE_STAIRS)
-        .add(BGBlocks.POLISHED_BYSLATE_WALL)
+        .add(BGBlocks.POLISHED_BYSLATE.get())
+        .add(BGBlocks.POLISHED_BYSLATE_SLAB.get())
+        .add(BGBlocks.POLISHED_BYSLATE_STAIRS.get())
+        .add(BGBlocks.POLISHED_BYSLATE_WALL.get())
 
-        .add(BGBlocks.POLISHED_BYSLATE_BRICK)
-        .add(BGBlocks.POLISHED_BYSLATE_BRICK_SLAB)
-        .add(BGBlocks.POLISHED_BYSLATE_BRICK_STAIRS)
-        .add(BGBlocks.POLISHED_BYSLATE_BRICK_WALL)
+        .add(BGBlocks.POLISHED_BYSLATE_BRICK.get())
+        .add(BGBlocks.POLISHED_BYSLATE_BRICK_SLAB.get())
+        .add(BGBlocks.POLISHED_BYSLATE_BRICK_STAIRS.get())
+        .add(BGBlocks.POLISHED_BYSLATE_BRICK_WALL.get())
 
-        .add(BGBlocks.CHISELED_POLISHED_BYSLATE)
-        .add(BGBlocks.POLISHED_BYSLATE_SHINGLES);
+        .add(BGBlocks.CHISELED_POLISHED_BYSLATE.get())
+        .add(BGBlocks.POLISHED_BYSLATE_SHINGLES.get());
         
     }
 
     private void swordEfficient() {
         tag(BlockTags.SLABS)
-                .add(BGBlocks.POLISHED_BYSTONE_BRICK_SLAB)
-                .add(BGBlocks.POLISHED_BYSTONE_SLAB)
-                .add(BGBlocks.POLISHED_BYSLATE_BRICK_SLAB)
-                .add(BGBlocks.POLISHED_BYSLATE_SLAB);
+                .add(BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.get())
+                .add(BGBlocks.POLISHED_BYSTONE_SLAB.get())
+                .add(BGBlocks.POLISHED_BYSLATE_BRICK_SLAB.get())
+                .add(BGBlocks.POLISHED_BYSLATE_SLAB.get());
         tag(BlockTags.STAIRS)
-                .add(BGBlocks.POLISHED_BYSTONE_BRICK_STAIRS)
-                .add(BGBlocks.POLISHED_BYSTONE_STAIRS)
-                .add(BGBlocks.POLISHED_BYSLATE_BRICK_STAIRS)
-                .add(BGBlocks.POLISHED_BYSLATE_STAIRS);
+                .add(BGBlocks.POLISHED_BYSTONE_BRICK_STAIRS.get())
+                .add(BGBlocks.POLISHED_BYSTONE_STAIRS.get())
+                .add(BGBlocks.POLISHED_BYSLATE_BRICK_STAIRS.get())
+                .add(BGBlocks.POLISHED_BYSLATE_STAIRS.get());
         tag(BlockTags.SLABS)
-                .add(BGBlocks.POLISHED_BYSTONE_BRICK_WALL)
-                .add(BGBlocks.POLISHED_BYSTONE_WALL)
-                .add(BGBlocks.POLISHED_BYSLATE_BRICK_WALL)
-                .add(BGBlocks.POLISHED_BYSLATE_WALL);
+                .add(BGBlocks.POLISHED_BYSTONE_BRICK_WALL.get())
+                .add(BGBlocks.POLISHED_BYSTONE_WALL.get())
+                .add(BGBlocks.POLISHED_BYSLATE_BRICK_WALL.get())
+                .add(BGBlocks.POLISHED_BYSLATE_WALL.get());
     }
 
     private void flowers() {

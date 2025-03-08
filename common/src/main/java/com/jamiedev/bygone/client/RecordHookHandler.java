@@ -14,7 +14,7 @@ public class RecordHookHandler {
         if(level == null) {
             return;
         }
-        HookEntity entity = BGEntityTypes.HOOK.create(level);
+        HookEntity entity = BGEntityTypes.HOOK.get().create(level);
         if (entity == null) {
             return;
         }

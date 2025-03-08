@@ -82,7 +82,7 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
     @Override
     @Nullable
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
-        return BGEntityTypes.FUNGAL_PARENT.create(world);
+        return BGEntityTypes.FUNGAL_PARENT.get().create(world);
     }
 
     @Override

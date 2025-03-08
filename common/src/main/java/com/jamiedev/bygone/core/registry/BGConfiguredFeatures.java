@@ -69,10 +69,10 @@ public class BGConfiguredFeatures
     private static TreeConfiguration.TreeConfigurationBuilder grownAncientConfig() {
         return new TreeConfiguration.TreeConfigurationBuilder(
 
-                BlockStateProvider.simple(BGBlocks.ANCIENT_LOG),
+                BlockStateProvider.simple(BGBlocks.ANCIENT_LOG.get()),
                 new StraightTrunkPlacer(6, 1, 2),
 
-                BlockStateProvider.simple(BGBlocks.ANCIENT_LEAVES),
+                BlockStateProvider.simple(BGBlocks.ANCIENT_LEAVES.get()),
                 new SpruceFoliagePlacer(
                         UniformInt.of(1, 3),
                         UniformInt.of(0, 1),

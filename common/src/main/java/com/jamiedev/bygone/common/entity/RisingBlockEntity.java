@@ -31,7 +31,7 @@ public class RisingBlockEntity extends FallingBlockEntity
     }
 
     private RisingBlockEntity(Level world, double x, double y, double z, BlockState block) {
-        this(BGEntityTypes.RISING_BLOCK, world);
+        this(BGEntityTypes.RISING_BLOCK.get(), world);
         ((FallingBlockEntityAccess)this).setBlockState(block);
         this.blocksBuilding = true;
         this.setPos(x, y, z);

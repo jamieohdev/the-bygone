@@ -26,14 +26,14 @@ public class HookEntity extends AbstractArrow
     }
 
     public HookEntity(Level level, Player player) {
-        super(BGEntityTypes.HOOK, level);
+        super(BGEntityTypes.HOOK.get(), level);
         setOwner(player);
         setPosRaw(player.getX(), player.getEyeY() - 0.1, player.getZ());
     }
 
     @Override
     protected ItemStack getDefaultPickupItem() {
-        return BGItems.HOOK.getDefaultInstance();
+        return BGItems.HOOK.get().getDefaultInstance();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class HookEntity extends AbstractArrow
     }
 
     private boolean shouldRetract(Player player) {
-        return player.isRemoved() || !player.isAlive() || !player.isHolding(BGItems.HOOK) || this.distanceToSqr(player) > 10000.0;
+        return player.isRemoved() || !player.isAlive() || !player.isHolding(BGItems.HOOK.get()) || this.distanceToSqr(player) > 10000.0;
     }
 
     @Override

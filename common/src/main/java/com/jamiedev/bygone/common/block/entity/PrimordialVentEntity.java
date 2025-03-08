@@ -8,6 +8,7 @@ import net.minecraft.world.Clearable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -19,7 +20,7 @@ public class PrimordialVentEntity  extends BlockEntity implements Clearable
     FurnaceBlock ref2;
 
     public PrimordialVentEntity(BlockPos pos, BlockState state) {
-        super(BGBlockEntities.PRIMORDIAL_VENT, pos, state);
+        super(BGBlockEntities.PRIMORDIAL_VENT.get(), pos, state);
     }
 
     public static void clientTick(Level world, BlockPos pos, BlockState state, PrimordialVentEntity campfire) {

@@ -36,7 +36,7 @@ public class BGPlacedFeatures
         Holder<ConfiguredFeature<?, ?>> registryEntry6 = holderGetter.getOrThrow(BGConfiguredFeatures.POINTED_AMBER);
         Holder<ConfiguredFeature<?, ?>> fir = holderGetter.getOrThrow(BGConfiguredFeatures.ANCIENT_TREE);
         Holder<ConfiguredFeature<?, ?>> fir2 = holderGetter.getOrThrow(BGConfiguredFeatures.ANCIENT_TREE_MEDIUM);
-        PlacementUtils.register(featureRegisterable, ANCIENT_TREE_CHECKED, fir, PlacementUtils.filteredByBlockSurvival(BGBlocks.ANCIENT_SAPLING));
+        PlacementUtils.register(featureRegisterable, ANCIENT_TREE_CHECKED, fir, PlacementUtils.filteredByBlockSurvival(BGBlocks.ANCIENT_SAPLING.get()));
         PlacementUtils.register(featureRegisterable, POINTED_AMBER, registryEntry6, CountPlacement.of(UniformInt.of(192, 256)),
                 InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
                 CountPlacement.of(UniformInt.of(1, 5)),

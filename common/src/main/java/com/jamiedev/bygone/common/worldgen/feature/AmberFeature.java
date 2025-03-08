@@ -64,7 +64,7 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
                     s = bl2 ? Mth.ceil((float)o * (1.0F - (float)Math.pow(r, 2.0) / ((float)m * 16.0F))) : o;
                     int t = this.method_13427(random, -r, m, n);
                     if (p < t) {
-                        this.placeAt(structureWorldAccess, random, blockPos, m, p, r , q , t -1, s, bl2, j, d, bl, BGBlocks.FLOWING_AMBER.defaultBlockState());
+                        this.placeAt(structureWorldAccess, random, blockPos, m, p, r , q , t -1, s, bl2, j, d, bl, BGBlocks.FLOWING_AMBER.get().defaultBlockState());
                     }
                 }
             }
@@ -122,9 +122,9 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
                 if (e < 0.0) {
                     BlockPos blockPos2 = pos.offset(n, y, o);
                     BlockState blockState = world.getBlockState(blockPos2);
-                    if (isSnowOrHONEY_BLOCK(blockState) || blockState.is(BGBlocks.COBBLED_AMBER)) {
+                    if (isSnowOrHONEY_BLOCK(blockState) || blockState.is(BGBlocks.COBBLED_AMBER.get())) {
                         if (placeWater) {
-                            this.setBlock(world, blockPos2, BGBlocks.UMBER.defaultBlockState());
+                            this.setBlock(world, blockPos2, BGBlocks.UMBER.get().defaultBlockState());
                         } else {
                             this.setBlock(world, blockPos2, Blocks.AIR.defaultBlockState());
                             this.clearSnowAbove(world, blockPos2);
@@ -159,11 +159,11 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
 
     private void placeBlockOrSnow(BlockPos pos, LevelAccessor world, @NotNull RandomSource random, int heightRemaining, int height, boolean lessSnow, boolean placeSnow, BlockState state) {
         BlockState blockState = world.getBlockState(pos);
-        if (blockState.isAir() || blockState.is(BGBlocks.COBBLED_AMBER) || blockState.is(BGBlocks.AMBER) || blockState.is(BGBlocks.UMBER)) {
+        if (blockState.isAir() || blockState.is(BGBlocks.COBBLED_AMBER.get()) || blockState.is(BGBlocks.AMBER.get()) || blockState.is(BGBlocks.UMBER.get())) {
             boolean bl = !lessSnow || random.nextDouble() > 0.05;
             int i = lessSnow ? 3 : 2;
-            if (placeSnow && !blockState.is(BGBlocks.UMBER) && (double)heightRemaining <= (double)random.nextInt(Math.max(1, height / i)) + (double)height * 0.6 && bl) {
-                this.setBlock(world, pos, BGBlocks.COBBLED_AMBER.defaultBlockState());
+            if (placeSnow && !blockState.is(BGBlocks.UMBER.get()) && (double)heightRemaining <= (double)random.nextInt(Math.max(1, height / i)) + (double)height * 0.6 && bl) {
+                this.setBlock(world, pos, BGBlocks.COBBLED_AMBER.get().defaultBlockState());
             } else {
                 this.setBlock(world, pos, state);
             }
@@ -213,7 +213,7 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
     }
 
     private static boolean isSnowOrHONEY_BLOCK(BlockState state) {
-        return state.is(Blocks.YELLOW_WOOL) || state.is(BGBlocks.COBBLED_AMBER) || state.is(Blocks.YELLOW_STAINED_GLASS) || state.is(BGBlocks.AMBER);
+        return state.is(Blocks.YELLOW_WOOL) || state.is(BGBlocks.COBBLED_AMBER.get()) || state.is(Blocks.YELLOW_STAINED_GLASS) || state.is(BGBlocks.AMBER.get());
     }
 
     private boolean isAirBelow(BlockGetter world, BlockPos pos) {

@@ -57,7 +57,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
     private BlockPos flowerPos;
 
     public CopperbugNestBlockEntity(BlockPos pos, BlockState state) {
-        super(BGBlockEntities.COPPERBUGNEST, pos, state);
+        super(BGBlockEntities.COPPERBUGNEST.get(), pos, state);
     }
 
     @Override
@@ -350,7 +350,7 @@ public class CopperbugNestBlockEntity  extends BlockEntity
 
         public static CopperbugNestBlockEntity.CopperbugData create(int ticksInNest) {
             CompoundTag nbtCompound = new CompoundTag();
-            nbtCompound.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(BGEntityTypes.COPPERBUG).toString());
+            nbtCompound.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(BGEntityTypes.COPPERBUG.get()).toString());
             return new CopperbugNestBlockEntity.CopperbugData(CustomData.of(nbtCompound), ticksInNest, 600);
         }
 

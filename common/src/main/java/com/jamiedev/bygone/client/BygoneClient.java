@@ -32,68 +32,68 @@ public class BygoneClient {
 
 
     public static void registerRenderLayers(BiConsumer<Block, RenderType> consumer) {
-        consumer.accept(BGBlocks.AMBER, RenderType.translucent());
-        consumer.accept(BGBlocks.CLOUD, RenderType.translucent());
-        consumer.accept(BGBlocks.BYGONE_PORTAL, RenderType.translucent());
+        consumer.accept(BGBlocks.AMBER.get(), RenderType.translucent());
+        consumer.accept(BGBlocks.CLOUD.get(), RenderType.translucent());
+        consumer.accept(BGBlocks.BYGONE_PORTAL.get(), RenderType.translucent());
 
-        consumer.accept(BGBlocks.ANCIENT_LEAVES, RenderType.cutout());
-        consumer.accept(BGBlocks.ANCIENT_ROOTS, RenderType.cutout());
-        consumer.accept(BGBlocks.ANCIENT_SAPLING, RenderType.cutout());
-        consumer.accept(BGBlocks.ANCIENT_VINE, RenderType.cutout());
-        consumer.accept(BGBlocks.CHARNIA, RenderType.cutout());
-        consumer.accept(BGBlocks.GOURD_LANTERN_BEIGE, RenderType.cutout());
-        consumer.accept(BGBlocks.GOURD_LANTERN_MUAVE, RenderType.cutout());
-        consumer.accept(BGBlocks.GOURD_LANTERN_VERDANT, RenderType.cutout());
-        consumer.accept(BGBlocks.GOURD_DANGO, RenderType.cutout());
-        consumer.accept(BGBlocks.GOURD_DANGO_WALL, RenderType.cutout());
-        consumer.accept(BGBlocks.GOURD_VINE, RenderType.cutout());
-        consumer.accept(BGBlocks.BIG_WHIRLIWEED, RenderType.cutout());
-        consumer.accept(BGBlocks.WHIRLIWEED, RenderType.cutout());
-        consumer.accept(BGBlocks.RAFFLESIA, RenderType.cutout());
-        consumer.accept(BGBlocks.CAVE_VINES, RenderType.cutout());
-        consumer.accept(BGBlocks.CAVE_VINES_PLANT, RenderType.cutout());
-        consumer.accept(BGBlocks.MONTSECHIA, RenderType.cutout());
-        consumer.accept(BGBlocks.SAGARIA, RenderType.cutout());
-        consumer.accept(BGBlocks.ANCIENT_DOOR, RenderType.cutout());
-        consumer.accept(BGBlocks.ANCIENT_TRAPDOOR, RenderType.cutout());
-        consumer.accept(BGBlocks.POTTED_MONTSECHIA, RenderType.cutout());
-        consumer.accept(BGBlocks.POTTED_SAGARIA, RenderType.cutout());
-        consumer.accept(BGBlocks.SHORT_GRASS, RenderType.cutout());
-        consumer.accept(BGBlocks.TALL_GRASS, RenderType.cutout());
-        consumer.accept(BGBlocks.BLUE_ALGAE, RenderType.cutout());
-        consumer.accept(BGBlocks.MALACHITE_DOOR, RenderType.cutout());
+        consumer.accept(BGBlocks.ANCIENT_LEAVES.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.ANCIENT_ROOTS.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.ANCIENT_SAPLING.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.ANCIENT_VINE.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.CHARNIA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.GOURD_LANTERN_BEIGE.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.GOURD_LANTERN_MUAVE.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.GOURD_LANTERN_VERDANT.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.GOURD_DANGO.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.GOURD_DANGO_WALL.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.GOURD_VINE.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.BIG_WHIRLIWEED.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.WHIRLIWEED.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.RAFFLESIA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.CAVE_VINES.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.CAVE_VINES_PLANT.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.MONTSECHIA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SAGARIA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.ANCIENT_DOOR.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.ANCIENT_TRAPDOOR.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.POTTED_MONTSECHIA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.POTTED_SAGARIA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SHORT_GRASS.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.TALL_GRASS.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.BLUE_ALGAE.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.MALACHITE_DOOR.get(), RenderType.cutout());
 
-        consumer.accept(BGBlocks.BLEMISH_VEIN, RenderType.cutoutMipped());
+        consumer.accept(BGBlocks.BLEMISH_VEIN.get(), RenderType.cutoutMipped());
 
-        consumer.accept(BGBlocks.CRINOID, RenderType.cutout());
-        consumer.accept(BGBlocks.PRIMORDIAL_URCHIN, RenderType.cutout());
-        consumer.accept(BGBlocks.PRIMORDIAL_VENT, RenderType.cutout());
+        consumer.accept(BGBlocks.CRINOID.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PRIMORDIAL_URCHIN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PRIMORDIAL_VENT.get(), RenderType.cutout());
 
-        consumer.accept(BGBlocks.DEAD_ORANGE_CORAL, RenderType.cutout());
-        consumer.accept(BGBlocks.DEAD_ORANGE_CORAL_WALL_FAN, RenderType.cutout());
-        consumer.accept(BGBlocks.DEAD_ORANGE_CORAL_FAN, RenderType.cutout());
-        consumer.accept(BGBlocks.ORANGE_CORAL, RenderType.cutout());
-        consumer.accept(BGBlocks.ORANGE_CORAL_FAN, RenderType.cutout());
-        consumer.accept(BGBlocks.ORANGE_CORAL_WALL_FAN, RenderType.cutout());
-        consumer.accept(BGBlocks.DEAD_BLUE_CORAL, RenderType.cutout());
-        consumer.accept(BGBlocks.DEAD_BLUE_CORAL_WALL_FAN, RenderType.cutout());
-        consumer.accept(BGBlocks.DEAD_BLUE_CORAL_FAN, RenderType.cutout());
-        consumer.accept(BGBlocks.BLUE_CORAL, RenderType.cutout());
-        consumer.accept(BGBlocks.BLUE_CORAL_FAN, RenderType.cutout());
-        consumer.accept(BGBlocks.BLUE_CORAL_WALL_FAN, RenderType.cutout());
-        consumer.accept(BGBlocks.BELLADONNA, RenderType.cutout());
-        consumer.accept(BGBlocks.COLEUS, RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_ORANGE_CORAL.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_ORANGE_CORAL_WALL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_ORANGE_CORAL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.ORANGE_CORAL.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.ORANGE_CORAL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.ORANGE_CORAL_WALL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_BLUE_CORAL.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_BLUE_CORAL_WALL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_BLUE_CORAL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.BLUE_CORAL.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.BLUE_CORAL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.BLUE_CORAL_WALL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.BELLADONNA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.COLEUS.get(), RenderType.cutout());
 
-        consumer.accept(BGBlocks.SHELF_FUNGUS, RenderType.cutout());
-        consumer.accept(BGBlocks.SHELF_ROOTS, RenderType.cutout());
-        consumer.accept(BGBlocks.SHELF_SPROUTS, RenderType.cutout());
-        consumer.accept(BGBlocks.SHELF_MOLD, RenderType.cutout());
-        consumer.accept(BGBlocks.ORANGE_FUNGI_VINES, RenderType.cutout());
-        consumer.accept(BGBlocks.ORANGE_FUNGI_PLANT, RenderType.cutout());
-        consumer.accept(BGBlocks.PINK_FUNGI_VINES, RenderType.cutout());
-        consumer.accept(BGBlocks.PINK_FUNGI_VINES_PLANT, RenderType.cutout());
-        consumer.accept(BGBlocks.PURPLE_FUNGI_VINES, RenderType.cutout());
-        consumer.accept(BGBlocks.PURPLE_FUNGI_VINES_PLANT, RenderType.cutout());
+        consumer.accept(BGBlocks.SHELF_FUNGUS.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SHELF_ROOTS.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SHELF_SPROUTS.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SHELF_MOLD.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.ORANGE_FUNGI_VINES.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.ORANGE_FUNGI_PLANT.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PINK_FUNGI_VINES.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PINK_FUNGI_VINES_PLANT.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PURPLE_FUNGI_VINES.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PURPLE_FUNGI_VINES_PLANT.get(), RenderType.cutout());
 
         // consumer.accept(JamiesModBlocks.ORANGE_FUNGI_FAN, RenderLayer.getCutout());
         //consumer.accept(JamiesModBlocks.ORANGE_FUNGI_WALL_FAN, RenderLayer.getCutout());
@@ -102,35 +102,35 @@ public class BygoneClient {
         // consumer.accept(JamiesModBlocks.PURPLE_FUNGI_FAN, RenderLayer.getCutout());
         // consumer.accept(JamiesModBlocks.PURPLE_FUNGI_WALL_FAN, RenderLayer.getCutout());
 
-        consumer.accept(BGBlocks.CLAYSTONE_FARMLAND, RenderType.cutout());
-        consumer.accept(BGBlocks.AMARANTH_CROP, RenderType.cutout());
-        consumer.accept(BGBlocks.SPRINKER, RenderType.cutout());
-        consumer.accept(BGBlocks.PLAGA_WALL, RenderType.cutout());
-        consumer.accept(BGBlocks.PLAGA, RenderType.cutout());
-        consumer.accept(BGBlocks.PLAGA_CROP, RenderType.cutout());
-        consumer.accept(BGBlocks.CHANTRELLE, RenderType.cutout());
+        consumer.accept(BGBlocks.CLAYSTONE_FARMLAND.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.AMARANTH_CROP.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SPRINKER.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PLAGA_WALL.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PLAGA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PLAGA_CROP.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.CHANTRELLE.get(), RenderType.cutout());
 
-        consumer.accept(BGBlocks.POINTED_AMBER, RenderType.cutout());
-        consumer.accept(BGBlocks.CREOSOTE, RenderType.cutout());
-        consumer.accept(BGBlocks.CREOSOTE_SPROUTS, RenderType.cutout());
+        consumer.accept(BGBlocks.POINTED_AMBER.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.CREOSOTE.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.CREOSOTE_SPROUTS.get(), RenderType.cutout());
     }
 
     public static void createEntityRenderers() {
-        BlockEntityRenderers.register(BGBlockEntities.CASTER, CasterBlockEntityRenderer::new);
+        //BlockEntityRenderers.register(BGBlockEntities.CASTER.get(), CasterBlockEntityRenderer::new);
 
-        EntityRenderers.register(BGEntityTypes.GLARE, GlareRenderer::new);
-        EntityRenderers.register(BGEntityTypes.COELACANTH, CoelacanthRenderer::new);
-        EntityRenderers.register(BGEntityTypes.DUCK, DuckieRenderer::new);
-        EntityRenderers.register(BGEntityTypes.SCUTTLE, ScuttleRenderer::new);
-        EntityRenderers.register(BGEntityTypes.COPPERBUG, CopperbugRenderer::new);
-        EntityRenderers.register(BGEntityTypes.HOOK, HookRenderer::new);
-        EntityRenderers.register(BGEntityTypes.EXOTIC_ARROW, ExoticArrowRenderer::new);
-        EntityRenderers.register(BGEntityTypes.SCUTTLE_SPIKE, ScuttleSpikeRenderer::new);
-        EntityRenderers.register(BGEntityTypes.TRILOBITE, TrilobiteRenderer::new);
-        EntityRenderers.register(BGEntityTypes.MOOBOO, MoobooRenderer::new);
-        EntityRenderers.register(BGEntityTypes.FUNGAL_PARENT, FungalParentRenderer::new);
-        EntityRenderers.register(BGEntityTypes.BIG_BEAK, BigBeakRenderer::new);
-        EntityRenderers.register(BGEntityTypes.PEST, PestRenderer::new);
+        EntityRenderers.register(BGEntityTypes.GLARE.get(), GlareRenderer::new);
+        EntityRenderers.register(BGEntityTypes.COELACANTH.get(), CoelacanthRenderer::new);
+        EntityRenderers.register(BGEntityTypes.DUCK.get(), DuckieRenderer::new);
+        EntityRenderers.register(BGEntityTypes.SCUTTLE.get(), ScuttleRenderer::new);
+        EntityRenderers.register(BGEntityTypes.COPPERBUG.get(), CopperbugRenderer::new);
+        EntityRenderers.register(BGEntityTypes.HOOK.get(), HookRenderer::new);
+        EntityRenderers.register(BGEntityTypes.EXOTIC_ARROW.get(), ExoticArrowRenderer::new);
+        EntityRenderers.register(BGEntityTypes.SCUTTLE_SPIKE.get(), ScuttleSpikeRenderer::new);
+        EntityRenderers.register(BGEntityTypes.TRILOBITE.get(), TrilobiteRenderer::new);
+        EntityRenderers.register(BGEntityTypes.MOOBOO.get(), MoobooRenderer::new);
+        EntityRenderers.register(BGEntityTypes.FUNGAL_PARENT.get(), FungalParentRenderer::new);
+        EntityRenderers.register(BGEntityTypes.BIG_BEAK.get(), BigBeakRenderer::new);
+        EntityRenderers.register(BGEntityTypes.PEST.get(), PestRenderer::new);
     }
     
     public static void createModelLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> consumer) {
@@ -150,7 +150,7 @@ public class BygoneClient {
     }
 
     public static void registerModelPredicateProviders() {
-        ItemProperties.register(BGItems.HOOK, Bygone.id("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
+        ItemProperties.register(BGItems.HOOK.get(), Bygone.id("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
             if (livingEntity instanceof Player) {
                 for (InteractionHand value : InteractionHand.values())
                 {
@@ -167,7 +167,7 @@ public class BygoneClient {
             return 0;
         });
 
-        ItemProperties.register(BGItems.VERDIGRIS_BLADE, Bygone.id("blocking"),
+        ItemProperties.register(BGItems.VERDIGRIS_BLADE.get(), Bygone.id("blocking"),
                 (itemStack, clientWorld, livingEntity, seed) -> {
                     if (livingEntity == null) return 0;
                     if (livingEntity instanceof Player && livingEntity.isBlocking()) return 1;

@@ -55,12 +55,12 @@ public class BygoneBrushableBlockEntity extends BlockEntity {
     private long lootTableSeed;
 
     public BygoneBrushableBlockEntity(BlockPos pos, BlockState state) {
-        super(BGBlockEntities.BRUSHABLE_BLOCK, pos, state);
+        super(BGBlockEntities.BRUSHABLE_BLOCK.get(), pos, state);
         this.item = ItemStack.EMPTY;
     }
     @Override
     public BlockEntityType<?> getType() {
-        return BGBlockEntities.BRUSHABLE_BLOCK;
+        return BGBlockEntities.BRUSHABLE_BLOCK.get();
     }
     public boolean brush(long worldTime, Player player, Direction hitDirection) {
         if (this.hitDirection == null) {

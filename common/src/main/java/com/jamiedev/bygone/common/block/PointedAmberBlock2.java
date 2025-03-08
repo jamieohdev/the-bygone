@@ -378,7 +378,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
     }
 
     private static void place(LevelAccessor world, BlockPos pos, Direction direction, DripstoneThickness thickness) {
-        BlockState blockState = BGBlocks.POINTED_AMBER.defaultBlockState().setValue(VERTICAL_DIRECTION, direction).setValue(THICKNESS, thickness).setValue(WATERLOGGED, world.getFluidState(pos).getType() == Fluids.WATER);
+        BlockState blockState = BGBlocks.POINTED_AMBER.get().defaultBlockState().setValue(VERTICAL_DIRECTION, direction).setValue(THICKNESS, thickness).setValue(WATERLOGGED, world.getFluidState(pos).getType() == Fluids.WATER);
         world.setBlock(pos, blockState, 3);
     }
 
@@ -421,7 +421,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
         } else {
             Direction direction = state.getValue(VERTICAL_DIRECTION);
             BiPredicate<BlockPos, BlockState> biPredicate = (posx, statex) -> {
-                return statex.is(BGBlocks.POINTED_AMBER) && statex.getValue(VERTICAL_DIRECTION) == direction;
+                return statex.is(BGBlocks.POINTED_AMBER.get()) && statex.getValue(VERTICAL_DIRECTION) == direction;
             };
             return searchInDirection(world, pos, direction.getAxisDirection(), biPredicate, (statex) -> {
                 return isTip(statex, allowMerged);
@@ -481,10 +481,10 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
     private static Optional<BlockPos> getSupportingPos(Level world, BlockPos pos, BlockState state, int range) {
         Direction direction = state.getValue(VERTICAL_DIRECTION);
         BiPredicate<BlockPos, BlockState> biPredicate = (posx, statex) -> {
-            return statex.is(BGBlocks.POINTED_AMBER) && statex.getValue(VERTICAL_DIRECTION) == direction;
+            return statex.is(BGBlocks.POINTED_AMBER.get()) && statex.getValue(VERTICAL_DIRECTION) == direction;
         };
         return searchInDirection(world, pos, direction.getOpposite().getAxisDirection(), biPredicate, (statex) -> {
-            return !statex.is(BGBlocks.POINTED_AMBER);
+            return !statex.is(BGBlocks.POINTED_AMBER.get());
         }, range);
     }
 
@@ -495,7 +495,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
     }
 
     private static boolean isTip(BlockState state, boolean allowMerged) {
-        if (!state.is(BGBlocks.POINTED_AMBER)) {
+        if (!state.is(BGBlocks.POINTED_AMBER.get())) {
             return false;
         } else {
             DripstoneThickness thickness = state.getValue(THICKNESS);
@@ -516,7 +516,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
     }
 
     private static boolean isHeldByPointedDripstone(BlockState state, LevelReader world, BlockPos pos) {
-        return isPointingDown(state) && !world.getBlockState(pos.above()).is(BGBlocks.POINTED_AMBER);
+        return isPointingDown(state) && !world.getBlockState(pos.above()).is(BGBlocks.POINTED_AMBER.get());
     }
 
     @Override
@@ -525,7 +525,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
     }
 
     private static boolean isPointedDripstoneFacingDirection(BlockState state, Direction direction) {
-        return state.is(BGBlocks.POINTED_AMBER) && state.getValue(VERTICAL_DIRECTION) == direction;
+        return state.is(BGBlocks.POINTED_AMBER.get()) && state.getValue(VERTICAL_DIRECTION) == direction;
     }
 
     @Nullable
@@ -573,7 +573,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
     }
 
     private static boolean canGrow(BlockState dripstoneBlockState, BlockState waterState) {
-        return dripstoneBlockState.is(BGBlocks.COBBLED_AMBER);
+        return dripstoneBlockState.is(BGBlocks.COBBLED_AMBER.get());
     }
 
     private static Fluid getDripFluid(Level world, Fluid fluid) {

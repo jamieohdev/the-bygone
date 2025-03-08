@@ -43,7 +43,7 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock {
     }
 
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.is(BGBlocks.CLAYSTONE_FARMLAND);
+        return state.is(BGBlocks.CLAYSTONE_FARMLAND.get());
     }
 
     protected IntegerProperty getAgeProperty() {
@@ -105,7 +105,7 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock {
             for(int j = -1; j <= 1; ++j) {
                 float f1 = 0.0F;
                 BlockState blockstate = level.getBlockState(blockpos.offset(i, 0, j));
-                if (blockstate.is(BGBlocks.CLAYSTONE_FARMLAND)) {
+                if (blockstate.is(BGBlocks.CLAYSTONE_FARMLAND.get())) {
                     f1 = 1.0F;
                     if ((Integer)blockstate.getValue(FarmBlock.MOISTURE) > 0) {
                         f1 = 3.0F;
@@ -155,7 +155,7 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock {
     }
 
     protected ItemLike getBaseSeedId() {
-        return BGItems.AMARANTH_SEEDS;
+        return BGItems.AMARANTH_SEEDS.get();
     }
 
     public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {

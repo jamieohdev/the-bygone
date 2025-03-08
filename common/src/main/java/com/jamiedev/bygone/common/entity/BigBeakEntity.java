@@ -370,7 +370,7 @@ public class BigBeakEntity  extends AbstractHorse
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
 
             BigBeakEntity BigBeakEntity = (BigBeakEntity)entity;
-            BigBeakEntity BigBeakEntity2 = BGEntityTypes.BIG_BEAK.create(world);
+            BigBeakEntity BigBeakEntity2 = BGEntityTypes.BIG_BEAK.get().create(world);
             if (BigBeakEntity2 != null) {
                 int i = this.random.nextInt(9);
                 this.setOffspringAttributes(entity, BigBeakEntity2);
@@ -432,7 +432,7 @@ public class BigBeakEntity  extends AbstractHorse
 
     public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> type, LevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, @NotNull RandomSource random) {
         boolean bl = MobSpawnType.ignoresLightRequirements(spawnReason) || isBrightEnoughToSpawn(serverWorldAccess, blockPos);
-        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE) && bl;
+        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get()) && bl;
     }
 
     protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter world, BlockPos pos) {
@@ -453,8 +453,8 @@ public class BigBeakEntity  extends AbstractHorse
     }
 
     static {
-        BABY_BASE_DIMENSIONS = BGEntityTypes.BIG_BEAK.getDimensions().withAttachments(EntityAttachments.builder().attach(EntityAttachment.PASSENGER, 0.0F,
-                BGEntityTypes.BIG_BEAK.getHeight() + 0.125F, 0.0F)).scale(0.5F);
+        BABY_BASE_DIMENSIONS = BGEntityTypes.BIG_BEAK.get().getDimensions().withAttachments(EntityAttachments.builder().attach(EntityAttachment.PASSENGER, 0.0F,
+                BGEntityTypes.BIG_BEAK.get().getHeight() + 0.125F, 0.0F)).scale(0.5F);
     }
     public static boolean canSpawn(
             EntityType<? extends Mob> moobloomEntityType,
@@ -464,7 +464,7 @@ public class BigBeakEntity  extends AbstractHorse
             RandomSource random
     ) {
         return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) ||
-                serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE);
+                serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get());
     }
 
     @Override

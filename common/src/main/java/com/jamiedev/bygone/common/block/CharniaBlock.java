@@ -56,7 +56,7 @@ public class CharniaBlock extends DoublePlantBlock implements LiquidBlockContain
 
     @Override
     public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
-        return new ItemStack(BGBlocks.CHARNIA);
+        return new ItemStack(BGBlocks.CHARNIA.get());
     }
 
     @Override

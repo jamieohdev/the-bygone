@@ -154,7 +154,7 @@ public class CasterBlock extends BaseEntityBlock implements BlockEntityTicker<Ca
             if (!world.isClientSide) {
                 if (blockEntity.cooldownTicks > 0) {
                     blockEntity.cooldownTicks -= 1;
-                    world.updateNeighbourForOutputSignal(pos, BGBlocks.CASTER);
+                    world.updateNeighbourForOutputSignal(pos, BGBlocks.CASTER.get());
                     return;
                 }
                 else
@@ -207,7 +207,7 @@ public class CasterBlock extends BaseEntityBlock implements BlockEntityTicker<Ca
         }
         else if (blockEntity.cooldownTicks > 0 && !world.isClientSide)
             blockEntity.cooldownTicks -= 1;
-            world.updateNeighbourForOutputSignal(pos, BGBlocks.CASTER);
+            world.updateNeighbourForOutputSignal(pos, BGBlocks.CASTER.get());
         if (!blockEntity.isRemoved() && !world.isClientSide && ((blockEntity.onCooldown && blockEntity.cooldownTicks <=0) ||
                 (!blockEntity.onCooldown && blockEntity.cooldownTicks > 0))) {
             blockEntity.onCooldown = blockEntity.cooldownTicks > 0;

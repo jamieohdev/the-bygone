@@ -62,7 +62,7 @@ public class BlemishCatalystBlock  extends BaseEntityBlock {
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return world.isClientSide ? null : createTickerHelper(type, BGBlockEntities.BLEMISH_CATALYST, BlemishCatalystBlockEntity::tick);
+        return world.isClientSide ? null : createTickerHelper(type, BGBlockEntities.BLEMISH_CATALYST.get(), BlemishCatalystBlockEntity::tick);
     }
 
     @Override

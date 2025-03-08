@@ -617,8 +617,8 @@ public class BygoneMineshaftGenerator {
                     this.generateBox(world, boundingBox, maxX, maxY, z, maxX, maxY, z, blockState, CAVE_AIR, false);
                 } else {
                     this.generateBox(world, boundingBox, minX, maxY, z, maxX, maxY, z, blockState, CAVE_AIR, false);
-                    this.maybeGenerateBlock(world, boundingBox, random, 0.05F, minX + 1, maxY, z - 1, BGBlocks.GOURD_DANGO_WALL.defaultBlockState().setValue(GourdDangoWallBlock.FACING, Direction.SOUTH));
-                    this.maybeGenerateBlock(world, boundingBox, random, 0.05F, minX + 1, maxY, z + 1, BGBlocks.GOURD_DANGO_WALL.defaultBlockState().setValue(GourdDangoWallBlock.FACING, Direction.NORTH));
+                    this.maybeGenerateBlock(world, boundingBox, random, 0.05F, minX + 1, maxY, z - 1, BGBlocks.GOURD_DANGO_WALL.get().defaultBlockState().setValue(GourdDangoWallBlock.FACING, Direction.SOUTH));
+                    this.maybeGenerateBlock(world, boundingBox, random, 0.05F, minX + 1, maxY, z + 1, BGBlocks.GOURD_DANGO_WALL.get().defaultBlockState().setValue(GourdDangoWallBlock.FACING, Direction.NORTH));
                 }
 
             }

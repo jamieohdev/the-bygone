@@ -159,9 +159,9 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
         if (world.isClientSide) {
-            return  state.getValue(WATERLOGGED) ? createTickerHelper(type, BGBlockEntities.PRIMORDIAL_VENT, PrimordialVentEntity::clientTick) : null;
+            return  state.getValue(WATERLOGGED) ? createTickerHelper(type, BGBlockEntities.PRIMORDIAL_VENT.get(), PrimordialVentEntity::clientTick) : null;
         } else {
-            return  state.getValue(WATERLOGGED) ? createTickerHelper(type, BGBlockEntities.PRIMORDIAL_VENT, PrimordialVentEntity::litServerTick) : null;
+            return  state.getValue(WATERLOGGED) ? createTickerHelper(type, BGBlockEntities.PRIMORDIAL_VENT.get(), PrimordialVentEntity::litServerTick) : null;
         }
     }
 

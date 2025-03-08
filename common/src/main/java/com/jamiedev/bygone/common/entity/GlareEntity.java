@@ -82,7 +82,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
     public GlarePathHolder glarePathHolder = new GlarePathHolder();
 
     public GlareEntity(EntityType<? extends GlareEntity> entityType, Level world) {
-        super(BGEntityTypes.GLARE, world);
+        super(BGEntityTypes.GLARE.get(), world);
         this.moveControl = new GlareMoveControl(this, 20, true);
         this.setPathfindingMalus(PathType.DANGER_FIRE, -1.0F);
         this.setPathfindingMalus(PathType.WATER, -1.0F);
@@ -284,7 +284,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
     @Override
     @Nullable
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
-        return BGEntityTypes.GLARE.create(world);
+        return BGEntityTypes.GLARE.get().create(world);
     }
 
     @Override
@@ -366,7 +366,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
 
     public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> type, LevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, @NotNull RandomSource random) {
         boolean bl = MobSpawnType.ignoresLightRequirements(spawnReason) || isBrightEnoughToSpawn(serverWorldAccess, blockPos);
-        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE) && bl;
+        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get()) && bl;
     }
 
     protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter world, BlockPos pos) {
@@ -374,7 +374,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
     }
 
     public static boolean canSpawn(EntityType<? extends Mob> glareEntityEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, @NotNull RandomSource random) {
-       return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE);
+       return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get());
     }
 
     @Override

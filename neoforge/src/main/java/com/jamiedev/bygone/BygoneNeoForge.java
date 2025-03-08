@@ -24,6 +24,8 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 public class BygoneNeoForge {
 
     public BygoneNeoForge(IEventBus eventBus, Dist dist) {
+        Bygone.init();
+
         eventBus.addListener(PacketHandlerNeoForge::register);
         if (dist.isClient()) {
             BygoneClientNeoForge.init(eventBus);
@@ -36,7 +38,6 @@ public class BygoneNeoForge {
         eventBus.addListener(this::addValidBlocks);
         NeoForge.EVENT_BUS.addListener(this::entityTick);
         NeoForge.EVENT_BUS.addListener(this::damageEvent);
-        Bygone.init();
     }
 
     //

@@ -29,7 +29,7 @@ public class EatCropGoal extends Goal {
 
     public boolean canUse() {
         BlockPos blockpos = this.mob.blockPosition();
-        return IS_OTHER_CROP.test(this.level.getBlockState(blockpos)) ||IS_AMARANTH.test(this.level.getBlockState(blockpos)) || this.level.getBlockState(blockpos.below()).is(BGBlocks.MOSSY_CLAYSTONE);
+        return IS_OTHER_CROP.test(this.level.getBlockState(blockpos)) ||IS_AMARANTH.test(this.level.getBlockState(blockpos)) || this.level.getBlockState(blockpos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get());
 
     }
 
@@ -69,10 +69,10 @@ public class EatCropGoal extends Goal {
                 this.mob.ate();
             } else {
                 BlockPos blockpos1 = blockpos.below();
-                if (this.level.getBlockState(blockpos1).is(BGBlocks.MOSSY_CLAYSTONE)) {
+                if (this.level.getBlockState(blockpos1).is(BGBlocks.MOSSY_CLAYSTONE.get())) {
                     if (this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
-                        this.level.levelEvent(2001, blockpos1, Block.getId(BGBlocks.MOSSY_CLAYSTONE.defaultBlockState()));
-                        this.level.setBlock(blockpos1, BGBlocks.CLAYSTONE.defaultBlockState(), 2);
+                        this.level.levelEvent(2001, blockpos1, Block.getId(BGBlocks.MOSSY_CLAYSTONE.get().defaultBlockState()));
+                        this.level.setBlock(blockpos1, BGBlocks.CLAYSTONE.get().defaultBlockState(), 2);
                     }
 
                     this.mob.ate();
@@ -83,7 +83,7 @@ public class EatCropGoal extends Goal {
     }
 
     static {
-        IS_AMARANTH = BlockStatePredicate.forBlock(BGBlocks.AMARANTH_CROP);
+        IS_AMARANTH = BlockStatePredicate.forBlock(BGBlocks.AMARANTH_CROP.get());
         IS_OTHER_CROP = BlockStatePredicate.forBlock(Blocks.BEETROOTS);
     }
 }

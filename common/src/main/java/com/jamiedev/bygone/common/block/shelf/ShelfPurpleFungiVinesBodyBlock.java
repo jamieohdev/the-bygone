@@ -32,12 +32,12 @@ public class ShelfPurpleFungiVinesBodyBlock extends GrowingPlantBodyBlock implem
 
     @Override
     protected GrowingPlantHeadBlock getHeadBlock() {
-        return (GrowingPlantHeadBlock) BGBlocks.PURPLE_FUNGI_VINES;
+        return (GrowingPlantHeadBlock) BGBlocks.PURPLE_FUNGI_VINES.get();
     }
 
     @Override
     public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
-        return new ItemStack(BGBlocks.PURPLE_FUNGI_VINES_PLANT);
+        return new ItemStack(BGBlocks.PURPLE_FUNGI_VINES_PLANT.get());
     }
 
 

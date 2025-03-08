@@ -115,7 +115,7 @@ public class BlemishBlock extends Block implements BlemishSpreadable
 
     private BlockState getExtraBlockState(LevelAccessor world, BlockPos pos, @NotNull RandomSource random, boolean allowShrieker) {
         BlockState blockState;
-        blockState = BGBlocks.BLEMISH_VEIN.defaultBlockState();
+        blockState = BGBlocks.BLEMISH_VEIN.get().defaultBlockState();
         return blockState.hasProperty(BlockStateProperties.WATERLOGGED) && !world.getFluidState(pos).isEmpty() ? blockState.setValue(BlockStateProperties.WATERLOGGED, true) : blockState;
     }
 

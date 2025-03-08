@@ -63,7 +63,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
 
     public static boolean place(LevelAccessor world, BlockPos pos, BlockState state, Collection<Direction> directions) {
         boolean bl = false;
-        BlockState blockState = BGBlocks.BLEMISH_VEIN.defaultBlockState();
+        BlockState blockState = BGBlocks.BLEMISH_VEIN.get().defaultBlockState();
         Iterator<Direction> var6 = directions.iterator();
 
         while(var6.hasNext()) {
@@ -96,7 +96,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
             for(int var7 = 0; var7 < var6; ++var7) {
                 Direction direction = var5[var7];
                 BooleanProperty booleanProperty = getFaceProperty(direction);
-                if (state.getValue(booleanProperty) && world.getBlockState(pos.relative(direction)).is(BGBlocks.BLEMISH)) {
+                if (state.getValue(booleanProperty) && world.getBlockState(pos.relative(direction)).is(BGBlocks.BLEMISH.get())) {
                     state = state.setValue(booleanProperty, false);
                 }
             }
@@ -131,7 +131,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
                 BlockPos blockPos = pos.relative(direction);
                 BlockState blockState2 = world.getBlockState(blockPos);
                 if (blockState2.is(tagKey)) {
-                    BlockState blockState3 = BGBlocks.BLEMISH.defaultBlockState();
+                    BlockState blockState3 = BGBlocks.BLEMISH.get().defaultBlockState();
                     world.setBlock(blockPos, blockState3, 3);
                     Block.pushEntitiesUp(blockState2, blockState3, world, blockPos);
                     world.playSound(null, blockPos, SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -160,7 +160,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
     }
 
     public static boolean veinCoversBlemishReplaceable(LevelAccessor world, BlockState state, BlockPos pos) {
-        if (!state.is(BGBlocks.BLEMISH_VEIN)) {
+        if (!state.is(BGBlocks.BLEMISH_VEIN.get())) {
             return false;
         } else {
             Direction[] var3 = DIRECTIONS;
@@ -194,7 +194,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
 
     @Override
     protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
-        return !context.getItemInHand().is(Item.byBlock(BGBlocks.BLEMISH_VEIN)) || super.canBeReplaced(state, context);
+        return !context.getItemInHand().is(Item.byBlock(BGBlocks.BLEMISH_VEIN.get())) || super.canBeReplaced(state, context);
     }
 
     @Override
@@ -217,7 +217,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
         @Override
         public boolean stateCanBeReplaced(BlockGetter world, BlockPos pos, BlockPos growPos, Direction direction, BlockState state) {
             BlockState blockState = world.getBlockState(growPos.relative(direction));
-            if (!blockState.is(BGBlocks.BLEMISH) && !blockState.is(BGBlocks.BLEMISH_CATALYST) && !blockState.is(Blocks.MOVING_PISTON)) {
+            if (!blockState.is(BGBlocks.BLEMISH.get()) && !blockState.is(BGBlocks.BLEMISH_CATALYST.get()) && !blockState.is(Blocks.MOVING_PISTON)) {
                 if (pos.distManhattan(growPos) == 2) {
                     BlockPos blockPos = pos.relative(direction.getOpposite());
                     if (world.getBlockState(blockPos).isFaceSturdy(world, blockPos, direction)) {
@@ -245,7 +245,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
 
         @Override
         public boolean isOtherBlockValidAsSource(BlockState state) {
-            return !state.is(BGBlocks.BLEMISH_VEIN);
+            return !state.is(BGBlocks.BLEMISH_VEIN.get());
         }
     }
 }

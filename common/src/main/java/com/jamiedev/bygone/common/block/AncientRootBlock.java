@@ -33,7 +33,7 @@ public class AncientRootBlock  extends Block implements SimpleWaterloggedBlock {
 
     @Override
     protected boolean skipRendering(BlockState state, BlockState stateFrom, Direction direction) {
-        return stateFrom.is(BGBlocks.ANCIENT_ROOTS) && direction.getAxis() == Direction.Axis.Y;
+        return stateFrom.is(BGBlocks.ANCIENT_ROOTS.get()) && direction.getAxis() == Direction.Axis.Y;
     }
 
     @Override

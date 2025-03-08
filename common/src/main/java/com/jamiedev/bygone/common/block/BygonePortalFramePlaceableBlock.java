@@ -78,10 +78,10 @@ public class BygonePortalFramePlaceableBlock extends Block {
         if (COMPLETED_FRAME == null) {
             COMPLETED_FRAME = BlockPatternBuilder.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?").where('?',
                     BlockInWorld.hasState(BlockStatePredicate.ANY))
-                    .where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME).where(FACING, Predicates.equalTo(Direction.SOUTH))))
-                    .where('>', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME).where(FACING, Predicates.equalTo(Direction.WEST))))
-                    .where('v', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME).where(FACING, Predicates.equalTo(Direction.NORTH))))
-                    .where('<', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME).where(FACING, Predicates.equalTo(Direction.EAST)))).build();
+                    .where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.SOUTH))))
+                    .where('>', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.WEST))))
+                    .where('v', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.NORTH))))
+                    .where('<', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.EAST)))).build();
         }
 
         return COMPLETED_FRAME;

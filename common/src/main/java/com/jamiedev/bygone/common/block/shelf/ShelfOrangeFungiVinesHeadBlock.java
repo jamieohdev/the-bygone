@@ -44,12 +44,12 @@ public class ShelfOrangeFungiVinesHeadBlock extends GrowingPlantHeadBlock implem
 
     @Override
     protected Block getBodyBlock() {
-        return BGBlocks.ORANGE_FUNGI_PLANT;
+        return BGBlocks.ORANGE_FUNGI_PLANT.get();
     }
 
     @Override
     public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
-        return new ItemStack(BGBlocks.ORANGE_FUNGI_PLANT);
+        return new ItemStack(BGBlocks.ORANGE_FUNGI_PLANT.get());
     }
 
 

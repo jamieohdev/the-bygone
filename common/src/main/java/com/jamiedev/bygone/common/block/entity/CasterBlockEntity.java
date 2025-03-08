@@ -15,11 +15,11 @@ public class CasterBlockEntity extends BlockEntity /*implements CasterComponent*
     public boolean onCooldown = false;
 
     protected CasterBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
-        super(BGBlockEntities.CASTER, blockPos, blockState);
+        super(BGBlockEntities.CASTER.get(), blockPos, blockState);
     }
 
     public CasterBlockEntity(BlockPos pos, BlockState state) {
-        this(BGBlockEntities.CASTER, pos, state);
+        this(BGBlockEntities.CASTER.get(), pos, state);
     }
 
     public void writeSyncPacket(RegistryFriendlyByteBuf buf, ServerPlayer recipient) {

@@ -88,7 +88,7 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock {
     }
     @Override
     protected GrowingPlantHeadBlock getHeadBlock() {
-        return (GrowingPlantHeadBlock) BGBlocks.GOURD_VINE;
+        return (GrowingPlantHeadBlock) BGBlocks.GOURD_VINE.get();
     }
     static {
         HANGING = BlockStateProperties.HANGING;

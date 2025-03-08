@@ -43,7 +43,7 @@ public class BygoneFabric implements ModInitializer {
 		TradeOfferHelper.registerVillagerOffers(VillagerProfession.CARTOGRAPHER, 2, //10 1 12 10
 				factories -> factories.add(new VillagerTrades.TreasureMapForEmeralds(10, JamiesModTag.ON_BYGONE_PORTAL_MAPS, "Bygone Portal Map", MapDecorationTypes.GREEN_BANNER, 12, 10)));
 		TradeOfferHelper.registerWanderingTraderOffers(1, factories -> {
-			factories.add(new VillagerTrades.ItemsForEmeralds(BGBlocks.ALPHA_MOSS_BLOCK, 2, 1, 6, 8));
+			factories.add(new VillagerTrades.ItemsForEmeralds(BGBlocks.ALPHA_MOSS_BLOCK.get(), 2, 1, 6, 8));
 			factories.add(new VillagerTrades.TreasureMapForEmeralds(10, JamiesModTag.ON_BYGONE_PORTAL_MAPS, "Bygone Portal Map", MapDecorationTypes.GREEN_BANNER, 12, 10));
 		});
 
@@ -69,12 +69,12 @@ public class BygoneFabric implements ModInitializer {
 			ItemStack stack = player.getItemInHand(hand);
 
 
-			if (stack.getItem() instanceof HoeItem && (state.is(BGBlocks.CLAYSTONE) || state.is(BGBlocks.MOSSY_CLAYSTONE))) {
+			if (stack.getItem() instanceof HoeItem && (state.is(BGBlocks.CLAYSTONE.get()) || state.is(BGBlocks.MOSSY_CLAYSTONE.get()))) {
 				BlockPos blockAbovePos = pos.above();
 				BlockState blockAboveState = world.getBlockState(blockAbovePos);
 				if (blockAboveState.isAir()) {
 					world.playSound(null, pos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
-					world.setBlock(pos, BGBlocks.CLAYSTONE_FARMLAND.defaultBlockState(), Block.UPDATE_CLIENTS);
+					world.setBlock(pos, BGBlocks.CLAYSTONE_FARMLAND.get().defaultBlockState(), Block.UPDATE_CLIENTS);
 
 					if (!player.isCreative()) {
 						stack.hurtAndBreak(1, player,  player.getEquipmentSlotForItem(player.getUseItem()));
@@ -84,12 +84,12 @@ public class BygoneFabric implements ModInitializer {
 					return InteractionResult.SUCCESS;
 				}
 			}
-			if (stack.getItem() instanceof HoeItem && (state.is(BGBlocks.COARSE_CLAYSTONE))) {
+			if (stack.getItem() instanceof HoeItem && (state.is(BGBlocks.COARSE_CLAYSTONE.get()))) {
 				BlockPos blockAbovePos = pos.above();
 				BlockState blockAboveState = world.getBlockState(blockAbovePos);
 				if (blockAboveState.isAir()) {
 					world.playSound(null, pos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
-					world.setBlock(pos, BGBlocks.CLAYSTONE.defaultBlockState(), Block.UPDATE_CLIENTS);
+					world.setBlock(pos, BGBlocks.CLAYSTONE.get().defaultBlockState(), Block.UPDATE_CLIENTS);
 
 					if (!player.isCreative()) {
 						stack.hurtAndBreak(1, player,  player.getEquipmentSlotForItem(player.getUseItem()));

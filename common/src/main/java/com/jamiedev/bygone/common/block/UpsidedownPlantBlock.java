@@ -23,7 +23,7 @@ public abstract class UpsidedownPlantBlock  extends Block {
     protected abstract MapCodec<? extends UpsidedownPlantBlock> codec();
 
     protected boolean canPlantOnTop(BlockState floor, BlockGetter world, BlockPos pos) {
-        return floor.is(BlockTags.DIRT) || floor.is(BGBlocks.BYSTONE)|| floor.is(BGBlocks.BYSLATE);
+        return floor.is(BlockTags.DIRT) || floor.is(BGBlocks.BYSTONE.get())|| floor.is(BGBlocks.BYSLATE.get());
     }
 
     @Override

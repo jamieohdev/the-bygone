@@ -55,7 +55,7 @@ public class VerdigrisBladeItem extends TieredItem
 
     @Override
     public boolean isValidRepairItem(ItemStack stack, ItemStack ingredient) {
-        return ingredient.is(BGItems.VERDIGRIS_INGOT);
+        return ingredient.is(BGItems.VERDIGRIS_INGOT.get());
     }
 
     @Override

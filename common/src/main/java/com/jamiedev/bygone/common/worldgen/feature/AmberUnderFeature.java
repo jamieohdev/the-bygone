@@ -25,10 +25,10 @@ public class AmberUnderFeature  extends Feature<NoneFeatureConfiguration> {
             return false;
         } else {
             BlockState blockState = structureWorldAccess.getBlockState(blockPos.above());
-            if (!blockState.is(BGBlocks.AMBERSTONE) && !blockState.is(BGBlocks.COBBLED_AMBERSTONE)) {
+            if (!blockState.is(BGBlocks.AMBERSTONE.get()) && !blockState.is(BGBlocks.COBBLED_AMBERSTONE.get())) {
                 return false;
             } else {
-                structureWorldAccess.setBlock(blockPos, BGBlocks.FLOWING_AMBER.defaultBlockState(), 2);
+                structureWorldAccess.setBlock(blockPos, BGBlocks.FLOWING_AMBER.get().defaultBlockState(), 2);
 
                 for(int i = 0; i < 1500; ++i) {
                     BlockPos blockPos2 = blockPos.offset(random.nextInt(8) - random.nextInt(8), -random.nextInt(12), random.nextInt(8) - random.nextInt(8));
@@ -38,7 +38,7 @@ public class AmberUnderFeature  extends Feature<NoneFeatureConfiguration> {
                         int var10 = var9.length;
 
                         for (Direction direction : var9) {
-                            if (structureWorldAccess.getBlockState(blockPos2.relative(direction)).is(BGBlocks.FLOWING_AMBER)) {
+                            if (structureWorldAccess.getBlockState(blockPos2.relative(direction)).is(BGBlocks.FLOWING_AMBER.get())) {
                                 ++j;
                             }
 
@@ -48,7 +48,7 @@ public class AmberUnderFeature  extends Feature<NoneFeatureConfiguration> {
                         }
 
                         if (j == 1) {
-                            structureWorldAccess.setBlock(blockPos2, BGBlocks.FLOWING_AMBER.defaultBlockState(), 2);
+                            structureWorldAccess.setBlock(blockPos2, BGBlocks.FLOWING_AMBER.get().defaultBlockState(), 2);
                         }
                     }
                 }

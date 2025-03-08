@@ -63,7 +63,7 @@ public class BygoneMineshaftStructure extends Structure {
     }
 
     public enum Type implements StringRepresentable {
-        NORMAL("ancient", BGBlocks.ANCIENT_LOG, BGBlocks.ANCIENT_PLANKS, BGBlocks.ANCIENT_FENCE);
+        NORMAL("ancient", BGBlocks.ANCIENT_LOG.get(), BGBlocks.ANCIENT_PLANKS.get(), BGBlocks.ANCIENT_FENCE.get());
 
         public static final Codec<BygoneMineshaftStructure.Type> CODEC = StringRepresentable.fromEnum(BygoneMineshaftStructure.Type::values);
         private static final IntFunction<BygoneMineshaftStructure.Type> BY_ID = ByIdMap.continuous(Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
@@ -92,7 +92,7 @@ public class BygoneMineshaftStructure extends Structure {
         }
 
         public BlockState getPlanks() {
-            return BGBlocks.ANCIENT_PLANKS.defaultBlockState();
+            return BGBlocks.ANCIENT_PLANKS.get().defaultBlockState();
         }
 
         public BlockState getFence() {

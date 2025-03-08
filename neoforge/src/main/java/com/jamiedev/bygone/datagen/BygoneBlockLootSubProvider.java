@@ -18,32 +18,31 @@ public class BygoneBlockLootSubProvider extends BlockLootSubProvider {
 
     @Override
     public void generate() {
+        dropSelf(BGBlocks.POLISHED_BYSTONE.get());
+        dropSelf(BGBlocks.POLISHED_BYSTONE_SLAB.get());
+        dropSelf(BGBlocks.POLISHED_BYSTONE_STAIRS.get());
+        dropSelf(BGBlocks.POLISHED_BYSTONE_WALL.get());
 
-        dropSelf(BGBlocks.POLISHED_BYSTONE);
-        dropSelf(BGBlocks.POLISHED_BYSTONE_SLAB);
-        dropSelf(BGBlocks.POLISHED_BYSTONE_STAIRS);
-        dropSelf(BGBlocks.POLISHED_BYSTONE_WALL);
+        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK.get());
+        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.get());
+        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK_STAIRS.get());
+        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK_WALL.get());
 
-        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK);
-        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK_SLAB);
-        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK_STAIRS);
-        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK_WALL);
+        dropSelf(BGBlocks.CHISELED_POLISHED_BYSTONE.get());
+        dropSelf(BGBlocks.POLISHED_BYSTONE_SHINGLES.get());
 
-        dropSelf(BGBlocks.CHISELED_POLISHED_BYSTONE);
-        dropSelf(BGBlocks.POLISHED_BYSTONE_SHINGLES);
+        dropSelf(BGBlocks.POLISHED_BYSLATE.get());
+        dropSelf(BGBlocks.POLISHED_BYSLATE_SLAB.get());
+        dropSelf(BGBlocks.POLISHED_BYSLATE_STAIRS.get());
+        dropSelf(BGBlocks.POLISHED_BYSLATE_WALL.get());
 
-        dropSelf(BGBlocks.POLISHED_BYSLATE);
-        dropSelf(BGBlocks.POLISHED_BYSLATE_SLAB);
-        dropSelf(BGBlocks.POLISHED_BYSLATE_STAIRS);
-        dropSelf(BGBlocks.POLISHED_BYSLATE_WALL);
+        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK.get());
+        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK_SLAB.get());
+        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK_STAIRS.get());
+        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK_WALL.get());
 
-        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK);
-        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK_SLAB);
-        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK_STAIRS);
-        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK_WALL);
-
-        dropSelf(BGBlocks.CHISELED_POLISHED_BYSLATE);
-        dropSelf(BGBlocks.POLISHED_BYSLATE_SHINGLES);
+        dropSelf(BGBlocks.CHISELED_POLISHED_BYSLATE.get());
+        dropSelf(BGBlocks.POLISHED_BYSLATE_SHINGLES.get());
     }
 
     @Override

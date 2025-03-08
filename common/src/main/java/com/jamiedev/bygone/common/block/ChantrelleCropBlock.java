@@ -44,7 +44,7 @@ public class ChantrelleCropBlock extends BushBlock implements BonemealableBlock 
     }
 
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.is(BGBlocks.SHELF_MYCELIUM);
+        return state.is(BGBlocks.SHELF_MYCELIUM.get());
     }
 
     protected IntegerProperty getAgeProperty() {
@@ -146,7 +146,7 @@ public class ChantrelleCropBlock extends BushBlock implements BonemealableBlock 
             for(int j = -1; j <= 1; ++j) {
                 float f1 = 0.0F;
                 BlockState blockstate = level.getBlockState(blockpos.offset(i, 0, j));
-                if (blockstate.is(BGBlocks.SHELF_MYCELIUM)) {
+                if (blockstate.is(BGBlocks.SHELF_MYCELIUM.get())) {
                     f1 = 2.0F;
 
 
@@ -195,7 +195,7 @@ public class ChantrelleCropBlock extends BushBlock implements BonemealableBlock 
     }
 
     protected ItemLike getBaseSeedId() {
-        return BGItems.CHANTRELLE_SEEDS;
+        return BGItems.CHANTRELLE_SEEDS.get();
     }
 
     public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {

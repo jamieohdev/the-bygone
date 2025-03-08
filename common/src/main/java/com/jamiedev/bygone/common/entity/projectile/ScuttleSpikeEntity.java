@@ -35,11 +35,11 @@ public class ScuttleSpikeEntity  extends AbstractArrow
     }
 
     public ScuttleSpikeEntity(Level world, LivingEntity owner, ItemStack stack) {
-        super(BGEntityTypes.SCUTTLE_SPIKE, owner, world, stack, null);
+        super(BGEntityTypes.SCUTTLE_SPIKE.get(), owner, world, stack, null);
     }
 
     public ScuttleSpikeEntity(Level world, double x, double y, double z, ItemStack stack) {
-        super(BGEntityTypes.SCUTTLE_SPIKE, x, y, z, world, stack, stack);
+        super(BGEntityTypes.SCUTTLE_SPIKE.get(), x, y, z, world, stack, stack);
     }
 
     @Override

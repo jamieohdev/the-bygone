@@ -45,7 +45,7 @@ public class PestEntity extends Animal
     Rabbit ref;
 
     public PestEntity(EntityType<? extends PestEntity> entityType, Level level) {
-        super(BGEntityTypes.PEST, level);
+        super(BGEntityTypes.PEST.get(), level);
         this.setSpeedModifier((double)0.1F);
     }
 
@@ -82,13 +82,13 @@ public class PestEntity extends Animal
         }));
         this.goalSelector.addGoal(3, new AvoidBlockGoal(this, 8, 1.2, 2.1, (pos) -> {
             BlockState state = this.level().getBlockState(pos);
-            if (state.is(BGBlocks.PLAGA_CROP)){
+            if (state.is(BGBlocks.PLAGA_CROP.get())){
                 return state.getValue(PlagaCropBlock.AGE) > 5;
             } else return false;
         }));
         this.goalSelector.addGoal(3, new AvoidBlockGoal(this, 4, 1.2, 2.1, (pos) -> {
             BlockState state = this.level().getBlockState(pos);
-            if (state.is(BGBlocks.PLAGA_CROP)){
+            if (state.is(BGBlocks.PLAGA_CROP.get())){
                 return state.getValue(PlagaCropBlock.AGE) < 5;
             } else return false;
         }));
@@ -146,7 +146,7 @@ public class PestEntity extends Animal
     @Override
     @Nullable
     public PestEntity getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return BGEntityTypes.PEST.create(level);
+        return BGEntityTypes.PEST.get().create(level);
     }
 
 

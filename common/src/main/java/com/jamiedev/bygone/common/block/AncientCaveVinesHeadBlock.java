@@ -47,7 +47,7 @@ public class AncientCaveVinesHeadBlock extends GrowingPlantHeadBlock implements 
 
     @Override
     protected Block getBodyBlock() {
-        return BGBlocks.CAVE_VINES_PLANT;
+        return BGBlocks.CAVE_VINES_PLANT.get();
     }
 
     @Override
@@ -62,7 +62,7 @@ public class AncientCaveVinesHeadBlock extends GrowingPlantHeadBlock implements 
 
     @Override
     public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
-        return new ItemStack(BGBlocks.CAVE_VINES_PLANT);
+        return new ItemStack(BGBlocks.CAVE_VINES_PLANT.get());
     }
 
     @Override
