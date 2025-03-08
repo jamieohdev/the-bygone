@@ -27,6 +27,7 @@ public class BygoneFabric implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		initEvents();
+		Bygone.init();
 
 		Bygone.registerBuiltIn();
 
