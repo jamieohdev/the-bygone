@@ -54,13 +54,12 @@ neoForge {
 
 dependencies {
     if (project.use_rei.toBoolean()) {
-        implementation "me.shedaniel:RoughlyEnoughItems-neoforge:$rei_version"
         implementation "me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version"
-        implementation "dev.architectury:architectury-neoforge:$architectury_version"
     }
 
 
     implementation "net.kyrptonaught.customportalapi:cpapireforged-neo-1.21.1:1.0.11"
+    implementation "curse.maven:jinxedlib-1203401:6269067"
 }
 
 
