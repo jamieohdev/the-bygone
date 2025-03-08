@@ -3,8 +3,7 @@
   "package": "com.jamiedev.bygone.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "CowEntityMixinFabric",
-    "com.jamiedev.bygone.core.mixin.FarmlandBlockMixin"
+    "CowEntityMixinFabric"
   ],
   "injectors": {
     "defaultRequire": 1
