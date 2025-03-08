@@ -1,4 +1,4 @@
-package com.jamiedev.bygone.mixin;
+package com.jamiedev.bygone.core.mixin;
 
 import com.jamiedev.bygone.Bygone;
 import net.minecraft.world.entity.animal.Animal;

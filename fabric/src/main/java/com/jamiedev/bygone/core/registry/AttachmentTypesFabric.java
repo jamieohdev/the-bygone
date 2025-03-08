@@ -1,4 +1,4 @@
-package com.jamiedev.bygone.init;
+package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.entity.projectile.HookEntity;

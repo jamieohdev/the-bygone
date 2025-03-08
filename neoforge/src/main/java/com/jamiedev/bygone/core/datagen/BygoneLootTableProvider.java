@@ -1,4 +1,4 @@
-package com.jamiedev.bygone.datagen;
+package com.jamiedev.bygone.core.datagen;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.WritableRegistry;

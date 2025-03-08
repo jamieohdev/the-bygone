@@ -1,6 +1,6 @@
-package com.jamiedev.bygone.platform;
+package com.jamiedev.bygone.core.platform;
 
-import com.jamiedev.bygone.init.AttachmentTypesFabric;
+import com.jamiedev.bygone.core.registry.AttachmentTypesFabric;
 import com.jamiedev.bygone.core.network.C2SModPacket;
 import com.jamiedev.bygone.core.network.S2CModPacket;
 import com.jamiedev.bygone.core.platform.services.IPlatformHelper;

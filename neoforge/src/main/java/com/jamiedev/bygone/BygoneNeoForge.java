@@ -2,8 +2,8 @@ package com.jamiedev.bygone;
 
 
 import com.jamiedev.bygone.client.BygoneClientNeoForge;
-import com.jamiedev.bygone.datagen.BygoneDataGenerator;
-import com.jamiedev.bygone.init.AttachmentTypesNeoForge;
+import com.jamiedev.bygone.core.datagen.BygoneDataGenerator;
+import com.jamiedev.bygone.core.registry.AttachmentTypesNeoForge;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;

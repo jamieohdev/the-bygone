@@ -1,7 +1,7 @@
-package com.jamiedev.bygone.platform;
+package com.jamiedev.bygone.core.platform;
 
 import com.jamiedev.bygone.PacketHandlerNeoForge;
-import com.jamiedev.bygone.init.AttachmentTypesNeoForge;
+import com.jamiedev.bygone.core.registry.AttachmentTypesNeoForge;
 import com.jamiedev.bygone.core.network.C2SModPacket;
 import com.jamiedev.bygone.core.network.S2CModPacket;
 import com.jamiedev.bygone.core.platform.services.IPlatformHelper;

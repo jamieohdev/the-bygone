@@ -1,4 +1,4 @@
-package com.jamiedev.bygone.datagen;
+package com.jamiedev.bygone.core.datagen;
 
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import net.minecraft.core.HolderLookup;

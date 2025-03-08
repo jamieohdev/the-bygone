@@ -1,7 +1,7 @@
 package com.jamiedev.bygone;
 
 import com.jamiedev.bygone.core.network.PacketHandler;
-import com.jamiedev.bygone.platform.NeoForgePlatformHelper;
+import com.jamiedev.bygone.core.platform.NeoForgePlatformHelper;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.PacketDistributor;
