@@ -1,10 +1,6 @@
 {
   "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+    "air": ["bygone:cave", "bygone:canyon"]
   },
   "downfall": 0.5,
   "effects": {
@@ -31,21 +27,15 @@
   },
   "features": [
     [],
-    [
-    ],
-    [
-      "minecraft:iceberg_packed",
-      "minecraft:iceberg_blue"
-    ],
+    [],
+    ["minecraft:iceberg_packed", "minecraft:iceberg_blue"],
     [
       "bygone:fossil_upper",
       "bygone:fossil_lower",
       "minecraft:monster_room",
       "minecraft:monster_room_deep"
     ],
-    [
-      "bygone:small_cloud"
-    ],
+    ["bygone:small_cloud"],
     [],
     [
       "bygone:ore_coal_upper",
@@ -79,28 +69,18 @@
       "minecraft:flower_cherry",
       "bygone:flower_primordial"
     ],
-    [
-      "minecraft:freeze_top_layer"
-    ]
+    ["minecraft:freeze_top_layer"]
   ],
   "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
-    "ambient": [
-
-    ],
+    "ambient": [],
     "axolotls": [],
     "creature": [],
     "misc": [],
-    "monster": [
-
-    ],
-    "underground_water_creature": [
-
-    ],
-    "water_ambient": [
-
-    ],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
     "water_creature": [
       {
         "type": "bygone:scuttle",

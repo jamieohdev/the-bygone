@@ -1,10 +1,6 @@
 {
   "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+    "air": ["bygone:cave", "bygone:canyon"]
   },
   "downfall": 0.5,
   "effects": {
@@ -39,15 +35,10 @@
     "water_fog_color": 329011
   },
   "features": [
+    [],
+    [],
+    ["minecraft:forest_rock"],
     [
-    ],
-    [
-    ],
-    [
-      "minecraft:forest_rock"
-    ],
-    [
-
       "minecraft:monster_room",
       "minecraft:monster_room_deep",
       "bygone:small_cloud"
@@ -63,8 +54,7 @@
       "bygone:ore_copper"
     ],
     [],
-    [
-    ],
+    [],
     [
       "bygone:ancient_flowers",
       "bygone:underhang/medium_underhang_trees",
@@ -79,19 +69,13 @@
       "bygone:underhang_vegetation",
       "bygone:patch_whirliweed"
     ],
-    [
-      "minecraft:brown_mushroom_normal",
-      "minecraft:red_mushroom_normal"
-    ]
+    ["minecraft:brown_mushroom_normal", "minecraft:red_mushroom_normal"]
   ],
   "has_precipitation": false,
   "spawn_costs": {},
   "spawners": {
-    "ambient": [
-    ],
-    "axolotls": [
-
-    ],
+    "ambient": [],
+    "axolotls": [],
     "creature": [
       {
         "type": "bygone:big_beak",
@@ -113,12 +97,8 @@
       }
     ],
     "misc": [],
-    "monster": [
-
-    ],
-    "underground_water_creature": [
-
-    ],
+    "monster": [],
+    "underground_water_creature": [],
     "water_creature": []
   },
   "temperature": 0.5

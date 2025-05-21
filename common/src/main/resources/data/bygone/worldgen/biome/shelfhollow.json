@@ -1,10 +1,6 @@
 {
   "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+    "air": ["bygone:cave", "bygone:canyon"]
   },
   "downfall": 1.0,
   "effects": {
@@ -40,10 +36,8 @@
   },
   "features": [
     [],
-    [
-    ],
-    [
-    ],
+    [],
+    [],
     [
       "minecraft:monster_room",
       "minecraft:monster_room_deep",
@@ -63,8 +57,7 @@
       "bygone:purple_mushroom_shelf"
     ],
     [],
-    [
-    ],
+    [],
     [
       "bygone:shelfhollow_ceiling_vegetation",
       "bygone:shelfhollow_ceiling_vegetation2",
@@ -88,18 +81,12 @@
   "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
-    "ambient": [
-
-    ],
+    "ambient": [],
     "axolotls": [],
-    "creature": [
-
-    ],
+    "creature": [],
     "misc": [],
     "monster": [],
-    "underground_water_creature": [
-
-    ],
+    "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []
   },
