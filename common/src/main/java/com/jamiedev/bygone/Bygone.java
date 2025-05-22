@@ -10,14 +10,18 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -133,19 +137,25 @@ public class Bygone {
         return false;
     }
 
+    private static int timeInBygone;
+    private static Level level;
+
+    public static Level level() {
+        return level;
+    }
+
     public static void tickCow(Cow cow) {
 
         if (canCowZombify(cow)) {
-            int timeInBygone = Services.PLATFORM.getTimeInBygone(cow);
-
+            ++timeInBygone;
             if (timeInBygone > 300) {
+
                 zombify(cow);
             }
-            Services.PLATFORM.setTimeInBygone(cow,++timeInBygone);
-
         } else {
-            Services.PLATFORM.setTimeInBygone(cow,0);
+            timeInBygone= 0;
         }
+
 
     }
 

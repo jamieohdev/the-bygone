@@ -30,7 +30,6 @@ public class PlagaCropBlock extends AmaranthCropBlock {
     /**
      * Last stage drops actual "crop / block"
      *
-     * @param properties
      */
 
     public static final MapCodec<PlagaCropBlock> CODEC = simpleCodec(PlagaCropBlock::new);

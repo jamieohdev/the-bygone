@@ -8,7 +8,6 @@ import com.jamiedev.bygone.common.block.gourds.GourdLanternBlock;
 import com.jamiedev.bygone.common.block.gourds.GourdVineBlock;
 import com.jamiedev.bygone.common.block.shelf.*;
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
-import net.kyrptonaught.customportalapi.CustomPortalBlock;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;

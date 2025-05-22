@@ -1,29 +1,61 @@
+## PLANNED FOR 1.3 / 1.4
+
+* Primordial BEACH?
+* Primordial Ocean land vegetation
+* Amber Desert rework
+* Portal mechanics?
+* GLARE improvements
+* Copperbug improvements
+* Big Beak new textures?
+* Updated terrain generation? -> * New structure?
+
+> Fix Skull fossil being one block up
+> Fix Vines not being pick blockable
+> Fix Huge Underhang trees generating without leaves on occasion?
+
+
+
+## **Updates in 1.3**
+
+### Wow
+
+# New features in 1.3:
+* Added heck
+
+# Technical features:
+* Added what?
+
+# Changes to existing features:
+* Underhang ambience now plays 50% less of the time.
+
+# Bugs fixed:
+* Fixed crash related to Mooboos in the Bygone!
+
+
+
 ## **Updates in 1.2.3**
 
-### Another (part) of the 1.2 Update is here, featuring--
-###
+### Its been a while, hasn't it? Well, the wait is over! We are back! And starting with this first minor update:
+### A brand new dependency, to make things moving forward even easier for us development wise!
+### And we've snuck in some new blocks, for the Bystone and Byslate blocksets!
+### Please join us in the official [Discord](https://discord.gg/DMW28XH235)!
 
 # New features in 1.2.3:
-* Added <TEST>
-
-> TEST
-
-* DESC
+* Added Polished, Chiseled, and Shingled block variants for Bystone!
+* Added Polished, Chiseled, and Shingled block variants for Byslate!
 
 
 # Technical features:
 
+* Requires JinxedLib for both Fabric and NeoForge now!
+
+* Furnace Fuels and Compostables are now JSON files for the Bygone!
+
 * Added all Bygone Vegetation to the #replaceable (and by extension, the #enchantment_power_transmitter) tags.
 
+* Rearranged the Bygone creative mode tab!
 
-# Changes to existing features:
-
-* DID WHAT
-
-
-# Bugs fixed:
-
-* Fixed blan
+* Removed unused Architectury dependency!
 
 
 ## **Updates in 1.2.2**

@@ -14,6 +14,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
 import java.util.Collection;
@@ -74,6 +76,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
         }
     }
 
+    @Nullable
     @Override
     public int getTimeInBygone(Entity entity) {
         return entity.getAttached(AttachmentTypesFabric.TIME_IN_BYGONE);

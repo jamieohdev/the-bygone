@@ -10,7 +10,7 @@
   "effects": {
     "additions_sound": {
       "sound": "bygone:ambient.underhang.additions",
-      "tick_chance": 0.0007
+      "tick_chance": 0.00035
     },
 
     "fog_color": 8436873,
