@@ -1,0 +1,106 @@
+{
+  "carvers": {
+    "air": ["bygone:cave", "bygone:canyon"]
+  },
+  "downfall": 0.5,
+  "effects": {
+    "additions_sound": {
+      "sound": "bygone:ambient.primordial_ocean.additions",
+      "tick_chance": 0.0014
+    },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "bygone:music.bygone.primordial_ocean"
+    },
+    "fog_color": 488284,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000
+    },
+    "sky_color": 6988951,
+    "water_color": 4445678,
+    "water_fog_color": 270131
+  },
+  "features": [
+    [],
+    [],
+    ["minecraft:iceberg_packed", "minecraft:iceberg_blue"],
+    [
+      "bygone:fossil_upper",
+      "bygone:fossil_lower",
+      "minecraft:monster_room",
+      "minecraft:monster_room_deep"
+    ],
+    ["bygone:small_cloud"],
+    [],
+    [
+      "bygone:ore_coal_upper",
+      "bygone:ore_coal_lower",
+      "bygone:ore_iron_upper",
+      "bygone:ore_iron_middle",
+      "bygone:ore_iron_small",
+      "bygone:ore_copper",
+      "bygone:ore_malachite",
+      "minecraft:underwater_magma",
+      "minecraft:disk_sand",
+      "bygone:disk_test",
+      "bygone:disk_gravel"
+    ],
+    [],
+    [
+      "minecraft:spring_water",
+      "minecraft:glowstone_extra",
+      "minecraft:glowstone"
+    ],
+    [
+      "minecraft:jungle_bush",
+      "bygone:primordial_vents",
+      "bygone:patch_blue",
+      "minecraft:glow_lichen",
+      "bygone:charnia",
+      "bygone:coral",
+      "bygone:seagrass_deep",
+      "bygone:seagrass_normal",
+      "bygone:kelp",
+      "minecraft:flower_cherry",
+      "bygone:flower_primordial"
+    ],
+    ["minecraft:freeze_top_layer"]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": [
+      {
+        "type": "bygone:scuttle",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 20
+      },
+      {
+        "type": "bygone:coelacanth",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 15
+      },
+      {
+        "type": "bygone:trilobite",
+        "maxCount": 8,
+        "minCount": 4,
+        "weight": 20
+      }
+    ]
+  },
+  "temperature": 0.5
+}
