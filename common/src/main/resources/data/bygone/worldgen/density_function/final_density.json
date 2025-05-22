@@ -37,7 +37,7 @@
                   "argument2": {
                     "type": "minecraft:add",
                     "argument1": 23.4375,
-                    "argument2": "minecraft:end/base_3d_noise"
+                    "argument2": "bygone:terrain/final"
                   }
                 }
               }

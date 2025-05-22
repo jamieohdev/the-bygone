@@ -3,7 +3,7 @@
   "disable_mob_generation": false,
   "ore_veins_enabled": false,
   "aquifers_enabled": true,
-  "legacy_random_source": true,
+  "legacy_random_source": false,
   "default_block": {
     "Name": "bygone:bystone"
   },
@@ -86,9 +86,7 @@
         "type": "minecraft:condition",
         "if_true": {
           "type": "minecraft:biome",
-          "biome_is": [
-            "bygone:underhang"
-          ]
+          "biome_is": ["bygone:underhang"]
         },
         "then_run": {
           "type": "minecraft:condition",
@@ -118,7 +116,6 @@
           "surface_depth_multiplier": 1
         },
         "then_run": {
-
           "type": "minecraft:block",
           "result_state": {
             "Name": "bygone:byslate"
@@ -387,7 +384,7 @@
         "type": "minecraft:condition",
         "if_true": {
           "type": "minecraft:biome",
-          "biome_is": ["bygone:primordial_ocean"]
+          "biome_is": ["bygone:primordial_ocean", "bygone:primordial_beach"]
         },
         "then_run": {
           "type": "minecraft:condition",
@@ -430,7 +427,7 @@
         "type": "minecraft:condition",
         "if_true": {
           "type": "minecraft:biome",
-          "biome_is": ["bygone:primordial_ocean"]
+          "biome_is": ["bygone:primordial_ocean", "bygone:primordial_beach"]
         },
         "then_run": {
           "type": "minecraft:sequence",
@@ -447,7 +444,6 @@
               "then_run": {
                 "type": "minecraft:sequence",
                 "sequence": [
-
                   {
                     "type": "minecraft:block",
                     "result_state": {

@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:noise",
+  "noise": "bygone:caves/spaghetti",
+  "xz_scale": 0.75,
+  "y_scale": 0
+}

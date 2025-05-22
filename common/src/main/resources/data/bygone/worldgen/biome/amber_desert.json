@@ -1,10 +1,6 @@
 {
   "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
+    "air": ["bygone:cave", "bygone:canyon"]
   },
   "downfall": 0.0,
   "effects": {
@@ -34,16 +30,9 @@
   },
   "features": [
     [],
-    [
-    ],
-    [
-      "bygone:amber",
-      "bygone:amber_2",
-      "bygone:amber_blob"
-    ],
-    [
-      "bygone:small_cloud"
-    ],
+    [],
+    ["bygone:amber", "bygone:amber_2", "bygone:amber_blob"],
+    ["bygone:small_cloud"],
     [],
     [],
     [
@@ -57,10 +46,7 @@
       "bygone:ore_copper"
     ],
     [],
-    [
-      "minecraft:spring_water",
-      "minecraft:spring_lava"
-    ],
+    ["minecraft:spring_water", "minecraft:spring_lava"],
     [
       "minecraft:glow_lichen",
       "bygone:creosote_sprouts",
@@ -68,18 +54,14 @@
       "minecraft:patch_grass_badlands",
       "bygone:amber_desert_vegetation"
     ],
-    [
-      "minecraft:freeze_top_layer"
-    ]
+    ["minecraft:freeze_top_layer"]
   ],
   "has_precipitation": false,
   "spawn_costs": {},
   "spawners": {
-    "ambient": [
-    ],
+    "ambient": [],
     "axolotls": [],
-    "creature": [
-    ],
+    "creature": [],
     "misc": [],
     "monster": [
       {
@@ -89,9 +71,7 @@
         "weight": 80
       }
     ],
-    "underground_water_creature": [
-
-    ],
+    "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []
   },
