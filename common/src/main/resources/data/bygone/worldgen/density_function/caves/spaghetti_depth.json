@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:y_clamped_gradient",
+    "from_y": 0,
+    "to_y": 320,
+    "from_value": 1,
+    "to_value": -1
+  },
+  "argument2": "bygone:caves/spaghetti_depth_noise"
+}
