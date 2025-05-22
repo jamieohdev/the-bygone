@@ -2,7 +2,7 @@
   "type": "minecraft:flat_cache",
   "argument": {
     "type": "minecraft:noise",
-    "noise": "minecraft:vegetation",
+    "noise": "bygone:biome_parameters/vegetation",
     "xz_scale": 0.25,
     "y_scale": 0.0
   }
