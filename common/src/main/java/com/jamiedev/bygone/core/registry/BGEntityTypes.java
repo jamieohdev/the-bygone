@@ -114,6 +114,13 @@ public class BGEntityTypes {
                     .updateInterval(8)
                     .build(""));
 
+    public static final Supplier<EntityType<CopperbugEntity>> COPPERFLY = registerEntityType("copperfly", () ->
+            EntityType.Builder.of(CopperbugEntity::new, MobCategory.CREATURE)
+                    .sized(0.4F, 0.3F).eyeHeight(.13f)
+                    .clientTrackingRange(8)
+                    .updateInterval(8)
+                    .build(""));
+
     public static final Supplier<EntityType<PestEntity>> PEST = registerEntityType("pest", () ->
             EntityType.Builder.of(PestEntity::new, MobCategory.CREATURE)
                     .sized(0.5F, 0.5F).eyeHeight(.13f)

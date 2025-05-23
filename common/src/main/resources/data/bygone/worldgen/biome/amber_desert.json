@@ -8,7 +8,7 @@
       "sound": "bygone:ambient.amber_desert.additions",
       "tick_chance": 0.0007
     },
-    "fog_color": 12672002,
+    "fog_color": 15981964,
     "foliage_color": 11851346,
     "grass_color": 11851346,
     "mood_sound": {
@@ -24,7 +24,7 @@
       },
       "probability": 0.025
     },
-    "sky_color": 16772474,
+    "sky_color": 12764056,
     "water_color": 4445678,
     "water_fog_color": 270131
   },

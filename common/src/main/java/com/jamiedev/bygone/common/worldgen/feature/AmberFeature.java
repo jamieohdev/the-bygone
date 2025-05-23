@@ -122,7 +122,7 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
                 if (e < 0.0) {
                     BlockPos blockPos2 = pos.offset(n, y, o);
                     BlockState blockState = world.getBlockState(blockPos2);
-                    if (isSnowOrHONEY_BLOCK(blockState) || blockState.is(BGBlocks.COBBLED_AMBER.get())) {
+                    if (isSnowOrHONEY_BLOCK(blockState) || blockState.is(BGBlocks.UMBER.get())) {
                         if (placeWater) {
                             this.setBlock(world, blockPos2, BGBlocks.UMBER.get().defaultBlockState());
                         } else {
@@ -159,11 +159,11 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
 
     private void placeBlockOrSnow(BlockPos pos, LevelAccessor world, @NotNull RandomSource random, int heightRemaining, int height, boolean lessSnow, boolean placeSnow, BlockState state) {
         BlockState blockState = world.getBlockState(pos);
-        if (blockState.isAir() || blockState.is(BGBlocks.COBBLED_AMBER.get()) || blockState.is(BGBlocks.AMBER.get()) || blockState.is(BGBlocks.UMBER.get())) {
+        if (blockState.isAir() || blockState.is(BGBlocks.UMBER.get()) || blockState.is(BGBlocks.AMBER.get()) || blockState.is(BGBlocks.UMBER.get())) {
             boolean bl = !lessSnow || random.nextDouble() > 0.05;
             int i = lessSnow ? 3 : 2;
             if (placeSnow && !blockState.is(BGBlocks.UMBER.get()) && (double)heightRemaining <= (double)random.nextInt(Math.max(1, height / i)) + (double)height * 0.6 && bl) {
-                this.setBlock(world, pos, BGBlocks.COBBLED_AMBER.get().defaultBlockState());
+                this.setBlock(world, pos, BGBlocks.UMBER.get().defaultBlockState());
             } else {
                 this.setBlock(world, pos, state);
             }
@@ -213,7 +213,7 @@ public class AmberFeature  extends Feature<BlockStateConfiguration> {
     }
 
     private static boolean isSnowOrHONEY_BLOCK(BlockState state) {
-        return state.is(Blocks.YELLOW_WOOL) || state.is(BGBlocks.COBBLED_AMBER.get()) || state.is(Blocks.YELLOW_STAINED_GLASS) || state.is(BGBlocks.AMBER.get());
+        return state.is(Blocks.YELLOW_WOOL) || state.is(BGBlocks.UMBER.get()) || state.is(Blocks.YELLOW_STAINED_GLASS) || state.is(BGBlocks.AMBER.get());
     }
 
     private boolean isAirBelow(BlockGetter world, BlockPos pos) {
