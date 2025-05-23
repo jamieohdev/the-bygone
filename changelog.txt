@@ -39,7 +39,7 @@
 # Bugs fixed:
 * Fixed crash related to Mooboos in the Bygone!
 * Fixed both Polished Bystone and Polished Byslate family of blocks from not having stonecutter recipes!
-
+* Fixed Big Beak subtitles not being translated!
 
 
 ## **Updates in 1.2.3**

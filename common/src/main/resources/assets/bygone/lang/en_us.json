@@ -301,6 +301,8 @@
   "subtitles.entity.bigbeak.ambient": "Big Beak caws",
   "subtitles.entity.bigbeak.hurt": "Big Beak hurts",
   "subtitles.entity.bigbeak.death": "Big Beak dies",
+  "subtitles.entity.bigbeak.gallop": "Big Beak trots",
+  "subtitles.entity.bigbeak.step_wood": "Footsteps",
 
   "subtitles.entity.fungus_parent.ambient": "Fungus Parent chirps",
   "subtitles.entity.fungus_parent.ambient_baby": "Fungus Child chirps",
