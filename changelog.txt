@@ -7,7 +7,7 @@
 * GLARE improvements
 * Copperbug improvements
 * Big Beak new textures?
-* Updated terrain generation? -> * New structure?
+* New structure?
 
 > Fix Skull fossil being one block up
 > Fix Vines not being pick blockable
@@ -20,7 +20,14 @@
 ### Wow
 
 # New features in 1.3:
-* Added heck
+* Completely overhauled the Bygones world generation! (See below for more details!)
+
+# Terrain Generation changes and additions:
+* Added the "Primordial Beach" biome
+* Added noise Pillars to the terrain
+* New cave generation
+* Redistributed biomes (Beaches will generate next to Oceans, Amber Deserts are less common, and  Primordial Oceans are smaller)
+* Made the overall terrain more traversable by flattening it!
 
 # Technical features:
 * Added what?
@@ -28,8 +35,10 @@
 # Changes to existing features:
 * Underhang ambience now plays 50% less of the time.
 
+
 # Bugs fixed:
 * Fixed crash related to Mooboos in the Bygone!
+* Fixed both Polished Bystone and Polished Byslate family of blocks from not having stonecutter recipes!
 
 
 
