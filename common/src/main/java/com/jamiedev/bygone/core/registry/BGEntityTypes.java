@@ -100,6 +100,8 @@ public class BGEntityTypes {
             EntityType.Builder.of(TrilobiteEntity::new, MobCategory.WATER_CREATURE)
                     .sized(0.4F, 0.3F).build(""));
 
+
+
     public static final  Supplier<EntityType<RisingBlockEntity>> RISING_BLOCK = registerEntityType("rising_block", () ->
             EntityType.Builder.of(RisingBlockEntity::new, MobCategory.MISC)
                     .sized(0.98F, 0.98F)

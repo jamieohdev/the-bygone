@@ -53,7 +53,7 @@ public class BGBlockEntities {
                         .build(null));
 
        // BRUSHABLE_BLOCK = register("brushable_block",
-        //        BlockEntityType.Builder.create(BygoneBrushableBlockEntity::new, SUSPICIOUS_UMBER)
+        //        BlockEntityType.Builder.create(BygoneBrushableBlockEntity::new, SUSPICIOUS_AMBER_SAND)
         //                .build());
         BYGONE_PORTAL =  register(
                 "bygone_portal", () ->

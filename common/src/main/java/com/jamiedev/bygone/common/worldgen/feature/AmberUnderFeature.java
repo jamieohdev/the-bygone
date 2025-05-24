@@ -25,7 +25,7 @@ public class AmberUnderFeature  extends Feature<NoneFeatureConfiguration> {
             return false;
         } else {
             BlockState blockState = structureWorldAccess.getBlockState(blockPos.above());
-            if (!blockState.is(BGBlocks.AMBERSTONE.get()) && !blockState.is(BGBlocks.UMBER.get())) {
+            if (!blockState.is(BGBlocks.AMBERSTONE.get()) && !blockState.is(BGBlocks.AMBER_SAND.get())) {
                 return false;
             } else {
                 structureWorldAccess.setBlock(blockPos, BGBlocks.FLOWING_AMBER.get().defaultBlockState(), 2);

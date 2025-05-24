@@ -7,7 +7,7 @@
     "ground_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "bygone:umber"
+        "Name": "bygone:amber_sand"
       }
     },
     "replaceable": "#minecraft:moss_replaceable",

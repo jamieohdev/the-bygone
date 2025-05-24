@@ -49,10 +49,8 @@
     ["minecraft:spring_water", "minecraft:spring_lava"],
     [
       "minecraft:glow_lichen",
-      "bygone:creosote_sprouts",
-      "minecraft:flower_default",
-      "minecraft:patch_grass_badlands",
-      "bygone:amber_desert_vegetation"
+
+      "bygone:amber_clump"
     ],
     ["minecraft:freeze_top_layer"]
   ],

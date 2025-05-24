@@ -63,6 +63,8 @@ public class BygoneClient {
         consumer.accept(BGBlocks.BLUE_ALGAE.get(), RenderType.cutout());
         consumer.accept(BGBlocks.MALACHITE_DOOR.get(), RenderType.cutout());
 
+        consumer.accept(BGBlocks.AMBER_CLUMP.get(), RenderType.cutout());
+
         consumer.accept(BGBlocks.BLEMISH_VEIN.get(), RenderType.cutoutMipped());
 
         consumer.accept(BGBlocks.CRINOID.get(), RenderType.cutout());

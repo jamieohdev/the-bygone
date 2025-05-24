@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:multiface_growth",
+  "config": {
+    "block": "bygone:amber_clump",
+    "can_be_placed_on": [
+      "bygone:amber_sand",
+      "bygone:bystone",
+      "bygone:byslate"
+    ],
+    "can_place_on_ceiling": true,
+    "can_place_on_floor": false,
+    "can_place_on_wall": true,
+    "chance_of_spreading": 1.0,
+    "search_range": 20
+  }
+}

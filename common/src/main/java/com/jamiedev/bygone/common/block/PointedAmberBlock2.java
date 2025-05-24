@@ -573,7 +573,7 @@ public class PointedAmberBlock2  extends Block implements Fallable, SimpleWaterl
     }
 
     private static boolean canGrow(BlockState dripstoneBlockState, BlockState waterState) {
-        return dripstoneBlockState.is(BGBlocks.UMBER.get());
+        return dripstoneBlockState.is(BGBlocks.AMBER_SAND.get());
     }
 
     private static Fluid getDripFluid(Level world, Fluid fluid) {

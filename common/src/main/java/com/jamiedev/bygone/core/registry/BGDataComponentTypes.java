@@ -5,11 +5,15 @@ import com.jamiedev.bygone.common.block.entity.CopperbugNestBlockEntity;
 
 import java.util.List;
 import java.util.function.UnaryOperator;
+
+import com.mojang.serialization.Codec;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
+
 
 public class BGDataComponentTypes
 {
@@ -20,6 +24,9 @@ public class BGDataComponentTypes
     public static final DataComponentType<List<BeehiveBlockEntity.Occupant>> BEES = register("bees", builder -> {
         return builder.persistent(BeehiveBlockEntity.Occupant.LIST_CODEC).networkSynchronized(BeehiveBlockEntity.Occupant.STREAM_CODEC.apply(ByteBufCodecs.list())).cacheEncoding();
     });
+
+
+    public static final DataComponentType<Integer> BYGONE_MAP_HEIGHT = register("bygone_map_height", (p_335177_) -> p_335177_.persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 
     public static final DataComponentType<CopperbugNestBlockEntity.CopperbugData> COPPERBUG_1 = Registry.register(
             BuiltInRegistries.DATA_COMPONENT_TYPE,

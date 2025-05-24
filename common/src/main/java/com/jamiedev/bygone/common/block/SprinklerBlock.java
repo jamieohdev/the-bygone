@@ -97,7 +97,7 @@ public class SprinklerBlock extends BaseEntityBlock {
             stack.consume(1, player);
             if (isCropsNearby(world, pos))
             {
-                if (world.random.nextInt(2) == 1) {
+                if (world.random.nextInt(4) == 1) {
                     for(int i = 1; i <= 2; ++i) {
 
                         for(BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-15, 0, -15), pos.offset(15, 1, 15))) {

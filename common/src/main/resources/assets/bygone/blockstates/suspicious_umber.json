@@ -1,16 +1,16 @@
 {
   "variants": {
     "dusted=0": {
-      "model": "bygone:block/suspicious_umber_0"
+      "model": "bygone:block/suspicious_amber_sand_0"
     },
     "dusted=1": {
-      "model": "bygone:block/suspicious_umber_1"
+      "model": "bygone:block/suspicious_amber_sand_1"
     },
     "dusted=2": {
-      "model": "bygone:block/suspicious_umber_2"
+      "model": "bygone:block/suspicious_amber_sand_2"
     },
     "dusted=3": {
-      "model": "bygone:block/suspicious_umber_3"
+      "model": "bygone:block/suspicious_amber_sand_3"
     }
   }
 }

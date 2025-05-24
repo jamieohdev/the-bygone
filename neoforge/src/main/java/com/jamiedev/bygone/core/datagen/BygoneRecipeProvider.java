@@ -20,41 +20,16 @@ public class BygoneRecipeProvider extends RecipeProvider {
 
     @Override
     public void buildRecipes(RecipeOutput exporter) {
-        this.BricksRecipe(exporter, BGBlocks.BYSTONE.get(), BGBlocks.POLISHED_BYSTONE.get());
-        this.BricksRecipe(exporter, BGBlocks.POLISHED_BYSTONE.get(), BGBlocks.POLISHED_BYSTONE_BRICK.get());
-        this.BricksRecipe(exporter, BGBlocks.POLISHED_BYSTONE_BRICK.get(), BGBlocks.POLISHED_BYSTONE_SHINGLES.get());
-        
-        //this.SlabRecipe(exporter, BGBlocks.BYSTONE.get(), BGBlocks.BYSTONE_SLAB.get());
-        //this.StairsRecipe(exporter, BGBlocks.BYSTONE.get(), BGBlocks.BYSTONE_STAIRS.get());
-        //this.WallsRecipe(exporter, BGBlocks.BYSTONE.get(), BGBlocks.BYSTONE_WALL.get());
 
-        this.SlabRecipe(exporter, BGBlocks.POLISHED_BYSTONE_BRICK.get(), BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.get());
-        this.StairsRecipe(exporter, BGBlocks.POLISHED_BYSTONE_BRICK.get(), BGBlocks.POLISHED_BYSTONE_BRICK_STAIRS.get());
-        this.WallsRecipe(exporter, BGBlocks.POLISHED_BYSTONE_BRICK.get(), BGBlocks.POLISHED_BYSTONE_BRICK_WALL.get());
+        this.SlabRecipe(exporter, BGBlocks.AMBER_SANDSTONE.get(), BGBlocks.AMBER_SANDSTONE_SLAB.get());
+        this.StairsRecipe(exporter, BGBlocks.AMBER_SANDSTONE.get(), BGBlocks.AMBER_SANDSTONE_STAIRS.get());
+        this.WallsRecipe(exporter, BGBlocks.AMBER_SANDSTONE.get(), BGBlocks.AMBER_SANDSTONE_WALL.get());
 
-
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.BYSTONE.get(), BGBlocks.POLISHED_BYSTONE.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSTONE.get(), BGBlocks.POLISHED_BYSTONE_SLAB.get(), 2);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSTONE.get(), BGBlocks.POLISHED_BYSTONE_STAIRS.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSTONE.get(), BGBlocks.POLISHED_BYSTONE_WALL.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSTONE.get(), BGBlocks.POLISHED_BYSTONE_BRICK.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSTONE_BRICK.get(), BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.get(), 2);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSTONE_BRICK.get(), BGBlocks.POLISHED_BYSTONE_BRICK_STAIRS.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSTONE_BRICK.get(), BGBlocks.POLISHED_BYSTONE_BRICK_WALL.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSTONE.get(), BGBlocks.CHISELED_POLISHED_BYSTONE.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSTONE.get(), BGBlocks.POLISHED_BYSTONE_SHINGLES.get(), 1);
-
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.BYSLATE.get(), BGBlocks.POLISHED_BYSLATE.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSLATE.get(), BGBlocks.POLISHED_BYSLATE_SLAB.get(), 2);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSLATE.get(), BGBlocks.POLISHED_BYSLATE_STAIRS.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSLATE.get(), BGBlocks.POLISHED_BYSLATE_WALL.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSLATE.get(), BGBlocks.POLISHED_BYSLATE_BRICK.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSLATE_BRICK.get(), BGBlocks.POLISHED_BYSLATE_BRICK_SLAB.get(), 2);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSLATE_BRICK.get(), BGBlocks.POLISHED_BYSLATE_BRICK_STAIRS.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSLATE_BRICK.get(), BGBlocks.POLISHED_BYSLATE_BRICK_WALL.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSLATE.get(), BGBlocks.CHISELED_POLISHED_BYSLATE.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.POLISHED_BYSLATE.get(), BGBlocks.POLISHED_BYSLATE_SHINGLES.get(), 1);
-    }
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.AMBER_SANDSTONE.get(), BGBlocks.CHISELED_AMBER_SANDSTONE.get(), 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.AMBER_SANDSTONE.get(), BGBlocks.AMBER_SANDSTONE_SLAB.get(), 2);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.AMBER_SANDSTONE.get(), BGBlocks.AMBER_SANDSTONE_STAIRS.get(), 1);
+        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.AMBER_SANDSTONE.get(), BGBlocks.AMBER_SANDSTONE_WALL.get(), 1);
+   }
 
 
     void BricksRecipe(RecipeOutput exporter, Block input, Block output){

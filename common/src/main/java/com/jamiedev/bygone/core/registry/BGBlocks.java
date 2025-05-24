@@ -450,16 +450,34 @@ public class BGBlocks {
 
 
 // Start of Amber Desert blocksets!
-    public static final Supplier<Block> UMBER = registerBlock("umber", () ->
+    public static final Supplier<Block> AMBER_SAND = registerBlock("amber_sand", () ->
         new Block(BlockBehaviour.Properties.of().mapColor(MapColor.NETHER).strength(0.35F)
                 .sound(SoundType.GRAVEL)));
-    public static final Supplier<Block> UMBER_BRICKS = registerBlock("umber_bricks", () ->
+    
+    public static final Supplier<Block> AMBER_SANDSTONE = registerBlock("amber_sandstone", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.NETHER).strength(0.99F)
-                    .sound(SoundType.GRAVEL)));
-    //public static final Supplier<Block> SUSPICIOUS_UMBER = registerBlock("suspicious_umber", () ->
-    //        new BygoneBrushableBlock(UMBER, SoundEvents.ITEM_BRUSH_BRUSHING_GRAVEL, SoundEvents.ITEM_BRUSH_BRUSHING_GRAVEL_COMPLETE,
-     //               AbstractBlock.Settings.create().mapColor(MapColor.DARK_RED).instrument(NoteBlockInstrument.SNARE)
-     //                       .strength(0.25F).sounds(BlockSoundGroup.SUSPICIOUS_GRAVEL).pistonBehavior(PistonBehavior.DESTROY)));
+                    .sound(SoundType.STONE)));
+
+    public static final Supplier<Block> CHISELED_AMBER_SANDSTONE = registerBlock("chiseled_amber_sandstone", () ->
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.NETHER).strength(0.99F)
+                    .sound(SoundType.STONE)));
+
+    public static final Supplier<Block> AMBER_SANDSTONE_STAIRS = registerBlock("amber_sandstone_stairs", () ->
+            new StairBlock(BGBlocks.AMBER_SANDSTONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+
+    public static final Supplier<Block> AMBER_SANDSTONE_SLAB = registerBlock("amber_sandstone_slab", () ->
+            new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.AMBER_SANDSTONE.get()).strength(2.0f)));
+
+    public static final Supplier<Block> AMBER_SANDSTONE_WALL = registerBlock("amber_sandstone_wall", () ->
+            new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.AMBER_SANDSTONE.get()).strength(2.0f)));
+
+
+    public static final Supplier<Block> AMBER_CLUMP = registerBlock("amber_clump", () ->
+            new AmberClumpBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).replaceable().noCollission().randomTicks().strength(0.2F).sound(SoundType.VINE).ignitedByLava().pushReaction(PushReaction.DESTROY).lightLevel((state) -> {
+                return 15;
+            })));
+
+
     public static final Supplier<Block> AMBER = registerBlock("amber", () ->
         new HalfTransparentBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).strength(1.0F)
                 .sound(SoundType.GLASS).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never)
@@ -475,7 +493,7 @@ public class BGBlocks {
     public static final Supplier<Block> FLOWING_AMBER = registerBlock("glowing_amber", () -> new Block(
             BlockBehaviour.Properties.of().sound(SoundType.GLASS).mapColor(MapColor.COLOR_ORANGE).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
                     6.0F).lightLevel((state) -> {
-                return 15;
+                return 9;
             })));
     public static final Supplier<Block> COBBLED_AMBER = registerBlock("cobbled_amber", () -> new Block(
             BlockBehaviour.Properties.of().sound(SoundType.GLASS).mapColor(MapColor.COLOR_ORANGE).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,

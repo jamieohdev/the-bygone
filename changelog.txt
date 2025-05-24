@@ -2,7 +2,6 @@
 
 * Primordial BEACH?
 * Primordial Ocean land vegetation
-* Amber Desert rework
 * Portal mechanics?
 * GLARE improvements
 * Copperbug improvements
@@ -17,10 +16,15 @@
 
 ## **Updates in 1.3**
 
-### Wow
+### Greetings all! Its been a while since the last -major- update, so do we have some changes in store!
+### We have changed how the Bygone generates as whole entirely, reworked the Amber Desert biome, and so much more!
+### PLEASE keep in mind you WILL have to delete your /bygone/ dimension folder before updating! Some of the changes will have made things unstable in older worlds!
+
 
 # New features in 1.3:
 * Completely overhauled the Bygones world generation! (See below for more details!)
+* Overhauled the look of the Amber Desert biome.
+* Added the Amber Sand, Amber Sandstone, and Chiseled Amber Sandstone blocksets.
 
 # Terrain Generation changes and additions:
 * Added the "Primordial Beach" biome
@@ -34,6 +38,11 @@
 
 # Changes to existing features:
 * Underhang ambience now plays 50% less of the time.
+* Copperbugs, Pests, and Trilobites are now considered "Arthopods".
+* Sprinkler now bonemeals crop randomly 20% less.
+* Pests now consume crops 20% more.
+* Removed Umber.
+* Removed Umber Bricks.
 
 
 # Bugs fixed:

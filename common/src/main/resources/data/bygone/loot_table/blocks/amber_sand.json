@@ -14,7 +14,7 @@
                   "condition": "minecraft:survives_explosion"
                 }
               ],
-              "name": "bygone:umber"
+              "name": "bygone:amber_sand"
             }
           ]
         }
@@ -22,5 +22,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "bygone:blocks/umber"
+  "random_sequence": "bygone:blocks/amber_sand"
 }

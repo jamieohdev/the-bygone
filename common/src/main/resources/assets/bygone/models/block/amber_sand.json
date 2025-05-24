@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "bygone:block/umber"
+    "all": "bygone:block/amber_sand"
   }
 }

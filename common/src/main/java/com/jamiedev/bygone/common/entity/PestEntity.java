@@ -23,6 +23,7 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -36,6 +37,8 @@ import javax.annotation.Nullable;
 
 public class PestEntity extends Animal
 {
+    Spider ref1;
+
     protected static final ImmutableList<SensorType<? extends Sensor<? super PestEntity>>> SENSOR_TYPES;
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES;
     private int moreCropTicks;

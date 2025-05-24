@@ -188,8 +188,12 @@ public class BGItemGroups {
 
 
 // Start of Amber Desert blocksets!
-                output.accept(BGBlocks.UMBER.get());
-                output.accept(BGBlocks.UMBER_BRICKS.get());
+                output.accept(BGBlocks.AMBER_SAND.get());
+                output.accept(BGBlocks.AMBER_SANDSTONE.get());
+                output.accept(BGBlocks.AMBER_SANDSTONE_STAIRS.get());
+                output.accept(BGBlocks.AMBER_SANDSTONE_SLAB.get());
+                output.accept(BGBlocks.AMBER_SANDSTONE_WALL.get());
+                output.accept(BGBlocks.CHISELED_AMBER_SANDSTONE.get());
                 output.accept(BGBlocks.AMBER.get());
 
                 output.accept(BGBlocks.AMBER_BRICKS.get());

@@ -96,7 +96,7 @@ public class AmberHelper
     protected static boolean generateAmberBlock(LevelAccessor world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos);
         if (blockState.is(BlockTags.DRIPSTONE_REPLACEABLE)) {
-            world.setBlock(pos, BGBlocks.UMBER.get().defaultBlockState(), 2);
+            world.setBlock(pos, BGBlocks.AMBER_SAND.get().defaultBlockState(), 2);
             return true;
         } else {
             return false;
@@ -112,7 +112,7 @@ public class AmberHelper
     }
 
     public static boolean canReplace(BlockState state) {
-        return state.is(BGBlocks.UMBER.get()) || state.is(BlockTags.DRIPSTONE_REPLACEABLE);
+        return state.is(BGBlocks.AMBER_SAND.get()) || state.is(BlockTags.DRIPSTONE_REPLACEABLE);
     }
 
     public static boolean canGenerate(BlockState state) {

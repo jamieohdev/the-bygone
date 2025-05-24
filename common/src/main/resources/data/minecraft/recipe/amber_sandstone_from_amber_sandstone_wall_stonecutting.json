@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "bygone:amber_sandstone"
+  },
+  "result": {
+    "count": 1,
+    "id": "bygone:amber_sandstone_wall"
+  }
+}

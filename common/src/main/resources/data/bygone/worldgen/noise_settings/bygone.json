@@ -243,7 +243,7 @@
               {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "bygone:umber"
+                  "Name": "bygone:amber_sand"
                 }
               }
             ]
@@ -271,7 +271,7 @@
               "then_run": {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "bygone:umber"
+                  "Name": "bygone:amber_sand"
                 }
               }
             },
@@ -286,7 +286,7 @@
               "then_run": {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "bygone:umber"
+                  "Name": "bygone:amber_sand"
                 }
               }
             }
@@ -995,14 +995,14 @@
                     "then_run": {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "bygone:umber"
+                        "Name": "bygone:amber_sandstone"
                       }
                     }
                   },
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "bygone:umber"
+                      "Name": "bygone:amber_sand"
                     }
                   }
                 ]
@@ -1173,7 +1173,7 @@
           "then_run": {
             "type": "minecraft:block",
             "result_state": {
-              "Name": "bygone:umber"
+              "Name": "bygone:amber_sandstone"
             }
           }
         }
