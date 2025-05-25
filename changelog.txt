@@ -24,7 +24,7 @@
 # New features in 1.3:
 * Completely overhauled the Bygones world generation! (See below for more details!)
 * Overhauled the look of the Amber Desert biome.
-* Added the Amber Sand, Amber Sandstone, and Chiseled Amber Sandstone blocksets.
+* Added the Amber Sand, Amber Sandstone, Cut Amber Sandstone, Smooth Amber Sandstone and Chiseled Amber Sandstone blocksets.
 
 # Terrain Generation changes and additions:
 * Added the "Primordial Beach" biome
@@ -37,10 +37,13 @@
 * Added what?
 
 # Changes to existing features:
+* Chiseled Polished Bystone and Byslate are now craftable.
+* Underhang water color has been adjusted.
 * Underhang ambience now plays 50% less of the time.
 * Copperbugs, Pests, and Trilobites are now considered "Arthopods".
 * Sprinkler now bonemeals crop randomly 20% less.
 * Pests now consume crops 20% more.
+* Mossy Claystone now boosts Sniffer eggs hatch rates.
 * Removed Umber.
 * Removed Umber Bricks.
 
@@ -49,6 +52,11 @@
 * Fixed crash related to Mooboos in the Bygone!
 * Fixed both Polished Bystone and Polished Byslate family of blocks from not having stonecutter recipes!
 * Fixed Big Beak subtitles not being translated!
+
+* Fixed Whirliweeds not being "replaceable".
+* Fixed numerous tags from being broken.
+* Fixed numerous broken stonecutter recipes for Byslate and Bystone (All types).
+
 
 
 ## **Updates in 1.2.3**

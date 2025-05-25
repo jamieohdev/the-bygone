@@ -1,5 +1,7 @@
 {
+  "replace": false,
   "values": [
-    "bygone:glow_gravel"
+    "bygone:claystone",
+    "bygone:mossy_claystone"
   ]
 }

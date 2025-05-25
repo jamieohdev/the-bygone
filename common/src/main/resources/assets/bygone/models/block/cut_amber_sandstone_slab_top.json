@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "bygone:block/amber_sandstone_bottom",
+    "side": "bygone:block/cut_amber_sandstone",
+    "top": "bygone:block/amber_sandstone_top"
+  }
+}

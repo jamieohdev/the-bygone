@@ -462,6 +462,24 @@ public class BGBlocks {
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.NETHER).strength(0.99F)
                     .sound(SoundType.STONE)));
 
+    public static final Supplier<Block> SMOOTH_AMBER_SANDSTONE = registerBlock("smooth_amber_sandstone", () ->
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.NETHER).strength(0.99F)
+                    .sound(SoundType.STONE)));
+
+    public static final Supplier<Block> SMOOTH_AMBER_SANDSTONE_STAIRS = registerBlock("smooth_amber_sandstone_stairs", () ->
+            new StairBlock(BGBlocks.SMOOTH_AMBER_SANDSTONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+
+    public static final Supplier<Block> SMOOTH_AMBER_SANDSTONE_SLAB = registerBlock("smooth_amber_sandstone_slab", () ->
+            new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.SMOOTH_AMBER_SANDSTONE.get()).strength(2.0f)));
+
+    public static final Supplier<Block> CUT_AMBER_SANDSTONE = registerBlock("cut_amber_sandstone", () ->
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.NETHER).strength(0.99F)
+                    .sound(SoundType.STONE)));
+
+    public static final Supplier<Block> CUT_AMBER_SANDSTONE_SLAB = registerBlock("cut_amber_sandstone_slab", () ->
+            new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.CUT_AMBER_SANDSTONE.get()).strength(2.0f)));
+
+
     public static final Supplier<Block> AMBER_SANDSTONE_STAIRS = registerBlock("amber_sandstone_stairs", () ->
             new StairBlock(BGBlocks.AMBER_SANDSTONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
 
@@ -474,7 +492,7 @@ public class BGBlocks {
 
     public static final Supplier<Block> AMBER_CLUMP = registerBlock("amber_clump", () ->
             new AmberClumpBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).replaceable().noCollission().randomTicks().strength(0.2F).sound(SoundType.VINE).ignitedByLava().pushReaction(PushReaction.DESTROY).lightLevel((state) -> {
-                return 15;
+                return 10;
             })));
 
 
@@ -493,24 +511,24 @@ public class BGBlocks {
     public static final Supplier<Block> FLOWING_AMBER = registerBlock("glowing_amber", () -> new Block(
             BlockBehaviour.Properties.of().sound(SoundType.GLASS).mapColor(MapColor.COLOR_ORANGE).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
                     6.0F).lightLevel((state) -> {
-                return 9;
+                return 5;
             })));
     public static final Supplier<Block> COBBLED_AMBER = registerBlock("cobbled_amber", () -> new Block(
             BlockBehaviour.Properties.of().sound(SoundType.GLASS).mapColor(MapColor.COLOR_ORANGE).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
                     6.0F).lightLevel((state) -> {
-                return 6;
+                return 2;
             })));
 
     public static final Supplier<Block> AMBERSTONE = registerBlock("amberstone", () -> new Block(
             BlockBehaviour.Properties.of().sound(SoundType.GLASS).mapColor(MapColor.COLOR_ORANGE).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
                     4.0F).lightLevel((state) -> {
-                return 10;
+                return 3;
             })));
 
     public static final Supplier<Block> COBBLED_AMBERSTONE = registerBlock("cobbled_amberstone", () -> new Block(
             BlockBehaviour.Properties.of().sound(SoundType.GLASS).mapColor(MapColor.COLOR_ORANGE).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
                     3.0F).lightLevel((state) -> {
-                return 8;
+                return 2;
             })));
 
     public static final Supplier<Block> POINTED_AMBER = registerBlock("pointed_amber", () -> new PointedAmberBlock2(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).forceSolidOn()

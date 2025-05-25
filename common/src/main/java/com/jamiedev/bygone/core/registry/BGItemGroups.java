@@ -193,8 +193,14 @@ public class BGItemGroups {
                 output.accept(BGBlocks.AMBER_SANDSTONE_STAIRS.get());
                 output.accept(BGBlocks.AMBER_SANDSTONE_SLAB.get());
                 output.accept(BGBlocks.AMBER_SANDSTONE_WALL.get());
+                output.accept(BGBlocks.CUT_AMBER_SANDSTONE.get());
+                output.accept(BGBlocks.CUT_AMBER_SANDSTONE_SLAB.get());
+                output.accept(BGBlocks.SMOOTH_AMBER_SANDSTONE.get());
+                output.accept(BGBlocks.SMOOTH_AMBER_SANDSTONE_STAIRS.get());
+                output.accept(BGBlocks.SMOOTH_AMBER_SANDSTONE_SLAB.get());
                 output.accept(BGBlocks.CHISELED_AMBER_SANDSTONE.get());
                 output.accept(BGBlocks.AMBER.get());
+                output.accept(BGBlocks.AMBER_CLUMP.get());
 
                 output.accept(BGBlocks.AMBER_BRICKS.get());
                 output.accept(BGBlocks.FLOWING_AMBER.get());
