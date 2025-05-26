@@ -128,7 +128,7 @@ public class HookItem extends Item
                 if (!world.isClientSide) {
                     stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(user.getUsedItemHand()));
                     HookEntity hook = new HookEntity(world, player);
-                    this.shoot(user, hook, powerForTime *  8.0F);
+                    this.shoot(user, hook, powerForTime *  15.0F);
                     if(world.addFreshEntity(hook)){
                         ((PlayerWithHook)player).bygone$setHook(hook);
                     }

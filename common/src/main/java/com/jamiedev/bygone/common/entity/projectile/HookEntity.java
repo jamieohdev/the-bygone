@@ -52,13 +52,21 @@ public class HookEntity extends AbstractArrow
     public void tick() {
         super.tick();
         Player player = this.getPlayerOwner();
-        if((player == null || this.shouldRetract(player)) && !this.level().isClientSide) {
-            this.discard();
+        if (!this.level().isClientSide) {
+            if ((player == null || this.shouldRetract(player))) {
+                this.discard();
+            }
+            if (!this.level().getFluidState(new BlockPos(this.getBlockX(), this.getBlockY(), this.getBlockZ())).isEmpty()) {
+                this.discard();
+            }
+            if (player != null && player.isShiftKeyDown()) {
+                this.discard();
+            }
         }
     }
 
     private boolean shouldRetract(Player player) {
-        return player.isRemoved() || !player.isAlive() || !player.isHolding(BGItems.HOOK.get()) || this.distanceToSqr(player) > 10000.0;
+        return player.isRemoved() || !player.isAlive() || !player.isHolding(BGItems.HOOK.get()) || this.distanceTo(player) > 45F;
     }
 
     @Override
