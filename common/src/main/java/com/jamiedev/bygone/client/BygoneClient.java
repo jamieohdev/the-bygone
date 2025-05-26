@@ -62,6 +62,8 @@ public class BygoneClient {
         consumer.accept(BGBlocks.TALL_GRASS.get(), RenderType.cutout());
         consumer.accept(BGBlocks.BLUE_ALGAE.get(), RenderType.cutout());
         consumer.accept(BGBlocks.MALACHITE_DOOR.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.POTTED_ROSE.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.ROSE.get(), RenderType.cutout());
 
         consumer.accept(BGBlocks.AMBER_CLUMP.get(), RenderType.cutout());
 
@@ -133,6 +135,7 @@ public class BygoneClient {
         EntityRenderers.register(BGEntityTypes.FUNGAL_PARENT.get(), FungalParentRenderer::new);
         EntityRenderers.register(BGEntityTypes.BIG_BEAK.get(), BigBeakRenderer::new);
         EntityRenderers.register(BGEntityTypes.PEST.get(), PestRenderer::new);
+        EntityRenderers.register(BGEntityTypes.WHISKBILL.get(), WhiskbillRenderer::new);
     }
     
     public static void createModelLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> consumer) {
@@ -149,6 +152,7 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.BIG_BEAK_SADDLE, BigBeakModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.BIG_BEAK_ARMOR, BigBeakModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.PEST, PestModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.WHISKBILL, WhiskbillModel::getTexturedModelData);
     }
 
     public static void registerModelPredicateProviders() {

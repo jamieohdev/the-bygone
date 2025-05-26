@@ -18,6 +18,15 @@
         "processors": "bygone:randomize_farm",
         "element_type": "minecraft:single_pool_element"
       }
+    },
+    {
+      "weight": 6,
+      "element": {
+        "location": "bygone:abandoned_farm/abandoned_farm_4",
+        "projection": "rigid",
+        "processors": "bygone:randomize_farm",
+        "element_type": "minecraft:single_pool_element"
+      }
     }
   ]
 }

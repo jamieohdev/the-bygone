@@ -130,6 +130,13 @@ public class BGEntityTypes {
                     .updateInterval(8)
                     .build(""));
 
+    public static final Supplier<EntityType<WhiskbillEntity>> WHISKBILL = registerEntityType("whiskbill", () ->
+            EntityType.Builder.of(WhiskbillEntity::new, MobCategory.CREATURE)
+                    .sized(0.5F, 0.5F).eyeHeight(.13f)
+                    .clientTrackingRange(8)
+                    .updateInterval(8)
+                    .build(""));
+
 
     public static void postInit() {
         initSpawnRestrictions();

@@ -112,7 +112,7 @@ public class AmberHelper
     }
 
     public static boolean canReplace(BlockState state) {
-        return state.is(BGBlocks.AMBER_SAND.get()) || state.is(BlockTags.DRIPSTONE_REPLACEABLE);
+        return state.is(BGBlocks.AMBER_SANDSTONE.get()) ||state.is(BGBlocks.AMBER_SAND.get()) || state.is(BlockTags.DRIPSTONE_REPLACEABLE);
     }
 
     public static boolean canGenerate(BlockState state) {

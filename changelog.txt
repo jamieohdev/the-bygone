@@ -8,7 +8,7 @@
 * Big Beak new textures?
 * New structure?
 
-> Fix Skull fossil being one block up
+
 > Fix Vines not being pick blockable
 > Fix Huge Underhang trees generating without leaves on occasion?
 
@@ -16,7 +16,7 @@
 
 ## **Updates in 1.3**
 
-### Greetings all! Its been a while since the last -major- update, so do we have some changes in store!
+### Greetings all! It's been a while since the last -major- update, so do we have some changes in store!
 ### We have changed how the Bygone generates as whole entirely, reworked the Amber Desert biome, and so much more!
 ### PLEASE keep in mind you WILL have to delete your /bygone/ dimension folder before updating! Some of the changes will have made things unstable in older worlds!
 
@@ -25,6 +25,8 @@
 * Completely overhauled the Bygones world generation! (See below for more details!)
 * Overhauled the look of the Amber Desert biome.
 * Added the Amber Sand, Amber Sandstone, Cut Amber Sandstone, Smooth Amber Sandstone and Chiseled Amber Sandstone blocksets.
+* Added the Primordial Beach biome.
+* Added the [REDACTED] block, found in Abandoned Farms.
 
 # Terrain Generation changes and additions:
 * Added the "Primordial Beach" biome
@@ -33,8 +35,10 @@
 * Redistributed biomes (Beaches will generate next to Oceans, Amber Deserts are less common, and  Primordial Oceans are smaller)
 * Made the overall terrain more traversable by flattening it!
 
+
 # Technical features:
 * Added what?
+
 
 # Changes to existing features:
 * Chiseled Polished Bystone and Byslate are now craftable.
@@ -44,6 +48,7 @@
 * Sprinkler now bonemeals crop randomly 20% less.
 * Pests now consume crops 20% more.
 * Mossy Claystone now boosts Sniffer eggs hatch rates.
+* Chantrelle now has a light level of six.
 * Removed Umber.
 * Removed Umber Bricks.
 
@@ -52,7 +57,9 @@
 * Fixed crash related to Mooboos in the Bygone!
 * Fixed both Polished Bystone and Polished Byslate family of blocks from not having stonecutter recipes!
 * Fixed Big Beak subtitles not being translated!
+* Fixed Shelfhollows biome name not being translated!
 
+* Fixed a specific fossil generating one block in the air.
 * Fixed Whirliweeds not being "replaceable".
 * Fixed numerous tags from being broken.
 * Fixed numerous broken stonecutter recipes for Byslate and Bystone (All types).

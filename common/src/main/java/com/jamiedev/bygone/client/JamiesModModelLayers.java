@@ -45,6 +45,9 @@ public class JamiesModModelLayers {
 
     public static final ModelLayerLocation BIG_BEAK_ARMOR =  new ModelLayerLocation(Bygone.id("big_beak"), "armor");
 
+    public static final ModelLayerLocation WHISKBILL =
+            new ModelLayerLocation(Bygone.id("whiskbill"), "main");
+
     public static final ModelLayerLocation PEST =
             new ModelLayerLocation(Bygone.id("pest"), "main");
 }

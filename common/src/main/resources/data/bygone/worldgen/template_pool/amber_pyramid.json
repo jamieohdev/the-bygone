@@ -1,0 +1,23 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 2,
+      "element": {
+        "location": "bygone:amber_desert/amber_pyramid",
+        "projection": "rigid",
+        "processors": "bygone:randomize_roots",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "bygone:amber_desert/amber_pyramid_2",
+        "projection": "rigid",
+        "processors": "bygone:randomize_roots",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

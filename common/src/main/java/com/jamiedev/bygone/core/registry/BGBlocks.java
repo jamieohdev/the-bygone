@@ -36,7 +36,6 @@ public class BGBlocks {
      *
      * Bystone / Byslate Polished (Textures WIP), Bricks, Shingles Chiseled variants (And stairs / slabs / walls)
      * Claystone Bricks Chiseled Shingles variants (And stairs / slabs / walls)
-     * "Oceanstone" Normal Bricks Chiseled Shingles  (And stairs / slabs / walls)
      * "Ventstone" Normal Bricks Chiseled Shingles (And stairs / slabs / walls)
      * "Whitestone" Normal Bricks Chiseled Shingles  (And stairs / slabs / walls)
      * RATTAN woodset???
@@ -197,6 +196,14 @@ public class BGBlocks {
     }).instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
 
     public static  final Supplier<Block> POTTED_SAGARIA = registerBlockWithoutBlockItem("potted_sagaria", () -> createFlowerPotBlock(SAGARIA.get()));
+
+    public static  final Supplier<Block> ROSE = registerBlock("rose", () -> new FlowerBlock(MobEffects.LUCK, 12.0F,BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().lightLevel((state) -> {
+        return 0;
+    }).instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+
+    public static  final Supplier<Block> POTTED_ROSE = registerBlockWithoutBlockItem("potted_rose", () -> createFlowerPotBlock(ROSE.get()));
+
+
     public static  final Supplier<Block> RAFFLESIA = registerBlock("rafflesia", () -> new RafflesiaBlock(BlockBehaviour.Properties.of().mapColor(MapColor.CRIMSON_STEM).instabreak().noCollission().lightLevel((state) -> {
      return 15;
     }).sound(SoundType.SPORE_BLOSSOM).pushReaction(PushReaction.DESTROY)));
@@ -569,7 +576,9 @@ public class BGBlocks {
 
     public static final Supplier<Block> CHANTRELLE = registerBlockWithoutBlockItem("chantrelle", () -> new ChantrelleCropBlock(BlockBehaviour.Properties.of()
             .mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP)
-            .pushReaction(PushReaction.DESTROY)));
+            .pushReaction(PushReaction.DESTROY).lightLevel((state) -> {
+        return 6;
+    })));
 
 
     public static final Supplier<Block> AMARANTH_BLOCK = registerBlock("bale_block", () -> new HayBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BANJO).strength(0.5F).sound(SoundType.GRASS)));

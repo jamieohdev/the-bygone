@@ -22,6 +22,7 @@ public class BGStructures
 
     public static StructureType<RuinStructure> BLEMISH_RUINS;
     public static StructureType<AmberRuinsStructure> AMBER_RUINS;
+    public static StructureType<AmberPyramidStructure> AMBER_PYRAMID;
 
     public static StructureType<BygoneMineshaftStructure> BYGONE_MINESHAFT;
     public static StructurePieceType BYGONE_MINESHAFT_CORRIDOR = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
@@ -41,6 +42,8 @@ public class BGStructures
             Bygone.id("ruin"),  RuinGenerator.Piece::new);
     public static StructurePieceType RUIN_PIECES = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
             Bygone.id("amber_ruins"),  AmberRuinsGenerator.Piece::new);
+    public static StructurePieceType PYRAMID_PIECES = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
+            Bygone.id("amber_pyramid"),  AmberRuinsGenerator.Piece::new);
 
     public static StructureType<TestRootStructure> TEST_ROOTS;
 
@@ -70,6 +73,7 @@ public class BGStructures
         TEST_ROOTS = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "test_roots"), () -> TestRootStructure.CODEC);
         BLEMISH_RUINS = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "ruin"), () -> RuinStructure.CODEC);
         AMBER_RUINS = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "amber_ruins"), () -> AmberRuinsStructure.CODEC);
+        AMBER_PYRAMID = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "amber_pyramid"), () -> AmberPyramidStructure.CODEC);
         BYGONE_MINESHAFT = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "bygone_mineshaft"), () -> BygoneMineshaftStructure.CODEC);
     }
 }

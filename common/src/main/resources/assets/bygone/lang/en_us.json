@@ -117,6 +117,8 @@
   "block.bygone.plaga_crop": "Plaga Crop",
   "block.bygone.plaga": "Plaga",
   "block.bygone.chantrelle": "Chantrelle",
+  "block.bygone.rose": "Rose",
+  "block.bygone.potted_rose": "Potted Rose",
 
   "block.bygone.big_whirliweed": "Big Whirliweed",
   "block.bygone.whirliweed": "Whirliweed",
@@ -288,7 +290,8 @@
 
   "biome.bygone.amber_desert": "Amber Desert",
   "biome.bygone.underhang":"Underhang",
-  "biome.bygone.calm":"The Calmlands (Not added yet)",
+  "biome.bygone.shelfhollows":"The Shelf Hollows",
+  "biome.bygone.primordial_beach":"Primordial Beach",
   "biome.bygone.primordial_ocean":"Primordial Ocean",
   "biome.bygone.tar_pits":"The Cess Pools (Not added yet)",
 

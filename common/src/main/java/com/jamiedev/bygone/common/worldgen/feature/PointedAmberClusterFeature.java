@@ -123,9 +123,9 @@ public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatu
                     AmberHelper.generatePointedAmber(world, pos.atY(optionalInt.getAsInt() - 1), Direction.DOWN, m, bl4);
                 }
 
-                if (optionalInt3.isPresent()) {
+                /**if (optionalInt3.isPresent()) {
                     AmberHelper.generatePointedAmber(world, pos.atY(optionalInt3.getAsInt() + 1), Direction.UP, t, bl4);
-                }
+                }**/
 
             }
         }
