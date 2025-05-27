@@ -93,13 +93,14 @@ public class ClaystoneFarmlandBlock extends Block
     @Override
     protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         int i = state.getValue(MOISTURE);
-        if ((!isSprinklerNearby(world, pos)) && !world.isRainingAt(pos.above())) {
+        if ((!isSprinklerNearby(world, pos)) && (!isWaterNearby(world, pos))) {
             if (i > 0) {
                 world.setBlock(pos, state.setValue(MOISTURE, i - 1), 2);
             } else if (!hasCrop(world, pos)) {
                 setToDirt(null, state, world, pos);
             }
         }
+
         else if (i < 7) {
             world.setBlock(pos, state.setValue(MOISTURE, 7), 2);
         }
@@ -153,9 +154,6 @@ public class ClaystoneFarmlandBlock extends Block
             blockPos = (BlockPos)var2.next();
             BlockState blockstate1 = world.getBlockState(blockPos);
         } while(!world.getBlockState(blockPos).is(BGBlocks.SPRINKER.get()));
-
-
-
 
         return true;
     }

@@ -14,7 +14,7 @@ public class WhiskbillRenderer extends MobRenderer<WhiskbillEntity, WhiskbillMod
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/whiskbill.png");
 
     public WhiskbillRenderer(EntityRendererProvider.Context context) {
-        super(context, new WhiskbillModel<>(context.bakeLayer(JamiesModModelLayers.WHISKBILL)), 0.5F);
+        super(context, new WhiskbillModel<>(context.bakeLayer(JamiesModModelLayers.WHISKBILL)), 0.85F);
     }
 
     @Override

@@ -44,7 +44,7 @@ public class ChantrelleCropBlock extends BushBlock implements BonemealableBlock 
     }
 
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.is(BGBlocks.SHELF_MYCELIUM.get());
+        return state.is(BGBlocks.SHELF_MYCELIUM.get()) || state.is(BGBlocks.CLAYSTONE_FARMLAND.get());
     }
 
     protected IntegerProperty getAgeProperty() {

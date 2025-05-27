@@ -24,9 +24,11 @@
 # New features in 1.3:
 * Completely overhauled the Bygones world generation! (See below for more details!)
 * Overhauled the look of the Amber Desert biome.
+* Overhauled the Ancient Hook.
 * Added the Amber Sand, Amber Sandstone, Cut Amber Sandstone, Smooth Amber Sandstone and Chiseled Amber Sandstone blocksets.
+* Added the Amber Clump.
 * Added the Primordial Beach biome.
-* Added the [REDACTED] block, found in Abandoned Farms.
+* Added the [REDACTED] block, found only in Abandoned Farms.
 
 # Terrain Generation changes and additions:
 * Added the "Primordial Beach" biome
@@ -35,6 +37,13 @@
 * Redistributed biomes (Beaches will generate next to Oceans, Amber Deserts are less common, and  Primordial Oceans are smaller)
 * Made the overall terrain more traversable by flattening it!
 
+# Amber Desert changes and additions:
+* Is now made up of Amber Sand and Amber Sandstone.
+* Increased amount of Amber "boulders" in the biome.
+* Turned down the light levels of all Amber blocks.
+* Patches of Amber Clumps generate on walls and ceilings.
+* Pointed Amber now generates only on ceilings.
+* Tweaked the fog and sky colors to fit the dimension better!
 
 # Technical features:
 * Added what?
@@ -45,6 +54,7 @@
 * Underhang water color has been adjusted.
 * Underhang ambience now plays 50% less of the time.
 * Copperbugs, Pests, and Trilobites are now considered "Arthopods".
+* Claystone Farmland is now hydratable by Water.
 * Sprinkler now bonemeals crop randomly 20% less.
 * Pests now consume crops 20% more.
 * Mossy Claystone now boosts Sniffer eggs hatch rates.
@@ -58,7 +68,6 @@
 * Fixed both Polished Bystone and Polished Byslate family of blocks from not having stonecutter recipes!
 * Fixed Big Beak subtitles not being translated!
 * Fixed Shelfhollows biome name not being translated!
-
 * Fixed a specific fossil generating one block in the air.
 * Fixed Whirliweeds not being "replaceable".
 * Fixed numerous tags from being broken.

@@ -10,6 +10,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.animal.sniffer.Sniffer;
 
 import java.util.function.Supplier;
 
@@ -132,9 +133,11 @@ public class BGEntityTypes {
 
     public static final Supplier<EntityType<WhiskbillEntity>> WHISKBILL = registerEntityType("whiskbill", () ->
             EntityType.Builder.of(WhiskbillEntity::new, MobCategory.CREATURE)
-                    .sized(0.5F, 0.5F).eyeHeight(.13f)
-                    .clientTrackingRange(8)
+                    .sized(1.9F, 1.75F).eyeHeight(1.04f)
+                    .clientTrackingRange(10)
                     .updateInterval(8)
+                    .nameTagOffset(2.04F)
+                    .passengerAttachments(2.09F)
                     .build(""));
 
 

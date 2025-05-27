@@ -2,6 +2,7 @@ package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.common.block.gourds.GourdLanternBlock;
 import com.jamiedev.bygone.common.block.gourds.GourdVineBlock;
+import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -18,14 +19,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Cow;
-import net.minecraft.world.entity.animal.Rabbit;
-import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.entity.animal.sniffer.Sniffer;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
@@ -42,11 +37,10 @@ import java.util.EnumSet;
 
 public class WhiskbillEntity extends Animal
 {
-    Sniffer ref;
-    WhiskbillEntity ref1;
+
+    Frog ref;
+
     int moreCarrotTicks;
-    Cow ref344;
-    Rabbit ref4;
 
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID;
 
@@ -107,7 +101,7 @@ public class WhiskbillEntity extends Animal
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double)1.9F).add(Attributes.MAX_HEALTH, (double)14.0F);
+        return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double)0.35F).add(Attributes.MAX_HEALTH, (double)14.0F);
     }
 
     protected void registerGoals() {
@@ -122,8 +116,8 @@ public class WhiskbillEntity extends Animal
 
 
     @Override
-    public boolean isFood(ItemStack itemStack) {
-        return false;
+    public boolean isFood(ItemStack stack) {
+        return stack.is(JamiesModTag.BIGBEAK_FOOD);
     }
 
     @Override
