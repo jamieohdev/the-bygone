@@ -66,7 +66,7 @@ public class HookEntity extends AbstractArrow
     }
 
     private boolean shouldRetract(Player player) {
-        return player.isRemoved() || !player.isAlive() || !player.isHolding(BGItems.HOOK.get()) || this.distanceTo(player) > 45F;
+        return player.isRemoved() || !player.isAlive() || !player.isHolding(BGItems.HOOK.get()) || this.distanceTo(player) > 64F;
     }
 
     @Override
