@@ -133,7 +133,7 @@ public class BGEntityTypes {
 
     public static final Supplier<EntityType<WhiskbillEntity>> WHISKBILL = registerEntityType("whiskbill", () ->
             EntityType.Builder.of(WhiskbillEntity::new, MobCategory.CREATURE)
-                    .sized(1.9F, 1.75F).eyeHeight(1.04f)
+                    .sized(1.9F, 1.25F).eyeHeight(1.04f)
                     .clientTrackingRange(10)
                     .updateInterval(8)
                     .nameTagOffset(2.04F)

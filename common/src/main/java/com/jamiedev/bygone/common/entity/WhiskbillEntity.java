@@ -2,8 +2,10 @@ package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.common.block.gourds.GourdLanternBlock;
 import com.jamiedev.bygone.common.block.gourds.GourdVineBlock;
+import com.jamiedev.bygone.common.entity.ai.EatGourdGoal;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
+import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -11,19 +13,31 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.animal.frog.Frog;
+import net.minecraft.world.entity.animal.sniffer.Sniffer;
+import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.monster.Guardian;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
@@ -31,14 +45,17 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CarrotBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
+import java.util.Set;
 
 public class WhiskbillEntity extends Animal
 {
 
-    Frog ref;
+Guardian ref;
+
 
     int moreCarrotTicks;
 
@@ -73,9 +90,61 @@ public class WhiskbillEntity extends Animal
 
     }
 
+    boolean isLookingAtMe(Player player) {
+        ItemStack itemstack = (ItemStack)player.getInventory().armor.get(3);
+        if (itemstack.is(Blocks.CARVED_PUMPKIN.asItem())) {
+            return false;
+        } else {
+            Vec3 vec3 = player.getViewVector(1.0F).normalize();
+            Vec3 vec31 = new Vec3(this.getX() - player.getX(), this.getEyeY() - player.getEyeY(), this.getZ() - player.getZ());
+            double d0 = vec31.length();
+            vec31 = vec31.normalize();
+            double d1 = vec3.dot(vec31);
+            return d1 > (double) 1.0F - 0.025 / d0 && player.hasLineOfSight(this);
+        }
+    }
+    
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(SoundEvents.SNIFFER_STEP, 0.15F, 1.0F);
+    }
+
+    public SoundEvent getEatingSound(ItemStack stack) {
+        return SoundEvents.SNIFFER_EAT;
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.SNIFFER_IDLE;
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.SNIFFER_HURT;
+    }
+
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.SNIFFER_DEATH;
+    }
+
     public boolean isClimbing() {
         return ((Byte)this.entityData.get(DATA_FLAGS_ID) & 1) != 0;
     }
+
+    public boolean hurt(DamageSource source, float amount) {
+        if (this.level().isClientSide) {
+            return false;
+        } else {
+            if (source.is(DamageTypeTags.IS_PLAYER_ATTACK)) {
+                Entity var4 = source.getDirectEntity();
+                if (var4 instanceof LivingEntity) {
+                    LivingEntity livingentity = (LivingEntity)var4;
+                    livingentity.hurt(this.damageSources().thorns(this), 2.0F);
+                    livingentity.addEffect(new MobEffectInstance(MobEffects.POISON, 60 * 1, 0), this);
+                }
+            }
+
+            return super.hurt(source, amount);
+        }
+    }
+
 
     public void setClimbing(boolean climbing) {
         byte b0 = (Byte)this.entityData.get(DATA_FLAGS_ID);
@@ -101,16 +170,23 @@ public class WhiskbillEntity extends Animal
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double)0.35F).add(Attributes.MAX_HEALTH, (double)14.0F);
+        return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double)0.20F).add(Attributes.MAX_HEALTH, (double)10.0F);
     }
 
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(1, new ClimbOnTopOfPowderSnowGoal(this, this.level()));
+        this.goalSelector.addGoal(1, new WhiskbillEntityFreezeWhenLookedAt(this));
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8));
-        this.goalSelector.addGoal(3, new TemptGoal(this, (double)1.0F, (p_335873_) -> p_335873_.is(ItemTags.RABBIT_FOOD), false));
-        this.goalSelector.addGoal(5, new RaidGardenGoal(this));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.6));
+        this.goalSelector.addGoal(3, new TemptGoal(this, (double)1.0F, (p_335873_) -> p_335873_.is(JamiesModTag.BIGBEAK_FOOD), false));
+
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatBeigeGourdGoal(this, 1.0, 3));
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatMuaveGourdGoal(this, 1.0, 6));
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatVerdantGourdGoal(this, 1.0, 12));
+
+
+        //this.goalSelector.addGoal(5, new RaidGardenGoal(this));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.6));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
     }
 
@@ -122,132 +198,128 @@ public class WhiskbillEntity extends Animal
 
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return null;
+        return BGEntityTypes.WHISKBILL.get().create(serverLevel);
     }
 
     boolean wantsMoreFood() {
-        return true;
+        return random.nextInt(700) == 1;
     }
 
-    static class RaidGardenGoal extends MoveToBlockGoal {
-        private final WhiskbillEntity rabbit;
-        private boolean wantsToRaid;
-        private boolean canRaid;
+    public boolean isSteppingCarefully() {
+        return this.isCrouching() || super.isSteppingCarefully();
+    }
 
-        public RaidGardenGoal(WhiskbillEntity rabbit) {
-            super(rabbit, (double)0.7F, 64);
-            this.rabbit = rabbit;
+    static class WhiskbillEntityFreezeWhenLookedAt extends Goal {
+        private final WhiskbillEntity WhiskbillEntity;
+        @javax.annotation.Nullable
+        private LivingEntity target;
+
+        public WhiskbillEntityFreezeWhenLookedAt(WhiskbillEntity WhiskbillEntity) {
+            this.WhiskbillEntity = WhiskbillEntity;
+            this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
         }
 
         public boolean canUse() {
-            if (this.nextStartTick <= 0) {
-                if (!this.rabbit.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
-                    return false;
-                }
-
-                this.canRaid = false;
-                this.wantsToRaid = this.rabbit.wantsMoreFood();
+            this.target = this.WhiskbillEntity.getTarget();
+            if (!(this.target instanceof Player)) {
+                return false;
+            } else {
+                double d0 = this.target.distanceToSqr(this.WhiskbillEntity);
+                return !(d0 > (double) 256.0F) && this.WhiskbillEntity.isLookingAtMe((Player) this.target);
             }
-
-            return super.canUse();
         }
 
-        public boolean canContinueToUse() {
-            return this.canRaid && super.canContinueToUse();
+        public void start() {
+            this.WhiskbillEntity.getNavigation().stop();
         }
 
         public void tick() {
-            super.tick();
-            this.rabbit.getLookControl().setLookAt((double)this.blockPos.getX() + (double)0.5F, (double)(this.blockPos.getY() + 1),
-                    (double)this.blockPos.getZ() + (double)0.5F, 10.0F, (float)this.rabbit.getMaxHeadXRot());
-            if (this.isReachedTarget()) {
-                Level level = this.rabbit.level();
-                BlockPos blockpos = this.blockPos.above();
-                BlockState blockstate = level.getBlockState(blockpos);
-                Block block = blockstate.getBlock();
-                if (this.canRaid && block instanceof GourdLanternBlock) {
-                  //  player.displayClientMessage(Component.translatable("SUCCESS "), true);
-                    int i = (Integer)blockstate.getValue(CarrotBlock.AGE);
-                    if (i == 0) {
-                        level.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 2);
-                        level.destroyBlock(blockpos, true, this.rabbit);
-                    } else {
-                        level.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 2);
-                        level.destroyBlock(blockpos, true, this.rabbit);
-                        level.gameEvent(GameEvent.BLOCK_CHANGE, blockpos, GameEvent.Context.of(this.rabbit));
-                        level.levelEvent(2001, blockpos, Block.getId(blockstate));
-                      //  player.displayClientMessage(Component.translatable("GOURD DESTROYED AT " + blockpos), true);
-                    }
-
-                    this.rabbit.moreCarrotTicks = 40;
-                }
-
-                this.canRaid = false;
-                this.nextStartTick = 10;
-            }
-            else
-            {
-
-               // player.displayClientMessage(Component.translatable("FAIL? "), true);
-            }
-
-        }
-
-        BedBlock ref445;
-        Player player;
-        protected boolean isValidTarget(LevelReader level, BlockPos pos) {
-            BlockState blockstate = level.getBlockState(pos);
-            BlockState blockstate1 = level.getBlockState(pos);
-            if ((blockstate.is(Blocks.MOSS_BLOCK) || blockstate.is(BGBlocks.GOURD_VINE.get()) || blockstate.is(BGBlocks.GOURD_LANTERN_BEIGE.get())
-                    || blockstate.is(BGBlocks.GOURD_LANTERN_MUAVE.get())|| blockstate.is(BGBlocks.GOURD_LANTERN_VERDANT.get())
-                    && this.wantsToRaid && !this.canRaid)) {
-
-                //player.displayClientMessage(Component.translatable("LOCATED AT" + pos), true);
-
-                blockstate = level.getBlockState(pos.below());
-                blockstate1 = level.getBlockState(pos.above());
-                if (blockstate.getBlock() instanceof GourdLanternBlock || blockstate1.getBlock() instanceof GourdLanternBlock) {
-                   /// player.displayClientMessage(Component.translatable("GOURD LOCATED AT" + blockstate.getBlock()), true);
-                    this.canRaid = true;
-                    return true;
-                }
-
-                if (blockstate.getBlock() instanceof GourdVineBlock) {
-                    //player.displayClientMessage(Component.translatable("VINE LOCATED AT" + blockstate.getBlock()), true);
-                    this.canRaid = true;
-                    return true;
-                }
-            }
-
-            if (blockstate.is(BGBlocks.GOURD_LANTERN_BEIGE.get()) && this.wantsToRaid && !this.canRaid) {
-                blockstate = level.getBlockState(pos.below());
-                if (blockstate.getBlock() instanceof GourdLanternBlock) {
-                    this.canRaid = true;
-                    return true;
-                }
-            }
-
-            return false;
+            this.WhiskbillEntity.getLookControl().setLookAt(this.target.getX(), this.target.getEyeY(), this.target.getZ());
         }
     }
 
-    abstract class WhiskbillGoal extends Goal
-    {
-        public WhiskbillGoal()
-        {
-            
+    class EatBeigeGourdGoal extends EatGourdGoal {
+        EatBeigeGourdGoal(PathfinderMob mob, double speedModifier, int verticalSearchRange) {
+            super(BGBlocks.GOURD_LANTERN_BEIGE.get(), mob, speedModifier, verticalSearchRange);
         }
 
-        public abstract boolean canWhiskbillUse();
-
-        public abstract boolean canWhiskbillContinueToUse();
-
-        public boolean canUse() {
-            return this.canWhiskbillUse();
+        @Override
+        public void playDestroyProgressSound(LevelAccessor level, BlockPos pos) {
+            level.playSound(null, pos, SoundEvents.ZOMBIE_DESTROY_EGG, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
         }
 
-        public boolean canContinueToUse() {
-            return this.canWhiskbillContinueToUse();
+        @Override
+        public void playBreakSound(Level level, BlockPos pos) {
+            level.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
+        }
+
+        @Override
+        public double acceptedDistance() {
+            return 1.14;
+        }
+    }
+
+    class EatMuaveGourdGoal extends EatGourdGoal {
+        EatMuaveGourdGoal(PathfinderMob mob, double speedModifier, int verticalSearchRange) {
+            super(BGBlocks.GOURD_LANTERN_MUAVE.get(), mob, speedModifier, verticalSearchRange);
+        }
+
+        @Override
+        public void playDestroyProgressSound(LevelAccessor level, BlockPos pos) {
+            level.playSound(null, pos, SoundEvents.ZOMBIE_DESTROY_EGG, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
+        }
+
+        @Override
+        public void playBreakSound(Level level, BlockPos pos) {
+            level.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
+        }
+
+        @Override
+        public double acceptedDistance() {
+            return 1.14;
+        }
+    }
+
+
+    class EatVerdantGourdGoal extends EatGourdGoal {
+        EatVerdantGourdGoal(PathfinderMob mob, double speedModifier, int verticalSearchRange) {
+            super(BGBlocks.GOURD_LANTERN_VERDANT.get(), mob, speedModifier, verticalSearchRange);
+        }
+
+        @Override
+        public void playDestroyProgressSound(LevelAccessor level, BlockPos pos) {
+            level.playSound(null, pos, SoundEvents.ZOMBIE_DESTROY_EGG, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
+        }
+
+        @Override
+        public void playBreakSound(Level level, BlockPos pos) {
+            level.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
+        }
+
+        @Override
+        public double acceptedDistance() {
+            return 1.14;
+        }
+    }
+
+    class EatGoal extends RemoveBlockGoal {
+        EatGoal(PathfinderMob mob, double speedModifier, int verticalSearchRange) {
+            super(BGBlocks.AMBER.get(), mob, speedModifier, verticalSearchRange);
+        }
+
+        @Override
+        public void playDestroyProgressSound(LevelAccessor level, BlockPos pos) {
+            level.playSound(null, pos, SoundEvents.ZOMBIE_DESTROY_EGG, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
+        }
+
+        @Override
+        public void playBreakSound(Level level, BlockPos pos) {
+            level.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
+        }
+
+        @Override
+        public double acceptedDistance() {
+            return 1.14;
         }
     }
 
