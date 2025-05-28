@@ -180,6 +180,7 @@ Guardian ref;
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8));
         this.goalSelector.addGoal(3, new TemptGoal(this, (double)1.0F, (p_335873_) -> p_335873_.is(JamiesModTag.BIGBEAK_FOOD), false));
 
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatGoal(this, 1.0, 3));
         this.goalSelector.addGoal(4, new WhiskbillEntity.EatBeigeGourdGoal(this, 1.0, 3));
         this.goalSelector.addGoal(4, new WhiskbillEntity.EatMuaveGourdGoal(this, 1.0, 6));
         this.goalSelector.addGoal(4, new WhiskbillEntity.EatVerdantGourdGoal(this, 1.0, 12));
@@ -255,7 +256,7 @@ Guardian ref;
 
         @Override
         public double acceptedDistance() {
-            return 1.14;
+            return 2.0;
         }
     }
 
@@ -276,7 +277,7 @@ Guardian ref;
 
         @Override
         public double acceptedDistance() {
-            return 1.14;
+            return 16.0;
         }
     }
 
@@ -298,7 +299,7 @@ Guardian ref;
 
         @Override
         public double acceptedDistance() {
-            return 1.14;
+            return 2.0;
         }
     }
 
@@ -319,7 +320,7 @@ Guardian ref;
 
         @Override
         public double acceptedDistance() {
-            return 1.14;
+            return 16.0;
         }
     }
 

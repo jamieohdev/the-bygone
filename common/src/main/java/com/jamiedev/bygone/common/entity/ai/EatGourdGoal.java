@@ -63,6 +63,12 @@ public class EatGourdGoal extends MoveToBlockGoal {
     public void playBreakSound(Level level, BlockPos pos) {
     }
 
+    @Override
+    public double acceptedDistance() {
+        return 10.0;
+    }
+
+
     public void tick() {
         super.tick();
         Level level = this.removerMob.level();
@@ -75,7 +81,7 @@ public class EatGourdGoal extends MoveToBlockGoal {
                 this.removerMob.setDeltaMovement(vec3.x, 0.3, vec3.z);
                 if (!level.isClientSide) {
                     double d0 = 0.08;
-                    ((ServerLevel)level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(BGItems.GOURD_DANGO.get())), (double)blockpos1.getX() + (double)0.5F, (double)blockpos1.getY() + 0.7, (double)blockpos1.getZ() + (double)0.5F, 3, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, (double)0.15F);
+                    ((ServerLevel)level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.EGG)), (double)blockpos1.getX() + (double)0.5F, (double)blockpos1.getY() + 0.7, (double)blockpos1.getZ() + (double)0.5F, 3, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, (double)0.15F);
                 }
             }
 
@@ -124,10 +130,8 @@ public class EatGourdGoal extends MoveToBlockGoal {
     }
 
     protected boolean isValidTarget(LevelReader level, BlockPos pos) {
-        ChunkAccess chunkaccess = level.getChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ()),
-                ChunkStatus.FULL, false);
+        ChunkAccess chunkaccess = level.getChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ()), ChunkStatus.FULL, false);
         return chunkaccess == null ? false : chunkaccess.getBlockState(pos).is(this.blockToRemove)
-                && chunkaccess.getBlockState(pos.below()).isAir()
-                && chunkaccess.getBlockState(pos.below(1)).isAir();
+                && chunkaccess.getBlockState(pos.below()).isAir();
     }
 }
