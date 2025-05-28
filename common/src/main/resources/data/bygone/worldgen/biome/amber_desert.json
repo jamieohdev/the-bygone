@@ -37,7 +37,6 @@
     [],
     [
       "bygone:amber_cluster",
-
       "bygone:ore_coal_upper",
       "bygone:ore_coal_lower",
       "bygone:ore_iron_upper",
@@ -47,11 +46,7 @@
     ],
     [],
     ["minecraft:spring_water", "minecraft:spring_lava"],
-    [
-      "minecraft:glow_lichen",
-
-      "bygone:amber_clump"
-    ],
+    ["minecraft:glow_lichen", "bygone:amber_clump"],
     ["minecraft:freeze_top_layer"]
   ],
   "has_precipitation": false,
