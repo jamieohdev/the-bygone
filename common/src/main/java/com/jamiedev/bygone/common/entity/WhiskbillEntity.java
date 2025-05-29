@@ -85,7 +85,7 @@ public class WhiskbillEntity extends Animal
             return d1 > (double) 1.0F - 0.025 / d0 && player.hasLineOfSight(this);
         }
     }
-    
+
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.SNIFFER_STEP, 0.15F, 1.0F);
     }
@@ -158,13 +158,11 @@ public class WhiskbillEntity extends Animal
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(1, new ClimbOnTopOfPowderSnowGoal(this, this.level()));
-        //this.goalSelector.addGoal(1, new WhiskbillEntityFreezeWhenLookedAt(this));
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8));
-        this.goalSelector.addGoal(3, new TemptGoal(this, (double)1.0F, (p_335873_) -> p_335873_.is(JamiesModTag.BIGBEAK_FOOD), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, (double)1.0F, (p_335873_) -> p_335873_.is(JamiesModTag.WHISKBILL_FOOD), false));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.3, 1.4, (p_352798_) -> AVOID_PLAYERS.test((Entity) p_352798_) && !this.isBaby()));
 
         this.goalSelector.addGoal(4, new WhiskbillEntity.EatVerdantGourdGoal(this, 1.5, 3));
- //       this.goalSelector.addGoal(4, new WhiskbillEntity.EatGoal(this, 1.0, 3));
         this.goalSelector.addGoal(4, new WhiskbillEntity.EatBeigeGourdGoal(this, 1.5, 3));
         this.goalSelector.addGoal(4, new WhiskbillEntity.EatMuaveGourdGoal(this, 1.5, 3));
 
@@ -176,7 +174,7 @@ public class WhiskbillEntity extends Animal
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(JamiesModTag.BIGBEAK_FOOD);
+        return stack.is(JamiesModTag.WHISKBILL_FOOD);
     }
 
     @Override
@@ -190,35 +188,6 @@ public class WhiskbillEntity extends Animal
 
     public boolean isSteppingCarefully() {
         return this.isCrouching() || super.isSteppingCarefully();
-    }
-
-    static class WhiskbillEntityFreezeWhenLookedAt extends Goal {
-        private final WhiskbillEntity WhiskbillEntity;
-        @javax.annotation.Nullable
-        private LivingEntity target;
-
-        public WhiskbillEntityFreezeWhenLookedAt(WhiskbillEntity WhiskbillEntity) {
-            this.WhiskbillEntity = WhiskbillEntity;
-            this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
-        }
-
-        public boolean canUse() {
-            this.target = this.WhiskbillEntity.getTarget();
-            if (!(this.target instanceof Player)) {
-                return false;
-            } else {
-                double d0 = this.target.distanceToSqr(this.WhiskbillEntity);
-                return !(d0 > (double) 256.0F) && this.WhiskbillEntity.isLookingAtMe((Player) this.target);
-            }
-        }
-
-        public void start() {
-            this.WhiskbillEntity.getNavigation().stop();
-        }
-
-        public void tick() {
-            this.WhiskbillEntity.getLookControl().setLookAt(this.target.getX(), this.target.getEyeY(), this.target.getZ());
-        }
     }
 
     class EatBeigeGourdGoal extends BGRemoveBlockGoal {

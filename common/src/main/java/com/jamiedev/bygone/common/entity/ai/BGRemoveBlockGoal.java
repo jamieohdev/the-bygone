@@ -79,7 +79,7 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
             mob.getNavigation().stop();
 
         }
-        System.out.println(isReachedTarget());
+
         if (blockpos1 == null) {
             for (BlockPos pos : BlockPos.betweenClosed(blockpos.offset(-2, -1, -2), blockpos.offset(2, 1, 2))) {
                 if (level.getBlockState(pos).is(this.blockToRemove)) {

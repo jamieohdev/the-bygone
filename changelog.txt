@@ -25,6 +25,7 @@
 * Completely overhauled the Bygones world generation! (See below for more details!)
 * Overhauled the look of the Amber Desert biome.
 * Overhauled the Ancient Hook.
+* Added the Whiskbill.
 * Added the Amber Sand, Amber Sandstone, Cut Amber Sandstone, Smooth Amber Sandstone and Chiseled Amber Sandstone blocksets.
 * Added the Amber Clump.
 * Added the Primordial Beach biome.
@@ -45,8 +46,16 @@
 * Pointed Amber now generates only on ceilings.
 * Tweaked the fog and sky colors to fit the dimension better!
 
+# The Whiskbill
+* A new passive mob found only in the Underhang.
+* Will seek out low-growing Glow Gourds and devour them.
+* Will retreat from nearby players and poison players that hurt them!
+* Temporarily are using Sniffer sounds, but unique sounds are planned.
+* Can be bred with Gourd Slices!
+
+
 # Technical features:
-* Added what?
+* Added the new item tag "whiskbill_food"
 
 
 # Changes to existing features:

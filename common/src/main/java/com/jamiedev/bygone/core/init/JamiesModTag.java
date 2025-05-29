@@ -33,6 +33,7 @@ public class JamiesModTag {
     public static final TagKey<Item> VERDAGRIS_ITEMS = Items.createTag("verdigris_items");
 
     public static final TagKey<Item> BIGBEAK_FOOD = Items.createTag("bigbeak_food");
+    public static final TagKey<Item> WHISKBILL_FOOD = Items.createTag("whiskbill_food");
 
     public static final TagKey<Structure> ON_BYGONE_PORTAL_MAPS = Structures.createTag("on_bygone_portal_maps");
 
