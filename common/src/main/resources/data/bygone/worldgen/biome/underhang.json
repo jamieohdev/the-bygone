@@ -31,7 +31,7 @@
       "probability": 0.025
     },
     "sky_color": 8060852,
-    "water_color": 8245213,
+    "water_color": 3054044,
     "water_fog_color": 8245213
   },
   "features": [
@@ -78,16 +78,16 @@
     "axolotls": [],
     "creature": [
       {
+        "type": "bygone:whiskbill",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 20
+      },
+      {
         "type": "bygone:big_beak",
         "maxCount": 4,
         "minCount": 2,
         "weight": 4
-      },
-      {
-        "type": "bygone:pest",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 1
       },
       {
         "type": "bygone:glare",
