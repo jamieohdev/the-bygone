@@ -33,14 +33,13 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
+import java.util.function.Predicate;
 
 public class WhiskbillEntity extends Animal
 {
-
-Guardian ref;
-
-
+    private static final EntityDimensions BABY_BASE_DIMENSIONS;
     int moreCarrotTicks;
+    private static final Predicate<Entity> AVOID_PLAYERS;
 
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID;
 
@@ -162,14 +161,14 @@ Guardian ref;
         //this.goalSelector.addGoal(1, new WhiskbillEntityFreezeWhenLookedAt(this));
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8));
         this.goalSelector.addGoal(3, new TemptGoal(this, (double)1.0F, (p_335873_) -> p_335873_.is(JamiesModTag.BIGBEAK_FOOD), false));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.3, 1.4, (p_352798_) -> AVOID_PLAYERS.test((Entity) p_352798_) && !this.isBaby()));
 
-        this.goalSelector.addGoal(4, new WhiskbillEntity.EatVerdantGourdGoal(this, 1.0, 3));
-        this.goalSelector.addGoal(4, new WhiskbillEntity.EatGoal(this, 1.0, 3));
-        this.goalSelector.addGoal(4, new WhiskbillEntity.EatBeigeGourdGoal(this, 1.0, 3));
-        this.goalSelector.addGoal(4, new WhiskbillEntity.EatMuaveGourdGoal(this, 1.0, 3));
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatVerdantGourdGoal(this, 1.5, 3));
+ //       this.goalSelector.addGoal(4, new WhiskbillEntity.EatGoal(this, 1.0, 3));
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatBeigeGourdGoal(this, 1.5, 3));
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatMuaveGourdGoal(this, 1.5, 3));
 
 
-        //this.goalSelector.addGoal(5, new RaidGardenGoal(this));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.6));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
     }
@@ -229,17 +228,17 @@ Guardian ref;
 
         @Override
         public void playDestroyProgressSound(LevelAccessor level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.ZOMBIE_DESTROY_EGG, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
+            level.playSound(null, pos, SoundEvents.CAMEL_EAT, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
         }
 
         @Override
         public void playBreakSound(Level level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
+            level.playSound(null, pos, SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
         }
 
         @Override
         public double acceptedDistance() {
-            return 3.0;
+            return 6.0;
         }
     }
 
@@ -250,17 +249,17 @@ Guardian ref;
 
         @Override
         public void playDestroyProgressSound(LevelAccessor level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.ZOMBIE_DESTROY_EGG, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
+            level.playSound(null, pos, SoundEvents.HORSE_EAT, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
         }
 
         @Override
         public void playBreakSound(Level level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
+            level.playSound(null, pos, SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
         }
 
         @Override
         public double acceptedDistance() {
-            return 3.0;
+            return 6.0;
         }
     }
 
@@ -272,17 +271,17 @@ Guardian ref;
 
         @Override
         public void playDestroyProgressSound(LevelAccessor level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.ZOMBIE_DESTROY_EGG, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
+            level.playSound(null, pos, SoundEvents.CAMEL_EAT, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
         }
 
         @Override
         public void playBreakSound(Level level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
+            level.playSound(null, pos, SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
         }
 
         @Override
         public double acceptedDistance() {
-            return 3.0;
+            return 100.0;
         }
     }
 
@@ -293,12 +292,12 @@ Guardian ref;
 
         @Override
         public void playDestroyProgressSound(LevelAccessor level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.ZOMBIE_DESTROY_EGG, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
+            level.playSound(null, pos, SoundEvents.CAMEL_EAT, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
         }
 
         @Override
         public void playBreakSound(Level level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
+            level.playSound(null, pos, SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
         }
 
         @Override
@@ -307,7 +306,15 @@ Guardian ref;
         }
     }
 
+    @Override
+    public EntityDimensions getDefaultDimensions(Pose pose) {
+        return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getDefaultDimensions(pose);
+    }
+
     static {
+        BABY_BASE_DIMENSIONS = BGEntityTypes.WHISKBILL.get().getDimensions().withAttachments(EntityAttachments.builder().attach(EntityAttachment.PASSENGER, 0.0F,
+                BGEntityTypes.WHISKBILL.get().getHeight() + 0.125F, 0.0F)).scale(0.45F);
         DATA_FLAGS_ID = SynchedEntityData.defineId(WhiskbillEntity.class, EntityDataSerializers.BYTE);
+        AVOID_PLAYERS = (p_28463_) -> !p_28463_.isDiscrete() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(p_28463_);
     }
 }

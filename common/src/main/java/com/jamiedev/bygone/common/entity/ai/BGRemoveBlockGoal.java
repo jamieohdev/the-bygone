@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.entity.ai;
 
+import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -93,7 +94,7 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
                 this.removerMob.setDeltaMovement(vec3.x, 0.3, vec3.z);
                 if (!level.isClientSide) {
                     double d0 = 0.08;
-                    ((ServerLevel)level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.EGG)), (double)blockpos1.getX() + (double)0.5F, (double)blockpos1.getY() + 0.7, (double)blockpos1.getZ() + (double)0.5F, 3, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, (double)0.15F);
+                    ((ServerLevel)level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(BGItems.GOURD_DANGO.get())), (double)blockpos1.getX() + (double)0.5F, (double)blockpos1.getY() + 0.7, (double)blockpos1.getZ() + (double)0.5F, 3, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, (double)0.15F);
                 }
             }
 
