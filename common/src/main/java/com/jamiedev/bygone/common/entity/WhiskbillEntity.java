@@ -1,14 +1,11 @@
 package com.jamiedev.bygone.common.entity;
 
-import com.jamiedev.bygone.common.block.gourds.GourdLanternBlock;
-import com.jamiedev.bygone.common.block.gourds.GourdVineBlock;
-import com.jamiedev.bygone.common.entity.ai.EatGourdGoal;
+import com.jamiedev.bygone.common.entity.ai.BGRemoveBlockGoal;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -17,9 +14,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -27,29 +22,17 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Ocelot;
-import net.minecraft.world.entity.animal.frog.Frog;
-import net.minecraft.world.entity.animal.sniffer.Sniffer;
-import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Guardian;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.BedBlock;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CarrotBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
-import java.util.Set;
 
 public class WhiskbillEntity extends Animal
 {
@@ -176,14 +159,14 @@ Guardian ref;
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(1, new ClimbOnTopOfPowderSnowGoal(this, this.level()));
-        this.goalSelector.addGoal(1, new WhiskbillEntityFreezeWhenLookedAt(this));
+        //this.goalSelector.addGoal(1, new WhiskbillEntityFreezeWhenLookedAt(this));
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8));
         this.goalSelector.addGoal(3, new TemptGoal(this, (double)1.0F, (p_335873_) -> p_335873_.is(JamiesModTag.BIGBEAK_FOOD), false));
 
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatVerdantGourdGoal(this, 1.0, 3));
         this.goalSelector.addGoal(4, new WhiskbillEntity.EatGoal(this, 1.0, 3));
         this.goalSelector.addGoal(4, new WhiskbillEntity.EatBeigeGourdGoal(this, 1.0, 3));
-        this.goalSelector.addGoal(4, new WhiskbillEntity.EatMuaveGourdGoal(this, 1.0, 6));
-        this.goalSelector.addGoal(4, new WhiskbillEntity.EatVerdantGourdGoal(this, 1.0, 12));
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatMuaveGourdGoal(this, 1.0, 3));
 
 
         //this.goalSelector.addGoal(5, new RaidGardenGoal(this));
@@ -239,7 +222,7 @@ Guardian ref;
         }
     }
 
-    class EatBeigeGourdGoal extends EatGourdGoal {
+    class EatBeigeGourdGoal extends BGRemoveBlockGoal {
         EatBeigeGourdGoal(PathfinderMob mob, double speedModifier, int verticalSearchRange) {
             super(BGBlocks.GOURD_LANTERN_BEIGE.get(), mob, speedModifier, verticalSearchRange);
         }
@@ -256,11 +239,11 @@ Guardian ref;
 
         @Override
         public double acceptedDistance() {
-            return 2.0;
+            return 3.0;
         }
     }
 
-    class EatMuaveGourdGoal extends EatGourdGoal {
+    class EatMuaveGourdGoal extends BGRemoveBlockGoal {
         EatMuaveGourdGoal(PathfinderMob mob, double speedModifier, int verticalSearchRange) {
             super(BGBlocks.GOURD_LANTERN_MUAVE.get(), mob, speedModifier, verticalSearchRange);
         }
@@ -277,12 +260,12 @@ Guardian ref;
 
         @Override
         public double acceptedDistance() {
-            return 16.0;
+            return 3.0;
         }
     }
 
 
-    class EatVerdantGourdGoal extends EatGourdGoal {
+    class EatVerdantGourdGoal extends BGRemoveBlockGoal {
         EatVerdantGourdGoal(PathfinderMob mob, double speedModifier, int verticalSearchRange) {
             super(BGBlocks.GOURD_LANTERN_VERDANT.get(), mob, speedModifier, verticalSearchRange);
         }
@@ -299,11 +282,11 @@ Guardian ref;
 
         @Override
         public double acceptedDistance() {
-            return 2.0;
+            return 3.0;
         }
     }
 
-    class EatGoal extends RemoveBlockGoal {
+    class EatGoal extends BGRemoveBlockGoal {
         EatGoal(PathfinderMob mob, double speedModifier, int verticalSearchRange) {
             super(BGBlocks.AMBER.get(), mob, speedModifier, verticalSearchRange);
         }
@@ -320,7 +303,7 @@ Guardian ref;
 
         @Override
         public double acceptedDistance() {
-            return 16.0;
+            return 3;
         }
     }
 

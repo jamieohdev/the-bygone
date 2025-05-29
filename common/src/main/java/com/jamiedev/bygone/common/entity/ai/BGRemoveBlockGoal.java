@@ -1,6 +1,5 @@
 package com.jamiedev.bygone.common.entity.ai;
 
-import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -17,19 +16,24 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
+public class BGRemoveBlockGoal extends MoveToBlockGoal {
 
-public class EatGourdGoal extends MoveToBlockGoal {
     private final Block blockToRemove;
     private final Mob removerMob;
     private int ticksSinceReachedGoal;
     private static final int WAIT_AFTER_BLOCK_FOUND = 20;
 
-    public EatGourdGoal(Block blockToRemove, PathfinderMob removerMob, double speedModifier, int searchRange) {
-        super(removerMob, speedModifier, 24, searchRange);
+    public BGRemoveBlockGoal(Block blockToRemove, PathfinderMob mob, double speedModifier, int searchRange) {
+        super(mob, speedModifier, searchRange);
         this.blockToRemove = blockToRemove;
-        this.removerMob = removerMob;
+        this.removerMob = mob;
+    }
+
+    @Override
+    protected @NotNull BlockPos getMoveToTarget() {
+        return this.blockPos;
     }
 
     public boolean canUse() {
@@ -63,18 +67,26 @@ public class EatGourdGoal extends MoveToBlockGoal {
     public void playBreakSound(Level level, BlockPos pos) {
     }
 
-    @Override
-    public double acceptedDistance() {
-        return 10.0;
-    }
-
 
     public void tick() {
         super.tick();
         Level level = this.removerMob.level();
         BlockPos blockpos = this.removerMob.blockPosition();
-        BlockPos blockpos1 = this.getPosWithBlock(blockpos, level);
+        BlockPos blockpos1 = null;
         RandomSource randomsource = this.removerMob.getRandom();
+        if (this.getMoveToTarget().distToCenterSqr(blockpos.getX(), blockpos.getY(), blockpos.getZ()) < 8.2F) {
+            mob.getNavigation().stop();
+
+        }
+        System.out.println(isReachedTarget());
+        if (blockpos1 == null) {
+            for (BlockPos pos : BlockPos.betweenClosed(blockpos.offset(-2, -1, -2), blockpos.offset(2, 1, 2))) {
+                if (level.getBlockState(pos).is(this.blockToRemove)) {
+                    blockpos1 = pos;
+                    break;
+                }
+            }
+        }
         if (this.isReachedTarget() && blockpos1 != null) {
             if (this.ticksSinceReachedGoal > 0) {
                 Vec3 vec3 = this.removerMob.getDeltaMovement();
@@ -112,26 +124,10 @@ public class EatGourdGoal extends MoveToBlockGoal {
 
     }
 
-    @Nullable
-    private BlockPos getPosWithBlock(BlockPos pos, BlockGetter level) {
-        if (level.getBlockState(pos).is(this.blockToRemove)) {
-            return pos;
-        } else {
-            BlockPos[] ablockpos = new BlockPos[]{pos.below(), pos.west(), pos.east(), pos.north(), pos.south(), pos.below().below()};
-
-            for(BlockPos blockpos : ablockpos) {
-                if (level.getBlockState(blockpos).is(this.blockToRemove)) {
-                    return blockpos;
-                }
-            }
-
-            return null;
-        }
-    }
-
+    @Override
     protected boolean isValidTarget(LevelReader level, BlockPos pos) {
         ChunkAccess chunkaccess = level.getChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ()), ChunkStatus.FULL, false);
-        return chunkaccess == null ? false : chunkaccess.getBlockState(pos).is(this.blockToRemove)
-                && chunkaccess.getBlockState(pos.below()).isAir();
+        //return chunkaccess == null ? false : chunkaccess.getBlockState(pos).is(this.blockToRemove) && chunkaccess.getBlockState(pos.above()).isAir() && chunkaccess.getBlockState(pos.above(2)).isAir();
+        return chunkaccess == null ? false : chunkaccess.getBlockState(pos).is(this.blockToRemove);
     }
 }
