@@ -128,6 +128,10 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
 
     }
 
+    public Item getDropItem(){
+        return this.dropItem;
+    }
+
     public void setDropItem(Item item){
         this.dropItem = item;
     }
