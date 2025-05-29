@@ -10,6 +10,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.*;
@@ -25,9 +26,10 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
     private final Mob removerMob;
     private int ticksSinceReachedGoal;
     private static final int WAIT_AFTER_BLOCK_FOUND = 20;
+    private Item dropItem = Items.WHEAT_SEEDS;
 
-    public BGRemoveBlockGoal(Block blockToRemove, PathfinderMob mob, double speedModifier, int searchRange) {
-        super(mob, speedModifier, searchRange);
+    public BGRemoveBlockGoal(Block blockToRemove, PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
+        super(mob, speedModifier, searchRange, verticalSearchRange);
         this.blockToRemove = blockToRemove;
         this.removerMob = mob;
     }
@@ -115,6 +117,7 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
                         double d2 = randomsource.nextGaussian() * 0.02;
                         ((ServerLevel)level).sendParticles(ParticleTypes.POOF, (double)blockpos1.getX() + (double)0.5F, (double)blockpos1.getY(), (double)blockpos1.getZ() + (double)0.5F, 1, d3, d1, d2, (double)0.15F);
                     }
+                    this.removerMob.spawnAtLocation(this.dropItem);
 
                     this.playBreakSound(level, blockpos1);
                 }
@@ -123,6 +126,10 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
             ++this.ticksSinceReachedGoal;
         }
 
+    }
+
+    public void setDropItem(Item item){
+        this.dropItem = item;
     }
 
     @Override
