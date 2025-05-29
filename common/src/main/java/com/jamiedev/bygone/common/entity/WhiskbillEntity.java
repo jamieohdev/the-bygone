@@ -25,6 +25,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -192,7 +193,7 @@ public class WhiskbillEntity extends Animal
 
     class EatBeigeGourdGoal extends BGRemoveBlockGoal {
         EatBeigeGourdGoal(PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
-            super(BGBlocks.GOURD_LANTERN_BEIGE.get(), mob, speedModifier, searchRange, verticalSearchRange);
+            super(BGBlocks.GOURD_LANTERN_BEIGE.get(), mob, speedModifier, searchRange, verticalSearchRange, Items.WHEAT_SEEDS);
         }
 
         @Override
@@ -213,7 +214,7 @@ public class WhiskbillEntity extends Animal
 
     class EatMuaveGourdGoal extends BGRemoveBlockGoal {
         EatMuaveGourdGoal(PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
-            super(BGBlocks.GOURD_LANTERN_MUAVE.get(), mob, speedModifier, searchRange, verticalSearchRange);
+            super(BGBlocks.GOURD_LANTERN_MUAVE.get(), mob, speedModifier, searchRange, verticalSearchRange, Items.PUMPKIN_SEEDS);
         }
 
         @Override
@@ -235,7 +236,7 @@ public class WhiskbillEntity extends Animal
 
     class EatVerdantGourdGoal extends BGRemoveBlockGoal {
         EatVerdantGourdGoal(PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
-            super(BGBlocks.GOURD_LANTERN_VERDANT.get(), mob, speedModifier, searchRange, verticalSearchRange);
+            super(BGBlocks.GOURD_LANTERN_VERDANT.get(), mob, speedModifier, searchRange, verticalSearchRange, Items.MELON_SEEDS);
         }
 
         @Override
