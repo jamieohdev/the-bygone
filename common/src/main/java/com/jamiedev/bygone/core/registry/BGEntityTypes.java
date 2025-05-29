@@ -135,7 +135,7 @@ public class BGEntityTypes {
             EntityType.Builder.of(WhiskbillEntity::new, MobCategory.CREATURE)
                     .sized(1.9F, 1.25F).eyeHeight(1.04f)
                     .clientTrackingRange(10)
-                    .updateInterval(8)
+                    //.updateInterval(8)
                     .nameTagOffset(2.04F)
                     .passengerAttachments(2.09F)
                     .build(""));
