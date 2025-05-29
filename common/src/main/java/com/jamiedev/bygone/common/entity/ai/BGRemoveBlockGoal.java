@@ -26,7 +26,7 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
     private final Mob removerMob;
     private int ticksSinceReachedGoal;
     private static final int WAIT_AFTER_BLOCK_FOUND = 20;
-    private Item dropItem = Items.WHEAT_SEEDS;
+    private Item dropItem = null;
 
     public BGRemoveBlockGoal(Block blockToRemove, PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
         super(mob, speedModifier, searchRange, verticalSearchRange);
@@ -124,7 +124,9 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
                         double d2 = randomsource.nextGaussian() * 0.02;
                         ((ServerLevel)level).sendParticles(ParticleTypes.POOF, (double)blockpos1.getX() + (double)0.5F, (double)blockpos1.getY(), (double)blockpos1.getZ() + (double)0.5F, 1, d3, d1, d2, (double)0.15F);
                     }
-                    this.removerMob.spawnAtLocation(this.dropItem);
+                    if (this.dropItem != null){
+                        this.removerMob.spawnAtLocation(this.dropItem);
+                    }
 
                     this.playBreakSound(level, blockpos1);
                 }
