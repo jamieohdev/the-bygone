@@ -34,6 +34,13 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
         this.removerMob = mob;
     }
 
+    public BGRemoveBlockGoal(Block blockToRemove, PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange, Item dropItem) {
+        super(mob, speedModifier, searchRange, verticalSearchRange);
+        this.blockToRemove = blockToRemove;
+        this.removerMob = mob;
+        this.dropItem = dropItem;
+    }
+
     @Override
     protected @NotNull BlockPos getMoveToTarget() {
         return this.blockPos;
