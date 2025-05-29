@@ -60,7 +60,7 @@ public class BGEntityTypes {
             EntityType.Builder.of(FungalParentEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 2.1F)
                     .clientTrackingRange(8)
-                    .updateInterval(8)
+
                     .build(""));
 // .dimensions(0.6F, 2.9F).eyeHeight(2.55F).passengerAttachments(2.80625F).maxTrackingRange(8));
 
@@ -82,7 +82,7 @@ public class BGEntityTypes {
             EntityType.Builder.of(MoobooEntity::new, MobCategory.CREATURE)
                 .sized(0.9F, 1.4F)
                     .eyeHeight(1.3f)
-                        .updateInterval(10).build(""));
+                        .build(""));
 
 
     public static final Supplier<EntityType<ScuttleEntity>> SCUTTLE = registerEntityType("scuttle", () ->
@@ -93,7 +93,7 @@ public class BGEntityTypes {
             EntityType.Builder.<ScuttleSpikeEntity>of(ScuttleSpikeEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F).eyeHeight(0.13F)
                     .clientTrackingRange(4)
-                    .updateInterval(20)
+
                     .build("")
     );
 
@@ -107,35 +107,35 @@ public class BGEntityTypes {
             EntityType.Builder.of(RisingBlockEntity::new, MobCategory.MISC)
                     .sized(0.98F, 0.98F)
                     .clientTrackingRange(10)
-                    .updateInterval(20)
+
                     .build(""));
 
     public static final Supplier<EntityType<CopperbugEntity>> COPPERBUG = registerEntityType("copperbug", () ->
             EntityType.Builder.of(CopperbugEntity::new, MobCategory.CREATURE)
                     .sized(0.4F, 0.3F).eyeHeight(.13f)
                     .clientTrackingRange(8)
-                    .updateInterval(8)
+
                     .build(""));
 
     public static final Supplier<EntityType<CopperbugEntity>> COPPERFLY = registerEntityType("copperfly", () ->
             EntityType.Builder.of(CopperbugEntity::new, MobCategory.CREATURE)
                     .sized(0.4F, 0.3F).eyeHeight(.13f)
                     .clientTrackingRange(8)
-                    .updateInterval(8)
+
                     .build(""));
 
     public static final Supplier<EntityType<PestEntity>> PEST = registerEntityType("pest", () ->
             EntityType.Builder.of(PestEntity::new, MobCategory.CREATURE)
                     .sized(0.5F, 0.5F).eyeHeight(.13f)
                     .clientTrackingRange(8)
-                    .updateInterval(8)
+
                     .build(""));
 
     public static final Supplier<EntityType<WhiskbillEntity>> WHISKBILL = registerEntityType("whiskbill", () ->
             EntityType.Builder.of(WhiskbillEntity::new, MobCategory.CREATURE)
                     .sized(1.9F, 1.25F).eyeHeight(1.04f)
                     .clientTrackingRange(10)
-                    //.updateInterval(8)
+
                     .nameTagOffset(2.04F)
                     .passengerAttachments(2.09F)
                     .build(""));
