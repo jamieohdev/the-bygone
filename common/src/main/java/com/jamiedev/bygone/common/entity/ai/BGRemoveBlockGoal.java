@@ -6,25 +6,34 @@ import net.minecraft.core.SectionPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FallingBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class BGRemoveBlockGoal extends MoveToBlockGoal {
 
     private final Block blockToRemove;
     private final Mob removerMob;
     private int ticksSinceReachedGoal;
+    private int ticksSinceStartedGoal;
     private static final int WAIT_AFTER_BLOCK_FOUND = 20;
     private Item dropItem = null;
     private int minAmount = 1;
@@ -80,6 +89,7 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
     public void start() {
         super.start();
         this.ticksSinceReachedGoal = 0;
+        this.ticksSinceStartedGoal = 0;
     }
 
     public void playDestroyProgressSound(LevelAccessor level, BlockPos pos) {
@@ -93,24 +103,26 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
         super.tick();
         Level level = this.removerMob.level();
         BlockPos blockpos = this.removerMob.blockPosition();
-        BlockPos blockpos1 = null;
+        BlockPos blockpos1 = this.blockPos;
         RandomSource randomsource = this.removerMob.getRandom();
         if (this.getMoveToTarget().distToCenterSqr(blockpos.getX(), blockpos.getY(), blockpos.getZ()) < 8.2F) {
             mob.getNavigation().stop();
 
         }
 
-        if (blockpos1 == null) {
+        /*if (blockpos1 == null) {
             for (BlockPos pos : BlockPos.betweenClosed(blockpos.offset(-2, -1, -2), blockpos.offset(2, 1, 2))) {
                 if (level.getBlockState(pos).is(this.blockToRemove)) {
                     blockpos1 = pos;
                     break;
                 }
             }
-        }
+        }*/
+
         if (this.isReachedTarget() && blockpos1 != null) {
-            Vec3 targetVec3 = Vec3.atCenterOf(blockpos1);
-            this.removerMob.getLookControl().setLookAt(targetVec3.subtract(this.removerMob.getEyePosition()));
+            Vec3 starter = this.removerMob.getEyePosition();
+            Vec3 ender = blockpos1.getCenter().subtract(starter);
+            this.removerMob.getLookControl().setLookAt(ender);
             if (this.ticksSinceReachedGoal > 0) {
                 Vec3 vec3 = this.removerMob.getDeltaMovement();
                 this.removerMob.setDeltaMovement(vec3.x, 0.3, vec3.z);
@@ -151,6 +163,36 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
             ++this.ticksSinceReachedGoal;
         }
 
+        if ((!this.isReachedTarget() && this.ticksSinceStartedGoal > 220) ||
+                (!this.isReachedTarget() && blockpos1.getY() > blockpos.getY()+1 &&
+                        Math.abs(blockpos.getX() - blockpos1.getX()) < 4 && Math.abs(blockpos.getZ() - blockpos1.getZ()) < 4)){
+
+            if (!level.isClientSide) {
+                Vec3 starter = this.removerMob.getEyePosition();
+                Vec3 ender = blockpos1.getCenter().subtract(starter);
+                Vec3 normVec3 = ender.normalize();
+                int disLength = Mth.floor(ender.length());
+
+                for (int i = 1; i < disLength; i++){
+                    Vec3 placeVec3 = starter.add(normVec3.scale(i));
+                    for (int j = 0; j < 4; j++) {
+                        double d3 = randomsource.nextGaussian() * 0.02;
+                        double d1 = randomsource.nextGaussian() * 0.02;
+                        double d2 = randomsource.nextGaussian() * 0.02;
+                        ((ServerLevel)level).sendParticles(ParticleTypes.SMALL_GUST, placeVec3.x, placeVec3.y, placeVec3.z, 1, d3, d1, d2, 0.15);
+                    }
+                }
+            }
+            level.playSound(this.removerMob, blockpos, SoundEvents.SNIFFER_DEATH, SoundSource.HOSTILE, 0.9F, 1.5F);
+            level.playSound(this.removerMob, blockpos, SoundEvents.WARDEN_SONIC_BOOM, SoundSource.HOSTILE, 0.05F, 1.0F);
+            BlockState gourdState = level.getBlockState(blockpos1);
+            FallingBlockEntity fallingGourd = FallingBlockEntity.fall(level, blockpos1, gourdState);
+            level.addFreshEntity(fallingGourd);
+            this.nextStartTick = reducedTickDelay(60);
+            this.stop();
+        }
+        ++this.ticksSinceStartedGoal;
+
     }
 
     public Item getDropItem(){
@@ -167,4 +209,19 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
         //return chunkaccess == null ? false : chunkaccess.getBlockState(pos).is(this.blockToRemove) && chunkaccess.getBlockState(pos.above()).isAir() && chunkaccess.getBlockState(pos.above(2)).isAir();
         return chunkaccess == null ? false : chunkaccess.getBlockState(pos).is(this.blockToRemove);
     }
+
+    /*@Override
+    protected boolean isValidTarget(LevelReader level, BlockPos pos) {
+        ChunkAccess chunkaccess = level.getChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ()), ChunkStatus.FULL, false);
+        //return chunkaccess == null ? false : chunkaccess.getBlockState(pos).is(this.blockToRemove) && chunkaccess.getBlockState(pos.above()).isAir() && chunkaccess.getBlockState(pos.above(2)).isAir();
+        if (chunkaccess == null){
+            return false;
+        }
+        for (Block block : this.blocksToRemove) {
+            if (chunkaccess.getBlockState(pos).is(block)) {
+                return true;
+            }
+        }
+        return false;
+    }*/
 }

@@ -1,5 +1,7 @@
 package com.jamiedev.bygone.common.block.gourds;
 
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.level.LevelReader;
 import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
@@ -51,7 +53,9 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock {
     protected void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
         BlockPos blockPos = hit.getBlockPos();
         if (!world.isClientSide) {
-            world.destroyBlock(blockPos, true, projectile);
+            BlockState gourdState = world.getBlockState(blockPos);
+            FallingBlockEntity fallingGourd = FallingBlockEntity.fall(world, blockPos, gourdState);
+            world.addFreshEntity(fallingGourd);
         }
 
     }
@@ -59,11 +63,17 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock {
     @Override
     protected void tick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (!state.canSurvive(world, pos)) {
-            world.destroyBlock(pos, true);
+            BlockState gourdState = world.getBlockState(pos);
+            FallingBlockEntity fallingGourd = FallingBlockEntity.fall(world, pos, gourdState);
+            world.addFreshEntity(fallingGourd);
         }
     }
 
-
+    @Override
+    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        return level.getBlockState(pos.above()).isFaceSturdy(level, pos.above(), Direction.DOWN)
+                || level.getBlockState(pos.below()).isFaceSturdy(level, pos.below(), Direction.UP);
+    }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
