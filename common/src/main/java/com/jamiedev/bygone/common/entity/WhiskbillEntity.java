@@ -208,7 +208,7 @@ public class WhiskbillEntity extends Animal
 
         @Override
         public double acceptedDistance() {
-            return 6.0;
+            return 3.0;
         }
     }
 
@@ -229,7 +229,7 @@ public class WhiskbillEntity extends Animal
 
         @Override
         public double acceptedDistance() {
-            return 6.0;
+            return 3.0;
         }
     }
 
@@ -251,7 +251,7 @@ public class WhiskbillEntity extends Animal
 
         @Override
         public double acceptedDistance() {
-            return 6.0;
+            return 3.0;
         }
     }
 
