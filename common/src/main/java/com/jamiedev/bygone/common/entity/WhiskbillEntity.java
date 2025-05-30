@@ -4,6 +4,7 @@ import com.jamiedev.bygone.common.entity.ai.BGRemoveBlockGoal;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
+import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -163,10 +164,9 @@ public class WhiskbillEntity extends Animal
         this.goalSelector.addGoal(3, new TemptGoal(this, (double)1.0F, (p_335873_) -> p_335873_.is(JamiesModTag.WHISKBILL_FOOD), false));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.3, 1.4, (p_352798_) -> AVOID_PLAYERS.test((Entity) p_352798_) && !this.isBaby()));
 
-        this.goalSelector.addGoal(4, new WhiskbillEntity.EatVerdantGourdGoal(this, 1.5, 9, 3));
-        this.goalSelector.addGoal(4, new WhiskbillEntity.EatBeigeGourdGoal(this, 1.5, 9, 3));
-        this.goalSelector.addGoal(4, new WhiskbillEntity.EatMuaveGourdGoal(this, 1.5, 9, 3));
-
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatVerdantGourdGoal(this, 1.5, 9, 1));
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatBeigeGourdGoal(this, 1.5, 9, 1));
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatMuaveGourdGoal(this, 1.5, 9, 1));
 
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.6));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
@@ -193,7 +193,7 @@ public class WhiskbillEntity extends Animal
 
     class EatBeigeGourdGoal extends BGRemoveBlockGoal {
         EatBeigeGourdGoal(PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
-            super(BGBlocks.GOURD_LANTERN_BEIGE.get(), mob, speedModifier, searchRange, verticalSearchRange, Items.WHEAT_SEEDS);
+            super(BGBlocks.GOURD_LANTERN_BEIGE.get(), mob, speedModifier, searchRange, verticalSearchRange, BGItems.BEIGE_GOURD_SEEDS.get());
         }
 
         @Override
@@ -214,7 +214,7 @@ public class WhiskbillEntity extends Animal
 
     class EatMuaveGourdGoal extends BGRemoveBlockGoal {
         EatMuaveGourdGoal(PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
-            super(BGBlocks.GOURD_LANTERN_MUAVE.get(), mob, speedModifier, searchRange, verticalSearchRange, Items.PUMPKIN_SEEDS);
+            super(BGBlocks.GOURD_LANTERN_MUAVE.get(), mob, speedModifier, searchRange, verticalSearchRange, BGItems.MUAVE_GOURD_SEEDS.get());
         }
 
         @Override
@@ -236,7 +236,7 @@ public class WhiskbillEntity extends Animal
 
     class EatVerdantGourdGoal extends BGRemoveBlockGoal {
         EatVerdantGourdGoal(PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
-            super(BGBlocks.GOURD_LANTERN_VERDANT.get(), mob, speedModifier, searchRange, verticalSearchRange, Items.MELON_SEEDS);
+            super(BGBlocks.GOURD_LANTERN_VERDANT.get(), mob, speedModifier, searchRange, verticalSearchRange, BGItems.VERDANT_GOURD_SEEDS.get());
         }
 
         @Override

@@ -56,15 +56,19 @@ public class BGItems
     public static final Supplier<Item> EXOTIC_PLUMAGE = registerItem("exotic_plumage", () -> new Item(new Item.Properties().fireResistant()));
     public static final Supplier<Item> GLOW_CHITIN = registerItem("glow_chitin", () -> new Item(new Item.Properties().fireResistant()));
     public static final Supplier<Item> SCUTTLE_SPIKE = registerItem("scuttle_spike", () -> new Item(new Item.Properties().fireResistant()));
-    ArmorMaterials mat;
+    ArmorMaterials mat;;
 
     public static final Supplier<Item> BEIGE_SLICE = registerItem("glow_gourd_beige_slice", () -> new Item(new Item.Properties().food(Foods.CARROT)));
+    public static final Supplier<Item> BEIGE_GOURD_SEEDS = registerItem("glow_gourd_beige_seeds", () -> new ItemNameBlockItem(BGBlocks.GOURD_LANTERN_BEIGE.get(), new Item.Properties()));
     public static final Supplier<Item> MUAVE_SLICE = registerItem("glow_gourd_muave_slice", () -> new Item(new Item.Properties().food(Foods.CARROT)));
+    public static final Supplier<Item> MUAVE_GOURD_SEEDS = registerItem("glow_gourd_muave_seeds", () -> new ItemNameBlockItem(BGBlocks.GOURD_LANTERN_MUAVE.get(), new Item.Properties()));
     public static final Supplier<Item> VERDANT_SLICE = registerItem("glow_gourd_verdant_slice", () -> new Item(new Item.Properties().food(Foods.CARROT)));
+    public static final Supplier<Item> VERDANT_GOURD_SEEDS = registerItem("glow_gourd_verdant_seeds", () -> new ItemNameBlockItem(BGBlocks.GOURD_LANTERN_VERDANT.get(), new Item.Properties()));
 
     public static final Supplier<Item> GOURD_SOUP = registerItem("glow_gourd_soup", () -> new Item(new Item.Properties().food(Foods.RABBIT_STEW).stacksTo(1)));
     public static final Supplier<Item> GOURD_DANGO = registerItem("glow_gourd_dango", () -> new StandingAndWallBlockItem(BGBlocks.GOURD_DANGO.get(), BGBlocks.GOURD_DANGO_WALL.get(),
             new Item.Properties().food(Foods.GOLDEN_CARROT), Direction.DOWN));
+
     public static final Supplier<Item> SCALE_HELMET = registerItem("scale_helmet", () ->
             new ArmorItem(BGArmorMaterials.SCALE, ArmorItem.Type.HELMET,
                     new Item.Properties().fireResistant()));
@@ -77,6 +81,7 @@ public class BGItems
     public static final Supplier<Item> SCALE_BOOTS = registerItem("scale_boots", () ->
             new ArmorItem(BGArmorMaterials.SCALE, ArmorItem.Type.BOOTS,
                     new Item.Properties().fireResistant()));
+
     public static final Supplier<Item> GOLD_BIG_BEAK_ARMOR = registerItem("gold_beak_armor", () -> new CustomAnimalArmorItem(ArmorMaterials.GOLD, CustomAnimalArmorItem.BodyType.BIG_BEAK, false, (new Item.Properties()).stacksTo(1)));
     public static final Supplier<Item> IRON_BIG_BEAK_ARMOR = registerItem("iron_beak_armor", () -> new CustomAnimalArmorItem(ArmorMaterials.IRON, CustomAnimalArmorItem.BodyType.BIG_BEAK, false, (new Item.Properties()).stacksTo(1)));
     public static final Supplier<Item> DIAMOND_BIG_BEAK_ARMOR = registerItem("diamond_beak_armor", () -> new CustomAnimalArmorItem(ArmorMaterials.DIAMOND, CustomAnimalArmorItem.BodyType.BIG_BEAK, false, (new Item.Properties()).stacksTo(1)));

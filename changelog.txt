@@ -30,6 +30,7 @@
 * Added the Amber Clump.
 * Added the Primordial Beach biome.
 * Added the [REDACTED] block, found only in Abandoned Farms.
+* Added Glow Gourd Seeds. (Currently only place the "grown" version of the Gourd!)
 
 # Terrain Generation changes and additions:
 * Added the "Primordial Beach" biome
@@ -51,12 +52,13 @@
 * Ancient Hook now discards when the player is further than 64 blocks away.,
 * Ancient Hook now discards when the shift key is pressed.
 * Ancient Hook now attaches to blocks way faster as its shoot speed has been increased a lot.
+* Ancient Hook sounds are planned for 1.3.1!
 
 # The Whiskbill
 * A new passive mob found only in the Underhang.
-* Will seek out low-growing Glow Gourds and devour them.
+* Will seek out low-growing Glow Gourds and devour them, spitting out the Seeds!
 * Will retreat from nearby players and poison players that hurt them!
-* Temporarily are using Sniffer sounds, but unique sounds are planned.
+* Temporarily are using Sniffer sounds, but unique sounds are planned for 1.3.1!
 * Can be bred with Gourd Slices!
 
 
