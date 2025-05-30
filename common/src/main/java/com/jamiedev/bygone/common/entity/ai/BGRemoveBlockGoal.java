@@ -53,7 +53,7 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
             --this.nextStartTick;
             return false;
         } else if (this.findNearestBlock()) {
-            this.nextStartTick = reducedTickDelay(20);
+            this.nextStartTick = reducedTickDelay(3600);
             return true;
         } else {
             this.nextStartTick = this.nextStartTick(this.mob);
