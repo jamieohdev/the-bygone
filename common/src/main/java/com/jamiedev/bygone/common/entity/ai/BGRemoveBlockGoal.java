@@ -27,6 +27,8 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
     private int ticksSinceReachedGoal;
     private static final int WAIT_AFTER_BLOCK_FOUND = 20;
     private Item dropItem = null;
+    private int minAmount = 1;
+    private int maxAmount = 1;
 
     public BGRemoveBlockGoal(Block blockToRemove, PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
         super(mob, speedModifier, searchRange, verticalSearchRange);
@@ -39,6 +41,15 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
         this.blockToRemove = blockToRemove;
         this.removerMob = mob;
         this.dropItem = dropItem;
+    }
+
+    public BGRemoveBlockGoal(Block blockToRemove, PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange, Item dropItem, int minAmount, int maxAmount) {
+        super(mob, speedModifier, searchRange, verticalSearchRange);
+        this.blockToRemove = blockToRemove;
+        this.removerMob = mob;
+        this.dropItem = dropItem;
+        this.minAmount = minAmount;
+        this.maxAmount = maxAmount + 1;
     }
 
     @Override
@@ -98,6 +109,8 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
             }
         }
         if (this.isReachedTarget() && blockpos1 != null) {
+            Vec3 targetVec3 = Vec3.atCenterOf(blockpos1);
+            this.removerMob.getLookControl().setLookAt(targetVec3.subtract(this.removerMob.getEyePosition()));
             if (this.ticksSinceReachedGoal > 0) {
                 Vec3 vec3 = this.removerMob.getDeltaMovement();
                 this.removerMob.setDeltaMovement(vec3.x, 0.3, vec3.z);
@@ -125,7 +138,10 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
                         ((ServerLevel)level).sendParticles(ParticleTypes.POOF, (double)blockpos1.getX() + (double)0.5F, (double)blockpos1.getY(), (double)blockpos1.getZ() + (double)0.5F, 1, d3, d1, d2, (double)0.15F);
                     }
                     if (this.dropItem != null){
-                        this.removerMob.spawnAtLocation(this.dropItem);
+                        int randomInt = this.removerMob.getRandom().nextInt(Math.max(this.minAmount, 1), Math.max(this.maxAmount, this.minAmount + 1));
+                        for (int i = 0; i < randomInt; i++){
+                            this.removerMob.spawnAtLocation(this.dropItem);
+                        }
                     }
 
                     this.playBreakSound(level, blockpos1);
