@@ -47,6 +47,7 @@
 * Patches of Amber Clumps generate on walls and ceilings.
 * Pointed Amber now generates only on ceilings.
 * Tweaked the fog and sky colors to fit the dimension better!
+* Removed Creosotes from generating in the biome.
 
 # Ancient Hook changes:
 * Ancient Hook now discards when in liquids. (this is to fix strange behaviour with water),
@@ -78,7 +79,10 @@
 * Pests now consume crops 20% more.
 * Mossy Claystone now boosts Sniffer eggs hatch rates.
 * Chantrelle now has a light level of six.
-* Montsechia texture has been changed!
+* Montsechia texture has been changed.
+* Montsechia now crafts into White Dye instead of Light Blue Dye.
+* Creosote and Creosote Sprout textures have been changed.
+* Creosote and Creosote Sprouts now generate in the Primordial Ocean.
 * Removed Umber.
 * Removed Umber Bricks.
 
@@ -98,6 +102,7 @@
 * Fixed Bygone Portal blocks not shattering when the Bygone Portal Frame is broken.
 * Fixed "Bygone: Strippables registered!" appearing in the log.
 * Fixed Mushroom Vines not having a "tip" texture
+* Fixed Amber Desert ruins from generating incorrectly.
 
 
 ## **Updates in 1.2.3**
