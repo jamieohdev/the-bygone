@@ -3,7 +3,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "bygone:block/glow_gourd_beige",
-		"particle": "bygone:block/glow_gourd_beige"
+		"particle": "bygone:block/glow_gourd_beige_particles"
 	},
 	"elements": [
 		{
