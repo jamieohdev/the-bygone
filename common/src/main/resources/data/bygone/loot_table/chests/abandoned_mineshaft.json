@@ -19,6 +19,10 @@
         },
         {
           "type": "minecraft:item",
+          "name": "bygone:ancient_hook"
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:name_tag",
           "weight": 30
         },
