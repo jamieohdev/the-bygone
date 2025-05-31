@@ -92,6 +92,7 @@
 * Fixed numerous broken stonecutter recipes for Byslate and Bystone (All types).
 * Fixed multiple Bygone mobs having "lag" between movements.
 * Fixed Underhang Vines popping out Glowstone when right-clicked.
+* Fixed multiple blocks like the Glow Gourds and Dangos from having broken block breaking particles.
 
 
 ## **Updates in 1.2.3**
