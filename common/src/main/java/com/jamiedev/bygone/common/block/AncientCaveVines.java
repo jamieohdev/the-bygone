@@ -25,7 +25,7 @@ public interface AncientCaveVines {
 
     static InteractionResult pickBerries(@Nullable Entity picker, BlockState state, Level world, BlockPos pos) {
         if (state.getValue(BERRIES)) {
-            Block.popResource(world, pos, new ItemStack(Blocks.GLOWSTONE, 1));
+            //Block.popResource(world, pos, new ItemStack(Blocks.GLOWSTONE, 1));
             float f = Mth.randomBetween(world.random, 0.8F, 1.2F);
             world.playSound(null, pos, SoundEvents.CAVE_VINES_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, f);
             BlockState blockState = state.setValue(BERRIES, false);
