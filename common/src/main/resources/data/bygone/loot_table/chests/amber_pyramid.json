@@ -6,19 +6,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:diamond",
-          "weight": 5
+          "name": "bygone:verdigris_scrap"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:ancient_hook"
         },
         {
           "type": "minecraft:item",
@@ -65,7 +57,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:emerald",
+          "name": "minecraft:copper_ingot",
           "weight": 15
         },
         {
@@ -123,17 +115,17 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_horse_armor",
-          "weight": 15
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:golden_horse_armor",
+          "name": "bygone:gold_beak_armor",
           "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:diamond_horse_armor",
+          "name": "bygone:iron_beak_armor",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:diamond_beak_armor",
           "weight": 5
         },
         {
@@ -276,5 +268,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "minecraft:chests/desert_pyramid"
+  "random_sequence": "bygone:chests/amber_pyramid"
 }

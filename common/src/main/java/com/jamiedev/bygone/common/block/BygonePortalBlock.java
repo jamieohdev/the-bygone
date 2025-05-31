@@ -17,7 +17,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EndPortalBlock;
+import net.minecraft.world.level.block.EndPortalFrameBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -62,13 +64,14 @@ public class BygonePortalBlock extends CustomPortalBlock
     public BlockState updateShape(BlockState state, Direction direction, BlockState newState, LevelAccessor world, BlockPos pos, BlockPos posFrom) {
         Block block = getPortalBase((Level) world, pos);
         PortalLink link = CustomPortalApiRegistry.getPortalLinkFromBase(block);
+        //Corrinedev: Remove portal frame check
         if (link != null) {
             PortalFrameTester portalFrameTester = link.getFrameTester().createInstanceOfPortalFrameTester().init(world, pos, CustomPortalHelper.getAxisFrom(state), block);
             if (portalFrameTester.isAlreadyLitPortalFrame())
                 return super.updateShape(state, direction, newState, world, pos, posFrom);
-        }
-        //todo handle unknown portallink
-
-        return BGBlocks.BYGONE_PORTAL.get().defaultBlockState();
+            else
+                return Blocks.AIR.defaultBlockState();
+        } else
+            return Blocks.AIR.defaultBlockState();
     }
 }
