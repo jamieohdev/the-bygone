@@ -25,7 +25,7 @@
 * Completely overhauled the Bygones world generation! (See below for more details!)
 * Overhauled the look of the Amber Desert biome.
 * Overhauled the Ancient Hook.
-* Added the Whiskbill.
+* Added the Whiskbill and Whiskbill Spawn Egg.
 * Added the Amber Sand, Amber Sandstone, Cut Amber Sandstone, Smooth Amber Sandstone and Chiseled Amber Sandstone blocksets.
 * Added the Amber Clump.
 * Added the Primordial Beach biome.
