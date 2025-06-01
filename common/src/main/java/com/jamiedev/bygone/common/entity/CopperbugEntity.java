@@ -653,12 +653,14 @@ public class CopperbugEntity extends Animal implements NeutralMob
         private Vec3 nextTarget;
         private int ticks;
         private final CopperbugEntity bug;
+        private final Level level;
 
 
         public ScrapeGoal(CopperbugEntity bug) {
             super();
             this.setFlags(EnumSet.of(Flag.MOVE));
             this.bug = bug;
+            this.level = bug.level();
         }
 
         @Override
@@ -773,13 +775,15 @@ public class CopperbugEntity extends Animal implements NeutralMob
                         }
 
                         ++this.pollinationTicks;
-                        if (CopperbugEntity.this.random.nextFloat() < 0.05F && this.pollinationTicks > this.lastPollinationTick + 60) {
-                            this.lastPollinationTick = this.pollinationTicks;
-                            CopperbugEntity.this.playSound(SoundEvents.AXE_SCRAPE, 1.0F, 1.0F);
-                            Optional<BlockState> optional1 = WeatheringCopper.getPrevious(CopperbugEntity.this.level().getBlockState(CopperbugEntity.this.copperPos));
-                            if (optional1.isPresent()) {
-                                CopperbugEntity.this.playSound(SoundEvents.AXE_SCRAPE, 1.0F, 1.0F);
-                                CopperbugEntity.this.level().levelEvent(3005, CopperbugEntity.this.copperPos, 0);
+                        if (!this.level.isClientSide){
+                            if (CopperbugEntity.this.random.nextFloat() < 0.05F && this.pollinationTicks > this.lastPollinationTick + 60) {
+                                this.lastPollinationTick = this.pollinationTicks;
+                                //CopperbugEntity.this.playSound(SoundEvents.AXE_SCRAPE, 1.0F, 1.0F);
+                                Optional<BlockState> optional1 = WeatheringCopper.getPrevious(this.level.getBlockState(CopperbugEntity.this.copperPos));
+                                if (optional1.isPresent()) {
+                                    CopperbugEntity.this.playSound(SoundEvents.AXE_SCRAPE, 1.0F, 1.0F);
+                                    this.level.levelEvent(3005, CopperbugEntity.this.copperPos, 0);
+                                }
                             }
                         }
 
