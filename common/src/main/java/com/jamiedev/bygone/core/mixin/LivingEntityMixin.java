@@ -6,15 +6,16 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
@@ -22,10 +23,21 @@ public abstract class LivingEntityMixin {
 
     @Shadow public abstract void makeSound(@Nullable SoundEvent sound);
 
-    // Credits to https://github.com/Quplet/NoShieldDelay (MIT Licensed)
-    @ModifyConstant(method = "isBlocking", constant = @Constant(intValue = 5))
-    private int jamies_mod$isBlocking(int constant) {
-        return this.getUseItem().getItem() instanceof VerdigrisBladeItem ? 0 : constant;
+    @Shadow protected ItemStack useItem;
+
+    @Shadow protected int useItemRemaining;
+
+    @Shadow public abstract boolean isUsingItem();
+
+    @Inject(method = "isBlocking", at = @At("HEAD"), cancellable = true) //Fix for compatibility with Guarding mod git issue #20
+    private void jamies_mod$isBlocking(CallbackInfoReturnable<Boolean> cir) {
+        if(this.useItem.getItem() instanceof VerdigrisBladeItem)
+            if (this.isUsingItem() && !this.useItem.isEmpty()) {
+                Item item = this.useItem.getItem();
+                cir.setReturnValue(item.getUseAnimation(this.useItem) != UseAnim.BLOCK ? false : item.getUseDuration(this.useItem, (LivingEntity) (Object)this) - this.useItemRemaining >= 5);
+            } else {
+                cir.setReturnValue(false);
+            }
     }
 
     @Inject(method = "handleEntityEvent", at = @At("HEAD"), cancellable = true)
