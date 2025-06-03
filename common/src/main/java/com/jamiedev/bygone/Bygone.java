@@ -4,23 +4,21 @@ import com.jamiedev.bygone.common.entity.*;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.*;
 import com.jamiedev.bygone.core.mixin.AxeItemAccess;
-import com.jamiedev.bygone.core.platform.Services;
 import com.jamiedev.bygone.common.util.Consumer4;
+import com.jamiedev.bygone.core.util.HeightGetter;
+import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -34,10 +32,11 @@ import org.apache.logging.log4j.Logger;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class Bygone {
-
+    public static final Supplier<DataComponentType<Integer>> MAP_HEIGHT = JinxedRegistryHelper.register(BuiltInRegistries.DATA_COMPONENT_TYPE, "bygone", "map_height", () -> HeightGetter.MAP_HEIGHT);
 
     public static final String MOD_ID = "bygone";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
