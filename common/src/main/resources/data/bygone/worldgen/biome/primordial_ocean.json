@@ -67,7 +67,8 @@
       "bygone:seagrass_normal",
       "bygone:kelp",
       "minecraft:flower_cherry",
-      "bygone:flower_primordial"
+      "bygone:flower_primordial",
+      "bygone:amber_desert_vegetation"
     ],
     ["minecraft:freeze_top_layer"]
   ],

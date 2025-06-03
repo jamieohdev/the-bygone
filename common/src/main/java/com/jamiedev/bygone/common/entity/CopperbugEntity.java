@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.entity;
 
+import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import org.jetbrains.annotations.NotNull;
 import com.google.common.collect.Lists;
 import com.jamiedev.bygone.common.block.entity.CopperbugNestBlockEntity;
@@ -131,12 +132,13 @@ public class CopperbugEntity extends Animal implements NeutralMob
             return polarBear.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES;
         }));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25));
-        this.scrapeGoal = new ScrapeGoal();
+        this.scrapeGoal = new ScrapeGoal(this);
         this.goalSelector.addGoal(4, this.scrapeGoal);
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(7, new OxidizeCopperGoal());
+        //this.goalSelector.addGoal(7, new OxidizeCopperGoal());
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers(CopperbugEntity.class));
         this.targetSelector.addGoal(1, new CopperbugEntity.CopperbugRevengeGoal());
         this.targetSelector.addGoal(2, new CopperbugEntity.IsCopperOrVerdigrisGoal());
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
@@ -650,11 +652,15 @@ public class CopperbugEntity extends Animal implements NeutralMob
         @Nullable
         private Vec3 nextTarget;
         private int ticks;
+        private final CopperbugEntity bug;
+        private final Level level;
 
 
-        ScrapeGoal() {
+        public ScrapeGoal(CopperbugEntity bug) {
             super();
             this.setFlags(EnumSet.of(Flag.MOVE));
+            this.bug = bug;
+            this.level = bug.level();
         }
 
         @Override
@@ -769,9 +775,16 @@ public class CopperbugEntity extends Animal implements NeutralMob
                         }
 
                         ++this.pollinationTicks;
-                        if (CopperbugEntity.this.random.nextFloat() < 0.05F && this.pollinationTicks > this.lastPollinationTick + 60) {
-                            this.lastPollinationTick = this.pollinationTicks;
-                            CopperbugEntity.this.playSound(SoundEvents.AXE_SCRAPE, 1.0F, 1.0F);
+                        if (!this.level.isClientSide){
+                            if (CopperbugEntity.this.random.nextFloat() < 0.05F && this.pollinationTicks > this.lastPollinationTick + 60) {
+                                this.lastPollinationTick = this.pollinationTicks;
+                                //CopperbugEntity.this.playSound(SoundEvents.AXE_SCRAPE, 1.0F, 1.0F);
+                                Optional<BlockState> optional1 = WeatheringCopper.getPrevious(this.level.getBlockState(CopperbugEntity.this.copperPos));
+                                if (optional1.isPresent()) {
+                                    CopperbugEntity.this.playSound(SoundEvents.AXE_SCRAPE, 1.0F, 1.0F);
+                                    this.level.levelEvent(3005, CopperbugEntity.this.copperPos, 0);
+                                }
+                            }
                         }
 
                     }

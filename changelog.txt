@@ -19,18 +19,19 @@
 ### Greetings all! It's been a while since the last -major- update, so do we have some changes in store!
 ### We have changed how the Bygone generates as whole entirely, reworked the Amber Desert biome, revamped the Ancient Hook, added a new mob and so much more!
 ### PLEASE keep in mind you WILL have to delete your /bygone/ dimension folder before updating! Some of the changes will have made things unstable in older worlds!
-
+### Please join us in the official [Discord](https://discord.gg/DMW28XH235)!
 
 # New features in 1.3:
 * Completely overhauled the Bygones world generation! (See below for more details!)
 * Overhauled the look of the Amber Desert biome.
 * Overhauled the Ancient Hook.
-* Added the Whiskbill.
+* Added the Whiskbill and Whiskbill Spawn Egg.
 * Added the Amber Sand, Amber Sandstone, Cut Amber Sandstone, Smooth Amber Sandstone and Chiseled Amber Sandstone blocksets.
 * Added the Amber Clump.
 * Added the Primordial Beach biome.
 * Added the [REDACTED] block, found only in Abandoned Farms.
 * Added Glow Gourd Seeds. (Currently only place the "grown" version of the Gourd!)
+* Added two new paintings from ["Iri_Dark!"](https://bsky.app/profile/iridark.bsky.social)
 
 # Terrain Generation changes and additions:
 * Added the "Primordial Beach" biome
@@ -46,12 +47,14 @@
 * Patches of Amber Clumps generate on walls and ceilings.
 * Pointed Amber now generates only on ceilings.
 * Tweaked the fog and sky colors to fit the dimension better!
+* Removed Creosotes from generating in the biome.
 
 # Ancient Hook changes:
 * Ancient Hook now discards when in liquids. (this is to fix strange behaviour with water),
 * Ancient Hook now discards when the player is further than 64 blocks away.,
 * Ancient Hook now discards when the shift key is pressed.
 * Ancient Hook now attaches to blocks way faster as its shoot speed has been increased a lot.
+* Added Ancient Hook as loot in Bygone Mineshafts.
 * Ancient Hook sounds are planned for 1.3.1!
 
 # The Whiskbill
@@ -76,7 +79,10 @@
 * Pests now consume crops 20% more.
 * Mossy Claystone now boosts Sniffer eggs hatch rates.
 * Chantrelle now has a light level of six.
-* Montsechia texture has been changed!
+* Montsechia texture has been changed.
+* Montsechia now crafts into White Dye instead of Light Blue Dye.
+* Creosote and Creosote Sprout textures have been changed.
+* Creosote and Creosote Sprouts now generate in the Primordial Ocean.
 * Removed Umber.
 * Removed Umber Bricks.
 
@@ -93,6 +99,10 @@
 * Fixed multiple Bygone mobs having "lag" between movements.
 * Fixed Underhang Vines popping out Glowstone when right-clicked.
 * Fixed multiple blocks like the Glow Gourds and Dangos from having broken block breaking particles.
+* Fixed Bygone Portal blocks not shattering when the Bygone Portal Frame is broken.
+* Fixed "Bygone: Strippables registered!" appearing in the log.
+* Fixed Mushroom Vines not having a "tip" texture
+* Fixed Amber Desert ruins from generating incorrectly.
 
 
 ## **Updates in 1.2.3**

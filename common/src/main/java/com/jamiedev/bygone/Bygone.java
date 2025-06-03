@@ -62,7 +62,6 @@ public class Bygone {
 
 
         AxeItemAccess.setStripables(stripables);
-        Bygone.LOGGER.info("Bygone: Strippables registered!");
     }
 
     public static ResourceLocation id(String id){

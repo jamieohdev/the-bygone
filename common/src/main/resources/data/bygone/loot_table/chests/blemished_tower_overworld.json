@@ -242,6 +242,14 @@
         {
           "type": "minecraft:item",
           "name": "bygone:ancient_sprinkler"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:verdigris_scrap"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:ancient_hook"
         }
       ],
       "rolls": {

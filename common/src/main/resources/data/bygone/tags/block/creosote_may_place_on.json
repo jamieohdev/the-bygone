@@ -1,8 +1,5 @@
 {
   "values": [
-    "#minecraft:sand",
-    "#minecraft:terracotta",
-    "#minecraft:dirt",
-    "bygone:amber_sand"
+    "bygone:primordial_sand"
   ]
 }

@@ -1,7 +1,8 @@
 {
   "replace": false,
   "values": [
-
+    "bygone:hanging",
+    "bygone:shelves",
     "bygone:hallucigeania"
   ]
 }
