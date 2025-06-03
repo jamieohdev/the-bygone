@@ -236,7 +236,6 @@ public class BGBlocks {
     public static final Supplier<Block> BIG_WHIRLIWEED = registerBlock("big_whirliweed", () -> new TallFlowerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> WHIRLIWEED = registerBlock("whirliweed", () -> new FlowerBlock(MobEffects.POISON, 12.0F,BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
 
-
     public static final Supplier<Block> CLAYSTONE = registerBlock("claystone", () -> new Block(BlockBehaviour.Properties.ofLegacyCopy(DIRT).strength(1.0F, 3.0F).sound(SoundType.PACKED_MUD)));
     public static final Supplier<Block> COARSE_CLAYSTONE = registerBlock("coarse_claystone", () -> new Block(BlockBehaviour.Properties.ofLegacyCopy(DIRT).strength(1.0F, 3.0F).sound(SoundType.PACKED_MUD)));
     public static final Supplier<Block> CLAYSTONE_BRICKS = registerBlock("claystone_bricks", () -> new Block(BlockBehaviour.Properties.ofLegacyCopy(DIRT).strength(1.0F, 3.0F).sound(SoundType.PACKED_MUD)));
@@ -343,16 +342,16 @@ public class BGBlocks {
                     })));
 
     public static final Supplier<Block> MALACHITE = registerBlock("malachite", () ->
-            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_WART_BLOCK).sound(SoundType.AMETHYST).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GREEN).sound(SoundType.AMETHYST).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
     public static final Supplier<Block> MALACHITE_CHISELED = registerBlock("malachite_chiseled", () ->
-            new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_WART_BLOCK).sound(SoundType.AMETHYST).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+            new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GREEN).sound(SoundType.AMETHYST).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
     public static final Supplier<Block> MALACHITE_PILLAR = registerBlock("malachite_pillar", () ->
-            new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_WART_BLOCK).sound(SoundType.AMETHYST).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+            new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GREEN).sound(SoundType.AMETHYST).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
     public static final Supplier<Block> MALACHITE_TILE = registerBlock("malachite_tile", () ->
-            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_WART_BLOCK).sound(SoundType.AMETHYST).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GREEN).sound(SoundType.AMETHYST).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
     public static final Supplier<Block> MALACHITE_DOOR = registerBlock("malachite_door", () ->
             new DoorBlock(JamiesModBlockSetType.ANCIENT, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR).sound(SoundType.AMETHYST).strength(2.0f)));
@@ -397,13 +396,13 @@ public class BGBlocks {
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
                     6.0F)));
     public static final Supplier<Block> ORANGE_CORAL_BLOCK = registerBlock("rugosa_coral_block", () -> new CoralBlock(DEAD_ORANGE_CORAL_BLOCK.get(),
-            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
                     6.0F).sound(SoundType.CORAL_BLOCK)));
     public static final Supplier<Block> DEAD_ORANGE_CORAL = registerBlock("dead_rugosa_coral", () -> new BaseCoralPlantBlock(
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()
                     .noCollission().instabreak()));
     public static final Supplier<Block> ORANGE_CORAL = registerBlock("rugosa_coral", () -> new CoralPlantBlock(DEAD_ORANGE_CORAL.get(),
-            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).noCollission().instabreak().sound(SoundType.WET_GRASS)
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noCollission().instabreak().sound(SoundType.WET_GRASS)
                     .pushReaction(PushReaction.DESTROY)));
 
     public static final Supplier<Block> DEAD_ORANGE_CORAL_FAN = registerBlock("dead_rugosa_coral_fan", () -> new BaseCoralFanBlock(
@@ -436,13 +435,13 @@ public class BGBlocks {
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()
                     .noCollission().instabreak()));
     public static final Supplier<Block> BLUE_CORAL_FAN = registerBlock("tabulata_coral_fan", () -> new CoralFanBlock(DEAD_BLUE_CORAL_FAN.get(),
-            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).noCollission().instabreak().sound(SoundType.WET_GRASS)
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).noCollission().instabreak().sound(SoundType.WET_GRASS)
                     .pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> DEAD_BLUE_CORAL_WALL_FAN = registerBlockWithoutBlockItem("dead_tabulata_coral_wall_fan", () -> new BaseCoralWallFanBlock(
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()
                     .noCollission().instabreak().dropsLike(DEAD_BLUE_CORAL_FAN.get())));
     public static final Supplier<Block> BLUE_CORAL_WALL_FAN = registerBlockWithoutBlockItem("tabulata_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_BLUE_CORAL_WALL_FAN.get(),
-            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).noCollission().instabreak().sound(SoundType.WET_GRASS)
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).noCollission().instabreak().sound(SoundType.WET_GRASS)
                     .dropsLike(BLUE_CORAL_FAN.get()).pushReaction(PushReaction.DESTROY)));
 
 
@@ -458,19 +457,19 @@ public class BGBlocks {
 
 // Start of Amber Desert blocksets!
     public static final Supplier<Block> AMBER_SAND = registerBlock("amber_sand", () ->
-        new Block(BlockBehaviour.Properties.of().mapColor(MapColor.NETHER).strength(0.35F)
+        new Block(BlockBehaviour.Properties.of().mapColor(MapColor.RAW_IRON).strength(0.35F)
                 .sound(SoundType.GRAVEL)));
     
     public static final Supplier<Block> AMBER_SANDSTONE = registerBlock("amber_sandstone", () ->
-            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.NETHER).strength(0.99F)
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.RAW_IRON).strength(0.99F)
                     .sound(SoundType.STONE)));
 
     public static final Supplier<Block> CHISELED_AMBER_SANDSTONE = registerBlock("chiseled_amber_sandstone", () ->
-            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.NETHER).strength(0.99F)
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.RAW_IRON).strength(0.99F)
                     .sound(SoundType.STONE)));
 
     public static final Supplier<Block> SMOOTH_AMBER_SANDSTONE = registerBlock("smooth_amber_sandstone", () ->
-            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.NETHER).strength(0.99F)
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.RAW_IRON).strength(0.99F)
                     .sound(SoundType.STONE)));
 
     public static final Supplier<Block> SMOOTH_AMBER_SANDSTONE_STAIRS = registerBlock("smooth_amber_sandstone_stairs", () ->
@@ -480,7 +479,7 @@ public class BGBlocks {
             new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.SMOOTH_AMBER_SANDSTONE.get()).strength(2.0f)));
 
     public static final Supplier<Block> CUT_AMBER_SANDSTONE = registerBlock("cut_amber_sandstone", () ->
-            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.NETHER).strength(0.99F)
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.RAW_IRON).strength(0.99F)
                     .sound(SoundType.STONE)));
 
     public static final Supplier<Block> CUT_AMBER_SANDSTONE_SLAB = registerBlock("cut_amber_sandstone_slab", () ->

@@ -5,7 +5,6 @@
 * Portal mechanics?
 * GLARE improvements
 * Copperbug improvements
-* Big Beak new textures?
 * New structure?
 
 
@@ -32,6 +31,8 @@
 * Added the [REDACTED] block, found only in Abandoned Farms.
 * Added Glow Gourd Seeds. (Currently only place the "grown" version of the Gourd!)
 * Added two new paintings from ["Iri_Dark!"](https://bsky.app/profile/iridark.bsky.social)
+* Big Beaks now have variants!
+* Maps now work in the Bygone! They "fill out" depending on what Y level the Players feet are at!
 
 # Terrain Generation changes and additions:
 * Added the "Primordial Beach" biome
@@ -39,6 +40,7 @@
 * New cave generation
 * Redistributed biomes (Beaches will generate next to Oceans, Amber Deserts are less common, and  Primordial Oceans are smaller)
 * Made the overall terrain more traversable by flattening it!
+* Ores generate more as a whole in order to encourage exploring cave expeditions.
 
 # Amber Desert changes and additions:
 * Is now made up of Amber Sand and Amber Sandstone.
@@ -83,15 +85,17 @@
 * Montsechia now crafts into White Dye instead of Light Blue Dye.
 * Creosote and Creosote Sprout textures have been changed.
 * Creosote and Creosote Sprouts now generate in the Primordial Ocean.
+* Byslate no longer requires iron tools to break.
 * Removed Umber.
 * Removed Umber Bricks.
 
 
 # Bugs fixed:
-
+* Fixed crash related to mixins clashing!
 * Fixed crash related to Mooboos in the Bygone!
 * Fixed both Polished Bystone and Polished Byslate family of blocks from not having stonecutter recipes!
 * Fixed Big Beak subtitles not being translated!
+* Fixed Big Beaks model from overlapping!
 * Fixed Shelfhollows biome name not being translated!
 * Fixed a specific fossil generating one block in the air.
 * Fixed Whirliweeds not being "replaceable".

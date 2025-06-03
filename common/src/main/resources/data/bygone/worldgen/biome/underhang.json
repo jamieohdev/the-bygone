@@ -85,8 +85,8 @@
       },
       {
         "type": "bygone:big_beak",
-        "maxCount": 4,
-        "minCount": 2,
+        "maxCount": 6,
+        "minCount": 3,
         "weight": 4
       },
       {
