@@ -47,9 +47,9 @@ public class BigBeakModel<T extends BigBeakEntity> extends HierarchicalModel<T> 
 
         PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        PartDefinition rightLeg = partdefinition.addOrReplaceChild("rightLeg", CubeListBuilder.create().texOffs(64, 20).mirror().addBox(-1.5F, 0.0F, -2.0F, 3.0F, 17.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-3.5F, 7.0F, 0.0F));
+        PartDefinition rightLeg = partdefinition.addOrReplaceChild("rightLeg", CubeListBuilder.create().texOffs(64, 20).mirror().addBox(-1.5F, 0.0F, -2.0F, 3.0F, 17.0F, 4.0F, new CubeDeformation(-0.01F)).mirror(false), PartPose.offset(-3.5F, 7.0F, 0.0F));
 
-        PartDefinition leftLeg = partdefinition.addOrReplaceChild("leftLeg", CubeListBuilder.create().texOffs(64, 20).addBox(-1.5F, 0.0F, -2.0F, 3.0F, 17.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(3.5F, 7.0F, 0.0F));
+        PartDefinition leftLeg = partdefinition.addOrReplaceChild("leftLeg", CubeListBuilder.create().texOffs(64, 20).addBox(-1.5F, 0.0F, -2.0F, 3.0F, 17.0F, 4.0F, new CubeDeformation(-0.01F)), PartPose.offset(3.5F, 7.0F, 0.0F));
 
         PartDefinition rightWing = partdefinition.addOrReplaceChild("rightWing", CubeListBuilder.create().texOffs(43, 37).mirror().addBox(-2.0F, -8.0F, 0.0F, 2.0F, 13.0F, 16.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-5.0F, 2.0F, -13.0F));
 
@@ -77,14 +77,7 @@ public class BigBeakModel<T extends BigBeakEntity> extends HierarchicalModel<T> 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
         root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-        rightLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-        leftLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-        rightWing.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-        leftWing.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-       // feathers.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-        head.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-        body.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-      //  tail.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+        //Do not render children of "root", root.render() already does that.
     }
 
     @Override
