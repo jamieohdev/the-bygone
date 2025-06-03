@@ -5,10 +5,17 @@ import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.common.item.CustomAnimalArmorItem;
+import net.minecraft.Util;
+import net.minecraft.client.model.HorseModel;
+import net.minecraft.client.renderer.entity.HorseRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 
 
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -18,17 +25,7 @@ import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityAttachment;
-import net.minecraft.world.entity.EntityAttachments;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -46,6 +43,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.horse.Markings;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -65,8 +63,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.function.IntUnaryOperator;
 
-public class BigBeakEntity  extends AbstractHorse
+public class BigBeakEntity  extends AbstractHorse implements VariantHolder<BigBeakVariants>
 {
+    HorseRenderer ref2;
+    private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT;
 
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
@@ -115,19 +115,43 @@ public class BigBeakEntity  extends AbstractHorse
         super(entityType, world);
     }
 
-    protected void randomizeReinforcementsChance(RandomSource random) {
-        AttributeInstance var10000 = this.getAttribute(Attributes.MAX_HEALTH);
-        Objects.requireNonNull(random);
-        assert var10000 != null;
-        var10000.setBaseValue(generateMaxHealth(random::nextInt));
-        var10000 = this.getAttribute(Attributes.MOVEMENT_SPEED);
-        Objects.requireNonNull(random);
-        assert var10000 != null;
-        var10000.setBaseValue(generateSpeed(random::nextDouble));
-        var10000 = this.getAttribute(Attributes.JUMP_STRENGTH);
-        Objects.requireNonNull(random);
-        assert var10000 != null;
-        var10000.setBaseValue(generateJumpStrength(random::nextDouble));
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_ID_TYPE_VARIANT, 0);
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("Variant", this.getTypeVariant());
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setTypeVariant(compound.getInt("Variant"));
+    }
+
+    private void setTypeVariant(int typeVariant) {
+        this.entityData.set(DATA_ID_TYPE_VARIANT, typeVariant);
+    }
+
+    private int getTypeVariant() {
+        return (Integer)this.entityData.get(DATA_ID_TYPE_VARIANT);
+    }
+
+    private void setVariantAndMarkings(BigBeakVariants variant, Markings marking) {
+        this.setTypeVariant(variant.getId() & 255 | marking.getId() << 8 & '\uff00');
+    }
+
+    public BigBeakVariants getVariant() {
+        return BigBeakVariants.byId(this.getTypeVariant() & 255);
+    }
+
+    public void setVariant(BigBeakVariants variant) {
+        this.setTypeVariant(variant.getId() & 255 | this.getTypeVariant() & -256);
+    }
+
+    public Markings getMarkings() {
+        return Markings.byId((this.getTypeVariant() & '\uff00') >> 8);
     }
 
 
@@ -439,12 +463,22 @@ public class BigBeakEntity  extends AbstractHorse
         return world.getRawBrightness(pos, 0) > 1;
     }
 
-    @Override
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
-        RandomSource random = this.getRandom();
 
-        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
+
+    @javax.annotation.Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @javax.annotation.Nullable SpawnGroupData spawnGroupData) {
+        RandomSource randomsource = level.getRandom();
+        BigBeakVariants variant;
+        if (spawnGroupData instanceof BigBeakEntity.BigBeakGroupData) {
+            variant = ((BigBeakEntity.BigBeakGroupData)spawnGroupData).variant;
+        } else {
+            variant = Util.getRandom(BigBeakVariants.values(), randomsource);
+            spawnGroupData = new BigBeakEntity.BigBeakGroupData(variant);
+        }
+
+        this.setVariantAndMarkings(variant, Util.getRandom(Markings.values(), randomsource));
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
     @Override
@@ -453,6 +487,7 @@ public class BigBeakEntity  extends AbstractHorse
     }
 
     static {
+        DATA_ID_TYPE_VARIANT = SynchedEntityData.defineId(BigBeakEntity.class, EntityDataSerializers.INT);
         BABY_BASE_DIMENSIONS = BGEntityTypes.BIG_BEAK.get().getDimensions().withAttachments(EntityAttachments.builder().attach(EntityAttachment.PASSENGER, 0.0F,
                 BGEntityTypes.BIG_BEAK.get().getHeight() + 0.125F, 0.0F)).scale(0.5F);
     }
@@ -465,6 +500,15 @@ public class BigBeakEntity  extends AbstractHorse
     ) {
         return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) ||
                 serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get());
+    }
+
+    public static class BigBeakGroupData extends AgeableMob.AgeableMobGroupData {
+        public final BigBeakVariants variant;
+
+        public BigBeakGroupData(BigBeakVariants variant) {
+            super(true);
+            this.variant = variant;
+        }
     }
 
     @Override
@@ -487,9 +531,6 @@ public class BigBeakEntity  extends AbstractHorse
         float f = this.getPose() == Pose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
         this.walkAnimation.update(f, 0.2f);
     }
-
-
-
 
     public enum State {
         FLAPPING, IDLE

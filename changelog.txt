@@ -76,7 +76,7 @@
 * Copperbugs, Pests, and Trilobites are now considered "Arthopods".
 * Claystone Farmland is now hydratable by Water.
 * Sprinkler now bonemeals crop randomly 20% less.
-* Pests now consume crops 20% more.
+* Pests now consume crops 50% more.
 * Mossy Claystone now boosts Sniffer eggs hatch rates.
 * Chantrelle now has a light level of six.
 * Montsechia texture has been changed.
@@ -88,6 +88,7 @@
 
 
 # Bugs fixed:
+
 * Fixed crash related to Mooboos in the Bygone!
 * Fixed both Polished Bystone and Polished Byslate family of blocks from not having stonecutter recipes!
 * Fixed Big Beak subtitles not being translated!
