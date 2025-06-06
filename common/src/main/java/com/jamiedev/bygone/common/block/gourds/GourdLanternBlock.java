@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.common.block.gourds;
 
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelReader;
 import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.core.registry.BGBlocks;
@@ -96,6 +97,12 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock {
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
+
+    @Override
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+        return new ItemStack(this.getBodyBlock());
+    }
+
     @Override
     protected GrowingPlantHeadBlock getHeadBlock() {
         return (GrowingPlantHeadBlock) BGBlocks.GOURD_VINE.get();

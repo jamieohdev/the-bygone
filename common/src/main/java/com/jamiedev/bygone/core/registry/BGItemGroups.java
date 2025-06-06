@@ -105,6 +105,7 @@ public class BGItemGroups {
                 output.accept(BGBlocks.MONTSECHIA.get());
                 output.accept(BGBlocks.SAGARIA.get());
                 output.accept(BGBlocks.RAFFLESIA.get());
+                output.accept(BGBlocks.GOURD_VINE.get());
                 output.accept(BGBlocks.GOURD_LANTERN_VERDANT.get());
                 output.accept(BGBlocks.GOURD_LANTERN_BEIGE.get());
                 output.accept(BGBlocks.GOURD_LANTERN_MUAVE.get());
