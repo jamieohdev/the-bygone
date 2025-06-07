@@ -10,8 +10,12 @@ public enum BigBeakVariants implements StringRepresentable {
     NORMAL(0, "normal"),
     TROPICAL(1, "tropical"),
     PEACHY(2, "peachy"),
-    TRANS(3, "trans"),
-    LESBIAN(4, "lesbian");
+    BLUEBILL(3, "bluebill"),
+    FROSTY(4, "frosty"),
+    NOMAD(5, "nomad"),
+    SAVANNA(6, "savanna"),
+    TRANS(7, "trans"),
+    LESBIAN(8, "lesbian");
 
     public static final Codec<BigBeakVariants> CODEC = StringRepresentable.fromEnum(BigBeakVariants::values);
     private static final IntFunction<BigBeakVariants> BY_ID = ByIdMap.continuous(BigBeakVariants::getId, values(), ByIdMap.OutOfBoundsStrategy.WRAP);

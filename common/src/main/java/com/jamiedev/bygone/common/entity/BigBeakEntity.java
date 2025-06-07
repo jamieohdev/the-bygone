@@ -42,8 +42,7 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Ocelot;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import net.minecraft.world.entity.animal.horse.Markings;
+import net.minecraft.world.entity.animal.horse.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -65,7 +64,7 @@ import java.util.function.IntUnaryOperator;
 
 public class BigBeakEntity  extends AbstractHorse implements VariantHolder<BigBeakVariants>
 {
-    HorseRenderer ref2;
+    Horse ref2;
     private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT;
 
     public final AnimationState idleAnimationState = new AnimationState();
@@ -157,7 +156,7 @@ public class BigBeakEntity  extends AbstractHorse implements VariantHolder<BigBe
 
     public static AttributeSupplier.Builder createBigBeakAttributes() {
         return Mob.createMobAttributes().add(Attributes.JUMP_STRENGTH, 2.0)
-                .add(Attributes.MAX_HEALTH, 50.0)
+                .add(Attributes.MAX_HEALTH, 10.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.4)
                 .add(Attributes.STEP_HEIGHT, 2.0)
                 .add(Attributes.SAFE_FALL_DISTANCE, 100.0)
@@ -224,7 +223,7 @@ public class BigBeakEntity  extends AbstractHorse implements VariantHolder<BigBe
     }
 
     protected static float generateMaxHealth(IntUnaryOperator randomIntGetter) {
-        return 5.0F + (float)randomIntGetter.applyAsInt(2) + (float)randomIntGetter.applyAsInt(3);
+        return 1.0F + (float)randomIntGetter.applyAsInt(2) + (float)randomIntGetter.applyAsInt(3);
     }
 
 
@@ -390,17 +389,37 @@ public class BigBeakEntity  extends AbstractHorse implements VariantHolder<BigBe
     }
 
     @Override
-    @Nullable
-    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
+    @javax.annotation.Nullable
+    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob otherParent) {
 
-            BigBeakEntity BigBeakEntity = (BigBeakEntity)entity;
-            BigBeakEntity BigBeakEntity2 = BGEntityTypes.BIG_BEAK.get().create(world);
-            if (BigBeakEntity2 != null) {
-                int i = this.random.nextInt(9);
-                this.setOffspringAttributes(entity, BigBeakEntity2);
+        BigBeakEntity horse = (BigBeakEntity) otherParent;
+        BigBeakEntity horse1 = BGEntityTypes.BIG_BEAK.get().create(world);
+        if (horse1 != null) {
+            int i = this.random.nextInt(9);
+            BigBeakVariants variant;
+            if (i < 4) {
+                variant = this.getVariant();
+            } else if (i < 8) {
+                variant = horse.getVariant();
+            } else {
+                variant = (BigBeakVariants) Util.getRandom(BigBeakVariants.values(), this.random);
             }
 
-            return BigBeakEntity2;
+            int j = this.random.nextInt(5);
+            Markings markings;
+            if (j < 2) {
+                markings = this.getMarkings();
+            } else if (j < 4) {
+                markings = horse.getMarkings();
+            } else {
+                markings = (Markings) Util.getRandom(Markings.values(), this.random);
+            }
+
+            horse1.setVariantAndMarkings(variant, markings);
+            this.setOffspringAttributes(otherParent, horse1);
+        }
+
+        return horse1;
 
     }
 

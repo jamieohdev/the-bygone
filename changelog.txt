@@ -31,7 +31,7 @@
 * Added the [REDACTED] block, found only in Abandoned Farms.
 * Added Glow Gourd Seeds. (Currently only place the "grown" version of the Gourd!)
 * Added two new paintings from ["Iri_Dark!"](https://bsky.app/profile/iridark.bsky.social)
-* Big Beaks now have variants!
+* Big Beaks now have multiple variants! (Including some special ones for Pride Month)!
 * Maps now work in the Bygone! They "fill out" depending on what Y level the Players feet are at!
 
 # Terrain Generation changes and additions:
@@ -79,6 +79,7 @@
 * Claystone Farmland is now hydratable by Water.
 * Sprinkler now bonemeals crop randomly 20% less.
 * Pests now consume crops 50% more.
+* Big Beaks now have a health range of 5 - 7 hearts.
 * Mossy Claystone now boosts Sniffer eggs hatch rates.
 * Chantrelle now has a light level of six.
 * Montsechia texture has been changed.
