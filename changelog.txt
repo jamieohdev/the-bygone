@@ -81,6 +81,7 @@
 * Pests now consume crops 50% more.
 * Big Beaks now have a health range of 5 - 7 hearts.
 * Mossy Claystone now boosts Sniffer eggs hatch rates.
+* Glow Gourd Vines are now obtainable in Survival via Shears.
 * Chantrelle now has a light level of six.
 * Montsechia texture has been changed.
 * Montsechia now crafts into White Dye instead of Light Blue Dye.

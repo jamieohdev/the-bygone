@@ -211,17 +211,17 @@ public class BGBlocks {
     public static final Supplier<Block> GOURD_VINE = registerBlock("gourd_vine", () -> new GourdVineBlock(BlockBehaviour.Properties.of().replaceable().noCollission()
             .randomTicks().instabreak().sound(SoundType.VINE).ignitedByLava().pushReaction(PushReaction.DESTROY)));
 
-    public static final Supplier<Block> GOURD_LANTERN_VERDANT = registerBlockWithoutBlockItem("glow_gourd_verdant", () -> new GourdLanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS)
+    public static final Supplier<Block> GOURD_LANTERN_VERDANT = registerBlock("glow_gourd_verdant", () -> new GourdLanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS)
             .forceSolidOn().instabreak().strength(0.1F).sound(SoundType.SHROOMLIGHT).lightLevel((state) -> {
                 return 15;
             }).noOcclusion().pushReaction(PushReaction.DESTROY)));
 
-    public static final Supplier<Block> GOURD_LANTERN_BEIGE = registerBlockWithoutBlockItem("glow_gourd_beige", () -> new GourdLanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND)
+    public static final Supplier<Block> GOURD_LANTERN_BEIGE = registerBlock("glow_gourd_beige", () -> new GourdLanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND)
             .forceSolidOn().instabreak().strength(0.1F).sound(SoundType.SHROOMLIGHT).lightLevel((state) -> {
                 return 15;
             }).noOcclusion().pushReaction(PushReaction.DESTROY)));
 
-    public static final Supplier<Block> GOURD_LANTERN_MUAVE = registerBlockWithoutBlockItem("glow_gourd_muave", () -> new GourdLanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.ICE)
+    public static final Supplier<Block> GOURD_LANTERN_MUAVE = registerBlock("glow_gourd_muave", () -> new GourdLanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.ICE)
             .forceSolidOn().instabreak().strength(0.1F).sound(SoundType.SHROOMLIGHT).lightLevel((state) -> {
                 return 15;
             }).noOcclusion().pushReaction(PushReaction.DESTROY)));
