@@ -9,6 +9,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CocoaBlock;
 import net.minecraft.world.level.block.TorchBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,9 +18,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class GourdDangoBlock extends Block
 {
-    TorchBlock ref;
-    protected static final int field_46270 = 2;
     public static MapCodec<GourdDangoBlock> CODEC;
+
     @Override
     protected MapCodec<? extends GourdDangoBlock> codec() { return CODEC; }
 

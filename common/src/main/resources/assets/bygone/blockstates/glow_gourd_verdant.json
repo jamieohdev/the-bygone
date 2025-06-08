@@ -1,10 +1,22 @@
 {
   "variants": {
-    "hanging=false": {
-      "model": "bygone:block/glow_gourd_verdant"
+    "age=0,hanging=false": {
+      "model": "bygone:block/glow_gourd_verdant_stage_0"
     },
-    "hanging=true": {
-      "model": "bygone:block/glow_gourd_verdant"
+    "age=0,hanging=true": {
+      "model": "bygone:block/glow_gourd_verdant_stage_0"
+    },
+    "age=1,hanging=false": {
+      "model": "bygone:block/glow_gourd_verdant_stage_1"
+    },
+    "age=1,hanging=true": {
+      "model": "bygone:block/glow_gourd_verdant_stage_1"
+    },
+    "age=2,hanging=false": {
+      "model": "bygone:block/glow_gourd_verdant_stage_2"
+    },
+    "age=2,hanging=true": {
+      "model": "bygone:block/glow_gourd_verdant_stage_2"
     }
   }
 }

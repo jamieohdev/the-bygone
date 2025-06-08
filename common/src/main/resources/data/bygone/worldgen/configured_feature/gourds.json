@@ -27,21 +27,84 @@
           "type": "minecraft:weighted_state_provider",
           "entries": [
             {
+              "weight": 4,
+              "data": {
+                "Name": "bygone:glow_gourd_beige",
+                "Properties": {
+                  "age": "0"
+                }
+              }
+            },
+            {
+              "weight": 2,
+              "data": {
+                "Name": "bygone:glow_gourd_beige",
+                "Properties": {
+                  "age": "1"
+                }
+              }
+            },
+            {
               "weight": 1,
               "data": {
-                "Name": "bygone:glow_gourd_beige"
+                "Name": "bygone:glow_gourd_beige",
+                "Properties": {
+                  "age": "2"
+                }
               }
             },
             {
-              "weight": 3,
+              "weight": 4,
               "data": {
-                "Name": "bygone:glow_gourd_muave"
+                "Name": "bygone:glow_gourd_muave",
+                "Properties": {
+                  "age": "0"
+                }
               }
             },
             {
-              "weight": 6,
+              "weight": 2,
               "data": {
-                "Name": "bygone:glow_gourd_verdant"
+                "Name": "bygone:glow_gourd_muave",
+                "Properties": {
+                  "age": "1"
+                }
+              }
+            },
+            {
+              "weight": 1,
+              "data": {
+                "Name": "bygone:glow_gourd_muave",
+                "Properties": {
+                  "age": "2"
+                }
+              }
+            },
+            {
+              "weight": 4,
+              "data": {
+                "Name": "bygone:glow_gourd_verdant",
+                "Properties": {
+                  "age": "0"
+                }
+              }
+            },
+            {
+              "weight": 2,
+              "data": {
+                "Name": "bygone:glow_gourd_verdant",
+                "Properties": {
+                  "age": "1"
+                }
+              }
+            },
+            {
+              "weight": 1,
+              "data": {
+                "Name": "bygone:glow_gourd_verdant",
+                "Properties": {
+                  "age": "2"
+                }
               }
             }
           ]

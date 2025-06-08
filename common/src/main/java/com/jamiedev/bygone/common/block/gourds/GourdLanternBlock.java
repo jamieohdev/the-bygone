@@ -3,6 +3,9 @@ package com.jamiedev.bygone.common.block.gourds;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
@@ -14,10 +17,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.GrowingPlantBodyBlock;
-import net.minecraft.world.level.block.GrowingPlantHeadBlock;
-import net.minecraft.world.level.block.WeepingVinesPlantBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -31,14 +30,17 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class GourdLanternBlock extends GrowingPlantBodyBlock {
+public class GourdLanternBlock extends GrowingPlantBodyBlock implements BonemealableBlock {
     public static final MapCodec<GourdLanternBlock> CODEC = simpleCodec(GourdLanternBlock::new);
     public static final BooleanProperty HANGING;
     public static final BooleanProperty WATERLOGGED;
     protected static final VoxelShape STANDING_SHAPE;
     protected static final VoxelShape HANGING_SHAPE;
 
-    WeepingVinesPlantBlock ref;
+    public static final int MAX_AGE = 2;
+    public static final IntegerProperty AGE;
+
+    CocoaBlock ref1;
 
 
     @Override
@@ -48,8 +50,23 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock {
 
     public GourdLanternBlock(BlockBehaviour.Properties settings) {
         super(settings, Direction.DOWN, HANGING_SHAPE, false);
-        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(AGE, 0));
     }
+
+    protected boolean isRandomlyTicking(BlockState state) {
+        return (Integer)state.getValue(AGE) < 2;
+    }
+
+    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (level.random.nextInt(5) == 0) {
+            int i = (Integer)state.getValue(AGE);
+            if (i < 2) {
+                level.setBlock(pos, (BlockState)state.setValue(AGE, i + 1), 2);
+            }
+        }
+
+    }
+
     @Override
     protected void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
         BlockPos blockPos = hit.getBlockPos();
@@ -83,10 +100,20 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HANGING, WATERLOGGED);
+        builder.add(HANGING, WATERLOGGED, AGE);
     }
 
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+        return (Integer)state.getValue(AGE) < 2;
+    }
 
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+        return true;
+    }
+
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+        level.setBlock(pos, (BlockState)state.setValue(AGE, (Integer)state.getValue(AGE) + 1), 2);
+    }
 
     @Override
     protected FluidState getFluidState(BlockState state) {
@@ -108,6 +135,7 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock {
         return (GrowingPlantHeadBlock) BGBlocks.GOURD_VINE.get();
     }
     static {
+        AGE = BlockStateProperties.AGE_2;
         HANGING = BlockStateProperties.HANGING;
         WATERLOGGED = BlockStateProperties.WATERLOGGED;
         STANDING_SHAPE = Shapes.or(Block.box(3.0, 0.0, 3.0, 13.0, 5.0, 13.0), Block.box(6.0, 7.0, 6.0, 10.0, 9.0, 10.0));
