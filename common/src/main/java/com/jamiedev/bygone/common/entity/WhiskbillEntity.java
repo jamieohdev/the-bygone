@@ -2,6 +2,7 @@ package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.common.block.gourds.GourdLanternBlock;
 import com.jamiedev.bygone.common.entity.ai.BGRemoveBlockGoal;
+import com.jamiedev.bygone.common.entity.ai.WhiskbillEatGourdGoal;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
@@ -165,9 +166,10 @@ public class WhiskbillEntity extends Animal
         this.goalSelector.addGoal(3, new TemptGoal(this, (double)1.0F, (p_335873_) -> p_335873_.is(JamiesModTag.WHISKBILL_FOOD), false));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.3, 1.4, (p_352798_) -> AVOID_PLAYERS.test((Entity) p_352798_) && !this.isBaby()));
 
-        this.goalSelector.addGoal(4, new WhiskbillEntity.EatVerdantGourdGoal(this, 1.5, 9, 9));
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatGourdGoal(this, 1.5, 9, 9));
+        /*this.goalSelector.addGoal(4, new WhiskbillEntity.EatVerdantGourdGoal(this, 1.5, 9, 9));
         this.goalSelector.addGoal(4, new WhiskbillEntity.EatBeigeGourdGoal(this, 1.5, 9, 9));
-        this.goalSelector.addGoal(4, new WhiskbillEntity.EatMuaveGourdGoal(this, 1.5, 9, 9));
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatMuaveGourdGoal(this, 1.5, 9, 9));*/
 
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.6));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
@@ -192,7 +194,28 @@ public class WhiskbillEntity extends Animal
         return this.isCrouching() || super.isSteppingCarefully();
     }
 
-    class EatBeigeGourdGoal extends BGRemoveBlockGoal {
+    class EatGourdGoal extends WhiskbillEatGourdGoal {
+        EatGourdGoal(PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
+            super(mob, speedModifier, searchRange, verticalSearchRange);
+        }
+
+        @Override
+        public void playDestroyProgressSound(LevelAccessor level, BlockPos pos) {
+            level.playSound(null, pos, SoundEvents.CAMEL_EAT, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
+        }
+
+        @Override
+        public void playBreakSound(Level level, BlockPos pos) {
+            level.playSound(null, pos, SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
+        }
+
+        @Override
+        public double acceptedDistance() {
+            return 4.0;
+        }
+    }
+
+    /*class EatBeigeGourdGoal extends BGRemoveBlockGoal {
         EatBeigeGourdGoal(PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
             super( BGBlocks.GOURD_LANTERN_BEIGE.get(), mob, speedModifier, searchRange, verticalSearchRange, BGItems.BEIGE_GOURD_SEEDS.get(), 1, 3);
         }
@@ -254,7 +277,7 @@ public class WhiskbillEntity extends Animal
         public double acceptedDistance() {
             return 4.0;
         }
-    }
+    }*/
 
     @Override
     public EntityDimensions getDefaultDimensions(Pose pose) {

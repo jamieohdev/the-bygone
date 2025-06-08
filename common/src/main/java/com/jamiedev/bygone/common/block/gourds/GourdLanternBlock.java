@@ -5,7 +5,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
@@ -90,11 +89,10 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
 
     }
 
-    public boolean getAge()
+    public boolean isFullyGrown(BlockState state)
     {
-        BlockState state = this.defaultBlockState();
         int i = (Integer)state.getValue(AGE);
-        return i == 2 | i > 2;
+        return i == MAX_AGE | i > MAX_AGE;
     }
 
     @Override

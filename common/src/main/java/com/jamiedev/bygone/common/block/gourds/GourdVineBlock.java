@@ -3,13 +3,21 @@ package com.jamiedev.bygone.common.block.gourds;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ThrownTrident;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.NetherVines;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class GourdVineBlock extends GrowingPlantHeadBlock {
@@ -39,4 +47,16 @@ public class GourdVineBlock extends GrowingPlantHeadBlock {
     protected boolean canGrowInto(BlockState state) {
         return NetherVines.isValidGrowthState(state);
     }
+
+    /*@Override
+    protected void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
+        if (!level.isClientSide) {
+            BlockPos blockpos = hit.getBlockPos();
+            if (projectile.mayInteract(level, blockpos)
+                    && projectile.mayBreak(level)
+                    && projectile.getDeltaMovement().length() > 0.6) {
+                level.destroyBlock(blockpos, false);
+            }
+        }
+    }*/
 }
