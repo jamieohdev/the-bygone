@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "netherite_ingot",
+  "ingredients": [
+    {
+      "item": "bygone:verdigris_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "bygone:verdigris_ingot"
+  }
+}

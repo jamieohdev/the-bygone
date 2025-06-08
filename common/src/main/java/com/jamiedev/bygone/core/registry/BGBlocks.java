@@ -343,6 +343,10 @@ public class BGBlocks {
                     .strength(0.1F).lightLevel((state) -> {
                         return 4;
                     })));
+    public static final Supplier<Block> VERDIGRIS_BLOCK = registerBlock("verdigris_block", () ->
+            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHERITE_BLOCK).mapColor(MapColor.TERRACOTTA_GREEN).strength(20.0F, 600.0F)));
+    public static final Supplier<Block> VERDIGRIS_SCRAP_BLOCK = registerBlock("verdigris_scrap_block", () ->
+            new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ANCIENT_DEBRIS).mapColor(MapColor.TERRACOTTA_GREEN).strength(20.0F, 600.0F)));
 
     public static final Supplier<Block> MALACHITE = registerBlock("malachite", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GREEN).sound(SoundType.AMETHYST).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()

@@ -28,6 +28,7 @@
 * Added the Amber Sand, Amber Sandstone, Cut Amber Sandstone, Smooth Amber Sandstone and Chiseled Amber Sandstone blocksets.
 * Added the Amber Clump.
 * Added the Primordial Beach biome.
+* Added the Verdigris Scrap Block and Verdigris Block.
 * Added the [REDACTED] block, found only in Abandoned Farms.
 * Added Glow Gourd Seeds. (Currently only place the "grown" version of the Gourd!)
 * Added two new paintings from ["Iri_Dark!"](https://bsky.app/profile/iridark.bsky.social)
@@ -37,6 +38,7 @@
 # Terrain Generation changes and additions:
 * Added the "Primordial Beach" biome
 * Added noise Pillars to the terrain
+* Verdigris Scrap Blocks generate near the bedrock layer
 * New cave generation
 * Redistributed biomes (Beaches will generate next to Oceans, Amber Deserts are less common, and  Primordial Oceans are smaller)
 * Made the overall terrain more traversable by flattening it!
@@ -73,6 +75,8 @@
 
 # Changes to existing features:
 * Chiseled Polished Bystone and Byslate are now craftable.
+* Ancient Hooks are now craftable.
+* Verdigris Ingots are now craftable.
 * Underhang water color has been adjusted.
 * Underhang ambience now plays 50% less of the time.
 * Copperbugs, Pests, and Trilobites are now considered "Arthopods".
@@ -111,6 +115,9 @@
 * Fixed Mushroom Vines not having a "tip" texture
 * Fixed Amber Desert ruins from generating incorrectly.
 
+
+KNOWN BUGS:
+* (Most) recipes do not show up in the crafting table!
 
 ## **Updates in 1.2.3**
 

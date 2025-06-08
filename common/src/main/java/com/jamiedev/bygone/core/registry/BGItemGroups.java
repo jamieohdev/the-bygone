@@ -31,10 +31,12 @@ public class BGItemGroups {
                 output.accept(BGItems.AMARANTH_SEEDS.get());
                 output.accept(BGItems.AMARANTH_GRAIN.get());
                 output.accept(BGItems.AMARANTH_LOAF.get());
+                output.accept(BGBlocks.AMARANTH_BLOCK.get());
                 output.accept(BGItems.CHANTRELLE_SEEDS.get());
                 output.accept(BGItems.CHANTRELLE.get());
                 output.accept(BGItems.PLAGA_SEEDS.get());
                 output.accept(BGItems.PLAGA.get());
+                output.accept(BGBlocks.SPRINKER.get());
                 output.accept(BGItems.BIG_BEAK_SPAWN_EGG.get());
                 output.accept(BGItems.COELACANTH_SPAWN_EGG.get());
                 output.accept(BGItems.COPPERBUG_SPAWN_EGG.get());
@@ -51,6 +53,8 @@ public class BGItemGroups {
                 output.accept(BGItems.DIAMOND_BIG_BEAK_ARMOR.get());
                 output.accept(BGItems.VERDIGRIS_SCRAP.get());
                 output.accept(BGItems.VERDIGRIS_INGOT.get());
+                output.accept(BGBlocks.VERDIGRIS_SCRAP_BLOCK.get());
+                output.accept(BGBlocks.VERDIGRIS_BLOCK.get());
                 output.accept(BGItems.VERDIGRIS_BLADE.get());
                 output.accept(BGItems.VERDIGRIS_BOW.get());
 
@@ -146,6 +150,10 @@ public class BGItemGroups {
 // Start of the Primordial Ocean blockset
 
                 output.accept(BGBlocks.BLUE_ALGAE.get());
+                output.accept(BGBlocks.CREOSOTE.get());
+                output.accept(BGBlocks.CREOSOTE_SPROUTS.get());
+                output.accept(BGBlocks.BELLADONNA.get());
+                output.accept(BGBlocks.COLEUS.get());
 
                 output.accept(BGBlocks.OCEANSTONE.get());
 
@@ -211,14 +219,8 @@ public class BGItemGroups {
                 output.accept(BGBlocks.AMBERSTONE.get());
                 output.accept(BGBlocks.COBBLED_AMBERSTONE.get());
                 output.accept(BGBlocks.POINTED_AMBER.get());
-                output.accept(BGBlocks.CREOSOTE.get());
-                output.accept(BGBlocks.CREOSOTE_SPROUTS.get());
 
 // Farming / Agriculture blocksets
-                output.accept(BGBlocks.AMARANTH_BLOCK.get());
-                output.accept(BGBlocks.SPRINKER.get());
-                output.accept(BGBlocks.BELLADONNA.get());
-                output.accept(BGBlocks.COLEUS.get());
 
 
 // Shelf Hollows blocksets

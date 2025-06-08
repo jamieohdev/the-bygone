@@ -42,7 +42,8 @@
       "bygone:ore_iron_upper",
       "bygone:ore_iron_middle",
       "bygone:ore_iron_small",
-      "bygone:ore_copper"
+      "bygone:ore_copper",
+      "bygone:ore_verdigris"
     ],
     [],
     ["minecraft:spring_water", "minecraft:spring_lava"],

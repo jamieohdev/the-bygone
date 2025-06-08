@@ -1,0 +1,23 @@
+{
+  "feature": "bygone:ore_verdigris",
+  "placement": [
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:trapezoid",
+        "max_inclusive": {
+          "absolute": 316
+        },
+        "min_inclusive": {
+          "absolute": 256
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}
