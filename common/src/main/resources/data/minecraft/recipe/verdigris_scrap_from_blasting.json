@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 2.0,
+  "ingredient": {
+    "item": "bygone:verdigris_scrap_block"
+  },
+  "result": {
+    "id": "bygone:verdigris_scrap"
+  }
+}

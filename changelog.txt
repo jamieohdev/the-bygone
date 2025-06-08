@@ -114,7 +114,7 @@
 * Fixed "Bygone: Strippables registered!" appearing in the log.
 * Fixed Mushroom Vines not having a "tip" texture
 * Fixed Amber Desert ruins from generating incorrectly.
-
+* Fixed most recipes not showing up in the Crafting Table.
 
 KNOWN BUGS:
 * (Most) recipes do not show up in the crafting table!
