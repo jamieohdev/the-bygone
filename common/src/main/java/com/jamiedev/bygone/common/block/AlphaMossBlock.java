@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.block;
 
+import com.jamiedev.bygone.core.registry.BGConfiguredFeatures;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -38,7 +39,7 @@ public class AlphaMossBlock extends Block implements BonemealableBlock
     @Override
     public void performBonemeal(ServerLevel world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         world.registryAccess().registry(Registries.CONFIGURED_FEATURE).flatMap((key) -> {
-            return key.getHolder(CaveFeatures.MOSS_PATCH_BONEMEAL);
+            return key.getHolder(BGConfiguredFeatures.ALPHA_MOSS_PATCH_BONEMEAL);
         }).ifPresent((entry) -> {
             entry.value().place(world, world.getChunkSource().getGenerator(), random, pos.above());
         });

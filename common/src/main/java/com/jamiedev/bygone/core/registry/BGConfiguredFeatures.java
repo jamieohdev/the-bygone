@@ -12,25 +12,31 @@ import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ClampedNormalFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CaveVines;
+import net.minecraft.world.level.block.CaveVinesBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.SpruceFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
-import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import net.minecraft.world.level.levelgen.synth.NormalNoise;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +49,9 @@ public class BGConfiguredFeatures
         features.add(registryKey);
         return registryKey;
     }
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ALPHA_MOSS_PATCH_BONEMEAL = of("alpha_moss_patch_bonemeal");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ALPHA_MOSS_VEGETATION = FeatureUtils.createKey("alpha_moss_vegetation");
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE = of("underhang/small_underhang_trees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE_MEDIUM = of("underhang/medium_underhang_trees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> POINTED_AMBER = FeatureUtils.createKey("pointed_amber");
@@ -52,7 +61,47 @@ public class BGConfiguredFeatures
 
         HolderGetter<PlacedFeature> placedFeatures = featureRegisterable.lookup(Registries.PLACED_FEATURE);
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = featureRegisterable.lookup(Registries.CONFIGURED_FEATURE);
-        
+
+        FeatureUtils.register(
+                featureRegisterable,
+                ALPHA_MOSS_VEGETATION,
+                Feature.FLOWER,
+                new RandomPatchConfiguration(
+                        96,
+                        6,
+                        2,
+                        PlacementUtils.onlyWhenEmpty(
+                                Feature.SIMPLE_BLOCK,
+                                new SimpleBlockConfiguration(
+                                        new NoiseProvider(
+                                                2345L,
+                                                new NormalNoise.NoiseParameters(0, 1.0),
+                                                0.020833334F,
+                                                List.of(
+                                                        Blocks.DANDELION.defaultBlockState(),
+                                                        Blocks.POPPY.defaultBlockState(),
+                                                        Blocks.ALLIUM.defaultBlockState(),
+                                                        Blocks.AZURE_BLUET.defaultBlockState(),
+                                                        Blocks.RED_TULIP.defaultBlockState(),
+                                                        Blocks.ORANGE_TULIP.defaultBlockState(),
+                                                        Blocks.WHITE_TULIP.defaultBlockState(),
+                                                        Blocks.PINK_TULIP.defaultBlockState(),
+                                                        Blocks.OXEYE_DAISY.defaultBlockState(),
+                                                        Blocks.CORNFLOWER.defaultBlockState(),
+                                                        Blocks.LILY_OF_THE_VALLEY.defaultBlockState()
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+
+        FeatureUtils.register(featureRegisterable, ALPHA_MOSS_PATCH_BONEMEAL, Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+                BlockTags.MOSS_REPLACEABLE, BlockStateProvider.simple(Blocks.MOSS_BLOCK),
+                PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(ALPHA_MOSS_VEGETATION),
+                        new PlacementModifier[0]), CaveSurface.FLOOR, ConstantInt.of(1), 0.0F, 5,
+                0.6F, UniformInt.of(1, 2), 0.75F));
+
         FeatureUtils.register(featureRegisterable, ANCIENT_TREE, Feature.TREE, naturalAncientConfig().build());
         FeatureUtils.register(featureRegisterable, ANCIENT_TREE_MEDIUM, Feature.TREE, naturalAncientConfig().build());
         FeatureUtils.register(featureRegisterable, POINTED_AMBER, Feature.SIMPLE_RANDOM_SELECTOR,
