@@ -37,11 +37,34 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
     protected static final VoxelShape STANDING_SHAPE;
     protected static final VoxelShape HANGING_SHAPE;
 
+    LanternBlock ref;
+
+    protected static final VoxelShape[] STANDING_AGING_SHAPE = new VoxelShape[]{
+            Shapes.or(Block.box(5.5, 4.0, 5.5, 9.5, 7.0, 9.5),
+                    Block.box(6.0, 7.0, 6.0, 9.0, 9.0, 9.0)),
+
+            Shapes.or(Block.box(4.5, 4.0, 4.5, 10.5, 7.0, 10.5),
+                    Block.box(6.0, 7.0, 6.0, 9.0, 9.0, 9.0)),
+
+            Shapes.or(Block.box(3.0, 0.0, 3.0, 13.0, 5.0, 13.0),
+                    Block.box(6.0, 7.0, 6.0, 10.0, 9.0, 10.0))
+    };
+    protected static final VoxelShape[] HANGING_AGING_SHAPE = new VoxelShape[]{
+            Shapes.or(Block.box(5.5, 4.0, 5.5, 9.5, 7.0, 9.5),
+                    Block.box(6.0, 7.0, 6.0, 9.0, 9.0, 9.0)),
+
+            Shapes.or(Block.box(4.5, 4.0, 4.5, 10.5, 7.0, 10.5),
+                    Block.box(6.0, 7.0, 6.0, 9.0, 9.0, 9.0)),
+
+            Shapes.or(Block.box(3.0, 1.0, 3.0, 13.0, 5.0, 13.0),
+                    Block.box(6.0, 8.0, 6.0, 10.0, 10.0, 10.0))
+    };
+
+
     public static final int MAX_AGE = 2;
     public static final IntegerProperty AGE;
 
     CocoaBlock ref1;
-
 
     @Override
     public MapCodec<GourdLanternBlock> codec() {
@@ -65,6 +88,13 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
             }
         }
 
+    }
+
+    public boolean getAge()
+    {
+        BlockState state = this.defaultBlockState();
+        int i = (Integer)state.getValue(AGE);
+        return i == 2 | i > 2;
     }
 
     @Override
@@ -95,7 +125,8 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return state.getValue(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
+        int i = state.getValue(AGE);
+        return state.getValue(HANGING) ? HANGING_AGING_SHAPE[i] : STANDING_AGING_SHAPE[i];
     }
 
     @Override
@@ -138,8 +169,10 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
         AGE = BlockStateProperties.AGE_2;
         HANGING = BlockStateProperties.HANGING;
         WATERLOGGED = BlockStateProperties.WATERLOGGED;
-        STANDING_SHAPE = Shapes.or(Block.box(3.0, 0.0, 3.0, 13.0, 5.0, 13.0), Block.box(6.0, 7.0, 6.0, 10.0, 9.0, 10.0));
-        HANGING_SHAPE = Shapes.or(Block.box(3.0, 1.0, 3.0, 13.0, 5.0, 13.0), Block.box(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
+        STANDING_SHAPE = Shapes.or(Block.box(3.0, 0.0, 3.0, 13.0, 5.0, 13.0),
+                Block.box(6.0, 7.0, 6.0, 10.0, 9.0, 10.0));
+        HANGING_SHAPE = Shapes.or(Block.box(3.0, 1.0, 3.0, 13.0, 5.0, 13.0),
+                Block.box(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
 
     }
 }

@@ -30,8 +30,9 @@
 * Added the Primordial Beach biome.
 * Added the Verdigris Scrap Block and Verdigris Block.
 * Added the [REDACTED] block, found only in Abandoned Farms.
-* Added Glow Gourd Seeds. (Currently only place the "grown" version of the Gourd!)
+* Added Glow Gourd Seeds.
 * Added two new paintings from ["Iri_Dark!"](https://bsky.app/profile/iridark.bsky.social)
+* Glow Gourds now have growth stages!
 * Big Beaks now have multiple variants! (Including some special ones for Pride Month)!
 * Maps now work in the Bygone! They "fill out" depending on what Y level the Players feet are at!
 
