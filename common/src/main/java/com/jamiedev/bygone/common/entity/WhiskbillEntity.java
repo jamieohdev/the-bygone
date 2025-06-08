@@ -166,7 +166,7 @@ public class WhiskbillEntity extends Animal
         this.goalSelector.addGoal(3, new TemptGoal(this, (double)1.0F, (p_335873_) -> p_335873_.is(JamiesModTag.WHISKBILL_FOOD), false));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.3, 1.4, (p_352798_) -> AVOID_PLAYERS.test((Entity) p_352798_) && !this.isBaby()));
 
-        this.goalSelector.addGoal(4, new WhiskbillEntity.EatGourdGoal(this, 1.5, 9, 9));
+        this.goalSelector.addGoal(4, new WhiskbillEntity.EatGourdGoal(this, 1.5, 11, 9));
         /*this.goalSelector.addGoal(4, new WhiskbillEntity.EatVerdantGourdGoal(this, 1.5, 9, 9));
         this.goalSelector.addGoal(4, new WhiskbillEntity.EatBeigeGourdGoal(this, 1.5, 9, 9));
         this.goalSelector.addGoal(4, new WhiskbillEntity.EatMuaveGourdGoal(this, 1.5, 9, 9));*/

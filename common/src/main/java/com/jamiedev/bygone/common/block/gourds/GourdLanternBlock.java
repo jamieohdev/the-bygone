@@ -2,6 +2,7 @@ package com.jamiedev.bygone.common.block.gourds;
 
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -28,6 +29,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class GourdLanternBlock extends GrowingPlantBodyBlock implements BonemealableBlock {
     public static final MapCodec<GourdLanternBlock> CODEC = simpleCodec(GourdLanternBlock::new);
@@ -62,6 +67,7 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
 
     public static final int MAX_AGE = 2;
     public static final IntegerProperty AGE;
+    public static final BooleanProperty GROW_VINE;
 
     CocoaBlock ref1;
 
@@ -72,7 +78,7 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
 
     public GourdLanternBlock(BlockBehaviour.Properties settings) {
         super(settings, Direction.DOWN, HANGING_SHAPE, false);
-        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(AGE, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(AGE, 0).setValue(GROW_VINE, true));
     }
 
     protected boolean isRandomlyTicking(BlockState state) {
@@ -85,7 +91,34 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
             if (i < 2) {
                 level.setBlock(pos, (BlockState)state.setValue(AGE, i + 1), 2);
             }
+
         }
+
+        if (level.random.nextInt(2) == 0) {
+            int i = (Integer)state.getValue(AGE);
+            if (i < 2 && level.getBlockState(pos.below()).is(Blocks.AIR) && state.getValue(GROW_VINE)) {
+                Set<Block> gourds = Set.of(
+                        BGBlocks.GOURD_LANTERN_BEIGE.get(),
+                        BGBlocks.GOURD_LANTERN_MUAVE.get(),
+                        BGBlocks.GOURD_LANTERN_VERDANT.get()
+                );
+                List<Block> gourdsList = new ArrayList<>(gourds);
+                level.setBlock(pos, BGBlocks.GOURD_VINE.get().defaultBlockState().setValue(GourdVineBlock.GOURD_TYPE, gourdsList.indexOf(this)), 2);
+                level.setBlock(pos.below(), (BlockState)state.setValue(AGE, i), 2);
+            }
+        }
+
+        /*int i = (Integer)state.getValue(AGE);
+        if (i < 2 && level.getBlockState(pos.below()).is(Blocks.AIR)) {
+            level.setBlock(pos, BGBlocks.GOURD_VINE.get().defaultBlockState(), 2);
+            level.setBlock(pos.below(), (BlockState)state.setValue(AGE, i), 2);
+        }
+        else if (level.random.nextInt(5) == 0) {
+            if (i < 2) {
+                level.setBlock(pos, (BlockState)state.setValue(AGE, i + 1), 2);
+            }
+        }*/
+
 
     }
 
@@ -95,12 +128,18 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
         return i == MAX_AGE | i > MAX_AGE;
     }
 
+    public boolean getGrowVine(BlockState state)
+    {
+        return (Boolean)state.getValue(GROW_VINE);
+    }
+
     @Override
     protected void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
         BlockPos blockPos = hit.getBlockPos();
         if (!world.isClientSide) {
             BlockState gourdState = world.getBlockState(blockPos);
             FallingBlockEntity fallingGourd = FallingBlockEntity.fall(world, blockPos, gourdState);
+            fallingGourd.dropItem = false;
             world.addFreshEntity(fallingGourd);
         }
 
@@ -111,6 +150,7 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
         if (!state.canSurvive(world, pos)) {
             BlockState gourdState = world.getBlockState(pos);
             FallingBlockEntity fallingGourd = FallingBlockEntity.fall(world, pos, gourdState);
+            fallingGourd.dropItem = false;
             world.addFreshEntity(fallingGourd);
         }
     }
@@ -118,7 +158,7 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         return level.getBlockState(pos.above()).isFaceSturdy(level, pos.above(), Direction.DOWN)
-                || level.getBlockState(pos.below()).isFaceSturdy(level, pos.below(), Direction.UP);
+                || (level.getBlockState(pos.below()).isFaceSturdy(level, pos.below(), Direction.UP) && this.isFullyGrown(state));
     }
 
     @Override
@@ -129,7 +169,7 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HANGING, WATERLOGGED, AGE);
+        builder.add(HANGING, WATERLOGGED, AGE, GROW_VINE);
     }
 
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
@@ -165,6 +205,7 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
     }
     static {
         AGE = BlockStateProperties.AGE_2;
+        GROW_VINE = BooleanProperty.create("grow_vine");
         HANGING = BlockStateProperties.HANGING;
         WATERLOGGED = BlockStateProperties.WATERLOGGED;
         STANDING_SHAPE = Shapes.or(Block.box(3.0, 0.0, 3.0, 13.0, 5.0, 13.0),
