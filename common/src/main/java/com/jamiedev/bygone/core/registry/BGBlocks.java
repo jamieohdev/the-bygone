@@ -187,12 +187,12 @@ public class BGBlocks {
 
     public static  final Supplier<Block> MONTSECHIA = registerBlock("montsechia", () -> new FlowerBlock(MobEffects.UNLUCK, 12.0F,BlockBehaviour.Properties.of().mapColor(MapColor.PLANT)
             .lightLevel((state) -> {
-                return 12;
+                return 14;
             }).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
 
     public static  final Supplier<Block> POTTED_MONTSECHIA = registerBlockWithoutBlockItem("potted_montsechia", () -> createFlowerPotBlock(MONTSECHIA.get()));
     public static  final Supplier<Block> SAGARIA = registerBlock("sagaria", () -> new FlowerBlock(MobEffects.LUCK, 12.0F,BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().lightLevel((state) -> {
-     return 12;
+     return 14;
     }).instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
 
     public static  final Supplier<Block> POTTED_SAGARIA = registerBlockWithoutBlockItem("potted_sagaria", () -> createFlowerPotBlock(SAGARIA.get()));

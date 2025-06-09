@@ -64,7 +64,7 @@
 
 # The Whiskbill
 * A new passive mob found only in the Underhang.
-* Will seek out Glow Gourds and devour them, spitting out the Seeds!
+* Will seek out fully grown Glow Gourds and devour them, spitting out the Seeds!
 * Will retreat from nearby players and poison players that hurt them!
 * Temporarily are using Sniffer sounds, but unique sounds are planned for 1.3.1!
 * Can be bred with Gourd Slices!
@@ -78,6 +78,7 @@
 * Chiseled Polished Bystone and Byslate are now craftable.
 * Ancient Hooks are now craftable.
 * Verdigris Ingots are now craftable.
+* Alpha Moss Blocks are now bonemealable.
 * Underhang water color has been adjusted.
 * Underhang ambience now plays 50% less of the time.
 * Copperbugs, Pests, and Trilobites are now considered "Arthopods".
@@ -87,7 +88,6 @@
 * Big Beaks now have a health range of 5 - 7 hearts.
 * Mossy Claystone now boosts Sniffer eggs hatch rates.
 * Glow Gourd Vines are now obtainable in Survival via Shears.
-* Chantrelle now has a light level of six.
 * Montsechia texture has been changed.
 * Montsechia now crafts into White Dye instead of Light Blue Dye.
 * Creosote and Creosote Sprout textures have been changed.
@@ -118,7 +118,7 @@
 * Fixed most recipes not showing up in the Crafting Table.
 
 KNOWN BUGS:
-* (Most) recipes do not show up in the crafting table!
+* What, did you think we missed something this time?
 
 ## **Updates in 1.2.3**
 
