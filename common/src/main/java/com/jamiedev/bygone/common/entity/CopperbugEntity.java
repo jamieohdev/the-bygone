@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.common.entity;
 
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
+import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import com.google.common.collect.Lists;
 import com.jamiedev.bygone.common.block.entity.CopperbugNestBlockEntity;
@@ -783,6 +784,8 @@ public class CopperbugEntity extends Animal implements NeutralMob
                                 if (optional1.isPresent()) {
                                     CopperbugEntity.this.playSound(SoundEvents.AXE_SCRAPE, 1.0F, 1.0F);
                                     this.level.levelEvent(3005, CopperbugEntity.this.copperPos, 0);
+                                    level.setBlock(CopperbugEntity.this.copperPos, optional1.get(), 11);
+                                    level.gameEvent(GameEvent.BLOCK_CHANGE, CopperbugEntity.this.copperPos, GameEvent.Context.of(CopperbugEntity.this, optional1.get()));
                                 }
                             }
                         }
