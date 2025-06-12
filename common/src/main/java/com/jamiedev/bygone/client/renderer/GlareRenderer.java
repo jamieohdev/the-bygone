@@ -30,6 +30,6 @@ public class GlareRenderer  extends MobRenderer<GlareEntity, GlareModel<GlareEnt
         int i = daGlare.getSize();
         float g = 1.0F + 0.15F * (float)i;
         matrixStack.scale(g, g, g);
-        matrixStack.translate(0.0F, 1.3125F, 0.1875F);
+        matrixStack.translate(0.0F, 0.65F, 0.1875F);
     }
 }
