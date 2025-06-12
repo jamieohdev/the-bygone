@@ -3,6 +3,7 @@ package com.jamiedev.bygone.common.entity.ai;
 import com.jamiedev.bygone.common.block.gourds.GourdLanternBlock;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGItems;
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -184,8 +185,8 @@ public class WhiskbillEatGourdGoal extends MoveToBlockGoal {
                         }
                     }
                 }
-                level.playSound(this.removerMob, blockpos, SoundEvents.SNIFFER_DEATH, SoundSource.HOSTILE, 0.9F, 1.5F);
-                level.playSound(this.removerMob, blockpos, SoundEvents.WARDEN_SONIC_BOOM, SoundSource.HOSTILE, 0.05F, 1.0F);
+                level.playSound(this.removerMob, blockpos, BGSoundEvents.WHISKBILL_ROAR_ADDITIONS_EVENT, SoundSource.HOSTILE, 0.9F, 1.5F);
+                level.playSound(this.removerMob, blockpos, BGSoundEvents.WHISKBILL_ROAR_ADDITIONS_EVENT, SoundSource.HOSTILE, 0.05F, 1.0F);
                 BlockState gourdState = level.getBlockState(blockpos1);
                 FallingBlockEntity fallingGourd = FallingBlockEntity.fall(level, blockpos1, gourdState);
                 level.addFreshEntity(fallingGourd);

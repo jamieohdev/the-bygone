@@ -30,6 +30,11 @@ public class BGSoundEvents
     public static final ResourceLocation ENTITY_FUNGUSPARENT_BABY_AMBIENT = Bygone.id("entity.fungus_parent.ambient_baby");
     public static final ResourceLocation ENTITY_FUNGUSPARENT_HURT = Bygone.id("entity.fungus_parent.hurt");
     public static final ResourceLocation ENTITY_FUNGUSPARENT_DEATH = Bygone.id("entity.fungus_parent.death");
+
+    public static final ResourceLocation ENTITY_WHISKBILL_AMBIENT = Bygone.id("entity.whiskbill.ambient");
+    public static final ResourceLocation ENTITY_WHISKBILL_HURT = Bygone.id("entity.whiskbill.hurt");
+    public static final ResourceLocation ENTITY_WHISKBILL_DEATH = Bygone.id("entity.whiskbill.death");
+    public static final ResourceLocation ENTITY_WHISKBILL_ROAR = Bygone.id("entity.whiskbill.roar");
     
     public static SoundEvent AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_ANCIENTFOREST_ADDITIONS);
     public static SoundEvent AMBIENT_AMBERDESERT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_AMBERDESERT_ADDITIONS);
@@ -54,6 +59,11 @@ public class BGSoundEvents
     public static SoundEvent FUNGUSPARENT_AMBIENT_BABY_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_FUNGUSPARENT_BABY_AMBIENT);
     public static SoundEvent FUNGUSPARENT_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_FUNGUSPARENT_HURT);
     public static SoundEvent FUNGUSPARENT_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_FUNGUSPARENT_DEATH);
+
+    public static SoundEvent WHISKBILL_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISKBILL_AMBIENT);
+    public static SoundEvent WHISKBILL_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISKBILL_HURT);
+    public static SoundEvent WHISKBILL_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISKBILL_DEATH);
+    public static SoundEvent WHISKBILL_ROAR_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISKBILL_ROAR);
 
 
     private static SoundEvent register(String id) {
@@ -92,6 +102,11 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_FUNGUSPARENT_AMBIENT, BGSoundEvents.FUNGUSPARENT_AMBIENT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_FUNGUSPARENT_HURT, BGSoundEvents.FUNGUSPARENT_HURT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_FUNGUSPARENT_DEATH, BGSoundEvents.FUNGUSPARENT_DEATH_ADDITIONS_EVENT);
+
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WHISKBILL_AMBIENT, BGSoundEvents.WHISKBILL_AMBIENT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WHISKBILL_HURT, BGSoundEvents.WHISKBILL_HURT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WHISKBILL_DEATH, BGSoundEvents.WHISKBILL_DEATH_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WHISKBILL_ROAR, BGSoundEvents.WHISKBILL_ROAR_ADDITIONS_EVENT);
 
     }
 }

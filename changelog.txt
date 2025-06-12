@@ -65,8 +65,7 @@
 # The Whiskbill
 * A new passive mob found only in the Underhang.
 * Will seek out fully grown Glow Gourds and devour them, spitting out the Seeds!
-* Will retreat from nearby players and poison players that hurt them!
-* Temporarily are using Sniffer sounds, but unique sounds are planned for 1.3.1!
+* Adults will retreat from nearby players and poison players that hurt them!
 * Can be bred with Gourd Slices!
 
 

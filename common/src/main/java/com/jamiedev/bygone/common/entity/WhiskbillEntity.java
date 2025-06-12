@@ -7,6 +7,7 @@ import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGItems;
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -42,6 +43,8 @@ import java.util.function.Predicate;
 public class WhiskbillEntity extends Animal
 {
     private static final EntityDimensions BABY_BASE_DIMENSIONS;
+    public AnimationState idleAnimationState = new AnimationState();
+    private int idleAnimationTimeout = 0;
     int moreCarrotTicks;
     private static final Predicate<Entity> AVOID_PLAYERS;
 
@@ -76,6 +79,16 @@ public class WhiskbillEntity extends Animal
 
     }
 
+    private void setupAnimationStates() {
+        if (this.idleAnimationTimeout <= 0) {
+            this.idleAnimationTimeout = this.random.nextInt(100) + 100;
+            this.idleAnimationState.start(this.tickCount);
+        } else {
+            --this.idleAnimationTimeout;
+        }
+
+    }
+
     boolean isLookingAtMe(Player player) {
         ItemStack itemstack = (ItemStack)player.getInventory().armor.get(3);
         if (itemstack.is(Blocks.CARVED_PUMPKIN.asItem())) {
@@ -99,15 +112,15 @@ public class WhiskbillEntity extends Animal
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.SNIFFER_IDLE;
+        return BGSoundEvents.WHISKBILL_AMBIENT_ADDITIONS_EVENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return SoundEvents.SNIFFER_HURT;
+        return BGSoundEvents.WHISKBILL_HURT_ADDITIONS_EVENT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.SNIFFER_DEATH;
+        return BGSoundEvents.WHISKBILL_DEATH_ADDITIONS_EVENT;
     }
 
     public boolean isClimbing() {
@@ -152,7 +165,9 @@ public class WhiskbillEntity extends Animal
         if (!this.level().isClientSide) {
             this.setClimbing(this.horizontalCollision);
         }
-
+        if (this.level().isClientSide) {
+            setupAnimationStates();
+        }
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -214,70 +229,6 @@ public class WhiskbillEntity extends Animal
             return 4.0;
         }
     }
-
-    /*class EatBeigeGourdGoal extends BGRemoveBlockGoal {
-        EatBeigeGourdGoal(PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
-            super( BGBlocks.GOURD_LANTERN_BEIGE.get(), mob, speedModifier, searchRange, verticalSearchRange, BGItems.BEIGE_GOURD_SEEDS.get(), 1, 3);
-        }
-
-        @Override
-        public void playDestroyProgressSound(LevelAccessor level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.CAMEL_EAT, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
-        }
-
-        @Override
-        public void playBreakSound(Level level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
-        }
-
-        @Override
-        public double acceptedDistance() {
-            return 4.0;
-        }
-    }
-
-    class EatMuaveGourdGoal extends BGRemoveBlockGoal {
-        EatMuaveGourdGoal(PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
-            super(BGBlocks.GOURD_LANTERN_MUAVE.get(), mob, speedModifier, searchRange, verticalSearchRange, BGItems.MUAVE_GOURD_SEEDS.get(), 1, 3);
-        }
-
-        @Override
-        public void playDestroyProgressSound(LevelAccessor level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.HORSE_EAT, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
-        }
-
-        @Override
-        public void playBreakSound(Level level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
-        }
-
-        @Override
-        public double acceptedDistance() {
-            return 4.0;
-        }
-    }
-
-
-    class EatVerdantGourdGoal extends BGRemoveBlockGoal {
-        EatVerdantGourdGoal(PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
-            super(BGBlocks.GOURD_LANTERN_VERDANT.get(), mob, speedModifier, searchRange, verticalSearchRange, BGItems.VERDANT_GOURD_SEEDS.get(), 1, 3);
-        }
-
-        @Override
-        public void playDestroyProgressSound(LevelAccessor level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.CAMEL_EAT, SoundSource.HOSTILE, 0.5F, 0.9F + WhiskbillEntity.this.random.nextFloat() * 0.2F);
-        }
-
-        @Override
-        public void playBreakSound(Level level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
-        }
-
-        @Override
-        public double acceptedDistance() {
-            return 4.0;
-        }
-    }*/
 
     @Override
     public EntityDimensions getDefaultDimensions(Pose pose) {

@@ -333,5 +333,11 @@
   "subtitles.entity.fungus_parent.hurt": "Fungus hurts",
   "subtitles.entity.fungus_parent.death": "Fungus dies",
 
+
+  "subtitles.entity.whiskbill.roar": "Whiskbill roars",
+  "subtitles.entity.whiskbill.ambient": "Whiskbill grumbles",
+  "subtitles.entity.whiskbill.hurt": "Whiskbill hurts",
+  "subtitles.entity.whiskbill.death": "Whiskbill dies",
+
   "itemGroup.test": "The Bygone"
 }

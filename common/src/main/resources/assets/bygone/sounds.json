@@ -209,6 +209,34 @@
       }
     ]
   },
+
+  "entity.whiskbill.ambient": {
+    "sounds": [
+      "bygone:entity/whiskbill/idle1",
+      "bygone:entity/whiskbill/idle2"
+    ],
+    "subtitle": "subtitles.entity.whiskbill.ambient"
+  },
+  "entity.whiskbill.hurt": {
+    "sounds": [
+      "bygone:entity/whiskbill/hit1",
+      "bygone:entity/whiskbill/hit2"
+    ],
+    "subtitle": "subtitles.entity.whiskbill.hurt"
+  },
+  "entity.whiskbill.death": {
+    "sounds": [
+      "bygone:entity/whiskbill/death"
+    ],
+    "subtitle": "subtitles.entity.whiskbill.death"
+  },
+  "entity.whiskbill.roar": {
+    "sounds": [
+      "bygone:entity/whiskbill/roar"
+    ],
+    "subtitle": "subtitles.entity.whiskbill.roar"
+  },
+
   "entity.bigbeak.ambient": {
     "sounds": [
       "bygone:entity/bigbeak/ambient1",
@@ -261,6 +289,7 @@
     ],
     "subtitle": "subtitles.entity.bigbeak.gallop"
   },
+
   "entity.mooboo.ambient": {
     "sounds": [
       "bygone:entity/mooboo/idle1",
@@ -282,6 +311,7 @@
     ],
     "subtitle": "subtitles.entity.mooboo.death"
   },
+
   "entity.fungus_parent.ambient": {
     "sounds": [
       "bygone:entity/fungus_parent/ambient",

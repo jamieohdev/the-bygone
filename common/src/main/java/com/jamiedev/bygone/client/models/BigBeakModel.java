@@ -85,10 +85,6 @@ public class BigBeakModel<T extends BigBeakEntity> extends HierarchicalModel<T> 
         return root;
     }
 
-    public void animateModel(Parrot parrotEntity, float f, float g, float h) {
-      //  this.animateModel(getPose(parrotEntity));
-    }
-
     protected Iterable<ModelPart> getHeadParts() {
         return ImmutableList.of(this.head);
     }
