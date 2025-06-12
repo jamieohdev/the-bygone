@@ -36,7 +36,7 @@
             "continentalness": [-0.4, 1],
             "erosion": [-1, 1],
             "temperature": [-1, 1],
-            "humidity": [-1, -0.5],
+            "humidity": [-1, -0.15],
             "depth": [-1, 1],
             "offset": 0
           },
@@ -48,7 +48,7 @@
             "continentalness": [-0.4, 1],
             "erosion": [-1, 1],
             "temperature": [-1, 0],
-            "humidity": [-0.5, 1],
+            "humidity": [-0.15, 1],
             "depth": [-1, 1],
             "offset": 0
           },
@@ -60,7 +60,7 @@
             "continentalness": [-0.4, 1],
             "erosion": [-1, 1],
             "temperature": [0, 1],
-            "humidity": [-0.5, 1],
+            "humidity": [-0.15, 1],
             "depth": [-1, 1],
             "offset": 0
           },

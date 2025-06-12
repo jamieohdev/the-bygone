@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:mycelium",
+    "bygone:shelf_mycelium",
+    "bygone:shelf_mold_block"
+  ]
+}

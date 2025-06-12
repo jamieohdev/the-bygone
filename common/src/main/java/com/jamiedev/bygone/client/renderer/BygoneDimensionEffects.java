@@ -9,16 +9,17 @@ import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class BygoneDimensionEffects extends DimensionSpecialEffects
 {
 
-    public static final BygoneDimensionEffects INSTANCE = new BygoneDimensionEffects(Float.NaN, false, SkyType.NORMAL, false, true);
+    public static final BygoneDimensionEffects INSTANCE = new BygoneDimensionEffects(5.0F, false, SkyType.NORMAL, false, true);
     private final Minecraft minecraft = Minecraft.getInstance();
     private int rainSoundTime;
 
     public BygoneDimensionEffects(float cloudsHeight, boolean alternateSkyColor, SkyType skyType, boolean brightenLighting, boolean darkened) {
-        super(cloudsHeight, true, SkyType.NORMAL, false, false);
+        super(Float.NaN, true, SkyType.NORMAL, false, false);
     }
 
     public Vec3 getFogColor() {
@@ -29,11 +30,11 @@ public class BygoneDimensionEffects extends DimensionSpecialEffects
 
         return new Vec3((int)(Math.min(Math.min(0.54f * colorFactor, 0.65f + 0)*255, 255)),
                 ((int)(Math.min(Math.max(Math.min(0.3f * colorFactor, 0.87f) - 0 * 0.6f, 0)*255, 255))),
-                ((int)(Math.min(Math.max(Math.min((0.001f * colorFactor) * (colorFactor * colorFactor), 0.9f) - 0 * 1.9f, 0)*255, 255))));
+                (0));
     }
 
     @Override
-    public Vec3 getBrightnessDependentFogColor(Vec3 color, float sunHeight) {
+    public @NotNull Vec3 getBrightnessDependentFogColor(@NotNull Vec3 color, float sunHeight) {
         return color;
     }
 

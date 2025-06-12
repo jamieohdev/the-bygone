@@ -84,7 +84,14 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "minecraft:mooshroom",
+        "maxCount": 8,
+        "minCount": 4,
+        "weight": 8
+      }
+    ],
     "misc": [],
     "monster": [],
     "underground_water_creature": [],

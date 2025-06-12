@@ -82,11 +82,13 @@
 * Underhang water color has been adjusted.
 * Underhang ambience now plays 50% less of the time.
 * Copperbugs, Pests, and Trilobites are now considered "Arthopods".
+* Copperbugs now scrape any Copper Blocks they find.
 * Claystone Farmland is now hydratable by Water.
 * Sprinkler now bonemeals crop randomly 20% less.
 * Pests now consume crops 50% more.
 * Big Beaks now have a health range of 5 - 7 hearts.
 * Mossy Claystone now boosts Sniffer eggs hatch rates.
+* Glow Gourd Vines now grow.
 * Glow Gourd Vines are now obtainable in Survival via Shears.
 * Montsechia texture has been changed.
 * Montsechia now crafts into White Dye instead of Light Blue Dye.
@@ -103,6 +105,7 @@
 * Fixed both Polished Bystone and Polished Byslate family of blocks from not having stonecutter recipes!
 * Fixed Big Beak subtitles not being translated!
 * Fixed Big Beaks model from overlapping!
+* Fixed Glares having a incorrect hitbox!
 * Fixed Shelfhollows biome name not being translated!
 * Fixed a specific fossil generating one block in the air.
 * Fixed Whirliweeds not being "replaceable".
