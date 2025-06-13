@@ -11,6 +11,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+
 public class GlareModelFixed<T extends GlareEntity> extends HierarchicalModel<T> {
 	private final ModelPart root;
 	private final ModelPart Head;

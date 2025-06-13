@@ -140,6 +140,9 @@ public class BGEntityTypes {
                     .passengerAttachments(2.09F)
                     .build(""));
 
+    public static final Supplier<EntityType<NectaurEntity>> NECTAUR = registerEntityType("nectaur", () ->
+            EntityType.Builder.of(NectaurEntity::new, MobCategory.CREATURE)
+                    .sized(1.0F, 2.0F).build(""));
 
     public static void postInit() {
         initSpawnRestrictions();

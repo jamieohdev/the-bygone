@@ -9,8 +9,8 @@
       "spawns": [
         {
           "type": "bygone:copperbug",
-          "maxCount": 16,
-          "minCount": 4,
+          "maxCount": 3,
+          "minCount": 1,
           "weight": 10
         },
         {

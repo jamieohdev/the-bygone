@@ -35,6 +35,11 @@ public class BGSoundEvents
     public static final ResourceLocation ENTITY_WHISKBILL_HURT = Bygone.id("entity.whiskbill.hurt");
     public static final ResourceLocation ENTITY_WHISKBILL_DEATH = Bygone.id("entity.whiskbill.death");
     public static final ResourceLocation ENTITY_WHISKBILL_ROAR = Bygone.id("entity.whiskbill.roar");
+
+    public static final ResourceLocation ENTITY_NECTAUR_AMBIENT = Bygone.id("entity.nectaur.ambient");
+    public static final ResourceLocation ENTITY_NECTAUR_HURT = Bygone.id("entity.nectaur.hurt");
+    public static final ResourceLocation ENTITY_NECTAUR_DEATH = Bygone.id("entity.nectaur.death");
+    public static final ResourceLocation ENTITY_NECTAUR_SCREECH = Bygone.id("entity.nectaur.screech");
     
     public static SoundEvent AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_ANCIENTFOREST_ADDITIONS);
     public static SoundEvent AMBIENT_AMBERDESERT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_AMBERDESERT_ADDITIONS);
@@ -64,6 +69,11 @@ public class BGSoundEvents
     public static SoundEvent WHISKBILL_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISKBILL_HURT);
     public static SoundEvent WHISKBILL_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISKBILL_DEATH);
     public static SoundEvent WHISKBILL_ROAR_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISKBILL_ROAR);
+
+    public static SoundEvent NECTAUR_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_NECTAUR_AMBIENT);
+    public static SoundEvent NECTAUR_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_NECTAUR_HURT);
+    public static SoundEvent NECTAUR_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_NECTAUR_DEATH);
+    public static SoundEvent NECTAUR_SCREECH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_NECTAUR_SCREECH);
 
 
     private static SoundEvent register(String id) {
@@ -107,6 +117,11 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WHISKBILL_HURT, BGSoundEvents.WHISKBILL_HURT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WHISKBILL_DEATH, BGSoundEvents.WHISKBILL_DEATH_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WHISKBILL_ROAR, BGSoundEvents.WHISKBILL_ROAR_ADDITIONS_EVENT);
+
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_NECTAUR_AMBIENT, BGSoundEvents.NECTAUR_AMBIENT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_NECTAUR_HURT, BGSoundEvents.NECTAUR_HURT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_NECTAUR_DEATH, BGSoundEvents.NECTAUR_DEATH_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_NECTAUR_SCREECH, BGSoundEvents.NECTAUR_SCREECH_ADDITIONS_EVENT);
 
     }
 }

@@ -237,6 +237,13 @@
     "subtitle": "subtitles.entity.whiskbill.roar"
   },
 
+  "entity.nectaur.screech": {
+    "sounds": [
+      "bygone:entity/nectaur/screech"
+    ],
+    "subtitle": "subtitles.entity.nectaur.screech"
+  },
+
   "entity.bigbeak.ambient": {
     "sounds": [
       "bygone:entity/bigbeak/ambient1",

@@ -97,6 +97,7 @@ public class BGItems
     public static final Supplier<Item> SCUTTLE_SPAWN_EGG = registerItem("scuttle_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.SCUTTLE.get(), 0x274772, 0xeab033, new Item.Properties()));
     public static final Supplier<Item> TRILOBITE_SPAWN_EGG = registerItem("trilobite_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.TRILOBITE.get(), 0x233c56, 0x14a4aa, new Item.Properties()));
     public static final Supplier<Item> WHISKBILL_SPAWN_EGG = registerItem("whiskbill_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.WHISKBILL.get(), 0x50692C, 0x70922D, new Item.Properties()));
+    public static final Supplier<Item> NECTAUR_SPAWN_EGG = registerItem("nectaur_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.NECTAUR.get(), 0x50692C, 0x94262B, new Item.Properties()));
 
     public static final Supplier<Item> ARCANE_CORE = registerItem("arcane_core", () -> new Item(new Item.Properties().fireResistant()));//((BlockItem)(new ArcaneCoreItem(JamiesModBlocks.ARCANE_CORE, new Item.Settings()))));
 

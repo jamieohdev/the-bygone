@@ -41,8 +41,6 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
     protected static final VoxelShape STANDING_SHAPE;
     protected static final VoxelShape HANGING_SHAPE;
 
-    LanternBlock ref;
-
     protected static final VoxelShape[] STANDING_AGING_SHAPE = new VoxelShape[]{
             Shapes.or(Block.box(5.5, 4.0, 5.5, 9.5, 7.0, 9.5),
                     Block.box(6.0, 7.0, 6.0, 9.0, 9.0, 9.0)),

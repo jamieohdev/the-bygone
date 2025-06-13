@@ -136,6 +136,7 @@ public class BygoneClient {
         EntityRenderers.register(BGEntityTypes.BIG_BEAK.get(), BigBeakRenderer::new);
         EntityRenderers.register(BGEntityTypes.PEST.get(), PestRenderer::new);
         EntityRenderers.register(BGEntityTypes.WHISKBILL.get(), WhiskbillRenderer::new);
+        EntityRenderers.register(BGEntityTypes.NECTAUR.get(), NectaurRenderer::new);
     }
     
     public static void createModelLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> consumer) {
@@ -153,6 +154,7 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.BIG_BEAK_ARMOR, BigBeakModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.PEST, PestModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WHISKBILL, WhiskbillModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.NECTAUR, NectaurModel::getTexturedModelData);
     }
 
     public static void registerModelPredicateProviders() {
