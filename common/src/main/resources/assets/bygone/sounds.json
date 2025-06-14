@@ -210,6 +210,33 @@
     ]
   },
 
+  "entity.copperbug.ambient": {
+    "sounds": [
+      "bygone:entity/copperbug/idle1",
+      "bygone:entity/copperbug/idle2"
+    ],
+    "subtitle": "subtitles.entity.copperbug.ambient"
+  },
+  "entity.copperbug.hurt": {
+    "sounds": [
+      "bygone:entity/copperbug/hit1",
+      "bygone:entity/copperbug/hit2"
+    ],
+    "subtitle": "subtitles.entity.copperbug.hurt"
+  },
+  "entity.copperbug.death": {
+    "sounds": [
+      "bygone:entity/copperbug/death"
+    ],
+    "subtitle": "subtitles.entity.copperbug.death"
+  },
+  "entity.copperbug.eat": {
+    "sounds": [
+      "bygone:entity/copperbug/eat"
+    ],
+    "subtitle": "subtitles.entity.copperbug.eat"
+  },
+
   "entity.whiskbill.ambient": {
     "sounds": [
       "bygone:entity/whiskbill/idle1",

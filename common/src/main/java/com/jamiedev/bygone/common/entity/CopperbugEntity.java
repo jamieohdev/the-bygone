@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.entity;
 
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
@@ -326,18 +327,19 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.SILVERFISH_AMBIENT;
+        return BGSoundEvents.COPPERBUG_AMBIENT_ADDITIONS_EVENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.SILVERFISH_HURT;
+        return BGSoundEvents.COPPERBUG_HURT_ADDITIONS_EVENT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.SILVERFISH_DEATH;
-    }
+        return BGSoundEvents.COPPERBUG_DEATH_ADDITIONS_EVENT;
+    };
+
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
@@ -346,7 +348,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
     protected void playWarningSound() {
         if (this.warningSoundCooldown <= 0) {
-            this.makeSound(SoundEvents.ENDERMITE_HURT);
+            this.makeSound(BGSoundEvents.COPPERBUG_HURT_ADDITIONS_EVENT);
             this.warningSoundCooldown = 40;
         }
 
@@ -779,10 +781,10 @@ public class CopperbugEntity extends Animal implements NeutralMob
                         if (!this.level.isClientSide){
                             if (CopperbugEntity.this.random.nextFloat() < 0.05F && this.pollinationTicks > this.lastPollinationTick + 60) {
                                 this.lastPollinationTick = this.pollinationTicks;
-                                //CopperbugEntity.this.playSound(SoundEvents.AXE_SCRAPE, 1.0F, 1.0F);
+
                                 Optional<BlockState> optional1 = WeatheringCopper.getPrevious(this.level.getBlockState(CopperbugEntity.this.copperPos));
                                 if (optional1.isPresent()) {
-                                    CopperbugEntity.this.playSound(SoundEvents.AXE_SCRAPE, 1.0F, 1.0F);
+                                    CopperbugEntity.this.playSound(BGSoundEvents.COPPERBUG_EAT_ADDITIONS_EVENT, 1.0F, 1.0F);
                                     this.level.levelEvent(3005, CopperbugEntity.this.copperPos, 0);
                                     level.setBlock(CopperbugEntity.this.copperPos, optional1.get(), 11);
                                     level.gameEvent(GameEvent.BLOCK_CHANGE, CopperbugEntity.this.copperPos, GameEvent.Context.of(CopperbugEntity.this, optional1.get()));
@@ -1194,7 +1196,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
                         if (block instanceof WeatheringCopperFullBlock copperBlock) {
                             if (optional2.isPresent()) {
-                                CopperbugEntity.this.level().playSound(null, blockPos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                                CopperbugEntity.this.level().playSound(null, blockPos, BGSoundEvents.COPPERBUG_EAT_ADDITIONS_EVENT, SoundSource.BLOCKS, 1.0F, 1.0F);
                                 CopperbugEntity.this.level().levelEvent(null, 3005, blockPos, 0);
                                // optional2;
                             }

@@ -36,6 +36,7 @@
 * Glow Gourds now have growth stages!
 * Big Beaks now have multiple variants! (Including some special ones for Pride Month)!
 * Maps now work in the Bygone! They "fill out" depending on what Y level the Players feet are at!
+* Copperbugs now have sounds!
 * EXPERIMENTAL: Added the Nectaur and Nectaur Spawn Egg!
 
 # Terrain Generation changes and additions:
@@ -79,6 +80,7 @@
 * A new neutral mob found only in the Underhang.
 * Will form small groups.
 * Are experimental, so please report any bugs to us!
+* Are temporarily using Chicken sounds!
 
 # Technical features:
 * Added the new item tag "whiskbill_food"

@@ -22,6 +22,11 @@ public class BGSoundEvents
     public static final ResourceLocation ENTITY_BIGBEAK_STEP_WOOD = Bygone.id("entity.bigbeak.step_wood");
     public static final ResourceLocation ENTITY_BIGBEAK_GALLOP = Bygone.id("entity.bigbeak.gallop");
 
+    public static final ResourceLocation ENTITY_COPPERBUG_AMBIENT = Bygone.id("entity.copperbug.ambient");
+    public static final ResourceLocation ENTITY_COPPERBUG_HURT = Bygone.id("entity.copperbug.hurt");
+    public static final ResourceLocation ENTITY_COPPERBUG_DEATH = Bygone.id("entity.copperbug.death");
+    public static final ResourceLocation ENTITY_COPPERBUG_EAT = Bygone.id("entity.copperbug.eat");
+
     public static final ResourceLocation ENTITY_MOOBOO_AMBIENT = Bygone.id("entity.mooboo.ambient");
     public static final ResourceLocation ENTITY_MOOBOO_HURT = Bygone.id("entity.mooboo.hurt");
     public static final ResourceLocation ENTITY_MOOBOO_DEATH = Bygone.id("entity.mooboo.death");
@@ -55,6 +60,11 @@ public class BGSoundEvents
     public static SoundEvent BIGBEAK_STEP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_BIGBEAK_STEP);
     public static SoundEvent BIGBEAK_STEP_WOOD_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_BIGBEAK_STEP_WOOD);
     public static SoundEvent BIGBEAK_GALLOP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_BIGBEAK_GALLOP);
+
+    public static SoundEvent COPPERBUG_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_COPPERBUG_AMBIENT);
+    public static SoundEvent COPPERBUG_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_COPPERBUG_HURT);
+    public static SoundEvent COPPERBUG_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_COPPERBUG_DEATH);
+    public static SoundEvent COPPERBUG_EAT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_COPPERBUG_EAT);
 
     public static SoundEvent MOOBOO_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MOOBOO_AMBIENT);
     public static SoundEvent MOOBOO_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MOOBOO_HURT);
@@ -104,6 +114,11 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_BIGBEAK_STEP, BGSoundEvents.BIGBEAK_STEP_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_BIGBEAK_STEP_WOOD, BGSoundEvents.BIGBEAK_STEP_WOOD_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_BIGBEAK_GALLOP, BGSoundEvents.BIGBEAK_GALLOP_ADDITIONS_EVENT);
+
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_COPPERBUG_AMBIENT, BGSoundEvents.COPPERBUG_AMBIENT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_COPPERBUG_HURT, BGSoundEvents.COPPERBUG_HURT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_COPPERBUG_DEATH, BGSoundEvents.COPPERBUG_DEATH_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_COPPERBUG_EAT, BGSoundEvents.COPPERBUG_EAT_ADDITIONS_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MOOBOO_AMBIENT, BGSoundEvents.MOOBOO_AMBIENT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MOOBOO_HURT, BGSoundEvents.MOOBOO_HURT_ADDITIONS_EVENT);

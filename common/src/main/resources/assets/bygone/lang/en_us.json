@@ -70,7 +70,7 @@
 
   "block.bygone.bystone": "Bystone",
   "block.bygone.byslate": "Byslate",
-  
+
   "block.bygone.polished_bystone": "Polished Bystone",
   "block.bygone.polished_bystone_slab": "Polished Bystone Slab",
   "block.bygone.polished_bystone_stairs": "Polished Bystone Stairs",
@@ -92,7 +92,7 @@
   "block.bygone.polished_byslate_bricks_wall": "Polished Byslate Bricks  Wall",
   "block.bygone.polished_byslate_shingles": "Polished Byslate Shingles",
   "block.bygone.chiseled_polished_byslate": "Chiseled Polished Byslate",
-  
+
   "block.bygone.cobbled_bystone": "Cobbled Bystone",
   "block.bygone.cobbled_byslate": "Cobbled Byslate",
   "block.bygone.cobbled_bystone_stairs": "Cobbled Bystone Stairs",
@@ -261,7 +261,7 @@
   "block.bygone.orange_fungal_wall" : "Orange Fungal Brick Wall",
   "block.bygone.orange_fungi_vines" : "Orange Fungi Vines",
   "item.bygone.orange_fungi_vines" : "Orange Fungi Vines",
-  
+
   "block.bygone.pink_mushroom_block" : "Pink Mushroom Block",
   "block.bygone.pink_fungal_bricks" : "Pink Fungal Bricks",
   "block.bygone.pink_fungal_slab" : "Pink Fungal Brick Slab",
@@ -269,7 +269,7 @@
   "block.bygone.pink_fungal_wall" : "Pink Fungal Brick Wall",
   "block.bygone.pink_fungi_vines" : "Pink Fungi Vines",
   "item.bygone.pink_fungi_vines" : "Pink Fungi Vines",
-  
+
   "block.bygone.purple_mushroom_block" : "Purple Mushroom Block",
   "block.bygone.purple_fungal_bricks" : "Purple Fungal Bricks",
   "block.bygone.purple_fungal_slab" : "Purple Fungal Brick Slab",
@@ -277,7 +277,7 @@
   "block.bygone.purple_fungal_wall" : "Purple Fungal Brick Wall",
   "block.bygone.purple_fungi_vines" : "Purple Fungi Vines",
   "item.bygone.purple_fungi_vines" : "Purple Fungi Vines",
-  
+
   "entity.bygone.ammonite": "Ammonite",
   "entity.bygone.big_beak": "Big Beak",
   "entity.bygone.coelacanth": "Coelacanth",
@@ -331,6 +331,11 @@
   "subtitles.entity.bigbeak.death": "Big Beak dies",
   "subtitles.entity.bigbeak.gallop": "Big Beak trots",
   "subtitles.entity.bigbeak.step_wood": "Footsteps",
+
+  "subtitles.entity.copperbug.eat": "Copperbug eats",
+  "subtitles.entity.copperbug.ambient": "Copperbug chirps",
+  "subtitles.entity.copperbug.hurt": "Copperbug hurts",
+  "subtitles.entity.copperbug.death": "Copperbug dies",
 
   "subtitles.entity.fungus_parent.ambient": "Fungus Parent chirps",
   "subtitles.entity.fungus_parent.ambient_baby": "Fungus Child chirps",
