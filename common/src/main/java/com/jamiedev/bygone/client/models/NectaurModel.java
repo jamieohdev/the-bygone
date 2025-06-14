@@ -92,9 +92,9 @@ public class NectaurModel<T extends NectaurEntity> extends EntityModel<T>  {
 
 		Entity player = Minecraft.getInstance().getCameraEntity();
 
-		if (entity.hasActiveAttackTarget()) {
+		/*if (entity.hasActiveAttackTarget()) {
 			player = entity.getActiveAttackTarget();
-		}
+		}*/
 
 		if (player != null) {
 			Vec3 vec3 = player.getEyePosition(0.0F);
