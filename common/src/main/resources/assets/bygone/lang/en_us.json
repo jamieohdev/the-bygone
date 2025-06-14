@@ -353,5 +353,9 @@
   "subtitles.entity.whiskbill.hurt": "Whiskbill hurts",
   "subtitles.entity.whiskbill.death": "Whiskbill dies",
 
+  "subtitles.entity.hook.retrieve" : "Ancient Hook retrieved",
+  "subtitles.entity.hook.hit" : "Ancient Hook hits",
+  "subtitles.entity.hook.throw" : "Ancient Hook thrown",
+
   "itemGroup.test": "The Bygone"
 }

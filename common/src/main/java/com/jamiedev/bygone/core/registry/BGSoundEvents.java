@@ -45,6 +45,14 @@ public class BGSoundEvents
     public static final ResourceLocation ENTITY_NECTAUR_HURT = Bygone.id("entity.nectaur.hurt");
     public static final ResourceLocation ENTITY_NECTAUR_DEATH = Bygone.id("entity.nectaur.death");
     public static final ResourceLocation ENTITY_NECTAUR_SCREECH = Bygone.id("entity.nectaur.screech");
+
+    public static final ResourceLocation HOOK_RETRIEVE = Bygone.id("entity.hook.retrieve");
+    public static final ResourceLocation HOOK_HIT = Bygone.id("entity.hook.hit");
+    public static final ResourceLocation HOOK_THROW = Bygone.id("entity.hook.throw");
+
+    public static final SoundEvent HOOK_RETRIEVE_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_RETRIEVE);
+    public static final SoundEvent HOOK_HIT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_HIT);
+    public static final SoundEvent HOOK_THROW_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_THROW);
     
     public static SoundEvent AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_ANCIENTFOREST_ADDITIONS);
     public static SoundEvent AMBIENT_AMBERDESERT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_AMBERDESERT_ADDITIONS);
@@ -138,5 +146,8 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_NECTAUR_DEATH, BGSoundEvents.NECTAUR_DEATH_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_NECTAUR_SCREECH, BGSoundEvents.NECTAUR_SCREECH_ADDITIONS_EVENT);
 
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_RETRIEVE, HOOK_RETRIEVE_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_HIT, HOOK_HIT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_THROW, HOOK_THROW_ADDITIONS_EVENT);
     }
 }

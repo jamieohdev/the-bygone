@@ -371,5 +371,24 @@
       "bygone:entity/fungus_parent/death"
     ],
     "subtitle": "subtitles.entity.fungus_parent.death"
+  },
+
+  "entity.hook.retrieve": {
+    "sounds": [
+      "bygone:entity/hook/retrieve"
+    ],
+    "subtitle": "subtitles.entity.hook.retrieve"
+  },
+  "entity.hook.hit": {
+    "sounds": [
+      "bygone:entity/hook/hit"
+    ],
+    "subtitle": "subtitles.entity.hook.hit"
+  },
+  "entity.hook.throw": {
+    "sounds": [
+      "bygone:entity/hook/retrieve"
+    ],
+    "subtitle": "subtitles.entity.hook.throw"
   }
 }

@@ -76,14 +76,21 @@
   "spawn_costs": {},
   "spawners": {
     "ambient": [
+
     ],
     "axolotls": [],
     "creature": [
       {
-        "type": "bygone:nectaur",
+        "type": "bygone:big_beak",
         "maxCount": 4,
         "minCount": 4,
         "weight": 15
+      },
+      {
+        "type": "bygone:nectaur",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 13
       },
       {
         "type": "bygone:whiskbill",
@@ -91,17 +98,12 @@
         "minCount": 1,
         "weight": 8
       },
-      {
-        "type": "bygone:big_beak",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 10
-      },
+
       {
         "type": "bygone:glare",
         "maxCount": 5,
         "minCount": 2,
-        "weight": 5
+        "weight": 4
       }
     ],
     "misc": [],

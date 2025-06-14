@@ -2,6 +2,7 @@ package com.jamiedev.bygone.common.item;
 
 import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.common.entity.projectile.HookEntity;
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -55,7 +56,7 @@ public class HookItem extends Item
     }
 
     private static void retrieve(Level level, Player player, HookEntity hook) {
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL, 1.0F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), BGSoundEvents.HOOK_RETRIEVE_ADDITIONS_EVENT, SoundSource.NEUTRAL, 1.0F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
         if (!level.isClientSide()) {
             hook.discard();
             ((PlayerWithHook)player).bygone$setHook(null);
@@ -71,13 +72,14 @@ public class HookItem extends Item
             HookEntity hook = ((PlayerWithHook) player).bygone$getHook();
             if (hook != null) {
                 if(remainingUseTicks % 5 == 0){
-                    world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL, 1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                    world.playSound(null, user.getX(), user.getY(), user.getZ(), BGSoundEvents.HOOK_RETRIEVE_ADDITIONS_EVENT, SoundSource.NEUTRAL, 1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                 }
 
 
 
                 if (hook.isInWall())
                 {
+                    //world.playSound(null, user.getX(), user.getY(), user.getZ(), BGSoundEvents.HOOK_HIT_ADDITIONS_EVENT, SoundSource.NEUTRAL, 1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                     grapple(hook, player);
                 }
 
@@ -134,7 +136,7 @@ public class HookItem extends Item
                     }
                     player.awardStat(Stats.ITEM_USED.get(this));
                 }
-                world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL, 1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                world.playSound(null, user.getX(), user.getY(), user.getZ(), BGSoundEvents.HOOK_THROW_ADDITIONS_EVENT, SoundSource.NEUTRAL, 1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
             }
         }
     }
