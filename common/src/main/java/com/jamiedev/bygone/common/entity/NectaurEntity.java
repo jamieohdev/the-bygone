@@ -11,10 +11,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -25,6 +28,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
@@ -37,6 +41,7 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public class NectaurEntity extends Animal implements NeutralMob {
 
@@ -48,8 +53,7 @@ public class NectaurEntity extends Animal implements NeutralMob {
     private static final int ALERT_RANGE_Y = 10;
     private static final UniformInt ALERT_INTERVAL;
     private int ticksUntilNextAlert;
-
-    private int remainingPersistentAngerTime;
+    
     private static final ResourceLocation SPEED_MODIFIER_ATTACKING_ID;
     private static final AttributeModifier SPEED_MODIFIER_ATTACKING;
     private static final UniformInt FIRST_ANGER_SOUND_DELAY;
@@ -58,10 +62,10 @@ public class NectaurEntity extends Animal implements NeutralMob {
     private int clientSideAttackTime;
     private static final EntityDataAccessor<Integer> DATA_ID_ATTACK_TARGET;
     private static final UniformInt PERSISTENT_ANGER_TIME;
-    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME;
+    private int remainingPersistentAngerTime;
 
     Guardian ref2;
-    Wolf ref1;
+    NectaurEntity ref1;
     ZombifiedPiglin ref3;
 
     public NectaurEntity(EntityType<? extends NectaurEntity> entityType, Level level) {
@@ -71,15 +75,17 @@ public class NectaurEntity extends Animal implements NeutralMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, p_335679_ -> p_335679_.is(ItemTags.CHICKEN_FOOD), false));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 99.0F));
+        this.goalSelector.addGoal(1, new NectaurEntity.NectaurEntityMeleeAttackGoal());
+        this.goalSelector.addGoal(1, new PanicGoal(this, (double)2.0F, (p_350292_) -> p_350292_.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, (double)1.25F));
+        this.goalSelector.addGoal(5, new RandomStrollGoal(this, (double)1.0F));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 90.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(new Class[0]));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
-        this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, true));
+        this.targetSelector.addGoal(1, new NectaurEntity.NectaurEntityHurtByTargetGoal());
+        this.targetSelector.addGoal(2, new NectaurEntity.NectaurEntityAttackPlayersGoal());
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, WhiskbillEntity.class, 10, true, true, (Predicate)null));
+        this.targetSelector.addGoal(5, new ResetUniversalAngerTargetGoal<>(this, false));
 
     }
 
@@ -95,7 +101,20 @@ public class NectaurEntity extends Animal implements NeutralMob {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_ID_ATTACK_TARGET, 0);
-        builder.define(DATA_REMAINING_ANGER_TIME, 0);
+    }
+
+    @Override
+    public int getMaxSpawnClusterSize() {
+        return 1;
+    }
+
+    public void aiStep() {
+        super.aiStep();
+
+        if (!this.level().isClientSide) {
+            this.updatePersistentAnger((ServerLevel)this.level(), true);
+        }
+
     }
 
     @Override
@@ -123,19 +142,23 @@ public class NectaurEntity extends Animal implements NeutralMob {
         return false;
     }
 
+    public boolean canBeAffected(MobEffectInstance potioneffect) {
+        return !potioneffect.is(MobEffects.MOVEMENT_SLOWDOWN) || !potioneffect.is(MobEffects.POISON) && super.canBeAffected(potioneffect);
+    }
+
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
         return null;
     }
 
-    public int getRemainingPersistentAngerTime() {
-        return (Integer)this.entityData.get(DATA_REMAINING_ANGER_TIME);
-    }
-
     public void setRemainingPersistentAngerTime(int time) {
-        this.entityData.set(DATA_REMAINING_ANGER_TIME, time);
+        this.remainingPersistentAngerTime = time;
     }
 
+    public int getRemainingPersistentAngerTime() {
+        return this.remainingPersistentAngerTime;
+    }
+    
     public void startPersistentAngerTimer() {
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
@@ -290,7 +313,84 @@ public class NectaurEntity extends Animal implements NeutralMob {
         FIRST_ANGER_SOUND_DELAY = TimeUtil.rangeOfSeconds(0, 1);
         ALERT_INTERVAL = TimeUtil.rangeOfSeconds(4, 6);
         PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-        DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(NectaurEntity.class, EntityDataSerializers.INT);
         DATA_ID_ATTACK_TARGET = SynchedEntityData.defineId(NectaurEntity.class, EntityDataSerializers.INT);
+    }
+
+    class NectaurEntityAttackPlayersGoal extends NearestAttackableTargetGoal<Player> {
+        public NectaurEntityAttackPlayersGoal() {
+            super(NectaurEntity.this, Player.class, 20, true, true, (Predicate)null);
+        }
+
+        public boolean canUse() {
+            if (NectaurEntity.this.isBaby()) {
+                return false;
+            } else {
+                if (super.canUse()) {
+                    for(NectaurEntity polarbear : NectaurEntity.this.level().getEntitiesOfClass(NectaurEntity.class, NectaurEntity.this.getBoundingBox().inflate((double)8.0F, (double)4.0F, (double)8.0F))) {
+                        if (polarbear.isAlive()) {
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
+            }
+        }
+
+        protected double getFollowDistance() {
+            return super.getFollowDistance() * (double)0.5F;
+        }
+    }
+
+    class NectaurEntityHurtByTargetGoal extends HurtByTargetGoal {
+        public NectaurEntityHurtByTargetGoal() {
+            super(NectaurEntity.this, new Class[0]);
+        }
+
+        public void start() {
+            super.start();
+            if (NectaurEntity.this.isAlive()) {
+                this.alertOthers();
+                this.stop();
+            }
+
+        }
+
+        protected void alertOther(Mob mob, LivingEntity target) {
+            if (mob instanceof NectaurEntity && !mob.isAlive()) {
+                super.alertOther(mob, target);
+            }
+
+        }
+    }
+
+    class NectaurEntityMeleeAttackGoal extends MeleeAttackGoal {
+        public NectaurEntityMeleeAttackGoal() {
+            super(NectaurEntity.this, (double)1.25F, true);
+        }
+
+        protected void checkAndPerformAttack(LivingEntity target) {
+            if (this.canPerformAttack(target)) {
+                this.resetAttackCooldown();
+                this.mob.doHurtTarget(target);
+
+            } else if (this.mob.distanceToSqr(target) < (double)((target.getBbWidth() + 3.0F) * (target.getBbWidth() + 3.0F))) {
+                if (this.isTimeToAttack()) {
+
+                    this.resetAttackCooldown();
+                }
+
+                if (this.getTicksUntilNextAttack() <= 10) {
+
+                }
+            } else {
+                this.resetAttackCooldown();
+            }
+
+        }
+
+        public void stop() {
+            super.stop();
+        }
     }
 }
