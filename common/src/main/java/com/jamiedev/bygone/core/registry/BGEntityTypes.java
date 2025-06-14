@@ -124,6 +124,12 @@ public class BGEntityTypes {
 
                     .build(""));
 
+    public static final Supplier<EntityType<PeskyEntity>> PESKY = registerEntityType("pesky", () ->
+            EntityType.Builder.of(PeskyEntity::new, MobCategory.CREATURE)
+                    .sized(0.5F, 0.5F).eyeHeight(.13f)
+                    .clientTrackingRange(8)
+                    .build(""));
+
     public static final Supplier<EntityType<PestEntity>> PEST = registerEntityType("pest", () ->
             EntityType.Builder.of(PestEntity::new, MobCategory.CREATURE)
                     .sized(0.5F, 0.5F).eyeHeight(.13f)

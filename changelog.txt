@@ -25,6 +25,7 @@
 * Overhauled the look of the Amber Desert biome.
 * Overhauled the Ancient Hook.
 * Added the Whiskbill and Whiskbill Spawn Egg.
+* Added the Pesky and Pesky Spawn Egg.
 * Added the Amber Sand, Amber Sandstone, Cut Amber Sandstone, Smooth Amber Sandstone and Chiseled Amber Sandstone blocksets.
 * Added the Amber Clump.
 * Added the Primordial Beach biome.
@@ -35,6 +36,7 @@
 * Glow Gourds now have growth stages!
 * Big Beaks now have multiple variants! (Including some special ones for Pride Month)!
 * Maps now work in the Bygone! They "fill out" depending on what Y level the Players feet are at!
+* EXPERIMENTAL: Added the Nectaur and Nectaur Spawn Egg!
 
 # Terrain Generation changes and additions:
 * Added the "Primordial Beach" biome
@@ -68,6 +70,15 @@
 * Adults will retreat from nearby players and poison players that hurt them!
 * Can be bred with Gourd Slices!
 
+# The Pesky
+* A Pest variant that is Hostile!
+* Is only found in the Mineshafts.
+* Has no knockback from any attacks, so be careful!
+
+# The Nectaur
+* A new neutral mob found only in the Underhang.
+* Will form small groups.
+* Are experimental, so please report any bugs to us!
 
 # Technical features:
 * Added the new item tag "whiskbill_food"
@@ -94,6 +105,7 @@
 * Creosote and Creosote Sprout textures have been changed.
 * Creosote and Creosote Sprouts now generate in the Primordial Ocean.
 * Byslate no longer requires iron tools to break.
+* Bygone Mineshafts no longer generate with Cave Spider spawners.
 * Removed Umber.
 * Removed Umber Bricks.
 

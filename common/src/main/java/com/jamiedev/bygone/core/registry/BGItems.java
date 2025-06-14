@@ -93,6 +93,7 @@ public class BGItems
 
 
     public static final Supplier<Item> MOOBOO_SPAWN_EGG = registerItem("mooboo_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.MOOBOO.get(), 0x5be3e8, 0xb2c7c8, new Item.Properties()));
+    public static final Supplier<Item> PESKY_SPAWN_EGG = registerItem("pesky_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.PESKY.get(), 0x846B3C, 0xC66C11, new Item.Properties()));
     public static final Supplier<Item> PEST_SPAWN_EGG = registerItem("pest_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.PEST.get(), 0x846B3C, 0x6C8031, new Item.Properties()));
     public static final Supplier<Item> SCUTTLE_SPAWN_EGG = registerItem("scuttle_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.SCUTTLE.get(), 0x274772, 0xeab033, new Item.Properties()));
     public static final Supplier<Item> TRILOBITE_SPAWN_EGG = registerItem("trilobite_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.TRILOBITE.get(), 0x233c56, 0x14a4aa, new Item.Properties()));

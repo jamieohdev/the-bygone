@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.jamiedev.bygone.common.block.gourds.GourdDangoWallBlock;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.init.JamiesModLootTables;
+import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGStructures;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
@@ -485,7 +486,7 @@ public class BygoneMineshaftGenerator {
                             world.setBlock(blockPos, Blocks.SPAWNER.defaultBlockState(), 2);
                             BlockEntity blockEntity = world.getBlockEntity(blockPos);
                             if (blockEntity instanceof SpawnerBlockEntity mobSpawnerBlockEntity) {
-                                mobSpawnerBlockEntity.setEntityId(EntityType.CAVE_SPIDER, random);
+                                mobSpawnerBlockEntity.setEntityId(BGEntityTypes.PESKY.get(), random);
                             }
                         }
                     }

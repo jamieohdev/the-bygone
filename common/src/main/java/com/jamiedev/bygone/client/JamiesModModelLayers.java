@@ -53,4 +53,7 @@ public class JamiesModModelLayers {
 
     public static final ModelLayerLocation NECTAUR =
             new ModelLayerLocation(Bygone.id("nectaur"), "main");
+
+    public static final ModelLayerLocation PESKY =
+            new ModelLayerLocation(Bygone.id("pesky"), "main");
 }

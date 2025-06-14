@@ -84,6 +84,7 @@ public class Bygone {
         consumer.accept(BGEntityTypes.MOOBOO.get(), MoobooEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.COPPERBUG.get(), CopperbugEntity.createCopperbugAttributes().build());
         consumer.accept(BGEntityTypes.FUNGAL_PARENT.get(), FungalParentEntity.createFungieAttributes().build());
+        consumer.accept(BGEntityTypes.PESKY.get(), PeskyEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.PEST.get(), PestEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.WHISKBILL.get(), WhiskbillEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.NECTAUR.get(), NectaurEntity.createAttributes().build());
@@ -99,6 +100,7 @@ public class Bygone {
         consumer.accept((EntityType<T>) BGEntityTypes.TRILOBITE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type1, world1, reason1, pos1, random1) -> TrilobiteEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<? extends WaterAnimal>) type1, world1, reason1, pos1, random1));
         consumer.accept((EntityType<T>) BGEntityTypes.COPPERBUG.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, (type1, world1, spawnReason, pos1, random1) -> CopperbugEntity.canSpawn((EntityType<CopperbugEntity>) type1, world1, spawnReason, pos1, random1));
         consumer.accept((EntityType<T>) BGEntityTypes.COELACANTH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, world, reason, pos, random) -> CoelacanthEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<CoelacanthEntity>) type, world, reason, pos, random));
+        consumer.accept((EntityType<T>) BGEntityTypes.PESKY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.PEST.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.NECTAUR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, BigBeakEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.WHISKBILL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING,  GlareEntity::canSpawn);

@@ -49,7 +49,7 @@ public class PestEntity extends Animal
 
     public PestEntity(EntityType<? extends PestEntity> entityType, Level level) {
         super(BGEntityTypes.PEST.get(), level);
-        this.setSpeedModifier((double)0.1F);
+        this.setSpeedModifier((double)0.1F);;
     }
 
     public void setSpeedModifier(double speedModifier) {
@@ -99,8 +99,9 @@ public class PestEntity extends Animal
 
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8));
         this.goalSelector.addGoal(3, new TemptGoal(this, (double)1.0F, (p_335873_) -> p_335873_.is(ItemTags.ARMOR_ENCHANTABLE), false));
+        this.goalSelector.addGoal(4, new PestEntity.PestAvoidEntityGoal<>(this, NectaurEntity.class, 4.0F, 1.1, 1.5));
         this.goalSelector.addGoal(4, new PestEntity.PestAvoidEntityGoal<>(this, Player.class, 8.0F, 1.2, 2.3));
-        this.goalSelector.addGoal(4, new PestEntity.PestAvoidEntityGoal<>(this, BigBeakEntity.class, 16.0F, 0.8, 1.33));
+        this.goalSelector.addGoal(4, new PestEntity.PestAvoidEntityGoal<>(this, BigBeakEntity.class, 16.0F, 0.8, 1.12));
         this.goalSelector.addGoal(5, this.eatBlockGoal);
         this.goalSelector.addGoal(5, new RaidGardenGoal(this));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0, 10));

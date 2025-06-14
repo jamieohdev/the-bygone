@@ -135,6 +135,7 @@ public class BygoneClient {
         EntityRenderers.register(BGEntityTypes.FUNGAL_PARENT.get(), FungalParentRenderer::new);
         EntityRenderers.register(BGEntityTypes.BIG_BEAK.get(), BigBeakRenderer::new);
         EntityRenderers.register(BGEntityTypes.PEST.get(), PestRenderer::new);
+        EntityRenderers.register(BGEntityTypes.PESKY.get(), PeskyRenderer::new);
         EntityRenderers.register(BGEntityTypes.WHISKBILL.get(), WhiskbillRenderer::new);
         EntityRenderers.register(BGEntityTypes.NECTAUR.get(), NectaurRenderer::new);
     }
@@ -153,6 +154,7 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.BIG_BEAK_SADDLE, BigBeakModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.BIG_BEAK_ARMOR, BigBeakModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.PEST, PestModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.PESKY, PestModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WHISKBILL, WhiskbillModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.NECTAUR, NectaurModel::getTexturedModelData);
     }

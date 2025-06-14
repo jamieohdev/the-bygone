@@ -12,9 +12,10 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 
 
-public class PestModel<T extends PestEntity> extends EntityModel<T> {
+public class PestModel<T extends Entity> extends EntityModel<T> {
 	private final ModelPart head;
 	private final ModelPart tube;
 	private final ModelPart body;
@@ -89,7 +90,7 @@ public class PestModel<T extends PestEntity> extends EntityModel<T> {
 	}
 	
 	@Override
-	public void setupAnim(PestEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.tube.yRot = netHeadYaw * ((float)Math.PI / 180F);
 		this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
 		this.tube.xRot = headPitch * ((float)Math.PI / 180F);
