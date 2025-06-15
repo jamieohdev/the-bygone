@@ -264,11 +264,64 @@
     "subtitle": "subtitles.entity.whiskbill.roar"
   },
 
+  "entity.nectaur.ambient": {
+    "sounds": [
+      "bygone:entity/nectaur/idle1",
+      "bygone:entity/nectaur/idle2"
+    ],
+    "subtitle": "subtitles.entity.nectaur.ambient"
+  },
+  "entity.nectaur.hurt": {
+    "sounds": [
+      "bygone:entity/nectaur/hit1",
+      "bygone:entity/nectaur/hit2"
+    ],
+    "subtitle": "subtitles.entity.nectaur.hurt"
+  },
+  "entity.nectaur.death": {
+    "sounds": [
+      "bygone:entity/nectaur/death"
+    ],
+    "subtitle": "subtitles.entity.nectaur.death"
+  },
+  "entity.nectaur.bellow": {
+    "sounds": [
+      "bygone:entity/nectaur/bellow"
+    ],
+    "subtitle": "subtitles.entity.nectaur.bellow"
+  },
   "entity.nectaur.screech": {
     "sounds": [
       "bygone:entity/nectaur/screech"
     ],
     "subtitle": "subtitles.entity.nectaur.screech"
+  },
+
+  "entity.pest.ambient": {
+    "sounds": [
+      "bygone:entity/pest/idle1",
+      "bygone:entity/pest/idle2"
+    ],
+    "subtitle": "subtitles.entity.pest.ambient"
+  },
+  "entity.pest.hurt": {
+    "sounds": [
+      "bygone:entity/pest/hit1",
+      "bygone:entity/pest/hit2"
+    ],
+    "subtitle": "subtitles.entity.pest.hurt"
+  },
+  "entity.pest.death": {
+    "sounds": [
+      "bygone:entity/pest/death"
+    ],
+    "subtitle": "subtitles.entity.pest.death"
+  },
+  "entity.pest.eat": {
+    "sounds": [
+      "bygone:entity/pest/eat"
+    ],
+    "subtitle": "subtitles.entity.pest.eat"
   },
 
   "entity.bigbeak.ambient": {

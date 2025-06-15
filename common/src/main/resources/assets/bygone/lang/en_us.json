@@ -342,11 +342,16 @@
   "subtitles.entity.fungus_parent.hurt": "Fungus hurts",
   "subtitles.entity.fungus_parent.death": "Fungus dies",
 
-
+  "subtitles.entity.nectaur.bellow": "Nectaur bellows",
   "subtitles.entity.nectaur.screech": "Nectaur signals",
   "subtitles.entity.nectaur.ambient": "Nectaur caws",
   "subtitles.entity.nectaur.hurt": "Nectaur hurts",
   "subtitles.entity.nectaur.death": "Nectaur dies",
+
+  "subtitles.entity.pest.eat": "Pest gnaws",
+  "subtitles.entity.pest.ambient": "Pest chirps",
+  "subtitles.entity.pest.hurt": "Pest hurts",
+  "subtitles.entity.pest.death": "Pest dies",
 
   "subtitles.entity.whiskbill.roar": "Whiskbill roars",
   "subtitles.entity.whiskbill.ambient": "Whiskbill grumbles",
