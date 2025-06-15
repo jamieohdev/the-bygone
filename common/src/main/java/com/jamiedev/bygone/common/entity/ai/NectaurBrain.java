@@ -6,10 +6,10 @@ import com.jamiedev.bygone.common.entity.NectaurEntity;
 import com.jamiedev.bygone.common.entity.ai.behavior.NectaurFollowLeader;
 import com.jamiedev.bygone.common.entity.ai.behavior.NectaurJoinGroup;
 import com.jamiedev.bygone.common.entity.ai.behavior.NectaurRangeAttack;
+import com.jamiedev.bygone.common.entity.ai.behavior.NectaurSetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGMemoryModuleTypes;
 import com.mojang.datafixers.util.Pair;
-import com.mojang.serialization.Dynamic;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -19,11 +19,6 @@ import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.sensing.Sensor;
-import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraft.world.entity.animal.axolotl.Axolotl;
-import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
-import net.minecraft.world.entity.monster.piglin.Piglin;
-import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
 
@@ -50,10 +45,10 @@ public class NectaurBrain {
                 0,
                 ImmutableList.<net.minecraft.world.entity.ai.behavior.BehaviorControl<? super NectaurEntity>>of(
                         StopAttackingIfTargetInvalid.<NectaurEntity>create(target -> !isNearestValidAttackTarget(nectaur, target) && !nectaur.isBaby()),
+                        BehaviorBuilder.triggerIf(entity -> entity.getBrain().checkMemory(BGMemoryModuleTypes.GROUP_LEADER, MemoryStatus.VALUE_ABSENT), BackUpIfTooClose.create(12, 1.3F)),
                         // This behavior should be when it is not in a group
-                        BehaviorBuilder.triggerIf(entity -> entity.getBrain().checkMemory(BGMemoryModuleTypes.GROUP_LEADER, MemoryStatus.VALUE_ABSENT), BackUpIfTooClose.create(8, 1.1F)),
-                        BehaviorBuilder.triggerIf(entity -> entity.getBrain().checkMemory(BGMemoryModuleTypes.GROUP_LEADER, MemoryStatus.VALUE_PRESENT) && entity.getBrain().checkMemory(BGMemoryModuleTypes.NECTAUR_RANGED_COOLDOWN, MemoryStatus.VALUE_ABSENT), BackUpIfTooClose.create(4, 1.4F)),
-                        SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
+                        BackUpIfTooClose.create(4, 1.4F),
+                        NectaurSetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F, 4),
                         new NectaurRangeAttack<>()
                         // This should be for when it is in a group
                         //BehaviorBuilder.triggerIf(entity -> entity.getBrain().checkMemory(BGMemoryModuleTypes.GROUP_LEADER, MemoryStatus.VALUE_PRESENT) && entity.getBrain().checkMemory(BGMemoryModuleTypes.NECTAUR_RANGED_COOLDOWN, MemoryStatus.VALUE_PRESENT), MeleeAttack.create(3))

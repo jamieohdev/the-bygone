@@ -14,7 +14,7 @@ public class NectaurRenderer extends MobRenderer<NectaurEntity, NectaurModel<Nec
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/nectaur.png");
 
     public NectaurRenderer(EntityRendererProvider.Context context) {
-        super(context, new NectaurModel<>(context.bakeLayer(JamiesModModelLayers.NECTAUR)), 0.8F);
+        super(context, new NectaurModel<>(context.bakeLayer(JamiesModModelLayers.NECTAUR)), 0.4F);
     }
 
     @Override

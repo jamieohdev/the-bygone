@@ -39,7 +39,7 @@ public class NectaurRangeAttack<E extends Mob & RangedAttackMob, T extends Livin
     protected boolean checkExtraStartConditions(ServerLevel level, E owner) {
         LivingEntity livingentity = getAttackTarget(owner);
         return BehaviorUtils.canSee(owner, livingentity)
-                && owner.distanceTo(livingentity) < 5.0F;
+                && owner.distanceTo(livingentity) < 14.0F;
     }
 
     protected boolean canStillUse(ServerLevel level, E entity, long gameTime) {

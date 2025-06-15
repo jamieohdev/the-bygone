@@ -39,7 +39,12 @@ public class NectaurJoinGroup extends Behavior<NectaurEntity> {
                 .filter(entity -> entity != owner)
                 .toList();
 
-        if (nectaurs.isEmpty()) return;
+        if (nectaurs.isEmpty()){
+            if (owner.getBrain().getMemory(BGMemoryModuleTypes.GROUP_LEADER).isPresent() && level.getEntity(owner.getBrain().getMemory(BGMemoryModuleTypes.GROUP_LEADER).get()) == null){
+                owner.getBrain().eraseMemory(BGMemoryModuleTypes.GROUP_LEADER);
+            }
+            return;
+        }
 
         for (NectaurEntity nectaur : nectaurs) {
             if (nectaur.getBrain().hasMemoryValue(BGMemoryModuleTypes.GROUP_LEADER)) {
