@@ -366,7 +366,9 @@ public class GlareEntity extends Animal implements FlyingAnimal
 
     public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> type, LevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, @NotNull RandomSource random) {
         boolean bl = MobSpawnType.ignoresLightRequirements(spawnReason) || isBrightEnoughToSpawn(serverWorldAccess, blockPos);
-        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get()) && bl;
+        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK)
+                || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get())
+                && bl;
     }
 
     protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter world, BlockPos pos) {
@@ -374,7 +376,11 @@ public class GlareEntity extends Animal implements FlyingAnimal
     }
 
     public static boolean canSpawn(EntityType<? extends Mob> glareEntityEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, @NotNull RandomSource random) {
-       return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get());
+       return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK)
+               || serverWorldAccess.getBlockState(blockPos).is(Blocks.MOSS_CARPET)
+               || serverWorldAccess.getBlockState(blockPos).is(Blocks.SHORT_GRASS)
+               || serverWorldAccess.getBlockState(blockPos).is(Blocks.TALL_GRASS)
+               || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get());
     }
 
     @Override

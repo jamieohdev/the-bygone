@@ -517,8 +517,9 @@ public class BigBeakEntity  extends AbstractHorse implements VariantHolder<BigBe
             BlockPos blockPos,
             RandomSource random
     ) {
-        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) ||
-                serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get());
+        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK)
+                || serverWorldAccess.getBlockState(blockPos).is(Blocks.MOSS_CARPET)
+                || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get());
     }
 
     public static class BigBeakGroupData extends AgeableMob.AgeableMobGroupData {

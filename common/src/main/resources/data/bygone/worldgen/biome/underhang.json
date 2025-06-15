@@ -73,7 +73,21 @@
     ["minecraft:brown_mushroom_normal", "minecraft:red_mushroom_normal"]
   ],
   "has_precipitation": false,
-  "spawn_costs": {},
+  "spawn_costs": {
+    "bygone:nectaur": {
+      "charge": 0.7,
+      "energy_budget": 0.36
+    },
+    "bygone:whiskbill": {
+      "charge": 0.5,
+      "energy_budget": 0.36
+    },
+    "bygone:big_beak": {
+      "charge": 0.5,
+      "energy_budget": 0.36
+    }
+
+  },
   "spawners": {
     "ambient": [
 
@@ -88,8 +102,8 @@
       },
       {
         "type": "bygone:nectaur",
-        "maxCount": 4,
-        "minCount": 4,
+        "maxCount": 2,
+        "minCount": 1,
         "weight": 13
       },
       {
@@ -108,7 +122,24 @@
     ],
     "misc": [],
     "monster": [
-
+      {
+        "type": "bygone:nectaur",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 13
+      },
+      {
+        "type": "bygone:big_beak",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 15
+      },
+      {
+        "type": "bygone:whisbill",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 8
+      }
     ],
     "underground_water_creature": [],
     "water_creature": []
