@@ -129,6 +129,7 @@ public class BygoneClient {
         EntityRenderers.register(BGEntityTypes.COPPERBUG.get(), CopperbugRenderer::new);
         EntityRenderers.register(BGEntityTypes.HOOK.get(), HookRenderer::new);
         EntityRenderers.register(BGEntityTypes.EXOTIC_ARROW.get(), ExoticArrowRenderer::new);
+        EntityRenderers.register(BGEntityTypes.NECTAUR_PETAL.get(), NectaurPetalRenderer::new);
         EntityRenderers.register(BGEntityTypes.SCUTTLE_SPIKE.get(), ScuttleSpikeRenderer::new);
         EntityRenderers.register(BGEntityTypes.TRILOBITE.get(), TrilobiteRenderer::new);
         EntityRenderers.register(BGEntityTypes.MOOBOO.get(), MoobooRenderer::new);

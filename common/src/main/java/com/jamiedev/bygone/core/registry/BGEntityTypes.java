@@ -4,37 +4,17 @@ import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.entity.*;
 import com.jamiedev.bygone.common.entity.projectile.ExoticArrowEntity;
 import com.jamiedev.bygone.common.entity.projectile.HookEntity;
+import com.jamiedev.bygone.common.entity.projectile.NectaurPetalEntity;
 import com.jamiedev.bygone.common.entity.projectile.ScuttleSpikeEntity;
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.animal.sniffer.Sniffer;
 
 import java.util.function.Supplier;
 
 public class BGEntityTypes {
-
-    public class CustomSpawnGroups
-    {
-        public static MobCategory GLARES, BIG_BEAKS;
-
-        public CustomSpawnGroups()
-        {
-
-        }
-
-        public static  MobCategory getGlares() {
-            return GLARES;
-        }
-
-        public static MobCategory getBigBeaks() {
-            return BIG_BEAKS;
-        }
-    }
-
-
 
     public static final Supplier<EntityType<HookEntity>> HOOK = registerEntityType("hook", () ->
             EntityType.Builder.<HookEntity>of(HookEntity::new, MobCategory.MISC)
@@ -73,6 +53,15 @@ public class BGEntityTypes {
                     .updateInterval(20)
                     .build("")
     );
+
+    public static final Supplier<EntityType<NectaurPetalEntity>> NECTAUR_PETAL = registerEntityType( "nectaur_petal", () ->
+            EntityType.Builder.<NectaurPetalEntity>of(NectaurPetalEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4)
+                    .updateInterval(20)
+                    .build("")
+    );
+
 
     public static final Supplier<EntityType<GlareEntity>> GLARE = registerEntityType("glare", () ->
             EntityType.Builder.of(GlareEntity::new, MobCategory.CREATURE)
@@ -149,6 +138,14 @@ public class BGEntityTypes {
     public static final Supplier<EntityType<NectaurEntity>> NECTAUR = registerEntityType("nectaur", () ->
             EntityType.Builder.of(NectaurEntity::new, MobCategory.CREATURE)
                     .sized(1.0F, 2.0F).build(""));
+
+    /**public static final Supplier<EntityType<NectaurPetalEntity>> NECTAUR_PETAL = registerEntityType( "nectaur_petal", () ->
+            EntityType.Builder.<NectaurPetalEntity>of(NectaurPetalEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).eyeHeight(0.13F)
+                    .clientTrackingRange(4)
+
+                    .build("")
+    );**/
 
     public static void postInit() {
         initSpawnRestrictions();

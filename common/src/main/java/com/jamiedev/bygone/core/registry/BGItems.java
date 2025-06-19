@@ -55,6 +55,7 @@ public class BGItems
     public static final Supplier<Item> EXOTIC_ARROW = registerItem("exotic_arrow", () -> new ExoticArrowItem(new Item.Properties().fireResistant()));
     public static final Supplier<Item> EXOTIC_PLUMAGE = registerItem("exotic_plumage", () -> new Item(new Item.Properties().fireResistant()));
     public static final Supplier<Item> GLOW_CHITIN = registerItem("glow_chitin", () -> new Item(new Item.Properties().fireResistant()));
+    public static final Supplier<Item> NECTAUR_PETAL = registerItem("nectaur_petal", () -> new Item(new Item.Properties().fireResistant()));
     public static final Supplier<Item> SCUTTLE_SPIKE = registerItem("scuttle_spike", () -> new Item(new Item.Properties().fireResistant()));
     ArmorMaterials mat;;
 

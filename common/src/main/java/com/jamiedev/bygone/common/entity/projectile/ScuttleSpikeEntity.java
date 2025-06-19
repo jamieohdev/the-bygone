@@ -2,6 +2,7 @@ package com.jamiedev.bygone.common.entity.projectile;
 
 import com.google.common.base.MoreObjects;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
+import com.jamiedev.bygone.core.registry.BGItems;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -117,7 +118,7 @@ public class ScuttleSpikeEntity  extends AbstractArrow
 
     @Override
     protected ItemStack getDefaultPickupItem() {
-        return new ItemStack(Items.TRIDENT);
+        return new  ItemStack(BGItems.SCUTTLE_SPIKE.get());
     }
 
     @Override
