@@ -61,6 +61,7 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
             BGMemoryModuleTypes.NEAREST_NECTAUR_ALLY,
             BGMemoryModuleTypes.IS_LEADER,
+            BGMemoryModuleTypes.IS_STALKING,
             BGMemoryModuleTypes.IS_IN_GROUP,
             BGMemoryModuleTypes.GROUP_LEADER,
             BGMemoryModuleTypes.NECTAUR_RANGED_COOLDOWN,

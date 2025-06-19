@@ -15,6 +15,7 @@ import java.util.UUID;
 public class BGMemoryModuleTypes<U> {
     public static final MemoryModuleType<UUID> GROUP_LEADER = register("group_leader", UUIDUtil.CODEC);
     public static final MemoryModuleType<Boolean> IS_LEADER = register("is_leader");
+    public static final MemoryModuleType<Boolean> IS_STALKING = register("is_stalking");
     public static final MemoryModuleType<Boolean> IS_IN_GROUP = register("is_in_group");
     public static final MemoryModuleType<LivingEntity> NEAREST_NECTAUR_ALLY = register("nearest_nectaur_ally");
     public static final MemoryModuleType<Unit> NECTAUR_RANGED_COOLDOWN = register("nectaur_ranged_cooldown", Unit.CODEC);

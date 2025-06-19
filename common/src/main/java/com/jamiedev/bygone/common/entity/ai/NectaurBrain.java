@@ -3,10 +3,7 @@ package com.jamiedev.bygone.common.entity.ai;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.jamiedev.bygone.common.entity.NectaurEntity;
-import com.jamiedev.bygone.common.entity.ai.behavior.NectaurFollowLeader;
-import com.jamiedev.bygone.common.entity.ai.behavior.NectaurJoinGroup;
-import com.jamiedev.bygone.common.entity.ai.behavior.NectaurRangeAttack;
-import com.jamiedev.bygone.common.entity.ai.behavior.NectaurSetWalkTargetFromAttackTargetIfTargetOutOfReach;
+import com.jamiedev.bygone.common.entity.ai.behavior.*;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGMemoryModuleTypes;
 import com.mojang.datafixers.util.Pair;
@@ -44,6 +41,7 @@ public class NectaurBrain {
                 Activity.FIGHT,
                 0,
                 ImmutableList.<net.minecraft.world.entity.ai.behavior.BehaviorControl<? super NectaurEntity>>of(
+                        //NectaurStalk.create(0.75F, 12, 18),
                         StopAttackingIfTargetInvalid.<NectaurEntity>create(target -> !isNearestValidAttackTarget(nectaur, target) && !nectaur.isBaby()),
                         BehaviorBuilder.triggerIf(entity -> entity.getBrain().checkMemory(BGMemoryModuleTypes.GROUP_LEADER, MemoryStatus.VALUE_ABSENT), BackUpIfTooClose.create(12, 1.3F)),
                         // This behavior should be when it is not in a group
