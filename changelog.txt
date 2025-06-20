@@ -84,14 +84,8 @@
 * Is only found in the Mineshafts.
 * Has no knockback from any attacks, so be careful!
 
-# The Nectaur [EXPERIMENTAL]
-* A new neutral mob found only in the Underhang.
-* Will form small groups.
-* Are temporarily using Chicken sounds!
-
 # Technical features:
 * Added the new item tag "whiskbill_food"
-
 
 # Changes to existing features:
 * Chiseled Polished Bystone and Byslate are now craftable.
@@ -119,7 +113,6 @@
 * Bygone Mineshafts no longer generate with Cave Spider spawners.
 * Removed Umber.
 * Removed Umber Bricks.
-
 
 # Bugs fixed:
 * Fixed crash related to Blemish Catalysts!
