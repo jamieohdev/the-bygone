@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "bygone:bale_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "bygone:amaranth_grain"
+  }
+}
