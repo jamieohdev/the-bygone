@@ -1,10 +1,7 @@
 {
   "variants": {
-    "bloom=false": {
+    "": {
       "model": "bygone:block/blemish_catalyst"
-    },
-    "bloom=true": {
-      "model": "bygone:block/blemish_catalyst_bloom"
     }
   }
 }

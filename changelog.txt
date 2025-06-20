@@ -25,6 +25,7 @@
 * Overhauled the look of the Amber Desert biome.
 * Overhauled the Ancient Hook.
 * Added the Whiskbill and Whiskbill Spawn Egg.
+* Added the Nectaur and Nectaur Spawn Egg!
 * Added the Pesky and Pesky Spawn Egg.
 * Added the Amber Sand, Amber Sandstone, Cut Amber Sandstone, Smooth Amber Sandstone and Chiseled Amber Sandstone blocksets.
 * Added the Amber Clump.
@@ -32,12 +33,13 @@
 * Added the Verdigris Scrap Block and Verdigris Block.
 * Added the [REDACTED] block, found only in Abandoned Farms.
 * Added Glow Gourd Seeds.
+* Added Poultry and Cooked Poultry.
 * Added two new paintings from ["Iri_Dark!"](https://bsky.app/profile/iridark.bsky.social)
 * Glow Gourds now have growth stages!
 * Big Beaks now have multiple variants! (Including some special ones for Pride Month)!
 * Maps now work in the Bygone! They "fill out" depending on what Y level the Players feet are at!
 * Copperbugs now have sounds!
-* EXPERIMENTAL: Added the Nectaur and Nectaur Spawn Egg!
+
 
 # Terrain Generation changes and additions:
 * Added the "Primordial Beach" biome
@@ -64,6 +66,12 @@
 * Ancient Hook now attaches to blocks way faster as its shoot speed has been increased a lot.
 * Added Ancient Hook as loot in Bygone Mineshafts.
 * Ancient Hook now has unique sounds!
+
+# The Nectaur
+* A new "hostile" mob that spits out poisonous (or slowness) Petals at Players!
+* Will be more likely to become hostile when in big groups!
+* Single Nectaurs like to stalk nearby Players.
+* Drops Poultry and Cooked Poultry when killed.
 
 # The Whiskbill
 * A new passive mob found only in the Underhang.
@@ -98,6 +106,7 @@
 * Sprinkler now bonemeals crop randomly 20% less.
 * Pests now consume crops 50% more.
 * Big Beaks now have a health range of 5 - 7 hearts.
+* Big Beaks now drop Poultry or Cooked Poultry when they die.
 * Mossy Claystone now boosts Sniffer eggs hatch rates.
 * Glow Gourd Vines now grow.
 * Glow Gourd Vines are now obtainable in Survival via Shears.
@@ -112,8 +121,10 @@
 
 
 # Bugs fixed:
+* Fixed crash related to Blemish Catalysts!
 * Fixed crash related to mixins clashing!
 * Fixed crash related to Mooboos in the Bygone!
+* Fixed mobs generally just not spawning in the Underhang!
 * Fixed both Polished Bystone and Polished Byslate family of blocks from not having stonecutter recipes!
 * Fixed Big Beak subtitles not being translated!
 * Fixed Big Beaks model from overlapping!
@@ -123,7 +134,7 @@
 * Fixed Whirliweeds not being "replaceable".
 * Fixed numerous tags from being broken.
 * Fixed numerous broken stonecutter recipes for Byslate and Bystone (All types).
-* Fixed multiple Bygone mobs having "lag" between movements.
+* Fixed all Bygone mobs having "lag" between movements.
 * Fixed Underhang Vines popping out Glowstone when right-clicked.
 * Fixed multiple blocks like the Glow Gourds and Dangos from having broken block breaking particles.
 * Fixed Bygone Portal blocks not shattering when the Bygone Portal Frame is broken.

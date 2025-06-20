@@ -123,6 +123,9 @@ public class BGItems
     public static final Supplier<Item> PINK_FUNGI  = registerItem("pink_fungi_vines", () -> new ItemNameBlockItem(BGBlocks.PINK_FUNGI_VINES.get(), (new Item.Properties())));
     public static final Supplier<Item> PURPLE_FUNGI  = registerItem("purple_fungi_vines", () -> new ItemNameBlockItem(BGBlocks.PURPLE_FUNGI_VINES.get(), (new Item.Properties())));
 
+    public static final Supplier<Item> POULTRY = registerItem("poultry", () -> new Item(new Item.Properties().food(Foods.CHICKEN)));
+    public static final Supplier<Item> COOKED_POULTRY = registerItem("cooked_poultry", () -> new Item(new Item.Properties().food(Foods.COOKED_CHICKEN)));
+
     public static void addItemsToItemGroup() {
 
 

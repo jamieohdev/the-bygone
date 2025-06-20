@@ -458,7 +458,7 @@ public class BGBlocks {
 
 // Start of Blemish biome blocksets!
     public static final Supplier<Block> BLEMISH = registerBlock("blemish", () -> new BlemishBlock(BlockBehaviour.Properties.of().mapColor(MapColor.ICE).instabreak().sound(SoundType.WET_GRASS)));
-    public static final Supplier<Block> BLEMISH_CATALYST = registerBlock("blemish_catalyst", () -> new BlemishCatalystBlock(BlockBehaviour.Properties.of().mapColor(MapColor.ICE).instabreak().sound(SoundType.WET_GRASS)));
+    public static final Supplier<Block> BLEMISH_CATALYST = registerBlock("blemish_catalyst", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.ICE).instabreak().sound(SoundType.WET_GRASS)));
     public static final Supplier<Block> BLEMISH_VEIN = registerBlock("blemish_vein", () -> new BlemishVeinBlock(BlockBehaviour.Properties.of().mapColor(MapColor.ICE).forceSolidOn().noCollission().strength(0.2F).sound(SoundType.SCULK_VEIN).pushReaction(PushReaction.DESTROY)));
 
 

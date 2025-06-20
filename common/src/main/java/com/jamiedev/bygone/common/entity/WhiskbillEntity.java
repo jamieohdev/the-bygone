@@ -26,10 +26,12 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -42,6 +44,7 @@ import java.util.function.Predicate;
 
 public class WhiskbillEntity extends Animal
 {
+
     private static final EntityDimensions BABY_BASE_DIMENSIONS;
     public AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
@@ -62,6 +65,10 @@ public class WhiskbillEntity extends Animal
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("MoreGourdTicks", this.moreCarrotTicks);
+    }
+
+    protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter world, BlockPos pos) {
+        return world.getRawBrightness(pos, 0) > 1;
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {

@@ -103,7 +103,7 @@ public class Bygone {
         consumer.accept((EntityType<T>) BGEntityTypes.PESKY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.PEST.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.NECTAUR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, BigBeakEntity::canSpawn);
-        consumer.accept((EntityType<T>) BGEntityTypes.WHISKBILL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING,  GlareEntity::canSpawn);
+        consumer.accept((EntityType<T>) BGEntityTypes.WHISKBILL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, BigBeakEntity::canSpawn);
     }
 
     public static void addValidBlocks(BiConsumer<BlockEntityType<?>, Block> consumer) {
