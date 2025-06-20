@@ -68,6 +68,8 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
             BGMemoryModuleTypes.GROUP_LEADER,
             BGMemoryModuleTypes.NECTAUR_RANGED_COOLDOWN,
             MemoryModuleType.PATH,
+            MemoryModuleType.SONIC_BOOM_COOLDOWN,
+            MemoryModuleType.TOUCH_COOLDOWN,
             MemoryModuleType.LOOK_TARGET,
             MemoryModuleType.NEAREST_LIVING_ENTITIES,
             MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,

@@ -40,20 +40,50 @@ public class NectaurBrain {
         brain.addActivityAndRemoveMemoryWhenStopped(
                 Activity.FIGHT,
                 0,
-                ImmutableList.<net.minecraft.world.entity.ai.behavior.BehaviorControl<? super NectaurEntity>>of(
-                        //NectaurStalk.create(0.75F, 12, 18),
-                        StopAttackingIfTargetInvalid.<NectaurEntity>create(target -> !isNearestValidAttackTarget(nectaur, target) && !nectaur.isBaby()),
-                        BehaviorBuilder.triggerIf(entity -> entity.getBrain().checkMemory(BGMemoryModuleTypes.GROUP_LEADER, MemoryStatus.VALUE_ABSENT), BackUpIfTooClose.create(12, 1.3F)),
-                        // This behavior should be when it is not in a group
-                        BackUpIfTooClose.create(4, 1.4F),
+                ImmutableList.of(
+                        // Only stalk if this Nectaur is the group leader
+                        NectaurStalk.create(
+                                (LivingEntity entity) -> {
+                                    if (!(entity instanceof NectaurEntity nectaurEntity)) return 0.0F;
+                                    var leaderMemory = nectaurEntity.getBrain().getMemory(BGMemoryModuleTypes.GROUP_LEADER);
+                                    return (leaderMemory.isPresent() && leaderMemory.get().equals(nectaurEntity.getUUID())) ? 0.75F : 0.0F; // 0.0F disables movement
+                                },
+                                6,
+                                16
+                        ),
+
+                        // Stop attacking if the target is invalid
+                        StopAttackingIfTargetInvalid.<NectaurEntity>create(
+                                target -> !isNearestValidAttackTarget(nectaur, target) && !nectaur.isBaby()
+                        ),
+
+                        // If not in group, apply defensive backoff
+                        BehaviorBuilder.triggerIf(
+                                entity -> entity.getBrain().checkMemory(BGMemoryModuleTypes.IS_IN_GROUP, MemoryStatus.VALUE_ABSENT),
+                                BackUpIfTooClose.create(4, 1.4F)
+                        ),
+
+                        // If is in group but not leader, backup to form formation
+                        BehaviorBuilder.triggerIf(
+                                entity -> entity.getBrain().checkMemory(BGMemoryModuleTypes.IS_IN_GROUP, MemoryStatus.VALUE_PRESENT) &&
+                                        (!entity.getBrain().hasMemoryValue(BGMemoryModuleTypes.GROUP_LEADER) ||
+                                                !entity.getUUID().equals(entity.getBrain().getMemory(BGMemoryModuleTypes.GROUP_LEADER).orElse(null))),
+                                BackUpIfTooClose.create(12, 1.3F)
+                        ),
+
+                        // Move closer if target is far
                         NectaurSetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F, 4),
+
+                        // ranged attack
                         new NectaurRangeAttack<>()
-                        // This should be for when it is in a group
-                        //BehaviorBuilder.triggerIf(entity -> entity.getBrain().checkMemory(BGMemoryModuleTypes.GROUP_LEADER, MemoryStatus.VALUE_PRESENT) && entity.getBrain().checkMemory(BGMemoryModuleTypes.NECTAUR_RANGED_COOLDOWN, MemoryStatus.VALUE_PRESENT), MeleeAttack.create(3))
+
+                        // melee maybe
+                        // BehaviorBuilder.triggerIf(entity -> isGroupLeaderWithCooldown(entity), MeleeAttack.create(3))
                 ),
                 MemoryModuleType.ATTACK_TARGET
         );
     }
+
 
     private static boolean isNearestValidAttackTarget(NectaurEntity nectaur, LivingEntity target) {
         return findNearestValidAttackTarget(nectaur).filter(p_34887_ -> p_34887_ == target).isPresent();

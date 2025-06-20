@@ -32,15 +32,21 @@ public class NectaurRangeAttack<E extends Mob & RangedAttackMob, T extends Livin
                 MemoryModuleType.LOOK_TARGET, MemoryStatus.REGISTERED,
                 MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT,
                 BGMemoryModuleTypes.GROUP_LEADER, MemoryStatus.VALUE_PRESENT,
+                BGMemoryModuleTypes.IS_STALKING, MemoryStatus.REGISTERED,
                 BGMemoryModuleTypes.NECTAUR_RANGED_COOLDOWN, MemoryStatus.VALUE_ABSENT),
                 DURATION);
     }
 
     protected boolean checkExtraStartConditions(ServerLevel level, E owner) {
+        if (owner.getBrain().getMemory(BGMemoryModuleTypes.IS_STALKING).orElse(false)) {
+            return false;
+        }
+
         LivingEntity livingentity = getAttackTarget(owner);
         return BehaviorUtils.canSee(owner, livingentity)
                 && owner.distanceTo(livingentity) < 14.0F;
     }
+
 
     protected boolean canStillUse(ServerLevel level, E entity, long gameTime) {
         return entity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && this.checkExtraStartConditions(level, entity);
