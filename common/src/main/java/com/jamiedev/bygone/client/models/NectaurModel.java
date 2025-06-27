@@ -1,11 +1,15 @@
 package com.jamiedev.bygone.client.models;
 import com.google.common.collect.ImmutableList;
+import com.jamiedev.bygone.client.models.animations.BigBeakAnimations;
 import com.jamiedev.bygone.client.models.animations.GlareAnimations;
+import com.jamiedev.bygone.client.models.animations.NectaurAnimations;
 import com.jamiedev.bygone.common.entity.GlareEntity;
 import com.jamiedev.bygone.common.entity.NectaurEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.animation.AnimationDefinition;
+import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -15,10 +19,12 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
-public class NectaurModel<T extends NectaurEntity> extends EntityModel<T>  {
+public class NectaurModel<T extends NectaurEntity> extends HierarchicalModel<T>  {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	private final ModelPart root;
 	private final ModelPart body;
@@ -30,7 +36,7 @@ public class NectaurModel<T extends NectaurEntity> extends EntityModel<T>  {
 	private final ModelPart leg2;
 	private final ModelPart tail;
 
-	GuardianModel ref;
+	private static final Vector3f ANIMATION_VECTOR_CACHE = new Vector3f();
 
 	public NectaurModel(ModelPart root) {
 		this.root = root.getChild("root");
@@ -77,10 +83,13 @@ public class NectaurModel<T extends NectaurEntity> extends EntityModel<T>  {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
+
+
 	@Override
 	public void setupAnim(NectaurEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		//this.head.xRot = headPitch * ((float)Math.PI / 180F);
 		//this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
+		this.animate(entity.idleAnimationState, NectaurAnimations.NECTAUR_IDLE, ageInTicks, 1f);
 		this.frill2.xRot = this.head.xRot;
 		this.frill2.yRot = this.head.yRot;
 		this.frill3.xRot = this.head.xRot;
@@ -128,6 +137,11 @@ public class NectaurModel<T extends NectaurEntity> extends EntityModel<T>  {
 
 		body.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 
+	}
+
+	@Override
+	public ModelPart root() {
+		return root;
 	}
 
 }

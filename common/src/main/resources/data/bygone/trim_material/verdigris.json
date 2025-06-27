@@ -1,0 +1,9 @@
+{
+  "asset_name": "verdigris",
+  "description": {
+    "color": "#70CFA7",
+    "translate": "trim_material.bygone.verdigris"
+  },
+  "ingredient": "bygone:verdigris_ingot",
+  "item_model_index": 0.55
+}

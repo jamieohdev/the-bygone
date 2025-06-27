@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/tinted_cross",
+  "parent": "bygone:block/under_base",
   "textures": {
     "cross": "bygone:block/under_grass"
   }

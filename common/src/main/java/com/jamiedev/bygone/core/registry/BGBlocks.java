@@ -30,23 +30,6 @@ import static net.minecraft.world.level.block.Blocks.DIRT;
 
 public class BGBlocks {
 
-
-    /**
-     * TODO:
-     *
-     * Bystone / Byslate Polished (Textures WIP), Bricks, Shingles Chiseled variants (And stairs / slabs / walls)
-     * Claystone Bricks Chiseled Shingles variants (And stairs / slabs / walls)
-     * "Ventstone" Normal Bricks Chiseled Shingles (And stairs / slabs / walls)
-     * "Whitestone" Normal Bricks Chiseled Shingles  (And stairs / slabs / walls)
-     * RATTAN woodset???
-     * Redplume Crop
-     * Spiral Sprouts flower block
-     *
-     * Add "replaceables" and "enchantment_power_transmitter" tags
-     * Fix Undergrass model
-     */
-
-
     public static final Supplier<Block> POLISHED_BYSTONE = registerBlock("polished_bystone", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
 
@@ -175,7 +158,7 @@ public class BGBlocks {
             replaceable().noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY)));
     public static  final Supplier<Block> SHORT_GRASS = registerBlock("under_grass", () -> new UpsidedownShortPlantBlock(BlockBehaviour.Properties.of()
             .mapColor(MapColor.PLANT).replaceable().noCollission().instabreak().sound(SoundType.GRASS)
-            .offsetType(BlockBehaviour.OffsetType.XYZ).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+            .offsetType(BlockBehaviour.OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY)));
 
 
     public static final Supplier<Block> CAVE_VINES = registerBlockWithoutBlockItem("cave_vines", () -> new AncientCaveVinesHeadBlock(BlockBehaviour.Properties.of()

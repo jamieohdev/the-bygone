@@ -55,6 +55,13 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
     private static final UniformInt FIRST_ANGER_SOUND_DELAY;
     private int playFirstAngerSoundIn;
 
+    public final AnimationState idleAnimationState = new AnimationState();
+    private int idleAnimationTimeout = 0;
+
+    public final AnimationState sneezeAnimationState = new AnimationState();
+    private int sneezeAnimationTimeout = 0;
+
+
     protected static final ImmutableList<SensorType<? extends Sensor<? super NectaurEntity>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             SensorType.NEAREST_PLAYERS,
@@ -211,6 +218,16 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
             if (this.playFirstAngerSoundIn == 0) {
                 this.playAngerSound();
             }
+        }
+
+    }
+
+    private void setupAnimationStates() {
+        if (this.idleAnimationTimeout <= 0) {
+            this.idleAnimationTimeout = this.random.nextInt(100) + 100;
+            this.idleAnimationState.start(this.tickCount);
+        } else {
+            --this.idleAnimationTimeout;
         }
 
     }
