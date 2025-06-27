@@ -102,7 +102,7 @@
       },
       {
         "type": "bygone:nectaur",
-        "maxCount": 2,
+        "maxCount": 1,
         "minCount": 1,
         "weight": 13
       },
@@ -124,7 +124,7 @@
     "monster": [
       {
         "type": "bygone:nectaur",
-        "maxCount": 4,
+        "maxCount": 1,
         "minCount": 1,
         "weight": 13
       },
@@ -135,7 +135,7 @@
         "weight": 15
       },
       {
-        "type": "bygone:whisbill",
+        "type": "bygone:whiskbill",
         "maxCount": 2,
         "minCount": 1,
         "weight": 8

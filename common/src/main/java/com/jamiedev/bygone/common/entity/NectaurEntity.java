@@ -18,6 +18,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -43,10 +44,12 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Random;
 import java.util.UUID;
 
 public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob {
@@ -147,6 +150,50 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
         }
 
         return super.hurt(source, amount);
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        if (spawnType == MobSpawnType.NATURAL) {
+            Level world = level.getLevel();
+            float randomSpawns = this.random.nextFloat();
+
+            if (randomSpawns < 0.30F) {
+
+            }
+            else if (randomSpawns < 0.70F) {
+                NectaurEntity nectaur = new NectaurEntity(BGEntityTypes.NECTAUR.get(), world);
+                nectaur.setPos(this.getX(), this.getY(), this.getZ());
+
+                world.addFreshEntity(nectaur);
+            }
+            else if (randomSpawns < 0.85F) {
+                for (int i = 0; i < 2; i++) {
+                    NectaurEntity nectaur = new NectaurEntity(BGEntityTypes.NECTAUR.get(), world);
+                    nectaur.setPos(this.getX(), this.getY(), this.getZ());
+
+                    world.addFreshEntity(nectaur);
+                }
+            }
+            else if (randomSpawns < 0.95F) {
+                for (int i = 0; i < 3; i++) {
+                    NectaurEntity nectaur = new NectaurEntity(BGEntityTypes.NECTAUR.get(), world);
+                    nectaur.setPos(this.getX(), this.getY(), this.getZ());
+
+                    world.addFreshEntity(nectaur);
+                }
+            }
+            else if (randomSpawns < 1.00F) {
+                for (int i = 0; i < 4; i++) {
+                    NectaurEntity nectaur = new NectaurEntity(BGEntityTypes.NECTAUR.get(), world);
+                    nectaur.setPos(this.getX(), this.getY(), this.getZ());
+
+                    world.addFreshEntity(nectaur);
+                }
+            }
+        }
+
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
     public boolean canBeAffected(MobEffectInstance potioneffect) {
