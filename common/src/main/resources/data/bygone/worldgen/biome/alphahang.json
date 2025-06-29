@@ -64,25 +64,12 @@
       "minecraft:patch_tall_grass_2",
       "bygone:patch_grass_underhang",
       "bygone:patch_tall_grass",
-      "bygone:underhang_vegetation"
+      "bygone:alphahang_vegetation"
     ],
     ["minecraft:brown_mushroom_normal", "minecraft:red_mushroom_normal"]
   ],
   "has_precipitation": false,
   "spawn_costs": {
-    "bygone:nectaur": {
-      "charge": 0.6,
-      "energy_budget": 0.18
-    },
-    "bygone:whiskbill": {
-      "charge": 0.4,
-      "energy_budget": 0.50
-    },
-    "bygone:big_beak": {
-      "charge": 0.5,
-      "energy_budget": 0.10
-    }
-
   },
   "spawners": {
     "ambient": [
@@ -90,25 +77,6 @@
     ],
     "axolotls": [],
     "creature": [
-      {
-        "type": "bygone:big_beak",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 10
-      },
-      {
-        "type": "bygone:nectaur",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 13
-      },
-      {
-        "type": "bygone:whiskbill",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 12
-      },
-
       {
         "type": "bygone:glare",
         "maxCount": 5,
@@ -118,24 +86,7 @@
     ],
     "misc": [],
     "monster": [
-      {
-        "type": "bygone:nectaur",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 13
-      },
-      {
-        "type": "bygone:big_beak",
-        "maxCount": 4,
-        "minCount": 2,
-        "weight": 15
-      },
-      {
-        "type": "bygone:whiskbill",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 8
-      }
+
     ],
     "underground_water_creature": [],
     "water_creature": []
