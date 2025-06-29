@@ -58,6 +58,18 @@
           "parameters": {
             "weirdness": [-1, 1],
             "continentalness": [-0.4, 1],
+            "erosion": [-1, -0.9],
+            "temperature": [0, 1],
+            "humidity": [-0.15, 1],
+            "depth": [-1, 1],
+            "offset": 0
+          },
+          "biome": "bygone:alphahang"
+        },
+        {
+          "parameters": {
+            "weirdness": [-1, 1],
+            "continentalness": [-0.4, 1],
             "erosion": [-1, 1],
             "temperature": [0, 1],
             "humidity": [-0.15, 1],
