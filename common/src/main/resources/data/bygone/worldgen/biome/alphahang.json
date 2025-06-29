@@ -8,10 +8,9 @@
       "sound": "bygone:ambient.underhang.additions",
       "tick_chance": 0.00035
     },
-
-    "fog_color": 8436873,
-    "foliage_color": 11851346,
-    "grass_color": 11851346,
+    "fog_color": 12638207,
+    "grass_color": 11206458,
+    "foliage_color": 8060727,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
@@ -22,17 +21,17 @@
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": false,
-      "sound": "bygone:music.bygone.underhang"
+      "sound": "bygone:music.bygone.alphahang"
     },
     "particle": {
       "options": {
         "type": "minecraft:spore_blossom_air"
       },
-      "probability": 0.025
+      "probability": 0.005
     },
-    "sky_color": 8060852,
-    "water_color": 3054044,
-    "water_fog_color": 8245213
+    "sky_color": 12638207,
+    "water_color": 3094952,
+    "water_fog_color": 3094952
   },
   "features": [
     [],

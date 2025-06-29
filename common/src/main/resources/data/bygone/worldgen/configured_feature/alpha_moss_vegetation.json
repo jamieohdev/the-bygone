@@ -12,15 +12,9 @@
         },
         {
           "data": {
-            "Name": "bygone:montsechia"
+            "Name": "minecraft:dandelion"
           },
           "weight": 5
-        },
-        {
-          "data": {
-            "Name": "bygone:sagaria"
-          },
-          "weight": 7
         },
         {
           "data": {

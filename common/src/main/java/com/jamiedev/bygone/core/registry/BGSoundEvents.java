@@ -11,6 +11,7 @@ public class BGSoundEvents
     public static final ResourceLocation AMBIENT_ANCIENTFOREST_ADDITIONS = Bygone.id("ambient.underhang.additions");
     public static final ResourceLocation AMBIENT_AMBERDESERT_ADDITIONS = Bygone.id("ambient.amber_desert.additions");
     public static final ResourceLocation AMBIENT_PRIMORDIALOCEAN_ADDITIONS = Bygone.id("ambient.primordial_ocean.additions");
+    public static final ResourceLocation MUSIC_ALPHAHANG_ADDITIONS = Bygone.id("music.bygone.alphahang");
     public static final ResourceLocation MUSIC_ANCIENTFOREST_ADDITIONS = Bygone.id("music.bygone.underhang");
     public static final ResourceLocation MUSIC_PRIMORDIALOCEAN_ADDITIONS = Bygone.id("music.bygone.primordial_ocean");
     public static final ResourceLocation AMBIENT_SHELFHOLLOW_ADDITIONS = Bygone.id("ambient.shelfhollow.additions");
@@ -64,6 +65,7 @@ public class BGSoundEvents
     public static SoundEvent AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_ANCIENTFOREST_ADDITIONS);
     public static SoundEvent AMBIENT_AMBERDESERT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_AMBERDESERT_ADDITIONS);
     public static SoundEvent AMBIENT_PRIMORDIALOCEAN_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_PRIMORDIALOCEAN_ADDITIONS);
+    public static SoundEvent MUSIC_ALPHAHANG_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(MUSIC_ALPHAHANG_ADDITIONS);
     public static SoundEvent MUSIC_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(MUSIC_ANCIENTFOREST_ADDITIONS);
     public static SoundEvent AMBIENT_SHELFHOLLOW_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_SHELFHOLLOW_ADDITIONS);
     public static SoundEvent MUSIC_PRIMORDIALOCEAN_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(MUSIC_PRIMORDIALOCEAN_ADDITIONS);
@@ -124,6 +126,7 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_AMBERDESERT_ADDITIONS, BGSoundEvents.AMBIENT_AMBERDESERT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_PRIMORDIALOCEAN_ADDITIONS, BGSoundEvents.AMBIENT_PRIMORDIALOCEAN_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_SHELFHOLLOW_ADDITIONS, BGSoundEvents.AMBIENT_SHELFHOLLOW_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.MUSIC_ALPHAHANG_ADDITIONS, BGSoundEvents.MUSIC_ALPHAHANG_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.MUSIC_ANCIENTFOREST_ADDITIONS, BGSoundEvents.MUSIC_ANCIENTFOREST_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.MUSIC_PRIMORDIALOCEAN_ADDITIONS, BGSoundEvents.MUSIC_PRIMORDIALOCEAN_ADDITIONS_EVENT);
 
