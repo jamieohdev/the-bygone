@@ -6,6 +6,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.material.Fluid;
@@ -43,10 +44,20 @@ public class JamiesModTag {
     public static final TagKey<EntityType<?>> COPPERBUGNEST_INHABITORS = Entities.createTag("copperbugnest_inhabitors");
     public static final TagKey<Block> SHELF_FUNGI = Blocks.createTag("shelf_fungi") ;
     public static final TagKey<Block>  MOLD_REPLACEABLE = Blocks.createTag("mold_replaceable");
+
+    public static final TagKey<Biome> SPAWNS_WARM_BIGBEAKS = Biomes.createTag("spawns_warm_bigbeaks");
+
     public static class Blocks {
 
         private static TagKey<Block> createTag(String name) {
             return TagKey.create(Registries.BLOCK, Bygone.id(name));
+        }
+    }
+
+    public static class Biomes {
+
+        private static TagKey<Biome> createTag(String name) {
+            return TagKey.create(Registries.BIOME, Bygone.id(name));
         }
     }
 

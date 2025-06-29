@@ -1,0 +1,116 @@
+{
+    "type": "minecraft:simple_random_selector",
+    "config": {
+        "features": [
+            {
+                "feature": {
+                    "type": "minecraft:simple_random_selector",
+                    "config": {
+                        "features": [
+                            {
+                                "feature": {
+                                    "type": "minecraft:block_column",
+                                    "config": {
+                                        "direction": "down",
+                                        "allowed_placement": {
+                                            "type": "minecraft:true"
+                                        },
+                                        "prioritize_tip": false,
+                                        "layers": [
+                                            {
+                                                "height": 6,
+                                                "provider": {
+                                                    "type": "minecraft:simple_state_provider",
+                                                    "state": {
+                                                        "Name": "minecraft:oak_log",
+                                                        "Properties": {
+                                                            "axis": "y"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                "placement": [
+                                    {
+                                        "type": "minecraft:block_predicate_filter",
+                                        "predicate": {
+                                            "type": "minecraft:not",
+                                            "predicate": {
+                                                "type": "minecraft:matching_blocks",
+                                                "offset": [
+                                                    0,
+                                                    0,
+                                                    0
+                                                ],
+                                                "blocks": "minecraft:oak_log"
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "feature": {
+                                    "type": "minecraft:simple_random_selector",
+                                    "config": {
+                                        "features": [
+                                            {
+                                                "feature": "bygone:alphahang/leaves/small_leaves_1",
+                                                "placement": [
+                                                    {
+                                                        "type": "minecraft:random_offset",
+                                                        "xz_spread": 0,
+                                                        "y_spread": -6
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "feature": "bygone:alphahang/leaves/small_leaves_2",
+                                                "placement": [
+                                                    {
+                                                        "type": "minecraft:random_offset",
+                                                        "xz_spread": 0,
+                                                        "y_spread": -6
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "feature": "bygone:alphahang/roots/layer_1",
+                                                "placement": []
+                                            }
+                                        ]
+                                    }
+                                },
+                                "placement": [
+                                    {
+                                        "type": "minecraft:block_predicate_filter",
+                                        "predicate": {
+                                            "type": "minecraft:matching_blocks",
+                                            "offset": [
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "blocks": "minecraft:oak_log"
+                                        }
+                                    },
+                                    {
+                                        "type": "minecraft:count",
+                                        "count": 6
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "placement": [
+                    {
+                        "type": "minecraft:count",
+                        "count": 12
+                    }
+                ]
+            }
+        ]
+    }
+}

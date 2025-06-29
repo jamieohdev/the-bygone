@@ -17,12 +17,14 @@
 ### Our first post-1.3 patch is here with some tweaks and bug fixes!
 
 # New features in 1.3.1:
+# Verdigris is now a trim material for Armors.
 * Nectaurs now have a idle animation.
 
 # Changes to existing features:
 * Test
 
 # Bug fixes:
+* Fixed Whiskbills barely spawning.
 * Under Grass no longer "floats" under the block its placed.
 
 

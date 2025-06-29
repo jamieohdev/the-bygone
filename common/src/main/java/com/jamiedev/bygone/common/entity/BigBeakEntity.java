@@ -19,6 +19,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -42,6 +43,7 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Ocelot;
+import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.horse.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -51,6 +53,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -64,7 +67,7 @@ import java.util.function.IntUnaryOperator;
 
 public class BigBeakEntity  extends AbstractHorse implements VariantHolder<BigBeakVariants>
 {
-    Horse ref2;
+    Rabbit ref;
     private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT;
 
     public final AnimationState idleAnimationState = new AnimationState();
@@ -86,7 +89,6 @@ public class BigBeakEntity  extends AbstractHorse implements VariantHolder<BigBe
     public float flapSpeed = 1.0F;
     private float field_28639 = 1.0F;
 
-    Ocelot ref3;
 
     private final Container inventory = new ContainerSingleItem() {
         @Override
@@ -462,7 +464,6 @@ public class BigBeakEntity  extends AbstractHorse implements VariantHolder<BigBe
         }
     }
 
-
     @Override
     protected void setOffspringAttributes(AgeableMob other, AbstractHorse child) {
         this.setOffspringAttribute(other, child, Attributes.MAX_HEALTH, MIN_HEALTH_BONUS, MAX_HEALTH_BONUS);
@@ -473,30 +474,37 @@ public class BigBeakEntity  extends AbstractHorse implements VariantHolder<BigBe
         Objects.requireNonNull(child.getAttribute(attribute)).setBaseValue(d);
     }
 
-    public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> type, LevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, @NotNull RandomSource random) {
-        boolean bl = MobSpawnType.ignoresLightRequirements(spawnReason) || isBrightEnoughToSpawn(serverWorldAccess, blockPos);
-        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK) || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get()) && bl;
-    }
-
     protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter world, BlockPos pos) {
         return world.getRawBrightness(pos, 0) > 1;
     }
 
+    private static BigBeakVariants getRandomBigBeakVariant(LevelAccessor level, BlockPos pos) {
+        Holder<Biome> holder = level.getBiome(pos);
+        int i = level.getRandom().nextInt(100);
+        if (holder.is(JamiesModTag.SPAWNS_WARM_BIGBEAKS)) {
+            return i < 80 ? BigBeakVariants.SAVANNA : (i < 90 ? BigBeakVariants.NOMAD : BigBeakVariants.PEACHY);
+        }
+        else {
+            return i < 10 ? BigBeakVariants.TRANS: i < 15 ? BigBeakVariants.LESBIAN: i < 20 ? BigBeakVariants.MLM:
+                    i < 30 ? BigBeakVariants.FROSTY: i < 40 ? BigBeakVariants.BLUEBILL: (i < 50 ? BigBeakVariants.TROPICAL : BigBeakVariants.NORMAL);
+        }
+    }
 
 
     @javax.annotation.Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @javax.annotation.Nullable SpawnGroupData spawnGroupData) {
         RandomSource randomsource = level.getRandom();
+        BigBeakVariants bigbeak$variant = getRandomBigBeakVariant(level, this.blockPosition());
         BigBeakVariants variant;
         if (spawnGroupData instanceof BigBeakEntity.BigBeakGroupData) {
-            variant = ((BigBeakEntity.BigBeakGroupData)spawnGroupData).variant;
+            bigbeak$variant = ((BigBeakEntity.BigBeakGroupData)spawnGroupData).variant;
         } else {
-            variant = Util.getRandom(BigBeakVariants.values(), randomsource);
-            spawnGroupData = new BigBeakEntity.BigBeakGroupData(variant);
+            bigbeak$variant = Util.getRandom(BigBeakVariants.values(), randomsource);
+            spawnGroupData = new BigBeakEntity.BigBeakGroupData(bigbeak$variant);
         }
 
-        this.setVariantAndMarkings(variant, Util.getRandom(Markings.values(), randomsource));
+        this.setVariantAndMarkings(bigbeak$variant, Util.getRandom(Markings.values(), randomsource));
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
@@ -519,6 +527,7 @@ public class BigBeakEntity  extends AbstractHorse implements VariantHolder<BigBe
     ) {
         return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK)
                 || serverWorldAccess.getBlockState(blockPos).is(Blocks.MOSS_CARPET)
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.AMBER_SAND.get())
                 || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get());
     }
 

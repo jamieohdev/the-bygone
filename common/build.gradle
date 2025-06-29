@@ -19,6 +19,9 @@ dependencies {
 
     compileOnly "net.kyrptonaught.customportalapi:cpapireforged-neo-1.21.1:1.0.11"
     compileOnly "curse.maven:jinxedlib-1203401:6269067"
+
+    runtimeOnly("io.github.llamalad7:mixinextras-common:0.3.6")
+
 }
 
 configurations {
