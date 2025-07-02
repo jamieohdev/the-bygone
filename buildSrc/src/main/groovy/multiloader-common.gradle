@@ -53,6 +53,9 @@ repositories {
     maven {
         url = "https://maven.kyrptonaught.dev"
     }
+    maven {
+        url = "https://api.modrinth.com/maven"
+    }
     repositories {
         maven {
             name = "Ladysnake Mods"
