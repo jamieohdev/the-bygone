@@ -59,7 +59,7 @@ dependencies {
 
     implementation "net.kyrptonaught.customportalapi:cpapireforged-neo-1.21.1:1.0.11"
     implementation "curse.maven:jinxedlib-1203401:6269067"
-
+    implementation "curse.maven:lithostitched-936015:6703598"
 }
 
 
@@ -70,6 +70,9 @@ repositories {
     }
     maven {
         url = "https://maven.kyrptonaught.dev"
+    }
+    maven {
+        url = "https://cursemaven.com/"
     }
 
     maven {

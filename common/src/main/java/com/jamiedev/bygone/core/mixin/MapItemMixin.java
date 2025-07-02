@@ -22,15 +22,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static com.jamiedev.bygone.Bygone.MAP_HEIGHT;
 
 @Mixin(MapItem.class)
+/*
+ *  Partially taken from BetterNetherMap, MIT License, core logic is different though and not interchangeable, HeightGetter is a Functional Interface
+ */
 public class MapItemMixin {
 
     @Redirect(method = "update", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/level/dimension/DimensionType;hasCeiling()Z"))
-	/*
-	  Make every dimension have a sky, which makes maps show the surface.
-	  @see FilledMapItem#updateColors(World world, Entity entity, MapState state)
-	 */
     private boolean hasCeiling(DimensionType type) {
         return false;
     }
