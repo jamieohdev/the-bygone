@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "minecraft:clamp",
+      "input": {
+        "type": "minecraft:add",
+        "argument1": 0.125,
+        "argument2": {
+          "type": "minecraft:mul",
+          "argument1": 0.5,
+          "argument2": "bygone:biome_parameters/erosion"
+        }
+      },
+      "min": -0.1,
+      "max": -0.05
+    }
+  }
+}
