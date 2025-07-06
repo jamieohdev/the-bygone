@@ -227,9 +227,15 @@ public class GlareEntity extends Animal implements FlyingAnimal
     }
 
     @Override
-    public void travel(Vec3 movementInput) {
+    public void travel(@NotNull Vec3 movementInput) {
         if (this.isControlledByLocalInstance()) {
-            if (this.isInWater()) {
+            if (!this.navigation.isInProgress())
+            {
+                double hoverY = Math.sin(this.tickCount * 0.1) * 0.02;
+                this.push(new Vec3(0, hoverY, 0));
+            }
+            super.travel(movementInput);
+            /**if (this.isInWater()) {
                 this.moveRelative(0.02F, movementInput);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.800000011920929));
@@ -241,7 +247,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
                 this.moveRelative(this.getSpeed(), movementInput);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437));
-            }
+            }**/
         }
 
         this.calculateEntityAnimation(false);
