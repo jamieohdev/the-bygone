@@ -10,6 +10,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
+import net.minecraft.world.level.storage.loot.predicates.WeatherCheck;
 
 public class BGStructures
 {
@@ -50,6 +51,7 @@ public class BGStructures
     public static StructureType<BygonePortalStructure> BYGONE_PORTAL;
     public static StructurePieceType PORTAL_PIECE = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
             Bygone.id("bygone_portal"), BygonePortalGenerator.Piece::new);
+
 
     private static StructurePieceType register(StructurePieceType type, String id) {
         return Registry.register(BuiltInRegistries.STRUCTURE_PIECE, id.toLowerCase(Locale.ROOT), type);

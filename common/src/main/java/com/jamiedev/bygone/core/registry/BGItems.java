@@ -4,28 +4,22 @@ import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.item.*;
 import com.jamiedev.bygone.core.init.JamiesModToolMaterials;
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterials;
-import net.minecraft.world.item.BowItem;
-import net.minecraft.world.item.HangingSignItem;
-import net.minecraft.world.item.HoeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemNameBlockItem;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.SignItem;
-import net.minecraft.world.item.SpawnEggItem;
-import net.minecraft.world.item.StandingAndWallBlockItem;
-import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.material.Fluids;
 
 import java.util.function.Supplier;
+
+import static net.minecraft.world.item.Items.BUCKET;
 
 public class BGItems
 {
@@ -33,7 +27,8 @@ public class BGItems
         return JinxedRegistryHelper.registerItem(Bygone.MOD_ID, id, item);
     }
 
-
+    Items item;
+    ParticleTypes ref;
     public static FoodProperties AMARANTH_LOAF_COMP  = (new FoodProperties.Builder()).nutrition(0).saturationModifier(0F).effect(new MobEffectInstance(MobEffects.HEAL, 1, 0), 1.0F).alwaysEdible().build();
 
 
@@ -125,6 +120,8 @@ public class BGItems
 
     public static final Supplier<Item> POULTRY = registerItem("poultry", () -> new Item(new Item.Properties().food(Foods.CHICKEN)));
     public static final Supplier<Item> COOKED_POULTRY = registerItem("cooked_poultry", () -> new Item(new Item.Properties().food(Foods.COOKED_CHICKEN)));
+
+    public static final Supplier<Item> BRONZE_BUCKET = registerItem((String)"bronze_bucket", () -> new BucketItem(BGFluids.BRONZE_STILL.get(), (new Item.Properties()).craftRemainder(BUCKET).stacksTo(1)));
 
     public static void addItemsToItemGroup() {
 

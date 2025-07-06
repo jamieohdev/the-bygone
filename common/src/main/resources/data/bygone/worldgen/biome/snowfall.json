@@ -1,0 +1,89 @@
+{
+  "carvers": {
+    "air": ["bygone:cave", "bygone:canyon"]
+  },
+  "downfall": 1.0,
+  "effects": {
+    "fog_color": 10994135,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.warped_forest.mood",
+      "tick_delay": 6000
+    },
+    "additions_sound": {
+      "sound": "bygone:ambient.primordial_ocean.additions",
+      "tick_chance": 0.0014
+    },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "bygone:music.bygone.primordial_ocean"
+    },
+    "particle": {
+      "options": {
+        "type": "minecraft:snowflake"
+      },
+      "probability": 0.013093334
+    },
+    "foliage_color": 10338172,
+    "grass_color": 10338172,
+    "sky_color": 10994135,
+    "water_color": 7968948,
+    "water_fog_color": 7968948
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [
+      "minecraft:monster_room",
+      "minecraft:monster_room_deep",
+      "bygone:small_cloud"
+    ],
+    [
+      "minecraft:ice_spike",
+      "minecraft:ice_patch"
+    ],
+    [],
+    [
+      "bygone:ore_coal_upper",
+      "bygone:ore_coal_lower",
+      "bygone:ore_iron_upper",
+      "bygone:ore_iron_middle",
+      "bygone:ore_iron_small",
+      "bygone:ore_copper",
+      "bygone:ore_verdigris"
+    ],
+    [],
+    [],
+    [
+      "bygone:small_cloud",
+      "bygone:test_cloud"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:snow_golem",
+        "maxCount": 8,
+        "minCount": 4,
+        "weight": 8
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.9
+}

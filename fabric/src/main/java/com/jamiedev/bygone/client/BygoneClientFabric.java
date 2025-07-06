@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.client;
 
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.client.renderer.*;
+import com.jamiedev.bygone.client.renderer.entity.BygoneDimensionEffects;
 import com.jamiedev.bygone.core.registry.BGDimensions;
 import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
 import com.jamiedev.bygone.common.block.JamiesModWoodType;

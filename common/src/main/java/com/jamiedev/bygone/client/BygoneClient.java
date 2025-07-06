@@ -1,10 +1,10 @@
 package com.jamiedev.bygone.client;
 
 import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.client.renderer.entity.*;
 import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.client.models.*;
 import com.jamiedev.bygone.client.particles.*;
-import com.jamiedev.bygone.client.renderer.*;
 import com.jamiedev.bygone.core.registry.*;
 import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -13,7 +13,6 @@ import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SoulParticle;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleOptions;

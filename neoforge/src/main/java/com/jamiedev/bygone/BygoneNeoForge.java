@@ -18,11 +18,13 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 @Mod(Bygone.MOD_ID)
 public class BygoneNeoForge {
 
+    IPayloadContext ctx;
     public BygoneNeoForge(IEventBus eventBus, Dist dist) {
         Bygone.init();
 
