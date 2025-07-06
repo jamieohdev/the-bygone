@@ -1,7 +1,11 @@
 package com.jamiedev.bygone.common.entity;
 
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -28,6 +32,9 @@ import net.minecraft.world.level.Level;
 
 public class MoobooEntity extends Cow
 {
+
+    public static final EntityDataAccessor<Boolean> DATA_RENDER;
+
     public MoobooEntity(EntityType<? extends Cow> entityType, Level world) {
         super(entityType, world);
     }
@@ -45,6 +52,51 @@ public class MoobooEntity extends Cow
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_RENDER, false);
+    }
+
+    @Override
+    public void addAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("DataRender", this.entityData.get(DATA_RENDER));
+    }
+
+    @Override
+    public void readAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.entityData.set(DATA_RENDER, tag.getBoolean("DataRender"));
+    }
+
+    @Override
+    public void tick() {
+        float randomFloat = random.nextFloat();
+
+        if (this.entityData.get(DATA_RENDER)) {
+            if (randomFloat < 0.05) {
+                this.entityData.set(DATA_RENDER, false);
+            }
+        }
+        else {
+            if (randomFloat < 0.01) {
+                this.entityData.set(DATA_RENDER, true);
+            }
+        }
+
+        super.tick();
+    }
+
+    @Override
+    public boolean shouldRenderAtSqrDistance(double distance) {
+        if (this.entityData.get(DATA_RENDER)) {
+            return false;
+        }
+
+        return super.shouldRenderAtSqrDistance(distance);
     }
 
     @Override
@@ -101,6 +153,10 @@ public class MoobooEntity extends Cow
     @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.COW_DEATH;
+    }
+
+    static {
+        DATA_RENDER = SynchedEntityData.defineId(MoobooEntity.class, EntityDataSerializers.BOOLEAN);
     }
 
 }
