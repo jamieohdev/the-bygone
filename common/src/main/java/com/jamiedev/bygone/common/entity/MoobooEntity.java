@@ -126,7 +126,8 @@ public class MoobooEntity extends Cow
                 Entity var4 = source.getDirectEntity();
                 if (var4 instanceof LivingEntity livingEntity) {
                     this.addEffect(new MobEffectInstance(MobEffects.LEVITATION,  20, 0), this);
-                    this.addEffect(new MobEffectInstance(MobEffects.HEAL,  20, 0), this);
+                    this.addEffect(new MobEffectInstance(MobEffects.HEAL,  20, (int) (Math.max(1*amount, 0))), this);
+                    this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, (int) (20*amount), 0), this);
                 }
             }
             if (source.is(DamageTypes.FALL)) {
