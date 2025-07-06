@@ -234,7 +234,10 @@ public class GlareEntity extends Animal implements FlyingAnimal
                 double hoverY = Math.sin(this.tickCount * 0.1) * 0.02;
                 this.push(new Vec3(0, hoverY, 0));
             }
-            super.travel(movementInput);
+            else
+            {
+                super.travel(movementInput);
+            }
             /**if (this.isInWater()) {
                 this.moveRelative(0.02F, movementInput);
                 this.move(MoverType.SELF, this.getDeltaMovement());
