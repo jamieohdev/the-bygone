@@ -1,0 +1,88 @@
+{
+  "carvers": {
+    "air": ["bygone:cave", "bygone:canyon"]
+  },
+  "downfall": 0.0,
+  "effects": {
+    "additions_sound": {
+      "sound": "minecraft:ambient.nether_wastes.additions",
+      "tick_chance": 0.0111
+    },
+    "ambient_sound": "minecraft:ambient.nether_wastes.loop",
+    "fog_color": 5393459,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.nether_wastes.mood",
+      "tick_delay": 6000
+    },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "minecraft:music.nether.nether_wastes"
+    },
+    "sky_color": 5325363,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [],
+    [
+      "bygone:lake_bronze_underground",
+      "bygone:lake_bronze_surface"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "bygone:spring_bronze_open",
+      "minecraft:patch_fire",
+      "minecraft:patch_soul_fire",
+      "minecraft:glowstone_extra",
+      "minecraft:glowstone",
+      "minecraft:brown_mushroom_nether",
+      "minecraft:red_mushroom_nether",
+      "minecraft:ore_magma",
+      "bygone:spring_bronze_closed",
+      "bygone:ore_coal_upper",
+      "bygone:ore_coal_lower",
+      "bygone:ore_iron_upper",
+      "bygone:ore_iron_middle",
+      "bygone:ore_iron_small",
+      "bygone:ore_copper",
+      "bygone:ore_verdigris"
+    ],
+    [],
+    [
+
+      "bygone:megalith_field_vegetation",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:strider",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 60
+      }
+    ],
+    "misc": [],
+    "monster": [
+
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 2.0
+}

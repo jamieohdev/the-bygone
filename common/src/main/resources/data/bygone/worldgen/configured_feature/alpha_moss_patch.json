@@ -10,7 +10,7 @@
         "Name": "bygone:alpha_moss_block"
       }
     },
-    "replaceable": "#minecraft:moss_replaceable",
+    "replaceable": "#bygone:mold_replaceable",
     "surface": "floor",
     "vegetation_chance": 0.8,
     "vegetation_feature": {
@@ -20,8 +20,8 @@
     "vertical_range": 5,
     "xz_radius": {
       "type": "minecraft:uniform",
-      "max_inclusive": 7,
-      "min_inclusive": 4
+      "max_inclusive": 10,
+      "min_inclusive": 3
     }
   }
 }
