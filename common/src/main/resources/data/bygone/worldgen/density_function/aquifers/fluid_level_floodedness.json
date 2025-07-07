@@ -3,13 +3,13 @@
   "input": "bygone:in_primordial_ocean",
   "min_inclusive": 0,
   "max_exclusive": 1,
-  "when_in_range": 0,
-  "when_out_of_range": {
+  "when_in_range": {
     "type": "minecraft:range_choice",
-    "input": "minecraft:y",
-    "min_inclusive": -40,
-    "max_exclusive": 200,
-    "when_in_range": 0.8,
-    "when_out_of_range": 0
-  }
+    "input": "bygone:in_river",
+    "min_inclusive": 0,
+    "max_exclusive": 1,
+    "when_in_range": 0,
+    "when_out_of_range": "bygone:aquifers/rivers/fluid_level_floodedness"
+  },
+  "when_out_of_range": "bygone:aquifers/oceans/fluid_level_floodedness"
 }
