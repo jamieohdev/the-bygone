@@ -26,15 +26,15 @@ import org.jetbrains.annotations.NotNull;
 public class MinilithGenerator
 {
     private static final ResourceLocation[] FOSSILS = new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, 
-            "miniliths/miniliths_1x2"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
-            "miniliths/miniliths_1x3"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
-            "miniliths/miniliths_1x4"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
-            "miniliths/miniliths_1x5"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
-            "miniliths/miniliths_2x"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
-            "miniliths/miniliths_cluster_1"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
-            "miniliths/miniliths_cluster_2"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
-            "miniliths/miniliths_fallen_1x4"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
-            "miniliths/miniliths_fallen_1x7")};
+            "miniliths/minilith_1x2"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
+            "miniliths/minilith_1x3"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
+            "miniliths/minilith_1x4"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
+            "miniliths/minilith_1x5"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
+            "miniliths/minilith_2x"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
+            "miniliths/minilith_cluster_1"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
+            "miniliths/minilith_cluster_2"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
+            "miniliths/minilith_fallen_1x4"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
+            "miniliths/minilith_fallen_1x7")};
     public MinilithGenerator() {
     }
 

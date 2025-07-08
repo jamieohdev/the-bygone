@@ -4,7 +4,7 @@
     {
       "weight": 1,
       "element": {
-        "location": "bygone:miniliths/miniliths_1x2",
+        "location": "bygone:miniliths/minilith_1x2",
         "projection": "terrain_matching",
         "processors": "bygone:randomize_miniliths",
         "element_type": "minecraft:single_pool_element"
@@ -13,7 +13,7 @@
     {
       "weight": 5,
       "element": {
-        "location": "bygone:miniliths/miniliths_1x3",
+        "location": "bygone:miniliths/minilith_1x3",
         "projection": "terrain_matching",
         "processors": "bygone:randomize_miniliths",
         "element_type": "minecraft:single_pool_element"
@@ -22,7 +22,7 @@
     {
       "weight": 6,
       "element": {
-        "location": "bygone:miniliths/miniliths_1x3",
+        "location": "bygone:miniliths/minilith_1x3",
         "projection": "terrain_matching",
         "processors": "bygone:randomize_miniliths",
         "element_type": "minecraft:single_pool_element"
@@ -31,7 +31,7 @@
     {
       "weight": 7,
       "element": {
-        "location": "bygone:miniliths/miniliths_1x4",
+        "location": "bygone:miniliths/minilith_1x4",
         "projection": "terrain_matching",
         "processors": "bygone:randomize_miniliths",
         "element_type": "minecraft:single_pool_element"
@@ -40,7 +40,7 @@
     {
       "weight": 8,
       "element": {
-        "location": "bygone:miniliths/miniliths_1x5",
+        "location": "bygone:miniliths/minilith_1x5",
         "projection": "terrain_matching",
         "processors": "bygone:randomize_miniliths",
         "element_type": "minecraft:single_pool_element"
@@ -49,7 +49,7 @@
     {
       "weight": 15,
       "element": {
-        "location": "bygone:miniliths/miniliths_2x",
+        "location": "bygone:miniliths/minilith_2x",
         "projection": "terrain_matching",
         "processors": "bygone:randomize_miniliths",
         "element_type": "minecraft:single_pool_element"
@@ -58,7 +58,7 @@
     {
       "weight": 18,
       "element": {
-        "location": "bygone:miniliths/miniliths_cluster_1",
+        "location": "bygone:miniliths/minilith_cluster_1",
         "projection": "terrain_matching",
         "processors": "bygone:randomize_miniliths",
         "element_type": "minecraft:single_pool_element"
@@ -67,7 +67,7 @@
     {
       "weight": 21,
       "element": {
-        "location": "bygone:miniliths/miniliths_cluster_2",
+        "location": "bygone:miniliths/minilith_cluster_2",
         "projection": "terrain_matching",
         "processors": "bygone:randomize_miniliths",
         "element_type": "minecraft:single_pool_element"
@@ -76,7 +76,7 @@
     {
       "weight": 9,
       "element": {
-        "location": "bygone:miniliths/miniliths_fallen_1x4",
+        "location": "bygone:miniliths/minilith_fallen_1x4",
         "projection": "terrain_matching",
         "processors": "bygone:randomize_miniliths",
         "element_type": "minecraft:single_pool_element"
@@ -85,7 +85,7 @@
     {
       "weight": 10,
       "element": {
-        "location": "bygone:miniliths/miniliths_fallen_1x7",
+        "location": "bygone:miniliths/minilith_fallen_1x7",
         "projection": "terrain_matching",
         "processors": "bygone:randomize_miniliths",
         "element_type": "minecraft:single_pool_element"
