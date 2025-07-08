@@ -250,6 +250,10 @@ public class BGItemGroups {
                 output.accept(BGBlocks.SHELF_ROOTS.get());
                 output.accept(BGBlocks.SHELF_SPROUTS.get());
 
+
+                output.accept(BGBlocks.MEGALITH_BLOCK.get());
+                output.accept(BGBlocks.MEGALITH_FACE.get());
+                output.accept(BGBlocks.MEGALITH_LANTERN.get());
             })
             .title(Component.translatable("itemGroup.test"))
             .build());

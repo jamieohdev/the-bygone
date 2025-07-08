@@ -9,7 +9,7 @@
       "tick_chance": 0.0111
     },
     "ambient_sound": "minecraft:ambient.nether_wastes.loop",
-    "fog_color": 5393459,
+    "fog_color": 12634293,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
@@ -22,9 +22,9 @@
       "replace_current_music": false,
       "sound": "minecraft:music.nether.nether_wastes"
     },
-    "sky_color": 5325363,
-    "water_color": 4159204,
-    "water_fog_color": 329011
+    "sky_color": 12634293,
+    "water_color": 11977417,
+    "water_fog_color": 11977417
   },
   "features": [
     [],

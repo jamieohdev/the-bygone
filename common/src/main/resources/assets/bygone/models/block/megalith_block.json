@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "bygone:block/megalith_face_side",
+    "side": "bygone:block/megalith_face_side",
+    "top": "bygone:block/megalith_face_top",
+    "bottom": "bygone:block/megalith_bottom"
+  }
+}
