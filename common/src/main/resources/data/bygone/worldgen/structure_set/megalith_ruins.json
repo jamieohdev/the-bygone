@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1666043617,
+    "separation": 9,
+    "spacing": 22
+  },
+  "structures": [
+    {
+      "structure": "bygone:megalith_ruins",
+      "weight": 1
+    }
+  ]
+}
