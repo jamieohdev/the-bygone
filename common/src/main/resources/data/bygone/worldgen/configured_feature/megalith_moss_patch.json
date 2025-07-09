@@ -14,7 +14,7 @@
     "surface": "floor",
     "vegetation_chance": 0.8,
     "vegetation_feature": {
-      "feature": "bygone:alpha_moss_vegetation",
+      "feature": "bygone:megalith_moss_vegetation",
       "placement": []
     },
     "vertical_range": 5,

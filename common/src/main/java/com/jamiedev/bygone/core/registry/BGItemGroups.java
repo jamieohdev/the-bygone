@@ -118,6 +118,7 @@ public class BGItemGroups {
                 output.accept(BGBlocks.BIG_WHIRLIWEED.get());
                 output.accept(BGBlocks.WHIRLIWEED.get());
                 output.accept(BGBlocks.CLAYSTONE.get());
+                output.accept(BGBlocks.CLAYSTONE_FARMLAND.get());
                 output.accept(BGBlocks.COARSE_CLAYSTONE.get());
                 output.accept(BGBlocks.CLAYSTONE_BRICKS.get());
 
@@ -250,6 +251,10 @@ public class BGItemGroups {
                 output.accept(BGBlocks.SHELF_ROOTS.get());
                 output.accept(BGBlocks.SHELF_SPROUTS.get());
 
+
+                output.accept(BGBlocks.MEGALITH_BLOCK.get());
+                output.accept(BGBlocks.MEGALITH_FACE.get());
+                output.accept(BGBlocks.MEGALITH_LANTERN.get());
             })
             .title(Component.translatable("itemGroup.test"))
             .build());

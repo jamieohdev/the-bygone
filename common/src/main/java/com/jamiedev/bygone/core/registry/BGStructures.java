@@ -24,6 +24,8 @@ public class BGStructures
     public static StructureType<RuinStructure> BLEMISH_RUINS;
     public static StructureType<AmberRuinsStructure> AMBER_RUINS;
     public static StructureType<AmberPyramidStructure> AMBER_PYRAMID;
+    public static StructureType<MegalithRuinsStructure> MEGALITH_RUINS;
+    public static StructureType<MinilithStructure> MINILITHS;
 
     public static StructureType<BygoneMineshaftStructure> BYGONE_MINESHAFT;
     public static StructurePieceType BYGONE_MINESHAFT_CORRIDOR = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
@@ -44,7 +46,12 @@ public class BGStructures
     public static StructurePieceType RUIN_PIECES = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
             Bygone.id("amber_ruins"),  AmberRuinsGenerator.Piece::new);
     public static StructurePieceType PYRAMID_PIECES = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
-            Bygone.id("amber_pyramid"),  AmberRuinsGenerator.Piece::new);
+            Bygone.id("amber_pyramid"), AmberRuinsGenerator.Piece::new);
+
+    public static StructurePieceType MEGALITH_RUINS_PIECES = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
+            Bygone.id("megalith_ruins"), AmberRuinsGenerator.Piece::new);
+    public static StructurePieceType MINILITH_PIECES = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
+            Bygone.id("miniliths"),  MinilithGenerator.Piece::new);
 
     public static StructureType<TestRootStructure> TEST_ROOTS;
 
@@ -77,5 +84,9 @@ public class BGStructures
         AMBER_RUINS = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "amber_ruins"), () -> AmberRuinsStructure.CODEC);
         AMBER_PYRAMID = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "amber_pyramid"), () -> AmberPyramidStructure.CODEC);
         BYGONE_MINESHAFT = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "bygone_mineshaft"), () -> BygoneMineshaftStructure.CODEC);
+
+        MEGALITH_RUINS = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "megalith_ruins"), () -> MegalithRuinsStructure.CODEC);
+        MINILITHS = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "miniliths"), () -> MinilithStructure.CODEC);
+
     }
 }

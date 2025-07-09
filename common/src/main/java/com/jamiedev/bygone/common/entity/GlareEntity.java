@@ -238,19 +238,6 @@ public class GlareEntity extends Animal implements FlyingAnimal
             {
                 super.travel(movementInput);
             }
-            /**if (this.isInWater()) {
-                this.moveRelative(0.02F, movementInput);
-                this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale(0.800000011920929));
-            } else if (this.isInLava()) {
-                this.moveRelative(0.02F, movementInput);
-                this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale(0.5));
-            } else {
-                this.moveRelative(this.getSpeed(), movementInput);
-                this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437));
-            }**/
         }
 
         this.calculateEntityAnimation(false);

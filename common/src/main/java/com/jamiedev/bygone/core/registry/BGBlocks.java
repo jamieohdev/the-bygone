@@ -29,7 +29,7 @@ import java.util.function.Supplier;
 import static net.minecraft.world.level.block.Blocks.DIRT;
 
 public class BGBlocks {
-
+    Blocks ref1;
     public static final Supplier<Block> POLISHED_BYSTONE = registerBlock("polished_bystone", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
 
@@ -541,7 +541,7 @@ public class BGBlocks {
 
 // Farming / Agriculture blocksets
 
-    public static final Supplier<Block> CLAYSTONE_FARMLAND = registerBlockWithoutBlockItem("claystone_farmland", () -> new ClaystoneFarmlandBlock(BlockBehaviour.Properties.of()
+    public static final Supplier<Block> CLAYSTONE_FARMLAND = registerBlock("claystone_farmland", () -> new ClaystoneFarmlandBlock(BlockBehaviour.Properties.of()
             .mapColor(MapColor.DIRT).randomTicks().strength(0.6F).sound(SoundType.GRAVEL)
             .isViewBlocking(Blocks::always).isSuffocating(Blocks::always)));
 
@@ -694,17 +694,17 @@ public class BGBlocks {
             }).instabreak().sound(SoundType.CAVE_VINES)
             .pushReaction(PushReaction.DESTROY)));
 
-
-    /**
-     public static Block PURPLE_FUNGI_FAN = registerBlockWithoutBlockItem("purple_fungi_fan", () -> new ShelfFungiFanBlock(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().noCollision().breakInstantly()));
-    public static Block  PURPLE_FUNGI_WALL_FAN = registerBlockWithoutBlockItem("purple_fungi_wall_fan", () -> new ShelfFungiWallFanBlock(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().noCollision().breakInstantly().dropsLike(PURPLE_FUNGI_FAN)));
-
-    public static Block PINK_FUNGI_FAN = registerBlockWithoutBlockItem("pink_fungi_fan", () -> new ShelfFungiFanBlock(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().noCollision().breakInstantly()));
-    public static Block  PINK_FUNGI_WALL_FAN = registerBlockWithoutBlockItem("pink_fungi_wall_fan", () -> new ShelfFungiWallFanBlock(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().noCollision().breakInstantly().dropsLike(PINK_FUNGI_FAN)));
-
-    public static Block ORANGE_FUNGI_FAN = registerBlockWithoutBlockItem("orange_fungi_fan", () -> new ShelfFungiFanBlock(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().noCollision().breakInstantly()));
-    public static Block  ORANGE_FUNGI_WALL_FAN = registerBlockWithoutBlockItem("orange_fungi_wall_fan", () -> new ShelfFungiWallFanBlock2(AbstractBlock.Settings.create().mapColor(MapColor.GRAY).solid().instrument(NoteBlockInstrument.BASEDRUM).requiresTool().noCollision().breakInstantly().dropsLike(ORANGE_FUNGI_FAN)));
-**/
+    public static final Supplier<Block> MEGALITH_BLOCK = registerBlock("megalith_block", () ->
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+                    .strength(0.8F)));
+    public static final Supplier<Block> MEGALITH_FACE = registerBlock("megalith_face", () ->
+            new MegalithLanternBlock((BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+                    .strength(0.8F))));
+    public static final Supplier<Block> MEGALITH_LANTERN = registerBlock("megalith_lantern", () ->
+            new MegalithLanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+                    .strength(1.5F, 6.0F).lightLevel((state) -> {
+                        return 12;
+                    })));
 
     private static Supplier<Block> registerBlock(String name,  Supplier<Block> block) {
         return JinxedRegistryHelper.registerBlock(Bygone.MOD_ID, name, true, block);

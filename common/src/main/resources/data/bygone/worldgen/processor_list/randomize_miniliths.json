@@ -1,0 +1,23 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:rule",
+
+      "rules": [
+        {
+          "input_predicate": {
+            "block": "bygone:megalith_face",
+            "probability": 0.9,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "bygone:megalith_lantern"
+          }
+        }
+      ]
+    }
+  ]
+}
