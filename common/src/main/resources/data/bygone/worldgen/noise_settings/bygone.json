@@ -13,46 +13,26 @@
       "level": "0"
     }
   },
-  "spawn_target": [
-    {
-      "continentalness": [-0.11, 1.0],
-      "depth": 0,
-      "erosion": [-1.0, 1.0],
-      "humidity": [-1.0, 1.0],
-      "offset": 0,
-      "temperature": [-1.0, 1.0],
-      "weirdness": [-1.0, -0.16]
-    },
-    {
-      "continentalness": [-0.11, 1.0],
-      "depth": 0,
-      "erosion": [-1.0, 1.0],
-      "humidity": [-1.0, 1.0],
-      "offset": 0,
-      "temperature": [-1.0, 1.0],
-      "weirdness": [0.16, 1.0]
-    }
-  ],
+  "spawn_target": [],
   "noise": {
     "min_y": -64,
     "height": 384,
     "size_horizontal": 4,
-    "size_vertical": 2,
-    "island_noise_override": false
+    "size_vertical": 2
   },
   "noise_router": {
-    "depth": 0,
-    "ridges": "bygone:biome_parameters/ridges",
+    "depth": "bygone:biome_parameters/depth",
+    "ridges": "bygone:biome_parameters/weirdness",
     "continents": "bygone:biome_parameters/continents",
     "erosion": "bygone:biome_parameters/erosion",
     "temperature": "bygone:biome_parameters/temperature",
-    "vegetation": "bygone:biome_parameters/vegetation",
-    "final_density": "bygone:final_density",
-    "initial_density_without_jaggedness": 1,
+    "vegetation": "bygone:biome_parameters/humidity",
+    "final_density": "bygone:terrain/final_density",
+    "initial_density_without_jaggedness": "bygone:terrain/initial_density_without_jaggedness",
     "fluid_level_floodedness": "bygone:aquifers/fluid_level_floodedness",
     "fluid_level_spread": "bygone:aquifers/fluid_level_spread",
-    "barrier": 0,
-    "lava": 0,
+    "barrier": "bygone:aquifers/barrier",
+    "lava": "bygone:aquifers/lava",
     "vein_gap": "bygone:ore_vein/gap",
     "vein_ridged": "bygone:ore_vein/ridged",
     "vein_toggle": "bygone:ore_vein/toggle"

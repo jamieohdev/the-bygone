@@ -4,7 +4,7 @@
     "type": "minecraft:cache_2d",
     "argument": {
       "type": "minecraft:noise",
-      "noise": "bygone:biome_parameters/temperature",
+      "noise": "bygone:biome_parameters/humidity",
       "xz_scale": 0.25,
       "y_scale": 0
     }
