@@ -541,7 +541,7 @@ public class BGBlocks {
 
 // Farming / Agriculture blocksets
 
-    public static final Supplier<Block> CLAYSTONE_FARMLAND = registerBlockWithoutBlockItem("claystone_farmland", () -> new ClaystoneFarmlandBlock(BlockBehaviour.Properties.of()
+    public static final Supplier<Block> CLAYSTONE_FARMLAND = registerBlock("claystone_farmland", () -> new ClaystoneFarmlandBlock(BlockBehaviour.Properties.of()
             .mapColor(MapColor.DIRT).randomTicks().strength(0.6F).sound(SoundType.GRAVEL)
             .isViewBlocking(Blocks::always).isSuffocating(Blocks::always)));
 
