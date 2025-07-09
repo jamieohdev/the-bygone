@@ -1,8 +1,5 @@
 {
-  "type": "minecraft:range_choice",
-  "input": "minecraft:y",
-  "min_inclusive": 64,
-  "max_exclusive": 128,
-  "when_in_range": 0.8,
-  "when_out_of_range": 0
+  "type": "minecraft:add",
+  "argument1": "bygone:aquifers/rivers/floodedness_upper",
+  "argument2": "bygone:aquifers/rivers/floodedness_lower"
 }
