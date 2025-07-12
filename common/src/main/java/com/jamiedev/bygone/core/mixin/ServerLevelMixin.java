@@ -1,12 +1,18 @@
 package com.jamiedev.bygone.core.mixin;
 
+import com.jamiedev.bygone.core.registry.BGDimensions;
+import com.jamiedev.bygone.core.registry.BGParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.data.worldgen.DimensionTypes;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -25,6 +31,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkSource;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.entity.LevelEntityGetter;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -75,85 +82,99 @@ public abstract class ServerLevelMixin extends Level {
     public void advanceWeatherCycle(CallbackInfo ci) {
         ServerLevel $this = (ServerLevel)  (Object)  this;
         boolean flag = $this.getLevel().isRaining();
-        if ($this.getGameRules().getBoolean(GameRules.RULE_WEATHER_CYCLE)) {
-            int i = this.serverLevelData.getClearWeatherTime();
-            int j = this.serverLevelData.getThunderTime();
-            int k = this.serverLevelData.getRainTime();
-            boolean bl2 = $this.getLevelData().isThundering();
-            boolean bl3 = $this.getLevelData().isRaining();
-            if (i > 0) {
-                --i;
-                j = bl2 ? 0 : 1;
-                k = bl3 ? 0 : 1;
-                bl2 = false;
-                bl3 = false;
-            } else {
-                if (j > 0) {
-                    --j;
-                    if (j == 0) {
-                        bl2 = !bl2;
-                    }
-                } else if (bl2) {
-                    j = THUNDER_DURATION.sample($this.random);
+        if (getLevel().dimension() == BGDimensions.BYGONE_LEVEL_KEY) {
+            if ($this.getGameRules().getBoolean(GameRules.RULE_WEATHER_CYCLE)) {
+                int i = this.serverLevelData.getClearWeatherTime();
+                int j = this.serverLevelData.getThunderTime();
+                int k = this.serverLevelData.getRainTime();
+                boolean bl2 = $this.getLevelData().isThundering();
+                boolean bl3 = $this.getLevelData().isRaining();
+                if (i > 0) {
+                    --i;
+                    j = bl2 ? 0 : 1;
+                    k = bl3 ? 0 : 1;
+                    bl2 = false;
+                    bl3 = false;
                 } else {
-                    j = THUNDER_DELAY.sample($this.random);
+                    if (j > 0) {
+                        --j;
+                        if (j == 0) {
+                            bl2 = !bl2;
+                        }
+                    } else if (bl2) {
+                        j = THUNDER_DURATION.sample($this.random);
+                    } else {
+                        j = THUNDER_DELAY.sample($this.random);
+                    }
+
+                    if (k > 0) {
+                        --k;
+                        if (k == 0) {
+                            bl3 = !bl3;
+                        }
+                    } else if (bl3) {
+                        k = RAIN_DURATION.sample($this.random);
+                    } else {
+                        k = RAIN_DELAY.sample($this.random);
+                    }
                 }
 
-                if (k > 0) {
-                    --k;
-                    if (k == 0) {
-                        bl3 = !bl3;
-                    }
-                } else if (bl3) {
-                    k = RAIN_DURATION.sample($this.random);
-                } else {
-                    k = RAIN_DELAY.sample($this.random);
-                }
+                this.serverLevelData.setThunderTime(j);
+                this.serverLevelData.setRainTime(k);
+                this.serverLevelData.setClearWeatherTime(i);
+                this.serverLevelData.setThundering(bl2);
+                this.serverLevelData.setRaining(bl3);
             }
 
-            this.serverLevelData.setThunderTime(j);
-            this.serverLevelData.setRainTime(k);
-            this.serverLevelData.setClearWeatherTime(i);
-            this.serverLevelData.setThundering(bl2);
-            this.serverLevelData.setRaining(bl3);
+            this.oThunderLevel = this.thunderLevel;
+            if ($this.getLevelData().isThundering()) {
+                this.thunderLevel += 0.01F;
+            } else {
+                this.thunderLevel -= 0.01F;
+            }
+
+            this.thunderLevel = Mth.clamp(this.thunderLevel, 0.0F, 1.0F);
+            this.oRainLevel = this.rainLevel;
+            if ($this.getLevelData().isRaining()) {
+                this.rainLevel += 0.01F;
+            } else {
+                this.rainLevel -= 0.01F;
+            }
+
+            this.rainLevel = Mth.clamp(this.rainLevel, 0.0F, 1.0F);
+
+            if (this.oRainLevel != this.rainLevel) {
+                $this.getServer().getPlayerList().broadcastAll(new ClientboundGameEventPacket(ClientboundGameEventPacket.RAIN_LEVEL_CHANGE, this.rainLevel), this.dimension());
+            }
+
+            if (this.oThunderLevel != this.thunderLevel) {
+                $this.getServer().getPlayerList().broadcastAll(new ClientboundGameEventPacket(ClientboundGameEventPacket.THUNDER_LEVEL_CHANGE, this.thunderLevel), this.dimension());
+            }
+
+
+            if (flag != $this.isRaining()) {
+                if (flag) {
+                    $this.getServer().getPlayerList().broadcastAll(new ClientboundGameEventPacket(ClientboundGameEventPacket.STOP_RAINING, 0.0F));
+                } else {
+                    $this.getServer().getPlayerList().broadcastAll(new ClientboundGameEventPacket(ClientboundGameEventPacket.START_RAINING, 0.0F));
+                }
+
+                $this.getServer().getPlayerList().broadcastAll(new ClientboundGameEventPacket(ClientboundGameEventPacket.RAIN_LEVEL_CHANGE, this.rainLevel));
+                $this.getServer().getPlayerList().broadcastAll(new ClientboundGameEventPacket(ClientboundGameEventPacket.THUNDER_LEVEL_CHANGE, this.thunderLevel));
+            }
+            if (flag == $this.isRaining()) {
+                for (ServerPlayer player : $this.getServer().getPlayerList().getPlayers()) {
+                    System.out.println("cheese");
+                    getLevel().addParticle(new ParticleOptions() {
+                        @Override
+                        public ParticleType<?> getType() {
+                            return BGParticleTypes.UPSIDEDOWN;
+                        }
+                    }, false, player.getRandom().nextFloat(), player.getRandom().nextFloat(), player.getRandom().nextFloat(), 0, 5, 0);
+                    //getLevel().sendParticles(player, BGParticleTypes.UPSIDEDOWN, true, player.getRandom().nextFloat(), player.getRandom().nextFloat(), player.getRandom().nextFloat(), 8, 0, 0, 0, 5)
+                }
+            }
         }
-
-        this.oThunderLevel = this.thunderLevel;
-        if ($this.getLevelData().isThundering()) {
-            this.thunderLevel += 0.01F;
-        } else {
-            this.thunderLevel -= 0.01F;
-        }
-
-        this.thunderLevel = Mth.clamp(this.thunderLevel, 0.0F, 1.0F);
-        this.oRainLevel = this.rainLevel;
-        if ($this.getLevelData().isRaining()) {
-            this.rainLevel += 0.01F;
-        } else {
-            this.rainLevel -= 0.01F;
-        }
-
-        this.rainLevel = Mth.clamp(this.rainLevel, 0.0F, 1.0F);
-
-        if (this.oRainLevel != this.rainLevel) {
-        $this.getServer().getPlayerList().broadcastAll(new ClientboundGameEventPacket(ClientboundGameEventPacket.RAIN_LEVEL_CHANGE, this.rainLevel), this.dimension());
-    }
-
-        if (this.oThunderLevel != this.thunderLevel) {
-        $this.getServer().getPlayerList().broadcastAll(new ClientboundGameEventPacket(ClientboundGameEventPacket.THUNDER_LEVEL_CHANGE, this.thunderLevel), this.dimension());
-    }
-
-
-        if (flag != $this.isRaining()) {
-        if (flag) {
-            $this.getServer().getPlayerList().broadcastAll(new ClientboundGameEventPacket(ClientboundGameEventPacket.STOP_RAINING, 0.0F));
-        } else {
-            $this.getServer().getPlayerList().broadcastAll(new ClientboundGameEventPacket(ClientboundGameEventPacket.START_RAINING, 0.0F));
-        }
-
-        $this.getServer().getPlayerList().broadcastAll(new ClientboundGameEventPacket(ClientboundGameEventPacket.RAIN_LEVEL_CHANGE, this.rainLevel));
-        $this.getServer().getPlayerList().broadcastAll(new ClientboundGameEventPacket(ClientboundGameEventPacket.THUNDER_LEVEL_CHANGE, this.thunderLevel));
-    }
 
     }
 
