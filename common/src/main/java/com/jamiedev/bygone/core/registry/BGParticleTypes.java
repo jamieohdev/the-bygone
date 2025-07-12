@@ -24,7 +24,7 @@ public class BGParticleTypes
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "amber_dust"), AMBER_DUST);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "shelf"), SHELF);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "ancient_leaves"), ANCIENT_LEAVES);
-        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "upsidedown"), UPSIDEDOWN);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "upside_down_rain"), UPSIDEDOWN);
     }
 
     public static SimpleParticleType simple() {
