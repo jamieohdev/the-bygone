@@ -518,6 +518,7 @@ public class BigBeakEntity  extends AbstractHorse implements VariantHolder<BigBe
         BABY_BASE_DIMENSIONS = BGEntityTypes.BIG_BEAK.get().getDimensions().withAttachments(EntityAttachments.builder().attach(EntityAttachment.PASSENGER, 0.0F,
                 BGEntityTypes.BIG_BEAK.get().getHeight() + 0.125F, 0.0F)).scale(0.5F);
     }
+
     public static boolean canSpawn(
             EntityType<? extends Mob> moobloomEntityType,
             LevelAccessor serverWorldAccess,

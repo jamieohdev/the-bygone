@@ -1,12 +1,15 @@
 package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.common.entity.ai.FollowPlayerGoal;
+import com.jamiedev.bygone.core.registry.BGBlocks;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -22,6 +25,8 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
@@ -93,20 +98,16 @@ public class LithyEntity extends Animal
         return flag;
     }
 
-    @javax.annotation.Nullable
-    UUID getOwnerUUID() {
-        assert lastHurtByPlayer != null;
-        return lastHurtByPlayer.getUUID();
-    }
-
-    @javax.annotation.Nullable
-    public LivingEntity getPlayer() {
-        UUID uuid = this.getUUID();
-        return uuid == null ? null : this.level().getPlayerByUUID(uuid);
-    }
-
-    public final boolean unableToMoveToPlayer() {
-        return this.isPassenger() || this.mayBeLeashed() || this.getPlayer() != null && this.getPlayer().isSpectator();
+    public static boolean canSpawn(
+            EntityType<? extends Mob> moobloomEntityType,
+            LevelAccessor serverWorldAccess,
+            MobSpawnType spawnReason,
+            BlockPos blockPos,
+            RandomSource random
+    ) {
+        return serverWorldAccess.getBlockState(blockPos).is(BGBlocks.MEGALITH_LANTERN.get())
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYSLATE.get())
+                || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.ALPHA_MOSS_BLOCK.get());
     }
 
     @Override
