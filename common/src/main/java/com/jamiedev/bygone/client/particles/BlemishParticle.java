@@ -5,10 +5,12 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.PortalParticle;
 import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 
 public class BlemishParticle extends PortalParticle
 {
+    ParticleTypes ref;
     private final double startX;
     private final double startY;
     private final double startZ;

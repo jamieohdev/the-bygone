@@ -195,6 +195,8 @@ public class BygoneClient {
 
         consumer.accept((ParticleType<T>) BGParticleTypes.AMBER_DUST, spriteProvider -> (ParticleProvider<T>) new AmberDustParticle.Factory(spriteProvider));
         consumer.accept((ParticleType<T>) BGParticleTypes.ANCIENT_LEAVES, spriteProvider -> (ParticleProvider<T>) new AncientLeavesParticle.Factory(spriteProvider));
+        consumer.accept((ParticleType<T>) BGParticleTypes.UPSIDEDOWN, spriteProvider -> (ParticleProvider<T>) new UpsidedownDropParticle.Provider(spriteProvider));
+
     }
 
     public static boolean isWeaponBlocking(LivingEntity entity) {

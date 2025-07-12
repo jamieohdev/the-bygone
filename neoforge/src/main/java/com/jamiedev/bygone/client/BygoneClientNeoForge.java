@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.client;
 
+import com.jamiedev.bygone.client.particles.UpsidedownDropParticle;
 import com.jamiedev.bygone.common.block.JamiesModWoodType;
 import com.jamiedev.bygone.client.particles.BlemishParticle;
 import com.jamiedev.bygone.core.registry.BGParticleTypes;
@@ -38,6 +39,7 @@ public class BygoneClientNeoForge {
     static void registerParticleFactories(RegisterParticleProvidersEvent event) {
         BygoneClient.registerParticleFactories(event::registerSpriteSet);
         event.registerSpriteSet(BGParticleTypes.BLEMISH, BlemishParticle.BlemishBlockProvider::new);
+        event.registerSpriteSet(BGParticleTypes.UPSIDEDOWN, UpsidedownDropParticle.Provider::new);
 
     }
 
