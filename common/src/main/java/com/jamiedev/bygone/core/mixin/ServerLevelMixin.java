@@ -8,6 +8,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.DimensionTypes;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.resources.ResourceKey;
@@ -164,15 +165,15 @@ public abstract class ServerLevelMixin extends Level {
             }
             if (flag == $this.isRaining()) {
                 for (ServerPlayer player : $this.getServer().getPlayerList().getPlayers()) {
-                    System.out.println("cheese");
+
                     getLevel().addParticle(new ParticleOptions() {
                         @Override
                         public ParticleType<?> getType() {
                             return BGParticleTypes.UPSIDEDOWN;
                         }
-                    }, false, player.getRandom().nextFloat(), player.getRandom().nextFloat(), player.getRandom().nextFloat(), 0, 5, 0);
-                    //getLevel().sendParticles(player, BGParticleTypes.UPSIDEDOWN, true, player.getRandom().nextFloat(), player.getRandom().nextFloat(), player.getRandom().nextFloat(), 8, 0, 0, 0, 5)
-                }
+                    }, true, player.getRandom().nextFloat(), player.getRandom().nextFloat(), player.getRandom().nextFloat(), 0, 5, 0);
+                   // getLevel().sendParticles(player, BGParticleTypes.UPSIDEDOWN, true, (double) player.getRandom().nextFloat(), (double) player.getRandom().nextFloat(), (double) player.getRandom().nextFloat(), 8, (double) 0, (double) 0, (double) 0, 5.0);
+              }
             }
         }
 

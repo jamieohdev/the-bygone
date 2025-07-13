@@ -117,7 +117,24 @@ public class BygoneClient {
         consumer.accept(BGBlocks.CREOSOTE.get(), RenderType.cutout());
         consumer.accept(BGBlocks.CREOSOTE_SPROUTS.get(), RenderType.cutout());
 
+        consumer.accept(BGBlocks.AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.BLACK_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.BLUE_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.BROWN_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.CYAN_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.GILDED_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.GRAY_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.GREEN_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.LIGHT_BLUE_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.LIGHT_GRAY_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.LIME_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.MAGENTA_AMPHORA.get(), RenderType.cutout());
         consumer.accept(BGBlocks.ORANGE_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PINK_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PURPLE_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.RED_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.WHITE_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.YELLOW_AMPHORA.get(), RenderType.cutout());
     }
 
     public static void createEntityRenderers() {

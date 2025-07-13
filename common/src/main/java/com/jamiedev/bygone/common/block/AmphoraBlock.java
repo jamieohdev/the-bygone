@@ -90,15 +90,15 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
         return RenderShape.MODEL;
     }
 
-   /** protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        BlockEntity itemStack = level.getBlockEntity(pos);
-        if (itemStack instanceof AmphoraBlockEntity AmphoraBlockEntity) {
+   protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        BlockEntity itemStack1 = level.getBlockEntity(pos);
+        if (itemStack1 instanceof AmphoraBlockEntity AmphoraBlockEntity) {
             if (level.isClientSide) {
                 return ItemInteractionResult.CONSUME;
             } else {
                 ItemStack itemStack = AmphoraBlockEntity.getTheItem();
                 if (!stack.isEmpty() && (itemStack.isEmpty() || ItemStack.isSameItemSameComponents(itemStack, stack) && itemStack.getCount() < itemStack.getMaxStackSize())) {
-                    AmphoraBlockEntity.wobble(AmphoraBlockEntity.WobbleStyle.POSITIVE);
+                    AmphoraBlockEntity.wobble(com.jamiedev.bygone.common.block.entity.AmphoraBlockEntity.WobbleStyle.POSITIVE);
                     player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
                     ItemStack itemStack2 = stack.consumeAndReturn(1, player);
                     float f;
@@ -126,19 +126,19 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
         } else {
             return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
         }
-    } **/
+    }
 
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         BlockEntity var7 = level.getBlockEntity(pos);
-        /**if (var7 instanceof AmphoraBlockEntity AmphoraBlockEntity) {
+        if (var7 instanceof AmphoraBlockEntity AmphoraBlockEntity) {
             level.playSound((Player)null, pos, SoundEvents.DECORATED_POT_INSERT_FAIL, SoundSource.BLOCKS, 1.0F, 1.0F);
-            AmphoraBlockEntity.wobble(AmphoraBlockEntity.WobbleStyle.NEGATIVE);
+            AmphoraBlockEntity.wobble(com.jamiedev.bygone.common.block.entity.AmphoraBlockEntity.WobbleStyle.NEGATIVE);
             level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
             return InteractionResult.SUCCESS;
         } else {
             return InteractionResult.PASS;
-        }**/
-        return InteractionResult.PASS;
+        }
+
     }
 
     protected boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
@@ -165,14 +165,14 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
     protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
         BlockEntity blockEntity = (BlockEntity)params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
-        /**if (blockEntity instanceof AmphoraBlockEntity AmphoraBlockEntity) {
+       if (blockEntity instanceof AmphoraBlockEntity AmphoraBlockEntity) {
             params.withDynamicDrop(SHERDS_DYNAMIC_DROP_ID, (consumer) -> {
                 for(Item item : AmphoraBlockEntity.getDecorations().ordered()) {
                     consumer.accept(item.getDefaultInstance());
                 }
 
             });
-        }**/
+        }
 
         return super.getDrops(state, params);
     }
@@ -216,12 +216,12 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
     public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
         BlockEntity var5 = level.getBlockEntity(pos);
-        /**if (var5 instanceof AmphoraBlockEntity AmphoraBlockEntity) {
+        if (var5 instanceof AmphoraBlockEntity AmphoraBlockEntity) {
             return AmphoraBlockEntity.getPotAsItem();
         } else {
             return super.getCloneItemStack(level, pos, state);
-        }**/
-        return super.getCloneItemStack(level, pos, state);
+        }
+
     }
 
     protected boolean hasAnalogOutputSignal(BlockState state) {

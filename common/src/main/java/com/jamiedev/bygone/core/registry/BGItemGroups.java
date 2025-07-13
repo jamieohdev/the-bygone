@@ -256,7 +256,24 @@ public class BGItemGroups {
                 output.accept(BGBlocks.MEGALITH_FACE.get());
                 output.accept(BGBlocks.MEGALITH_LANTERN.get());
 
+                output.accept(BGBlocks.AMPHORA.get());
+                output.accept(BGBlocks.GILDED_AMPHORA.get());
+                output.accept(BGBlocks.WHITE_AMPHORA.get());
+                output.accept(BGBlocks.LIGHT_GRAY_AMPHORA.get());
+                output.accept(BGBlocks.GRAY_AMPHORA.get());
+                output.accept(BGBlocks.BLACK_AMPHORA.get());
+                output.accept(BGBlocks.BROWN_AMPHORA.get());
+                output.accept(BGBlocks.RED_AMPHORA.get());
                 output.accept(BGBlocks.ORANGE_AMPHORA.get());
+                output.accept(BGBlocks.YELLOW_AMPHORA.get());
+                output.accept(BGBlocks.LIME_AMPHORA.get());
+                output.accept(BGBlocks.GREEN_AMPHORA.get());
+                output.accept(BGBlocks.CYAN_AMPHORA.get());
+                output.accept(BGBlocks.LIGHT_BLUE_AMPHORA.get());
+                output.accept(BGBlocks.BLUE_AMPHORA.get());
+                output.accept(BGBlocks.PURPLE_AMPHORA.get());
+                output.accept(BGBlocks.MAGENTA_AMPHORA.get());
+                output.accept(BGBlocks.PINK_AMPHORA.get());
 
             })
             .title(Component.translatable("itemGroup.test"))

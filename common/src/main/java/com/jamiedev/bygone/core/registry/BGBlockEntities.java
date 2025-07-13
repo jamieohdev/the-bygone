@@ -55,7 +55,13 @@ public class BGBlockEntities {
                         .build(null));
 
         AMPHORA = register("amphora", () ->
-                BlockEntityType.Builder.of(AmphoraBlockEntity::new, BGBlocks.ORANGE_AMPHORA.get())
+                BlockEntityType.Builder.of(AmphoraBlockEntity::new,
+                                BGBlocks.AMPHORA.get(), BGBlocks.BLACK_AMPHORA.get(), BGBlocks.BLUE_AMPHORA.get(),
+                                BGBlocks.BROWN_AMPHORA.get(), BGBlocks.CYAN_AMPHORA.get(), BGBlocks.GILDED_AMPHORA.get(),
+                                BGBlocks.GRAY_AMPHORA.get(), BGBlocks.GREEN_AMPHORA.get(), BGBlocks.LIGHT_BLUE_AMPHORA.get(),
+                                BGBlocks.LIGHT_GRAY_AMPHORA.get(), BGBlocks.LIME_AMPHORA.get(), BGBlocks.MAGENTA_AMPHORA.get(),
+                                BGBlocks.ORANGE_AMPHORA.get(), BGBlocks.PINK_AMPHORA.get(), BGBlocks.PURPLE_AMPHORA.get(),
+                                BGBlocks.RED_AMPHORA.get(), BGBlocks.WHITE_AMPHORA.get(), BGBlocks.YELLOW_AMPHORA.get())
                         .build(null));
 
         BYGONE_PORTAL =  register(
