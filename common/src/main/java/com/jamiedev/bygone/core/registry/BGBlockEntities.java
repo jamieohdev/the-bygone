@@ -8,6 +8,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
+import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 
 import java.util.function.Supplier;
 
@@ -24,6 +25,7 @@ public class BGBlockEntities {
 
 
     public static Supplier<BlockEntityType<BlemishCatalystBlockEntity>> BLEMISH_CATALYST;
+    public static Supplier<BlockEntityType<AmphoraBlockEntity>> AMPHORA;
 
     public static Supplier<BlockEntityType<BrushableBlockEntity>> BRUSHABLE_BLOCK;
 
@@ -52,9 +54,10 @@ public class BGBlockEntities {
                 BlockEntityType.Builder.of(PrimordialUrchinEntity::new, BGBlocks.PRIMORDIAL_URCHIN.get())
                         .build(null));
 
-       // BRUSHABLE_BLOCK = register("brushable_block",
-        //        BlockEntityType.Builder.create(BygoneBrushableBlockEntity::new, SUSPICIOUS_AMBER_SAND)
-        //                .build());
+        AMPHORA = register("amphora", () ->
+                BlockEntityType.Builder.of(AmphoraBlockEntity::new, BGBlocks.ORANGE_AMPHORA.get())
+                        .build(null));
+
         BYGONE_PORTAL =  register(
                 "bygone_portal", () ->
                 BlockEntityType.Builder.of(BygonePortalBlockEntity::new, BGBlocks.BYGONE_PORTAL.get()).build(null));

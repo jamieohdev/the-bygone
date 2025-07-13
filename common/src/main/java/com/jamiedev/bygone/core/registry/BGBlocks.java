@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.core.registry;
 
+
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.block.*;
 import com.jamiedev.bygone.common.block.gourds.GourdDangoBlock;
@@ -29,7 +30,7 @@ import java.util.function.Supplier;
 import static net.minecraft.world.level.block.Blocks.DIRT;
 
 public class BGBlocks {
-    Blocks ref1;
+
     public static final Supplier<Block> POLISHED_BYSTONE = registerBlock("polished_bystone", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
 
@@ -705,6 +706,11 @@ public class BGBlocks {
                     .strength(1.5F, 6.0F).lightLevel((state) -> {
                         return 12;
                     })));
+
+    public static final Supplier<Block> ORANGE_AMPHORA = registerBlock("orange_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_ORANGE).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
 
     private static Supplier<Block> registerBlock(String name,  Supplier<Block> block) {
         return JinxedRegistryHelper.registerBlock(Bygone.MOD_ID, name, true, block);

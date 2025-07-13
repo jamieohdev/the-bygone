@@ -255,6 +255,9 @@ public class BGItemGroups {
                 output.accept(BGBlocks.MEGALITH_BLOCK.get());
                 output.accept(BGBlocks.MEGALITH_FACE.get());
                 output.accept(BGBlocks.MEGALITH_LANTERN.get());
+
+                output.accept(BGBlocks.ORANGE_AMPHORA.get());
+
             })
             .title(Component.translatable("itemGroup.test"))
             .build());
