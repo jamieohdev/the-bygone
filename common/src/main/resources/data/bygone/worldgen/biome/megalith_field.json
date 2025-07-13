@@ -66,16 +66,22 @@
     ]
   ],
   "has_precipitation": false,
-  "spawn_costs": {},
+  "spawn_costs": {
+    "bygone:lithy": {
+      "charge": 0.6,
+      "energy_budget": 0.18
+    }
+
+  },
   "spawners": {
     "ambient": [],
     "axolotls": [],
     "creature": [
       {
-        "type": "minecraft:strider",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 60
+        "type": "bygone:lithy",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 15
       }
     ],
     "misc": [],

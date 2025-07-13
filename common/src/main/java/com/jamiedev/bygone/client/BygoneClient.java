@@ -139,6 +139,7 @@ public class BygoneClient {
         EntityRenderers.register(BGEntityTypes.WHISKBILL.get(), WhiskbillRenderer::new);
         EntityRenderers.register(BGEntityTypes.NECTAUR.get(), NectaurRenderer::new);
         EntityRenderers.register(BGEntityTypes.LITHY.get(), LithyRenderer::new);
+        EntityRenderers.register(BGEntityTypes.WRAITH.get(), WraithRenderer::new);
     }
     
     public static void createModelLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> consumer) {
@@ -159,6 +160,7 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.WHISKBILL, WhiskbillModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.NECTAUR, NectaurModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.LITHY, LithyModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.WRAITH, WraithModel::getTexturedModelData);
     }
 
     public static void registerModelPredicateProviders() {

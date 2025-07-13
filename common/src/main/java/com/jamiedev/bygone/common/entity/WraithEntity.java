@@ -38,7 +38,7 @@ public class WraithEntity extends Monster implements RangedAttackMob
     protected int spellCastingTickCount;
     private WraithEntity.WraithSpell currentSpell;
 
-    protected WraithEntity(EntityType<? extends Monster> entityType, Level level) {
+    public WraithEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.xpReward = 5;
      //   this.currentSpell = WraithSpell.NONE;

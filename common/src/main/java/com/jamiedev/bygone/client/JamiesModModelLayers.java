@@ -58,4 +58,7 @@ public class JamiesModModelLayers {
 
     public static final ModelLayerLocation LITHY =
             new ModelLayerLocation(Bygone.id("lithy"), "main");
+
+    public static final ModelLayerLocation WRAITH =
+            new ModelLayerLocation(Bygone.id("wraith"), "main");
 }
