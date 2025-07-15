@@ -397,5 +397,7 @@
   "subtitles.entity.hook.hit" : "Ancient Hook hits",
   "subtitles.entity.hook.throw" : "Ancient Hook thrown",
 
+  "subtitles.ambient.sound" : "Eerie noise",
+
   "itemGroup.test": "The Bygone"
 }

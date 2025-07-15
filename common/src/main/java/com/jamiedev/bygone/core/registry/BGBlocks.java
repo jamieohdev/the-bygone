@@ -3,6 +3,7 @@ package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.block.*;
+import com.jamiedev.bygone.common.block.cogs.BaseVerdigrisCogBlock;
 import com.jamiedev.bygone.common.block.gourds.GourdDangoBlock;
 import com.jamiedev.bygone.common.block.gourds.GourdDangoWallBlock;
 import com.jamiedev.bygone.common.block.gourds.GourdLanternBlock;
@@ -697,7 +698,7 @@ Blocks ref;
             .pushReaction(PushReaction.DESTROY)));
 
     public static final Supplier<Block> MEGALITH_BLOCK = registerBlock("megalith_block", () ->
-            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+            new MegalithLanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
     public static final Supplier<Block> MEGALITH_FACE = registerBlock("megalith_face", () ->
             new MegalithLanternBlock((BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
@@ -778,6 +779,16 @@ Blocks ref;
     public static final Supplier<Block> YELLOW_AMPHORA = registerBlock("yellow_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
             .mapColor(MapColor.TERRACOTTA_WHITE).strength(0.0F, 0.0F)
             .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> BROKEN_VERDIGRIS_COG = registerBlock("broken_verdigris_cog", () ->
+            new BaseVerdigrisCogBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GREEN).replaceable().noCollission().randomTicks().strength(0.2F).sound(SoundType.METAL).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> RAMSHACKLED_VERDIGRIS_COG = registerBlock("ramshackled_verdigris_cog", () ->
+            new BaseVerdigrisCogBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GREEN).replaceable().noCollission().randomTicks().strength(0.2F).sound(SoundType.METAL).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> TARNISHED_VERDIGRIS_COG = registerBlock("tarnished_verdigris_cog", () ->
+            new BaseVerdigrisCogBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GREEN).replaceable().noCollission().randomTicks().strength(0.2F).sound(SoundType.METAL).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> PRISTINE_VERDIGRIS_COG = registerBlock("pristine_verdigris_cog", () ->
+            new BaseVerdigrisCogBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GREEN).replaceable().noCollission().randomTicks().strength(0.2F).sound(SoundType.METAL).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+
 
 
     private static Supplier<Block> registerBlock(String name,  Supplier<Block> block) {

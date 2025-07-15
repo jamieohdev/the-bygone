@@ -53,12 +53,17 @@ public class BGItemGroups {
                 output.accept(BGItems.GOLD_BIG_BEAK_ARMOR.get());
                 output.accept(BGItems.IRON_BIG_BEAK_ARMOR.get());
                 output.accept(BGItems.DIAMOND_BIG_BEAK_ARMOR.get());
+
                 output.accept(BGItems.VERDIGRIS_SCRAP.get());
                 output.accept(BGItems.VERDIGRIS_INGOT.get());
                 output.accept(BGBlocks.VERDIGRIS_SCRAP_BLOCK.get());
                 output.accept(BGBlocks.VERDIGRIS_BLOCK.get());
                 output.accept(BGItems.VERDIGRIS_BLADE.get());
                 output.accept(BGItems.VERDIGRIS_BOW.get());
+                output.accept(BGBlocks.BROKEN_VERDIGRIS_COG.get());
+                output.accept(BGBlocks.RAMSHACKLED_VERDIGRIS_COG.get());
+                output.accept(BGBlocks.TARNISHED_VERDIGRIS_COG.get());
+                output.accept(BGBlocks.PRISTINE_VERDIGRIS_COG.get());
 
 
                 output.accept(BGBlocks.BYGONE_PORTAL_FRAME_BLOCK.get());

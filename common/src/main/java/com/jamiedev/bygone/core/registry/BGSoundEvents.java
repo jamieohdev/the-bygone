@@ -16,6 +16,10 @@ public class BGSoundEvents
     public static final ResourceLocation MUSIC_PRIMORDIALOCEAN_ADDITIONS = Bygone.id("music.bygone.primordial_ocean");
     public static final ResourceLocation AMBIENT_SHELFHOLLOW_ADDITIONS = Bygone.id("ambient.shelfhollow.additions");
 
+
+    public static final ResourceLocation BLOCK_MEGALITH_BLOCK_IDLE = Bygone.id("block.megalith_block.idle");
+    public static SoundEvent BLOCK_MEGALITH_BLOCK_IDLE_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(BLOCK_MEGALITH_BLOCK_IDLE );
+
     public static final ResourceLocation ENTITY_BIGBEAK_AMBIENT = Bygone.id("entity.bigbeak.ambient");
     public static final ResourceLocation ENTITY_BIGBEAK_HURT = Bygone.id("entity.bigbeak.hurt");
     public static final ResourceLocation ENTITY_BIGBEAK_DEATH = Bygone.id("entity.bigbeak.death");
@@ -170,5 +174,7 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_RETRIEVE, HOOK_RETRIEVE_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_HIT, HOOK_HIT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_THROW, HOOK_THROW_ADDITIONS_EVENT);
+
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.BLOCK_MEGALITH_BLOCK_IDLE, BLOCK_MEGALITH_BLOCK_IDLE_ADDITIONS_EVENT);
     }
 }

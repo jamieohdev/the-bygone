@@ -135,6 +135,11 @@ public class BygoneClient {
         consumer.accept(BGBlocks.RED_AMPHORA.get(), RenderType.cutout());
         consumer.accept(BGBlocks.WHITE_AMPHORA.get(), RenderType.cutout());
         consumer.accept(BGBlocks.YELLOW_AMPHORA.get(), RenderType.cutout());
+
+        consumer.accept(BGBlocks.PRISTINE_VERDIGRIS_COG.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.TARNISHED_VERDIGRIS_COG.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.BROKEN_VERDIGRIS_COG.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.RAMSHACKLED_VERDIGRIS_COG.get(), RenderType.cutout());
     }
 
     public static void createEntityRenderers() {

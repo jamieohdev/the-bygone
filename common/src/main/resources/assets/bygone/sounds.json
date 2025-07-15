@@ -78,6 +78,24 @@
       }
     ]
   },
+  "block.megalith_block.idle": {
+    "sounds":  [
+      "bygone:ambience/megalith_ambience_1",
+      "bygone:ambience/megalith_ambience_3",
+      "bygone:ambience/megalith_ambience_4",
+      "bygone:ambience/megalith_ambience_2"
+    ],
+    "subtitle": "subtitles.ambient.sound"
+  },
+  "ambient.megalith_fields.additions": {
+    "sounds":  [
+      "bygone:ambience/megalith_ambience_1",
+      "bygone:ambience/megalith_ambience_3",
+      "bygone:ambience/megalith_ambience_4",
+      "bygone:ambience/megalith_ambience_2"
+    ],
+    "subtitle": "subtitles.ambient.megalith_fields.additions"
+  },
   "ambient.underhang.additions": {
     "sounds":  [
       "bygone:ambience/ancient_creak1",
