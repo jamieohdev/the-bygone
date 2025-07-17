@@ -1,8 +1,8 @@
 {
   "type": "minecraft:range_choice",
   "input": "bygone:aquifers/rivers/rivers_upper",
-  "min_inclusive": -0.1,
-  "max_exclusive": 0.1,
+  "min_inclusive": -0.075,
+  "max_exclusive": 0.075,
   "when_in_range": {
     "type": "minecraft:range_choice",
     "input": "minecraft:y",
