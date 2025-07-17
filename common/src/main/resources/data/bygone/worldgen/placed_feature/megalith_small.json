@@ -1,0 +1,23 @@
+{
+  "feature": {
+    "type": "bygone:megalith",
+    "config": {
+      "size_x": 3,
+      "size_y": {
+        "type": "minecraft:biased_to_bottom",
+        "min_inclusive": 7,
+        "max_inclusive": 9
+      },
+      "size_z": 3,
+      "erosion_chance": 0.02,
+      "can_replace_blocks": false,
+      "blocks": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "bygone:byslate"
+        }
+      }
+    }
+  },
+  "placement": []
+}

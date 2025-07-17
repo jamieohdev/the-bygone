@@ -30,10 +30,7 @@
   },
   "features": [
     [],
-    [
-      "bygone:lake_bronze_underground",
-      "bygone:lake_bronze_surface"
-    ],
+    ["bygone:lake_bronze_underground", "bygone:lake_bronze_surface"],
     [],
     [],
     [],
@@ -60,6 +57,7 @@
     [],
     [
       "bygone:miniliths",
+      "bygone:megaliths",
       "bygone:megalith_field_vegetation",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal"
@@ -71,7 +69,6 @@
       "charge": 0.6,
       "energy_budget": 0.18
     }
-
   },
   "spawners": {
     "ambient": [],
@@ -85,9 +82,7 @@
       }
     ],
     "misc": [],
-    "monster": [
-
-    ],
+    "monster": [],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

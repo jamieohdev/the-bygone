@@ -1,0 +1,43 @@
+{
+  "feature": {
+    "config": {
+      "features": [
+        "bygone:megalith_small",
+        "bygone:megalith_medium",
+        "bygone:megalith_large"
+      ]
+    },
+    "type": "minecraft:simple_random_selector"
+  },
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:biased_to_bottom",
+        "min_inclusive": 1,
+        "max_inclusive": 6
+      }
+    },
+    {
+      "type": "minecraft:in_square",
+      "height": {
+        "above_bottom": 0
+      }
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": {
+          "above_bottom": 16
+        },
+        "max_inclusive": {
+          "below_top": 32
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}
