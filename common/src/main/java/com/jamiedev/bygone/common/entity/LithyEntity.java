@@ -10,35 +10,26 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.TimeUtil;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.animal.horse.Llama;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.UUID;
 
 public class LithyEntity extends Animal
 {
@@ -49,6 +40,7 @@ public class LithyEntity extends Animal
     protected static final EntityDataAccessor<Boolean> DATA_TRIPPED;
     protected static final EntityDataAccessor<Integer> DATA_TRIPPED_TICK;
     protected static final EntityDataAccessor<Integer> DATA_TRIP_COOLDOWN;
+    private boolean jumpUp = false;
 
     public LithyEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -59,7 +51,7 @@ public class LithyEntity extends Animal
         builder.define(DATA_FLAGS_ID, (byte)0);
         builder.define(DATA_TRIPPED, false);
         builder.define(DATA_TRIPPED_TICK, 0);
-        builder.define(DATA_TRIP_COOLDOWN, 3600 + this.random.nextInt(0, 1200));
+        builder.define(DATA_TRIP_COOLDOWN, 200 + this.random.nextInt(0, 200));
     }
 
     @Override
@@ -105,13 +97,18 @@ public class LithyEntity extends Animal
     public void tick() {
         int trippedCooldown = this.entityData.get(DATA_TRIP_COOLDOWN);
         int tripTick = this.entityData.get(DATA_TRIPPED_TICK);
+
+        if (this.jumpUp) {
+            this.jumpUp = false;
+            this.push(new Vec3(0.0, 0.4, 0.0));
+        }
         if (!this.entityData.get(DATA_TRIPPED)) {
             if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F) {
                 this.entityData.set(DATA_TRIP_COOLDOWN, trippedCooldown - 1);
                 if (this.entityData.get(DATA_TRIP_COOLDOWN) <= 0 && this.random.nextFloat() < 0.1) {
-                    this.push(this.getDeltaMovement().add(0.1, 0.2, 0.1));
+                    this.push(this.getDeltaMovement().add(0.0, 0.2, 0.0));
                     this.entityData.set(DATA_TRIPPED, true);
-                    this.entityData.set(DATA_TRIP_COOLDOWN, 3600 + this.random.nextInt(0, 1200));
+                    this.entityData.set(DATA_TRIP_COOLDOWN, 200 + this.random.nextInt(0, 200));
                     if (this.level().getServer() != null) {
                         LootTable loottable = this.level().getServer().reloadableRegistries().getLootTable(JamiesModLootTables.LITHY_TRIP_LOOT_TABLE);
                         List<ItemStack> list = loottable.getRandomItems(
@@ -132,10 +129,20 @@ public class LithyEntity extends Animal
             if (tripTick > 60 && this.random.nextFloat() < 0.01) {
                 this.entityData.set(DATA_TRIPPED, false);
                 this.entityData.set(DATA_TRIPPED_TICK, 0);
+                this.jumpUp = true;
             }
         }
 
         super.tick();
+    }
+
+    @Override
+    protected float tickHeadTurn(float yRot, float animStep) {
+        if (this.entityData.get(DATA_TRIPPED)) {
+            return 0.0F;
+        }
+
+        return super.tickHeadTurn(yRot, animStep);
     }
 
     @Override
