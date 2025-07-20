@@ -1,8 +1,10 @@
 package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.common.entity.ai.FollowPlayerGoal;
+import com.jamiedev.bygone.core.init.JamiesModLootTables;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -27,8 +29,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.UUID;
 
 public class LithyEntity extends Animal
@@ -37,6 +46,9 @@ public class LithyEntity extends Animal
     IronGolem ref;
 
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID;
+    protected static final EntityDataAccessor<Boolean> DATA_TRIPPED;
+    protected static final EntityDataAccessor<Integer> DATA_TRIPPED_TICK;
+    protected static final EntityDataAccessor<Integer> DATA_TRIP_COOLDOWN;
 
     public LithyEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -45,6 +57,27 @@ public class LithyEntity extends Animal
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_FLAGS_ID, (byte)0);
+        builder.define(DATA_TRIPPED, false);
+        builder.define(DATA_TRIPPED_TICK, 0);
+        builder.define(DATA_TRIP_COOLDOWN, 3600 + this.random.nextInt(0, 1200));
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        this.entityData.set(DATA_TRIPPED, compound.getBoolean("DataTripped"));
+        this.entityData.set(DATA_TRIPPED_TICK, compound.getInt("DataTrippedTick"));
+        this.entityData.set(DATA_TRIP_COOLDOWN, compound.getInt("DataTripCooldown"));
+
+        super.readAdditionalSaveData(compound);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        compound.putBoolean("DataTripped", this.entityData.get(DATA_TRIPPED));
+        compound.putInt("DataTrippedTick", this.entityData.get(DATA_TRIPPED_TICK));
+        compound.putInt("DataTripCooldown", this.entityData.get(DATA_TRIP_COOLDOWN));
+
+        super.addAdditionalSaveData(compound);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -66,6 +99,62 @@ public class LithyEntity extends Animal
 
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
+    }
+
+    @Override
+    public void tick() {
+        int trippedCooldown = this.entityData.get(DATA_TRIP_COOLDOWN);
+        int tripTick = this.entityData.get(DATA_TRIPPED_TICK);
+        if (!this.entityData.get(DATA_TRIPPED)) {
+            if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F) {
+                this.entityData.set(DATA_TRIP_COOLDOWN, trippedCooldown - 1);
+                if (this.entityData.get(DATA_TRIP_COOLDOWN) <= 0 && this.random.nextFloat() < 0.1) {
+                    this.push(this.getDeltaMovement().add(0.1, 0.2, 0.1));
+                    this.entityData.set(DATA_TRIPPED, true);
+                    this.entityData.set(DATA_TRIP_COOLDOWN, 3600 + this.random.nextInt(0, 1200));
+                    if (this.level().getServer() != null) {
+                        LootTable loottable = this.level().getServer().reloadableRegistries().getLootTable(JamiesModLootTables.LITHY_TRIP_LOOT_TABLE);
+                        List<ItemStack> list = loottable.getRandomItems(
+                                new LootParams.Builder((ServerLevel)this.level())
+                                        .create(LootContextParamSets.EMPTY)
+                        );
+
+                        for (ItemStack stack : list) {
+                            this.spawnAtLocation(stack);
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            this.entityData.set(DATA_TRIPPED_TICK, tripTick + 1);
+
+            if (tripTick > 60 && this.random.nextFloat() < 0.01) {
+                this.entityData.set(DATA_TRIPPED, false);
+                this.entityData.set(DATA_TRIPPED_TICK, 0);
+            }
+        }
+
+        super.tick();
+    }
+
+    @Override
+    public void travel(Vec3 travelVector) {
+        Vec3 delta = this.getDeltaMovement();
+        if (this.entityData.get(DATA_TRIPPED) && this.onGround()) {
+            this.setDeltaMovement(delta.x * 0.1, delta.y, delta.z * 0.1);
+        }
+        else {
+            super.travel(travelVector);
+        }
+    }
+
+    public boolean getTripped() {
+        return this.entityData.get(DATA_TRIPPED);
+    }
+
+    public int getTrippedTick() {
+        return this.entityData.get(DATA_TRIPPED_TICK);
     }
 
     protected int decreaseAirSupply(int air) {
@@ -122,5 +211,8 @@ public class LithyEntity extends Animal
 
     static {
         DATA_FLAGS_ID = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.BYTE);
+        DATA_TRIPPED = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.BOOLEAN);
+        DATA_TRIPPED_TICK = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.INT);
+        DATA_TRIP_COOLDOWN = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.INT);
     }
 }

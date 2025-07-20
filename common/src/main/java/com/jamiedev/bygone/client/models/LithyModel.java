@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.client.models;
 
+import com.jamiedev.bygone.common.entity.LithyEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.*;
@@ -13,7 +14,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 
-public class LithyModel<T extends Entity> extends EntityModel<T> {
+public class LithyModel<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 
 	private final ModelPart root;
@@ -49,11 +50,32 @@ public class LithyModel<T extends Entity> extends EntityModel<T> {
 
 	@Override
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
 
+		if (entity instanceof LithyEntity lithy) {
+			if (lithy.getTripped()) {
+				if (lithy.getTrippedTick() <= 5) {
+					this.root.xRot = (float)(Mth.sin((float) lithy.getTrippedTick() / 5)) * 2.0F;
+				}
+				else {
+					this.root.xRot = (float)(Mth.sin(0.9F)) * 2.0F;
+				}
+				//this.setupTripped(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+			}
+		}
+	}
+
+	public void setupTripped(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root.xRot = (float)(Mth.sin(180));
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
 		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+	}
+
+	@Override
+	public ModelPart root() {
+		return root;
 	}
 }
