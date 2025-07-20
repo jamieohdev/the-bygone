@@ -52,19 +52,38 @@
       }
     ]
   },
+  "music.bygone.amber_desert": {
+    "category":"music",
+    "sounds": [
+      {
+        "name": "bygone:music/theashfalls",
+        "stream": true
+      }
+    ]
+  },
+  "music.bygone.megalith_fields": {
+    "category":"music",
+    "sounds": [
+      {
+        "name": "bygone:music/oldstoneblues",
+        "stream": true
+      }
+    ]
+  },
+  "music.bygone.shelf_hollows": {
+    "category":"music",
+    "sounds": [
+      {
+        "name": "bygone:music/glimmer",
+        "stream": true
+      }
+    ]
+  },
   "music.bygone.underhang": {
     "category":"music",
     "sounds": [
       {
         "name": "bygone:music/changing",
-        "stream": true
-      },
-      {
-        "name": "bygone:music/gelida",
-        "stream": true
-      },
-      {
-        "name": "bygone:music/theashfalls",
         "stream": true
       }
     ]
@@ -73,7 +92,7 @@
     "category":"music",
     "sounds": [
       {
-        "name": "bygone:music/glimmer",
+        "name": "bygone:music/gelida",
         "stream": true
       }
     ]

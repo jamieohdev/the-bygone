@@ -12,6 +12,9 @@ public class BGSoundEvents
     public static final ResourceLocation AMBIENT_AMBERDESERT_ADDITIONS = Bygone.id("ambient.amber_desert.additions");
     public static final ResourceLocation AMBIENT_PRIMORDIALOCEAN_ADDITIONS = Bygone.id("ambient.primordial_ocean.additions");
     public static final ResourceLocation MUSIC_ALPHAHANG_ADDITIONS = Bygone.id("music.bygone.alphahang");
+    public static final ResourceLocation MUSIC_AMBER_DESERT_ADDITIONS = Bygone.id("music.bygone.amber_desert");
+    public static final ResourceLocation MUSIC_MEGALITH_FIELDS_ADDITIONS = Bygone.id("music.bygone.megalith_fields");
+    public static final ResourceLocation MUSIC_SHELFHOLLOWS_ADDITIONS = Bygone.id("music.bygone.shelfhollows");
     public static final ResourceLocation MUSIC_ANCIENTFOREST_ADDITIONS = Bygone.id("music.bygone.underhang");
     public static final ResourceLocation MUSIC_PRIMORDIALOCEAN_ADDITIONS = Bygone.id("music.bygone.primordial_ocean");
     public static final ResourceLocation AMBIENT_SHELFHOLLOW_ADDITIONS = Bygone.id("ambient.shelfhollow.additions");
@@ -69,8 +72,13 @@ public class BGSoundEvents
     public static SoundEvent AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_ANCIENTFOREST_ADDITIONS);
     public static SoundEvent AMBIENT_AMBERDESERT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_AMBERDESERT_ADDITIONS);
     public static SoundEvent AMBIENT_PRIMORDIALOCEAN_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_PRIMORDIALOCEAN_ADDITIONS);
+
     public static SoundEvent MUSIC_ALPHAHANG_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(MUSIC_ALPHAHANG_ADDITIONS);
     public static SoundEvent MUSIC_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(MUSIC_ANCIENTFOREST_ADDITIONS);
+    public static SoundEvent MUSIC_AMBERDESERT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(MUSIC_AMBER_DESERT_ADDITIONS);
+    public static SoundEvent MUSIC_MEGALITH_FIELDS_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(MUSIC_MEGALITH_FIELDS_ADDITIONS);
+    public static SoundEvent MUSIC_SHELFHOLLOWS_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(MUSIC_SHELFHOLLOWS_ADDITIONS);
+
     public static SoundEvent AMBIENT_SHELFHOLLOW_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_SHELFHOLLOW_ADDITIONS);
     public static SoundEvent MUSIC_PRIMORDIALOCEAN_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(MUSIC_PRIMORDIALOCEAN_ADDITIONS);
 
@@ -130,8 +138,12 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_AMBERDESERT_ADDITIONS, BGSoundEvents.AMBIENT_AMBERDESERT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_PRIMORDIALOCEAN_ADDITIONS, BGSoundEvents.AMBIENT_PRIMORDIALOCEAN_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_SHELFHOLLOW_ADDITIONS, BGSoundEvents.AMBIENT_SHELFHOLLOW_ADDITIONS_EVENT);
+
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.MUSIC_ALPHAHANG_ADDITIONS, BGSoundEvents.MUSIC_ALPHAHANG_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.MUSIC_ANCIENTFOREST_ADDITIONS, BGSoundEvents.MUSIC_ANCIENTFOREST_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.MUSIC_AMBER_DESERT_ADDITIONS, BGSoundEvents.MUSIC_AMBERDESERT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.MUSIC_MEGALITH_FIELDS_ADDITIONS, BGSoundEvents.MUSIC_MEGALITH_FIELDS_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.MUSIC_SHELFHOLLOWS_ADDITIONS, BGSoundEvents.MUSIC_SHELFHOLLOWS_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.MUSIC_PRIMORDIALOCEAN_ADDITIONS, BGSoundEvents.MUSIC_PRIMORDIALOCEAN_ADDITIONS_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_BIGBEAK_AMBIENT, BGSoundEvents.BIGBEAK_AMBIENT_ADDITIONS_EVENT);
