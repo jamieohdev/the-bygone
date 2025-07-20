@@ -31,7 +31,7 @@
   "features": [
     [],
     ["bygone:lake_bronze_underground", "bygone:lake_bronze_surface"],
-    [],
+    ["bygone:miniliths", "bygone:megaliths"],
     [],
     [],
     [],
@@ -56,8 +56,6 @@
     ],
     [],
     [
-      "bygone:miniliths",
-      "bygone:megaliths",
       "bygone:megalith_field_vegetation",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal"

@@ -7,8 +7,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 public record MegalithConfig(IntProvider sizeX, IntProvider sizeY, IntProvider sizeZ,
-                             BlockStateProvider megalithBlocks, BlockStateProvider topLayerBlocks,
-                             double topLayerChance, double erosionChance, int maxErosionDepth,
+                             BlockStateProvider megalithBlocks, double erosionChance, int maxErosionDepth,
                              IntProvider fallenBlockCount, IntProvider floatingBlockCount,
                              int fallenBlockSearchRange, boolean canReplaceBlocks
 ) implements FeatureConfiguration {
@@ -20,8 +19,6 @@ public record MegalithConfig(IntProvider sizeX, IntProvider sizeY, IntProvider s
                             IntProvider.codec(1, 16).fieldOf("size_y").forGetter(MegalithConfig::sizeY),
                             IntProvider.codec(1, 16).fieldOf("size_z").forGetter(MegalithConfig::sizeZ),
                             BlockStateProvider.CODEC.fieldOf("megalith_blocks").forGetter(MegalithConfig::megalithBlocks),
-                            BlockStateProvider.CODEC.fieldOf("top_layer_blocks").forGetter(MegalithConfig::topLayerBlocks),
-                            Codec.doubleRange(0.0D, 1.0D).fieldOf("top_layer_chance").forGetter(MegalithConfig::topLayerChance),
                             Codec.doubleRange(0.0D, 1.0D).fieldOf("erosion_chance").forGetter(MegalithConfig::erosionChance),
                             Codec.intRange(0, 16).fieldOf("max_erosion_depth").forGetter(MegalithConfig::maxErosionDepth),
                             IntProvider.codec(0, 8).fieldOf("fallen_block_count").forGetter(MegalithConfig::fallenBlockCount),

@@ -29,7 +29,6 @@ public class MegalithFeature extends Feature<MegalithConfig> {
         int lengthX = megalithConfig.sizeX().sample(random);
         int lengthY = megalithConfig.sizeY().sample(random);
         int lengthZ = megalithConfig.sizeZ().sample(random);
-        boolean hasTopLayer = random.nextFloat() <= megalithConfig.topLayerChance();
         int fallenBlockCount = megalithConfig.fallenBlockCount().sample(random);
         int floatingBlockCount = megalithConfig.floatingBlockCount().sample(random);
         List<BlockPos> validFallenBlockCoords = new ArrayList<>();
@@ -75,13 +74,6 @@ public class MegalithFeature extends Feature<MegalithConfig> {
                     }
 
                     BlockState blockState = Blocks.AIR.defaultBlockState();
-
-                    // Top layer placement
-                    if (hasTopLayer && y == lengthY - 1) {
-                        blockState = megalithConfig.topLayerBlocks().getState(random, currPos);
-                        this.setBlock(level, currPos, blockState);
-                        continue;
-                    }
 
                     // Erosion layer placement
                     if (y < megalithConfig.maxErosionDepth()) {

@@ -15,13 +15,6 @@
           "Name": "bygone:byslate"
         }
       },
-      "top_layer_blocks": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "bygone:alpha_moss_block"
-        }
-      },
-      "top_layer_chance": 0.7,
       "erosion_chance": 0.95,
       "max_erosion_depth": 4,
       "fallen_block_count": {
