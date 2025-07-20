@@ -7,7 +7,10 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 public record MegalithConfig(IntProvider sizeX, IntProvider sizeY, IntProvider sizeZ,
-                             double erosionChance, BlockStateProvider blocks, boolean canReplaceBlocks
+                             BlockStateProvider megalithBlocks, BlockStateProvider topLayerBlocks,
+                             double topLayerChance, double erosionChance, int maxErosionDepth,
+                             IntProvider fallenBlockCount, IntProvider floatingBlockCount,
+                             int fallenBlockSearchRange, boolean canReplaceBlocks
 ) implements FeatureConfiguration {
 
     public static final Codec<MegalithConfig> CODEC = RecordCodecBuilder.create(
@@ -16,8 +19,14 @@ public record MegalithConfig(IntProvider sizeX, IntProvider sizeY, IntProvider s
                             IntProvider.codec(1, 16).fieldOf("size_x").forGetter(MegalithConfig::sizeX),
                             IntProvider.codec(1, 16).fieldOf("size_y").forGetter(MegalithConfig::sizeY),
                             IntProvider.codec(1, 16).fieldOf("size_z").forGetter(MegalithConfig::sizeZ),
+                            BlockStateProvider.CODEC.fieldOf("megalith_blocks").forGetter(MegalithConfig::megalithBlocks),
+                            BlockStateProvider.CODEC.fieldOf("top_layer_blocks").forGetter(MegalithConfig::topLayerBlocks),
+                            Codec.doubleRange(0.0D, 1.0D).fieldOf("top_layer_chance").forGetter(MegalithConfig::topLayerChance),
                             Codec.doubleRange(0.0D, 1.0D).fieldOf("erosion_chance").forGetter(MegalithConfig::erosionChance),
-                            BlockStateProvider.CODEC.fieldOf("blocks").forGetter(MegalithConfig::blocks),
+                            Codec.intRange(0, 16).fieldOf("max_erosion_depth").forGetter(MegalithConfig::maxErosionDepth),
+                            IntProvider.codec(0, 8).fieldOf("fallen_block_count").forGetter(MegalithConfig::fallenBlockCount),
+                            IntProvider.codec(0, 8).fieldOf("floating_block_count").forGetter(MegalithConfig::floatingBlockCount),
+                            Codec.intRange(0, 32).fieldOf("fallen_block_search_range").forGetter(MegalithConfig::fallenBlockSearchRange),
                             Codec.BOOL.fieldOf("can_replace_blocks").forGetter(MegalithConfig::canReplaceBlocks)
                     ).apply(instance, MegalithConfig::new)
     );
