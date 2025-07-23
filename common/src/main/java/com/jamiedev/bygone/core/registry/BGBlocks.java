@@ -23,11 +23,14 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 import static net.minecraft.world.level.block.Blocks.DIRT;
 
@@ -789,7 +792,15 @@ Blocks ref;
     public static final Supplier<Block> PRISTINE_VERDIGRIS_COG = registerBlock("pristine_verdigris_cog", () ->
             new BaseVerdigrisCogBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GREEN).replaceable().noCollission().randomTicks().strength(0.2F).sound(SoundType.METAL).ignitedByLava().pushReaction(PushReaction.DESTROY)));
 
+    public static final Supplier<Block> LITHINE_ORE = registerBlock("lithine_ore", () ->
+            new LithineOreBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().randomTicks().lightLevel(litBlockEmission(9)).strength(3.0F, 3.0F)));
 
+    public static final Supplier<Block> LITHINE_LAMP = registerBlock("lithine_lamp", () ->
+            new RedstoneLampBlock(BlockBehaviour.Properties.of().lightLevel(litBlockEmission(15)).strength(0.3F).sound(SoundType.GLASS).isValidSpawn(Blocks::always)));
+
+    private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
+        return (p_50763_) -> (Boolean)p_50763_.getValue(BlockStateProperties.LIT) ? lightValue : 0;
+    }
 
     private static Supplier<Block> registerBlock(String name,  Supplier<Block> block) {
         return JinxedRegistryHelper.registerBlock(Bygone.MOD_ID, name, true, block);

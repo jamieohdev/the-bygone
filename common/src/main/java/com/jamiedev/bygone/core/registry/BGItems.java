@@ -121,7 +121,10 @@ public class BGItems
     public static final Supplier<Item> POULTRY = registerItem("poultry", () -> new Item(new Item.Properties().food(Foods.CHICKEN)));
     public static final Supplier<Item> COOKED_POULTRY = registerItem("cooked_poultry", () -> new Item(new Item.Properties().food(Foods.COOKED_CHICKEN)));
 
-    public static final Supplier<Item> BRONZE_BUCKET = registerItem((String)"bronze_bucket", () -> new BucketItem(BGFluids.BRONZE_STILL.get(), (new Item.Properties()).craftRemainder(BUCKET).stacksTo(1)));
+    //public static final Supplier<Item> BRONZE_BUCKET = registerItem((String)"bronze_bucket", () -> new BucketItem(BGFluids.BRONZE_STILL.get(), (new Item.Properties()).craftRemainder(BUCKET).stacksTo(1)));
+
+    public static final Supplier<Item> LITHOPLASM = registerItem("lithoplasm", () -> new Item(new Item.Properties().fireResistant()));
+
 
     public static void addItemsToItemGroup() {
 

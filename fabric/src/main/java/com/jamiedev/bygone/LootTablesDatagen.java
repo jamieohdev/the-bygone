@@ -1,19 +1,17 @@
-package com.jamiedev.bygone.core.datagen;
+package com.jamiedev.bygone;
 
-import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.core.registry.BGBlocks;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.level.block.Block;
 
-import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
-public class BygoneBlockLootSubProvider extends BlockLootSubProvider {
-
-
-    protected BygoneBlockLootSubProvider(HolderLookup.Provider pRegistries) {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), pRegistries);
+public class LootTablesDatagen  extends FabricBlockLootTableProvider
+{
+    // i hate you so much datagen
+    protected LootTablesDatagen(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        super(dataOutput, registryLookup);
     }
 
     @Override
@@ -46,6 +44,4 @@ public class BygoneBlockLootSubProvider extends BlockLootSubProvider {
         dropSelf(BGBlocks.TARNISHED_VERDIGRIS_COG.get());
         dropSelf(BGBlocks.PRISTINE_VERDIGRIS_COG.get());
     }
-
-
 }

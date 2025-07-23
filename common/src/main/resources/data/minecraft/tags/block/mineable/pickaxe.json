@@ -90,6 +90,11 @@
     "bygone:chiseled_polished_byslate",
     "bygone:polished_byslate_shingles",
     "bygone:verdigris_block",
-    "bygone:verdigris_scrap_block"
+    "bygone:verdigris_scrap_block",
+    "bygone:lithine_ore",
+    "bygone:lithine:lamp",
+    "bygone:megaith_block",
+    "bygone:megaith_face",
+    "bygone:megaith_lantern"
   ]
 }
