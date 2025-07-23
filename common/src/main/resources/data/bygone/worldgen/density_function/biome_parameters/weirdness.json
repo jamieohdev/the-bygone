@@ -4,8 +4,8 @@
     "type": "minecraft:cache_2d",
     "argument": {
       "type": "minecraft:noise",
-      "noise": "bygone:caves/spaghetti_depth",
-      "xz_scale": 0.3,
+      "noise": "bygone:biome_parameters/weirdness",
+      "xz_scale": 0.25,
       "y_scale": 0
     }
   }

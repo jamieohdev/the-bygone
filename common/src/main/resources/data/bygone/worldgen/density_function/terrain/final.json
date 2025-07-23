@@ -3,7 +3,11 @@
   "argument1": {
     "type": "minecraft:min",
     "argument1": "bygone:terrain/base_3d_noise",
-    "argument2": "bygone:caves/spaghetti"
+    "argument2": {
+      "type": "minecraft:min",
+      "argument1": "bygone:caves/aquifers",
+      "argument2": "bygone:caves/spaghetti"
+    }
   },
   "argument2": "bygone:caves/pillars"
 }
