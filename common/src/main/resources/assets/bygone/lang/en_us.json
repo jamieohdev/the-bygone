@@ -47,6 +47,7 @@
   "item.bygone.coelacanth_spawn_egg": "Coelacanth Spawn Egg",
   "item.bygone.copperbug_spawn_egg": "Copperbug Spawn Egg",
   "item.bygone.fungal_parent_spawn_egg": "Fungal Being Spawn Egg",
+  "item.bygone.lithy_spawn_egg": "Lithy Spawn Egg",
   "item.bygone.mooboo_spawn_egg": "Mooboo Spawn Egg",
   "item.bygone.nectaur_spawn_egg": "Nectaur Spawn Egg",
   "item.bygone.pesky_spawn_egg": "Pesky Spawn Egg",
@@ -54,6 +55,8 @@
   "item.bygone.scuttle_spawn_egg": "Scuttle Spawn Egg",
   "item.bygone.trilobite_spawn_egg": "Trilobite Spawn Egg",
   "item.bygone.whiskbill_spawn_egg": "Whiskbill Spawn Egg",
+  "item.bygone.wisp_spawn_egg": "Whisp Spawn Egg",
+  "item.bygone.wraith_spawn_egg": "Wraith Spawn Egg",
   "item.bygone.arcane_core": "Arcane Core",
   "item.bygone.verdigris_ingot": "Verdigris Ingot",
   "item.bygone.verdigris_scrap": "Verdigris Scrap",
@@ -61,6 +64,7 @@
   "item.bygone.verdigris_bow": "Verdigris Bow",
   "item.bygone.poultry": "Poultry",
   "item.bygone.cooked_poultry": "Cooked Poultry",
+  "item.bygone.lithoplasm": "Lithoplasm",
 
   "trim_material.bygone.verdigris": "Verdigris Material",
 
@@ -282,6 +286,37 @@
   "block.bygone.purple_fungi_vines" : "Purple Fungi Vines",
   "item.bygone.purple_fungi_vines" : "Purple Fungi Vines",
 
+  "block.bygone.megalith_block" : "Megalith Block",
+  "block.bygone.megalith_face" : "Megalith Face",
+  "block.bygone.megalith_lantern" : "Megalith Lantern",
+
+  "block.bygone.amphora" : "Amphora",
+  "block.bygone.black_amphora" : "Black Amphora",
+  "block.bygone.blue_amphora" : "Blue Amphora",
+  "block.bygone.brown_amphora" : "Brown Amphora",
+  "block.bygone.cyan_amphora" : "Cyan Amphora",
+  "block.bygone.gilded_amphora" : "Gilded Amphora",
+  "block.bygone.gray_amphora" : "Gray Amphora",
+  "block.bygone.green_amphora" : "Green Amphora",
+  "block.bygone.light_blue_amphora" : "Light Blue Amphora",
+  "block.bygone.light_gray_amphora" : "Light Gray Amphora",
+  "block.bygone.lime_amphora" : "Lime Amphora",
+  "block.bygone.magenta_amphora" : "Magenta Amphora",
+  "block.bygone.orange_amphora" : "Orange Amphora",
+  "block.bygone.pink_amphora" : "Pink Amphora",
+  "block.bygone.purple_amphora" : "Purple Amphora",
+  "block.bygone.red_amphora" : "Red Amphora",
+  "block.bygone.white_amphora" : "White Amphora",
+  "block.bygone.yellow_amphora" : "Yellow Amphora",
+
+  "block.bygone.broken_verdigris_cog" : "Broken Verigris Cog",
+  "block.bygone.ramshackled_verdigris_cog" : "Ramshackled Verigris Cog",
+  "block.bygone.tarnished_verdigris_cog" : "Tarnished Verigris Cog",
+  "block.bygone.pristine_verdigris_cog" : "Pristine Verigris Cog",
+  "block.bygone.lithine_ore" : "Lithine Ore",
+  "block.bygone.lithine_lamp" : "Lithine Lamp",
+  "block.bygone.lithine_totem" : "Lithine Totem",
+
   "entity.bygone.ammonite": "Ammonite",
   "entity.bygone.big_beak": "Big Beak",
   "entity.bygone.coelacanth": "Coelacanth",
@@ -289,6 +324,7 @@
   "entity.bygone.duck": "Da Duck!",
   "entity.bygone.fungal_parent": "Fungal Being",
   "entity.bygone.glare": "Glare",
+  "entity.bygone.lithy": "Lithy",
   "entity.bygone.hydropus": "Hydropus",
   "entity.bygone.mooboo": "Mooboo",
   "entity.bygone.nectaur": "Nectaur",
@@ -298,6 +334,8 @@
   "entity.bygone.scuttle": "Scuttle",
   "entity.bygone.scuttle_spike": "Scuttle's Spike",
   "entity.bygone.whiskbill": "Whiskbill",
+  "entity.bygone.wisp": "Wisp",
+  "entity.bygone.wraith": "Wraith",
 
   "structure.bygone.ancient_roots": "Ancient Roots",
   "structure.bygone.ruin": "Blemished Ruins",
@@ -367,6 +405,8 @@
   "subtitles.entity.hook.retrieve" : "Ancient Hook retrieved",
   "subtitles.entity.hook.hit" : "Ancient Hook hits",
   "subtitles.entity.hook.throw" : "Ancient Hook thrown",
+
+  "subtitles.ambient.sound" : "Eerie noise",
 
   "itemGroup.test": "The Bygone"
 }

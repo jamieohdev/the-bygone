@@ -30,11 +30,8 @@
   },
   "features": [
     [],
-    [
-      "bygone:lake_bronze_underground",
-      "bygone:lake_bronze_surface"
-    ],
-    [],
+    ["bygone:lake_bronze_underground", "bygone:lake_bronze_surface"],
+    ["bygone:miniliths", "bygone:megaliths"],
     [],
     [],
     [],
@@ -59,29 +56,31 @@
     ],
     [],
     [
-
       "bygone:megalith_field_vegetation",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal"
     ]
   ],
   "has_precipitation": false,
-  "spawn_costs": {},
+  "spawn_costs": {
+    "bygone:lithy": {
+      "charge": 0.6,
+      "energy_budget": 0.18
+    }
+  },
   "spawners": {
     "ambient": [],
     "axolotls": [],
     "creature": [
       {
-        "type": "minecraft:strider",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 60
+        "type": "bygone:lithy",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 15
       }
     ],
     "misc": [],
-    "monster": [
-
-    ],
+    "monster": [],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

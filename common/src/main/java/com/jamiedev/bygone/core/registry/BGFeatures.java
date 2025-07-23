@@ -2,6 +2,7 @@ package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.worldgen.feature.*;
+import com.jamiedev.bygone.common.worldgen.feature.config.MegalithConfig;
 import com.jamiedev.bygone.common.worldgen.feature.config.SmallCloudConfig;
 import com.jamiedev.bygone.common.worldgen.structure.AncientForestVegetationFeature;
 import com.jamiedev.bygone.common.worldgen.structure.AncientForestVegetationFeatureConfig;
@@ -43,6 +44,8 @@ public class BGFeatures
 
     public static  final Feature<NoneFeatureConfiguration> SHELF_FUNGI = register("shelf_fungi", new ShelfFungiFeature(NoneFeatureConfiguration.CODEC));
     public static  final Feature<NoneFeatureConfiguration> FUNGI_VINES = register("fungi_vines", new TestFungiVineFeature(NoneFeatureConfiguration.CODEC));
+
+    public static final Feature<MegalithConfig> MEGALITH = register("megalith", new MegalithFeature(MegalithConfig.CODEC));
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> F register(String name, F feature) {
         return Registry.register(BuiltInRegistries.FEATURE, Bygone.id(name), feature);

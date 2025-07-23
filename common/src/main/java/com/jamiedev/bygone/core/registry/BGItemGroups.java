@@ -53,12 +53,17 @@ public class BGItemGroups {
                 output.accept(BGItems.GOLD_BIG_BEAK_ARMOR.get());
                 output.accept(BGItems.IRON_BIG_BEAK_ARMOR.get());
                 output.accept(BGItems.DIAMOND_BIG_BEAK_ARMOR.get());
+
                 output.accept(BGItems.VERDIGRIS_SCRAP.get());
                 output.accept(BGItems.VERDIGRIS_INGOT.get());
                 output.accept(BGBlocks.VERDIGRIS_SCRAP_BLOCK.get());
                 output.accept(BGBlocks.VERDIGRIS_BLOCK.get());
                 output.accept(BGItems.VERDIGRIS_BLADE.get());
                 output.accept(BGItems.VERDIGRIS_BOW.get());
+                output.accept(BGBlocks.BROKEN_VERDIGRIS_COG.get());
+                output.accept(BGBlocks.RAMSHACKLED_VERDIGRIS_COG.get());
+                output.accept(BGBlocks.TARNISHED_VERDIGRIS_COG.get());
+                output.accept(BGBlocks.PRISTINE_VERDIGRIS_COG.get());
 
 
                 output.accept(BGBlocks.BYGONE_PORTAL_FRAME_BLOCK.get());
@@ -252,9 +257,32 @@ public class BGItemGroups {
                 output.accept(BGBlocks.SHELF_SPROUTS.get());
 
 
+                output.accept(BGItems.LITHOPLASM.get());
                 output.accept(BGBlocks.MEGALITH_BLOCK.get());
                 output.accept(BGBlocks.MEGALITH_FACE.get());
                 output.accept(BGBlocks.MEGALITH_LANTERN.get());
+                output.accept(BGBlocks.LITHINE_LAMP.get());
+                output.accept(BGBlocks.LITHINE_ORE.get());
+
+                output.accept(BGBlocks.AMPHORA.get());
+                output.accept(BGBlocks.GILDED_AMPHORA.get());
+                output.accept(BGBlocks.WHITE_AMPHORA.get());
+                output.accept(BGBlocks.LIGHT_GRAY_AMPHORA.get());
+                output.accept(BGBlocks.GRAY_AMPHORA.get());
+                output.accept(BGBlocks.BLACK_AMPHORA.get());
+                output.accept(BGBlocks.BROWN_AMPHORA.get());
+                output.accept(BGBlocks.RED_AMPHORA.get());
+                output.accept(BGBlocks.ORANGE_AMPHORA.get());
+                output.accept(BGBlocks.YELLOW_AMPHORA.get());
+                output.accept(BGBlocks.LIME_AMPHORA.get());
+                output.accept(BGBlocks.GREEN_AMPHORA.get());
+                output.accept(BGBlocks.CYAN_AMPHORA.get());
+                output.accept(BGBlocks.LIGHT_BLUE_AMPHORA.get());
+                output.accept(BGBlocks.BLUE_AMPHORA.get());
+                output.accept(BGBlocks.PURPLE_AMPHORA.get());
+                output.accept(BGBlocks.MAGENTA_AMPHORA.get());
+                output.accept(BGBlocks.PINK_AMPHORA.get());
+
             })
             .title(Component.translatable("itemGroup.test"))
             .build());

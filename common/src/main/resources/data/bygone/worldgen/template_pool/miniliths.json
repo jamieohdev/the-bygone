@@ -2,51 +2,6 @@
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 1,
-      "element": {
-        "location": "bygone:miniliths/minilith_1x2",
-        "projection": "terrain_matching",
-        "processors": "bygone:randomize_miniliths",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
-      "weight": 5,
-      "element": {
-        "location": "bygone:miniliths/minilith_1x3",
-        "projection": "terrain_matching",
-        "processors": "bygone:randomize_miniliths",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
-      "weight": 6,
-      "element": {
-        "location": "bygone:miniliths/minilith_1x3",
-        "projection": "terrain_matching",
-        "processors": "bygone:randomize_miniliths",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
-      "weight": 7,
-      "element": {
-        "location": "bygone:miniliths/minilith_1x4",
-        "projection": "terrain_matching",
-        "processors": "bygone:randomize_miniliths",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
-      "weight": 8,
-      "element": {
-        "location": "bygone:miniliths/minilith_1x5",
-        "projection": "terrain_matching",
-        "processors": "bygone:randomize_miniliths",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
       "weight": 15,
       "element": {
         "location": "bygone:miniliths/minilith_2x",

@@ -31,8 +31,7 @@
           }
         },
         {
-          "reserved_for": "bygone:monolith_fields",
-          "biome": "bygone:amber_desert",
+          "biome": "bygone:megalith_field",
           "parameters": {
             "continentalness": [-0.35, 1],
             "humidity": [-1, -0.15],

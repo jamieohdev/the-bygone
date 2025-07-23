@@ -1,0 +1,35 @@
+{
+  "feature": {
+    "type": "bygone:megalith",
+    "config": {
+      "size_x": 3,
+      "size_y": {
+        "type": "minecraft:biased_to_bottom",
+        "min_inclusive": 7,
+        "max_inclusive": 9
+      },
+      "size_z": 3,
+      "megalith_blocks": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "bygone:byslate"
+        }
+      },
+      "erosion_chance": 0.95,
+      "max_erosion_depth": 3,
+      "fallen_block_count": {
+        "type": "minecraft:biased_to_bottom",
+        "min_inclusive": 1,
+        "max_inclusive": 2
+      },
+      "floating_block_count": {
+        "type": "minecraft:biased_to_bottom",
+        "min_inclusive": 1,
+        "max_inclusive": 2
+      },
+      "fallen_block_search_range": 16,
+      "can_replace_blocks": false
+    }
+  },
+  "placement": []
+}

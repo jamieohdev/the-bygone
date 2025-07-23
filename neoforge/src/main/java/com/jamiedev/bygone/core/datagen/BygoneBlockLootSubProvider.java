@@ -18,35 +18,34 @@ public class BygoneBlockLootSubProvider extends BlockLootSubProvider {
 
     @Override
     public void generate() {
-        dropSelf(BGBlocks.POLISHED_BYSTONE.get());
-        dropSelf(BGBlocks.POLISHED_BYSTONE_SLAB.get());
-        dropSelf(BGBlocks.POLISHED_BYSTONE_STAIRS.get());
-        dropSelf(BGBlocks.POLISHED_BYSTONE_WALL.get());
+        dropSelf(BGBlocks.MEGALITH_BLOCK.get());
+        dropWhenSilkTouch(BGBlocks.MEGALITH_FACE.get());
+        dropWhenSilkTouch(BGBlocks.MEGALITH_LANTERN.get());
 
-        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK.get());
-        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.get());
-        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK_STAIRS.get());
-        dropSelf(BGBlocks.POLISHED_BYSTONE_BRICK_WALL.get());
+        dropSelf(BGBlocks.AMPHORA.get());
+        dropSelf(BGBlocks.BLACK_AMPHORA.get());
+        dropSelf(BGBlocks.BLUE_AMPHORA.get());
+        dropSelf(BGBlocks.BROWN_AMPHORA.get());
+        dropSelf(BGBlocks.GILDED_AMPHORA.get());
+        dropSelf(BGBlocks.CYAN_AMPHORA.get());
+        dropSelf(BGBlocks.GRAY_AMPHORA.get());
+        dropSelf(BGBlocks.GREEN_AMPHORA.get());
+        dropSelf(BGBlocks.LIGHT_BLUE_AMPHORA.get());
+        dropSelf(BGBlocks.LIGHT_GRAY_AMPHORA.get());
+        dropSelf(BGBlocks.LIME_AMPHORA.get());
+        dropSelf(BGBlocks.MAGENTA_AMPHORA.get());
+        dropSelf(BGBlocks.ORANGE_AMPHORA.get());
+        dropSelf(BGBlocks.PINK_AMPHORA.get());
+        dropSelf(BGBlocks.PURPLE_AMPHORA.get());
+        dropSelf(BGBlocks.RED_AMPHORA.get());
+        dropSelf(BGBlocks.WHITE_AMPHORA.get());
+        dropSelf(BGBlocks.YELLOW_AMPHORA.get());
 
-        dropSelf(BGBlocks.CHISELED_POLISHED_BYSTONE.get());
-        dropSelf(BGBlocks.POLISHED_BYSTONE_SHINGLES.get());
-
-        dropSelf(BGBlocks.POLISHED_BYSLATE.get());
-        dropSelf(BGBlocks.POLISHED_BYSLATE_SLAB.get());
-        dropSelf(BGBlocks.POLISHED_BYSLATE_STAIRS.get());
-        dropSelf(BGBlocks.POLISHED_BYSLATE_WALL.get());
-
-        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK.get());
-        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK_SLAB.get());
-        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK_STAIRS.get());
-        dropSelf(BGBlocks.POLISHED_BYSLATE_BRICK_WALL.get());
-
-        dropSelf(BGBlocks.CHISELED_POLISHED_BYSLATE.get());
-        dropSelf(BGBlocks.POLISHED_BYSLATE_SHINGLES.get());
+        dropSelf(BGBlocks.BROKEN_VERDIGRIS_COG.get());
+        dropSelf(BGBlocks.RAMSHACKLED_VERDIGRIS_COG.get());
+        dropSelf(BGBlocks.TARNISHED_VERDIGRIS_COG.get());
+        dropSelf(BGBlocks.PRISTINE_VERDIGRIS_COG.get());
     }
 
-    @Override
-    protected Iterable<Block> getKnownBlocks() {
-        return Bygone.getKnownBlocks().toList();
-    }
+
 }

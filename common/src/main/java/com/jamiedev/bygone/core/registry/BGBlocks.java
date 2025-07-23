@@ -1,7 +1,9 @@
 package com.jamiedev.bygone.core.registry;
 
+
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.block.*;
+import com.jamiedev.bygone.common.block.cogs.BaseVerdigrisCogBlock;
 import com.jamiedev.bygone.common.block.gourds.GourdDangoBlock;
 import com.jamiedev.bygone.common.block.gourds.GourdDangoWallBlock;
 import com.jamiedev.bygone.common.block.gourds.GourdLanternBlock;
@@ -17,19 +19,23 @@ import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 import static net.minecraft.world.level.block.Blocks.DIRT;
 
 public class BGBlocks {
-    Blocks ref1;
+Blocks ref;
     public static final Supplier<Block> POLISHED_BYSTONE = registerBlock("polished_bystone", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
 
@@ -695,7 +701,7 @@ public class BGBlocks {
             .pushReaction(PushReaction.DESTROY)));
 
     public static final Supplier<Block> MEGALITH_BLOCK = registerBlock("megalith_block", () ->
-            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+            new MegalithLanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
     public static final Supplier<Block> MEGALITH_FACE = registerBlock("megalith_face", () ->
             new MegalithLanternBlock((BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
@@ -705,6 +711,96 @@ public class BGBlocks {
                     .strength(1.5F, 6.0F).lightLevel((state) -> {
                         return 12;
                     })));
+    public static final Supplier<Block> AMPHORA = registerBlock("amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_BLUE).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> BLACK_AMPHORA = registerBlock("black_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_BLUE).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> BLUE_AMPHORA = registerBlock("blue_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_BLUE).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> BROWN_AMPHORA = registerBlock("brown_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_BROWN).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> CYAN_AMPHORA = registerBlock("cyan_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_BROWN).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> GILDED_AMPHORA = registerBlock("gilded_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_BROWN).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> GRAY_AMPHORA = registerBlock("gray_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_BROWN).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> GREEN_AMPHORA = registerBlock("green_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_GREEN).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> LIGHT_BLUE_AMPHORA = registerBlock("light_blue_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_GREEN).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> LIGHT_GRAY_AMPHORA = registerBlock("light_gray_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_GREEN).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> LIME_AMPHORA = registerBlock("lime_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_LIGHT_GREEN).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> MAGENTA_AMPHORA = registerBlock("magenta_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_MAGENTA).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> ORANGE_AMPHORA = registerBlock("orange_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_ORANGE).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> PINK_AMPHORA = registerBlock("pink_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_PURPLE).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> PURPLE_AMPHORA = registerBlock("purple_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_PURPLE).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> RED_AMPHORA = registerBlock("red_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_PURPLE).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> WHITE_AMPHORA = registerBlock("white_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_WHITE).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> YELLOW_AMPHORA = registerBlock("yellow_amphora", () -> new AmphoraBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.TERRACOTTA_WHITE).strength(0.0F, 0.0F)
+            .pushReaction(PushReaction.DESTROY).noOcclusion()));
+
+    public static final Supplier<Block> BROKEN_VERDIGRIS_COG = registerBlock("broken_verdigris_cog", () ->
+            new BaseVerdigrisCogBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GREEN).replaceable().noCollission().randomTicks().strength(0.2F).sound(SoundType.METAL).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> RAMSHACKLED_VERDIGRIS_COG = registerBlock("ramshackled_verdigris_cog", () ->
+            new BaseVerdigrisCogBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GREEN).replaceable().noCollission().randomTicks().strength(0.2F).sound(SoundType.METAL).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> TARNISHED_VERDIGRIS_COG = registerBlock("tarnished_verdigris_cog", () ->
+            new BaseVerdigrisCogBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GREEN).replaceable().noCollission().randomTicks().strength(0.2F).sound(SoundType.METAL).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> PRISTINE_VERDIGRIS_COG = registerBlock("pristine_verdigris_cog", () ->
+            new BaseVerdigrisCogBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GREEN).replaceable().noCollission().randomTicks().strength(0.2F).sound(SoundType.METAL).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+
+    public static final Supplier<Block> LITHINE_ORE = registerBlock("lithine_ore", () ->
+            new LithineOreBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().randomTicks().lightLevel(litBlockEmission(9)).strength(3.0F, 3.0F)));
+
+    public static final Supplier<Block> LITHINE_LAMP = registerBlock("lithine_lamp", () ->
+            new RedstoneLampBlock(BlockBehaviour.Properties.of().lightLevel(litBlockEmission(15)).strength(0.3F).sound(SoundType.GLASS).isValidSpawn(Blocks::always)));
+
+    private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
+        return (p_50763_) -> (Boolean)p_50763_.getValue(BlockStateProperties.LIT) ? lightValue : 0;
+    }
 
     private static Supplier<Block> registerBlock(String name,  Supplier<Block> block) {
         return JinxedRegistryHelper.registerBlock(Bygone.MOD_ID, name, true, block);

@@ -10,7 +10,8 @@
     "FarmlandBlockMixin",
     "LivingEntityMixin",
     "MapItemMixin",
-    "PlayerMixin"
+    "PlayerMixin",
+    "ServerLevelMixin"
   ],
   "client": [
     "client.BipedEntityModelMixin",

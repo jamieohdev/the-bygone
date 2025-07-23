@@ -42,7 +42,6 @@ public class JamiesModModelLayers {
 
     public static final ModelLayerLocation BIG_BEAK = new ModelLayerLocation(Bygone.id("big_beak"), "main");
     public static final ModelLayerLocation BIG_BEAK_SADDLE =  new ModelLayerLocation(Bygone.id("big_beak"), "saddle");
-
     public static final ModelLayerLocation BIG_BEAK_ARMOR =  new ModelLayerLocation(Bygone.id("big_beak"), "armor");
 
     public static final ModelLayerLocation WHISKBILL =
@@ -56,4 +55,13 @@ public class JamiesModModelLayers {
 
     public static final ModelLayerLocation PESKY =
             new ModelLayerLocation(Bygone.id("pesky"), "main");
+
+    public static final ModelLayerLocation LITHY =
+            new ModelLayerLocation(Bygone.id("lithy"), "main");
+
+    public static final ModelLayerLocation WISP =
+            new ModelLayerLocation(Bygone.id("wisp"), "main");
+
+    public static final ModelLayerLocation WRAITH =
+            new ModelLayerLocation(Bygone.id("wraith"), "main");
 }

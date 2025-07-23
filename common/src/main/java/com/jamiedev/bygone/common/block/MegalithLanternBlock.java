@@ -1,11 +1,16 @@
 package com.jamiedev.bygone.common.block;
 
 import com.jamiedev.bygone.core.registry.BGBlocks;
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -55,6 +60,17 @@ public class MegalithLanternBlock extends HorizontalDirectionalBlock {
         if (!oldState.is(state.getBlock())) {
             this.trySpawnGolem(level, pos);
         }
+    }
+
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (random.nextInt(1000) == 0) {
+            BlockState blockState = level.getBlockState(pos.above());
+            if (blockState.is(BGBlocks.MEGALITH_BLOCK.get()) || blockState.is(BGBlocks.MEGALITH_FACE.get())
+                    || blockState.is(BGBlocks.MEGALITH_LANTERN.get())) {
+                level.playLocalSound((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), BGSoundEvents.BLOCK_MEGALITH_BLOCK_IDLE_ADDITIONS_EVENT, SoundSource.AMBIENT, 1.0F, 1.0F, false);
+            }
+        }
+
     }
 
     public boolean canSpawnGolem(LevelReader level, BlockPos pos) {

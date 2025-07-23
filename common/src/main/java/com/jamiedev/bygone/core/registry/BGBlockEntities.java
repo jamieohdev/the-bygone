@@ -8,6 +8,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
+import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 
 import java.util.function.Supplier;
 
@@ -24,6 +25,7 @@ public class BGBlockEntities {
 
 
     public static Supplier<BlockEntityType<BlemishCatalystBlockEntity>> BLEMISH_CATALYST;
+    public static Supplier<BlockEntityType<AmphoraBlockEntity>> AMPHORA;
 
     public static Supplier<BlockEntityType<BrushableBlockEntity>> BRUSHABLE_BLOCK;
 
@@ -52,9 +54,16 @@ public class BGBlockEntities {
                 BlockEntityType.Builder.of(PrimordialUrchinEntity::new, BGBlocks.PRIMORDIAL_URCHIN.get())
                         .build(null));
 
-       // BRUSHABLE_BLOCK = register("brushable_block",
-        //        BlockEntityType.Builder.create(BygoneBrushableBlockEntity::new, SUSPICIOUS_AMBER_SAND)
-        //                .build());
+        AMPHORA = register("amphora", () ->
+                BlockEntityType.Builder.of(AmphoraBlockEntity::new,
+                                BGBlocks.AMPHORA.get(), BGBlocks.BLACK_AMPHORA.get(), BGBlocks.BLUE_AMPHORA.get(),
+                                BGBlocks.BROWN_AMPHORA.get(), BGBlocks.CYAN_AMPHORA.get(), BGBlocks.GILDED_AMPHORA.get(),
+                                BGBlocks.GRAY_AMPHORA.get(), BGBlocks.GREEN_AMPHORA.get(), BGBlocks.LIGHT_BLUE_AMPHORA.get(),
+                                BGBlocks.LIGHT_GRAY_AMPHORA.get(), BGBlocks.LIME_AMPHORA.get(), BGBlocks.MAGENTA_AMPHORA.get(),
+                                BGBlocks.ORANGE_AMPHORA.get(), BGBlocks.PINK_AMPHORA.get(), BGBlocks.PURPLE_AMPHORA.get(),
+                                BGBlocks.RED_AMPHORA.get(), BGBlocks.WHITE_AMPHORA.get(), BGBlocks.YELLOW_AMPHORA.get())
+                        .build(null));
+
         BYGONE_PORTAL =  register(
                 "bygone_portal", () ->
                 BlockEntityType.Builder.of(BygonePortalBlockEntity::new, BGBlocks.BYGONE_PORTAL.get()).build(null));

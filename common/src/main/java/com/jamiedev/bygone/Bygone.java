@@ -88,6 +88,9 @@ public class Bygone {
         consumer.accept(BGEntityTypes.PEST.get(), PestEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.WHISKBILL.get(), WhiskbillEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.NECTAUR.get(), NectaurEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.LITHY.get(), LithyEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.WISP.get(), WispEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.WRAITH.get(), WraithEntity.createAttributes().build());
     }
 
 
@@ -104,6 +107,9 @@ public class Bygone {
         consumer.accept((EntityType<T>) BGEntityTypes.PEST.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.NECTAUR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, BigBeakEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.WHISKBILL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, BigBeakEntity::canSpawn);
+        consumer.accept((EntityType<T>) BGEntityTypes.LITHY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
+        consumer.accept((EntityType<T>) BGEntityTypes.WISP.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
+        consumer.accept((EntityType<T>) BGEntityTypes.WRAITH.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
     }
 
     public static void addValidBlocks(BiConsumer<BlockEntityType<?>, Block> consumer) {

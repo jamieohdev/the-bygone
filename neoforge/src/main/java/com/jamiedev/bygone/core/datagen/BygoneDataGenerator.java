@@ -22,19 +22,19 @@ public class BygoneDataGenerator  {
 		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 		PackOutput output = generator.getPackOutput();
 		BlockTagsProvider blockTagsProvider = new BygoneBlockTagProvider(output,lookupProvider,existingFileHelper);
-		generator.addProvider(true,blockTagsProvider);
-		generator.addProvider(true,new BygoneItemTagProvider(output,lookupProvider,blockTagsProvider.contentsGetter(),existingFileHelper));
-		//generator.addProvider(true,BygoneLootTableProvider.create(output,lookupProvider));
-		generator.addProvider(true, new BygoneRecipeProvider(output,lookupProvider));
+		//generator.addProvider(true,blockTagsProvider);
+		//generator.addProvider(true,new BygoneItemTagProvider(output,lookupProvider,blockTagsProvider.contentsGetter(),existingFileHelper));
+		generator.addProvider(true,BygoneLootTableProvider.create(output,lookupProvider));
+		//generator.addProvider(true, new BygoneRecipeProvider(output,lookupProvider));
 
-		generator.addProvider(true,new BygoneDataPackProvider(output,buildRegistry(),lookupProvider));
+		//generator.addProvider(true,new BygoneDataPackProvider(output,buildRegistry(),lookupProvider));
 	}
 
 	public static RegistrySetBuilder buildRegistry() {
 		RegistrySetBuilder registryBuilder =new RegistrySetBuilder();
-		registryBuilder.add(Registries.CONFIGURED_FEATURE, BGConfiguredFeatures::bootstrap);
-		registryBuilder.add(Registries.PLACED_FEATURE, BGPlacedFeatures::bootstrap);
-		registryBuilder.add(Registries.BIOME, BGBiomes::bootstrap);
+		//registryBuilder.add(Registries.CONFIGURED_FEATURE, BGConfiguredFeatures::bootstrap);
+		//registryBuilder.add(Registries.PLACED_FEATURE, BGPlacedFeatures::bootstrap);
+		//registryBuilder.add(Registries.BIOME, BGBiomes::bootstrap);
 
 		/**registryBuilder.addRegistry(RegistryKeys.PROCESSOR_LIST, JamiesModProcessorLists::bootstrap);
 		registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, JamiesModStructureSets::bootstrap);

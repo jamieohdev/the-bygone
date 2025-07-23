@@ -116,6 +116,30 @@ public class BygoneClient {
         consumer.accept(BGBlocks.POINTED_AMBER.get(), RenderType.cutout());
         consumer.accept(BGBlocks.CREOSOTE.get(), RenderType.cutout());
         consumer.accept(BGBlocks.CREOSOTE_SPROUTS.get(), RenderType.cutout());
+
+        consumer.accept(BGBlocks.AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.BLACK_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.BLUE_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.BROWN_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.CYAN_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.GILDED_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.GRAY_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.GREEN_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.LIGHT_BLUE_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.LIGHT_GRAY_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.LIME_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.MAGENTA_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.ORANGE_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PINK_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PURPLE_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.RED_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.WHITE_AMPHORA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.YELLOW_AMPHORA.get(), RenderType.cutout());
+
+        consumer.accept(BGBlocks.PRISTINE_VERDIGRIS_COG.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.TARNISHED_VERDIGRIS_COG.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.BROKEN_VERDIGRIS_COG.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.RAMSHACKLED_VERDIGRIS_COG.get(), RenderType.cutout());
     }
 
     public static void createEntityRenderers() {
@@ -138,6 +162,9 @@ public class BygoneClient {
         EntityRenderers.register(BGEntityTypes.PESKY.get(), PeskyRenderer::new);
         EntityRenderers.register(BGEntityTypes.WHISKBILL.get(), WhiskbillRenderer::new);
         EntityRenderers.register(BGEntityTypes.NECTAUR.get(), NectaurRenderer::new);
+        EntityRenderers.register(BGEntityTypes.LITHY.get(), LithyRenderer::new);
+        EntityRenderers.register(BGEntityTypes.WISP.get(), WispRenderer::new);
+        EntityRenderers.register(BGEntityTypes.WRAITH.get(), WraithRenderer::new);
     }
     
     public static void createModelLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> consumer) {
@@ -157,6 +184,9 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.PESKY, PestModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WHISKBILL, WhiskbillModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.NECTAUR, NectaurModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.LITHY, LithyModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.WISP, WispModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.WRAITH, WraithModel::getTexturedModelData);
     }
 
     public static void registerModelPredicateProviders() {
@@ -195,6 +225,8 @@ public class BygoneClient {
 
         consumer.accept((ParticleType<T>) BGParticleTypes.AMBER_DUST, spriteProvider -> (ParticleProvider<T>) new AmberDustParticle.Factory(spriteProvider));
         consumer.accept((ParticleType<T>) BGParticleTypes.ANCIENT_LEAVES, spriteProvider -> (ParticleProvider<T>) new AncientLeavesParticle.Factory(spriteProvider));
+        consumer.accept((ParticleType<T>) BGParticleTypes.UPSIDEDOWN, spriteProvider -> (ParticleProvider<T>) new UpsidedownDropParticle.Provider(spriteProvider));
+
     }
 
     public static boolean isWeaponBlocking(LivingEntity entity) {
