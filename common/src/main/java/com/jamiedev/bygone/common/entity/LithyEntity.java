@@ -85,7 +85,7 @@ public class LithyEntity extends Animal
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, (double)1.0F, true));
         this.goalSelector.addGoal(6, new FollowMobGoal(this, (double)1.0F, 10.0F, 2.0F));
-        this.goalSelector.addGoal(6, new FollowPlayerGoal(this, (double)1.0F, 10.0F, 2.0F));
+        this.goalSelector.addGoal(6, new FollowPlayerGoal(this, (double)1.0F, 10.0F, 4.0F));
 
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, (double)1.0F));
 
