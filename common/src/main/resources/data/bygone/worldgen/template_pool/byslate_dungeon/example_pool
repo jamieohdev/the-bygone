@@ -1,0 +1,300 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_a_1_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_b_1_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_c_1_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_d_1_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_a_2_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_b_2_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_c_2_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_d_2_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_a_3_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_b_3_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_c_3_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_d_3_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_a_4_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_b_4_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_c_4_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_d_4_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_a_5_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_b_5_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_c_5_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_d_5_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_a_6_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_b_6_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_c_6_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_d_6_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_a_7_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_b_7_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_c_7_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_d_7_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_a_8_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_b_8_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_c_8_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:byslate_dungeon/frames/byslate_dungeon_frame_d_8_highest",
+        "processors": "bygone:byslate_dungeon",
+        "projection": "rigid"
+      },
+      "weight": 1
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

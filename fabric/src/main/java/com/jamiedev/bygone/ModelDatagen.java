@@ -15,13 +15,6 @@ public class ModelDatagen extends FabricModelProvider
 
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
-        BlockModelGenerators.BlockFamilyProvider bystone_polished = blockStateModelGenerator.family(BGBlocks.AMBER_SANDSTONE.get());
-
-
-        bystone_polished.stairs(BGBlocks.AMBER_SANDSTONE_STAIRS.get());
-        bystone_polished.slab(BGBlocks.AMBER_SANDSTONE_SLAB.get());
-        bystone_polished.wall(BGBlocks.AMBER_SANDSTONE_WALL.get());
-
 
     }
 

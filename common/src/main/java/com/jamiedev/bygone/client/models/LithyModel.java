@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.client.models;
 
 import com.jamiedev.bygone.common.entity.LithyEntity;
+import com.jamiedev.bygone.core.mixin.client.BipedEntityModelMixin;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.*;
@@ -13,9 +14,12 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.monster.Zombie;
 
 public class LithyModel<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
+
+	ZombieModel ref;
 
 	private final ModelPart root;
 	private final ModelPart leg1;
@@ -62,7 +66,20 @@ public class LithyModel<T extends Entity> extends HierarchicalModel<T> {
 				}
 				//this.setupTripped(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 			}
+
+			if (!lithy.getTripped() && !lithy.jumpUp)
+			{
+				float f = 1.0F;
+                this.leg1.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f;
+				this.leg2.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount / f;
+				this.leg1.yRot = 0.005F;
+				this.leg2.yRot = -0.005F;
+				this.leg1.zRot = 0.005F;
+				this.leg2.zRot = -0.005F;
+			}
 		}
+
+
 	}
 
 	public void setupTripped(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {

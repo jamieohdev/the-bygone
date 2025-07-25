@@ -1,15 +1,18 @@
 {
   "type": "minecraft:range_choice",
-  "input": "bygone:in_primordial_ocean",
+  "input": "bygone:aquifers/util/in_primordial_ocean",
   "min_inclusive": 0,
   "max_exclusive": 1,
-  "when_in_range": 0,
-  "when_out_of_range": {
+  "comment": "in_primordial_ocean, use oceans/fluid_level_floodedness for aquifers",
+  "when_out_of_range": "bygone:aquifers/oceans/fluid_level_floodedness",
+  "when_in_range": {
     "type": "minecraft:range_choice",
-    "input": "minecraft:y",
-    "min_inclusive": -40,
-    "max_exclusive": 200,
-    "when_in_range": 0.8,
-    "when_out_of_range": 0
+    "input": "bygone:aquifers/util/in_desert",
+    "min_inclusive": 0,
+    "max_exclusive": 1,
+    "comment_1": "in_desert, no aquifers",
+    "when_out_of_range": 0,
+    "comment_2": "otherwise, use rivers",
+    "when_in_range": "bygone:aquifers/rivers/fluid_level_floodedness"
   }
 }

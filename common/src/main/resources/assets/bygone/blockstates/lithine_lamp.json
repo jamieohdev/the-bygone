@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "bygone:block/lithine_lamp"
+    },
+    "lit=true": {
+      "model": "bygone:block/lithine_lamp_on"
+    }
+  }
+}

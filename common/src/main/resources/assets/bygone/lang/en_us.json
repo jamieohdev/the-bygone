@@ -64,6 +64,7 @@
   "item.bygone.verdigris_bow": "Verdigris Bow",
   "item.bygone.poultry": "Poultry",
   "item.bygone.cooked_poultry": "Cooked Poultry",
+  "item.bygone.lithoplasm": "Lithoplasm",
 
   "trim_material.bygone.verdigris": "Verdigris Material",
 
@@ -307,6 +308,14 @@
   "block.bygone.red_amphora" : "Red Amphora",
   "block.bygone.white_amphora" : "White Amphora",
   "block.bygone.yellow_amphora" : "Yellow Amphora",
+
+  "block.bygone.broken_verdigris_cog" : "Broken Verigris Cog",
+  "block.bygone.ramshackled_verdigris_cog" : "Ramshackled Verigris Cog",
+  "block.bygone.tarnished_verdigris_cog" : "Tarnished Verigris Cog",
+  "block.bygone.pristine_verdigris_cog" : "Pristine Verigris Cog",
+  "block.bygone.lithine_ore" : "Lithine Ore",
+  "block.bygone.lithine_lamp" : "Lithine Lamp",
+  "block.bygone.lithine_totem" : "Lithine Totem",
 
   "entity.bygone.ammonite": "Ammonite",
   "entity.bygone.big_beak": "Big Beak",

@@ -11,6 +11,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.animal.allay.Allay;
 
 import java.util.function.Supplier;
 
@@ -142,6 +143,15 @@ public class BGEntityTypes {
     public static final Supplier<EntityType<LithyEntity>> LITHY = registerEntityType("lithy", () ->
             EntityType.Builder.of(LithyEntity::new, MobCategory.CREATURE)
                     .sized(1.0F, 2.0F).build(""));
+
+    public static final Supplier<EntityType<WispEntity>> WISP = registerEntityType("wisp", () ->
+            EntityType.Builder.of(WispEntity::new, MobCategory.CREATURE)
+                    .sized(0.35F, 0.35F)
+                    .eyeHeight(0.36F)
+                    .ridingOffset(0.04F)
+                    .clientTrackingRange(8)
+                    .updateInterval(2)
+                    .build(""));
 
     public static final Supplier<EntityType<WraithEntity>> WRAITH = registerEntityType("wraith", () ->
             EntityType.Builder.of(WraithEntity::new, MobCategory.CREATURE)

@@ -163,6 +163,7 @@ public class BygoneClient {
         EntityRenderers.register(BGEntityTypes.WHISKBILL.get(), WhiskbillRenderer::new);
         EntityRenderers.register(BGEntityTypes.NECTAUR.get(), NectaurRenderer::new);
         EntityRenderers.register(BGEntityTypes.LITHY.get(), LithyRenderer::new);
+        EntityRenderers.register(BGEntityTypes.WISP.get(), WispRenderer::new);
         EntityRenderers.register(BGEntityTypes.WRAITH.get(), WraithRenderer::new);
     }
     
@@ -184,6 +185,7 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.WHISKBILL, WhiskbillModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.NECTAUR, NectaurModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.LITHY, LithyModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.WISP, WispModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WRAITH, WraithModel::getTexturedModelData);
     }
 
