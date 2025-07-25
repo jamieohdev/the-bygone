@@ -51,7 +51,7 @@ public class LithyEntity extends Animal
         builder.define(DATA_FLAGS_ID, (byte)0);
         builder.define(DATA_TRIPPED, false);
         builder.define(DATA_TRIPPED_TICK, 0);
-        builder.define(DATA_TRIP_COOLDOWN, 200 + this.random.nextInt(0, 200));
+        builder.define(DATA_TRIP_COOLDOWN, 3600 + this.random.nextInt(0, 1200));
     }
 
     @Override
@@ -108,7 +108,7 @@ public class LithyEntity extends Animal
                 if (this.entityData.get(DATA_TRIP_COOLDOWN) <= 0 && this.random.nextFloat() < 0.1) {
                     this.push(this.getDeltaMovement().add(0.0, 0.2, 0.0));
                     this.entityData.set(DATA_TRIPPED, true);
-                    this.entityData.set(DATA_TRIP_COOLDOWN, 200 + this.random.nextInt(0, 200));
+                    this.entityData.set(DATA_TRIP_COOLDOWN, 3600 + this.random.nextInt(0, 1200));
                     if (this.level().getServer() != null) {
                         LootTable loottable = this.level().getServer().reloadableRegistries().getLootTable(JamiesModLootTables.LITHY_TRIP_LOOT_TABLE);
                         List<ItemStack> list = loottable.getRandomItems(
