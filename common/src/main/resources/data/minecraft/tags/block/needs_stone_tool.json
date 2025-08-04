@@ -6,6 +6,18 @@
     "bygone:oceanstone",
     "bygone:byslate",
     "bygone:byslate_iron_ore",
-    "bygone:byslate_copper_ore"
+    "bygone:byslate_copper_ore",
+    "bygone:lithine_lamp",
+    "bygone:megalith_block",
+    "bygone:cracked_megalith_block",
+    "bygone:lit_cracked_megalith_block",
+    "bygone:angry_megalith_face",
+    "bygone:angry_megalith_lantern",
+    "bygone:cryptic_megalith_face",
+    "bygone:cryptic_megalith_lantern",
+    "bygone:hollow_megalith_face",
+    "bygone:hollow_megalith_lantern",
+    "bygone:megalith_face",
+    "bygone:megalith_lantern"
   ]
 }

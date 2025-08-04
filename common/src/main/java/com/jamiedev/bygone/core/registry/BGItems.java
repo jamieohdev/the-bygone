@@ -87,7 +87,7 @@ public class BGItems
 
     public static final Supplier<Item> FUNGALPARENT_SPAWN_EGG = registerItem("fungal_parent_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.FUNGAL_PARENT.get(), 0xf5f7e3, 0x3ed8fe, new Item.Properties()));
 
-
+    public static final Supplier<Item> LITHY_SPAWN_EGG = registerItem("lithy_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.LITHY.get(), 0x5C5B5A, 0x323232, new Item.Properties()));
     public static final Supplier<Item> MOOBOO_SPAWN_EGG = registerItem("mooboo_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.MOOBOO.get(), 0x5be3e8, 0xb2c7c8, new Item.Properties()));
     public static final Supplier<Item> PESKY_SPAWN_EGG = registerItem("pesky_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.PESKY.get(), 0x846B3C, 0xC66C11, new Item.Properties()));
     public static final Supplier<Item> PEST_SPAWN_EGG = registerItem("pest_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.PEST.get(), 0x846B3C, 0x6C8031, new Item.Properties()));
@@ -96,7 +96,7 @@ public class BGItems
     public static final Supplier<Item> WHISKBILL_SPAWN_EGG = registerItem("whiskbill_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.WHISKBILL.get(), 0x50692C, 0x70922D, new Item.Properties()));
     public static final Supplier<Item> NECTAUR_SPAWN_EGG = registerItem("nectaur_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.NECTAUR.get(), 0x50692C, 0x94262B, new Item.Properties()));
 
-    public static final Supplier<Item> ARCANE_CORE = registerItem("arcane_core", () -> new Item(new Item.Properties().fireResistant()));//((BlockItem)(new ArcaneCoreItem(JamiesModBlocks.ARCANE_CORE, new Item.Settings()))));
+    public static final Supplier<Item> ARCANE_CORE = registerItem("arcane_core", () -> ((BlockItem)(new ArcaneCoreItem(BGBlocks.ARCANE_CORE.get(), new Item.Properties()))));
 
     public static final Supplier<Item> VERDIGRIS_SCRAP = registerItem("verdigris_scrap", () -> new Item(new Item.Properties().fireResistant()));
     public static final Supplier<Item> VERDIGRIS_INGOT = registerItem("verdigris_ingot", () -> new Item(new Item.Properties().fireResistant()));

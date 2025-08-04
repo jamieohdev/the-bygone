@@ -287,6 +287,14 @@
   "item.bygone.purple_fungi_vines" : "Purple Fungi Vines",
 
   "block.bygone.megalith_block" : "Megalith Block",
+  "block.bygone.cracked_megalith_block" : "Cracked Megalith Block",
+  "block.bygone.lit_cracked_megalith_block" : "Lit Cracked Megalith Block",
+  "block.bygone.angry_megalith_face" : "Angry Megalith Face",
+  "block.bygone.angry_megalith_lantern" : "Angry Megalith Lantern",
+  "block.bygone.cryptic_megalith_face" : "Cryptic Megalith Face",
+  "block.bygone.cryptic_megalith_lantern" : "Cryptic Megalith Lantern",
+  "block.bygone.hollow_megalith_face" : "Hollow Megalith Face",
+  "block.bygone.hollow_megalith_lantern" : "Hollow Megalith Lantern",
   "block.bygone.megalith_face" : "Megalith Face",
   "block.bygone.megalith_lantern" : "Megalith Lantern",
 

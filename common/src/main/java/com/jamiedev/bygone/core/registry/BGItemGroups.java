@@ -259,6 +259,14 @@ public class BGItemGroups {
 
                 output.accept(BGItems.LITHOPLASM.get());
                 output.accept(BGBlocks.MEGALITH_BLOCK.get());
+                output.accept(BGBlocks.CRACKED_MEGALITH_BLOCK.get());
+                output.accept(BGBlocks.LIT_CRACKED_MEGALITH_BLOCK.get());
+                output.accept(BGBlocks.ANGRY_MEGALITH_FACE.get());
+                output.accept(BGBlocks.ANGRY_MEGALITH_LANTERN.get());
+                output.accept(BGBlocks.CRYPTIC_MEGALITH_FACE.get());
+                output.accept(BGBlocks.CRYPTIC_MEGALITH_LANTERN.get());
+                output.accept(BGBlocks.HOLLOW_MEGALITH_FACE.get());
+                output.accept(BGBlocks.HOLLOW_MEGALITH_LANTERN.get());
                 output.accept(BGBlocks.MEGALITH_FACE.get());
                 output.accept(BGBlocks.MEGALITH_LANTERN.get());
                 output.accept(BGBlocks.LITHINE_LAMP.get());

@@ -21,10 +21,21 @@
           "max_inclusive": 11
         },
         "provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "bygone:megalith_block"
-          }
+          "type": "minecraft:weighted_state_provider",
+          "entries": [
+            {
+              "weight": 5,
+              "data": {
+                "Name": "bygone:cracked_megalith_block"
+              }
+            },
+            {
+              "weight": 10,
+              "data": {
+                "Name": "bygone:megalith_block"
+              }
+            }
+          ]
         }
       },
       {
@@ -35,34 +46,106 @@
             {
               "weight": 3,
               "data": {
-                "Name": "bygone:megalith_lantern",
+                "Name": "bygone:angry_megalith_face",
                 "Properties": {
                   "facing": "north"
                 }
               }
             },
             {
-              "weight": 3,
+              "weight": 10,
               "data": {
-                "Name": "bygone:megalith_lantern",
+                "Name": "bygone:angry_megalith_face",
                 "Properties": {
                   "facing": "south"
                 }
               }
             },
             {
-              "weight": 3,
+              "weight": 10,
               "data": {
-                "Name": "bygone:megalith_lantern",
+                "Name": "bygone:angry_megalith_face",
                 "Properties": {
                   "facing": "east"
                 }
               }
             },
             {
-              "weight": 3,
+              "weight": 10,
               "data": {
-                "Name": "bygone:megalith_lantern",
+                "Name": "bygone:angry_megalith_face",
+                "Properties": {
+                  "facing": "west"
+                }
+              }
+            },
+            {
+              "weight": 2,
+              "data": {
+                "Name": "bygone:cryptic_megalith_face",
+                "Properties": {
+                  "facing": "north"
+                }
+              }
+            },
+            {
+              "weight": 2,
+              "data": {
+                "Name": "bygone:cryptic_megalith_face",
+                "Properties": {
+                  "facing": "south"
+                }
+              }
+            },
+            {
+              "weight": 2,
+              "data": {
+                "Name": "bygone:cryptic_megalith_face",
+                "Properties": {
+                  "facing": "east"
+                }
+              }
+            },
+            {
+              "weight": 2,
+              "data": {
+                "Name": "bygone:cryptic_megalith_face",
+                "Properties": {
+                  "facing": "west"
+                }
+              }
+            },
+            {
+              "weight": 2,
+              "data": {
+                "Name": "bygone:hollow_megalith_face",
+                "Properties": {
+                  "facing": "north"
+                }
+              }
+            },
+            {
+              "weight": 8,
+              "data": {
+                "Name": "bygone:hollow_megalith_face",
+                "Properties": {
+                  "facing": "south"
+                }
+              }
+            },
+            {
+              "weight": 8,
+              "data": {
+                "Name": "bygone:hollow_megalith_face",
+                "Properties": {
+                  "facing": "east"
+                }
+              }
+            },
+            {
+              "weight": 8,
+              "data": {
+                "Name": "bygone:hollow_megalith_face",
                 "Properties": {
                   "facing": "west"
                 }

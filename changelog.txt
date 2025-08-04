@@ -1,36 +1,94 @@
-## PLANNED FOR 1.3 / 1.4
+## **Updates in 1.4 Snapshot 2**
 
-* Primordial BEACH?
-* Primordial Ocean land vegetation
-* Portal mechanics?
-* GLARE improvements
-* Copperbug improvements
-* New structure?
+### We've appreciated all of the feedback so far, so we hope you
+### Enjoy this next batch of additions and changes!!
+
+## New features:
+* Added several Megalith Face and Lantern variants!
+* Added a Lit and Cracked variant of the Megalith Block!
+* Added Verdigris Cog functionality!
+* Added Amphora functionality!
+* Added Lithy Spawn Egg.
+* Added a "megalith_blocks" Block tag!
 
 
-> Fix Vines not being pick blockable
-> Fix Huge Underhang trees generating without leaves on occasion?
+## Changes to existing features:
+* Arcane Core block is now placeable!
+* Fungal Blocks and Fungal Bricks now have new textures!
+* Megalith Blocks, Faces, and Lanterns now have new textures!
+* Adjusted how much Lithys trip!
 
 
-## **Updates in 1.3.1**
+## Bugs fixed:
+* WHAT?
 
-### Our first post-1.3 patch is here with some tweaks and bug fixes!
-### As a note, beginning with this version, the Bygone will require Lithostitched!
 
-# New features in 1.3.1:
+## **Updates in 1.4 (Testing Build)**
+
+### Its time for a ~Summerween~ timed update!
+### This update is entirely themed around one biome, the Megalith Fields.
+### But we have snuck in a few other features, such as -Rivers- in the Bygone!
+### On the technical side, Lithostitched is now a dependancy for the Bygone.
+### Please join us in the official [Discord](https://discord.gg/DMW28XH235)!
+
+# New features in 1.4:
+# Added the Megalith Fields biome.
+# Added the Alphahang biome.
+# Added Rivers.
+# Added the Megalith Blockset.
+# Added the Lithine Ore and Lithine Lamps.
+# Added "Old Stone Blues", a new song from ZLD1 for the Megalith Fields.
+# Added the Lithy.
+# Added the Amphora.
+# Added the Verdigris Cogs.
 # Verdigris is now a trim material for Armors. (NOTE: Sprites are still bugged!)
 * Nectaurs now have a idle animation.
 * Lithostitiched is now a dependency for the Bygone.
 
+# Megalith Fields biome
+* Added the Megalith Fields biome, with strange Miniliths dotting its landscape, and large Megaliths in the distance.
+
+# Alphahang biome
+* Added the Alphahang biome, a warped take on the nostalgic days of old.
+
+# Rivers
+* Rivers will now stream through the more humid biomes of the Bygone.
+
+# Lithine
+* Added the Lithine Ore, which drops multiple Lithoplasm when destroyed.
+* Lithoplasm can be used to craft Lithine Lamps. (More uses will be coming in the future!!)
+
+# Lithy
+* Added the Lithy, a lovable slab that will occasionally trip and make the ground spit out some unique items.
+( We are looking for feedback with the Lithys loot table, please give us some feedback! )
+
+# Amphora
+* A colorful decorative block that can store up to eight buckets of Water!
+
+# Verdigris Cogs
+* (Currently) A decorative animated block.
+
+
 # Changes to existing features:
-* Test
+* Slightly reworked biome distribution to be on a closer scale to the nether.
+* Oceans have been given more open space.
+* Adjusted which songs play in which biomes, with every biome now having its own song.
+
 
 # Bug fixes:
+* Fixed Glares spiraling into the Void.
+* Fixed Mooboos.
 * Fixed Sand and Red Sand not being smeltable to Glass.
 * Fixed Whiskbills barely spawning.
 * Under Grass no longer "floats" under the block its placed.
 
+IN PROGRESS (And still in the Testing  Build):
+* Amphora Functionality.
+* Verdigris Cog Functionality.
+* Weather in the Bygone.
 
+FUTURE FEATURES PLANNED FOR 1.4:
+* A new structure.
 
 ## **Updates in 1.3**
 

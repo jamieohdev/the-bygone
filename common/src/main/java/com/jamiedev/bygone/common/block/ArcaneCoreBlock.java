@@ -9,6 +9,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -22,6 +23,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class ArcaneCoreBlock extends Block implements SimpleWaterloggedBlock {
     public static final MapCodec<ArcaneCoreBlock> CODEC = simpleCodec(ArcaneCoreBlock::new);
     private static final VoxelShape OUTLINE_SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 8.0, 12.0);
+
+    SkullBlock ref;
 
     public ArcaneCoreBlock(BlockBehaviour.Properties settings) {
         super(settings);

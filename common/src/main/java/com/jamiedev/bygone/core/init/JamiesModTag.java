@@ -16,6 +16,9 @@ public class JamiesModTag {
     public static final TagKey<Block> BIG_BEAK_SPAWNABLE_ON = Blocks.createTag("big_beak_spawnable_on");
     public static final TagKey<Block> GLARE_SPAWNABLE_ON = Blocks.createTag("glare_spawnable_on");
 
+
+    public static final TagKey<Block> MEGALITH_BLOCKS = Blocks.createTag("megalith_blocks");
+
     public static final TagKey<Block> SPRINKLERS = Blocks.createTag("sprinklers");
     public static final TagKey<Block> COPPER_BLOCKS_1 = Blocks.createTag("copper_blocks");
 

@@ -10,10 +10,21 @@
       },
       "size_z": 7,
       "megalith_blocks": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "bygone:byslate"
-        }
+        "type": "minecraft:weighted_state_provider",
+        "entries": [
+          {
+            "data": {
+              "Name": "bygone:byslate"
+            },
+            "weight": 10
+          },
+          {
+            "data": {
+              "Name": "bygone:lithine_ore"
+            },
+            "weight": 1
+          }
+        ]
       },
       "erosion_chance": 0.95,
       "max_erosion_depth": 6,

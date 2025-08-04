@@ -31,7 +31,7 @@
   "features": [
     [],
     ["bygone:lake_bronze_underground", "bygone:lake_bronze_surface"],
-    ["bygone:miniliths", "bygone:megaliths"],
+    ["bygone:miniliths", "bygone:miniliths_glowing", "bygone:megaliths"],
     [],
     [],
     [],
@@ -45,7 +45,6 @@
       "minecraft:brown_mushroom_nether",
       "minecraft:red_mushroom_nether",
       "minecraft:ore_magma",
-      "bygone:spring_bronze_closed",
       "bygone:ore_coal_upper",
       "bygone:ore_coal_lower",
       "bygone:ore_iron_upper",
@@ -69,18 +68,58 @@
     }
   },
   "spawners": {
-    "ambient": [],
+    "ambient": [
+
+    ],
     "axolotls": [],
     "creature": [
       {
         "type": "bygone:lithy",
         "maxCount": 4,
+        "minCount": 4,
+        "weight": 10
+      },
+      {
+        "type": "bygone:lithy",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 13
+      },
+      {
+        "type": "bygone:lithy",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 12
+      },
+
+      {
+        "type": "bygone:lithy",
+        "maxCount": 5,
         "minCount": 2,
-        "weight": 15
+        "weight": 4
       }
     ],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "bygone:lithy",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 13
+      },
+      {
+        "type": "bygone:lithy",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 15
+      },
+      {
+        "type": "bygone:lithy",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 8
+      }
+    ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []
