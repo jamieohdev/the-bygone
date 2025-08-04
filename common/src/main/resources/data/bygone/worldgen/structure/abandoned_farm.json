@@ -3,7 +3,7 @@
   "start_pool": "bygone:abandoned_farm",
   "size": 1,
   "max_distance_from_center": 80,
-  "biomes": "#bygone:has_structure/has_roots",
+  "biomes": "#bygone:has_structure/abandonded_farm",
   "spawn_overrides": {},
   "step": "surface_structures",
   "terrain_adaptation": "beard_box",
