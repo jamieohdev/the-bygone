@@ -1,6 +1,6 @@
 {
   "type": "bygone:bygone_fossil",
-  "biomes": "#bygone:has_structure/has_fossils",
+  "biomes": "#bygone:has_structure/fossil",
   "spawn_overrides": {},
   "step": "underground_decoration",
   "terrain_adaptation": "beard_thin",

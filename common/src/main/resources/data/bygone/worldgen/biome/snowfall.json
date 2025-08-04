@@ -42,10 +42,7 @@
       "minecraft:monster_room_deep",
       "bygone:small_cloud"
     ],
-    [
-      "minecraft:ice_spike",
-      "minecraft:ice_patch"
-    ],
+    ["minecraft:ice_spike", "minecraft:ice_patch"],
     [],
     [
       "bygone:ore_coal_upper",
@@ -58,13 +55,8 @@
     ],
     [],
     [],
-    [
-      "bygone:small_cloud",
-      "bygone:test_cloud"
-    ],
-    [
-      "minecraft:freeze_top_layer"
-    ]
+    ["bygone:small_cloud", "bygone:test_cloud"],
+    ["minecraft:freeze_top_layer"]
   ],
   "has_precipitation": true,
   "spawn_costs": {},
