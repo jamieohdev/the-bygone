@@ -71,9 +71,6 @@
     },
     "bygone:whirliweed": {
       "burn_time": 75
-    },
-    "minecraft:air": {
-      "burn_time": 200
     }
   }
 }
