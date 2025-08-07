@@ -2,7 +2,9 @@ package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.common.entity.ai.FollowPlayerGoal;
 import com.jamiedev.bygone.core.init.JamiesModLootTables;
+import com.jamiedev.bygone.core.registry.BGBlockEntities;
 import com.jamiedev.bygone.core.registry.BGBlocks;
+import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -10,6 +12,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -26,6 +29,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -84,8 +88,8 @@ public class LithyEntity extends Animal
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, (double)1.0F, true));
-        this.goalSelector.addGoal(6, new FollowMobGoal(this, (double)1.0F, 10.0F, 2.0F));
-        this.goalSelector.addGoal(6, new FollowPlayerGoal(this, (double)1.0F, 10.0F, 4.0F));
+        this.goalSelector.addGoal(6, new FollowMobGoal(this, (double)1.4F, 3.0F, 10.0F));
+        this.goalSelector.addGoal(6, new FollowPlayerGoal(this, (double)1.4F, 3.0F, 10.0F));
 
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, (double)1.0F));
 
@@ -97,6 +101,22 @@ public class LithyEntity extends Animal
     public void tick() {
         int trippedCooldown = this.entityData.get(DATA_TRIP_COOLDOWN);
         int tripTick = this.entityData.get(DATA_TRIPPED_TICK);
+
+        if (this.entityData.get(DATA_TRIPPED) && tripTick < 5) {
+            Vec3 startPos = this.position();
+            Vec3 lookAng = this.getLookAngle().normalize();
+            Vec3 endPos = startPos.add(lookAng.scale(2.0));
+
+            AABB rayBox = new AABB(startPos, endPos).inflate(1.0); // Inflating to 1 block radius
+
+            List<LivingEntity> livingEntities = this.level().getEntitiesOfClass(LivingEntity.class, rayBox, e ->
+                    e != this && e.isAlive() && e.getBoundingBox().intersects(rayBox) && !(e instanceof LithyEntity));
+
+            for (LivingEntity living : livingEntities) {
+                living.hurt(this.damageSources().cramming(), 30);
+            }
+
+        }
 
         if (this.jumpUp) {
             this.jumpUp = false;
