@@ -26,6 +26,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.TripWireBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -44,7 +47,9 @@ public class LithyEntity extends Animal
     protected static final EntityDataAccessor<Boolean> DATA_TRIPPED;
     protected static final EntityDataAccessor<Integer> DATA_TRIPPED_TICK;
     protected static final EntityDataAccessor<Integer> DATA_TRIP_COOLDOWN;
+    protected static final EntityDataAccessor<Integer> DATA_TRIPWIRE_TRIP_COOLDOWN;
     public boolean jumpUp = false;
+    public boolean tripwireTrip = false;
 
     public LithyEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -56,6 +61,7 @@ public class LithyEntity extends Animal
         builder.define(DATA_TRIPPED, false);
         builder.define(DATA_TRIPPED_TICK, 0);
         builder.define(DATA_TRIP_COOLDOWN, 1200 + this.random.nextInt(0, 200));
+        builder.define(DATA_TRIPWIRE_TRIP_COOLDOWN, 0);
     }
 
     @Override
@@ -63,6 +69,7 @@ public class LithyEntity extends Animal
         this.entityData.set(DATA_TRIPPED, compound.getBoolean("DataTripped"));
         this.entityData.set(DATA_TRIPPED_TICK, compound.getInt("DataTrippedTick"));
         this.entityData.set(DATA_TRIP_COOLDOWN, compound.getInt("DataTripCooldown"));
+        this.entityData.set(DATA_TRIPWIRE_TRIP_COOLDOWN, compound.getInt("DataTripwireTripCooldown"));
 
         super.readAdditionalSaveData(compound);
     }
@@ -72,6 +79,7 @@ public class LithyEntity extends Animal
         compound.putBoolean("DataTripped", this.entityData.get(DATA_TRIPPED));
         compound.putInt("DataTrippedTick", this.entityData.get(DATA_TRIPPED_TICK));
         compound.putInt("DataTripCooldown", this.entityData.get(DATA_TRIP_COOLDOWN));
+        compound.putInt("DataTripwireTripCooldown", this.entityData.get(DATA_TRIPWIRE_TRIP_COOLDOWN));
 
         super.addAdditionalSaveData(compound);
     }
@@ -123,9 +131,21 @@ public class LithyEntity extends Animal
             this.push(new Vec3(0.0, 0.4, 0.0));
         }
         if (!this.entityData.get(DATA_TRIPPED)) {
+            this.entityData.set(DATA_TRIPWIRE_TRIP_COOLDOWN, this.entityData.get(DATA_TRIPWIRE_TRIP_COOLDOWN) - 1);
             if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F) {
                 this.entityData.set(DATA_TRIP_COOLDOWN, trippedCooldown - 1);
-                if (this.entityData.get(DATA_TRIP_COOLDOWN) <= 0 && this.random.nextFloat() < 0.1) {
+
+                BlockPos onPos = this.getOnPos().above();
+                BlockState state = this.level().getBlockState(onPos);
+
+                if (state.is(Blocks.TRIPWIRE) && state.getValue(TripWireBlock.ATTACHED) && this.entityData.get(DATA_TRIPWIRE_TRIP_COOLDOWN) <= 0) {
+                    this.push(this.getDeltaMovement().add(0.0, 0.2, 0.0));
+                    this.entityData.set(DATA_TRIPPED, true);
+                    this.entityData.set(DATA_TRIP_COOLDOWN, 1200 + this.random.nextInt(0, 200));
+                    this.tripwireTrip = true;
+                }
+
+                else if (this.entityData.get(DATA_TRIP_COOLDOWN) <= 0 && this.random.nextFloat() < 0.1) {
                     this.push(this.getDeltaMovement().add(0.0, 0.2, 0.0));
                     this.entityData.set(DATA_TRIPPED, true);
                     this.entityData.set(DATA_TRIP_COOLDOWN, 1200 + this.random.nextInt(0, 200));
@@ -150,6 +170,10 @@ public class LithyEntity extends Animal
                 this.entityData.set(DATA_TRIPPED, false);
                 this.entityData.set(DATA_TRIPPED_TICK, 0);
                 this.jumpUp = true;
+                if (this.tripwireTrip) {
+                    this.entityData.set(DATA_TRIPWIRE_TRIP_COOLDOWN, 600);
+                    this.tripwireTrip = false;
+                }
             }
         }
 
@@ -166,10 +190,21 @@ public class LithyEntity extends Animal
     }
 
     @Override
+    public void aiStep() {
+        Vec3 delta = this.getDeltaMovement();
+        if (this.entityData.get(DATA_TRIPPED) && this.onGround()) {
+            this.setDeltaMovement(0.0, delta.y - 0.1, 0.0);
+        }
+        else {
+            super.aiStep();
+        }
+    }
+
+    @Override
     public void travel(Vec3 travelVector) {
         Vec3 delta = this.getDeltaMovement();
         if (this.entityData.get(DATA_TRIPPED) && this.onGround()) {
-            this.setDeltaMovement(delta.x * 0.1, delta.y, delta.z * 0.1);
+            this.setDeltaMovement(0.0, delta.y - 0.1, 0.0);
         }
         else {
             super.travel(travelVector);
@@ -241,5 +276,6 @@ public class LithyEntity extends Animal
         DATA_TRIPPED = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.BOOLEAN);
         DATA_TRIPPED_TICK = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.INT);
         DATA_TRIP_COOLDOWN = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.INT);
+        DATA_TRIPWIRE_TRIP_COOLDOWN = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.INT);
     }
 }
