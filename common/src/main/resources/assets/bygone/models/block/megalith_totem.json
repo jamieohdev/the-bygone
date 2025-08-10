@@ -1,0 +1,49 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "block/block",
+  "texture_size": [48, 48],
+  "textures": {
+    "0": "bygone:block/megalith_totem",
+    "particle": "bygone:block/megalith_totem"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 2, 16],
+      "faces": {
+        "north": {"uv": [5.33333, 10, 11, 10.66667], "texture": "#0"},
+        "east": {"uv": [5.33333, 10, 11, 10.66667], "texture": "#0"},
+        "south": {"uv": [5.33333, 10, 11, 10.66667], "texture": "#0"},
+        "west": {"uv": [5.33333, 10, 11, 10.66667], "texture": "#0"},
+        "up": {"uv": [5.33333, 10.66667, 10.66667, 16], "texture": "#0"},
+        "down": {"uv": [5.33333, 10.66667, 10.66667, 16], "texture": "#0"}
+      }
+    },
+    {
+      "from": [2, 2, 2],
+      "to": [14, 4, 14],
+      "rotation": {"angle": 0, "axis": "y", "origin": [0, 2, 0]},
+      "faces": {
+        "north": {"uv": [6, 9.33333, 10, 10], "texture": "#0"},
+        "east": {"uv": [6, 9.33333, 10, 10], "texture": "#0"},
+        "south": {"uv": [6, 9.33333, 10, 10], "texture": "#0"},
+        "west": {"uv": [6, 9.33333, 10, 10], "texture": "#0"},
+        "up": {"uv": [11.33333, 11.33333, 15.33333, 15.33333], "texture": "#0"},
+        "down": {"uv": [11.33333, 11.33333, 15.33333, 15.33333], "texture": "#0"}
+      }
+    },
+    {
+      "from": [4, 4, 4],
+      "to": [12, 24, 12],
+      "rotation": {"angle": 0, "axis": "y", "origin": [0, 4, 0]},
+      "faces": {
+        "north": {"uv": [12, 2.66667, 14.66667, 9.33333], "texture": "#0"},
+        "east": {"uv": [1.33333, 4, 4, 10.66667], "texture": "#0"},
+        "south": {"uv": [1.33333, 4, 4, 10.66667], "texture": "#0"},
+        "west": {"uv": [1.33333, 4, 4, 10.66667], "texture": "#0"},
+        "up": {"uv": [1.33333, 1, 4, 3.66667], "texture": "#0"},
+        "down": {"uv": [1.33333, 4, 4, 10.66667], "texture": "#0"}
+      }
+    }
+  ]
+}

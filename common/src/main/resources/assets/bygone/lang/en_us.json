@@ -317,13 +317,13 @@
   "block.bygone.white_amphora" : "White Amphora",
   "block.bygone.yellow_amphora" : "Yellow Amphora",
 
-  "block.bygone.broken_verdigris_cog" : "Broken Verigris Cog",
-  "block.bygone.ramshackled_verdigris_cog" : "Ramshackled Verigris Cog",
-  "block.bygone.tarnished_verdigris_cog" : "Tarnished Verigris Cog",
-  "block.bygone.pristine_verdigris_cog" : "Pristine Verigris Cog",
+  "block.bygone.broken_verdigris_cog" : "Broken Verdigris Cog",
+  "block.bygone.ramshackled_verdigris_cog" : "Ramshackled Verdigris Cog",
+  "block.bygone.tarnished_verdigris_cog" : "Tarnished Verdigris Cog",
+  "block.bygone.pristine_verdigris_cog" : "Pristine Verdigris Cog",
   "block.bygone.lithine_ore" : "Lithine Ore",
   "block.bygone.lithine_lamp" : "Lithine Lamp",
-  "block.bygone.lithine_totem" : "Lithine Totem",
+  "block.bygone.megalith_totem" : "Lithine Totem",
 
   "entity.bygone.ammonite": "Ammonite",
   "entity.bygone.big_beak": "Big Beak",
