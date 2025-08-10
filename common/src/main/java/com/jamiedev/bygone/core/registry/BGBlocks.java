@@ -661,7 +661,6 @@ Blocks ref;
             new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.PURPLE_FUNGAL_BRICKS.get()).strength(2.0f)));
 
     public static Supplier<Block> SHELF_ROOTS = registerBlock("shelf_roots", () -> new RootsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).replaceable().noCollission().instabreak().sound(SoundType.ROOTS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
-    public static Supplier<Block> SHELF_WART_BLOCK = registerBlockWithoutBlockItem("shelf_wart_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_WART_BLOCK).strength(1.0F).sound(SoundType.WART_BLOCK)));
     public static Supplier<Block> SHELF_FUNGUS = registerBlock("shelf_fungus", () -> new FungusBlock(TreeFeatures.WARPED_FUNGUS_PLANTED, SHELF_MYCELIUM.get(), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).instabreak().noCollission().sound(SoundType.FUNGUS).pushReaction(PushReaction.DESTROY)));
 
     public static Supplier<Block> SHELF_SPROUTS = registerBlock("shelf_sprouts", () -> new CreosoteSproutsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).replaceable()
@@ -756,6 +755,12 @@ Blocks ref;
                     .strength(0.8F).lightLevel((state) -> {
                         return 12;
                     }))));
+
+    public static final Supplier<Block> MEGALITH_TOTEM = registerBlock("megalith_totem", () -> new MegalithTotemBlock(
+            BlockBehaviour.Properties.of().sound(SoundType.GLASS).mapColor(MapColor.COLOR_LIGHT_GRAY).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
+                    4.0F).lightLevel((state) -> {
+                return 1;
+            })));
 
 
     public static final Supplier<Block> AMPHORA = registerAmphora("", MapColor.TERRACOTTA_BLUE);
