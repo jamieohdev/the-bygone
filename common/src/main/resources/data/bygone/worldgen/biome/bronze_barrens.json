@@ -1,6 +1,11 @@
 {
   "carvers": {
-    "air": ["bygone:cave", "bygone:canyon"]
+    "air": [
+      "bygone:cave_lower",
+      "bygone:cave_upper",
+      "bygone:canyon_lower",
+      "bygone:canyon_upper"
+    ]
   },
   "downfall": 0.0,
   "effects": {
@@ -28,10 +33,7 @@
   },
   "features": [
     [],
-    [
-      "bygone:lake_bronze_underground",
-      "bygone:lake_bronze_surface"
-    ],
+    ["bygone:lake_bronze_underground", "bygone:lake_bronze_surface"],
     [],
     [],
     [],
@@ -76,9 +78,7 @@
       }
     ],
     "misc": [],
-    "monster": [
-
-    ],
+    "monster": [],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

@@ -1,6 +1,11 @@
 {
   "carvers": {
-    "air": ["bygone:cave", "bygone:canyon"]
+    "air": [
+      "bygone:cave_lower",
+      "bygone:cave_upper",
+      "bygone:canyon_lower",
+      "bygone:canyon_upper"
+    ]
   },
   "downfall": 0.5,
   "effects": {
@@ -80,18 +85,15 @@
     },
     "bygone:whiskbill": {
       "charge": 0.4,
-      "energy_budget": 0.50
+      "energy_budget": 0.5
     },
     "bygone:big_beak": {
       "charge": 0.5,
-      "energy_budget": 0.10
+      "energy_budget": 0.1
     }
-
   },
   "spawners": {
-    "ambient": [
-
-    ],
+    "ambient": [],
     "axolotls": [],
     "creature": [
       {
