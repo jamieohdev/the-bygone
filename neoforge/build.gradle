@@ -60,6 +60,7 @@ dependencies {
     implementation "net.kyrptonaught.customportalapi:cpapireforged-neo-1.21.1:1.0.11"
     implementation "curse.maven:jinxedlib-1203401:6269067"
     implementation "curse.maven:lithostitched-936015:6703598"
+    runtimeOnly("curse.maven:formations-915115:6789388")
 }
 
 
