@@ -1,0 +1,6 @@
+{
+  "parent": "bygone:block/megalith_totem",
+  "textures": {
+    "particle": "bygone:block/megalith_totem"
+  }
+}

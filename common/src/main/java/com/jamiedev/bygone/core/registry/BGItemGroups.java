@@ -270,6 +270,7 @@ public class BGItemGroups {
                 output.accept(BGBlocks.MEGALITH_FACE.get());
                 output.accept(BGBlocks.MEGALITH_LANTERN.get());
                 output.accept(BGBlocks.LITHINE_LAMP.get());
+                output.accept(BGBlocks.MEGALITH_TOTEM.get());
                 output.accept(BGBlocks.LITHINE_ORE.get());
 
                 output.accept(BGBlocks.AMPHORA.get());

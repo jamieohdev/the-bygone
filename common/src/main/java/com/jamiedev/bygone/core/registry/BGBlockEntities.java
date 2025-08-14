@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.common.block.MegalithTotemBlock;
 import com.jamiedev.bygone.common.block.entity.*;
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.Registry;
@@ -28,6 +29,9 @@ public class BGBlockEntities {
     public static Supplier<BlockEntityType<AmphoraBlockEntity>> AMPHORA;
 
     public static Supplier<BlockEntityType<BrushableBlockEntity>> BRUSHABLE_BLOCK;
+
+
+    public static Supplier<BlockEntityType<MegalithTotemEntity>> MEGALITH_TOTEM;
 
     public static <T extends BlockEntity> Supplier<BlockEntityType<T>> register(String name, Supplier<BlockEntityType<T>> type) {
         return JinxedRegistryHelper.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, Bygone.MOD_ID, name, type);
@@ -67,6 +71,9 @@ public class BGBlockEntities {
         BYGONE_PORTAL =  register(
                 "bygone_portal", () ->
                 BlockEntityType.Builder.of(BygonePortalBlockEntity::new, BGBlocks.BYGONE_PORTAL.get()).build(null));
+
+        MEGALITH_TOTEM = register("megalith_totem", () ->
+                BlockEntityType.Builder.of(MegalithTotemEntity::new, BGBlocks.MEGALITH_TOTEM.get()).build(null));
 
     }
 }

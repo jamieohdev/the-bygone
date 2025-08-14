@@ -1,0 +1,41 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:village/town_halls/town_hall_0",
+        "projection": "rigid",
+        "processors": "minecraft:empty",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:village/town_halls/town_hall_1",
+        "projection": "rigid",
+        "processors": "minecraft:empty",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:village/town_halls/town_hall_2",
+        "projection": "rigid",
+        "processors": "minecraft:empty",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:village/town_halls/town_hall_3",
+        "projection": "rigid",
+        "processors": "minecraft:empty",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}
