@@ -1,4 +1,14 @@
 {
-  "type": "minecraft:constant",
-  "argument": 1
+  "type": "minecraft:range_choice",
+  "input": "bygone:util/in_primordial_ocean",
+  "min_inclusive": 0,
+  "max_exclusive": 1,
+  "when_in_range": 1,
+  "when_out_of_range": {
+    "type": "minecraft:y_clamped_gradient",
+    "from_y": 124,
+    "to_y": 136,
+    "from_value": 1,
+    "to_value": -1
+  }
 }
