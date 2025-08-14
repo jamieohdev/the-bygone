@@ -15,6 +15,7 @@
       "absolute": -15
     }
   },
+  "liquid_settings": "ignore_waterlogging",
   "terrain_adaptation": "beard_box",
   "use_expansion_hack": false
 }
