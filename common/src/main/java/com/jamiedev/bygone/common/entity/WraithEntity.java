@@ -55,7 +55,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         this.setPathfindingMalus(PathType.WATER, -1.0F);
         this.setPathfindingMalus(PathType.WATER, -1.0F);
         this.setPathfindingMalus(PathType.FENCE, -1.0F);
-     //   this.currentSpell = WraithSpell.NONE;
+        this.currentSpell = WraithSpell.NONE;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
