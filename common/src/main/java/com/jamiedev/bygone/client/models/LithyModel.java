@@ -64,7 +64,6 @@ public class LithyModel<T extends Entity> extends HierarchicalModel<T> {
 				else {
 					this.root.xRot = (float)(Mth.sin(0.9F)) * 2.0F;
 				}
-				//this.setupTripped(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 			}
 
 			if (!lithy.getTripped() && !lithy.jumpUp)
@@ -80,10 +79,6 @@ public class LithyModel<T extends Entity> extends HierarchicalModel<T> {
 		}
 
 
-	}
-
-	public void setupTripped(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.root.xRot = (float)(Mth.sin(180));
 	}
 
 	@Override
