@@ -268,6 +268,7 @@
   "block.bygone.orange_fungal_stairs" : "Orange Fungal Brick Stairs",
   "block.bygone.orange_fungal_wall" : "Orange Fungal Brick Wall",
   "block.bygone.orange_fungi_vines" : "Orange Fungi Vines",
+  "block.bygone.orange_fungi_vines_plant" : "Orange Fungi Vines",
   "item.bygone.orange_fungi_vines" : "Orange Fungi Vines",
 
   "block.bygone.pink_mushroom_block" : "Pink Mushroom Block",
@@ -276,6 +277,7 @@
   "block.bygone.pink_fungal_stairs" : "Pink Fungal Brick Stairs",
   "block.bygone.pink_fungal_wall" : "Pink Fungal Brick Wall",
   "block.bygone.pink_fungi_vines" : "Pink Fungi Vines",
+  "block.bygone.pink_fungi_vines_plant" : "Pink Fungi Vines",
   "item.bygone.pink_fungi_vines" : "Pink Fungi Vines",
 
   "block.bygone.purple_mushroom_block" : "Purple Mushroom Block",
@@ -284,6 +286,7 @@
   "block.bygone.purple_fungal_stairs" : "Purple Fungal Brick Stairs",
   "block.bygone.purple_fungal_wall" : "Purple Fungal Brick Wall",
   "block.bygone.purple_fungi_vines" : "Purple Fungi Vines",
+  "block.bygone.purple_fungi_vines_plant" : "Purple Fungi Vines",
   "item.bygone.purple_fungi_vines" : "Purple Fungi Vines",
 
   "block.bygone.megalith_block" : "Megalith Block",
