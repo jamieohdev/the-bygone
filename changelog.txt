@@ -9,6 +9,7 @@
 * Added Verdigris Cog functionality!
 * Added Amphora functionality!
 * Added Lithy Spawn Egg.
+* Added a new Music Disc, "Shuffle" by LudoCrypt!
 * Added a "megalith_blocks" Block tag!
 
 

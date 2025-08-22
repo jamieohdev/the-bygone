@@ -416,5 +416,8 @@
 
   "subtitles.ambient.sound" : "Eerie noise",
 
+  "item.bygone.music_disc_shuffle": "Music Disc",
+  "item.bygone.shuffle_music_disc.desc": "Ludo Crypt - Shuffle",
+
   "itemGroup.test": "The Bygone"
 }

@@ -299,6 +299,14 @@
       }
     ]
   },
+  "music_disc.shuffle": {
+    "sounds": [
+      {
+        "name": "bygone:music/jukebox/shuffle",
+        "stream": true
+      }
+    ]
+  },
 
   "entity.copperbug.ambient": {
     "sounds": [
