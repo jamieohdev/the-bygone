@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.client.models;
 
+import com.jamiedev.bygone.client.models.animations.LithyAnimations;
 import com.jamiedev.bygone.common.entity.LithyEntity;
 import com.jamiedev.bygone.core.mixin.client.BipedEntityModelMixin;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -22,15 +23,15 @@ public class LithyModel<T extends Entity> extends HierarchicalModel<T> {
 	ZombieModel ref;
 
 	private final ModelPart root;
-	private final ModelPart leg1;
-	private final ModelPart leg2;
+	private final ModelPart right_leg;
+	private final ModelPart left_leg;
 	private final ModelPart body;
 	private final ModelPart neck;
 
 	public LithyModel(ModelPart root) {
 		this.root = root.getChild("root");
-		this.leg1 = this.root.getChild("leg1");
-		this.leg2 = this.root.getChild("leg2");
+		this.right_leg = this.root.getChild("right_leg");
+		this.left_leg = this.root.getChild("left_leg");
 		this.body = this.root.getChild("body");
 		this.neck = this.body.getChild("neck");
 	}
@@ -41,9 +42,9 @@ public class LithyModel<T extends Entity> extends HierarchicalModel<T> {
 
 		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		PartDefinition leg1 = root.addOrReplaceChild("leg1", CubeListBuilder.create().texOffs(30, 0).mirror().addBox(-2.0F, -1.0F, -2.0F, 4.0F, 11.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-3.0F, -10.0F, 0.0F));
+		PartDefinition right_leg = root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(30, 0).mirror().addBox(-2.0F, -1.0F, -2.0F, 4.0F, 11.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-3.0F, -10.0F, 0.0F));
 
-		PartDefinition leg2 = root.addOrReplaceChild("leg2", CubeListBuilder.create().texOffs(30, 0).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 11.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(3.0F, -10.0F, 0.0F));
+		PartDefinition left_leg = root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(30, 0).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 11.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(3.0F, -10.0F, 0.0F));
 
 		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 23).addBox(-4.0F, -7.0F, -3.0F, 8.0F, 9.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -7.0F, 0.0F));
 
@@ -57,28 +58,11 @@ public class LithyModel<T extends Entity> extends HierarchicalModel<T> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (entity instanceof LithyEntity lithy) {
-			if (lithy.getTripped()) {
-				if (lithy.getTrippedTick() <= 5) {
-					this.root.xRot = (float)(Mth.sin((float) lithy.getTrippedTick() / 5)) * 2.0F;
-				}
-				else {
-					this.root.xRot = (float)(Mth.sin(0.9F)) * 2.0F;
-				}
-			}
-
-			if (!lithy.getTripped() && !lithy.jumpUp)
-			{
-				float f = 1.0F;
-                this.leg1.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f;
-				this.leg2.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount / f;
-				this.leg1.yRot = 0.005F;
-				this.leg2.yRot = -0.005F;
-				this.leg1.zRot = 0.005F;
-				this.leg2.zRot = -0.005F;
-			}
+			this.animate(lithy.walkAnimationState, LithyAnimations.walk, ageInTicks, 1.0f);
+			this.animate(lithy.tripBeginAnimationState, LithyAnimations.trip_begin, ageInTicks, 1.0f);
+			this.animate(lithy.tripAnimationState, LithyAnimations.trip, ageInTicks, 1.0f);
+			this.animate(lithy.tripEndAnimationState, LithyAnimations.trip_end, ageInTicks, 1.0f);
 		}
-
-
 	}
 
 	@Override

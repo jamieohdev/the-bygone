@@ -50,6 +50,11 @@ public class LithyEntity extends Animal
     protected static final EntityDataAccessor<Integer> DATA_TRIPWIRE_TRIP_COOLDOWN;
     public boolean jumpUp = false;
     public boolean tripwireTrip = false;
+    
+    public AnimationState walkAnimationState = new AnimationState();
+    public AnimationState tripBeginAnimationState = new AnimationState();
+    public AnimationState tripAnimationState = new AnimationState();
+    public AnimationState tripEndAnimationState = new AnimationState();
 
     public LithyEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -105,10 +110,40 @@ public class LithyEntity extends Animal
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
     }
 
+    private void setupAnimationStates() {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F && !this.getTripped()) {
+            this.walkAnimationState.startIfStopped(this.tickCount);
+        } else {
+            this.walkAnimationState.stop();
+        }
+        
+        if (this.getTripped()) {
+            if (this.getTrippedTick() == 0) {
+                this.tripBeginAnimationState.start(this.tickCount);
+                this.tripAnimationState.stop();
+                this.tripEndAnimationState.stop();
+            } else if (this.getTrippedTick() >= 125 && this.getTrippedTick() < 250) {
+                this.tripBeginAnimationState.stop();
+                this.tripAnimationState.startIfStopped(this.tickCount);
+                this.tripEndAnimationState.stop();
+            }
+        } else {
+            if (this.jumpUp) {
+                this.tripBeginAnimationState.stop();
+                this.tripAnimationState.stop();
+                this.tripEndAnimationState.start(this.tickCount);
+            }
+        }
+    }
+
     @Override
     public void tick() {
         int trippedCooldown = this.entityData.get(DATA_TRIP_COOLDOWN);
         int tripTick = this.entityData.get(DATA_TRIPPED_TICK);
+        
+        if (this.level().isClientSide()) {
+            this.setupAnimationStates();
+        }
 
         if (this.entityData.get(DATA_TRIPPED) && tripTick < 5) {
             Vec3 startPos = this.position();
