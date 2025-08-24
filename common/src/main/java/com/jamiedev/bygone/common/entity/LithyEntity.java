@@ -278,16 +278,13 @@ public class LithyEntity extends Animal
     }
 
     private void playTripEffects() {
-        // Play stumble/trip sound
         this.playSound(SoundEvents.IRON_GOLEM_DAMAGE, 0.7F, 1.2F + this.random.nextFloat() * 0.2F);
-        
-        // Spawn dust particles around the entity when it trips
+
         if (this.level().isClientSide()) {
             double x = this.getX();
             double y = this.getY();
             double z = this.getZ();
-            
-            // Create a burst of dust particles
+
             for (int i = 0; i < 15; i++) {
                 double offsetX = (this.random.nextDouble() - 0.5) * 0.8;
                 double offsetY = this.random.nextDouble() * 0.3;
@@ -301,8 +298,7 @@ public class LithyEntity extends Animal
                     x + offsetX, y + offsetY, z + offsetZ,
                     velocityX, velocityY, velocityZ);
             }
-            
-            // Add some block crack particles from the ground
+
             BlockState groundState = this.level().getBlockState(this.getOnPos());
             if (!groundState.isAir()) {
                 for (int i = 0; i < 10; i++) {
