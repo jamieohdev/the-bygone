@@ -37,6 +37,7 @@ public class MegalithTotemEntity extends BlockEntity implements Clearable {
     public MegalithTotemEntity(BlockPos pos, BlockState state) {
         super(BGBlockEntities.MEGALITH_TOTEM.get(), pos, state);
     }
+
     public static void tick(Level level, BlockPos pos, BlockState state, MegalithTotemEntity be) {
         if (level.isClientSide) return;
 
@@ -56,7 +57,6 @@ public class MegalithTotemEntity extends BlockEntity implements Clearable {
 
         if (be.fuel > 0) {
             be.fuel--;
-
             if (level instanceof ServerLevel serverLevel) {
                 RandomSource rand = serverLevel.random;
                 final int attemptsPerTick = Math.max(1, PLANT_ATTEMPTS_PER_TICK);
@@ -69,14 +69,15 @@ public class MegalithTotemEntity extends BlockEntity implements Clearable {
                     int x = pos.getX() + dx;
                     int z = pos.getZ() + dz;
                     for (int dy = -2; dy <= 2; dy++) {
+
                         int y = pos.getY() + dy;
+
                         BlockPos plantPos = new BlockPos(x, y, z);
 
                         if (be.bonemealedplants.containsKey(plantPos)) continue;
-
                         BlockState plantState = level.getBlockState(plantPos);
-                        Block block = plantState.getBlock();
 
+                        Block block = plantState.getBlock();
                         if ((block instanceof CropBlock || block instanceof SaplingBlock)) {
                             BonemealableBlock bonemealable = (BonemealableBlock) block;
                             if (bonemealable.isValidBonemealTarget(level, plantPos, plantState)) {
