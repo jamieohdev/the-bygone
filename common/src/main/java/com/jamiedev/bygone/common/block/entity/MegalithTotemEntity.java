@@ -10,8 +10,10 @@ import net.minecraft.world.Clearable;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BedBlockEntity;
+
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -21,8 +23,6 @@ import java.util.Map;
 
 
 public class MegalithTotemEntity extends BlockEntity implements Clearable {
-
-    BedBlock ref;
 
     private final SimpleContainer inventory = new SimpleContainer(1);
     private int fuel = 0;
