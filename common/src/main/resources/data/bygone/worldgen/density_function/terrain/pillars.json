@@ -9,7 +9,7 @@
         "argument1": 1.4,
         "argument2": {
           "type": "minecraft:noise",
-          "noise": "bygone:caves/pillar",
+          "noise": "bygone:terrain/pillar",
           "xz_scale": 25,
           "y_scale": 0.3
         }
@@ -22,7 +22,7 @@
           "argument1": -1,
           "argument2": {
             "type": "minecraft:noise",
-            "noise": "bygone:caves/pillar_rareness",
+            "noise": "bygone:terrain/pillar_rareness",
             "xz_scale": 1,
             "y_scale": 1
           }
@@ -39,7 +39,7 @@
           "argument1": 0.55,
           "argument2": {
             "type": "minecraft:noise",
-            "noise": "bygone:caves/pillar_thickness",
+            "noise": "bygone:terrain/pillar_thickness",
             "xz_scale": 1,
             "y_scale": 1
           }

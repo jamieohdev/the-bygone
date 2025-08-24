@@ -1,16 +1,41 @@
 ## **Updates in 1.4 Snapshot 2**
 
-### We've appreciated all of the feedback so far, so we hope you
+### We've appreciated all the feedback so far, so we hope you
 ### Enjoy this next batch of additions and changes!!
 
 ## New features:
+# Overhauled *More* of the Bygones terrain generation.
+* Added the "Villages"! (Final Name pending! We would love suggestions.)
+* Added Megalith Totem.
 * Added several Megalith Face and Lantern variants!
 * Added a Lit and Cracked variant of the Megalith Block!
-* Added Verdigris Cog functionality!
 * Added Amphora functionality!
+* Added Verdigris Cog functionality!
 * Added Lithy Spawn Egg.
+* Added a new Music Disc, "Shuffle" by LudoCrypt! (In this Snapshot, the Disc itself is a tad unfinished! It'll be polished by the public release of 1.4)
 * Added a "megalith_blocks" Block tag!
 
+# Bygone terrain generation.
+* Bygone terrain as a whole extends down to ~-40 (from ~0 in the old version)
+* Bygone terrain is more vertical, but connected, so the normal bygone terrain is more walkable and unique
+* Caves now generate above ~150
+* There are now waterlogged caves above oceans.
+* There are plenty more caves, and more cave types (especially in the ~150+ cave section)
+
+# Villages
+* A brand new "abandoned" structure found deep within the Underhang!
+* You will be able to find some *very* helpful things within the Villages barrels.
+* The "Snuffle" music disc is exclusively found here as well.
+
+# Amphora
+* A colorful decorative block that can store up to eight buckets of Water!
+
+# Verdigris Cogs
+* A decorative Redstone component that gives different pulses depending on its State.
+* Broken Verdigris Cogs don't have any pulses at all.
+
+# Megalith Totem:
+* When Lithoplasms are used on the Megalith Totem, it will randomly grow any Crop or Sapling within a 8x8 radius.
 
 ## Changes to existing features:
 * Arcane Core block is now placeable!
@@ -32,6 +57,8 @@
 ### Please join us in the official [Discord](https://discord.gg/DMW28XH235)!
 
 # New features in 1.4:
+# Overhauled *More* of the Bygones terrain generation.
+* Added the "Villages"! (Final Name pending! We would love suggestions.)
 # Added the Megalith Fields biome.
 # Added the Alphahang biome.
 # Added Rivers.
@@ -41,9 +68,25 @@
 # Added the Lithy.
 # Added the Amphora.
 # Added the Verdigris Cogs.
+# Added the Megalith Totem.
+* Added a new Music Disc, "Shuffle" by LudoCrypt!
 # Verdigris is now a trim material for Armors. (NOTE: Sprites are still bugged!)
 * Nectaurs now have a idle animation.
 * Lithostitiched is now a dependency for the Bygone.
+* Added a "megalith_blocks" Block tag!
+
+# Bygone terrain generation.
+* Bygone terrain as a whole extends down to ~-40 (from ~0 in the old version)
+* Bygone terrain is more vertical, but connected, so the normal bygone terrain is more walkable and unique
+* Caves now generate above ~150
+* There are now waterlogged caves above oceans.
+* There are plenty more caves, and more cave types (especially in the ~150+ cave section)
+
+# Villages
+* A brand new "abandoned" structure found deep within the Underhang!
+* You will be able to find some *very* helpful things within the Villages barrels.
+* The "Snuffle" music disc is exclusively found here as well.
+
 
 # Megalith Fields biome
 * Added the Megalith Fields biome, with strange Miniliths dotting its landscape, and large Megaliths in the distance.
@@ -66,13 +109,18 @@
 * A colorful decorative block that can store up to eight buckets of Water!
 
 # Verdigris Cogs
-* (Currently) A decorative animated block.
+* A decorative Redstone component that gives different pulses depending on its State.
+* Broken Verdigris Cogs don't have any pulses at all.
 
+# Megalith Totem:
+* When Lithoplasms are used on the Megalith Totem, it will randomly grow any Crop or Sapling within a 8x8 radius.
 
 # Changes to existing features:
 * Slightly reworked biome distribution to be on a closer scale to the nether.
 * Oceans have been given more open space.
 * Adjusted which songs play in which biomes, with every biome now having its own song.
+* Arcane Core block is now placeable!
+* Fungal Blocks and Fungal Bricks now have new textures!
 
 
 # Bug fixes:
@@ -81,14 +129,6 @@
 * Fixed Sand and Red Sand not being smeltable to Glass.
 * Fixed Whiskbills barely spawning.
 * Under Grass no longer "floats" under the block its placed.
-
-IN PROGRESS (And still in the Testing  Build):
-* Amphora Functionality.
-* Verdigris Cog Functionality.
-* Weather in the Bygone.
-
-FUTURE FEATURES PLANNED FOR 1.4:
-* A new structure.
 
 ## **Updates in 1.3**
 

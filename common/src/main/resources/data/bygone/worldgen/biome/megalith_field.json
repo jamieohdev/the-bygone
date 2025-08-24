@@ -1,6 +1,11 @@
 {
   "carvers": {
-    "air": ["bygone:cave", "bygone:canyon"]
+    "air": [
+      "bygone:cave_lower",
+      "bygone:cave_upper",
+      "bygone:canyon_lower",
+      "bygone:canyon_upper"
+    ]
   },
   "downfall": 0.0,
   "effects": {
@@ -68,9 +73,7 @@
     }
   },
   "spawners": {
-    "ambient": [
-
-    ],
+    "ambient": [],
     "axolotls": [],
     "creature": [
       {

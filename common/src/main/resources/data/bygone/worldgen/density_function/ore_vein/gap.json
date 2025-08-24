@@ -1,6 +1,0 @@
-{
-  "type": "minecraft:noise",
-  "noise": "bygone:ore/gap",
-  "xz_scale": 0.2,
-  "y_scale": 0.2
-}

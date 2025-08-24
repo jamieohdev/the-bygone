@@ -299,6 +299,15 @@
       }
     ]
   },
+  "music_disc.shuffle": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "bygone:music/jukebox/shuffle",
+        "stream": true
+      }
+    ]
+  },
 
   "entity.copperbug.ambient": {
     "sounds": [

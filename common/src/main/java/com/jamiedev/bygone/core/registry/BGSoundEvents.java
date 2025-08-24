@@ -4,66 +4,76 @@ import com.jamiedev.bygone.Bygone;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+
+import java.util.function.BiConsumer;
+
+import static com.jamiedev.bygone.Bygone.id;
+
 public class BGSoundEvents
 {
-    public static final ResourceLocation AMBIENT_ANCIENTFOREST_ADDITIONS = Bygone.id("ambient.underhang.additions");
-    public static final ResourceLocation AMBIENT_AMBERDESERT_ADDITIONS = Bygone.id("ambient.amber_desert.additions");
-    public static final ResourceLocation AMBIENT_PRIMORDIALOCEAN_ADDITIONS = Bygone.id("ambient.primordial_ocean.additions");
-    public static final ResourceLocation MUSIC_ALPHAHANG_ADDITIONS = Bygone.id("music.bygone.alphahang");
-    public static final ResourceLocation MUSIC_AMBER_DESERT_ADDITIONS = Bygone.id("music.bygone.amber_desert");
-    public static final ResourceLocation MUSIC_MEGALITH_FIELDS_ADDITIONS = Bygone.id("music.bygone.megalith_fields");
-    public static final ResourceLocation MUSIC_SHELFHOLLOWS_ADDITIONS = Bygone.id("music.bygone.shelfhollows");
-    public static final ResourceLocation MUSIC_ANCIENTFOREST_ADDITIONS = Bygone.id("music.bygone.underhang");
-    public static final ResourceLocation MUSIC_PRIMORDIALOCEAN_ADDITIONS = Bygone.id("music.bygone.primordial_ocean");
-    public static final ResourceLocation AMBIENT_SHELFHOLLOW_ADDITIONS = Bygone.id("ambient.shelfhollow.additions");
+    public static final ResourceLocation AMBIENT_ANCIENTFOREST_ADDITIONS = id("ambient.underhang.additions");
+    public static final ResourceLocation AMBIENT_AMBERDESERT_ADDITIONS = id("ambient.amber_desert.additions");
+    public static final ResourceLocation AMBIENT_PRIMORDIALOCEAN_ADDITIONS = id("ambient.primordial_ocean.additions");
+    public static final ResourceLocation MUSIC_ALPHAHANG_ADDITIONS = id("music.bygone.alphahang");
+    public static final ResourceLocation MUSIC_AMBER_DESERT_ADDITIONS = id("music.bygone.amber_desert");
+    public static final ResourceLocation MUSIC_MEGALITH_FIELDS_ADDITIONS = id("music.bygone.megalith_fields");
+    public static final ResourceLocation MUSIC_SHELFHOLLOWS_ADDITIONS = id("music.bygone.shelfhollows");
+    public static final ResourceLocation MUSIC_ANCIENTFOREST_ADDITIONS = id("music.bygone.underhang");
+    public static final ResourceLocation MUSIC_PRIMORDIALOCEAN_ADDITIONS = id("music.bygone.primordial_ocean");
+    public static final ResourceLocation AMBIENT_SHELFHOLLOW_ADDITIONS = id("ambient.shelfhollow.additions");
 
 
-    public static final ResourceLocation BLOCK_MEGALITH_BLOCK_IDLE = Bygone.id("block.megalith_block.idle");
+    public static final Holder.Reference<SoundEvent> MUSIC_DISC_SHUFFLE = registerSoundEventHolder("music_disc.shuffle");
+
+
+    public static final ResourceLocation BLOCK_MEGALITH_BLOCK_IDLE = id("block.megalith_block.idle");
     public static SoundEvent BLOCK_MEGALITH_BLOCK_IDLE_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(BLOCK_MEGALITH_BLOCK_IDLE );
 
-    public static final ResourceLocation ENTITY_BIGBEAK_AMBIENT = Bygone.id("entity.bigbeak.ambient");
-    public static final ResourceLocation ENTITY_BIGBEAK_HURT = Bygone.id("entity.bigbeak.hurt");
-    public static final ResourceLocation ENTITY_BIGBEAK_DEATH = Bygone.id("entity.bigbeak.death");
-    public static final ResourceLocation ENTITY_BIGBEAK_JUMP = Bygone.id("entity.bigbeak.jump");
-    public static final ResourceLocation ENTITY_BIGBEAK_STEP = Bygone.id("entity.bigbeak.step");
-    public static final ResourceLocation ENTITY_BIGBEAK_STEP_WOOD = Bygone.id("entity.bigbeak.step_wood");
-    public static final ResourceLocation ENTITY_BIGBEAK_GALLOP = Bygone.id("entity.bigbeak.gallop");
+    public static final ResourceLocation ENTITY_BIGBEAK_AMBIENT = id("entity.bigbeak.ambient");
+    public static final ResourceLocation ENTITY_BIGBEAK_HURT = id("entity.bigbeak.hurt");
+    public static final ResourceLocation ENTITY_BIGBEAK_DEATH = id("entity.bigbeak.death");
+    public static final ResourceLocation ENTITY_BIGBEAK_JUMP = id("entity.bigbeak.jump");
+    public static final ResourceLocation ENTITY_BIGBEAK_STEP = id("entity.bigbeak.step");
+    public static final ResourceLocation ENTITY_BIGBEAK_STEP_WOOD = id("entity.bigbeak.step_wood");
+    public static final ResourceLocation ENTITY_BIGBEAK_GALLOP = id("entity.bigbeak.gallop");
 
-    public static final ResourceLocation ENTITY_COPPERBUG_AMBIENT = Bygone.id("entity.copperbug.ambient");
-    public static final ResourceLocation ENTITY_COPPERBUG_HURT = Bygone.id("entity.copperbug.hurt");
-    public static final ResourceLocation ENTITY_COPPERBUG_DEATH = Bygone.id("entity.copperbug.death");
-    public static final ResourceLocation ENTITY_COPPERBUG_EAT = Bygone.id("entity.copperbug.eat");
+    public static final ResourceLocation ENTITY_COPPERBUG_AMBIENT = id("entity.copperbug.ambient");
+    public static final ResourceLocation ENTITY_COPPERBUG_HURT = id("entity.copperbug.hurt");
+    public static final ResourceLocation ENTITY_COPPERBUG_DEATH = id("entity.copperbug.death");
+    public static final ResourceLocation ENTITY_COPPERBUG_EAT = id("entity.copperbug.eat");
 
-    public static final ResourceLocation ENTITY_MOOBOO_AMBIENT = Bygone.id("entity.mooboo.ambient");
-    public static final ResourceLocation ENTITY_MOOBOO_HURT = Bygone.id("entity.mooboo.hurt");
-    public static final ResourceLocation ENTITY_MOOBOO_DEATH = Bygone.id("entity.mooboo.death");
+    public static final ResourceLocation ENTITY_MOOBOO_AMBIENT = id("entity.mooboo.ambient");
+    public static final ResourceLocation ENTITY_MOOBOO_HURT = id("entity.mooboo.hurt");
+    public static final ResourceLocation ENTITY_MOOBOO_DEATH = id("entity.mooboo.death");
 
-    public static final ResourceLocation ENTITY_FUNGUSPARENT_AMBIENT = Bygone.id("entity.fungus_parent.ambient");
-    public static final ResourceLocation ENTITY_FUNGUSPARENT_BABY_AMBIENT = Bygone.id("entity.fungus_parent.ambient_baby");
-    public static final ResourceLocation ENTITY_FUNGUSPARENT_HURT = Bygone.id("entity.fungus_parent.hurt");
-    public static final ResourceLocation ENTITY_FUNGUSPARENT_DEATH = Bygone.id("entity.fungus_parent.death");
+    public static final ResourceLocation ENTITY_FUNGUSPARENT_AMBIENT = id("entity.fungus_parent.ambient");
+    public static final ResourceLocation ENTITY_FUNGUSPARENT_BABY_AMBIENT = id("entity.fungus_parent.ambient_baby");
+    public static final ResourceLocation ENTITY_FUNGUSPARENT_HURT = id("entity.fungus_parent.hurt");
+    public static final ResourceLocation ENTITY_FUNGUSPARENT_DEATH = id("entity.fungus_parent.death");
 
-    public static final ResourceLocation ENTITY_PEST_AMBIENT = Bygone.id("entity.pest.ambient");
-    public static final ResourceLocation ENTITY_PEST_HURT = Bygone.id("entity.pest.hurt");
-    public static final ResourceLocation ENTITY_PEST_DEATH = Bygone.id("entity.pest.death");
-    public static final ResourceLocation ENTITY_PEST_EAT = Bygone.id("entity.pest.eat");
+    public static final ResourceLocation ENTITY_PEST_AMBIENT = id("entity.pest.ambient");
+    public static final ResourceLocation ENTITY_PEST_HURT = id("entity.pest.hurt");
+    public static final ResourceLocation ENTITY_PEST_DEATH = id("entity.pest.death");
+    public static final ResourceLocation ENTITY_PEST_EAT = id("entity.pest.eat");
 
-    public static final ResourceLocation ENTITY_WHISKBILL_AMBIENT = Bygone.id("entity.whiskbill.ambient");
-    public static final ResourceLocation ENTITY_WHISKBILL_HURT = Bygone.id("entity.whiskbill.hurt");
-    public static final ResourceLocation ENTITY_WHISKBILL_DEATH = Bygone.id("entity.whiskbill.death");
-    public static final ResourceLocation ENTITY_WHISKBILL_ROAR = Bygone.id("entity.whiskbill.roar");
+    public static final ResourceLocation ENTITY_WHISKBILL_AMBIENT = id("entity.whiskbill.ambient");
+    public static final ResourceLocation ENTITY_WHISKBILL_HURT = id("entity.whiskbill.hurt");
+    public static final ResourceLocation ENTITY_WHISKBILL_DEATH = id("entity.whiskbill.death");
+    public static final ResourceLocation ENTITY_WHISKBILL_ROAR = id("entity.whiskbill.roar");
 
-    public static final ResourceLocation ENTITY_NECTAUR_AMBIENT = Bygone.id("entity.nectaur.ambient");
-    public static final ResourceLocation ENTITY_NECTAUR_BELLOW = Bygone.id("entity.nectaur.bellow");
-    public static final ResourceLocation ENTITY_NECTAUR_HURT = Bygone.id("entity.nectaur.hurt");
-    public static final ResourceLocation ENTITY_NECTAUR_DEATH = Bygone.id("entity.nectaur.death");
-    public static final ResourceLocation ENTITY_NECTAUR_SCREECH = Bygone.id("entity.nectaur.screech");
+    public static final ResourceLocation ENTITY_NECTAUR_AMBIENT = id("entity.nectaur.ambient");
+    public static final ResourceLocation ENTITY_NECTAUR_BELLOW = id("entity.nectaur.bellow");
+    public static final ResourceLocation ENTITY_NECTAUR_HURT = id("entity.nectaur.hurt");
+    public static final ResourceLocation ENTITY_NECTAUR_DEATH = id("entity.nectaur.death");
+    public static final ResourceLocation ENTITY_NECTAUR_SCREECH = id("entity.nectaur.screech");
 
-    public static final ResourceLocation HOOK_RETRIEVE = Bygone.id("entity.hook.retrieve");
-    public static final ResourceLocation HOOK_HIT = Bygone.id("entity.hook.hit");
-    public static final ResourceLocation HOOK_THROW = Bygone.id("entity.hook.throw");
+    public static final ResourceLocation HOOK_RETRIEVE = id("entity.hook.retrieve");
+    public static final ResourceLocation HOOK_HIT = id("entity.hook.hit");
+    public static final ResourceLocation HOOK_THROW = id("entity.hook.throw");
 
     public static final SoundEvent HOOK_RETRIEVE_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_RETRIEVE);
     public static final SoundEvent HOOK_HIT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_HIT);
@@ -121,16 +131,22 @@ public class BGSoundEvents
     public static SoundEvent WHISKBILL_ROAR_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISKBILL_ROAR);
 
     private static SoundEvent register(String id) {
-        return Registry.register(BuiltInRegistries.SOUND_EVENT, Bygone.id(id), SoundEvent.createVariableRangeEvent(Bygone.id(id)));
+        return Registry.register(BuiltInRegistries.SOUND_EVENT, id(id), SoundEvent.createVariableRangeEvent(id(id)));
     }
 
     private static Holder.Reference<SoundEvent> registerReference(String id) {
-        return registerReference(Bygone.id(id), Bygone.id(id));
+        return registerReference(id(id), id(id));
     }
 
     private static Holder.Reference<SoundEvent> registerReference(ResourceLocation id, ResourceLocation soundId) {
         return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(soundId));
     }
+
+    public static Holder.Reference<SoundEvent> registerSoundEventHolder(String name) {
+        ResourceLocation location = id(name);
+        return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, location, SoundEvent.createVariableRangeEvent(location));
+    }
+
 
     public static void init()
     {
@@ -188,5 +204,6 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_THROW, HOOK_THROW_ADDITIONS_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.BLOCK_MEGALITH_BLOCK_IDLE, BLOCK_MEGALITH_BLOCK_IDLE_ADDITIONS_EVENT);
+
     }
 }

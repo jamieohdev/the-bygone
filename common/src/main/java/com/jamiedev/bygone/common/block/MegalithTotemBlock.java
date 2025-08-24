@@ -55,7 +55,9 @@
 
         @Override
         protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-            if (!level.isClientSide && stack.is(BGItems.LITHOPLASM.get())) {
+
+            if (!player.isCreative() && !level.isClientSide && stack.is(BGItems.LITHOPLASM.get())) {
+
                 BlockEntity be = level.getBlockEntity(pos);
                 if (be instanceof MegalithTotemEntity totem) {
                     SimpleContainer inv = totem.getInventory();

@@ -24,13 +24,15 @@ dependencies {
         modImplementation "me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version"
     }
 
-    // Custom Portal API
+    // Mod Dependencies
     modImplementation "net.kyrptonaught:customportalapi:${portal_api_version}" // can't use `project.minecraft_version` because 1.21.1 and not 1.21
     include "net.kyrptonaught:customportalapi:${portal_api_version}"
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     modImplementation "curse.maven:lithostitched-936015:6703597"
     modImplementation "curse.maven:jinxedlib-1203401:6268910"
 
+    //modImplementation "curse.maven:supermartijn642s-core-lib-454372:6076743" // Needed for formations, despite none of the documentation or pages saying so...
+    //modImplementation "curse.maven:formations-915115:5550394"
 }
 
 loom {

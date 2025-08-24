@@ -1,5 +1,5 @@
 {
-  "sea_level": -64,
+  "sea_level": 320,
   "disable_mob_generation": false,
   "ore_veins_enabled": false,
   "aquifers_enabled": true,
@@ -15,8 +15,8 @@
   },
   "spawn_target": [],
   "noise": {
-    "min_y": -64,
-    "height": 384,
+    "min_y": -48,
+    "height": 368,
     "size_horizontal": 4,
     "size_vertical": 2
   },
@@ -33,9 +33,9 @@
     "fluid_level_spread": "bygone:aquifers/fluid_level_spread",
     "barrier": "bygone:aquifers/barrier",
     "lava": "bygone:aquifers/lava",
-    "vein_gap": "bygone:ore_vein/gap",
-    "vein_ridged": "bygone:ore_vein/ridged",
-    "vein_toggle": "bygone:ore_vein/toggle"
+    "vein_gap": "bygone:vein/gap",
+    "vein_ridged": "bygone:vein/ridged",
+    "vein_toggle": "bygone:vein/toggle"
   },
   "surface_rule": {
     "type": "minecraft:sequence",
