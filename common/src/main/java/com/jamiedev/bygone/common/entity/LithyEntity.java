@@ -11,6 +11,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -50,6 +51,11 @@ public class LithyEntity extends Animal
     protected static final EntityDataAccessor<Integer> DATA_TRIPWIRE_TRIP_COOLDOWN;
     public boolean jumpUp = false;
     public boolean tripwireTrip = false;
+    
+    public AnimationState walkAnimationState = new AnimationState();
+    public AnimationState tripBeginAnimationState = new AnimationState();
+    public AnimationState tripAnimationState = new AnimationState();
+    public AnimationState tripEndAnimationState = new AnimationState();
 
     public LithyEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -105,10 +111,40 @@ public class LithyEntity extends Animal
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
     }
 
+    private void setupAnimationStates() {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F && !this.getTripped()) {
+            this.walkAnimationState.startIfStopped(this.tickCount);
+        } else {
+            this.walkAnimationState.stop();
+        }
+        
+        if (this.getTripped()) {
+            if (this.getTrippedTick() == 0) {
+                this.tripBeginAnimationState.start(this.tickCount);
+                this.tripAnimationState.stop();
+                this.tripEndAnimationState.stop();
+            } else if (this.getTrippedTick() >= 125 && this.getTrippedTick() < 250) {
+                this.tripBeginAnimationState.stop();
+                this.tripAnimationState.startIfStopped(this.tickCount);
+                this.tripEndAnimationState.stop();
+            }
+        } else {
+            if (this.jumpUp) {
+                this.tripBeginAnimationState.stop();
+                this.tripAnimationState.stop();
+                this.tripEndAnimationState.start(this.tickCount);
+            }
+        }
+    }
+
     @Override
     public void tick() {
         int trippedCooldown = this.entityData.get(DATA_TRIP_COOLDOWN);
         int tripTick = this.entityData.get(DATA_TRIPPED_TICK);
+        
+        if (this.level().isClientSide()) {
+            this.setupAnimationStates();
+        }
 
         if (this.entityData.get(DATA_TRIPPED) && tripTick < 5) {
             Vec3 startPos = this.position();
@@ -143,12 +179,14 @@ public class LithyEntity extends Animal
                     this.entityData.set(DATA_TRIPPED, true);
                     this.entityData.set(DATA_TRIP_COOLDOWN, 1200 + this.random.nextInt(0, 200));
                     this.tripwireTrip = true;
+                    this.playTripEffects();
                 }
 
                 else if (this.entityData.get(DATA_TRIP_COOLDOWN) <= 0 && this.random.nextFloat() < 0.1) {
                     this.push(this.getDeltaMovement().add(0.0, 0.2, 0.0));
                     this.entityData.set(DATA_TRIPPED, true);
                     this.entityData.set(DATA_TRIP_COOLDOWN, 1200 + this.random.nextInt(0, 200));
+                    this.playTripEffects();
                     if (this.level().getServer() != null) {
                         LootTable loottable = this.level().getServer().reloadableRegistries().getLootTable(JamiesModLootTables.LITHY_TRIP_LOOT_TABLE);
                         List<ItemStack> list = loottable.getRandomItems(
@@ -237,6 +275,42 @@ public class LithyEntity extends Animal
 
     public Crackiness.Level getCrackiness() {
         return Crackiness.GOLEM.byFraction(this.getHealth() / this.getMaxHealth());
+    }
+
+    private void playTripEffects() {
+        this.playSound(SoundEvents.IRON_GOLEM_DAMAGE, 0.7F, 1.2F + this.random.nextFloat() * 0.2F);
+
+        if (this.level().isClientSide()) {
+            double x = this.getX();
+            double y = this.getY();
+            double z = this.getZ();
+
+            for (int i = 0; i < 15; i++) {
+                double offsetX = (this.random.nextDouble() - 0.5) * 0.8;
+                double offsetY = this.random.nextDouble() * 0.3;
+                double offsetZ = (this.random.nextDouble() - 0.5) * 0.8;
+                
+                double velocityX = (this.random.nextDouble() - 0.5) * 0.2;
+                double velocityY = this.random.nextDouble() * 0.15 + 0.05;
+                double velocityZ = (this.random.nextDouble() - 0.5) * 0.2;
+                
+                this.level().addParticle(ParticleTypes.POOF, 
+                    x + offsetX, y + offsetY, z + offsetZ,
+                    velocityX, velocityY, velocityZ);
+            }
+
+            BlockState groundState = this.level().getBlockState(this.getOnPos());
+            if (!groundState.isAir()) {
+                for (int i = 0; i < 10; i++) {
+                    double offsetX = (this.random.nextDouble() - 0.5) * 0.6;
+                    double offsetZ = (this.random.nextDouble() - 0.5) * 0.6;
+                    
+                    this.level().addParticle(ParticleTypes.SMOKE,
+                        x + offsetX, y + 0.1, z + offsetZ,
+                        0.0, 0.05, 0.0);
+                }
+            }
+        }
     }
 
     public boolean hurt(DamageSource source, float amount) {
