@@ -155,7 +155,7 @@ public class BGEntityTypes {
             EntityType.Builder.of(WraithEntity::new, MobCategory.CREATURE)
                     .sized(1.0F, 2.0F).build(""));
 
-    /*
+    /* .
      *public static final Supplier<EntityType<NectaurPetalEntity>> NECTAUR_PETAL = registerEntityType( "nectaur_petal", () ->
             EntityType.Builder.<NectaurPetalEntity>of(NectaurPetalEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F).eyeHeight(0.13F)
