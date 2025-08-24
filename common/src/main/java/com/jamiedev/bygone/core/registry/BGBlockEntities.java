@@ -1,15 +1,12 @@
 package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.common.block.MegalithTotemBlock;
 import com.jamiedev.bygone.common.block.entity.*;
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
-import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 
 import java.util.function.Supplier;
 
@@ -45,7 +42,7 @@ public class BGBlockEntities {
         CASTER = register("caster", () ->
                 BlockEntityType.Builder.of(CasterBlockEntity::new, BGBlocks.CASTER.get())
                         .build(null));
-      //  COPPERBUGNEST = register("copperbug_nest",
+        //  COPPERBUGNEST = register("copperbug_nest",
        //         BlockEntityType.Builder.create(CopperbugNestBlockEntity::new, JamiesModBlocks.COPPERBUG_NEST)
        //                 .build());
         SPRINKLER = register("ancient_sprinkler", () ->
