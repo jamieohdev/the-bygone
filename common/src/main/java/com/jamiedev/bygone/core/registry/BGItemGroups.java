@@ -41,6 +41,7 @@ public class BGItemGroups {
                 output.accept(BGItems.COELACANTH_SPAWN_EGG.get());
                 output.accept(BGItems.COPPERBUG_SPAWN_EGG.get());
                 output.accept(BGItems.FUNGALPARENT_SPAWN_EGG.get());
+                output.accept(BGItems.LITHY_SPAWN_EGG.get());
                 output.accept(BGItems.MOOBOO_SPAWN_EGG.get());
                 output.accept(BGItems.NECTAUR_SPAWN_EGG.get());
                 output.accept(BGItems.PESKY_SPAWN_EGG.get());
