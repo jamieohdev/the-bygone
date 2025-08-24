@@ -36,8 +36,8 @@
     "foliage_color": 10338172,
     "grass_color": 10338172,
     "sky_color": 16514255,
-    "water_color": 0,
-    "water_fog_color": 0
+    "water_color": 12964571,
+    "water_fog_color": 12964571
   },
   "features": [
     [],
@@ -90,12 +90,7 @@
     "ambient": [],
     "axolotls": [],
     "creature": [
-      {
-        "type": "minecraft:mooshroom",
-        "maxCount": 8,
-        "minCount": 4,
-        "weight": 8
-      }
+
     ],
     "misc": [],
     "monster": [],

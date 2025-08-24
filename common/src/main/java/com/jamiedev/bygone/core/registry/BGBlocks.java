@@ -709,7 +709,7 @@ Blocks ref;
     public static final Supplier<Block> LIT_CRACKED_MEGALITH_BLOCK = registerBlock("lit_cracked_megalith_block", () ->
             new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F).lightLevel((state) -> {
-                return 6;
+                return 15;
             })));
 
     public static final Supplier<Block> ANGRY_MEGALITH_FACE = registerBlock("angry_megalith_face", () ->
@@ -739,21 +739,21 @@ Blocks ref;
     public static final Supplier<Block> MEGALITH_LANTERN = registerBlock("megalith_lantern", () ->
             new MegalithLanternBlock((BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F).lightLevel((state) -> {
-                        return 12;
+                        return 13;
                     }))));
 
 
     public static final Supplier<Block> CRYPTIC_MEGALITH_LANTERN = registerBlock("cryptic_megalith_lantern", () ->
             new MegalithLanternBlock((BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F).lightLevel((state) -> {
-                        return 12;
+                        return 11;
                     }))));
 
 
     public static final Supplier<Block> HOLLOW_MEGALITH_LANTERN = registerBlock("hollow_megalith_lantern", () ->
             new MegalithLanternBlock((BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F).lightLevel((state) -> {
-                        return 12;
+                        return 10;
                     }))));
 
     public static final Supplier<Block> MEGALITH_TOTEM = registerBlock("megalith_totem", () -> new MegalithTotemBlock(

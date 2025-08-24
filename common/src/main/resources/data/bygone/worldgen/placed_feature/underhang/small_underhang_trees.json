@@ -22,18 +22,6 @@
                     {
                         "weight":1,
                         "data": {
-                            "Name": "bygone:bystone"
-                        }
-                    },
-                    {
-                        "weight":1,
-                        "data": {
-                            "Name": "bygone:byslate"
-                        }
-                    },
-                    {
-                        "weight":1,
-                        "data": {
                             "Name": "minecraft:moss_block"
                         }
                     }

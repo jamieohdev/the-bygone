@@ -77,10 +77,10 @@
     "axolotls": [],
     "creature": [
       {
-        "type": "bygone:lithy",
-        "maxCount": 4,
+        "type": "minecraft:mooshroom",
+        "maxCount": 8,
         "minCount": 4,
-        "weight": 10
+        "weight": 8
       },
       {
         "type": "bygone:lithy",

@@ -42,7 +42,6 @@ public class BGItemGroups {
                 output.accept(BGItems.COPPERBUG_SPAWN_EGG.get());
                 output.accept(BGItems.FUNGALPARENT_SPAWN_EGG.get());
                 output.accept(BGItems.LITHY_SPAWN_EGG.get());
-                output.accept(BGItems.MOOBOO_SPAWN_EGG.get());
                 output.accept(BGItems.NECTAUR_SPAWN_EGG.get());
                 output.accept(BGItems.PESKY_SPAWN_EGG.get());
                 output.accept(BGItems.PEST_SPAWN_EGG.get());
@@ -292,6 +291,9 @@ public class BGItemGroups {
                 output.accept(BGBlocks.PURPLE_AMPHORA.get());
                 output.accept(BGBlocks.MAGENTA_AMPHORA.get());
                 output.accept(BGBlocks.PINK_AMPHORA.get());
+
+
+                output.accept(BGItems.MUSIC_DISC_SHUFFLE.get());
 
             })
             .title(Component.translatable("itemGroup.test"))
