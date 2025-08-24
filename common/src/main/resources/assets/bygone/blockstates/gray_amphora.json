@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
-      "model": "bygone:block/gray_amphora"
-    }
+
+      "facing=north": { "model": "bygone:block/gray_amphora" },
+      "facing=south": { "model": "bygone:block/gray_amphora", "y": 180 },
+      "facing=west":  { "model": "bygone:block/gray_amphora", "y": 270 },
+      "facing=east":  { "model": "bygone:block/gray_amphora", "y": 90 }
+
   }
 }

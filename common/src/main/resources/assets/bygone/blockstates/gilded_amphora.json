@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
-      "model": "bygone:block/gilded_amphora"
-    }
+
+      "facing=north": { "model": "bygone:block/gilded_amphora" },
+      "facing=south": { "model": "bygone:block/gilded_amphora", "y": 180 },
+      "facing=west":  { "model": "bygone:block/gilded_amphora", "y": 270 },
+      "facing=east":  { "model": "bygone:block/gilded_amphora", "y": 90 }
+
   }
 }

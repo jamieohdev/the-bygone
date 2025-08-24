@@ -53,10 +53,13 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     public static final MapCodec<AmphoraBlock> CODEC = simpleCodec(AmphoraBlock::new);
     public static final ResourceLocation SHERDS_DYNAMIC_DROP_ID = ResourceLocation.withDefaultNamespace("sherds");
     private static final VoxelShape BOUNDING_BOX = Block.box(1.0F, 0.0F, 1.0F, 15.0F, 16.0F, 15.0F);
-    private static final DirectionProperty HORIZONTAL_FACING;
+
     public static final BooleanProperty CRACKED;
     private static final BooleanProperty WATERLOGGED;
     public static final IntegerProperty WATER_LEVEL = IntegerProperty.create("water_level", 0, 8);
+
+    public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.Plane.HORIZONTAL);
+
 
     public MapCodec<AmphoraBlock> codec() {
         return CODEC;
@@ -65,11 +68,16 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     public AmphoraBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
-                .setValue(HORIZONTAL_FACING, Direction.NORTH)
                 .setValue(WATERLOGGED, false)
                 .setValue(CRACKED, false)
                 .setValue(WATER_LEVEL, 0)
         );
+    }
+
+    @Deprecated
+    @Override
+    protected BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
@@ -82,7 +90,7 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-        return this.defaultBlockState().setValue(HORIZONTAL_FACING, context.getHorizontalDirection()).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(CRACKED, false);
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(CRACKED, false);
     }
 
     @Override
@@ -156,7 +164,7 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HORIZONTAL_FACING, WATERLOGGED, CRACKED, WATER_LEVEL);
+        builder.add(FACING, WATERLOGGED, CRACKED, WATER_LEVEL);
     }
 
     @Nullable
@@ -227,7 +235,7 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     }
 
     protected BlockState rotate(BlockState state, Rotation rotation) {
-        return state.setValue(HORIZONTAL_FACING, rotation.rotate(state.getValue(HORIZONTAL_FACING)));
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
@@ -235,13 +243,7 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
         return true;
     }
 
-
-    protected BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation(state.getValue(HORIZONTAL_FACING)));
-    }
-
     static {
-        HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
         CRACKED = BlockStateProperties.CRACKED;
         WATERLOGGED = BlockStateProperties.WATERLOGGED;
     }
