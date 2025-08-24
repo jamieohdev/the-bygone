@@ -242,6 +242,11 @@
           "type": "minecraft:item",
           "name": "bygone:verdigris_bow",
           "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:music_disc_shuffle",
+          "weight": 1
         }
       ],
       "rolls": {

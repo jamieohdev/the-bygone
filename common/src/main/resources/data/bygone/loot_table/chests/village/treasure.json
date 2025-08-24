@@ -145,6 +145,11 @@
           "type": "minecraft:item",
           "name": "bygone:diamond_beak_armor",
           "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:music_disc_shuffle",
+          "weight": 1
         }
       ],
       "rolls": {

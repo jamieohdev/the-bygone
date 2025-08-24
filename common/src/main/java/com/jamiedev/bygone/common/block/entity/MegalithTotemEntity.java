@@ -10,10 +10,10 @@ import net.minecraft.world.Clearable;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.SaplingBlock;
+
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BedBlockEntity;
+
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -93,6 +93,7 @@ public class MegalithTotemEntity extends BlockEntity implements Clearable {
                 }
             }
         } else {
+
             ItemStack stack = be.inventory.getItem(0);
             if (!stack.isEmpty() && isLithoplasm(stack)) {
                 stack.shrink(1);

@@ -1,8 +1,10 @@
 {
-  "type": "minecraft:range_choice",
-  "input": "bygone:aquifers/fluid_level_floodedness",
-  "min_inclusive": 0.6,
-  "max_exclusive": 1.0,
-  "when_in_range": -0.5,
-  "when_out_of_range": 1
+  "type": "minecraft:spline",
+  "spline": {
+    "coordinate": "bygone:biome_parameters/continents",
+    "points": [
+      { "location": -0.5, "value": -0.5, "derivative": 0 },
+      { "location": -0.4, "value": 0, "derivative": 0 }
+    ]
+  }
 }

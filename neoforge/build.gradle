@@ -60,6 +60,9 @@ dependencies {
     implementation "net.kyrptonaught.customportalapi:cpapireforged-neo-1.21.1:1.0.11"
     implementation "curse.maven:jinxedlib-1203401:6269067"
     implementation "curse.maven:lithostitched-936015:6703598"
+
+    //implementation "curse.maven:supermartijn642s-core-lib-454372:6076757" // Needed for formations, despite none of the documentation or pages saying so...
+    //implementation "curse.maven:formations-915115:6789388"
 }
 
 
