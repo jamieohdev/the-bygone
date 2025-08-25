@@ -177,7 +177,7 @@
   "block.bygone.ancient_hanging_sign": "Ancient Hanging Sign",
   "block.bygone.ancient_wall_hanging_sign": "Ancient Wall Hanging Sign",
 
-  "block.bygone.verdigris_block": "Verdigris Block",
+  "block.bygone.verdigris_block": "Block of Verdigris",
   "block.bygone.verdigris_scrap_block": "Verdigris Scrap Block",
 
   "block.bygone.malachite": "Malachite",
@@ -416,6 +416,14 @@
   "subtitles.entity.hook.retrieve" : "Ancient Hook retrieved",
   "subtitles.entity.hook.hit" : "Ancient Hook hits",
   "subtitles.entity.hook.throw" : "Ancient Hook thrown",
+
+  "subtitles.entity.wraith.ambient": "Wraith wheezes",
+  "subtitles.entity.wraith.attack": "Wraith attacks",
+  "subtitles.entity.wraith.fly": "Wraith flies",
+  "subtitles.entity.wraith.hurt": "Wraith hurts",
+  "subtitles.entity.wraith.death": "Wraith dies",
+  "subtitles.entity.wraith.teleport": "Wraith teleports",
+
 
   "subtitles.ambient.sound" : "Eerie noise",
 

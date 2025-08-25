@@ -71,6 +71,20 @@ public class BGSoundEvents
     public static final ResourceLocation ENTITY_NECTAUR_DEATH = id("entity.nectaur.death");
     public static final ResourceLocation ENTITY_NECTAUR_SCREECH = id("entity.nectaur.screech");
 
+    public static final ResourceLocation ENTITY_WRAITH_AMBIENT = id("entity.wraith.ambient");
+    public static final ResourceLocation ENTITY_WRAITH_ATTACK = id("entity.wraith.attack");
+    public static final ResourceLocation ENTITY_WRAITH_HURT = id("entity.wraith.hurt");
+    public static final ResourceLocation ENTITY_WRAITH_DEATH = id("entity.wraith.death");
+    public static final ResourceLocation ENTITY_WRAITH_TELEPORT = id("entity.wraith.teleport");
+    public static final ResourceLocation ENTITY_WRAITH_FLY = id("entity.wraith.fly");
+
+    public static SoundEvent WRAITH_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_AMBIENT);
+    public static SoundEvent WRAITH_ATTACK_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_ATTACK);
+    public static SoundEvent WRAITH_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_DEATH);
+    public static SoundEvent WRAITH_FLY_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_FLY);
+    public static SoundEvent WRAITH_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_HURT);
+    public static SoundEvent WRAITH_TELEPORT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_TELEPORT);
+    
     public static final ResourceLocation HOOK_RETRIEVE = id("entity.hook.retrieve");
     public static final ResourceLocation HOOK_HIT = id("entity.hook.hit");
     public static final ResourceLocation HOOK_THROW = id("entity.hook.throw");
@@ -202,6 +216,13 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_RETRIEVE, HOOK_RETRIEVE_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_HIT, HOOK_HIT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_THROW, HOOK_THROW_ADDITIONS_EVENT);
+
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_AMBIENT, BGSoundEvents.WRAITH_AMBIENT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_ATTACK, BGSoundEvents.WRAITH_ATTACK_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_HURT, BGSoundEvents.WRAITH_HURT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_DEATH, BGSoundEvents.WRAITH_DEATH_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_FLY, BGSoundEvents.WRAITH_FLY_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_TELEPORT, BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.BLOCK_MEGALITH_BLOCK_IDLE, BLOCK_MEGALITH_BLOCK_IDLE_ADDITIONS_EVENT);
 

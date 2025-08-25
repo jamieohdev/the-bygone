@@ -542,5 +542,51 @@
       "bygone:entity/hook/retrieve"
     ],
     "subtitle": "subtitles.entity.hook.throw"
+  },
+
+  "entity.wraith.ambient": {
+    "sounds": [
+      "bygone:entity/wraith/idle1",
+      "bygone:entity/wraith/idle2",
+      "bygone:entity/wraith/idle3",
+      "bygone:entity/wraith/idle4",
+      "bygone:entity/wraith/idle5",
+      "bygone:entity/wraith/idle6"
+    ],
+    "subtitle": "subtitles.entity.wraith.ambient"
+  },
+  "entity.wraith.hurt": {
+    "sounds": [
+      "bygone:entity/wraith/hurt1",
+      "bygone:entity/wraith/hurt2",
+      "bygone:entity/wraith/hurt3"
+    ],
+    "subtitle": "subtitles.entity.wraith.hurt"
+  },
+  "entity.wraith.death": {
+    "sounds": [
+      "bygone:entity/wraith/death1",
+      "bygone:entity/wraith/death2"
+    ],
+    "subtitle": "subtitles.entity.wraith.death"
+  },
+  "entity.wraith.teleport": {
+    "sounds": [
+      "bygone:entity/wraith/teleport1",
+      "bygone:entity/wraith/teleport2"
+    ],
+    "subtitle": "subtitles.entity.wraith.teleport"
+  },
+  "entity.wraith.attack": {
+    "sounds": [
+      "bygone:entity/wraith/attack"
+    ],
+    "subtitle": "subtitles.entity.wraith.attack"
+  },
+  "entity.wraith.fly": {
+    "sounds": [
+      "bygone:entity/wraith/fly1"
+    ],
+    "subtitle": "subtitles.entity.wraith.fly"
   }
 }

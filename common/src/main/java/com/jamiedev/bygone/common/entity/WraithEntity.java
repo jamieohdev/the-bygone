@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.entity;
 
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ColorParticleOption;
@@ -120,6 +121,30 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         compound.putInt("SpellTicks", this.spellCastingTickCount);
     }
 
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return BGSoundEvents.WRAITH_AMBIENT_ADDITIONS_EVENT;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return BGSoundEvents.WRAITH_HURT_ADDITIONS_EVENT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return BGSoundEvents.WRAITH_DEATH_ADDITIONS_EVENT;
+    }
+
+    @Override
+    public void playAttackSound() {
+        this.playSound(BGSoundEvents.WRAITH_ATTACK_ADDITIONS_EVENT, 1.0F, 1.0F);
+    }
+
+    SoundEvent getStepSound() {
+        return BGSoundEvents.WRAITH_FLY_ADDITIONS_EVENT;
+    }
+
     public boolean isCastingSpell() {
         return this.level().isClientSide ? (Byte)this.entityData.get(DATA_SPELL_CASTING_ID) > 0 : this.spellCastingTickCount > 0;
     }
@@ -203,6 +228,8 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                                     this.level().getBlockState(newGroundPos.above()).isAir() &&
                                     this.level().getBlockState(newGroundPos.above().above()).isAir()) {
                                 this.teleportTo(x, y + 1, z);
+                                this.level().playSound(null, this.xo, this.yo, this.zo, BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT, this.getSoundSource(), 1.0F, 1.0F);
+                                this.playSound(BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT, 1.0F, 1.0F);
                                 teleported = true;
                                 break;
                             }
