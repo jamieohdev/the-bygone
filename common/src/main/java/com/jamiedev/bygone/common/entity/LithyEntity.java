@@ -5,6 +5,7 @@ import com.jamiedev.bygone.core.init.JamiesModLootTables;
 import com.jamiedev.bygone.core.registry.BGBlockEntities;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -12,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -261,6 +263,22 @@ public class LithyEntity extends Animal
         return air;
     }
 
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return BGSoundEvents.LITHY_AMBIENT_ADDITIONS_EVENT;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return BGSoundEvents.LITHY_HURT_ADDITIONS_EVENT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return BGSoundEvents.LITHY_DEATH_ADDITIONS_EVENT;
+    }
+
+
     protected void doPush(Entity entity) {
         if (entity instanceof Enemy && !(entity instanceof Creeper) && this.getRandom().nextInt(20) == 0) {
             this.setTarget((LivingEntity)entity);
@@ -278,7 +296,7 @@ public class LithyEntity extends Animal
     }
 
     private void playTripEffects() {
-        this.playSound(SoundEvents.IRON_GOLEM_DAMAGE, 0.7F, 1.2F + this.random.nextFloat() * 0.2F);
+        this.playSound(BGSoundEvents.LITHY_TRIP_ADDITIONS_EVENT, 0.7F, 1.2F + this.random.nextFloat() * 0.2F);
 
         if (this.level().isClientSide()) {
             double x = this.getX();

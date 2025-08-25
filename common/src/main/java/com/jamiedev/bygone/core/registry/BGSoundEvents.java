@@ -84,7 +84,18 @@ public class BGSoundEvents
     public static SoundEvent WRAITH_FLY_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_FLY);
     public static SoundEvent WRAITH_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_HURT);
     public static SoundEvent WRAITH_TELEPORT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_TELEPORT);
-    
+
+    public static final ResourceLocation ENTITY_LITHY_AMBIENT = id("entity.lithy.ambient");
+    public static final ResourceLocation ENTITY_LITHY_TRIP = id("entity.lithy.trip");
+    public static final ResourceLocation ENTITY_LITHY_HURT = id("entity.lithy.hurt");
+    public static final ResourceLocation ENTITY_LITHY_DEATH = id("entity.lithy.death");
+
+    public static SoundEvent LITHY_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_AMBIENT);
+    public static SoundEvent LITHY_TRIP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_TRIP);
+    public static SoundEvent LITHY_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_DEATH);
+    public static SoundEvent LITHY_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_HURT);
+
+
     public static final ResourceLocation HOOK_RETRIEVE = id("entity.hook.retrieve");
     public static final ResourceLocation HOOK_HIT = id("entity.hook.hit");
     public static final ResourceLocation HOOK_THROW = id("entity.hook.throw");
@@ -223,6 +234,11 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_DEATH, BGSoundEvents.WRAITH_DEATH_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_FLY, BGSoundEvents.WRAITH_FLY_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_TELEPORT, BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT);
+
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_AMBIENT, BGSoundEvents.LITHY_AMBIENT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_TRIP, BGSoundEvents.LITHY_TRIP_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_HURT, BGSoundEvents.LITHY_HURT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_DEATH, BGSoundEvents.LITHY_DEATH_ADDITIONS_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.BLOCK_MEGALITH_BLOCK_IDLE, BLOCK_MEGALITH_BLOCK_IDLE_ADDITIONS_EVENT);
 

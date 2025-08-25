@@ -588,5 +588,38 @@
       "bygone:entity/wraith/fly1"
     ],
     "subtitle": "subtitles.entity.wraith.fly"
+  },
+
+  "entity.lithy.ambient": {
+    "sounds": [
+      "bygone:entity/lithy/idle1",
+      "bygone:entity/lithy/idle2",
+      "bygone:entity/lithy/idle3"
+    ],
+    "subtitle": "subtitles.entity.lithy.ambient"
+  },
+  "entity.lithy.hurt": {
+    "sounds": [
+      "bygone:entity/lithy/hit1",
+      "bygone:entity/lithy/hit2",
+      "bygone:entity/lithy/hit3"
+    ],
+    "subtitle": "subtitles.entity.lithy.hurt"
+  },
+  "entity.lithy.death": {
+    "sounds": [
+      "bygone:entity/lithy/death1",
+      "bygone:entity/lithy/death2",
+      "bygone:entity/lithy/death3"
+    ],
+    "subtitle": "subtitles.entity.lithy.death"
+  },
+  "entity.lithy.trip": {
+    "sounds": [
+      "bygone:entity/lithy/trip1",
+      "bygone:entity/lithy/trip2",
+      "bygone:entity/lithy/trip3"
+    ],
+    "subtitle": "subtitles.entity.lithy.trip"
   }
 }

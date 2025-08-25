@@ -424,6 +424,10 @@
   "subtitles.entity.wraith.death": "Wraith dies",
   "subtitles.entity.wraith.teleport": "Wraith teleports",
 
+  "subtitles.entity.lithy.ambient": "Lithy crackles",
+  "subtitles.entity.lithy.trip": "Lithy trips",
+  "subtitles.entity.lithy.hurt": "Lithy hurts",
+  "subtitles.entity.lithy.death": "Lithy dies",
 
   "subtitles.ambient.sound" : "Eerie noise",
 
