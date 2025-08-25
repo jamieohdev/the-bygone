@@ -106,18 +106,6 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
             }
         }
 
-        /*int i = (Integer)state.getValue(AGE);
-        if (i < 2 && level.getBlockState(pos.below()).is(Blocks.AIR)) {
-            level.setBlock(pos, BGBlocks.GOURD_VINE.get().defaultBlockState(), 2);
-            level.setBlock(pos.below(), (BlockState)state.setValue(AGE, i), 2);
-        }
-        else if (level.random.nextInt(5) == 0) {
-            if (i < 2) {
-                level.setBlock(pos, (BlockState)state.setValue(AGE, i + 1), 2);
-            }
-        }*/
-
-
     }
 
     public boolean isFullyGrown(BlockState state)

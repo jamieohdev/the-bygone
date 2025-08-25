@@ -42,6 +42,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,7 +53,7 @@ import java.util.stream.Stream;
 public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<AmphoraBlock> CODEC = simpleCodec(AmphoraBlock::new);
     public static final ResourceLocation SHERDS_DYNAMIC_DROP_ID = ResourceLocation.withDefaultNamespace("sherds");
-    private static final VoxelShape BOUNDING_BOX = Block.box(1.0F, 0.0F, 1.0F, 15.0F, 16.0F, 15.0F);
+    private static final VoxelShape BOUNDING_BOX = Block.box(5.0, 0.0, 5.0, 11.0, 27.0, 11.0);
 
     public static final BooleanProperty CRACKED;
     private static final BooleanProperty WATERLOGGED;
@@ -60,6 +61,21 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
     public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.Plane.HORIZONTAL);
 
+    DecoratedPotBlock ref;
+
+    protected static final VoxelShape[] BOUNDING_BOX1 = new VoxelShape[]{
+            Shapes.or(Block.box(5.0, 0.0, 5.0, 11.0, 27.0, 11.0),
+                    Block.box(5.0, 0.0, 5.0, 11.0, 27.0, 11.0)),
+
+            Shapes.or(Block.box(3.0, 2.0, 3.0, 13.0, 12.0, 13.0),
+                    Block.box(3.0, 2.0, 3.0, 13.0, 12.0, 13.0)),
+
+            Shapes.or(Block.box(0.0, 2.0, 8.0, 3.0, 12.0, 8.0),
+                    Block.box(0.0, 2.0, 8.0, 3.0, 12.0, 8.0)),
+
+            Shapes.or(Block.box(12.0, 2.0, 8.0, 16.0, 12.0, 8.0),
+                    Block.box(12.0, 2.0, 8.0, 16.0, 12.0, 8.0))
+    };
 
     public MapCodec<AmphoraBlock> codec() {
         return CODEC;
@@ -160,6 +176,7 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     }
 
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        int i = state.getValue(WATER_LEVEL);
         return BOUNDING_BOX;
     }
 
@@ -231,11 +248,13 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     }
 
     protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
-        return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
+        //return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
+        return (Integer)state.getValue(WATER_LEVEL);
     }
 
     protected BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+
     }
 
     @Override
