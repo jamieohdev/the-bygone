@@ -23,10 +23,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class HookItem extends Item
 {
-    FishingRodItem ref;
-
     static boolean isGrappling;
-
     public HookItem(Properties settings) {
         super(settings);
     }
@@ -75,12 +72,9 @@ public class HookItem extends Item
                     world.playSound(null, user.getX(), user.getY(), user.getZ(), BGSoundEvents.HOOK_RETRIEVE_ADDITIONS_EVENT, SoundSource.NEUTRAL, 1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                 }
 
-
-
                 if (hook.isInWall())
                 {
-                    //world.playSound(null, user.getX(), user.getY(), user.getZ(), BGSoundEvents.HOOK_HIT_ADDITIONS_EVENT, SoundSource.NEUTRAL, 1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-                    grapple(hook, player);
+                grapple(hook, player);
                 }
 
 

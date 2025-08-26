@@ -99,7 +99,7 @@ public class BGItems
     public static final Supplier<Item> WHISKBILL_SPAWN_EGG = registerItem("whiskbill_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.WHISKBILL.get(), 0x50692C, 0x70922D, new Item.Properties()));
     public static final Supplier<Item> NECTAUR_SPAWN_EGG = registerItem("nectaur_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.NECTAUR.get(), 0x50692C, 0x94262B, new Item.Properties()));
 
-    public static final Supplier<Item> ARCANE_CORE = registerItem("arcane_core", () -> ((BlockItem)(new ArcaneCoreItem(BGBlocks.ARCANE_CORE.get(), new Item.Properties()))));
+    public static final Supplier<Item> ARCANE_CORE = registerItem("arcane_core", () -> new Item(new Item.Properties().fireResistant()));
 
     public static final Supplier<Item> VERDIGRIS_SCRAP = registerItem("verdigris_scrap", () -> new Item(new Item.Properties().fireResistant()));
     public static final Supplier<Item> VERDIGRIS_INGOT = registerItem("verdigris_ingot", () -> new Item(new Item.Properties().fireResistant()));
