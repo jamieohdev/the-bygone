@@ -5,6 +5,15 @@
   "system.bygone.teleporting_into_bygone": "Teleporting into the Bygone...",
   "system.bygone.teleporting_out_of_bygone": "Teleporting out of the Bygone...",
 
+  "advancements.bygone.enter_bygone.title": "Let Bygones be Bygone...",
+  "advancements.bygone.enter_bygone.desc": "Entered the Bygone",
+
+  "advancements.bygone.explore_bygone.title": "Keep On Walking On!",
+  "advancements.bygone.explore_bygone.desc": "Explore all Bygone biomes",
+
+  "advancements.nether.find_sewer.desc": "Enter a Sewer",
+  "advancements.nether.find_sewer.title": "No Alligators Here!",
+
   "item.bygone.jamiesitem": "",
   "item.bygone.ancient_hook": "Ancient Hook",
   "item.bygone.ancient_sign": "Ancient Sign",

@@ -10,14 +10,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.bygone.enter_bygone.desc"
+      "translate": "advancements.bygone.enter_bygone.desc"
     },
     "icon": {
       "count": 1,
       "id": "bygone:arcane_core"
     },
     "title": {
-      "translate": "advancement.bygone.enter_bygone"
+      "translate": "advancements.bygone.enter_bygone.title"
     }
   },
   "requirements": [

@@ -1,9 +1,18 @@
 package com.jamiedev.bygone.core.datagen;
 
 import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.core.init.JamiesModTag;
+import com.jamiedev.bygone.core.registry.BGBiomes;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGDimensions;
 import com.jamiedev.bygone.core.registry.BGItems;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
@@ -42,10 +51,13 @@ public class BygoneAdvancementProvider extends AdvancementProvider {
         @SuppressWarnings("unused")
         @Override
         public void generate(HolderLookup.@NotNull Provider provider, @NotNull Consumer<AdvancementHolder> consumer, @NotNull ExistingFileHelper existingFileHelper) {
+            HolderGetter<Biome> biomes = provider.lookupOrThrow(Registries.BIOME);
+            HolderLookup.RegistryLookup<Biome> biomes1 = provider.lookupOrThrow(Registries.BIOME);
+            HolderGetter<Structure> structures = provider.lookupOrThrow(Registries.STRUCTURE);
 
             AdvancementHolder root = Advancement.Builder.advancement()
                     .display(BGItems.ARCANE_CORE.get(),
-                            Component.translatable("advancement.bygone.bygone"),
+                            Component.translatable("advancement.bygone.bygone.title"),
                             Component.translatable("advancement.bygone.bygone.desc"),
                             ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "textures/block/bygone.png"),
                             AdvancementType.TASK, false, false, false)
@@ -55,15 +67,27 @@ public class BygoneAdvancementProvider extends AdvancementProvider {
             AdvancementHolder enterBygone = Advancement.Builder.advancement()
                     .parent(root)
                     .display(BGItems.ARCANE_CORE.get(),
-                            Component.translatable("advancement.bygone.enter_bygone"),
+                            Component.translatable("advancement.bygone.enter_bygone.title"),
                             Component.translatable("advancement.bygone.enter_bygone.desc"),
                             null,
                             AdvancementType.TASK, true, true, false)
                     .addCriterion("enter_bygone", ChangeDimensionTrigger.TriggerInstance.changedDimensionTo(BGDimensions.BYGONE_LEVEL_KEY))
                     .rewards(new AdvancementRewards(100, List.of(), List.of(), Optional.empty()))
                     .save(consumer, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "enter_bygone"), existingFileHelper);
-            Bygone ref;
         }
+    }
+
+   Biomes ref;
+
+
+    private static AdvancementHolder addInBiome(Consumer<AdvancementHolder> consumer, AdvancementHolder parent, String id, Item display, Holder<Biome> biome) {
+        return Advancement.Builder.advancement().parent(parent).display(
+                        display,
+                        Component.translatable("advancements." + Bygone.MOD_ID + "." + id + ".title"),
+                        Component.translatable("advancements." + Bygone.MOD_ID + "." + id + ".description"),
+                        null, AdvancementType.TASK, true, true, false)
+                .addCriterion("in_biome", PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inBiome(biome)))
+                .save(consumer, Bygone.MOD_ID + ":" + id);
     }
 
     private static ItemUsedOnLocationTrigger.TriggerInstance itemUsedOnLocationCheckAbove(LocationPredicate.Builder location, LocationPredicate.Builder above, ItemPredicate.Builder item) {

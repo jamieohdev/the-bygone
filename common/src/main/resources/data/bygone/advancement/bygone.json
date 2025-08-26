@@ -19,7 +19,7 @@
     },
     "show_toast": false,
     "title": {
-      "translate": "advancement.bygone.bygone"
+      "translate": "advancement.bygone.bygone.title"
     }
   },
   "requirements": [

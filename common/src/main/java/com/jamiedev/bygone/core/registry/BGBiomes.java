@@ -20,10 +20,23 @@ public class BGBiomes
         return registryKey;
     }
 
+    /**
+     * ALPHAHANG))))
+     * ANCIENT_FOREST))))
+     * es.AMBER_DESERT))))
+     * Biomes.PRIMORDIAL_OCEAN)
+     * Biomes.PRIMORDIAL_BEACH)
+     * s.SHELFHOLLOW))))
+     * omes.MEGALITH_FIELD)))
+     */
+
+    public static final ResourceKey<Biome> ALPHAHANG = createBiomeKey("alphahang");
     public static final ResourceKey<Biome> ANCIENT_FOREST = createBiomeKey("underhang");
-    public static final ResourceKey<Biome> CALM = createBiomeKey("calm");
-    public static final ResourceKey<Biome> PILLARS = createBiomeKey("pillars");
+    public static final ResourceKey<Biome> AMBER_DESERT = createBiomeKey("amber_desert");
+    public static final ResourceKey<Biome> MEGALITH_FIELD= createBiomeKey("megalith_field");
+    public static final ResourceKey<Biome> PRIMORDIAL_BEACH = createBiomeKey("primordial_beach");
     public static final ResourceKey<Biome> PRIMORDIAL_OCEAN = createBiomeKey("primordial_ocean");
+    public static final ResourceKey<Biome> SHELFHOLLOW = createBiomeKey("shelfhollow");
 
     public static void bootstrap(BootstrapContext<Biome> bootstapContext) {
         HolderGetter<PlacedFeature> placeddFeatureHolder = bootstapContext.lookup(Registries.PLACED_FEATURE);
