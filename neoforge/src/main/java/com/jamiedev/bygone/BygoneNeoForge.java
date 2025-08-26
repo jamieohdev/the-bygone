@@ -67,7 +67,6 @@ public class BygoneNeoForge {
     void onLivingDeath(LivingDeathEvent event) {
         Bygone.LOGGER.info("Entity died: {} (type: {})", event.getEntity().getClass().getSimpleName(), event.getEntity().getType());
         if (event.getEntity() instanceof Vex vex && event.getEntity().level() instanceof ServerLevel serverLevel) {
-            Bygone.LOGGER.info("Vex death detected, calling VexDeathTracker");
             VexDeathTracker.onVexDeath(vex, serverLevel);
         }
     }
