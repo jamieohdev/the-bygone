@@ -63,7 +63,6 @@ public class BygoneFabric implements ModInitializer {
 		PacketHandler.registerPackets();
 
 		ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
-			Bygone.LOGGER.info("Entity died: {} (type: {})", entity.getClass().getSimpleName(), entity.getType());
 			if (entity instanceof Vex vex && entity.level() instanceof ServerLevel serverLevel) {
 				VexDeathTracker.onVexDeath(vex, serverLevel);
 			}
