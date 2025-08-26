@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 import static com.jamiedev.bygone.Bygone.id;
 
@@ -103,6 +104,10 @@ public class BGSoundEvents
     public static final SoundEvent HOOK_RETRIEVE_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_RETRIEVE);
     public static final SoundEvent HOOK_HIT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_HIT);
     public static final SoundEvent HOOK_THROW_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_THROW);
+    
+    public static final ResourceLocation ITEM_WAR_HORN_USE_ID = id("item.war_horn.use");
+    public static final SoundEvent WAR_HORN_USE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_WAR_HORN_USE_ID);
+    public static final Supplier<SoundEvent> WAR_HORN_USE = () -> WAR_HORN_USE_EVENT;
     
     public static SoundEvent AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_ANCIENTFOREST_ADDITIONS);
     public static SoundEvent AMBIENT_AMBERDESERT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_AMBERDESERT_ADDITIONS);
@@ -227,6 +232,8 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_RETRIEVE, HOOK_RETRIEVE_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_HIT, HOOK_HIT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_THROW, HOOK_THROW_ADDITIONS_EVENT);
+        
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ITEM_WAR_HORN_USE_ID, WAR_HORN_USE_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_AMBIENT, BGSoundEvents.WRAITH_AMBIENT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_ATTACK, BGSoundEvents.WRAITH_ATTACK_ADDITIONS_EVENT);

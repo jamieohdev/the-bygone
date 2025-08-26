@@ -122,6 +122,7 @@ public class BGItemGroups {
                 output.accept(BGBlocks.GOURD_LANTERN_MUAVE.get());
                 output.accept(BGBlocks.BIG_WHIRLIWEED.get());
                 output.accept(BGBlocks.WHIRLIWEED.get());
+                output.accept(BGItems.WHIRLIWEED_BUNDLE.get());
                 output.accept(BGBlocks.CLAYSTONE.get());
                 output.accept(BGBlocks.CLAYSTONE_FARMLAND.get());
                 output.accept(BGBlocks.COARSE_CLAYSTONE.get());
@@ -292,8 +293,10 @@ public class BGItemGroups {
                 output.accept(BGBlocks.MAGENTA_AMPHORA.get());
                 output.accept(BGBlocks.PINK_AMPHORA.get());
 
-
                 output.accept(BGItems.MUSIC_DISC_SHUFFLE.get());
+
+
+                output.accept(BGItems.MALICIOUS_WAR_HORN.get());
 
             })
             .title(Component.translatable("itemGroup.test"))
