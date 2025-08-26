@@ -20,6 +20,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -65,16 +68,17 @@ public class MaliciousWarHornItem extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity user) {
         if (!level.isClientSide && user instanceof Player player) {
-            WarHornData data = releaseVexes(stack, level, player);
-            
             level.playSound(null, player.getX(), player.getY(), player.getZ(),
                 BGSoundEvents.WAR_HORN_USE.get(), SoundSource.RECORDS, 1.5F, 1.0F);
             level.gameEvent(GameEvent.INSTRUMENT_PLAY, player.position(), GameEvent.Context.of(player));
             
+            spawnHornParticles(level, player);
+            
+            WarHornData data = releaseVexes(stack, level, player);
+            stack.set(BGDataComponents.WAR_HORN_DATA.value(), data);
+            
             player.awardStat(Stats.ITEM_USED.get(this));
             player.getCooldowns().addCooldown(this, 20);
-
-            stack.set(BGDataComponents.WAR_HORN_DATA.value(), data);
         }
         
         return stack;
@@ -106,6 +110,29 @@ public class MaliciousWarHornItem extends Item {
         }
         
         return new WarHornData(new ArrayList<>(vexIds), RECHARGE_TIME_SECONDS, VEX_LIFETIME_SECONDS);
+    }
+    
+    private void spawnHornParticles(Level level, Player player) {
+        if (!(level instanceof ServerLevel serverLevel)) return;
+        
+        Vec3 lookDirection = player.getLookAngle();
+        double hornX = player.getX() + lookDirection.x * 0.5;
+        double hornY = player.getY() + player.getEyeHeight() - 0.2;
+        double hornZ = player.getZ() + lookDirection.z * 0.5;
+        
+        for (int i = 0; i < 100; i++) {
+            double angle = 2 * Math.PI * level.random.nextDouble();
+            double radius = level.random.nextDouble() * 3.0;
+            double height = (level.random.nextDouble() - 0.5) * 2.0;
+            
+            double offsetX = Math.cos(angle) * radius * 0.3;
+            double offsetY = height * 0.3;
+            double offsetZ = Math.sin(angle) * radius * 0.3;
+            
+            serverLevel.sendParticles(ParticleTypes.SOUL,
+                hornX, hornY, hornZ,
+                1, offsetX, offsetY, offsetZ, 0.1);
+        }
     }
 
     @Override
