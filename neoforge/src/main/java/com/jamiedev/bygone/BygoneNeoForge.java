@@ -7,6 +7,7 @@ import com.jamiedev.bygone.core.registry.AttachmentTypesNeoForge;
 import com.jamiedev.bygone.core.registry.BGMobEffectsNeoForge;
 import com.jamiedev.bygone.core.registry.BGDataComponentsNeoForge;
 import com.jamiedev.bygone.common.util.VexDeathTracker;
+import com.jamiedev.bygone.common.util.ServerTickHandler;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
@@ -24,6 +25,7 @@ import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
@@ -49,6 +51,7 @@ public class BygoneNeoForge {
         NeoForge.EVENT_BUS.addListener(this::entityTick);
         NeoForge.EVENT_BUS.addListener(this::damageEvent);
         NeoForge.EVENT_BUS.addListener(this::onLivingDeath);
+        NeoForge.EVENT_BUS.addListener(this::onServerTick);
     }
 
     //
@@ -69,6 +72,10 @@ public class BygoneNeoForge {
         if (event.getEntity() instanceof Vex vex && event.getEntity().level() instanceof ServerLevel serverLevel) {
             VexDeathTracker.onVexDeath(vex, serverLevel);
         }
+    }
+
+    void onServerTick(ServerTickEvent.Post event) {
+        ServerTickHandler.onServerTick(event.getServer());
     }
 
     void createAttributes(EntityAttributeCreationEvent event) {

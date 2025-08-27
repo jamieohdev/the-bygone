@@ -297,6 +297,7 @@ public class BGItemGroups {
 
 
                 output.accept(BGItems.MALICIOUS_WAR_HORN.get());
+                output.accept(BGItems.ECHO_GONG.get());
 
             })
             .title(Component.translatable("itemGroup.test"))

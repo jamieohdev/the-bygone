@@ -7,7 +7,9 @@ import com.jamiedev.bygone.core.registry.BGMobEffectsFabric;
 import com.jamiedev.bygone.core.registry.BGDataComponentsFabric;
 import com.jamiedev.bygone.core.network.PacketHandler;
 import com.jamiedev.bygone.common.util.VexDeathTracker;
+import com.jamiedev.bygone.common.util.ServerTickHandler;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -67,6 +69,8 @@ public class BygoneFabric implements ModInitializer {
 				VexDeathTracker.onVexDeath(vex, serverLevel);
 			}
 		});
+
+		ServerTickEvents.END_SERVER_TICK.register(ServerTickHandler::onServerTick);
 
 	}
 

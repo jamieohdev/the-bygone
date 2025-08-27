@@ -43,6 +43,8 @@ public class BGItems
     public static final Supplier<Item> WHIRLIWEED_BUNDLE = registerItem("whirliweed_bundle", () -> new WhirliweedBundleItem(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
     
     public static final Supplier<Item> MALICIOUS_WAR_HORN = registerItem("malicious_war_horn", () -> new MaliciousWarHornItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).durability(100)));
+    
+    public static final Supplier<Item> ECHO_GONG = registerItem("echo_gong", () -> new EchoGongItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
     public static final Supplier<Item> ANCIENT_SIGN = registerItem("ancient_sign", () ->
             new SignItem(new Item.Properties().stacksTo(16), BGBlocks.ANCIENT_SIGN.get(), BGBlocks.ANCIENT_WALL_SIGN.get()));

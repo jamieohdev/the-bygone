@@ -109,6 +109,14 @@ public class BGSoundEvents
     public static final SoundEvent WAR_HORN_USE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_WAR_HORN_USE_ID);
     public static final Supplier<SoundEvent> WAR_HORN_USE = () -> WAR_HORN_USE_EVENT;
     
+    public static final ResourceLocation ITEM_ECHO_GONG_USE_ID = id("item.echo_gong.use");
+    public static final SoundEvent ECHO_GONG_USE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_ECHO_GONG_USE_ID);
+    public static final Supplier<SoundEvent> ECHO_GONG_USE = () -> ECHO_GONG_USE_EVENT;
+    
+    public static final ResourceLocation ITEM_ECHO_GONG_CHARGE_ID = id("item.echo_gong.charge");
+    public static final SoundEvent ECHO_GONG_CHARGE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_ECHO_GONG_CHARGE_ID);
+    public static final Supplier<SoundEvent> ECHO_GONG_CHARGE = () -> ECHO_GONG_CHARGE_EVENT;
+    
     public static SoundEvent AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_ANCIENTFOREST_ADDITIONS);
     public static SoundEvent AMBIENT_AMBERDESERT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_AMBERDESERT_ADDITIONS);
     public static SoundEvent AMBIENT_PRIMORDIALOCEAN_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_PRIMORDIALOCEAN_ADDITIONS);
@@ -234,6 +242,8 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_THROW, HOOK_THROW_ADDITIONS_EVENT);
         
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ITEM_WAR_HORN_USE_ID, WAR_HORN_USE_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ITEM_ECHO_GONG_USE_ID, ECHO_GONG_USE_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ITEM_ECHO_GONG_CHARGE_ID, ECHO_GONG_CHARGE_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_AMBIENT, BGSoundEvents.WRAITH_AMBIENT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_ATTACK, BGSoundEvents.WRAITH_ATTACK_ADDITIONS_EVENT);
