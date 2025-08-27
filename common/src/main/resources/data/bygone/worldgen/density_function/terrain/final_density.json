@@ -1,28 +1,32 @@
 {
   "": "caves/noodle needs interpolation ahead of time due to small scale, so wraps outside of interpolation",
-  "type": "minecraft:min",
+  "type": "minecraft:max",
   "argument1": {
-    "type": "minecraft:squeeze",
-    "argument": {
-      "type": "minecraft:mul",
-      "argument1": 0.64,
-      "argument2": {
-        "type": "minecraft:interpolated",
-        "argument": {
-          "type": "minecraft:max",
-          "argument1": {
-            "type": "minecraft:add",
+    "type": "minecraft:min",
+    "argument1": {
+      "type": "minecraft:squeeze",
+      "argument": {
+        "type": "minecraft:mul",
+        "argument1": 0.64,
+        "argument2": {
+          "type": "minecraft:interpolated",
+          "argument": {
+            "type": "minecraft:max",
             "argument1": {
-              "type": "minecraft:min",
-              "argument1": "bygone:terrain/base_limited",
-              "argument2": "bygone:caves/combined"
+              "type": "minecraft:add",
+              "argument1": {
+                "type": "minecraft:min",
+                "argument1": "bygone:terrain/base_limited",
+                "argument2": "bygone:caves/combined"
+              },
+              "argument2": "bygone:caves/aquifers_combined"
             },
-            "argument2": "bygone:caves/aquifers_combined"
-          },
-          "argument2": "bygone:terrain/pillars_limited"
+            "argument2": "bygone:terrain/pillars_limited"
+          }
         }
       }
-    }
+    },
+    "argument2": "bygone:caves/noodle"
   },
-  "argument2": "bygone:caves/noodle"
+  "argument2": "bygone:rivers/combined"
 }

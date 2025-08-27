@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:max",
+  "argument1": "bygone:rivers/terrain_lower",
+  "argument2": "bygone:rivers/terrain_upper"
+}
