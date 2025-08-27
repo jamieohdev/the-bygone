@@ -6,9 +6,7 @@
       "item": "bygone:polished_bystone"
     }
   },
-  "pattern": [
-    "XXX"
-  ],
+  "pattern": ["XXX"],
   "result": {
     "count": 6,
     "id": "bygone:polished_bystone_slab"

@@ -18,12 +18,7 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_chiseled_polished_bystone"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_chiseled_polished_bystone"]],
   "rewards": {
     "recipes": [
       "minecraft:polished_bystone_from_chiseled_polished_bystone_stonecutting"

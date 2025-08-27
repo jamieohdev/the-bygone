@@ -1,7 +1,4 @@
 {
   "replace": false,
-  "values": [
-
-    "bygone:scale_chestplate"
-  ]
+  "values": ["bygone:scale_chestplate"]
 }

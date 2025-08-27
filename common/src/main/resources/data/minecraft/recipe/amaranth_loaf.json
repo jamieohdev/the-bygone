@@ -6,9 +6,7 @@
       "item": "bygone:amaranth_grain"
     }
   },
-  "pattern": [
-    "###"
-  ],
+  "pattern": ["###"],
   "result": {
     "count": 1,
     "id": "bygone:amaranth_loaf"

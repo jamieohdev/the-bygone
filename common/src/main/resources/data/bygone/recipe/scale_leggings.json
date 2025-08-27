@@ -6,11 +6,7 @@
       "item": "bygone:scale"
     }
   },
-  "pattern": [
-    "WWW",
-    "W W",
-    "W W"
-  ],
+  "pattern": ["WWW", "W W", "W W"],
   "result": {
     "count": 1,
     "id": "bygone:scale_leggings"

@@ -1,7 +1,4 @@
 {
   "replace": false,
-  "values": [
-
-    "bygone:scale_boots"
-  ]
+  "values": ["bygone:scale_boots"]
 }

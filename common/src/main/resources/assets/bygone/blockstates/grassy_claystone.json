@@ -2,7 +2,7 @@
   "variants": {
     "snowy=false": [
       {
-      "model": "bygone:block/grassy_claystone"
+        "model": "bygone:block/grassy_claystone"
       },
       {
         "model": "bygone:block/grassy_claystone",

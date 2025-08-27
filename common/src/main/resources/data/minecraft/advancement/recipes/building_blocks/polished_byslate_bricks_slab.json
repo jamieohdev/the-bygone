@@ -18,15 +18,8 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_polished_byslate_bricks"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_polished_byslate_bricks"]],
   "rewards": {
-    "recipes": [
-      "minecraft:polished_byslate_bricks_slab"
-    ]
+    "recipes": ["minecraft:polished_byslate_bricks_slab"]
   }
 }

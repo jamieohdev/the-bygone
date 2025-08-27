@@ -1,6 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "bygone:lithine_ore"
-  ]
+  "values": ["bygone:lithine_ore"]
 }

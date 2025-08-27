@@ -6,11 +6,7 @@
       "item": "bygone:polished_byslate"
     }
   },
-  "pattern": [
-    "X  ",
-    "XX ",
-    "XXX"
-  ],
+  "pattern": ["X  ", "XX ", "XXX"],
   "result": {
     "count": 4,
     "id": "bygone:polished_byslate_stairs"

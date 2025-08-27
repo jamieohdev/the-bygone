@@ -22,10 +22,6 @@
       "translate": "advancement.bygone.bygone.title"
     }
   },
-  "requirements": [
-    [
-      "bygone"
-    ]
-  ],
+  "requirements": [["bygone"]],
   "sends_telemetry_event": true
 }

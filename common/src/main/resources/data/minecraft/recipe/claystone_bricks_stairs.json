@@ -6,11 +6,7 @@
       "item": "bygone:claystone_bricks"
     }
   },
-  "pattern": [
-    "X  ",
-    "XX ",
-    "XXX"
-  ],
+  "pattern": ["X  ", "XX ", "XXX"],
   "result": {
     "count": 4,
     "id": "bygone:claystone_bricks_stairs"

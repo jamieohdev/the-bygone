@@ -6,9 +6,7 @@
       "item": "bygone:purple_fungal_bricks"
     }
   },
-  "pattern": [
-    "XXX"
-  ],
+  "pattern": ["XXX"],
   "result": {
     "count": 6,
     "id": "bygone:purple_fungal_slab"

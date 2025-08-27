@@ -1,6 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "bygone:amaranth_crop"
-  ]
+  "values": ["bygone:amaranth_crop"]
 }

@@ -1,8 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "bygone:hanging",
-    "bygone:shelves",
-    "bygone:hallucigeania"
-  ]
+  "values": ["bygone:hanging", "bygone:shelves", "bygone:hallucigeania"]
 }

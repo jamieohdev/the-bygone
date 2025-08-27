@@ -6,9 +6,7 @@
       "item": "bygone:amber_sandstone"
     }
   },
-  "pattern": [
-    "XXX"
-  ],
+  "pattern": ["XXX"],
   "result": {
     "count": 6,
     "id": "bygone:amber_sandstone_slab"

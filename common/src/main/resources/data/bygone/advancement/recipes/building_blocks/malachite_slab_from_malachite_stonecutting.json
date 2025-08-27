@@ -18,15 +18,8 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_malachite"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_malachite"]],
   "rewards": {
-    "recipes": [
-      "minecraft:malachite_slab_from_malachite_stonecutting"
-    ]
+    "recipes": ["minecraft:malachite_slab_from_malachite_stonecutting"]
   }
 }

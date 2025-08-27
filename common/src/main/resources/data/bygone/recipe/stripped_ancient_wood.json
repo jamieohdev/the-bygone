@@ -7,10 +7,7 @@
       "item": "bygone:stripped_ancient_log"
     }
   },
-  "pattern": [
-    "XX",
-    "XX"
-  ],
+  "pattern": ["XX", "XX"],
   "result": {
     "count": 3,
     "id": "bygone:stripped_ancient_wood"

@@ -12,11 +12,7 @@
       "item": "bygone:exotic_plumage"
     }
   },
-  "pattern": [
-    "X",
-    "#",
-    "Y"
-  ],
+  "pattern": ["X", "#", "Y"],
   "result": {
     "count": 4,
     "id": "bygone:exotic_arrow"

@@ -7,9 +7,7 @@
       "item": "bygone:ancient_planks"
     }
   },
-  "pattern": [
-    "XX"
-  ],
+  "pattern": ["XX"],
   "result": {
     "count": 1,
     "id": "bygone:ancient_pressure_plate"

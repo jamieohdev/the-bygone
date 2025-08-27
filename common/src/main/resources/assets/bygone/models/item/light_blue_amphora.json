@@ -2,9 +2,9 @@
   "parent": "bygone:block/light_blue_amphora",
   "display": {
     "gui": {
-      "rotation": [ 30, 45, 0 ],
-      "translation": [ 0, -3, 0],
-      "scale":[ 0.575, 0.575, 0.575 ]
+      "rotation": [30, 45, 0],
+      "translation": [0, -3, 0],
+      "scale": [0.575, 0.575, 0.575]
     }
   }
 }

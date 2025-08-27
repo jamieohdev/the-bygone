@@ -10,11 +10,7 @@
       "item": "minecraft:stick"
     }
   },
-  "pattern": [
-    "WWW",
-    "WWW",
-    " X "
-  ],
+  "pattern": ["WWW", "WWW", " X "],
   "result": {
     "count": 3,
     "id": "bygone:ancient_sign"

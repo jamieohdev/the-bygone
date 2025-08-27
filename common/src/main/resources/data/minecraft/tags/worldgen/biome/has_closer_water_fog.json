@@ -1,6 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "bygone:primordial_ocean"
-  ]
+  "values": ["bygone:primordial_ocean"]
 }

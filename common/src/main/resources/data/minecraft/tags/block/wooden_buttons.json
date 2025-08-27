@@ -1,7 +1,4 @@
 {
   "replace": false,
-  "values": [
-
-    "bygone:ancient_button"
-  ]
+  "values": ["bygone:ancient_button"]
 }

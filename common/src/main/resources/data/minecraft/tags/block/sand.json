@@ -1,7 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "bygone:primordial_sand",
-    "bygone:amber_sand"
-  ]
+  "values": ["bygone:primordial_sand", "bygone:amber_sand"]
 }

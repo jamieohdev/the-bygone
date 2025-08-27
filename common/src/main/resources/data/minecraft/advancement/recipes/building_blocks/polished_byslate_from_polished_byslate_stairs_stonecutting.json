@@ -18,12 +18,7 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_polished_byslate_stairs"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_polished_byslate_stairs"]],
   "rewards": {
     "recipes": [
       "minecraft:polished_byslate_from_polished_byslate_stairs_stonecutting"

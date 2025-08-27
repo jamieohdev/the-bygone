@@ -89,9 +89,7 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [
-
-    ],
+    "creature": [],
     "misc": [],
     "monster": [],
     "underground_water_creature": [],

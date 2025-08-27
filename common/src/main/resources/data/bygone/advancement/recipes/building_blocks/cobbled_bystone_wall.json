@@ -18,15 +18,8 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_cobbled_bystone"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_cobbled_bystone"]],
   "rewards": {
-    "recipes": [
-      "minecraft:cobbled_bystone_wall"
-    ]
+    "recipes": ["minecraft:cobbled_bystone_wall"]
   }
 }

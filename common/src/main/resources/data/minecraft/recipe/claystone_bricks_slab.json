@@ -6,9 +6,7 @@
       "item": "bygone:claystone_bricks"
     }
   },
-  "pattern": [
-    "XXX"
-  ],
+  "pattern": ["XXX"],
   "result": {
     "count": 6,
     "id": "bygone:claystone_bricks_slab"

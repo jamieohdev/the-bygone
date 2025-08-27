@@ -1,6 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "bygone:verdigris_ingot"
-  ]
+  "values": ["bygone:verdigris_ingot"]
 }

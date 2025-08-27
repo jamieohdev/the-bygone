@@ -1,6 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "bygone:glow_gravel"
-  ]
+  "values": ["bygone:glow_gravel"]
 }

@@ -18,15 +18,8 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_claystone_bricks"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_claystone_bricks"]],
   "rewards": {
-    "recipes": [
-      "minecraft:claystone_bricks_slab"
-    ]
+    "recipes": ["minecraft:claystone_bricks_slab"]
   }
 }

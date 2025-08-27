@@ -18,15 +18,8 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_scale"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_scale"]],
   "rewards": {
-    "recipes": [
-      "minecraft:scale_leggings"
-    ]
+    "recipes": ["minecraft:scale_leggings"]
   }
 }

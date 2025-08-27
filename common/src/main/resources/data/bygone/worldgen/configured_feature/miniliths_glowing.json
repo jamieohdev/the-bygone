@@ -49,7 +49,6 @@
         "provider": {
           "type": "minecraft:weighted_state_provider",
           "entries": [
-
             {
               "weight": 3,
               "data": {
@@ -160,7 +159,7 @@
                 }
               }
             },
-            
+
             {
               "weight": 3,
               "data": {

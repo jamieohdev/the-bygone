@@ -1,10 +1,8 @@
 {
   "variants": {
-
-      "facing=north": { "model": "bygone:block/red_amphora" },
-      "facing=south": { "model": "bygone:block/red_amphora", "y": 180 },
-      "facing=west":  { "model": "bygone:block/red_amphora", "y": 270 },
-      "facing=east":  { "model": "bygone:block/red_amphora", "y": 90 }
-
+    "facing=north": { "model": "bygone:block/red_amphora" },
+    "facing=south": { "model": "bygone:block/red_amphora", "y": 180 },
+    "facing=west": { "model": "bygone:block/red_amphora", "y": 270 },
+    "facing=east": { "model": "bygone:block/red_amphora", "y": 90 }
   }
 }

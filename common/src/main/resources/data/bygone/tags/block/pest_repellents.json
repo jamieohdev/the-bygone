@@ -1,6 +1,3 @@
 {
-  "values": [
-    "bygone:plaga",
-    "bygone:plaga_wall"
-  ]
+  "values": ["bygone:plaga", "bygone:plaga_wall"]
 }

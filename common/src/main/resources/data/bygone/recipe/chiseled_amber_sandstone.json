@@ -6,10 +6,7 @@
       "item": "bygone:amber_sandstone_slab"
     }
   },
-  "pattern": [
-    "#",
-    "#"
-  ],
+  "pattern": ["#", "#"],
   "result": {
     "count": 1,
     "id": "bygone:chiseled_amber_sandstone"

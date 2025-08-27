@@ -1,7 +1,4 @@
 {
   "replace": false,
-  "values": [
-
-    "bygone:ancient_log"
-  ]
+  "values": ["bygone:ancient_log"]
 }

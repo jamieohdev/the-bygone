@@ -17,11 +17,7 @@
       "item": "minecraft:gunpowder"
     }
   },
-  "pattern": [
-    "X#X",
-    "#X#",
-    "X#X"
-  ],
+  "pattern": ["X#X", "#X#", "X#X"],
   "result": {
     "count": 1,
     "id": "minecraft:tnt"

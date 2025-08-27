@@ -1,7 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "bygone:mossy_claystone",
-    "minecraft:moss_block"
-  ]
+  "values": ["bygone:mossy_claystone", "minecraft:moss_block"]
 }

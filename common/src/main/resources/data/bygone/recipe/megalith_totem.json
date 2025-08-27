@@ -9,11 +9,7 @@
       "item": "bygone:lithoplasm"
     }
   },
-  "pattern": [
-    " # ",
-    "#X#",
-    " # "
-  ],
+  "pattern": [" # ", "#X#", " # "],
   "result": {
     "count": 1,
     "id": "bygone:megalith_totem"

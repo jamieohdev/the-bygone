@@ -9,10 +9,7 @@
       "item": "bygone:lithoplasm"
     }
   },
-  "pattern": [
-    "X",
-    "Y"
-  ],
+  "pattern": ["X", "Y"],
   "result": {
     "count": 1,
     "id": "bygone:lit_cracked_megalith_block"

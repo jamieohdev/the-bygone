@@ -9,10 +9,7 @@
       "item": "minecraft:blaze_rod"
     }
   },
-  "pattern": [
-    " # ",
-    " I "
-  ],
+  "pattern": [" # ", " I "],
   "result": {
     "count": 1,
     "id": "bygone:ancient_hook"

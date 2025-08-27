@@ -18,15 +18,8 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_orange_mushroom_block"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_orange_mushroom_block"]],
   "rewards": {
-    "recipes": [
-      "minecraft:orange_fungal_bricks"
-    ]
+    "recipes": ["minecraft:orange_fungal_bricks"]
   }
 }
