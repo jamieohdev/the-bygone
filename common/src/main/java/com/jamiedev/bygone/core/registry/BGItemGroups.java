@@ -52,6 +52,7 @@ public class BGItemGroups {
                 output.accept(BGItems.ARCANE_CORE.get());
                 output.accept(BGItems.HOOK.get());
                 output.accept(BGItems.MALICIOUS_WAR_HORN.get());
+                output.accept(BGItems.ECHO_GONG.get());
                 output.accept(BGItems.GOLD_BIG_BEAK_ARMOR.get());
                 output.accept(BGItems.IRON_BIG_BEAK_ARMOR.get());
                 output.accept(BGItems.DIAMOND_BIG_BEAK_ARMOR.get());
@@ -296,9 +297,6 @@ public class BGItemGroups {
                 output.accept(BGBlocks.PINK_AMPHORA.get());
 
                 output.accept(BGItems.MUSIC_DISC_SHUFFLE.get());
-
-                output.accept(BGItems.MALICIOUS_WAR_HORN.get());
-                output.accept(BGItems.ECHO_GONG.get());
             })
             .title(Component.translatable("itemGroup.test"))
             .build());

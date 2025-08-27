@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "#": {
-      "item": "minecraft:echo_shard"
-    },
-    "X": {
+    "C": {
       "item": "bygone:verdigris_ingot"
+    },
+    "S": {
+      "item": "minecraft:echo_shard"
     }
   },
   "pattern": [
-    " # ",
-    "#X#",
-    " # "
+    " S ",
+    "SCS",
+    " S "
   ],
   "result": {
     "count": 1,

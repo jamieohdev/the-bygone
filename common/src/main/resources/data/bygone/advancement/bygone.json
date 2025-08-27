@@ -9,9 +9,9 @@
   },
   "display": {
     "announce_to_chat": false,
-    "background": "bygone:textures/block/bygone.png",
+    "background": "bygone:textures/block/bystone.png",
     "description": {
-      "translate": "advancement.bygone.bygone.desc"
+      "translate": "advancements.bygone.bygone.desc"
     },
     "icon": {
       "count": 1,
@@ -19,7 +19,7 @@
     },
     "show_toast": false,
     "title": {
-      "translate": "advancement.bygone.bygone.title"
+      "translate": "advancements.bygone.bygone.title"
     }
   },
   "requirements": [
