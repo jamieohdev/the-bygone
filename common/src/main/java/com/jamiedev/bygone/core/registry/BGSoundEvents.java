@@ -108,6 +108,10 @@ public class BGSoundEvents
     public static final ResourceLocation ITEM_WAR_HORN_USE_ID = id("item.war_horn.use");
     public static final SoundEvent WAR_HORN_USE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_WAR_HORN_USE_ID);
     public static final Supplier<SoundEvent> WAR_HORN_USE = () -> WAR_HORN_USE_EVENT;
+
+    public static final ResourceLocation ITEM_WHIRLIWEED_BUNDLE_USE_ID = id("item.whirliweed_bundle.use");
+    public static final SoundEvent WHIRLIWEED_BUNDLE_USE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_WHIRLIWEED_BUNDLE_USE_ID);
+    public static final Supplier<SoundEvent> WHIRLIWEED_BUNDLE_USE = () -> WHIRLIWEED_BUNDLE_USE_EVENT;
     
     public static final ResourceLocation ITEM_ECHO_GONG_USE_ID = id("item.echo_gong.use");
     public static final SoundEvent ECHO_GONG_USE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_ECHO_GONG_USE_ID);

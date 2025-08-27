@@ -1,20 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "equipment",
+  "category": "misc",
   "key": {
-    "X": {
-      "item": "bygone:megalith_block"
+    "#": {
+      "item": "bygone:cracked_megalith_block"
     },
-    "Y": {
+    "X": {
       "item": "bygone:lithoplasm"
     }
   },
   "pattern": [
-    "X",
-    "Y"
+    " # ",
+    "#X#",
+    " # "
   ],
   "result": {
     "count": 1,
-    "id": "bygone:megalith_lantern"
+    "id": "bygone:megalith_totem"
   }
 }

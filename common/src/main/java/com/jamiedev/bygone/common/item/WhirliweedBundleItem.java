@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.common.item;
 
 import com.jamiedev.bygone.core.registry.BGMobEffects;
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 public class WhirliweedBundleItem extends Item {
     
@@ -28,8 +30,9 @@ public class WhirliweedBundleItem extends Item {
         if (!level.isClientSide) {
             player.addEffect(new MobEffectInstance(BGMobEffects.UPDRAFT.get(), 600, 0));
             
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), 
-                    SoundEvents.TOTEM_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
+            level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                    BGSoundEvents.WHIRLIWEED_BUNDLE_USE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+            level.gameEvent(GameEvent.INSTRUMENT_PLAY, player.position(), GameEvent.Context.of(player));
             
             player.awardStat(Stats.ITEM_USED.get(this));
             

@@ -651,5 +651,15 @@
       }
     ],
     "subtitle": "subtitles.bygone.item.echo_gong.charge"
+  },
+  "item.whirliweed_bundle.use": {
+    "sounds": [
+      {
+        "name": "bygone:item/whirliweed_bundle/use",
+        "volume": 1.5,
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.bygone.item.whirliweed_bundle.use"
   }
 }

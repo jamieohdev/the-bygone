@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "X": {
+      "item": "bygone:cracked_megalith_block"
+    },
+    "Y": {
+      "item": "bygone:lithoplasm"
+    }
+  },
+  "pattern": [
+    "X",
+    "Y"
+  ],
+  "result": {
+    "count": 1,
+    "id": "bygone:lit_cracked_megalith_block"
+  }
+}

@@ -6,6 +6,18 @@
   "system.bygone.teleporting_into_bygone": "Teleporting into the Bygone...",
   "system.bygone.teleporting_out_of_bygone": "Teleporting out of the Bygone...",
 
+  "advancements.bygone.enter_bygone.title": "Let Bygones be Bygone...",
+  "advancements.bygone.enter_bygone.desc": "Entered the Bygone",
+
+  "advancements.bygone.explore_bygone.title": "Sights of the Ages",
+  "advancements.bygone.explore_bygone.desc": "Explore all Bygone biomes",
+
+  "advancements.nether.find_sewer.desc": "Enter a Sewer",
+  "advancements.nether.find_sewer.title": "Cowabunga!",
+
+  "advancements.nether.find_village.desc": "Enter a forgotten Village...",
+  "advancements.nether.find_village.title": "Is this Bugging you?",
+
   "item.bygone.jamiesitem": "",
   "item.bygone.ancient_hook": "Ancient Hook",
   "item.bygone.whirliweed_bundle": "Whirliweed Bundle",
@@ -26,6 +38,7 @@
   "item.bygone.echo_gong.ready": "Fully Charged - Ready to use!",
   "subtitles.bygone.item.echo_gong.use": "Echo Gong resonates",
   "subtitles.bygone.item.echo_gong.charge": "Echo Gong builds energy",
+  "subtitles.bygone.item.whirliweed_bundle.use": "Whirliweed Bundle whirls",
   "item.bygone.ancient_sign": "Ancient Sign",
   "item.bygone.ancient_hanging_sign": "Ancient Hanging Sign",
   "item.bygone.ancient_boat": "Ancient Boat",
