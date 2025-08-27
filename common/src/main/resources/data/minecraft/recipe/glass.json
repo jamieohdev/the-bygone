@@ -4,7 +4,7 @@
   "cookingtime": 200,
   "experience": 0.1,
   "ingredient": {
-    "tag": "minecraft:smelts_to_glass"
+    "item": "bygone:amber_sand"
   },
   "result": {
     "id": "minecraft:glass"

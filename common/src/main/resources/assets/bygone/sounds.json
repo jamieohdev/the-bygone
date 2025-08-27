@@ -631,5 +631,15 @@
       }
     ],
     "subtitle": "subtitles.bygone.item.war_horn.use"
+  },
+  "item.whirliweed_bundle.use": {
+    "sounds": [
+      {
+        "name": "bygone:item/whirliweed_bundle/use",
+        "volume": 1.5,
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.bygone.item.whirliweed_bundle.use"
   }
 }

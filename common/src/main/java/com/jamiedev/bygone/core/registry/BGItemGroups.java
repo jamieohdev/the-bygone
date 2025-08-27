@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 public class BGItemGroups {
 
     public static final Supplier<CreativeModeTab> EXAMPLE_TAB = registerTab("test", () -> CreativeModeTab.builder(null, -1)
-            .icon(() -> new ItemStack(BGBlocks.AMBER_SAND.get()))
+            .icon(() -> new ItemStack(BGBlocks.MEGALITH_FACE.get()))
             .displayItems((itemDisplayParameters, output) -> {
                 output.accept(BGItems.ANCIENT_SIGN.get());
                 output.accept(BGItems.ANCIENT_HANGING_SIGN.get());
@@ -48,8 +48,10 @@ public class BGItemGroups {
                 output.accept(BGItems.SCUTTLE_SPAWN_EGG.get());
                 output.accept(BGItems.TRILOBITE_SPAWN_EGG.get());
                 output.accept(BGItems.WHISKBILL_SPAWN_EGG.get());
+                output.accept(BGItems.WRAITH_SPAWN_EGG.get());
                 output.accept(BGItems.ARCANE_CORE.get());
                 output.accept(BGItems.HOOK.get());
+                output.accept(BGItems.MALICIOUS_WAR_HORN.get());
                 output.accept(BGItems.GOLD_BIG_BEAK_ARMOR.get());
                 output.accept(BGItems.IRON_BIG_BEAK_ARMOR.get());
                 output.accept(BGItems.DIAMOND_BIG_BEAK_ARMOR.get());
@@ -295,8 +297,6 @@ public class BGItemGroups {
 
                 output.accept(BGItems.MUSIC_DISC_SHUFFLE.get());
 
-
-                output.accept(BGItems.MALICIOUS_WAR_HORN.get());
 
             })
             .title(Component.translatable("itemGroup.test"))

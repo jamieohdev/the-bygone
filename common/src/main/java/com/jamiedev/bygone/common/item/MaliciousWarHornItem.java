@@ -232,4 +232,5 @@ public class MaliciousWarHornItem extends Item {
     public record WarHornData(List<UUID> activeVexes, int cooldownSeconds, int vexTimeLeft) {
         public static final WarHornData EMPTY = new WarHornData(new ArrayList<>(), 0, 0);
     }
+
 }
