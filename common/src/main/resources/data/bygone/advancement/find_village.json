@@ -24,7 +24,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "minecraft:oxidized_copper"
+      "id": "bygone:claystone_bricks"
     },
     "title": {
       "translate": "advancements.bygone.find_village.title"
