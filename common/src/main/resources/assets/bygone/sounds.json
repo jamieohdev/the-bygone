@@ -632,6 +632,26 @@
     ],
     "subtitle": "subtitles.bygone.item.war_horn.use"
   },
+  "item.echo_gong.use": {
+    "sounds": [
+      {
+        "name": "bygone:item/echo_gong/use",
+        "volume": 2.0,
+        "pitch": 1.0
+      }
+    ],
+    "subtitle": "subtitles.bygone.item.echo_gong.use"
+  },
+  "item.echo_gong.charge": {
+    "sounds": [
+      {
+        "name": "minecraft:block.bell.resonate",
+        "volume": 0.3,
+        "pitch": 1.2
+      }
+    ],
+    "subtitle": "subtitles.bygone.item.echo_gong.charge"
+  },
   "item.whirliweed_bundle.use": {
     "sounds": [
       {

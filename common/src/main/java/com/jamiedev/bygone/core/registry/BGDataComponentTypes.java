@@ -35,27 +35,6 @@ public class BGDataComponentTypes
 
     public static final DataComponentType<Integer> BYGONE_MAP_HEIGHT = register("bygone_map_height", (p_335177_) -> p_335177_.persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
     
-    public static final DataComponentType<MaliciousWarHornItem.WarHornData> WAR_HORN_DATA = register("war_horn_data", builder -> {
-        Codec<MaliciousWarHornItem.WarHornData> codec = RecordCodecBuilder.create(instance ->
-            instance.group(
-                UUIDUtil.CODEC.listOf().fieldOf("active_vexes").forGetter(MaliciousWarHornItem.WarHornData::activeVexes),
-                Codec.INT.fieldOf("cooldown_seconds").forGetter(MaliciousWarHornItem.WarHornData::cooldownSeconds),
-                Codec.INT.fieldOf("vex_time_left").forGetter(MaliciousWarHornItem.WarHornData::vexTimeLeft)
-            ).apply(instance, MaliciousWarHornItem.WarHornData::new)
-        );
-        
-        StreamCodec<RegistryFriendlyByteBuf, MaliciousWarHornItem.WarHornData> streamCodec = StreamCodec.composite(
-            UUIDUtil.STREAM_CODEC.apply(ByteBufCodecs.list()),
-            MaliciousWarHornItem.WarHornData::activeVexes,
-            ByteBufCodecs.VAR_INT,
-            MaliciousWarHornItem.WarHornData::cooldownSeconds,
-            ByteBufCodecs.VAR_INT,
-            MaliciousWarHornItem.WarHornData::vexTimeLeft,
-            MaliciousWarHornItem.WarHornData::new
-        );
-        
-        return builder.persistent(codec).networkSynchronized(streamCodec);
-    });
 
     public static final DataComponentType<CopperbugNestBlockEntity.CopperbugData> COPPERBUG_1 = Registry.register(
             BuiltInRegistries.DATA_COMPONENT_TYPE,
@@ -80,5 +59,9 @@ public class BGDataComponentTypes
     protected static void init() {
         Bygone.LOGGER.info("Registering {} components", Bygone.MOD_ID);
 
+    }
+    
+    public record EchoGongData(int charge) {
+        public static final EchoGongData EMPTY = new EchoGongData(0);
     }
 }

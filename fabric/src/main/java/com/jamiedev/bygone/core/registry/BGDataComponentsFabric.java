@@ -2,6 +2,7 @@ package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.item.MaliciousWarHornItem;
+import com.jamiedev.bygone.core.registry.BGDataComponentTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
@@ -45,5 +46,29 @@ public class BGDataComponentsFabric {
             warHornData
         );
         BGDataComponents.WAR_HORN_DATA = (Holder<DataComponentType<MaliciousWarHornItem.WarHornData>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(registered);
+
+        Codec<BGDataComponentTypes.EchoGongData> echoGongCodec = RecordCodecBuilder.create(instance ->
+            instance.group(
+                Codec.INT.fieldOf("charge").forGetter(BGDataComponentTypes.EchoGongData::charge)
+            ).apply(instance, BGDataComponentTypes.EchoGongData::new)
+        );
+        
+        StreamCodec<RegistryFriendlyByteBuf, BGDataComponentTypes.EchoGongData> echoGongStreamCodec = StreamCodec.composite(
+            ByteBufCodecs.VAR_INT,
+            BGDataComponentTypes.EchoGongData::charge,
+            BGDataComponentTypes.EchoGongData::new
+        );
+        
+        DataComponentType<BGDataComponentTypes.EchoGongData> echoGongData = DataComponentType.<BGDataComponentTypes.EchoGongData>builder()
+            .persistent(echoGongCodec)
+            .networkSynchronized(echoGongStreamCodec)
+            .build();
+            
+        DataComponentType<BGDataComponentTypes.EchoGongData> echoGongRegistered = Registry.register(
+            BuiltInRegistries.DATA_COMPONENT_TYPE,
+            Bygone.id("echo_gong_data"),
+            echoGongData
+        );
+        BGDataComponents.ECHO_GONG_DATA = (Holder<DataComponentType<BGDataComponentTypes.EchoGongData>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(echoGongRegistered);
     }
 }

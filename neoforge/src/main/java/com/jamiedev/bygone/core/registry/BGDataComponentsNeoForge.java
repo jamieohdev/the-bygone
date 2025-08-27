@@ -2,6 +2,7 @@ package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.item.MaliciousWarHornItem;
+import com.jamiedev.bygone.core.registry.BGDataComponentTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
@@ -45,8 +46,30 @@ public class BGDataComponentsNeoForge {
             .build();
     });
     
+    private static final Supplier<DataComponentType<BGDataComponentTypes.EchoGongData>> ECHO_GONG_DATA_SUPPLIER = DATA_COMPONENTS.register("echo_gong_data", () -> {
+        Codec<BGDataComponentTypes.EchoGongData> codec = RecordCodecBuilder.create(instance ->
+            instance.group(
+                Codec.INT.fieldOf("charge").forGetter(BGDataComponentTypes.EchoGongData::charge)
+            ).apply(instance, BGDataComponentTypes.EchoGongData::new)
+        );
+        
+        StreamCodec<RegistryFriendlyByteBuf, BGDataComponentTypes.EchoGongData> streamCodec = StreamCodec.composite(
+            ByteBufCodecs.VAR_INT,
+            BGDataComponentTypes.EchoGongData::charge,
+            BGDataComponentTypes.EchoGongData::new
+        );
+        
+        return DataComponentType.<BGDataComponentTypes.EchoGongData>builder()
+            .persistent(codec)
+            .networkSynchronized(streamCodec)
+            .build();
+    });
+    
     public static void init() {
         DataComponentType<MaliciousWarHornItem.WarHornData> dataComponentType = WAR_HORN_DATA_SUPPLIER.get();
         BGDataComponents.WAR_HORN_DATA = (Holder<DataComponentType<MaliciousWarHornItem.WarHornData>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(dataComponentType);
+        
+        DataComponentType<BGDataComponentTypes.EchoGongData> echoGongDataComponentType = ECHO_GONG_DATA_SUPPLIER.get();
+        BGDataComponents.ECHO_GONG_DATA = (Holder<DataComponentType<BGDataComponentTypes.EchoGongData>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(echoGongDataComponentType);
     }
 }
