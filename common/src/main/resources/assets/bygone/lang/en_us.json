@@ -1,5 +1,6 @@
 {
   "effect.bygone.jamieseffect": "",
+  "effect.bygone.updraft": "Updraft",
 
   "system.bygone.entering_into_bygone": "Entering/Leaving the Bygone...",
   "system.bygone.teleporting_into_bygone": "Teleporting into the Bygone...",
@@ -16,6 +17,16 @@
 
   "item.bygone.jamiesitem": "",
   "item.bygone.ancient_hook": "Ancient Hook",
+  "item.bygone.whirliweed_bundle": "Whirliweed Bundle",
+  "item.bygone.malicious_war_horn": "Malicious War Horn",
+  "item.bygone.malicious_war_horn.desc1": "Summons vexes to fight for you",
+  "item.bygone.malicious_war_horn.desc2": "Vexes return after 40 seconds",
+  "item.bygone.malicious_war_horn.cooldown": "Recharging... %s seconds",
+  "item.bygone.malicious_war_horn.vexes_active": "Active Vexes: %s",
+  "item.bygone.malicious_war_horn.return_time": "Returning in %s seconds",
+  "item.bygone.malicious_war_horn.cooldown_remaining": "Cooldown: %s seconds",
+  "item.bygone.malicious_war_horn.ready": "Ready to use",
+  "subtitles.bygone.item.war_horn.use": "War Horn sounds",
   "item.bygone.ancient_sign": "Ancient Sign",
   "item.bygone.ancient_hanging_sign": "Ancient Hanging Sign",
   "item.bygone.ancient_boat": "Ancient Boat",

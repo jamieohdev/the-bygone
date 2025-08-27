@@ -621,5 +621,15 @@
       "bygone:entity/lithy/trip3"
     ],
     "subtitle": "subtitles.entity.lithy.trip"
+  },
+  "item.war_horn.use": {
+    "sounds": [
+      {
+        "name": "bygone:item/war_horn/use",
+        "volume": 1.5,
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.bygone.item.war_horn.use"
   }
 }

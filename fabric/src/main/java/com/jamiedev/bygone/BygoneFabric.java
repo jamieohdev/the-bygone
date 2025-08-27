@@ -3,9 +3,13 @@ package com.jamiedev.bygone;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGCriteria;
+import com.jamiedev.bygone.core.registry.BGMobEffectsFabric;
+import com.jamiedev.bygone.core.registry.BGDataComponentsFabric;
 import com.jamiedev.bygone.core.network.PacketHandler;
+import com.jamiedev.bygone.common.util.VexDeathTracker;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.core.BlockPos;
@@ -20,6 +24,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
+import net.minecraft.world.entity.monster.Vex;
+import net.minecraft.server.level.ServerLevel;
 
 public class BygoneFabric implements ModInitializer {
 
@@ -27,6 +33,8 @@ public class BygoneFabric implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		initEvents();
+		BGMobEffectsFabric.init();
+		BGDataComponentsFabric.init();
 		Bygone.init();
 
 		Bygone.registerBuiltIn();
@@ -53,6 +61,12 @@ public class BygoneFabric implements ModInitializer {
         Bygone.LOGGER.info("Registering Entities for {}", Bygone.MOD_ID);
 
 		PacketHandler.registerPackets();
+
+		ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
+			if (entity instanceof Vex vex && entity.level() instanceof ServerLevel serverLevel) {
+				VexDeathTracker.onVexDeath(vex, serverLevel);
+			}
+		});
 
 	}
 
