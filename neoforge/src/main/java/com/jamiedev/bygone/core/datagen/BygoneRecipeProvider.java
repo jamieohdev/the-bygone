@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.core.datagen;
 
 import com.jamiedev.bygone.core.registry.BGBlocks;
+import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -8,6 +9,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -20,16 +22,15 @@ public class BygoneRecipeProvider extends RecipeProvider {
 
     @Override
     public void buildRecipes(RecipeOutput exporter) {
-
-        this.SlabRecipe(exporter, BGBlocks.AMBER_SANDSTONE.get(), BGBlocks.AMBER_SANDSTONE_SLAB.get());
-        this.StairsRecipe(exporter, BGBlocks.AMBER_SANDSTONE.get(), BGBlocks.AMBER_SANDSTONE_STAIRS.get());
-        this.WallsRecipe(exporter, BGBlocks.AMBER_SANDSTONE.get(), BGBlocks.AMBER_SANDSTONE_WALL.get());
-
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.AMBER_SANDSTONE.get(), BGBlocks.CHISELED_AMBER_SANDSTONE.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.AMBER_SANDSTONE.get(), BGBlocks.AMBER_SANDSTONE_SLAB.get(), 2);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.AMBER_SANDSTONE.get(), BGBlocks.AMBER_SANDSTONE_STAIRS.get(), 1);
-        RecipeProvider.stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, BGBlocks.AMBER_SANDSTONE.get(), BGBlocks.AMBER_SANDSTONE_WALL.get(), 1);
-   }
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BGBlocks.MEGALITH_TOTEM.get())
+                .define('#', BGBlocks.MEGALITH_BLOCK.get())
+                .define('X', BGItems.LITHOPLASM.get())
+                .pattern(" # ")
+                .pattern("#X#")
+                .pattern(" # ")
+                .unlockedBy("has_lithoplasm", has(BGItems.LITHOPLASM.get()))
+                .save(exporter);
+    }
 
 
     void BricksRecipe(RecipeOutput exporter, Block input, Block output){

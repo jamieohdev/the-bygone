@@ -25,7 +25,7 @@ public class BygoneDataGenerator  {
 		//generator.addProvider(true,blockTagsProvider);
 		//generator.addProvider(true,new BygoneItemTagProvider(output,lookupProvider,blockTagsProvider.contentsGetter(),existingFileHelper));
 		//generator.addProvider(true,BygoneLootTableProvider.create(output,lookupProvider));
-		//generator.addProvider(true, new BygoneRecipeProvider(output,lookupProvider));
+		generator.addProvider(true, new BygoneRecipeProvider(output,lookupProvider));
 
 		//generator.addProvider(true,new BygoneDataPackProvider(output,buildRegistry(),lookupProvider));
 		generator.addProvider(event.includeServer(), new BygoneAdvancementProvider(output, lookupProvider, existingFileHelper));
