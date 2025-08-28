@@ -40,7 +40,7 @@ public class BGItems
 
     public static final Supplier<Item> HOOK = registerItem("ancient_hook", () -> new HookItem(new Item.Properties().stacksTo(1).durability(100)));
     
-    public static final Supplier<Item> WHIRLIWEED_BUNDLE = registerItem("whirliweed_bundle", () -> new WhirliweedBundleItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
+    public static final Supplier<Item> WHIRLIWEED_BUNDLE = registerItem("whirliweed_bundle", () -> new WhirliweedBundleItem(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
     
     public static final Supplier<Item> MALICIOUS_WAR_HORN = registerItem("malicious_war_horn", () -> new MaliciousWarHornItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).durability(100)));
     

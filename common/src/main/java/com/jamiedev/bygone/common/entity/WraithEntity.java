@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ByIdMap;
@@ -25,6 +26,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.FlyingAnimal;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
@@ -41,6 +43,8 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 {
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID;
     private static final EntityDataAccessor<Boolean> DATA_PREPARE_TELEPORT;
+
+    EnderMan ref;
 
     protected int withinRangeToTeleportTick = 0;
     protected int spellCastingTickCount;
@@ -169,6 +173,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         return !this.level().isClientSide ? this.currentSpell : WraithEntity.WraithSpell.byId((Byte)this.entityData.get(DATA_SPELL_CASTING_ID));
     }
 
+
     protected void customServerAiStep() {
         super.customServerAiStep();
         if (this.spellCastingTickCount > 0) {
@@ -176,8 +181,6 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         }
 
     }
-
-
 
     private void setupAnimationStates() {
         if (this.idleAnimationTimeout <= 0) {

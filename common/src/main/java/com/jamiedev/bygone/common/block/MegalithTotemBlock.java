@@ -82,7 +82,7 @@
         @Override
         protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 
-            if (!player.isCreative() && !level.isClientSide && stack.is(BGItems.LITHOPLASM.get())) {
+            if (!level.isClientSide && stack.is(BGItems.LITHOPLASM.get())) {
 
                 BlockEntity be = level.getBlockEntity(pos);
                 if (be instanceof MegalithTotemEntity totem) {

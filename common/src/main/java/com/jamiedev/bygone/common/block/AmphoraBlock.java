@@ -20,6 +20,7 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -60,8 +61,6 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     public static final IntegerProperty WATER_LEVEL = IntegerProperty.create("water_level", 0, 8);
 
     public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.Plane.HORIZONTAL);
-
-    DecoratedPotBlock ref;
 
     protected static final VoxelShape[] BOUNDING_BOX1 = new VoxelShape[]{
             Shapes.or(Block.box(5.0, 0.0, 5.0, 11.0, 27.0, 11.0),
@@ -122,6 +121,7 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
                 doWaterParticles(level, pos);
                 level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                 updateWaterLevel(level, state.getValue(WATER_LEVEL) + 1, state, pos);
+                level.gameEvent((Entity)null, GameEvent.BLOCK_CHANGE, pos);
                 if (!player.hasInfiniteMaterials())
                     player.setItemInHand(hand, new ItemStack(Items.BUCKET));
                 return ItemInteractionResult.SUCCESS;
@@ -130,6 +130,7 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
                 doWaterParticles(level, pos);
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 updateWaterLevel(level, state.getValue(WATER_LEVEL) - 1, state, pos);
+                level.gameEvent((Entity)null, GameEvent.BLOCK_CHANGE, pos);
                 if (!player.hasInfiniteMaterials())
                     player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.WATER_BUCKET)));
                 return ItemInteractionResult.SUCCESS;

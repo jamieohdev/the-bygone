@@ -34,7 +34,7 @@ import java.util.List;
 public class EchoGongItem extends Item {
     private static final int MAX_CHARGE = 100;
     private static final int CHARGE_PER_TICK = 1;
-    private static final int COOLDOWN_TICKS = 200;
+    private static final int COOLDOWN_TICKS = 100;
     private static final float SHOCKWAVE_RADIUS = 8.0F;
     private static final int WEAKNESS_DURATION = 200;
     private static final SimpleParticleType SHOCKWAVE_PARTICLE = ParticleTypes.ELECTRIC_SPARK;

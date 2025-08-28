@@ -14,10 +14,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.core.particles.ParticleTypes;
@@ -33,11 +30,13 @@ import java.util.UUID;
 public class MaliciousWarHornItem extends Item {
     
     private static final int MAX_VEXES = 5;
-    private static final int RECHARGE_TIME_SECONDS = 60;
+    private static final int RECHARGE_TIME_SECONDS = 180;
     private static final int VEX_LIFETIME_SECONDS = 40;
     private static final int DEATH_PENALTY_SECONDS = 20;
     private static final int USE_DURATION = 10;
-    
+
+    InstrumentItem ref;
+
     public MaliciousWarHornItem(Properties properties) {
         super(properties);
     }
