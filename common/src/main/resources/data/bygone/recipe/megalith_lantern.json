@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "X": {
-      "item": "bygone:megalith_block"
+      "item": "bygone:megalith_face"
     },
     "Y": {
       "item": "bygone:lithoplasm"
