@@ -1,6 +1,6 @@
 {
   "type": "minecraft:range_choice",
-  "input": "bygone:biome_parameters/humidity",
+  "input": "bygone:biome_parameters/vegetation",
   "min_inclusive": -10,
   "max_exclusive": -0.15,
   "when_in_range": 1,
