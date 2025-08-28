@@ -40,6 +40,8 @@ import java.util.function.IntFunction;
 public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnimal
 {
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID;
+    private static final EntityDataAccessor<Boolean> DATA_PREPARE_TELEPORT;
+
     protected int withinRangeToTeleportTick = 0;
     protected int spellCastingTickCount;
     private WraithEntity.WraithSpell currentSpell;
@@ -72,6 +74,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new WraithEntity.SpellcasterCastingSpellGoal());
+        this.goalSelector.addGoal(2, new WraithEntity.WraithIceBouquetSquareSpellGoal());
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.1, true));
         //this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 0.6, 1.0));
 
@@ -109,10 +112,12 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_SPELL_CASTING_ID, (byte)0);
+        builder.define(DATA_PREPARE_TELEPORT, false);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        this.spellCastingTickCount = compound.getInt("SpellTicks");
         this.spellCastingTickCount = compound.getInt("SpellTicks");
     }
 
@@ -184,58 +189,62 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         }
 
         if (this.getTarget() != null) {
-            if (this.distanceTo(this.getTarget()) < 4) {
-                this.withinRangeToTeleportTick += 1;
-            }
-            else if (this.withinRangeToTeleportTick != 0) {
+            if (this.distanceTo(this.getTarget()) < 6 && !this.entityData.get(DATA_PREPARE_TELEPORT)) {
+                this.entityData.set(DATA_PREPARE_TELEPORT, true);
                 this.withinRangeToTeleportTick = 0;
             }
-            if (this.withinRangeToTeleportTick > 60) {
-                LivingEntity target = this.getTarget();
-                BlockPos targetOnPos = target.getOnPos();
-                RandomSource random = this.random;
 
-                for (int check = 0; check < 10; check++) {
-                    int x = targetOnPos.getX();
-                    if (random.nextBoolean()) {
-                        x -= random.nextInt(7, 11);
-                    }
-                    else {
-                        x += random.nextInt(7, 11);
-                    }
-                    int z = targetOnPos.getZ();
-                    if (random.nextBoolean()) {
-                        z -= random.nextInt(7, 11);
-                    }
-                    else {
-                        z += random.nextInt(7, 11);
-                    }
+            if (this.entityData.get(DATA_PREPARE_TELEPORT)) {
+                this.withinRangeToTeleportTick += 1;
 
-                    int y = targetOnPos.getY();
-                    BlockPos groundPos = new BlockPos(x, y, z);
+                if (this.withinRangeToTeleportTick > 60) {
+                    LivingEntity target = this.getTarget();
+                    BlockPos targetOnPos = target.getOnPos();
+                    RandomSource random = this.random;
 
-                    if (this.level().getBlockState(groundPos).isFaceSturdy(this.level(), groundPos, Direction.DOWN) &&
-                            this.level().getBlockState(groundPos.above()).isAir() &&
-                            this.level().getBlockState(groundPos.above().above()).isAir()) {
-                        this.teleportTo(x, y + 1, z);
-                        break;
-                    }
-                    else {
-                        boolean teleported = false;
-                        for (int checkY = -4; checkY <= 4; checkY++) {
-                            BlockPos newGroundPos = groundPos.offset(0, checkY, 0);
-                            if (this.level().getBlockState(newGroundPos).isFaceSturdy(this.level(), newGroundPos, Direction.DOWN) &&
-                                    this.level().getBlockState(newGroundPos.above()).isAir() &&
-                                    this.level().getBlockState(newGroundPos.above().above()).isAir()) {
-                                this.teleportTo(x, y + 1, z);
-                                this.level().playSound(null, this.xo, this.yo, this.zo, BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT, this.getSoundSource(), 1.0F, 1.0F);
-                                this.playSound(BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT, 1.0F, 1.0F);
-                                teleported = true;
-                                break;
-                            }
+                    for (int check = 0; check < 10; check++) {
+                        int x = targetOnPos.getX();
+                        if (random.nextBoolean()) {
+                            x -= random.nextInt(7, 11);
                         }
-                        if (teleported) break;
+                        else {
+                            x += random.nextInt(7, 11);
+                        }
+                        int z = targetOnPos.getZ();
+                        if (random.nextBoolean()) {
+                            z -= random.nextInt(7, 11);
+                        }
+                        else {
+                            z += random.nextInt(7, 11);
+                        }
+
+                        int y = targetOnPos.getY();
+                        BlockPos groundPos = new BlockPos(x, y, z);
+
+                        if (this.level().getBlockState(groundPos).isFaceSturdy(this.level(), groundPos, Direction.DOWN) &&
+                                this.level().getBlockState(groundPos.above()).isAir() &&
+                                this.level().getBlockState(groundPos.above().above()).isAir()) {
+                            this.teleportTo(x, y + 1, z);
+                            break;
+                        }
+                        else {
+                            boolean teleported = false;
+                            for (int checkY = -4; checkY <= 4; checkY++) {
+                                BlockPos newGroundPos = groundPos.offset(0, checkY, 0);
+                                if (this.level().getBlockState(newGroundPos).isFaceSturdy(this.level(), newGroundPos, Direction.DOWN) &&
+                                        this.level().getBlockState(newGroundPos.above()).isAir() &&
+                                        this.level().getBlockState(newGroundPos.above().above()).isAir()) {
+                                    this.teleportTo(x, y + 1, z);
+                                    this.level().playSound(null, this.xo, this.yo, this.zo, BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT, this.getSoundSource(), 1.0F, 1.0F);
+                                    this.playSound(BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT, 1.0F, 1.0F);
+                                    teleported = true;
+                                    break;
+                                }
+                            }
+                            if (teleported) break;
+                        }
                     }
+                    this.entityData.set(DATA_PREPARE_TELEPORT, false);
                 }
             }
         }
@@ -245,7 +254,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     @Override
     public boolean hurt(DamageSource source, float amount) {
         if (source.isDirect()) {
-            this.withinRangeToTeleportTick = Math.max(this.withinRangeToTeleportTick - 5, 0);
+            this.withinRangeToTeleportTick = Math.max(this.withinRangeToTeleportTick - 10, 0);
         }
 
         return super.hurt(source, amount);
@@ -337,6 +346,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
     static {
         DATA_SPELL_CASTING_ID = SynchedEntityData.defineId(WraithEntity.class, EntityDataSerializers.BYTE);
+        DATA_PREPARE_TELEPORT = SynchedEntityData.defineId(WraithEntity.class, EntityDataSerializers.BOOLEAN);
     }
 
 
@@ -445,5 +455,35 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         protected abstract SoundEvent getSpellPrepareSound();
 
         protected abstract WraithEntity.WraithSpell getSpell();
+    }
+
+    class WraithIceBouquetSquareSpellGoal extends SpellcasterUseSpellGoal {
+
+        @Override
+        protected void performSpellCasting() {
+            LivingEntity living = WraithEntity.this.getTarget();
+
+
+        }
+
+        @Override
+        protected int getCastingTime() {
+            return 60;
+        }
+
+        @Override
+        protected int getCastingInterval() {
+            return 340;
+        }
+
+        @Override
+        protected @org.jetbrains.annotations.Nullable SoundEvent getSpellPrepareSound() {
+            return null;
+        }
+
+        @Override
+        protected WraithSpell getSpell() {
+            return WraithSpell.FIRE;
+        }
     }
 }
