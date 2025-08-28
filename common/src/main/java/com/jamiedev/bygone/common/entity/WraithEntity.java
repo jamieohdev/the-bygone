@@ -47,6 +47,12 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     private WraithEntity.WraithSpell currentSpell;
     public static final int TICKS_PER_FLAP = Mth.ceil(1.4959966F);
 
+    public AnimationState floatAnimationState = new AnimationState();
+    public AnimationState idleAnimationState = new AnimationState();
+    private int idleAnimationTimeout = 0;
+    public AnimationState meleeAnimationState = new AnimationState();
+    public AnimationState spellAnimationState = new AnimationState();
+
     public WraithEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.xpReward = 5;
@@ -171,9 +177,47 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
     }
 
+
+
+    private void setupAnimationStates() {
+        if (this.idleAnimationTimeout <= 0) {
+            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+            this.idleAnimationState.start(this.tickCount);
+        } else {
+            this.idleAnimationTimeout--;
+        }
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F) {
+            this.floatAnimationState.startIfStopped(this.tickCount);
+        } else {
+            this.floatAnimationState.stop();
+        }
+
+        if (this.isCastingSpell()) {
+            if (this.getSpellCastingTime() == 0) {
+                this.spellAnimationState.start(this.tickCount);
+            } else if (this.getSpellCastingTime() >= 125 && this.getSpellCastingTime() < 250) {
+                this.spellAnimationState.stop();
+            }
+        } else {
+            if (this.attackAnim > 0)
+            {
+                this.meleeAnimationState.start(this.tickCount);
+            }
+            else if (this.attackAnim == 0)
+            {
+                this.meleeAnimationState.stop();
+            }
+        }
+    }
+
     public void tick() {
         this.setNoGravity(true);
         super.tick();
+
+        if (this.level().isClientSide()) {
+            this.setupAnimationStates();
+        }
+
         if (this.level().isClientSide && this.isCastingSpell()) {
             WraithEntity.WraithSpell spell = this.getCurrentSpell();
             float f = (float)spell.spellColor[0];
