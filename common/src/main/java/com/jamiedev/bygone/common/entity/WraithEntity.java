@@ -31,6 +31,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
@@ -48,6 +50,8 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
     protected int withinRangeToTeleportTick = 0;
     protected int spellCastingTickCount;
+    protected BlockPos targetSavedPos = BlockPos.ZERO;
+    protected boolean updatedTargetSavedPos = false;
     private WraithEntity.WraithSpell currentSpell;
     public static final int TICKS_PER_FLAP = Mth.ceil(1.4959966F);
 
@@ -128,12 +132,21 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.spellCastingTickCount = compound.getInt("SpellTicks");
-        this.spellCastingTickCount = compound.getInt("SpellTicks");
+
+        if (compound.contains("TargetPosX") && compound.contains("TargetPosY") && compound.contains("TargetPosZ")) {
+            this.targetSavedPos = new BlockPos(compound.getInt("TargetPosX"), compound.getInt("TargetPosY"), compound.getInt("TargetPosZ"));
+
+        }
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("SpellTicks", this.spellCastingTickCount);
+        if (this.targetSavedPos != BlockPos.ZERO) {
+            compound.putInt("TargetPosX", this.targetSavedPos.getX());
+            compound.putInt("TargetPosY", this.targetSavedPos.getY());
+            compound.putInt("TargetPosZ", this.targetSavedPos.getZ());
+        }
     }
 
     @Override
@@ -509,18 +522,45 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         @Override
         protected void performSpellCasting() {
             LivingEntity living = WraithEntity.this.getTarget();
+            Level level = WraithEntity.this.level();
 
-
+            if (WraithEntity.this.targetSavedPos != BlockPos.ZERO) {
+                BlockPos targetPos = WraithEntity.this.targetSavedPos.above();
+                for (int checkZ = -1; checkZ <= 1; checkZ++) {
+                    for (int checkX = -1; checkX <= 1; checkX++) {
+                        if (level.getBlockState(targetPos.offset(checkX, 0, checkZ)).isAir() &&
+                                level.getBlockState(targetPos.offset(checkX, 0, checkZ).below()).isFaceSturdy(level, targetPos.offset(checkX, 0, checkZ).below(), Direction.UP)) {
+                            WraithEntity.this.level().setBlockAndUpdate(targetPos.offset(checkX, 0, checkZ), BaseFireBlock.getState(level, targetPos.offset(checkX, 0, checkZ)));
+                        }
+                        else {
+                            for (int checkY = -2; checkY <= 2; checkY++) {
+                                BlockPos newYPos = new BlockPos(targetPos.getX() + checkX, targetPos.getY() + checkY, targetPos.getZ() + checkZ);
+                                if (level.getBlockState(newYPos).isAir() &&
+                                        level.getBlockState(newYPos.below()).isFaceSturdy(level, newYPos.below(), Direction.UP)) {
+                                    WraithEntity.this.level().setBlockAndUpdate(newYPos, BaseFireBlock.getState(level, newYPos));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         @Override
         protected int getCastingTime() {
-            return 60;
+            return 40;
         }
 
         @Override
         protected int getCastingInterval() {
             return 340;
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            WraithEntity.this.targetSavedPos = WraithEntity.this.getTarget().getOnPos();
         }
 
         @Override
