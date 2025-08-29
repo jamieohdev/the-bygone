@@ -65,8 +65,11 @@
       {
         "type": "minecraft:condition",
         "if_true": {
-          "type": "minecraft:biome",
-          "biome_is": ["bygone:underhang"]
+          "type": "minecraft:not",
+          "invert": {
+            "type": "minecraft:biome",
+            "biome_is": ["bygone:primordial_ocean", "bygone:amber_desert"]
+          }
         },
         "then_run": {
           "type": "minecraft:sequence",

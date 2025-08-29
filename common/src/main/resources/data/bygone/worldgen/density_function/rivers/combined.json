@@ -1,16 +1,15 @@
 {
-  "": "in_underhang, use rivers, out of it none",
+  "": "in_desert or in_ocean, don't use rivers, out of it, use rivers",
   "type": "minecraft:spline",
   "spline": {
-    "coordinate": "bygone:util/in_underhang",
+    "coordinate": {
+      "type": "minecraft:max",
+      "argument1": "bygone:util/in_desert",
+      "argument2": "bygone:util/in_primordial_ocean"
+    },
     "points": [
       {
         "location": 0,
-        "value": -0.1,
-        "derivative": 0
-      },
-      {
-        "location": 1,
         "value": {
           "coordinate": {
             "type": "minecraft:max",
@@ -19,6 +18,11 @@
           },
           "points": [{ "location": 0, "value": 0, "derivative": 1 }]
         },
+        "derivative": 0
+      },
+      {
+        "location": 1,
+        "value": -0.1,
         "derivative": 0
       }
     ]
