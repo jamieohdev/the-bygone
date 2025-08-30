@@ -30,7 +30,7 @@ import java.util.UUID;
 public class MaliciousWarHornItem extends Item {
     
     private static final int MAX_VEXES = 5;
-    private static final int RECHARGE_TIME_SECONDS = 180;
+    private static final int RECHARGE_TIME_SECONDS = 100;
     private static final int VEX_LIFETIME_SECONDS = 40;
     private static final int DEATH_PENALTY_SECONDS = 20;
     private static final int USE_DURATION = 10;
