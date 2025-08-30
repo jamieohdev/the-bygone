@@ -3,7 +3,7 @@
   "argument": {
     "type": "minecraft:spline",
     "spline": {
-      "coordinate": "bygone:caves/spaghetti_depth",
+      "coordinate": "bygone:caves/spaghetti/depth",
       "points": [
         {
           "location": -0.2,
@@ -14,7 +14,7 @@
           "location": 0,
           "derivative": 0,
           "value": {
-            "coordinate": "bygone:caves/spaghetti_noise",
+            "coordinate": "bygone:caves/spaghetti/noise",
             "points": [
               {
                 "location": -0.2,

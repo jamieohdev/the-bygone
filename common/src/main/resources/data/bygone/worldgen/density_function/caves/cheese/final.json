@@ -1,5 +1,5 @@
 {
   "type": "minecraft:add",
   "argument1": 0.3,
-  "argument2": "bygone:caves/cheese_noise"
+  "argument2": "bygone:caves/cheese/noise"
 }

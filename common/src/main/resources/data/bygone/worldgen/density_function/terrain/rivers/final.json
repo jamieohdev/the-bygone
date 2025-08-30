@@ -11,11 +11,7 @@
       {
         "location": 0,
         "value": {
-          "coordinate": {
-            "type": "minecraft:max",
-            "argument1": "bygone:rivers/terrain_lower",
-            "argument2": "bygone:rivers/terrain_upper"
-          },
+          "coordinate": "bygone:terrain/rivers/combined",
           "points": [{ "location": 0, "value": 0, "derivative": 1 }]
         },
         "derivative": 0

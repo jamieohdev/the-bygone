@@ -16,17 +16,21 @@
               "type": "minecraft:add",
               "argument1": {
                 "type": "minecraft:min",
-                "argument1": "bygone:terrain/base_limited",
+                "argument1": "bygone:terrain/base",
                 "argument2": "bygone:caves/combined"
               },
-              "argument2": "bygone:caves/aquifers_combined"
+              "argument2": "bygone:caves/oceans"
             },
             "argument2": "bygone:terrain/pillars_limited"
           }
         }
       }
     },
-    "argument2": "bygone:caves/noodle"
+    "argument2": {
+      "type": "minecraft:min",
+      "argument1": "bygone:caves/noodle",
+      "argument2": "bygone:caves/rivers/final"
+    }
   },
-  "argument2": "bygone:rivers/combined"
+  "argument2": "bygone:terrain/rivers/final"
 }

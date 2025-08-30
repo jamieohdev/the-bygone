@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:range_choice",
+  "input": "minecraft:y",
+  "min_inclusive": 60,
+  "max_exclusive": 66,
+  "when_in_range": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:y_clamped_gradient",
+      "from_y": 60,
+      "to_y": 65,
+      "from_value": -0.075,
+      "to_value": 0
+    },
+    "argument2": "bygone:terrain/rivers/transformed_lower"
+  },
+  "when_out_of_range": -0.1
+}

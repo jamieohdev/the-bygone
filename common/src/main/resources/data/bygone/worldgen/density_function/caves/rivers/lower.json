@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:mul",
+  "argument1": -1,
+  "argument2": {
+    "type": "minecraft:range_choice",
+    "input": "minecraft:y",
+    "min_inclusive": 65,
+    "max_exclusive": 73,
+    "when_in_range": {
+      "type": "minecraft:add",
+      "argument1": {
+        "type": "minecraft:y_clamped_gradient",
+        "from_y": 68,
+        "to_y": 72,
+        "from_value": 0,
+        "to_value": -0.075
+      },
+      "argument2": "bygone:terrain/rivers/transformed_lower"
+    },
+    "when_out_of_range": -1
+  }
+}

@@ -7,7 +7,7 @@
     "argument1": -1,
     "argument2": {
       "type": "minecraft:abs",
-      "argument": "bygone:rivers/noise_lower"
+      "argument": "bygone:terrain/rivers/noise_lower"
     }
   }
 }

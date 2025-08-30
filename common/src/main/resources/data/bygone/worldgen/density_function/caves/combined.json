@@ -30,8 +30,8 @@
             "argument1": -1.234375,
             "argument2": {
               "type": "minecraft:min",
-              "argument1": "bygone:caves/cheese",
-              "argument2": "bygone:caves/spaghetti"
+              "argument1": "bygone:caves/cheese/final",
+              "argument2": "bygone:caves/spaghetti/final"
             }
           }
         }
