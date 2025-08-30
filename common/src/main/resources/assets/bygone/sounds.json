@@ -645,7 +645,7 @@
   "item.echo_gong.charge": {
     "sounds": [
       {
-        "name": "minecraft:block.bell.resonate",
+        "name": "minecraft:block/bell/resonate",
         "volume": 0.3,
         "pitch": 1.2
       }

@@ -4,7 +4,7 @@
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 3,
+        "min": 1,
         "max": 6
       },
       "bonus_rolls": 0,
@@ -22,41 +22,10 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "bygone:ancient_vines",
+          "name": "bygone:amphora",
           "weight": 8
         },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 16,
-                "min": 4
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:moss_block",
-          "weight": 7
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 16,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:honeycomb",
-          "weight": 7
-        },
+
         {
           "type": "minecraft:item",
           "functions": [
@@ -70,138 +39,8 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:waxed_oxidized_cut_copper",
-          "weight": 6
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": 1,
-              "function": "minecraft:set_count"
-            },
-            {
-              "add": false,
-              "damage": {
-                "type": "minecraft:uniform",
-                "max": 0.8,
-                "min": 0.25
-              },
-              "function": "minecraft:set_damage"
-            }
-          ],
-          "name": "minecraft:stone_axe",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": 1,
-              "function": "minecraft:set_count"
-            },
-            {
-              "add": false,
-              "damage": {
-                "type": "minecraft:uniform",
-                "max": 0.9,
-                "min": 0.4
-              },
-              "function": "minecraft:set_damage"
-            },
-            {
-              "function": "minecraft:enchant_randomly",
-              "options": "#minecraft:on_random_loot"
-            }
-          ],
-          "name": "minecraft:iron_axe"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:copper_ingot",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "bygone:gold_beak_armor",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "name": "bygone:iron_beak_armor",
-          "weight": 15
-        },
-        {
-          "type": "minecraft:item",
-          "name": "bygone:diamond_beak_armor",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "bygone:verdigris_scrap"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "bygone:verdigris_bow"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "bygone:verdigris_blade"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "bygone:ancient_hook"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "bygone:ancient_sprinkler"
-        },
-
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "bygone:amphora",
-          "weight": 1
-        },
-
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
           "name": "bygone:black_amphora",
-          "weight": 1
+          "weight": 8
         },
 
         {
@@ -211,14 +50,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2,
+                "max": 8,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:blue_amphora",
-          "weight": 1
+          "weight": 8
         },
 
         {
@@ -228,14 +67,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2,
+                "max": 8,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:cyan_amphora",
-          "weight": 1
+          "weight": 8
         },
 
         {
@@ -245,14 +84,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2,
+                "max": 8,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:gray_amphora",
-          "weight": 1
+          "weight": 8
         },
 
         {
@@ -262,14 +101,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2,
+                "max": 8,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:green_amphora",
-          "weight": 1
+          "weight": 8
         },
 
         {
@@ -279,14 +118,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2,
+                "max": 8,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:light_blue_amphora",
-          "weight": 1
+          "weight": 8
         },
 
         {
@@ -296,14 +135,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2,
+                "max": 8,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:light_gray_amphora",
-          "weight": 1
+          "weight": 8
         },
 
         {
@@ -313,14 +152,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2,
+                "max": 8,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:lime_amphora",
-          "weight": 1
+          "weight": 8
         },
 
         {
@@ -330,14 +169,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2,
+                "max": 8,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:magenta_amphora",
-          "weight": 1
+          "weight": 8
         },
 
         {
@@ -347,14 +186,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2,
+                "max": 8,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:orange_amphora",
-          "weight": 1
+          "weight": 8
         },
 
         {
@@ -364,14 +203,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2,
+                "max": 8,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:pink_amphora",
-          "weight": 1
+          "weight": 8
         },
 
         {
@@ -381,14 +220,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2,
+                "max": 8,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:purple_amphora",
-          "weight": 1
+          "weight": 8
         },
 
         {
@@ -398,14 +237,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2,
+                "max": 8,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:red_amphora",
-          "weight": 1
+          "weight": 8
         },
 
         {
@@ -415,14 +254,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2,
+                "max": 8,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:white_amphora",
-          "weight": 1
+          "weight": 8
         },
 
         {
@@ -432,14 +271,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2,
+                "max": 8,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:yellow_amphora",
-          "weight": 1
+          "weight": 8
         }
       ]
     }
