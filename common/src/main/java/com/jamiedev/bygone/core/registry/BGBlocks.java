@@ -36,6 +36,21 @@ import static net.minecraft.world.level.block.Blocks.DIRT;
 
 public class BGBlocks {
 Blocks ref;
+
+    public static final Supplier<Block> ICE_BOUQUET = registerBlock("ice_bouquet", () ->
+            new IceBouquetBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                    .noCollission()
+                    .replaceable()
+                    .instabreak()
+                    .lightLevel(light -> 15)
+                    .sound(SoundType.WOOL)
+                    .pushReaction(PushReaction.DESTROY),
+                    2
+            )
+    );
+
+
     public static final Supplier<Block> POLISHED_BYSTONE = registerBlock("polished_bystone", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
 

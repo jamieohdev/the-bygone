@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.entity;
 
+import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,6 +17,7 @@ import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -316,6 +318,9 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         if (source.isDirect()) {
             this.withinRangeToTeleportTick = Math.max(this.withinRangeToTeleportTick - 10, 0);
         }
+        if (source.is(DamageTypes.IN_FIRE)) {
+            return super.hurt(source, 0);
+        }
 
         return super.hurt(source, amount);
     }
@@ -530,14 +535,14 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                     for (int checkX = -1; checkX <= 1; checkX++) {
                         if (level.getBlockState(targetPos.offset(checkX, 0, checkZ)).isAir() &&
                                 level.getBlockState(targetPos.offset(checkX, 0, checkZ).below()).isFaceSturdy(level, targetPos.offset(checkX, 0, checkZ).below(), Direction.UP)) {
-                            WraithEntity.this.level().setBlockAndUpdate(targetPos.offset(checkX, 0, checkZ), BaseFireBlock.getState(level, targetPos.offset(checkX, 0, checkZ)));
+                            WraithEntity.this.level().setBlockAndUpdate(targetPos.offset(checkX, 0, checkZ), BGBlocks.ICE_BOUQUET.get().defaultBlockState());
                         }
                         else {
                             for (int checkY = -2; checkY <= 2; checkY++) {
                                 BlockPos newYPos = new BlockPos(targetPos.getX() + checkX, targetPos.getY() + checkY, targetPos.getZ() + checkZ);
                                 if (level.getBlockState(newYPos).isAir() &&
                                         level.getBlockState(newYPos.below()).isFaceSturdy(level, newYPos.below(), Direction.UP)) {
-                                    WraithEntity.this.level().setBlockAndUpdate(newYPos, BaseFireBlock.getState(level, newYPos));
+                                    WraithEntity.this.level().setBlockAndUpdate(newYPos, BGBlocks.ICE_BOUQUET.get().defaultBlockState());
                                     break;
                                 }
                             }
