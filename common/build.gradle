@@ -22,6 +22,7 @@ dependencies {
     compileOnly "curse.maven:jinxedlib-1203401:6269067"
 
     runtimeOnly("io.github.llamalad7:mixinextras-common:0.3.6")
+    implementation("dev.dhyces.trimmed:trimmed-common-1.21:3.0.0")
 
 }
 
@@ -42,4 +43,10 @@ artifacts {
     sourceSets.main.resources.sourceDirectories.forEach {
         commonResources it
     }
+
+    tasks.withType(Javadoc).configureEach {
+        failOnError = false
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+
 }
