@@ -1,12 +1,47 @@
 {
   "effect.bygone.jamieseffect": "",
+  "effect.bygone.updraft": "Updraft",
 
   "system.bygone.entering_into_bygone": "Entering/Leaving the Bygone...",
   "system.bygone.teleporting_into_bygone": "Teleporting into the Bygone...",
   "system.bygone.teleporting_out_of_bygone": "Teleporting out of the Bygone...",
 
+  "advancements.bygone.bygone.title": "The Bygone",
+  "advancements.bygone.bygone.desc": "A ancient yet familair world awaits...",
+
+  "advancements.bygone.enter_bygone.title": "Let Bygones be Bygone...",
+  "advancements.bygone.enter_bygone.desc": "Entered the Bygone",
+
+  "advancements.bygone.explore_bygone.title": "Sights of the Ages",
+  "advancements.bygone.explore_bygone.desc": "Explore all Bygone biomes",
+
+  "advancements.bygone.find_sewer.desc": "Enter a Sewer",
+  "advancements.bygone.find_sewer.title": "Cowabunga!",
+
+  "advancements.bygone.find_village.desc": "Enter a forgotten Village",
+  "advancements.bygone.find_village.title": "Is this Bugging you?",
+
   "item.bygone.jamiesitem": "",
   "item.bygone.ancient_hook": "Ancient Hook",
+  "item.bygone.whirliweed_bundle": "Whirliweed Bundle",
+  "item.bygone.malicious_war_horn": "Malicious War Horn",
+  "item.bygone.malicious_war_horn.desc1": "Summons vexes to fight for you",
+  "item.bygone.malicious_war_horn.desc2": "Vexes return after 40 seconds",
+  "item.bygone.malicious_war_horn.cooldown": "Recharging... %s seconds",
+  "item.bygone.malicious_war_horn.vexes_active": "Active Vexes: %s",
+  "item.bygone.malicious_war_horn.return_time": "Returning in %s seconds",
+  "item.bygone.malicious_war_horn.cooldown_remaining": "Cooldown: %s seconds",
+  "item.bygone.malicious_war_horn.ready": "Ready to use",
+  "subtitles.bygone.item.war_horn.use": "War Horn sounds",
+  "item.bygone.echo_gong": "Echo Gong",
+  "item.bygone.echo_gong.desc1": "Builds charge over time and releases shockwaves",
+  "item.bygone.echo_gong.desc2": "Breaks fragile blocks and weakens enemies",
+  "item.bygone.echo_gong.not_charged": "Charge: %s/%s (Not ready)",
+  "item.bygone.echo_gong.charge": "Charge: %s%%",
+  "item.bygone.echo_gong.ready": "Fully Charged - Ready to use!",
+  "subtitles.bygone.item.echo_gong.use": "Echo Gong resonates",
+  "subtitles.bygone.item.echo_gong.charge": "Echo Gong builds energy",
+  "subtitles.bygone.item.whirliweed_bundle.use": "Whirliweed Bundle whirls",
   "item.bygone.ancient_sign": "Ancient Sign",
   "item.bygone.ancient_hanging_sign": "Ancient Hanging Sign",
   "item.bygone.ancient_boat": "Ancient Boat",
@@ -424,6 +459,10 @@
   "subtitles.entity.wraith.death": "Wraith dies",
   "subtitles.entity.wraith.teleport": "Wraith teleports",
 
+  "subtitles.entity.lithy.ambient": "Lithy crackles",
+  "subtitles.entity.lithy.trip": "Lithy trips",
+  "subtitles.entity.lithy.hurt": "Lithy hurts",
+  "subtitles.entity.lithy.death": "Lithy dies",
 
   "subtitles.ambient.sound" : "Eerie noise",
 

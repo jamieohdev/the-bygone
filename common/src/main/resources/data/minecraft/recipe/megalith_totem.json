@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "bygone:cracked_megalith_block"
+    },
+    "X": {
+      "item": "bygone:lithoplasm"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "bygone:megalith_totem"
+  }
+}

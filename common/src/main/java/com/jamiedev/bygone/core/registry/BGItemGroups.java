@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 public class BGItemGroups {
 
     public static final Supplier<CreativeModeTab> EXAMPLE_TAB = registerTab("test", () -> CreativeModeTab.builder(null, -1)
-            .icon(() -> new ItemStack(BGBlocks.AMBER_SAND.get()))
+            .icon(() -> new ItemStack(BGBlocks.MEGALITH_FACE.get()))
             .displayItems((itemDisplayParameters, output) -> {
                 output.accept(BGItems.ANCIENT_SIGN.get());
                 output.accept(BGItems.ANCIENT_HANGING_SIGN.get());
@@ -48,8 +48,11 @@ public class BGItemGroups {
                 output.accept(BGItems.SCUTTLE_SPAWN_EGG.get());
                 output.accept(BGItems.TRILOBITE_SPAWN_EGG.get());
                 output.accept(BGItems.WHISKBILL_SPAWN_EGG.get());
+                output.accept(BGItems.WRAITH_SPAWN_EGG.get());
                 output.accept(BGItems.ARCANE_CORE.get());
                 output.accept(BGItems.HOOK.get());
+                output.accept(BGItems.MALICIOUS_WAR_HORN.get());
+                output.accept(BGItems.ECHO_GONG.get());
                 output.accept(BGItems.GOLD_BIG_BEAK_ARMOR.get());
                 output.accept(BGItems.IRON_BIG_BEAK_ARMOR.get());
                 output.accept(BGItems.DIAMOND_BIG_BEAK_ARMOR.get());
@@ -122,6 +125,7 @@ public class BGItemGroups {
                 output.accept(BGBlocks.GOURD_LANTERN_MUAVE.get());
                 output.accept(BGBlocks.BIG_WHIRLIWEED.get());
                 output.accept(BGBlocks.WHIRLIWEED.get());
+                output.accept(BGItems.WHIRLIWEED_BUNDLE.get());
                 output.accept(BGBlocks.CLAYSTONE.get());
                 output.accept(BGBlocks.CLAYSTONE_FARMLAND.get());
                 output.accept(BGBlocks.COARSE_CLAYSTONE.get());
@@ -292,9 +296,7 @@ public class BGItemGroups {
                 output.accept(BGBlocks.MAGENTA_AMPHORA.get());
                 output.accept(BGBlocks.PINK_AMPHORA.get());
 
-
                 output.accept(BGItems.MUSIC_DISC_SHUFFLE.get());
-
             })
             .title(Component.translatable("itemGroup.test"))
             .build());

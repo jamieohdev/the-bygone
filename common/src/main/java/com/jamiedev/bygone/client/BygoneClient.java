@@ -17,11 +17,13 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 import java.util.function.BiConsumer;
@@ -215,6 +217,20 @@ public class BygoneClient {
                     if (livingEntity instanceof Player && livingEntity.isBlocking()) return 1;
                     return 0;
                 }
+        );
+
+        ItemProperties.register(
+                BGItems.ECHO_GONG.get(),
+                ResourceLocation.withDefaultNamespace("tooting"),
+                (p_234978_, p_234979_, p_234980_, p_234981_) -> p_234980_ != null
+                        && p_234980_.isUsingItem() && p_234980_.getUseItem() == p_234978_ ? 1.0F : 0.0F
+        );
+
+        ItemProperties.register(
+                BGItems.MALICIOUS_WAR_HORN.get(),
+                ResourceLocation.withDefaultNamespace("tooting"),
+                (p_234978_, p_234979_, p_234980_, p_234981_) -> p_234980_ != null
+                        && p_234980_.isUsingItem() && p_234980_.getUseItem() == p_234978_ ? 1.0F : 0.0F
         );
     }
 

@@ -9,9 +9,12 @@
     "EmptyMapMixin",
     "FarmlandBlockMixin",
     "LivingEntityMixin",
+    "LivingEntityMixinVex",
     "MapItemMixin",
+    "MobMixin",
     "PlayerMixin",
-    "ServerLevelMixin"
+    "ServerLevelMixin",
+    "VexMixin"
   ],
   "client": [
     "client.BipedEntityModelMixin",

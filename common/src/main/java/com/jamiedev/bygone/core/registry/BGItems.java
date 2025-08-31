@@ -39,6 +39,12 @@ public class BGItems
     public static final Supplier<Item> VERDIGRIS_BOW = registerItem("verdigris_bow", () -> new VerdigrisBowItem(new Item.Properties().durability(100).stacksTo(1)));
 
     public static final Supplier<Item> HOOK = registerItem("ancient_hook", () -> new HookItem(new Item.Properties().stacksTo(1).durability(100)));
+    
+    public static final Supplier<Item> WHIRLIWEED_BUNDLE = registerItem("whirliweed_bundle", () -> new WhirliweedBundleItem(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
+    
+    public static final Supplier<Item> MALICIOUS_WAR_HORN = registerItem("malicious_war_horn", () -> new MaliciousWarHornItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).durability(100)));
+    
+    public static final Supplier<Item> ECHO_GONG = registerItem("echo_gong", () -> new EchoGongItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
     public static final Supplier<Item> ANCIENT_SIGN = registerItem("ancient_sign", () ->
             new SignItem(new Item.Properties().stacksTo(16), BGBlocks.ANCIENT_SIGN.get(), BGBlocks.ANCIENT_WALL_SIGN.get()));
@@ -81,6 +87,10 @@ public class BGItems
             new ArmorItem(BGArmorMaterials.SCALE, ArmorItem.Type.BOOTS,
                     new Item.Properties().fireResistant()));
 
+    public static final Supplier<Item> VERDIGRIS_SPURS = registerItem("verdigris_spurs", () ->
+            new ArmorItem(BGArmorMaterials.SCALE, ArmorItem.Type.BOOTS,
+                    new Item.Properties().fireResistant()));
+
     public static final Supplier<Item> GOLD_BIG_BEAK_ARMOR = registerItem("gold_beak_armor", () -> new CustomAnimalArmorItem(ArmorMaterials.GOLD, CustomAnimalArmorItem.BodyType.BIG_BEAK, false, (new Item.Properties()).stacksTo(1)));
     public static final Supplier<Item> IRON_BIG_BEAK_ARMOR = registerItem("iron_beak_armor", () -> new CustomAnimalArmorItem(ArmorMaterials.IRON, CustomAnimalArmorItem.BodyType.BIG_BEAK, false, (new Item.Properties()).stacksTo(1)));
     public static final Supplier<Item> DIAMOND_BIG_BEAK_ARMOR = registerItem("diamond_beak_armor", () -> new CustomAnimalArmorItem(ArmorMaterials.DIAMOND, CustomAnimalArmorItem.BodyType.BIG_BEAK, false, (new Item.Properties()).stacksTo(1)));
@@ -98,8 +108,11 @@ public class BGItems
     public static final Supplier<Item> TRILOBITE_SPAWN_EGG = registerItem("trilobite_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.TRILOBITE.get(), 0x233c56, 0x14a4aa, new Item.Properties()));
     public static final Supplier<Item> WHISKBILL_SPAWN_EGG = registerItem("whiskbill_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.WHISKBILL.get(), 0x50692C, 0x70922D, new Item.Properties()));
     public static final Supplier<Item> NECTAUR_SPAWN_EGG = registerItem("nectaur_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.NECTAUR.get(), 0x50692C, 0x94262B, new Item.Properties()));
+    public static final Supplier<Item> WRAITH_SPAWN_EGG = registerItem("wraith_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.WRAITH.get(), 0x22244A, 0xBAEFED, new Item.Properties()));
 
-    public static final Supplier<Item> ARCANE_CORE = registerItem("arcane_core", () -> ((BlockItem)(new ArcaneCoreItem(BGBlocks.ARCANE_CORE.get(), new Item.Properties()))));
+
+
+    public static final Supplier<Item> ARCANE_CORE = registerItem("arcane_core", () -> new Item(new Item.Properties().fireResistant()));
 
     public static final Supplier<Item> VERDIGRIS_SCRAP = registerItem("verdigris_scrap", () -> new Item(new Item.Properties().fireResistant()));
     public static final Supplier<Item> VERDIGRIS_INGOT = registerItem("verdigris_ingot", () -> new Item(new Item.Properties().fireResistant()));

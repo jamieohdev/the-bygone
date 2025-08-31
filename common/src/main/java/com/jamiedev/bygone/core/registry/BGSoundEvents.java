@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 import static com.jamiedev.bygone.Bygone.id;
 
@@ -84,7 +85,18 @@ public class BGSoundEvents
     public static SoundEvent WRAITH_FLY_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_FLY);
     public static SoundEvent WRAITH_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_HURT);
     public static SoundEvent WRAITH_TELEPORT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_TELEPORT);
-    
+
+    public static final ResourceLocation ENTITY_LITHY_AMBIENT = id("entity.lithy.ambient");
+    public static final ResourceLocation ENTITY_LITHY_TRIP = id("entity.lithy.trip");
+    public static final ResourceLocation ENTITY_LITHY_HURT = id("entity.lithy.hurt");
+    public static final ResourceLocation ENTITY_LITHY_DEATH = id("entity.lithy.death");
+
+    public static SoundEvent LITHY_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_AMBIENT);
+    public static SoundEvent LITHY_TRIP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_TRIP);
+    public static SoundEvent LITHY_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_DEATH);
+    public static SoundEvent LITHY_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_HURT);
+
+
     public static final ResourceLocation HOOK_RETRIEVE = id("entity.hook.retrieve");
     public static final ResourceLocation HOOK_HIT = id("entity.hook.hit");
     public static final ResourceLocation HOOK_THROW = id("entity.hook.throw");
@@ -92,6 +104,22 @@ public class BGSoundEvents
     public static final SoundEvent HOOK_RETRIEVE_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_RETRIEVE);
     public static final SoundEvent HOOK_HIT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_HIT);
     public static final SoundEvent HOOK_THROW_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_THROW);
+    
+    public static final ResourceLocation ITEM_WAR_HORN_USE_ID = id("item.war_horn.use");
+    public static final SoundEvent WAR_HORN_USE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_WAR_HORN_USE_ID);
+    public static final Supplier<SoundEvent> WAR_HORN_USE = () -> WAR_HORN_USE_EVENT;
+
+    public static final ResourceLocation ITEM_WHIRLIWEED_BUNDLE_USE_ID = id("item.whirliweed_bundle.use");
+    public static final SoundEvent WHIRLIWEED_BUNDLE_USE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_WHIRLIWEED_BUNDLE_USE_ID);
+    public static final Supplier<SoundEvent> WHIRLIWEED_BUNDLE_USE = () -> WHIRLIWEED_BUNDLE_USE_EVENT;
+    
+    public static final ResourceLocation ITEM_ECHO_GONG_USE_ID = id("item.echo_gong.use");
+    public static final SoundEvent ECHO_GONG_USE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_ECHO_GONG_USE_ID);
+    public static final Supplier<SoundEvent> ECHO_GONG_USE = () -> ECHO_GONG_USE_EVENT;
+    
+    public static final ResourceLocation ITEM_ECHO_GONG_CHARGE_ID = id("item.echo_gong.charge");
+    public static final SoundEvent ECHO_GONG_CHARGE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_ECHO_GONG_CHARGE_ID);
+    public static final Supplier<SoundEvent> ECHO_GONG_CHARGE = () -> ECHO_GONG_CHARGE_EVENT;
     
     public static SoundEvent AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_ANCIENTFOREST_ADDITIONS);
     public static SoundEvent AMBIENT_AMBERDESERT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_AMBERDESERT_ADDITIONS);
@@ -216,6 +244,10 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_RETRIEVE, HOOK_RETRIEVE_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_HIT, HOOK_HIT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_THROW, HOOK_THROW_ADDITIONS_EVENT);
+        
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ITEM_WAR_HORN_USE_ID, WAR_HORN_USE_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ITEM_ECHO_GONG_USE_ID, ECHO_GONG_USE_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ITEM_ECHO_GONG_CHARGE_ID, ECHO_GONG_CHARGE_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_AMBIENT, BGSoundEvents.WRAITH_AMBIENT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_ATTACK, BGSoundEvents.WRAITH_ATTACK_ADDITIONS_EVENT);
@@ -223,6 +255,11 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_DEATH, BGSoundEvents.WRAITH_DEATH_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_FLY, BGSoundEvents.WRAITH_FLY_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WRAITH_TELEPORT, BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT);
+
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_AMBIENT, BGSoundEvents.LITHY_AMBIENT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_TRIP, BGSoundEvents.LITHY_TRIP_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_HURT, BGSoundEvents.LITHY_HURT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_DEATH, BGSoundEvents.LITHY_DEATH_ADDITIONS_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.BLOCK_MEGALITH_BLOCK_IDLE, BLOCK_MEGALITH_BLOCK_IDLE_ADDITIONS_EVENT);
 

@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.common.block.gourds;
 
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.LevelReader;
@@ -119,27 +120,37 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
         return (Boolean)state.getValue(GROW_VINE);
     }
 
-    @Override
-    protected void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
-        BlockPos blockPos = hit.getBlockPos();
-        if (!world.isClientSide) {
-            BlockState gourdState = world.getBlockState(blockPos);
-            FallingBlockEntity fallingGourd = FallingBlockEntity.fall(world, blockPos, gourdState);
-            fallingGourd.dropItem = false;
-            world.addFreshEntity(fallingGourd);
-        }
-
-    }
+   @Override
+   protected void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
+       if (!level.isClientSide) {
+           BlockPos blockpos = hit.getBlockPos();
+           if (projectile.mayInteract(level, blockpos)
+                   && projectile.mayBreak(level)
+                   && projectile instanceof Projectile
+                   && projectile.getDeltaMovement().length() > 0.6) {
+               spawnFallingGourd(state, (ServerLevel) level, blockpos);
+           }
+       }
+   }
 
     @Override
     protected void tick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (!state.canSurvive(world, pos)) {
-            BlockState gourdState = world.getBlockState(pos);
-            FallingBlockEntity fallingGourd = FallingBlockEntity.fall(world, pos, gourdState);
-            fallingGourd.dropItem = false;
-            world.addFreshEntity(fallingGourd);
+            spawnFallingGourd(state, world, pos);
         }
     }
+
+    private static void spawnFallingGourd(BlockState state, ServerLevel level, BlockPos pos) {
+        BlockPos.MutableBlockPos blockpos$mutableblockpos = pos.mutable();
+        BlockState blockstate = state;
+
+            FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(level, blockpos$mutableblockpos, blockstate);
+            fallingblockentity.dropItem = false;
+            blockpos$mutableblockpos.move(Direction.DOWN);
+            blockstate = level.getBlockState(blockpos$mutableblockpos);
+
+    }
+
 
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {

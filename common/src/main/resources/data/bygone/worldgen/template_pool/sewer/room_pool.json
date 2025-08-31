@@ -125,6 +125,15 @@
         "projection": "rigid"
       },
       "weight": 10
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:sewer/room/room_small_amphora",
+        "processors": "bygone:sewer",
+        "projection": "rigid"
+      },
+      "weight": 1
     }
   ],
   "fallback": "minecraft:empty"
