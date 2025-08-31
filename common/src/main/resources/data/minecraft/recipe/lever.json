@@ -9,10 +9,7 @@
       "item": "minecraft:stick"
     }
   },
-  "pattern": [
-    "X",
-    "#"
-  ],
+  "pattern": ["X", "#"],
   "result": {
     "count": 1,
     "id": "minecraft:lever"

@@ -18,12 +18,7 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_polished_bystone_bricks"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_polished_bystone_bricks"]],
   "rewards": {
     "recipes": [
       "minecraft:polished_bystone_from_polished_bystone_bricks_stonecutting"

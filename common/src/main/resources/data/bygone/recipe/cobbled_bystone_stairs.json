@@ -6,11 +6,7 @@
       "item": "bygone:cobbled_bystone"
     }
   },
-  "pattern": [
-    "X  ",
-    "XX ",
-    "XXX"
-  ],
+  "pattern": ["X  ", "XX ", "XXX"],
   "result": {
     "count": 4,
     "id": "bygone:cobbled_bystone_stairs"

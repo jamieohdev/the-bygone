@@ -1,7 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "bygone:belladonna",
-    "bygone:coleus"
-  ]
+  "values": ["bygone:belladonna", "bygone:coleus"]
 }

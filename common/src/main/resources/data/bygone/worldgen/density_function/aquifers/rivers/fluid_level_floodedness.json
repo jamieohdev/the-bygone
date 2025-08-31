@@ -1,5 +1,0 @@
-{
-  "type": "minecraft:add",
-  "argument1": "bygone:aquifers/rivers/floodedness_upper",
-  "argument2": "bygone:aquifers/rivers/floodedness_lower"
-}

@@ -6,10 +6,7 @@
       "item": "bygone:malachite"
     }
   },
-  "pattern": [
-    "X",
-    "X"
-  ],
+  "pattern": ["X", "X"],
   "result": {
     "count": 2,
     "id": "bygone:malachite_pillar"

@@ -9,11 +9,7 @@
       "item": "bygone:lithoplasm"
     }
   },
-  "pattern": [
-    " R ",
-    "RGR",
-    " R "
-  ],
+  "pattern": [" R ", "RGR", " R "],
   "result": {
     "count": 1,
     "id": "bygone:lithine_lamp"

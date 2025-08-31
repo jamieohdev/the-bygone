@@ -6,10 +6,7 @@
       "item": "bygone:purple_mushroom_block"
     }
   },
-  "pattern": [
-    "XX",
-    "XX"
-  ],
+  "pattern": ["XX", "XX"],
   "result": {
     "count": 4,
     "id": "bygone:purple_fungal_bricks"

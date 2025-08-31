@@ -18,15 +18,8 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_byslate"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_byslate"]],
   "rewards": {
-    "recipes": [
-      "minecraft:polished_byslate"
-    ]
+    "recipes": ["minecraft:polished_byslate"]
   }
 }

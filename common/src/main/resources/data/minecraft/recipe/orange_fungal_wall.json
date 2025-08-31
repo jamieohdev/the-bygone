@@ -6,10 +6,7 @@
       "item": "bygone:orange_fungal_bricks"
     }
   },
-  "pattern": [
-    "XXX",
-    "XXX"
-  ],
+  "pattern": ["XXX", "XXX"],
   "result": {
     "count": 6,
     "id": "bygone:orange_fungal_wall"

@@ -1,9 +1,4 @@
 {
   "replace": false,
-  "values": [
-
-    "bygone:sagaria",
-    "bygone:rafflesia",
-    "bygone:montsechia"
-  ]
+  "values": ["bygone:sagaria", "bygone:rafflesia", "bygone:montsechia"]
 }

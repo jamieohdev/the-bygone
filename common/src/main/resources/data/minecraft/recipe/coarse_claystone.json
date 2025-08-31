@@ -9,10 +9,7 @@
       "item": "minecraft:gravel"
     }
   },
-  "pattern": [
-    "DG",
-    "GD"
-  ],
+  "pattern": ["DG", "GD"],
   "result": {
     "count": 4,
     "id": "bygone:coarse_claystone"

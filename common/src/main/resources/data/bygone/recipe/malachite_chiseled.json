@@ -6,10 +6,7 @@
       "item": "bygone:malachite_slab"
     }
   },
-  "pattern": [
-    "X",
-    "X"
-  ],
+  "pattern": ["X", "X"],
   "result": {
     "count": 1,
     "id": "bygone:malachite_chiseled"

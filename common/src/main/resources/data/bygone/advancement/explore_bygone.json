@@ -128,27 +128,13 @@
     }
   },
   "requirements": [
-    [
-      "bygone:alphahang"
-    ],
-    [
-      "bygone:amber_desert"
-    ],
-    [
-      "bygone:megalith_field"
-    ],
-    [
-      "bygone:primordial_beach"
-    ],
-    [
-      "bygone:primordial_ocean"
-    ],
-    [
-      "bygone:shelfhollow"
-    ],
-    [
-      "bygone:underhang"
-    ]
+    ["bygone:alphahang"],
+    ["bygone:amber_desert"],
+    ["bygone:megalith_field"],
+    ["bygone:primordial_beach"],
+    ["bygone:primordial_ocean"],
+    ["bygone:shelfhollow"],
+    ["bygone:underhang"]
   ],
   "rewards": {
     "experience": 500

@@ -20,11 +20,7 @@
       "translate": "advancements.bygone.enter_bygone.title"
     }
   },
-  "requirements": [
-    [
-      "enter_bygone"
-    ]
-  ],
+  "requirements": [["enter_bygone"]],
   "rewards": {
     "experience": 100
   },

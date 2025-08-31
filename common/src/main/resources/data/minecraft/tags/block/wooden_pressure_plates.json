@@ -1,7 +1,4 @@
 {
   "replace": false,
-  "values": [
-
-    "bygone:ancient_pressure_plate"
-  ]
+  "values": ["bygone:ancient_pressure_plate"]
 }

@@ -89,10 +89,7 @@
           "functions": [
             {
               "function": "minecraft:enchant_randomly",
-              "options": [
-                "minecraft:breach",
-                "minecraft:density"
-              ]
+              "options": ["minecraft:breach", "minecraft:density"]
             }
           ],
           "name": "minecraft:book",

@@ -4,7 +4,6 @@
     "to_place": {
       "type": "minecraft:weighted_state_provider",
       "entries": [
-
         {
           "data": {
             "Name": "bygone:shelf_mold",

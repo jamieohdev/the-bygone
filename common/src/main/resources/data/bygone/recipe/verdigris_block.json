@@ -6,11 +6,7 @@
       "item": "bygone:verdigris_ingot"
     }
   },
-  "pattern": [
-    "###",
-    "###",
-    "###"
-  ],
+  "pattern": ["###", "###", "###"],
   "result": {
     "count": 1,
     "id": "bygone:verdigris_block"

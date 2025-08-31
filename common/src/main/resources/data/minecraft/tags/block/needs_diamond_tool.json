@@ -1,7 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "bygone:verdigris_block",
-    "bygone:verdigris_scrap_block"
-  ]
+  "values": ["bygone:verdigris_block", "bygone:verdigris_scrap_block"]
 }

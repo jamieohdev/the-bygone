@@ -10,10 +10,7 @@
       "item": "minecraft:stick"
     }
   },
-  "pattern": [
-    "XWX",
-    "XWX"
-  ],
+  "pattern": ["XWX", "XWX"],
   "result": {
     "count": 1,
     "id": "bygone:ancient_fence_gate"

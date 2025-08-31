@@ -6,9 +6,7 @@
       "item": "bygone:ancient_planks"
     }
   },
-  "pattern": [
-    "XXX"
-  ],
+  "pattern": ["XXX"],
   "result": {
     "count": 6,
     "id": "bygone:ancient_slab"

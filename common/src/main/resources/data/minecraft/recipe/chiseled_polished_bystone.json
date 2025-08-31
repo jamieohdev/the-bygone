@@ -6,10 +6,7 @@
       "item": "bygone:polished_bystone_slab"
     }
   },
-  "pattern": [
-    "#",
-    "#"
-  ],
+  "pattern": ["#", "#"],
   "result": {
     "count": 1,
     "id": "bygone:chiseled_polished_bystone"

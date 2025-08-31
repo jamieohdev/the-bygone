@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:min",
+  "argument1": "bygone:caves/rivers/lower",
+  "argument2": "bygone:caves/rivers/upper"
+}

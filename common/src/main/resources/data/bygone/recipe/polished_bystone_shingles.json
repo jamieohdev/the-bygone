@@ -6,10 +6,7 @@
       "item": "bygone:polished_bystone_bricks"
     }
   },
-  "pattern": [
-    "XX",
-    "XX"
-  ],
+  "pattern": ["XX", "XX"],
   "result": {
     "count": 4,
     "id": "bygone:polished_bystone_shingles"

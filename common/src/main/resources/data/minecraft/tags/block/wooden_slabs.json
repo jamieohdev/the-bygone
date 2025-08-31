@@ -1,7 +1,4 @@
 {
   "replace": false,
-  "values": [
-
-    "bygone:ancient_slab"
-  ]
+  "values": ["bygone:ancient_slab"]
 }

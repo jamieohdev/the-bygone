@@ -1,10 +1,10 @@
 {
-    "parent": "bygone:block/caster",
-    "textures": {
-        "bottom": "bygone:block/caster_back",
-        "side": "bygone:block/caster_side",
-        "top": "bygone:block/caster_top",
-        "front": "bygone:block/caster_front_cast",
-        "particle": "bygone:block/caster_front_cast"
-    }
+  "parent": "bygone:block/caster",
+  "textures": {
+    "bottom": "bygone:block/caster_back",
+    "side": "bygone:block/caster_side",
+    "top": "bygone:block/caster_top",
+    "front": "bygone:block/caster_front_cast",
+    "particle": "bygone:block/caster_front_cast"
+  }
 }

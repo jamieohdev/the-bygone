@@ -18,15 +18,8 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_orange_fungal_bricks"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_orange_fungal_bricks"]],
   "rewards": {
-    "recipes": [
-      "minecraft:orange_fungal_slab"
-    ]
+    "recipes": ["minecraft:orange_fungal_slab"]
   }
 }

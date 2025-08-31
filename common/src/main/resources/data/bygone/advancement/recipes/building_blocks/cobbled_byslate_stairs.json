@@ -18,15 +18,8 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_cobbled_byslate"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_cobbled_byslate"]],
   "rewards": {
-    "recipes": [
-      "minecraft:cobbled_byslate_stairs"
-    ]
+    "recipes": ["minecraft:cobbled_byslate_stairs"]
   }
 }

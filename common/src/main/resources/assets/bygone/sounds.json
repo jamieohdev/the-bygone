@@ -1,6 +1,6 @@
 {
   "music.bygone.alphahang": {
-    "category":"music",
+    "category": "music",
     "sounds": [
       {
         "name": "minecraft:music/game/minecraft",
@@ -53,7 +53,7 @@
     ]
   },
   "music.bygone.amber_desert": {
-    "category":"music",
+    "category": "music",
     "sounds": [
       {
         "name": "bygone:music/theashfalls",
@@ -62,7 +62,7 @@
     ]
   },
   "music.bygone.megalith_fields": {
-    "category":"music",
+    "category": "music",
     "sounds": [
       {
         "name": "bygone:music/oldstoneblues",
@@ -71,7 +71,7 @@
     ]
   },
   "music.bygone.shelfhollows": {
-    "category":"music",
+    "category": "music",
     "sounds": [
       {
         "name": "bygone:music/glimmer",
@@ -80,7 +80,7 @@
     ]
   },
   "music.bygone.underhang": {
-    "category":"music",
+    "category": "music",
     "sounds": [
       {
         "name": "bygone:music/changing",
@@ -89,7 +89,7 @@
     ]
   },
   "music.bygone.primordial_ocean": {
-    "category":"music",
+    "category": "music",
     "sounds": [
       {
         "name": "bygone:music/gelida",
@@ -98,7 +98,7 @@
     ]
   },
   "block.megalith_block.idle": {
-    "sounds":  [
+    "sounds": [
       "bygone:ambience/megalith_ambience_1",
       "bygone:ambience/megalith_ambience_3",
       "bygone:ambience/megalith_ambience_4",
@@ -107,7 +107,7 @@
     "subtitle": "subtitles.ambient.sound"
   },
   "ambient.megalith_fields.additions": {
-    "sounds":  [
+    "sounds": [
       "bygone:ambience/megalith_ambience_1",
       "bygone:ambience/megalith_ambience_3",
       "bygone:ambience/megalith_ambience_4",
@@ -116,7 +116,7 @@
     "subtitle": "subtitles.ambient.megalith_fields.additions"
   },
   "ambient.underhang.additions": {
-    "sounds":  [
+    "sounds": [
       "bygone:ambience/ancient_creak1",
       "bygone:ambience/ancient_creak2",
       "bygone:ambience/ancient_wind1",
@@ -127,7 +127,7 @@
     "subtitle": "subtitles.ambient.underhang.additions"
   },
   "ambient.amber_desert.additions": {
-    "sounds":  [
+    "sounds": [
       "bygone:ambience/amber_desert1",
       "bygone:ambience/amber_desert3",
       "bygone:ambience/amber_desert4",
@@ -136,21 +136,17 @@
     "subtitle": "subtitles.ambient.amber_desert.additions"
   },
   "ambient.primordial_ocean.additions": {
-    "sounds":  [
-
-    ],
+    "sounds": [],
     "subtitle": "subtitles.ambient.primordial_ocean.additions"
   },
   "ambient.shelfhollow.additions": {
-    "sounds":  [
-      "bygone:ambience/shelfhollows"
-    ],
+    "sounds": ["bygone:ambience/shelfhollows"],
     "subtitle": "subtitles.ambient.shelfhollows.additions"
   },
   "ambience.volcanic1": {
     "category": "ambient",
     "subtitle": "subtitles.ambient.bygone",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:ambience/volcanic1",
         "stream": false
@@ -160,7 +156,7 @@
   "ambience.volcanic2": {
     "category": "ambient",
     "subtitle": "subtitles.ambient.bygone",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:ambience/volcanic2",
         "stream": false
@@ -170,7 +166,7 @@
   "ambience.volcanic3": {
     "category": "ambient",
     "subtitle": "subtitles.ambient.bygone",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:ambience/volcanic3",
         "stream": false
@@ -180,7 +176,7 @@
   "ambience.frozen1": {
     "category": "ambient",
     "subtitle": "subtitles.ambient.bygone",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:ambience/frozen1",
         "stream": false
@@ -190,7 +186,7 @@
   "ambience.frozen2": {
     "category": "ambient",
     "subtitle": "subtitles.ambient.bygone",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:ambience/frozen2",
         "stream": false
@@ -200,7 +196,7 @@
   "ambience.frozen3": {
     "category": "ambient",
     "subtitle": "subtitles.ambient.bygone",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:ambience/frozen3",
         "stream": false
@@ -210,7 +206,7 @@
   "ambience.upsidedown1": {
     "category": "ambient",
     "subtitle": "subtitles.ambient.bygone",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:ambience/upsidedown1",
         "stream": false
@@ -220,7 +216,7 @@
   "ambience.upsidedown2": {
     "category": "ambient",
     "subtitle": "subtitles.ambient.bygone",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:ambience/upsidedown2",
         "stream": false
@@ -230,7 +226,7 @@
   "ambience.upsidedown3": {
     "category": "ambient",
     "subtitle": "subtitles.ambient.bygone",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:ambience/upsidedown3",
         "stream": false
@@ -239,7 +235,7 @@
   },
   "records.ease": {
     "category": "record",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:records/ease",
         "stream": true
@@ -248,7 +244,7 @@
   },
   "records.fox": {
     "category": "record",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:records/fox",
         "stream": true
@@ -257,7 +253,7 @@
   },
   "records.hullabaloo": {
     "category": "record",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:records/hullabaloo",
         "stream": true
@@ -274,7 +270,7 @@
   },
   "music.gelida": {
     "category": "music",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:music/gelida",
         "stream": true
@@ -283,7 +279,7 @@
   },
   "music.theashfalls": {
     "category": "music",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:music/theashfalls",
         "stream": true
@@ -292,7 +288,7 @@
   },
   "music.changing": {
     "category": "music",
-    "sounds":[
+    "sounds": [
       {
         "name": "bygone:music/changing",
         "stream": true
@@ -317,22 +313,15 @@
     "subtitle": "subtitles.entity.copperbug.ambient"
   },
   "entity.copperbug.hurt": {
-    "sounds": [
-      "bygone:entity/copperbug/hit1",
-      "bygone:entity/copperbug/hit2"
-    ],
+    "sounds": ["bygone:entity/copperbug/hit1", "bygone:entity/copperbug/hit2"],
     "subtitle": "subtitles.entity.copperbug.hurt"
   },
   "entity.copperbug.death": {
-    "sounds": [
-      "bygone:entity/copperbug/death"
-    ],
+    "sounds": ["bygone:entity/copperbug/death"],
     "subtitle": "subtitles.entity.copperbug.death"
   },
   "entity.copperbug.eat": {
-    "sounds": [
-      "bygone:entity/copperbug/eat"
-    ],
+    "sounds": ["bygone:entity/copperbug/eat"],
     "subtitle": "subtitles.entity.copperbug.eat"
   },
 
@@ -344,82 +333,53 @@
     "subtitle": "subtitles.entity.whiskbill.ambient"
   },
   "entity.whiskbill.hurt": {
-    "sounds": [
-      "bygone:entity/whiskbill/hit1",
-      "bygone:entity/whiskbill/hit2"
-    ],
+    "sounds": ["bygone:entity/whiskbill/hit1", "bygone:entity/whiskbill/hit2"],
     "subtitle": "subtitles.entity.whiskbill.hurt"
   },
   "entity.whiskbill.death": {
-    "sounds": [
-      "bygone:entity/whiskbill/death"
-    ],
+    "sounds": ["bygone:entity/whiskbill/death"],
     "subtitle": "subtitles.entity.whiskbill.death"
   },
   "entity.whiskbill.roar": {
-    "sounds": [
-      "bygone:entity/whiskbill/roar"
-    ],
+    "sounds": ["bygone:entity/whiskbill/roar"],
     "subtitle": "subtitles.entity.whiskbill.roar"
   },
 
   "entity.nectaur.ambient": {
-    "sounds": [
-      "bygone:entity/nectaur/idle1",
-      "bygone:entity/nectaur/idle2"
-    ],
+    "sounds": ["bygone:entity/nectaur/idle1", "bygone:entity/nectaur/idle2"],
     "subtitle": "subtitles.entity.nectaur.ambient"
   },
   "entity.nectaur.hurt": {
-    "sounds": [
-      "bygone:entity/nectaur/hit1",
-      "bygone:entity/nectaur/hit2"
-    ],
+    "sounds": ["bygone:entity/nectaur/hit1", "bygone:entity/nectaur/hit2"],
     "subtitle": "subtitles.entity.nectaur.hurt"
   },
   "entity.nectaur.death": {
-    "sounds": [
-      "bygone:entity/nectaur/death"
-    ],
+    "sounds": ["bygone:entity/nectaur/death"],
     "subtitle": "subtitles.entity.nectaur.death"
   },
   "entity.nectaur.bellow": {
-    "sounds": [
-      "bygone:entity/nectaur/bellow"
-    ],
+    "sounds": ["bygone:entity/nectaur/bellow"],
     "subtitle": "subtitles.entity.nectaur.bellow"
   },
   "entity.nectaur.screech": {
-    "sounds": [
-      "bygone:entity/nectaur/screech"
-    ],
+    "sounds": ["bygone:entity/nectaur/screech"],
     "subtitle": "subtitles.entity.nectaur.screech"
   },
 
   "entity.pest.ambient": {
-    "sounds": [
-      "bygone:entity/pest/idle1",
-      "bygone:entity/pest/idle2"
-    ],
+    "sounds": ["bygone:entity/pest/idle1", "bygone:entity/pest/idle2"],
     "subtitle": "subtitles.entity.pest.ambient"
   },
   "entity.pest.hurt": {
-    "sounds": [
-      "bygone:entity/pest/hit1",
-      "bygone:entity/pest/hit2"
-    ],
+    "sounds": ["bygone:entity/pest/hit1", "bygone:entity/pest/hit2"],
     "subtitle": "subtitles.entity.pest.hurt"
   },
   "entity.pest.death": {
-    "sounds": [
-      "bygone:entity/pest/death"
-    ],
+    "sounds": ["bygone:entity/pest/death"],
     "subtitle": "subtitles.entity.pest.death"
   },
   "entity.pest.eat": {
-    "sounds": [
-      "bygone:entity/pest/eat"
-    ],
+    "sounds": ["bygone:entity/pest/eat"],
     "subtitle": "subtitles.entity.pest.eat"
   },
 
@@ -442,23 +402,15 @@
     "subtitle": "subtitles.entity.bigbeak.hurt"
   },
   "entity.bigbeak.death": {
-    "sounds": [
-      "bygone:entity/bigbeak/death1",
-      "bygone:entity/bigbeak/death2"
-    ],
+    "sounds": ["bygone:entity/bigbeak/death1", "bygone:entity/bigbeak/death2"],
     "subtitle": "subtitles.entity.bigbeak.death"
   },
   "entity.bigbeak.jump": {
-    "sounds": [
-      "bygone:entity/bigbeak/jump1",
-      "bygone:entity/bigbeak/jump2"
-    ],
+    "sounds": ["bygone:entity/bigbeak/jump1", "bygone:entity/bigbeak/jump2"],
     "subtitle": "subtitles.entity.bigbeak.jump"
   },
   "entity.bigbeak.step": {
-    "sounds": [
-      "bygone:entity/bigbeak/step1"
-    ],
+    "sounds": ["bygone:entity/bigbeak/step1"],
     "subtitle": "subtitles.entity.bigbeak.step"
   },
   "entity.bigbeak.step_wood": {
@@ -485,16 +437,11 @@
     "subtitle": "subtitles.entity.mooboo.ambient"
   },
   "entity.mooboo.hurt": {
-    "sounds": [
-      "bygone:entity/mooboo/hurt1",
-      "bygone:entity/mooboo/hurt3"
-    ],
+    "sounds": ["bygone:entity/mooboo/hurt1", "bygone:entity/mooboo/hurt3"],
     "subtitle": "subtitles.entity.mooboo.hurt"
   },
   "entity.mooboo.death": {
-    "sounds": [
-      "bygone:entity/mooboo/hurt3"
-    ],
+    "sounds": ["bygone:entity/mooboo/hurt3"],
     "subtitle": "subtitles.entity.mooboo.death"
   },
 
@@ -513,34 +460,24 @@
     "subtitle": "subtitles.entity.fungus_parent.ambient_baby"
   },
   "entity.fungus_parent.hurt": {
-    "sounds": [
-      "bygone:entity/fungus_parent/hurt"
-    ],
+    "sounds": ["bygone:entity/fungus_parent/hurt"],
     "subtitle": "subtitles.entity.fungus_parent.hurt"
   },
   "entity.fungus_parent.death": {
-    "sounds": [
-      "bygone:entity/fungus_parent/death"
-    ],
+    "sounds": ["bygone:entity/fungus_parent/death"],
     "subtitle": "subtitles.entity.fungus_parent.death"
   },
 
   "entity.hook.retrieve": {
-    "sounds": [
-      "bygone:entity/hook/retrieve"
-    ],
+    "sounds": ["bygone:entity/hook/retrieve"],
     "subtitle": "subtitles.entity.hook.retrieve"
   },
   "entity.hook.hit": {
-    "sounds": [
-      "bygone:entity/hook/hit"
-    ],
+    "sounds": ["bygone:entity/hook/hit"],
     "subtitle": "subtitles.entity.hook.hit"
   },
   "entity.hook.throw": {
-    "sounds": [
-      "bygone:entity/hook/retrieve"
-    ],
+    "sounds": ["bygone:entity/hook/retrieve"],
     "subtitle": "subtitles.entity.hook.throw"
   },
 
@@ -564,10 +501,7 @@
     "subtitle": "subtitles.entity.wraith.hurt"
   },
   "entity.wraith.death": {
-    "sounds": [
-      "bygone:entity/wraith/death1",
-      "bygone:entity/wraith/death2"
-    ],
+    "sounds": ["bygone:entity/wraith/death1", "bygone:entity/wraith/death2"],
     "subtitle": "subtitles.entity.wraith.death"
   },
   "entity.wraith.teleport": {
@@ -578,15 +512,11 @@
     "subtitle": "subtitles.entity.wraith.teleport"
   },
   "entity.wraith.attack": {
-    "sounds": [
-      "bygone:entity/wraith/attack"
-    ],
+    "sounds": ["bygone:entity/wraith/attack"],
     "subtitle": "subtitles.entity.wraith.attack"
   },
   "entity.wraith.fly": {
-    "sounds": [
-      "bygone:entity/wraith/fly1"
-    ],
+    "sounds": ["bygone:entity/wraith/fly1"],
     "subtitle": "subtitles.entity.wraith.fly"
   },
 

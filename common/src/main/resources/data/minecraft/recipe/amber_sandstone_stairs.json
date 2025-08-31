@@ -6,11 +6,7 @@
       "item": "bygone:amber_sandstone"
     }
   },
-  "pattern": [
-    "X  ",
-    "XX ",
-    "XXX"
-  ],
+  "pattern": ["X  ", "XX ", "XXX"],
   "result": {
     "count": 4,
     "id": "bygone:amber_sandstone_stairs"

@@ -6,11 +6,7 @@
       "item": "bygone:pink_fungal_bricks"
     }
   },
-  "pattern": [
-    "X  ",
-    "XX ",
-    "XXX"
-  ],
+  "pattern": ["X  ", "XX ", "XXX"],
   "result": {
     "count": 4,
     "id": "bygone:pink_fungal_stairs"

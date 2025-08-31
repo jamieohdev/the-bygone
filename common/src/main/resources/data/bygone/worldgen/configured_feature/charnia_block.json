@@ -4,11 +4,7 @@
     "direction": "up",
     "allowed_placement": {
       "type": "minecraft:matching_blocks",
-      "offset": [
-        0,
-        0,
-        0
-      ],
+      "offset": [0, 0, 0],
       "blocks": "minecraft:water"
     },
     "prioritize_tip": true,

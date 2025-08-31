@@ -18,15 +18,8 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_logs"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_logs"]],
   "rewards": {
-    "recipes": [
-      "bygone:ancient_planks"
-    ]
+    "recipes": ["bygone:ancient_planks"]
   }
 }

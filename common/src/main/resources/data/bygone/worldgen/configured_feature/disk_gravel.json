@@ -18,10 +18,7 @@
     },
     "target": {
       "type": "minecraft:matching_blocks",
-      "blocks": [
-        "bygone:primordial_sand",
-        "bygone:glow_gravel"
-      ]
+      "blocks": ["bygone:primordial_sand", "bygone:glow_gravel"]
     }
   }
 }

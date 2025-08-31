@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:noise",
+  "noise": "bygone:rivers/lower",
+  "xz_scale": 1,
+  "y_scale": 0
+}

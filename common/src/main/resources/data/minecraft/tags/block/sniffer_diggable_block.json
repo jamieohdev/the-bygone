@@ -1,7 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "bygone:claystone",
-    "bygone:mossy_claystone"
-  ]
+  "values": ["bygone:claystone", "bygone:mossy_claystone"]
 }

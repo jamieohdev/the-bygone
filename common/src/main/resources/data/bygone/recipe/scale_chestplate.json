@@ -6,11 +6,7 @@
       "item": "bygone:scale"
     }
   },
-  "pattern": [
-    "W W",
-    "WWW",
-    "WWW"
-  ],
+  "pattern": ["W W", "WWW", "WWW"],
   "result": {
     "count": 1,
     "id": "bygone:scale_chestplate"

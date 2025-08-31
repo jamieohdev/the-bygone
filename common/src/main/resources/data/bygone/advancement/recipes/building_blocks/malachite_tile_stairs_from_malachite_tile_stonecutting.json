@@ -18,12 +18,7 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_malachite_tile"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_malachite_tile"]],
   "rewards": {
     "recipes": [
       "minecraft:malachite_tile_stairs_from_malachite_tile_stonecutting"

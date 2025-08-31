@@ -10,10 +10,7 @@
       "item": "minecraft:stick"
     }
   },
-  "pattern": [
-    "WXW",
-    "WXW"
-  ],
+  "pattern": ["WXW", "WXW"],
   "result": {
     "count": 3,
     "id": "bygone:ancient_fence"

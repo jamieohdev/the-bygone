@@ -6,9 +6,7 @@
       "item": "bygone:malachite_tile"
     }
   },
-  "pattern": [
-    "XXX"
-  ],
+  "pattern": ["XXX"],
   "result": {
     "count": 6,
     "id": "bygone:malachite_tile_slab"

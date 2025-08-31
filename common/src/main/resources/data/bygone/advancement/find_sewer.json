@@ -30,10 +30,6 @@
       "translate": "advancements.bygone.find_sewer.title"
     }
   },
-  "requirements": [
-    [
-      "sewer"
-    ]
-  ],
+  "requirements": [["sewer"]],
   "sends_telemetry_event": true
 }

@@ -1,4 +1,5 @@
 {
+  "": "Allows water above oceans",
   "type": "minecraft:range_choice",
   "input": "bygone:util/in_primordial_ocean",
   "min_inclusive": 0,

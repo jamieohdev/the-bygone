@@ -10,11 +10,7 @@
       "item": "minecraft:chain"
     }
   },
-  "pattern": [
-    "X X",
-    "WWW",
-    "WWW"
-  ],
+  "pattern": ["X X", "WWW", "WWW"],
   "result": {
     "count": 1,
     "id": "bygone:ancient_hanging_sign"

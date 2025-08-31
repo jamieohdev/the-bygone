@@ -6,10 +6,7 @@
       "item": "bygone:polished_byslate"
     }
   },
-  "pattern": [
-    "XXX",
-    "XXX"
-  ],
+  "pattern": ["XXX", "XXX"],
   "result": {
     "count": 6,
     "id": "bygone:polished_byslate_wall"

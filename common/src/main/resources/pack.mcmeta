@@ -1,15 +1,15 @@
 {
-	"pack": {
-		"pack_format": 48,
-		"description": [
-			{
-				"text": "The Bygone",
-				"color": "green"
-			},
-			{
-				"text": "\n",
-				"color": "yellow"
-			}
-		]
-	}
+  "pack": {
+    "pack_format": 48,
+    "description": [
+      {
+        "text": "The Bygone",
+        "color": "green"
+      },
+      {
+        "text": "\n",
+        "color": "yellow"
+      }
+    ]
+  }
 }

@@ -18,12 +18,7 @@
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_chiseled_amber_sandstone"
-    ]
-  ],
+  "requirements": [["has_the_recipe", "has_chiseled_amber_sandstone"]],
   "rewards": {
     "recipes": [
       "minecraft:amber_sandstone_from_chiseled_amber_sandstone_stonecutting"

@@ -2,7 +2,7 @@
   "variants": {
     "facing=north": { "model": "bygone:block/amphora" },
     "facing=south": { "model": "bygone:block/amphora", "y": 180 },
-    "facing=west":  { "model": "bygone:block/amphora", "y": 270 },
-    "facing=east":  { "model": "bygone:block/amphora", "y": 90 }
+    "facing=west": { "model": "bygone:block/amphora", "y": 270 },
+    "facing=east": { "model": "bygone:block/amphora", "y": 90 }
   }
 }

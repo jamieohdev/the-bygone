@@ -1,0 +1,13 @@
+{
+  "": "-|rivers_lower|+0.075",
+  "type": "minecraft:add",
+  "argument1": 0.075,
+  "argument2": {
+    "type": "minecraft:mul",
+    "argument1": -1,
+    "argument2": {
+      "type": "minecraft:abs",
+      "argument": "bygone:terrain/rivers/noise_lower"
+    }
+  }
+}

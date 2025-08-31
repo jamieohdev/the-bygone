@@ -6,10 +6,7 @@
       "item": "bygone:bystone"
     }
   },
-  "pattern": [
-    "XX",
-    "XX"
-  ],
+  "pattern": ["XX", "XX"],
   "result": {
     "count": 4,
     "id": "bygone:polished_bystone"
