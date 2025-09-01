@@ -41,8 +41,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.function.IntFunction;
 
-public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnimal
-{
+public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnimal {
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID;
     private static final EntityDataAccessor<Boolean> DATA_PREPARE_TELEPORT;
 
@@ -116,6 +115,11 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         flyingpathnavigation.setCanFloat(true);
         flyingpathnavigation.setCanPassDoors(true);
         return flyingpathnavigation;
+    }
+
+    @Override
+    public boolean fireImmune() {
+        return true;
     }
 
     @Override
@@ -575,4 +579,5 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
             return WraithSpell.FIRE;
         }
     }
+
 }
