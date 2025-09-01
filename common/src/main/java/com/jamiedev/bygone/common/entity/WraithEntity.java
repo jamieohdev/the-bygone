@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.entity;
 
+import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -286,7 +287,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                         if (this.level().getBlockState(groundPos).isFaceSturdy(this.level(), groundPos, Direction.DOWN) &&
                                 this.level().getBlockState(groundPos.above()).isAir() &&
                                 this.level().getBlockState(groundPos.above().above()).isAir()) {
-                            this.teleportTo(x, y + 1, z);
+                            target.teleportTo(x, y + 1, z);
                             break;
                         }
                         else {
@@ -296,7 +297,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                                 if (this.level().getBlockState(newGroundPos).isFaceSturdy(this.level(), newGroundPos, Direction.DOWN) &&
                                         this.level().getBlockState(newGroundPos.above()).isAir() &&
                                         this.level().getBlockState(newGroundPos.above().above()).isAir()) {
-                                    this.teleportTo(x, y + 1, z);
+                                    target.teleportTo(x, y + 1, z);
                                     this.level().playSound(null, this.xo, this.yo, this.zo, BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT, this.getSoundSource(), 1.0F, 1.0F);
                                     this.playSound(BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT, 1.0F, 1.0F);
                                     teleported = true;
@@ -310,7 +311,6 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                 }
             }
         }
-
     }
 
     @Override
