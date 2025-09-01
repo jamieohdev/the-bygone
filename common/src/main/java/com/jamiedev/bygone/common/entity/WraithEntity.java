@@ -10,7 +10,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ByIdMap;
@@ -33,8 +32,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseFireBlock;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
@@ -43,8 +40,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.function.IntFunction;
 
-public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnimal
-{
+public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnimal {
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID;
     private static final EntityDataAccessor<Boolean> DATA_PREPARE_TELEPORT;
 
@@ -118,6 +114,11 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         flyingpathnavigation.setCanFloat(true);
         flyingpathnavigation.setCanPassDoors(true);
         return flyingpathnavigation;
+    }
+
+    @Override
+    public boolean fireImmune() {
+        return true;
     }
 
     @Override
@@ -578,4 +579,5 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
             return WraithSpell.FIRE;
         }
     }
+
 }
