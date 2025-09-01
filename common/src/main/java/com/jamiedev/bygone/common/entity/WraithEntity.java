@@ -11,7 +11,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ByIdMap;
@@ -34,8 +33,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseFireBlock;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
@@ -287,7 +284,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                         if (this.level().getBlockState(groundPos).isFaceSturdy(this.level(), groundPos, Direction.DOWN) &&
                                 this.level().getBlockState(groundPos.above()).isAir() &&
                                 this.level().getBlockState(groundPos.above().above()).isAir()) {
-                            target.teleportTo(x, y + 1, z);
+                            this.teleportTo(x, y + 1, z);
                             break;
                         }
                         else {
