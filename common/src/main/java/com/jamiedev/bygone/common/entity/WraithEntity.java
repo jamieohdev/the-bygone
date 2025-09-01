@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.entity;
 
+import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -10,7 +11,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ByIdMap;
@@ -33,8 +33,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseFireBlock;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
@@ -296,7 +294,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                                 if (this.level().getBlockState(newGroundPos).isFaceSturdy(this.level(), newGroundPos, Direction.DOWN) &&
                                         this.level().getBlockState(newGroundPos.above()).isAir() &&
                                         this.level().getBlockState(newGroundPos.above().above()).isAir()) {
-                                    this.teleportTo(x, y + 1, z);
+                                    target.teleportTo(x, y + 1, z);
                                     this.level().playSound(null, this.xo, this.yo, this.zo, BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT, this.getSoundSource(), 1.0F, 1.0F);
                                     this.playSound(BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT, 1.0F, 1.0F);
                                     teleported = true;
@@ -310,7 +308,6 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                 }
             }
         }
-
     }
 
     @Override
