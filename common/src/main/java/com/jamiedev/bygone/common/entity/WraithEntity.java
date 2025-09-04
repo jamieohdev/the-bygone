@@ -200,12 +200,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     }
 
     private void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
-            this.idleAnimationState.start(this.tickCount);
-        } else {
-            this.idleAnimationTimeout--;
-        }
+        this.idleAnimationState.startIfStopped(this.tickCount);
         if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F) {
             this.floatAnimationState.startIfStopped(this.tickCount);
         } else {
