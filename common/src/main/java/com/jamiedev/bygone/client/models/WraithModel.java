@@ -69,10 +69,10 @@ public class WraithModel<T extends Entity> extends HierarchicalModel<T>{
 
 		if (entity instanceof WraithEntity wraith)
 		{
-			this.animate(wraith.idleAnimationState, WraithAnimations.floating, ageInTicks, 1.0f);
+			this.animate(wraith.idleAnimationState, WraithAnimations.idle, ageInTicks, 1.0f);
 			this.animate(wraith.floatAnimationState, WraithAnimations.floating, ageInTicks, 1.0f);
-			this.animate(wraith.meleeAnimationState, WraithAnimations.floating, ageInTicks, 1.0f);
-			this.animate(wraith.spellAnimationState, WraithAnimations.floating, ageInTicks, 1.0f);
+			this.animate(wraith.meleeAnimationState, WraithAnimations.attack, ageInTicks, 1.0f);
+			this.animate(wraith.spellAnimationState, WraithAnimations.cast, ageInTicks, 1.0f);
 		}
 	}
 
