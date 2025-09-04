@@ -2,6 +2,6 @@
   "parent": "minecraft:block/template_fire_side",
   "render_type": "cutout",
   "textures": {
-    "fire": "minecraft:block/soul_fire_0"
+    "fire": "bygone:block/ice_bouquet_0"
   }
 }

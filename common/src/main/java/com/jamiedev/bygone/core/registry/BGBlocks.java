@@ -43,7 +43,7 @@ Blocks ref;
                     .noCollission()
                     .replaceable()
                     .instabreak()
-                    .lightLevel(light -> 15)
+                    .lightLevel(light -> 2)
                     .sound(SoundType.WOOL)
                     .pushReaction(PushReaction.DESTROY),
                     2

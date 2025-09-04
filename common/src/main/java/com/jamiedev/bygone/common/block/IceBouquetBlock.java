@@ -29,6 +29,7 @@ import net.minecraft.world.level.portal.PortalShape;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.Optional;
@@ -240,7 +241,8 @@ public class IceBouquetBlock extends Block {
 
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        entity.hurt(level.damageSources().inFire(), this.fireDamage);
+        //entity.hurt(level.damageSources().inFire(), this.fireDamage);
+        entity.hurt(level.damageSources().freeze(), this.fireDamage);
         super.entityInside(state, level, pos, entity);
     }
 
@@ -259,7 +261,7 @@ public class IceBouquetBlock extends Block {
     }
 
     @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public @NotNull BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide()) {
             level.levelEvent(null, 1009, pos, 0);
         }
