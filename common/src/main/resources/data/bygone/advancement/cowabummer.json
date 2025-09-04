@@ -1,0 +1,41 @@
+{
+  "parent": "bygone:find_sewer",
+  "criteria": {
+    "cowabummer": {
+      "conditions": {
+        "victims": [
+          [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "bygone:copperbug"
+              }
+            }
+          ]
+        ]
+      },
+      "trigger": "minecraft:entity_killed_player"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.bygone.cowabummer.desc"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "bygone:alpha_moss_block"
+    },
+    "title": {
+      "translate": "advancements.bygone.cowabummer.title"
+    }
+  },
+  "requirements": [
+    [
+      "cowabummer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
