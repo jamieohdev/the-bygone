@@ -119,6 +119,8 @@ public class BygoneClient {
         consumer.accept(BGBlocks.CREOSOTE.get(), RenderType.cutout());
         consumer.accept(BGBlocks.CREOSOTE_SPROUTS.get(), RenderType.cutout());
 
+        consumer.accept(BGBlocks.ICE_BOUQUET.get(), RenderType.cutout());
+
         consumer.accept(BGBlocks.AMPHORA.get(), RenderType.cutout());
         consumer.accept(BGBlocks.BLACK_AMPHORA.get(), RenderType.cutout());
         consumer.accept(BGBlocks.BLUE_AMPHORA.get(), RenderType.cutout());

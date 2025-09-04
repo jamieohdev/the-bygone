@@ -405,9 +405,10 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         return this.spellCastingTickCount;
     }
 
+
     protected SoundEvent getCastingSoundEvent()
     {
-        return SoundEvents.ILLUSIONER_CAST_SPELL;
+        return BGSoundEvents.WRAITH_ATTACK_ADDITIONS_EVENT;
     }
 
     static {
