@@ -48,8 +48,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class LithyEntity extends Animal
-{
+public class LithyEntity extends Animal {
     Wolf test;
     IronGolem ref;
 
@@ -227,6 +226,11 @@ public class LithyEntity extends Animal
                         this.entityData.set(DATA_TRIPWIRE_TRIP_COOLDOWN, 600);
                         this.tripwireTrip = false;
                     }
+
+                    if (this.onGround()) {
+                        this.setDeltaMovement(0.0, 0.0, 0.0);
+                    }
+
                 }
             }
         }
