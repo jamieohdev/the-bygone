@@ -6,6 +6,7 @@ import com.jamiedev.bygone.core.init.JamiesModToolMaterials;
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -26,6 +27,7 @@ import java.util.function.Supplier;
 
 public class BGItems
 {
+
     public static Supplier<Item> registerItem(String id, Supplier<Item> item){
         return JinxedRegistryHelper.registerItem(Bygone.MOD_ID, id, item);
     }
@@ -33,7 +35,6 @@ public class BGItems
     Items item;
     ParticleTypes ref;
     public static FoodProperties AMARANTH_LOAF_COMP  = (new FoodProperties.Builder()).nutrition(0).saturationModifier(0F).effect(new MobEffectInstance(MobEffects.HEAL, 1, 0), 1.0F).alwaysEdible().build();
-
 
     public static final Supplier<Item> VERDIGRIS_BLADE = registerItem("verdigris_blade", () -> new VerdigrisBladeItem(JamiesModToolMaterials.VERDIGRIS, new Item.Properties().stacksTo(1).attributes(HoeItem.createAttributes(Tiers.IRON, -2.0F, 3.0F))));
     public static final Supplier<Item> VERDIGRIS_BOW = registerItem("verdigris_bow", () -> new VerdigrisBowItem(new Item.Properties().durability(100).stacksTo(1)));

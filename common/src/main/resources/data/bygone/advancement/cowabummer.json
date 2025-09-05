@@ -2,20 +2,12 @@
   "parent": "bygone:find_sewer",
   "criteria": {
     "cowabummer": {
+      "trigger": "minecraft:entity_killed_player",
       "conditions": {
-        "victims": [
-          [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "bygone:copperbug"
-              }
-            }
-          ]
-        ]
-      },
-      "trigger": "minecraft:entity_killed_player"
+        "entity": {
+          "type": "bygone:copperbug"
+        }
+      }
     }
   },
   "display": {

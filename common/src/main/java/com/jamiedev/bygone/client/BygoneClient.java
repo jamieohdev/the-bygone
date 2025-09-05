@@ -16,11 +16,13 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -151,10 +153,9 @@ public class BygoneClient {
     }
 
     public static void createEntityRenderers() {
-        BlockEntityRenderers.register(BGBlockEntities.CASTER.get(), CasterBlockEntityRenderer::new);
+        //BlockEntityRenderers.register(BGBlockEntities.CASTER.get(), CasterBlockEntityRenderer::new);
 
         //BlockEntityRenderers.register(BGBlockEntities.AMPHORA.get(), AmphoraBlockEntityRenderer::new);
-
         EntityRenderers.register(BGEntityTypes.GLARE.get(), GlareRenderer::new);
         EntityRenderers.register(BGEntityTypes.COELACANTH.get(), CoelacanthRenderer::new);
         EntityRenderers.register(BGEntityTypes.DUCK.get(), DuckieRenderer::new);

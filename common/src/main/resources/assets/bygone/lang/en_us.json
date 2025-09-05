@@ -106,6 +106,7 @@
   "item.bygone.poultry": "Poultry",
   "item.bygone.cooked_poultry": "Cooked Poultry",
   "item.bygone.lithoplasm": "Lithoplasm",
+  "item.bygone.ice_bouquet": "Ice Bouquet",
 
   "trim_material.bygone.verdigris": "Verdigris Material",
 
@@ -158,6 +159,7 @@
   "block.bygone.byslate_coal_ore": "Byslate Coal Ore",
   "block.bygone.bygone_portal": "Bygone Portal",
 
+  "block.bygone.ice_bouquet": "Ice Bouquet",
   "block.bygone.cloud": "Cloud Block",
 
   "block.bygone.alpha_moss_block": "Alpha Moss Block",

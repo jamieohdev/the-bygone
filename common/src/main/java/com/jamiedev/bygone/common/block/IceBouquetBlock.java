@@ -62,7 +62,7 @@ public class IceBouquetBlock extends Block {
     private static final VoxelShape SOUTH_AABB = Block.box(0.0, 0.0, 15.0, 16.0, 16.0, 16.0);
     private final Map<BlockState, VoxelShape> shapesCache;
 
-    PowderSnowBlock ref;
+    BaseFireBlock ref;
 
     public IceBouquetBlock(BlockBehaviour.Properties properties, float fireDamage) {
         super(properties);
@@ -109,6 +109,11 @@ public class IceBouquetBlock extends Block {
         }
 
         return voxelshape.isEmpty() ? DOWN_AABB : voxelshape;
+    }
+
+    public static boolean canBePlacedAt(Level level, BlockPos pos, Direction direction) {
+        BlockState blockstate = level.getBlockState(pos);
+        return blockstate.isAir() && getState(level, pos).canSurvive(level, pos);
     }
 
     @Override

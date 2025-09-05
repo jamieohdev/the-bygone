@@ -2,14 +2,12 @@ package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.entity.*;
-import com.jamiedev.bygone.common.entity.projectile.ExoticArrowEntity;
-import com.jamiedev.bygone.common.entity.projectile.HookEntity;
-import com.jamiedev.bygone.common.entity.projectile.NectaurPetalEntity;
-import com.jamiedev.bygone.common.entity.projectile.ScuttleSpikeEntity;
+import com.jamiedev.bygone.common.entity.projectile.*;
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.function.Supplier;
@@ -53,6 +51,8 @@ public class BGEntityTypes {
                     .updateInterval(20)
                     .build("")
     );
+
+
 
     public static final Supplier<EntityType<NectaurPetalEntity>> NECTAUR_PETAL = registerEntityType( "nectaur_petal", () ->
             EntityType.Builder.<NectaurPetalEntity>of(NectaurPetalEntity::new, MobCategory.MISC)
