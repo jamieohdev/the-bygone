@@ -130,7 +130,7 @@ public class LithyEntity extends Animal {
         } else {
             this.walkAnimationState.stop();
         }
-        
+
         if (this.getTripped()) {
             if (this.getTrippedTick() == 0) {
                 this.tripBeginAnimationState.start(this.tickCount);
@@ -141,11 +141,18 @@ public class LithyEntity extends Animal {
                 this.tripAnimationState.startIfStopped(this.tickCount);
                 this.tripEndAnimationState.stop();
             }
+        } else if (this.entityData.get(DATA_JUMP_UP)) {
+            this.tripBeginAnimationState.stop();
+            this.tripAnimationState.stop();
+            this.tripEndAnimationState.start(40);
         } else {
-            if (this.entityData.get(DATA_JUMP_UP)) {
-                this.tripBeginAnimationState.stop();
-                this.tripAnimationState.stop();
-                this.tripEndAnimationState.start(40);
+            this.tripBeginAnimationState.stop();
+            this.tripAnimationState.stop();
+            this.tripEndAnimationState.stop();
+            if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F) {
+                this.walkAnimationState.startIfStopped(this.tickCount);
+            } else {
+                this.walkAnimationState.stop();
             }
         }
     }
@@ -228,7 +235,8 @@ public class LithyEntity extends Animal {
                     }
 
                     if (this.onGround()) {
-                        this.setDeltaMovement(0.0, 0.0, 0.0);
+                        this.setDeltaMovement(0.0, 0.1, 0.0);
+                        this.setPose(Pose.STANDING);
                     }
 
                 }
