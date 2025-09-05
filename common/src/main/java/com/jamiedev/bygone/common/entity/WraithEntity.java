@@ -11,6 +11,8 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -29,6 +31,7 @@ import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.monster.Stray;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -43,7 +46,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID;
     private static final EntityDataAccessor<Boolean> DATA_PREPARE_TELEPORT;
 
-    EnderMan ref;
+    Stray ref;
 
     protected int withinRangeToTeleportTick = 0;
     protected int spellCastingTickCount;
@@ -113,6 +116,16 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         flyingpathnavigation.setCanFloat(true);
         flyingpathnavigation.setCanPassDoors(true);
         return flyingpathnavigation;
+    }
+
+    @Override
+    public boolean isFreezing() {
+        return false;
+    }
+
+    @Override
+    public boolean canFreeze() {
+        return false;
     }
 
     @Override
@@ -309,6 +322,10 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
+
+        if (source.is(DamageTypeTags.IS_FREEZING)) {
+            return super.hurt(source, 0);
+        }
 
         if (source.isDirect()) {
             this.withinRangeToTeleportTick = Math.max(this.withinRangeToTeleportTick - 10, 0);

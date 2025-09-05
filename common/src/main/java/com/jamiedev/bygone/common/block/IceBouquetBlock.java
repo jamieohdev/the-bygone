@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.common.block;
 
 import com.google.common.collect.ImmutableMap;
+import com.jamiedev.bygone.common.entity.WraithEntity;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -12,6 +13,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -59,6 +61,8 @@ public class IceBouquetBlock extends Block {
     private static final VoxelShape NORTH_AABB = Block.box(0.0, 0.0, 0.0, 16.0, 16.0, 1.0);
     private static final VoxelShape SOUTH_AABB = Block.box(0.0, 0.0, 15.0, 16.0, 16.0, 16.0);
     private final Map<BlockState, VoxelShape> shapesCache;
+
+    PowderSnowBlock ref;
 
     public IceBouquetBlock(BlockBehaviour.Properties properties, float fireDamage) {
         super(properties);
@@ -242,7 +246,17 @@ public class IceBouquetBlock extends Block {
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         //entity.hurt(level.damageSources().inFire(), this.fireDamage);
-        entity.hurt(level.damageSources().freeze(), this.fireDamage);
+
+        if (entity instanceof Player)
+        {
+            entity.hurt(level.damageSources().freeze(), this.fireDamage);
+        }
+
+        if (entity instanceof WraithEntity)
+        {
+            ((WraithEntity) entity).heal(0.05F);
+        }
+
         super.entityInside(state, level, pos, entity);
     }
 

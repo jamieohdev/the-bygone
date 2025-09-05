@@ -10,6 +10,7 @@ import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.function.Supplier;
 
@@ -152,7 +153,7 @@ public class BGEntityTypes {
                     .build(""));
 
     public static final Supplier<EntityType<WraithEntity>> WRAITH = registerEntityType("wraith", () ->
-            EntityType.Builder.of(WraithEntity::new, MobCategory.CREATURE)
+            EntityType.Builder.of(WraithEntity::new, MobCategory.CREATURE).immuneTo(BGBlocks.ICE_BOUQUET.get())
                     .sized(1.0F, 2.0F).build(""));
 
     /* .
