@@ -1,6 +1,5 @@
 package com.jamiedev.bygone.common.entity;
 
-import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -12,7 +11,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -195,11 +193,14 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         super.customServerAiStep();
         if (this.spellCastingTickCount > 0) {
             --this.spellCastingTickCount;
+            if (this.spellCastingTickCount == 0) {
+                this.setIsCastingSpell(WraithSpell.NONE);
+            }
         }
-
     }
 
     private void setupAnimationStates() {
+
         this.idleAnimationState.startIfStopped(this.tickCount);
         if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F) {
             this.floatAnimationState.startIfStopped(this.tickCount);
@@ -208,12 +209,9 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         }
 
         if (this.isCastingSpell()) {
-            if (this.getSpellCastingTime() == 0) {
-                this.spellAnimationState.start(this.tickCount);
-            } else if (this.getSpellCastingTime() >= 125 && this.getSpellCastingTime() < 250) {
-                this.spellAnimationState.stop();
-            }
-        } else {
+            this.spellAnimationState.startIfStopped(this.tickCount);
+        }
+        else {
             if (this.attackAnim > 0)
             {
                 this.meleeAnimationState.start(this.tickCount);
@@ -311,10 +309,16 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
+
         if (source.isDirect()) {
             this.withinRangeToTeleportTick = Math.max(this.withinRangeToTeleportTick - 10, 0);
         }
+
         if (source.is(DamageTypes.IN_FIRE)) {
+            return super.hurt(source, 0);
+        }
+
+        if (source.is(DamageTypes.ON_FIRE)) {
             return super.hurt(source, 0);
         }
 
