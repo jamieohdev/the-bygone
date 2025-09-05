@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -29,6 +30,7 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -48,7 +50,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class LithyEntity extends Animal {
+public class LithyEntity extends Mob {
     Wolf test;
     IronGolem ref;
 
@@ -65,7 +67,7 @@ public class LithyEntity extends Animal {
     public AnimationState tripAnimationState = new AnimationState();
     public AnimationState tripEndAnimationState = new AnimationState();
 
-    public LithyEntity(EntityType<? extends Animal> entityType, Level level) {
+    public LithyEntity(EntityType<? extends Mob> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -115,8 +117,6 @@ public class LithyEntity extends Animal {
         this.goalSelector.addGoal(5, new LithyEntity.LithyMeleeAttackGoal(this, (double)1.0F, true));
         this.goalSelector.addGoal(6, new LithyEntity.LithyFollowMobGoal(this, (double)1.4F, 3.0F, 10.0F));
         this.goalSelector.addGoal(6, new LithyEntity.LithyFollowPlayerGoal(this, (double)1.4F, 3.0F, 10.0F));
-
-        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, (double)1.0F));
 
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
@@ -367,6 +367,15 @@ public class LithyEntity extends Animal {
         return flag;
     }
 
+    protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter level, BlockPos pos) {
+        return level.getRawBrightness(pos, 0) > 3;
+    }
+
+    public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        boolean flag = MobSpawnType.ignoresLightRequirements(spawnType) || isBrightEnoughToSpawn(level, pos);
+        return level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && flag;
+    }
+
     public static boolean canSpawn(
             EntityType<? extends Mob> moobloomEntityType,
             LevelAccessor serverWorldAccess,
@@ -376,18 +385,12 @@ public class LithyEntity extends Animal {
     ) {
         return serverWorldAccess.getBlockState(blockPos).is(BGBlocks.MEGALITH_LANTERN.get())
                 || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYSLATE.get())
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYGONESLATE_COAL_ORE.get())
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYGONESLATE_COPPER_ORE.get())
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYGONESLATE_IRON_ORE.get())
                 || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.ALPHA_MOSS_BLOCK.get());
     }
 
-    @Override
-    public boolean isFood(ItemStack itemStack) {
-        return false;
-    }
-
-    @Override
-    public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return null;
-    }
 
     static {
         DATA_FLAGS_ID = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.BYTE);

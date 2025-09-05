@@ -81,27 +81,16 @@
     "ambient": [],
     "axolotls": [],
     "creature": [
+
+    ],
+    "misc": [],
+    "monster": [
       {
         "type": "bygone:lithy",
         "maxCount": 1,
         "minCount": 1,
         "weight": 13
       },
-      {
-        "type": "bygone:lithy",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 12
-      },
-      {
-        "type": "bygone:lithy",
-        "maxCount": 5,
-        "minCount": 2,
-        "weight": 4
-      }
-    ],
-    "misc": [],
-    "monster": [
       {
         "type": "bygone:wraith",
         "maxCount": 2,
