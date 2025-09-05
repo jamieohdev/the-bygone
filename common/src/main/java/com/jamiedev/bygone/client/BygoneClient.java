@@ -153,7 +153,7 @@ public class BygoneClient {
     public static void createEntityRenderers() {
         BlockEntityRenderers.register(BGBlockEntities.CASTER.get(), CasterBlockEntityRenderer::new);
 
-        BlockEntityRenderers.register(BGBlockEntities.AMPHORA.get(), AmphoraBlockEntityRenderer::new);
+        //BlockEntityRenderers.register(BGBlockEntities.AMPHORA.get(), AmphoraBlockEntityRenderer::new);
 
         EntityRenderers.register(BGEntityTypes.GLARE.get(), GlareRenderer::new);
         EntityRenderers.register(BGEntityTypes.COELACANTH.get(), CoelacanthRenderer::new);
