@@ -44,13 +44,14 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.entity.PathfinderMob;
 
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class LithyEntity extends Mob {
+public class LithyEntity extends PathfinderMob {
     Wolf test;
     IronGolem ref;
 
@@ -67,7 +68,7 @@ public class LithyEntity extends Mob {
     public AnimationState tripAnimationState = new AnimationState();
     public AnimationState tripEndAnimationState = new AnimationState();
 
-    public LithyEntity(EntityType<? extends Mob> entityType, Level level) {
+    public LithyEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -113,6 +114,7 @@ public class LithyEntity extends Mob {
 
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, WraithEntity.class, 6.0F, (double)1.0F, 1.2));
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(5, new LithyEntity.LithyMeleeAttackGoal(this, (double)1.0F, true));
         this.goalSelector.addGoal(6, new LithyEntity.LithyFollowMobGoal(this, (double)1.4F, 3.0F, 10.0F));
