@@ -1,15 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "building",
-  "key": {
-    "X": {
+  "ingredients": [
+    {
       "item": "bygone:hollow_megalith_face"
     },
-    "Y": {
+    {
       "item": "bygone:lithoplasm"
     }
-  },
-  "pattern": ["X", "Y"],
+  ],
   "result": {
     "count": 1,
     "id": "bygone:hollow_megalith_lantern"
