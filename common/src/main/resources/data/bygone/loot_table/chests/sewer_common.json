@@ -169,41 +169,10 @@
           "type": "minecraft:item",
           "name": "bygone:ancient_sprinkler"
         },
-
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "bygone:amphora",
-          "weight": 1
+          "name": "bygone:echo_gong"
         },
-
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "bygone:black_amphora",
-          "weight": 1
-        },
-
         {
           "type": "minecraft:item",
           "functions": [
@@ -220,7 +189,6 @@
           "name": "bygone:blue_amphora",
           "weight": 1
         },
-
         {
           "type": "minecraft:item",
           "functions": [
@@ -237,24 +205,6 @@
           "name": "bygone:cyan_amphora",
           "weight": 1
         },
-
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "bygone:gray_amphora",
-          "weight": 1
-        },
-
         {
           "type": "minecraft:item",
           "functions": [
@@ -271,7 +221,6 @@
           "name": "bygone:green_amphora",
           "weight": 1
         },
-
         {
           "type": "minecraft:item",
           "functions": [
@@ -288,24 +237,6 @@
           "name": "bygone:light_blue_amphora",
           "weight": 1
         },
-
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "bygone:light_gray_amphora",
-          "weight": 1
-        },
-
         {
           "type": "minecraft:item",
           "functions": [
@@ -320,125 +251,6 @@
             }
           ],
           "name": "bygone:lime_amphora",
-          "weight": 1
-        },
-
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "bygone:magenta_amphora",
-          "weight": 1
-        },
-
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "bygone:orange_amphora",
-          "weight": 1
-        },
-
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "bygone:pink_amphora",
-          "weight": 1
-        },
-
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "bygone:purple_amphora",
-          "weight": 1
-        },
-
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "bygone:red_amphora",
-          "weight": 1
-        },
-
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "bygone:white_amphora",
-          "weight": 1
-        },
-
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2,
-                "min": 1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "bygone:yellow_amphora",
           "weight": 1
         }
       ]
