@@ -242,6 +242,11 @@ public class WhiskbillEntity extends Animal
         return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getDefaultDimensions(pose);
     }
 
+    @Override
+    public int getMaxSpawnClusterSize() {
+        return 2;
+    }
+
     static {
         BABY_BASE_DIMENSIONS = BGEntityTypes.WHISKBILL.get().getDimensions().withAttachments(EntityAttachments.builder().attach(EntityAttachment.PASSENGER, 0.0F,
                 BGEntityTypes.WHISKBILL.get().getHeight() + 0.125F, 0.0F)).scale(0.45F);

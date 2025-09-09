@@ -79,18 +79,7 @@
   ],
   "has_precipitation": false,
   "spawn_costs": {
-    "bygone:nectaur": {
-      "charge": 0.6,
-      "energy_budget": 0.18
-    },
-    "bygone:whiskbill": {
-      "charge": 0.4,
-      "energy_budget": 0.5
-    },
-    "bygone:big_beak": {
-      "charge": 0.5,
-      "energy_budget": 0.1
-    }
+
   },
   "spawners": {
     "ambient": [],
@@ -99,49 +88,31 @@
       {
         "type": "bygone:big_beak",
         "maxCount": 4,
-        "minCount": 4,
+        "minCount": 1,
         "weight": 10
       },
       {
-        "type": "bygone:nectaur",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 13
-      },
-      {
         "type": "bygone:whiskbill",
-        "maxCount": 2,
+        "maxCount": 4,
         "minCount": 1,
-        "weight": 12
+        "weight": 11
       },
-
       {
         "type": "bygone:glare",
-        "maxCount": 5,
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 2
+      },
+      {
+        "type": "bygone:nectaur",
+        "maxCount": 4,
         "minCount": 2,
-        "weight": 4
+        "weight": 12
       }
     ],
     "misc": [],
     "monster": [
-      {
-        "type": "bygone:nectaur",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 13
-      },
-      {
-        "type": "bygone:big_beak",
-        "maxCount": 4,
-        "minCount": 2,
-        "weight": 15
-      },
-      {
-        "type": "bygone:whiskbill",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 8
-      }
+
     ],
     "underground_water_creature": [],
     "water_creature": []

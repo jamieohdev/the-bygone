@@ -162,33 +162,21 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
 
             }
             else if (randomSpawns < 0.70F) {
-                NectaurEntity nectaur = new NectaurEntity(BGEntityTypes.NECTAUR.get(), world);
-                nectaur.setPos(this.getX(), this.getY(), this.getZ());
 
-                world.addFreshEntity(nectaur);
             }
             else if (randomSpawns < 0.85F) {
                 for (int i = 0; i < 2; i++) {
-                    NectaurEntity nectaur = new NectaurEntity(BGEntityTypes.NECTAUR.get(), world);
-                    nectaur.setPos(this.getX(), this.getY(), this.getZ());
 
-                    world.addFreshEntity(nectaur);
                 }
             }
             else if (randomSpawns < 0.95F) {
                 for (int i = 0; i < 3; i++) {
-                    NectaurEntity nectaur = new NectaurEntity(BGEntityTypes.NECTAUR.get(), world);
-                    nectaur.setPos(this.getX(), this.getY(), this.getZ());
 
-                    world.addFreshEntity(nectaur);
                 }
             }
             else if (randomSpawns < 1.00F) {
                 for (int i = 0; i < 4; i++) {
-                    NectaurEntity nectaur = new NectaurEntity(BGEntityTypes.NECTAUR.get(), world);
-                    nectaur.setPos(this.getX(), this.getY(), this.getZ());
 
-                    world.addFreshEntity(nectaur);
                 }
             }
         }
@@ -218,6 +206,11 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
     @Override
     public void setRemainingPersistentAngerTime(int remainingPersistentAngerTime) {
 
+    }
+
+    @Override
+    public int getMaxSpawnClusterSize() {
+        return 2;
     }
 
     @Override

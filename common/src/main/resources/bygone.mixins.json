@@ -13,7 +13,6 @@
     "MapItemMixin",
     "MobMixin",
     "PlayerMixin",
-    "ServerLevelMixin",
     "VexMixin"
   ],
   "client": [
