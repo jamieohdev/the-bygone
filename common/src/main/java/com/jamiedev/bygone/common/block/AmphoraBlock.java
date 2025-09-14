@@ -260,7 +260,7 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
     @Override
     protected boolean useShapeForLightOcclusion(BlockState state) {
-        return true;
+        return false;
     }
 
     static {
