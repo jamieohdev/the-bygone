@@ -423,7 +423,7 @@
   "biome.bygone.alloy_fields": "Alloy Fields (Not added yet)",
   "biome.bygone.alphahang": "Alphahang",
   "biome.bygone.amber_desert": "Amber Desert",
-  "biome.bygone.megalith_fields": "Megalith Fields",
+  "biome.bygone.megalith_field": "Megalith Fields",
   "biome.bygone.underhang": "Underhang",
   "biome.bygone.shelfhollow": "Shelf Hollows",
   "biome.bygone.primordial_beach": "Primordial Beach",
@@ -496,6 +496,8 @@
   "subtitles.entity.lithy.trip": "Lithy trips",
   "subtitles.entity.lithy.hurt": "Lithy hurts",
   "subtitles.entity.lithy.death": "Lithy dies",
+
+  "subtitles.block.portal.ambient": "Portal frazzles",
 
   "subtitles.ambient.sound": "Eerie noise",
 

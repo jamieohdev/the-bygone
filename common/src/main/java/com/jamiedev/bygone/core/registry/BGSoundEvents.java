@@ -172,6 +172,9 @@ public class BGSoundEvents
     public static SoundEvent WHISKBILL_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISKBILL_DEATH);
     public static SoundEvent WHISKBILL_ROAR_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISKBILL_ROAR);
 
+    public static final ResourceLocation BLOCK_PORTAL_AMBIENT_ID = id("block.portal.ambient");
+    public static final SoundEvent BLOCK_PORTAL_AMBIENT_EVENT = SoundEvent.createVariableRangeEvent(BLOCK_PORTAL_AMBIENT_ID);
+
     private static SoundEvent register(String id) {
         return Registry.register(BuiltInRegistries.SOUND_EVENT, id(id), SoundEvent.createVariableRangeEvent(id(id)));
     }
@@ -192,6 +195,8 @@ public class BGSoundEvents
 
     public static void init()
     {
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.BLOCK_PORTAL_AMBIENT_ID, BLOCK_PORTAL_AMBIENT_EVENT);
+
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_ANCIENTFOREST_ADDITIONS, BGSoundEvents.AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_AMBERDESERT_ADDITIONS, BGSoundEvents.AMBIENT_AMBERDESERT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_PRIMORDIALOCEAN_ADDITIONS, BGSoundEvents.AMBIENT_PRIMORDIALOCEAN_ADDITIONS_EVENT);

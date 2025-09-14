@@ -305,6 +305,19 @@
     ]
   },
 
+  "block.portal.ambient": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "bygone:block/portal/ambience",
+        "attenuation_distance": 8,
+        "volume": 0.75,
+        "pitch": 0.5
+      }
+    ],
+    "subtitle": "subtitles.block.portal.ambient"
+  },
+
   "entity.copperbug.ambient": {
     "sounds": [
       "bygone:entity/copperbug/idle1",

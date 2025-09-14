@@ -21,7 +21,7 @@ public class SpeedWheatBlock extends DoublePlantBlock
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         Vec3 vec3 = new Vec3((double)0.25F, (double)0.05F, (double)0.25F);
         if (!level.isClientSide && entity instanceof LivingEntity livingentity) {
-                livingentity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 15));
+                livingentity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 2));
                 vec3 = new Vec3((double)1.5F, (double)1.25F, (double)1.5F);
         }
 

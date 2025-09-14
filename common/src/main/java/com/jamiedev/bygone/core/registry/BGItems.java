@@ -35,7 +35,7 @@ public class BGItems
     Items item;
     ParticleTypes ref;
     public static FoodProperties AMARANTH_LOAF_COMP  = (new FoodProperties.Builder()).nutrition(0).saturationModifier(0F).effect(new MobEffectInstance(MobEffects.HEAL, 1, 0), 1.0F).alwaysEdible().build();
-    public static FoodProperties SPEED_WHEAT_COMP = (new FoodProperties.Builder()).nutrition(0).saturationModifier(0F).effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 16, 1), 1.0F).alwaysEdible().build();
+    public static FoodProperties SPEED_WHEAT_COMP = (new FoodProperties.Builder()).nutrition(0).saturationModifier(0F).effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 70, 2), 1.0F).alwaysEdible().build();
 
     public static final Supplier<Item> VERDIGRIS_BLADE = registerItem("verdigris_blade", () -> new VerdigrisBladeItem(JamiesModToolMaterials.VERDIGRIS, new Item.Properties().stacksTo(1).attributes(HoeItem.createAttributes(Tiers.IRON, -2.0F, 3.0F))));
     public static final Supplier<Item> VERDIGRIS_BOW = registerItem("verdigris_bow", () -> new VerdigrisBowItem(new Item.Properties().durability(100).stacksTo(1)));
