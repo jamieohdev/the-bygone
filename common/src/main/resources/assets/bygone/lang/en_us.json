@@ -107,6 +107,7 @@
   "item.bygone.cooked_poultry": "Cooked Poultry",
   "item.bygone.lithoplasm": "Lithoplasm",
   "item.bygone.ice_bouquet": "Ice Bouquet",
+  "item.bygone.speed_wheat": "Speed Wheat",
 
   "trim_material.bygone.verdigris": "Verdigris Material",
 
@@ -175,6 +176,7 @@
   "block.bygone.chantrelle": "Chantrelle",
   "block.bygone.rose": "Rose",
   "block.bygone.potted_rose": "Potted Rose",
+  "block.bygone.speed_wheat": "Speed Wheat",
 
   "block.bygone.big_whirliweed": "Big Whirliweed",
   "block.bygone.whirliweed": "Whirliweed",
@@ -343,6 +345,26 @@
   "block.bygone.hollow_megalith_lantern": "Hollow Megalith Lantern",
   "block.bygone.megalith_face": "Megalith Face",
   "block.bygone.megalith_lantern": "Megalith Lantern",
+
+  "block.bygone.sable_sapling": "Sable Sapling",
+  "block.bygone.sable_log": "Sable Log",
+  "block.bygone.sable_leaves": "Sable Leaves",
+  "block.bygone.sable_wood": "Sable Wood",
+  "block.bygone.stripped_sable_log": "Stripped Sable Log",
+  "block.bygone.stripped_sable_wood": "Stripped Sable Wood",
+  "block.bygone.sable_planks": "Sable Planks",
+  "block.bygone.sable_stairs": "Sable Stairs",
+  "block.bygone.sable_slab": "Sable Slab",
+  "block.bygone.sable_fence": "Sable Fence",
+  "block.bygone.sable_fence_gate": "Sable Fence Gate",
+  "block.bygone.sable_door": "Sable Door",
+  "block.bygone.sable_trapdoor": "Sable Trapdoor",
+  "block.bygone.sable_pressure_plate": "Sable Pressure Plate",
+  "block.bygone.sable_button": "Sable Button",
+  "block.bygone.sable_sign": "Sable Sign",
+  "block.bygone.sable_wall_sign": "Sable Wall Sign",
+  "block.bygone.sable_hanging_sign": "Sable Hanging Sign",
+  "block.bygone.sable_wall_hanging_sign": "Sable Wall Hanging Sign",
 
   "block.bygone.amphora": "Amphora",
   "block.bygone.black_amphora": "Black Amphora",

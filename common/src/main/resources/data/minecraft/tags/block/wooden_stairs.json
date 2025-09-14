@@ -1,4 +1,6 @@
 {
   "replace": false,
-  "values": ["bygone:ancient_stairs"]
+  "values": [
+    "bygone:ancient_stairs",
+    "bygone:sable_stairs"]
 }

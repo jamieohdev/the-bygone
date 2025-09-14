@@ -35,6 +35,7 @@ public class BGItems
     Items item;
     ParticleTypes ref;
     public static FoodProperties AMARANTH_LOAF_COMP  = (new FoodProperties.Builder()).nutrition(0).saturationModifier(0F).effect(new MobEffectInstance(MobEffects.HEAL, 1, 0), 1.0F).alwaysEdible().build();
+    public static FoodProperties SPEED_WHEAT_COMP = (new FoodProperties.Builder()).nutrition(0).saturationModifier(0F).effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 16, 1), 1.0F).alwaysEdible().build();
 
     public static final Supplier<Item> VERDIGRIS_BLADE = registerItem("verdigris_blade", () -> new VerdigrisBladeItem(JamiesModToolMaterials.VERDIGRIS, new Item.Properties().stacksTo(1).attributes(HoeItem.createAttributes(Tiers.IRON, -2.0F, 3.0F))));
     public static final Supplier<Item> VERDIGRIS_BOW = registerItem("verdigris_bow", () -> new VerdigrisBowItem(new Item.Properties().durability(100).stacksTo(1)));
@@ -74,6 +75,9 @@ public class BGItems
     public static final Supplier<Item> GOURD_SOUP = registerItem("glow_gourd_soup", () -> new Item(new Item.Properties().food(Foods.RABBIT_STEW).stacksTo(1)));
     public static final Supplier<Item> GOURD_DANGO = registerItem("glow_gourd_dango", () -> new StandingAndWallBlockItem(BGBlocks.GOURD_DANGO.get(), BGBlocks.GOURD_DANGO_WALL.get(),
             new Item.Properties().food(Foods.GOLDEN_CARROT), Direction.DOWN));
+
+    public static final Supplier<Item> SPEED_WHEAT = registerItem("speed_wheat", () -> new BlockItem(BGBlocks.SPEED_WHEAT.get(),
+            new Item.Properties().food(SPEED_WHEAT_COMP)));
 
     public static final Supplier<Item> SCALE_HELMET = registerItem("scale_helmet", () ->
             new ArmorItem(BGArmorMaterials.SCALE, ArmorItem.Type.HELMET,
@@ -144,7 +148,6 @@ public class BGItems
 
 
     public static final Supplier<Item> MUSIC_DISC_SHUFFLE = registerItem("music_disc_shuffle",  () -> new Item((new Item.Properties()).stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(BGJukeboxSongs.THIRTEEN)));
-    //ublic static final Supplier<Item> MUSIC_DISC_SHUFFLE = registerItem("music_disc_shuffle",  () -> new Item((new Item.Properties()).stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "shuffle")))));
 
 
     public static void addItemsToItemGroup() {

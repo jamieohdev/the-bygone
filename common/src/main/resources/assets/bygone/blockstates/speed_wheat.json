@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "bygone:block/speed_wheat_bottom"
+    },
+    "half=upper": {
+      "model": "bygone:block/speed_wheat_top"
+    }
+  }
+}

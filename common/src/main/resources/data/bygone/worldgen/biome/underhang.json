@@ -73,7 +73,8 @@
       "bygone:patch_grass_underhang",
       "bygone:patch_tall_grass",
       "bygone:underhang_vegetation",
-      "bygone:patch_whirliweed"
+      "bygone:patch_whirliweed",
+      "bygone:patch_speed_wheat"
     ],
     ["minecraft:brown_mushroom_normal", "minecraft:red_mushroom_normal"]
   ],

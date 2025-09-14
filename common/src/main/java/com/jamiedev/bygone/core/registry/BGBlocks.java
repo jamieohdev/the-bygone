@@ -593,6 +593,7 @@ Blocks ref;
 
     public static final Supplier<Block> AMARANTH_BLOCK = registerBlock("bale_block", () -> new HayBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BANJO).strength(0.5F).sound(SoundType.GRASS)));
 
+    public static final Supplier<Block> SPEED_WHEAT = registerBlockWithoutBlockItem("speed_wheat", () -> new SpeedWheatBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).replaceable().noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY)));
 
     public static final Supplier<Block> SPRINKER = registerBlock("ancient_sprinkler", () -> new SprinklerBlock(BlockBehaviour.Properties.of().randomTicks().instabreak().sound(SoundType.METAL)
             .pushReaction(PushReaction.DESTROY).noOcclusion()));
@@ -822,6 +823,62 @@ Blocks ref;
 
     public static final Supplier<Block> LITHINE_LAMP = registerBlock("lithine_lamp", () ->
             new LithineLampBlock(BlockBehaviour.Properties.of().lightLevel(litBlockEmission(15)).strength(0.3F).sound(SoundType.GLASS).isValidSpawn(Blocks::always)));
+
+
+    public static final Supplier<Block> SABLE_SAPLING = registerBlock("sable_sapling", () -> new SableSaplingBlock(BGTreeGrowers.SABLE_TREE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
+    public static final Supplier<Block> SABLE_LOG = registerBlock("sable_log", () ->
+            new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).strength(2.0f)));
+    public static final Supplier<Block> SABLE_LEAVES = registerBlock("sable_leaves", () ->
+            new AncientLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+    public static final Supplier<Block> SABLE_WOOD = registerBlock("sable_wood", () ->
+            new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).strength(2.0f)));
+
+    public static final Supplier<Block> STRIPPED_SABLE_LOG = registerBlock("stripped_sable_log", () ->
+            new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG).strength(2.0f)));
+
+    public static final Supplier<Block> STRIPPED_SABLE_WOOD = registerBlock("stripped_sable_wood", () ->
+            new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD).strength(2.0f)));
+
+    public static final Supplier<Block> SABLE_PLANKS = registerBlock("sable_planks", () ->
+            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0f)));
+
+    public static final Supplier<Block> SABLE_STAIRS = registerBlock("sable_stairs", () ->
+            new StairBlock(SABLE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_STAIRS).strength(2.0f)));
+
+    public static final Supplier<Block> SABLE_SLAB = registerBlock("sable_slab", () ->
+            new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB).strength(2.0f)));
+
+    public static final Supplier<Block> SABLE_FENCE = registerBlock("sable_fence", () ->
+            new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE).strength(2.0f)));
+
+    public static final Supplier<Block> SABLE_FENCE_GATE = registerBlock("sable_fence_gate", () ->
+            new FenceGateBlock(JamiesModWoodType.SABLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).strength(2.0f)));
+
+    public static final Supplier<Block> SABLE_DOOR = registerBlock("sable_door", () ->
+            new DoorBlock(JamiesModBlockSetType.SABLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR).strength(2.0f)));
+
+    public static final Supplier<Block> SABLE_TRAPDOOR = registerBlock("sable_trapdoor", () ->
+            new TrapDoorBlock(JamiesModBlockSetType.SABLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR).strength(2.0f)));
+
+    public static final Supplier<Block> SABLE_PRESSURE_PLATE = registerBlock("sable_pressure_plate", () ->
+            new PressurePlateBlock(JamiesModBlockSetType.SABLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)));
+    public static final Supplier<Block> SABLE_BUTTON = registerBlock("sable_button", () ->
+            new ButtonBlock(JamiesModBlockSetType.SABLE, 30, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON)));
+
+    public static final Supplier<Block> SABLE_SIGN = registerBlockWithoutBlockItem("sable_sign", () ->
+            new StandingSignBlock(JamiesModWoodType.SABLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN).strength(1.0f).forceSolidOn()));
+
+    public static final Supplier<Block> SABLE_WALL_SIGN = registerBlockWithoutBlockItem("sable_wall_sign", () ->
+            new WallSignBlock(JamiesModWoodType.SABLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN).strength(1.0f).dropsLike(BGBlocks.SABLE_SIGN.get()).forceSolidOn()));
+
+    public static final Supplier<Block> SABLE_HANGING_SIGN = registerBlockWithoutBlockItem("sable_hanging_sign", () ->
+            new CeilingHangingSignBlock(JamiesModWoodType.SABLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN).strength(1.0f).forceSolidOn()));
+
+    public static final Supplier<Block> SABLE_WALL_HANGING_SIGN = registerBlockWithoutBlockItem("sable_wall_hanging_sign", () ->
+            new WallHangingSignBlock(JamiesModWoodType.SABLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).strength(1.0f).dropsLike(SABLE_HANGING_SIGN.get()).forceSolidOn()));
+
+
+
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
         return (p_50763_) -> (Boolean)p_50763_.getValue(BlockStateProperties.LIT) ? lightValue : 0;

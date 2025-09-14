@@ -32,6 +32,19 @@
     "bygone:purple_fungal_bricks",
     "bygone:purple_fungal_stairs",
     "bygone:purple_fungal_wall",
-    "bygone:purple_fungal_slab"
+    "bygone:purple_fungal_slab",
+    "bygone:sable_log",
+    "bygone:sable_wood",
+    "bygone:stripped_sable_log",
+    "bygone:stripped_sable_wood",
+    "bygone:sable_planks",
+    "bygone:sable_stairs",
+    "bygone:sable_slab",
+    "bygone:sable_fence",
+    "bygone:sable_fence_gate",
+    "bygone:sable_door",
+    "bygone:sable_trapdoor",
+    "bygone:sable_pressure_plate",
+    "bygone:sable_button"
   ]
 }

@@ -135,6 +135,18 @@ public class Bygone {
         ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_FENCE_GATE.get(), 5, 20);
         ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_FENCE.get(), 5, 20);
         ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_DOOR.get(), 5, 20);
+
+        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_WOOD.get(), 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_LOG.get(), 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_PLANKS.get(), 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_SLAB.get(), 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_STAIRS.get(), 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_PRESSURE_PLATE.get(), 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_BUTTON.get(), 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_TRAPDOOR.get(), 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_FENCE_GATE.get(), 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_FENCE.get(), 5, 20);
+        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_DOOR.get(), 5, 20);
     }
 
     public static boolean isSprinklerNearby(LevelReader world, BlockPos pos) {

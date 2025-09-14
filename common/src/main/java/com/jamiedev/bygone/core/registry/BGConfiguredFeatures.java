@@ -56,6 +56,11 @@ public class BGConfiguredFeatures
     public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE_MEDIUM = of("underhang/medium_underhang_trees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> POINTED_AMBER = FeatureUtils.createKey("pointed_amber");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AMBER_CLUSTER = FeatureUtils.createKey("amber_cluster");
+
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_TREE = of("sable_trees");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_TREE_MEDIUM = of("sable_trees");
+
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> featureRegisterable) {
         TagMatchTest ruleTest = new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD);
 

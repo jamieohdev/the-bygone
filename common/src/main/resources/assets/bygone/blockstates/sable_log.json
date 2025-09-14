@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "bygone:block/sable_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "bygone:block/sable_log"
+    },
+    "axis=z": {
+      "model": "bygone:block/sable_log_horizontal",
+      "x": 90
+    }
+  }
+}

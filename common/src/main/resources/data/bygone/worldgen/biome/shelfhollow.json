@@ -75,7 +75,8 @@
       "bygone:test_cloud",
       "minecraft:mushroom_island_vegetation",
       "minecraft:brown_mushroom_taiga",
-      "minecraft:red_mushroom_taiga"
+      "minecraft:red_mushroom_taiga",
+      "bygone:patch_speed_wheat"
     ],
     [
       "minecraft:glowstone_extra",

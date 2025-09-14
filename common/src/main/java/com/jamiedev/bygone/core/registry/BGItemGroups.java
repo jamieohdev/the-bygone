@@ -36,6 +36,7 @@ public class BGItemGroups {
                 output.accept(BGItems.CHANTRELLE.get());
                 output.accept(BGItems.PLAGA_SEEDS.get());
                 output.accept(BGItems.PLAGA.get());
+                output.accept(BGItems.SPEED_WHEAT.get());
                 output.accept(BGBlocks.SPRINKER.get());
                 output.accept(BGItems.BIG_BEAK_SPAWN_EGG.get());
                 output.accept(BGItems.COELACANTH_SPAWN_EGG.get());
@@ -260,7 +261,7 @@ public class BGItemGroups {
                 output.accept(BGBlocks.SHELF_ROOTS.get());
                 output.accept(BGBlocks.SHELF_SPROUTS.get());
 
-
+                output.accept(BGBlocks.ICE_BOUQUET.get());
                 output.accept(BGItems.LITHOPLASM.get());
                 output.accept(BGBlocks.MEGALITH_BLOCK.get());
                 output.accept(BGBlocks.CRACKED_MEGALITH_BLOCK.get());
@@ -276,6 +277,22 @@ public class BGItemGroups {
                 output.accept(BGBlocks.LITHINE_LAMP.get());
                 output.accept(BGBlocks.MEGALITH_TOTEM.get());
                 output.accept(BGBlocks.LITHINE_ORE.get());
+
+                output.accept(BGBlocks.SABLE_SAPLING.get());
+                output.accept(BGBlocks.SABLE_LOG.get());
+                output.accept(BGBlocks.SABLE_LEAVES.get());
+                output.accept(BGBlocks.SABLE_WOOD.get());
+                output.accept(BGBlocks.STRIPPED_SABLE_LOG.get());
+                output.accept(BGBlocks.STRIPPED_SABLE_WOOD.get());
+                output.accept(BGBlocks.SABLE_PLANKS.get());
+                output.accept(BGBlocks.SABLE_STAIRS.get());
+                output.accept(BGBlocks.SABLE_SLAB.get());
+                output.accept(BGBlocks.SABLE_FENCE.get());
+                output.accept(BGBlocks.SABLE_FENCE_GATE.get());
+                output.accept(BGBlocks.SABLE_DOOR.get());
+                output.accept(BGBlocks.SABLE_TRAPDOOR.get());
+                output.accept(BGBlocks.SABLE_PRESSURE_PLATE.get());
+                output.accept(BGBlocks.SABLE_BUTTON.get());
 
                 output.accept(BGBlocks.AMPHORA.get());
                 output.accept(BGBlocks.GILDED_AMPHORA.get());

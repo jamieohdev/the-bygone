@@ -59,7 +59,9 @@
       "bygone:ore_copper",
       "bygone:ore_verdigris"
     ],
-    [],
+    [
+      "bygone:patch_speed_wheat"
+    ],
     [
       "bygone:megalith_field_vegetation",
       "minecraft:brown_mushroom_normal",

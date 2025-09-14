@@ -69,6 +69,7 @@ public class BygoneClient {
         consumer.accept(BGBlocks.MALACHITE_DOOR.get(), RenderType.cutout());
         consumer.accept(BGBlocks.POTTED_ROSE.get(), RenderType.cutout());
         consumer.accept(BGBlocks.ROSE.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SPEED_WHEAT.get(), RenderType.cutout());
 
         consumer.accept(BGBlocks.AMBER_CLUMP.get(), RenderType.cutout());
 
