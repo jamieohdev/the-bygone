@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.entity.ai.behavior;
 
+import com.jamiedev.bygone.common.entity.SabeastEntity;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -18,11 +19,11 @@ public class SabeastSetWalkTargetFromAttackTargetIfTargetOutOfReach {
 
     private static final int PROJECTILE_ATTACK_RANGE_BUFFER = 1;
 
-    public static BehaviorControl<Mob> create(float speedModifier) {
+    public static BehaviorControl<SabeastEntity> create(float speedModifier) {
         return create(p_147908_ -> speedModifier);
     }
 
-    public static BehaviorControl<Mob> create(Function<LivingEntity, Float> speedModifier) {
+    public static BehaviorControl<SabeastEntity> create(Function<LivingEntity, Float> speedModifier) {
         return BehaviorBuilder.create(
                 p_258687_ -> p_258687_.group(
                                 p_258687_.registered(MemoryModuleType.WALK_TARGET),
