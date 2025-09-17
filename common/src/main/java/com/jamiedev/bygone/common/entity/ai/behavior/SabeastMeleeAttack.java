@@ -47,6 +47,7 @@ public class SabeastMeleeAttack {
     private static boolean isHoldingUsableProjectileWeapon(Mob mob) {
         return mob.isHolding(p_147697_ -> {
             Item item = p_147697_.getItem();
+
             return item instanceof ProjectileWeaponItem && mob.canFireProjectileWeapon((ProjectileWeaponItem)item);
         });
     }
