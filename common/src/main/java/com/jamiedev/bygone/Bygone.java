@@ -53,13 +53,13 @@ public class Bygone {
     }
 
     public static void registerStrippables() {
-
-        Bygone.LOGGER.debug("Bygone: Registering strippable Blocks...");
-
         Map<Block, Block> stripables = new IdentityHashMap<>(AxeItemAccess.getStripables());
 
         stripables.put(BGBlocks.ANCIENT_LOG.get(), BGBlocks.STRIPPED_ANCIENT_LOG.get());
         stripables.put(BGBlocks.ANCIENT_WOOD.get(), BGBlocks.STRIPPED_ANCIENT_WOOD.get());
+
+        stripables.put(BGBlocks.SABLE_LOG.get(), BGBlocks.STRIPPED_SABLE_LOG.get());
+        stripables.put(BGBlocks.SABLE_WOOD.get(), BGBlocks.STRIPPED_SABLE_WOOD.get());
 
 
         AxeItemAccess.setStripables(stripables);
@@ -93,6 +93,7 @@ public class Bygone {
         consumer.accept(BGEntityTypes.LITHY.get(), LithyEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.WISP.get(), WispEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.WRAITH.get(), WraithEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.SABEAST.get(), SabeastEntity.createAttributes().build());
     }
 
 
@@ -112,6 +113,7 @@ public class Bygone {
         consumer.accept((EntityType<T>) BGEntityTypes.LITHY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.WISP.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.WRAITH.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
+        consumer.accept((EntityType<T>) BGEntityTypes.SABEAST.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
     }
 
     public static void addValidBlocks(BiConsumer<BlockEntityType<?>, Block> consumer) {
@@ -120,6 +122,12 @@ public class Bygone {
 
         consumer.accept(BlockEntityType.HANGING_SIGN, BGBlocks.ANCIENT_HANGING_SIGN.get());
         consumer.accept(BlockEntityType.HANGING_SIGN, BGBlocks.ANCIENT_WALL_HANGING_SIGN.get());
+
+        consumer.accept(BlockEntityType.SIGN, BGBlocks.SABLE_SIGN.get());
+        consumer.accept(BlockEntityType.SIGN, BGBlocks.SABLE_WALL_SIGN.get());
+
+        consumer.accept(BlockEntityType.HANGING_SIGN, BGBlocks.SABLE_HANGING_SIGN.get());
+        consumer.accept(BlockEntityType.HANGING_SIGN, BGBlocks.SABLE_WALL_HANGING_SIGN.get());  
     }
 
 

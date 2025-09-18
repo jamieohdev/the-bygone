@@ -16,6 +16,8 @@ public class BGItemGroups {
             .displayItems((itemDisplayParameters, output) -> {
                 output.accept(BGItems.ANCIENT_SIGN.get());
                 output.accept(BGItems.ANCIENT_HANGING_SIGN.get());
+                output.accept(BGItems.SABLE_SIGN.get());
+                output.accept(BGItems.SABLE_HANGING_SIGN.get());
                 output.accept(BGItems.ORANGE_FUNGI.get());
                 output.accept(BGItems.PINK_FUNGI.get());
                 output.accept(BGItems.PURPLE_FUNGI.get());

@@ -64,4 +64,7 @@ public class JamiesModModelLayers {
 
     public static final ModelLayerLocation WRAITH =
             new ModelLayerLocation(Bygone.id("wraith"), "main");
+
+    public static final ModelLayerLocation SABEAST =
+            new ModelLayerLocation(Bygone.id("sabeast"), "main");
 }

@@ -181,6 +181,7 @@ public class BygoneClient {
         EntityRenderers.register(BGEntityTypes.LITHY.get(), LithyRenderer::new);
         EntityRenderers.register(BGEntityTypes.WISP.get(), WispRenderer::new);
         EntityRenderers.register(BGEntityTypes.WRAITH.get(), WraithRenderer::new);
+        EntityRenderers.register(BGEntityTypes.SABEAST.get(), SabeastRenderer::new);
     }
     
     public static void createModelLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> consumer) {
@@ -203,6 +204,7 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.LITHY, LithyModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WISP, WispModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WRAITH, WraithModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.SABEAST, SabeastModel::getTexturedModelData);
     }
 
     public static void registerModelPredicateProviders() {

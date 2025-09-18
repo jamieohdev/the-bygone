@@ -156,6 +156,9 @@ public class BGEntityTypes {
             EntityType.Builder.of(WraithEntity::new, MobCategory.CREATURE).immuneTo(BGBlocks.ICE_BOUQUET.get())
                     .sized(1.0F, 2.0F).build(""));
 
+    public static final Supplier<EntityType<SabeastEntity>> SABEAST = registerEntityType("sabeast", () ->
+            EntityType.Builder.of(SabeastEntity::new, MobCategory.CREATURE)
+                    .sized(1.0F, 2.0F).build(""));
     /* .
      *public static final Supplier<EntityType<NectaurPetalEntity>> NECTAUR_PETAL = registerEntityType( "nectaur_petal", () ->
             EntityType.Builder.<NectaurPetalEntity>of(NectaurPetalEntity::new, MobCategory.MISC)
