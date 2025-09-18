@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "wooden_sign",
+  "key": {
+    "W": {
+      "item": "bygone:sable_planks"
+    },
+    "X": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": ["WWW", "WWW", " X "],
+  "result": {
+    "count": 3,
+    "id": "bygone:sable_sign"
+  }
+}

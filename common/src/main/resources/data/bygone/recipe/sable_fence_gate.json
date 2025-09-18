@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "wooden_fence_gate",
+  "key": {
+    "W": {
+      "item": "bygone:sable_planks"
+    },
+    "X": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": ["XWX", "XWX"],
+  "result": {
+    "count": 1,
+    "id": "bygone:sable_fence_gate"
+  }
+}

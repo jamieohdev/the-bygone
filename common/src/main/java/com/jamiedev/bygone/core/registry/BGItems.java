@@ -54,6 +54,13 @@ public class BGItems
     public static final Supplier<Item> ANCIENT_HANGING_SIGN = registerItem("ancient_hanging_sign", () ->
             new HangingSignItem(BGBlocks.ANCIENT_HANGING_SIGN.get(), BGBlocks.ANCIENT_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
 
+
+    public static final Supplier<Item> SABLE_SIGN = registerItem("sable_sign", () ->
+            new SignItem(new Item.Properties().stacksTo(16), BGBlocks.SABLE_SIGN.get(), BGBlocks.SABLE_WALL_SIGN.get()));
+
+    public static final Supplier<Item> SABLE_HANGING_SIGN = registerItem("sable_hanging_sign", () ->
+            new HangingSignItem(BGBlocks.SABLE_HANGING_SIGN.get(), BGBlocks.SABLE_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+
     public static final Supplier<Item> SCALE = registerItem("scale", () -> new Item(new Item.Properties().fireResistant()));
 
     public static final Supplier<Item> COELECANTH = registerItem("coelacanth", () -> new Item(new Item.Properties().food(Foods.CHICKEN)));

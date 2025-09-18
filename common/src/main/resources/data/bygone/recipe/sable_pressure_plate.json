@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "wooden_pressure_plate",
+  "key": {
+    "X": {
+      "item": "bygone:sable_planks"
+    }
+  },
+  "pattern": ["XX"],
+  "result": {
+    "count": 1,
+    "id": "bygone:sable_pressure_plate"
+  }
+}
