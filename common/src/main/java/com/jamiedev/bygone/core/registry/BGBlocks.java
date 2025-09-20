@@ -877,7 +877,11 @@ Blocks ref;
     public static final Supplier<Block> SABLE_WALL_HANGING_SIGN = registerBlockWithoutBlockItem("sable_wall_hanging_sign", () ->
             new WallHangingSignBlock(JamiesModWoodType.SABLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).strength(1.0f).dropsLike(SABLE_HANGING_SIGN.get()).forceSolidOn()));
 
+    public static final Supplier<Block> SABLENUT = registerBlock("sablenut", () -> new SablenutBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.PLANT).randomTicks().strength(0.2F, 3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.DESTROY)));
 
+    public static final Supplier<Block> CHIPPED_SABLENUT = registerBlock("chipped_sablenut", () -> new SablenutBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.PLANT).randomTicks().strength(0.2F, 3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.DESTROY)));
 
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
