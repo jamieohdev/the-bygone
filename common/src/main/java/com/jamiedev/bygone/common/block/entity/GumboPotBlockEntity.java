@@ -181,7 +181,6 @@ public class GumboPotBlockEntity extends BlockEntity {
     protected void loadAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registryLookup) {
         super.loadAdditional(nbt, registryLookup);
 
-        // TODO
         this.potContents.clear();
         Tag contents = nbt.get(NBT_KEY_CONTENTS);
         this.potContents.addAll(CONTENTS_CODEC.decode(NbtOps.INSTANCE, contents).getOrThrow().getFirst());
@@ -191,7 +190,6 @@ public class GumboPotBlockEntity extends BlockEntity {
     protected void saveAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registryLookup) {
         super.saveAdditional(nbt, registryLookup);
 
-        // TODO
         DataResult<Tag> contentsResult = CONTENTS_CODEC.encodeStart(NbtOps.INSTANCE, this.potContents);
         contentsResult.ifError(tagError -> System.out.println(
                 "Warning! Gumbo pot block entity encountered an error while saving: " + tagError.message()));

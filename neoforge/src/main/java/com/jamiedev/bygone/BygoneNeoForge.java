@@ -81,6 +81,9 @@ public class BygoneNeoForge {
                         )
                 )
         );
+
+        // TODO add gumbo components for sticks, moss, slimeballs, etc.
+        //  TODO Keep a central list so the loaders are synced.
     }
 
     void entityTick(EntityTickEvent.Post event) {
