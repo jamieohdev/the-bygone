@@ -37,6 +37,9 @@ import static net.minecraft.world.level.block.Blocks.DIRT;
 public class BGBlocks {
 Blocks ref;
 
+    public static final Supplier<Block> GUMBO_POT = registerBlock("gumbo_pot", () ->
+            new GumboPotBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.COW_BELL).requiresCorrectToolForDrops().strength(2.0F).noOcclusion()));
+
     public static final Supplier<Block> ICE_BOUQUET = registerBlock("ice_bouquet", () ->
             new IceBouquetBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_LIGHT_BLUE)
@@ -167,7 +170,7 @@ Blocks ref;
 
     public static final Supplier<Block> COBBLED_BYSLATE_WALL = registerBlock("cobbled_byslate_wall", () ->
             new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.COBBLED_BYSLATE.get()).strength(2.0f)));
-    
+
     public static final Supplier<Block> CLOUD = registerBlock("cloud", () ->
             new HalfTransparentBlock(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).strength(0.001F).friction(0.989F)
                     .sound(SoundType.WOOL).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never)));
@@ -470,7 +473,7 @@ Blocks ref;
     public static final Supplier<Block> AMBER_SAND = registerBlock("amber_sand", () ->
         new Block(BlockBehaviour.Properties.of().mapColor(MapColor.RAW_IRON).strength(0.35F)
                 .sound(SoundType.GRAVEL)));
-    
+
     public static final Supplier<Block> AMBER_SANDSTONE = registerBlock("amber_sandstone", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.RAW_IRON).strength(0.99F)
                     .sound(SoundType.STONE)));
@@ -912,6 +915,6 @@ Blocks ref;
     public static Block createFlowerPotBlock(Block flower) {
         return new FlowerPotBlock(flower, BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY));
     }
-    
+
     public static void init() {}
 }

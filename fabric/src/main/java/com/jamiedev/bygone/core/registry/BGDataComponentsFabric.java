@@ -1,8 +1,8 @@
 package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.common.block.entity.GumboPotBlockEntity;
 import com.jamiedev.bygone.common.item.MaliciousWarHornItem;
-import com.jamiedev.bygone.core.registry.BGDataComponentTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
@@ -15,60 +15,90 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
 public class BGDataComponentsFabric {
-    
+
     public static void init() {
         Codec<MaliciousWarHornItem.WarHornData> codec = RecordCodecBuilder.create(instance ->
-            instance.group(
-                UUIDUtil.CODEC.listOf().fieldOf("active_vexes").forGetter(MaliciousWarHornItem.WarHornData::activeVexes),
-                Codec.INT.fieldOf("cooldown_seconds").forGetter(MaliciousWarHornItem.WarHornData::cooldownSeconds),
-                Codec.INT.fieldOf("vex_time_left").forGetter(MaliciousWarHornItem.WarHornData::vexTimeLeft)
-            ).apply(instance, MaliciousWarHornItem.WarHornData::new)
+                instance.group(
+                        UUIDUtil.CODEC.listOf()
+                                .fieldOf("active_vexes")
+                                .forGetter(MaliciousWarHornItem.WarHornData::activeVexes),
+                        Codec.INT.fieldOf("cooldown_seconds")
+                                .forGetter(MaliciousWarHornItem.WarHornData::cooldownSeconds),
+                        Codec.INT.fieldOf("vex_time_left").forGetter(MaliciousWarHornItem.WarHornData::vexTimeLeft)
+                ).apply(instance, MaliciousWarHornItem.WarHornData::new)
         );
-        
+
         StreamCodec<RegistryFriendlyByteBuf, MaliciousWarHornItem.WarHornData> streamCodec = StreamCodec.composite(
-            UUIDUtil.STREAM_CODEC.apply(ByteBufCodecs.list()),
-            MaliciousWarHornItem.WarHornData::activeVexes,
-            ByteBufCodecs.VAR_INT,
-            MaliciousWarHornItem.WarHornData::cooldownSeconds,
-            ByteBufCodecs.VAR_INT,
-            MaliciousWarHornItem.WarHornData::vexTimeLeft,
-            MaliciousWarHornItem.WarHornData::new
+                UUIDUtil.STREAM_CODEC.apply(ByteBufCodecs.list()),
+                MaliciousWarHornItem.WarHornData::activeVexes,
+                ByteBufCodecs.VAR_INT,
+                MaliciousWarHornItem.WarHornData::cooldownSeconds,
+                ByteBufCodecs.VAR_INT,
+                MaliciousWarHornItem.WarHornData::vexTimeLeft,
+                MaliciousWarHornItem.WarHornData::new
         );
-        
+
         DataComponentType<MaliciousWarHornItem.WarHornData> warHornData = DataComponentType.<MaliciousWarHornItem.WarHornData>builder()
-            .persistent(codec)
-            .networkSynchronized(streamCodec)
-            .build();
-            
+                .persistent(codec)
+                .networkSynchronized(streamCodec)
+                .build();
+
         DataComponentType<MaliciousWarHornItem.WarHornData> registered = Registry.register(
-            BuiltInRegistries.DATA_COMPONENT_TYPE,
-            Bygone.id("war_horn_data"),
-            warHornData
+                BuiltInRegistries.DATA_COMPONENT_TYPE,
+                Bygone.id("war_horn_data"),
+                warHornData
         );
-        BGDataComponents.WAR_HORN_DATA = (Holder<DataComponentType<MaliciousWarHornItem.WarHornData>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(registered);
+        BGDataComponents.WAR_HORN_DATA = (Holder<DataComponentType<MaliciousWarHornItem.WarHornData>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
+                registered);
 
         Codec<BGDataComponentTypes.EchoGongData> echoGongCodec = RecordCodecBuilder.create(instance ->
-            instance.group(
-                Codec.INT.fieldOf("charge").forGetter(BGDataComponentTypes.EchoGongData::charge)
-            ).apply(instance, BGDataComponentTypes.EchoGongData::new)
+                instance.group(
+                        Codec.INT.fieldOf("charge").forGetter(BGDataComponentTypes.EchoGongData::charge)
+                ).apply(instance, BGDataComponentTypes.EchoGongData::new)
         );
-        
+
         StreamCodec<RegistryFriendlyByteBuf, BGDataComponentTypes.EchoGongData> echoGongStreamCodec = StreamCodec.composite(
-            ByteBufCodecs.VAR_INT,
-            BGDataComponentTypes.EchoGongData::charge,
-            BGDataComponentTypes.EchoGongData::new
+                ByteBufCodecs.VAR_INT,
+                BGDataComponentTypes.EchoGongData::charge,
+                BGDataComponentTypes.EchoGongData::new
         );
-        
+
         DataComponentType<BGDataComponentTypes.EchoGongData> echoGongData = DataComponentType.<BGDataComponentTypes.EchoGongData>builder()
-            .persistent(echoGongCodec)
-            .networkSynchronized(echoGongStreamCodec)
-            .build();
-            
+                .persistent(echoGongCodec)
+                .networkSynchronized(echoGongStreamCodec)
+                .build();
+
         DataComponentType<BGDataComponentTypes.EchoGongData> echoGongRegistered = Registry.register(
-            BuiltInRegistries.DATA_COMPONENT_TYPE,
-            Bygone.id("echo_gong_data"),
-            echoGongData
+                BuiltInRegistries.DATA_COMPONENT_TYPE,
+                Bygone.id("echo_gong_data"),
+                echoGongData
         );
-        BGDataComponents.ECHO_GONG_DATA = (Holder<DataComponentType<BGDataComponentTypes.EchoGongData>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(echoGongRegistered);
+        BGDataComponents.ECHO_GONG_DATA = (Holder<DataComponentType<BGDataComponentTypes.EchoGongData>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
+                echoGongRegistered);
+
+        DataComponentType<GumboPotBlockEntity.GumboIngredientComponent> gumboIngredientData = DataComponentType.<GumboPotBlockEntity.GumboIngredientComponent>builder()
+                .persistent(GumboPotBlockEntity.GumboIngredientComponent.CODEC)
+                .networkSynchronized(GumboPotBlockEntity.GumboIngredientComponent.STREAM_CODEC)
+                .build();
+        DataComponentType<GumboPotBlockEntity.GumboIngredientComponent> gumboPotIngredientRegistered = Registry.register(
+                BuiltInRegistries.DATA_COMPONENT_TYPE,
+                Bygone.id("gumbo_pot_ingredient"),
+                gumboIngredientData
+        );
+        BGDataComponents.GUMBO_INGREDIENT_DATA = (Holder<DataComponentType<GumboPotBlockEntity.GumboIngredientComponent>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
+                gumboPotIngredientRegistered);
+
+        DataComponentType<GumboPotBlockEntity.GumboScoopComponent> gumboScoopData = DataComponentType.<GumboPotBlockEntity.GumboScoopComponent>builder()
+                .persistent(GumboPotBlockEntity.GumboScoopComponent.CODEC)
+                .networkSynchronized(GumboPotBlockEntity.GumboScoopComponent.STREAM_CODEC)
+                .build();
+        DataComponentType<GumboPotBlockEntity.GumboScoopComponent> gumboPotScoopRegistered = Registry.register(
+                BuiltInRegistries.DATA_COMPONENT_TYPE,
+                Bygone.id("gumbo_pot_scoop"),
+                gumboScoopData
+        );
+        BGDataComponents.GUMBO_SCOOP_DATA = (Holder<DataComponentType<GumboPotBlockEntity.GumboScoopComponent>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
+                gumboPotScoopRegistered);
+
     }
 }

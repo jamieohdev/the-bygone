@@ -7,7 +7,7 @@
   "system.bygone.teleporting_out_of_bygone": "Teleporting out of the Bygone...",
 
   "advancements.bygone.bygone.title": "The Bygone",
-  "advancements.bygone.bygone.desc": "A ancient yet familair world awaits...",
+  "advancements.bygone.bygone.desc": "A ancient yet familiar world awaits...",
 
   "advancements.bygone.enter_bygone.title": "Let Bygones be Bygone...",
   "advancements.bygone.enter_bygone.desc": "Entered the Bygone",
@@ -110,6 +110,8 @@
   "item.bygone.speed_wheat": "Speed Wheat",
   "item.bygone.sable_sign": "Sable Sign",
   "item.bygone.sable_hanging_sign": "Sable Hanging Sign",
+  "item.bygone.gumbo_bowl": "Gumbo Bowl",
+  "item.bygone.gumbo_bottle": "Gumbo Bottle",
 
   "trim_material.bygone.verdigris": "Verdigris Material",
 
@@ -386,6 +388,8 @@
   "block.bygone.red_amphora": "Red Amphora",
   "block.bygone.white_amphora": "White Amphora",
   "block.bygone.yellow_amphora": "Yellow Amphora",
+	
+  "block.bygone.gumbo_pot": "Gumbo Pot",
 
   "block.bygone.broken_verdigris_cog": "Broken Verdigris Cog",
   "block.bygone.ramshackled_verdigris_cog": "Ramshackled Verdigris Cog",
