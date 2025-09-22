@@ -401,39 +401,40 @@
           "biome_is": ["bygone:sable_forest"]
         },
         "then_run": {
-          "type": "minecraft:sequence",
-          "sequence": [
-            {
-              "type": "minecraft:condition",
-              "if_true": {
-                "type": "minecraft:noise_threshold",
-                "max_threshold": 1.7976931348623157e308,
-                "min_threshold": 0.21212121212121213,
-                "noise": "minecraft:surface"
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:stone_depth",
+            "offset": 0,
+            "surface_type": "ceiling",
+            "add_surface_depth": true,
+            "secondary_depth_range": 5
+          },
+          "then_run": {
+            "type": "minecraft:sequence",
+            "sequence": [
+              {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:noise_threshold",
+                  "max_threshold": 0.0125,
+                  "min_threshold": -0.0125,
+                  "noise": "minecraft:calcite"
+                },
+                "then_run": {
+                  "type": "minecraft:block",
+                  "result_state": {
+                    "Name": "bygone:byslate"
+                  }
+                }
               },
-              "then_run": {
+              {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "bygone:alpha_moss_block"
+                  "Name": "bygone:byslate"
                 }
               }
-            },
-            {
-              "type": "minecraft:condition",
-              "if_true": {
-                "type": "minecraft:noise_threshold",
-                "max_threshold": 1.7976931348623157e308,
-                "min_threshold": -0.11515151515151514,
-                "noise": "minecraft:surface"
-              },
-              "then_run": {
-                "type": "minecraft:block",
-                "result_state": {
-                  "Name": "bygone:alpha_moss_block"
-                }
-              }
-            }
-          ]
+            ]
+          }
         }
       },
       {
@@ -1317,6 +1318,40 @@
               "type": "minecraft:condition",
               "if_true": {
                 "type": "minecraft:biome",
+                "biome_is": ["bygone:sable_forest"]
+              },
+              "then_run": {
+                "type": "minecraft:sequence",
+                "sequence": [
+                  {
+                    "type": "minecraft:condition",
+                    "if_true": {
+                      "type": "minecraft:stone_depth",
+                      "add_surface_depth": false,
+                      "offset": 0,
+                      "secondary_depth_range": 0,
+                      "surface_type": "ceiling"
+                    },
+                    "then_run": {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:bystone"
+                      }
+                    }
+                  },
+                  {
+                    "type": "minecraft:block",
+                    "result_state": {
+                      "Name": "bygone:sable_moss_block"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:biome",
                 "biome_is": ["bygone:shelfhollow"]
               },
               "then_run": {
@@ -1449,7 +1484,6 @@
                 ]
               }
             },
-
             {
               "type": "minecraft:condition",
               "if_true": {
@@ -1716,6 +1750,29 @@
         "if_true": {
           "type": "minecraft:biome",
           "biome_is": ["bygone:megalith_field"]
+        },
+        "then_run": {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:stone_depth",
+            "add_surface_depth": true,
+            "offset": 0,
+            "secondary_depth_range": 30,
+            "surface_type": "floor"
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": {
+              "Name": "bygone:byslate"
+            }
+          }
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:biome",
+          "biome_is": ["bygone:sable_forest"]
         },
         "then_run": {
           "type": "minecraft:condition",

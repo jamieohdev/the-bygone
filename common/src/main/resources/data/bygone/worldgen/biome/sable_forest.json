@@ -37,20 +37,18 @@
   "features": [
     [],
     [],
-    [],
+    ["bygone:miniliths", "bygone:miniliths_glowing"],
     [],
     [],
     [],
     [],
     [
       "bygone:sable_tree",
-      "minecraft:patch_fire",
-      "minecraft:patch_soul_fire",
+      "bygone:sable_tree2",
       "minecraft:glowstone_extra",
       "minecraft:glowstone",
       "minecraft:brown_mushroom_nether",
       "minecraft:red_mushroom_nether",
-      "minecraft:ore_magma",
       "bygone:ore_coal_upper",
       "bygone:ore_coal_lower",
       "bygone:ore_iron_upper",
@@ -60,17 +58,11 @@
       "bygone:ore_verdigris"
     ],
     [
-      "bygone:patch_speed_wheat"
+      "bygone:sable_vegetation"
     ],
     [
-      "bygone:megalith_field_vegetation",
-      "minecraft:spring_lava",
       "minecraft:brown_mushroom_normal",
-      "minecraft:red_mushroom_normal",
-      "minecraft:warped_fungi",
-      "minecraft:warped_forest_vegetation",
-      "minecraft:nether_sprouts",
-      "minecraft:twisting_vines"
+      "minecraft:red_mushroom_normal"
     ]
   ],
   "has_precipitation": false,
