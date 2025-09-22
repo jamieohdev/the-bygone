@@ -16,6 +16,7 @@ public class JamiesModTag {
     public static final TagKey<Block> BIG_BEAK_SPAWNABLE_ON = Blocks.createTag("big_beak_spawnable_on");
     public static final TagKey<Block> GLARE_SPAWNABLE_ON = Blocks.createTag("glare_spawnable_on");
 
+    public static final TagKey<Block> HEATER_BLOCKS = Blocks.createTag("heater_blocks");
 
     public static final TagKey<Block> MEGALITH_BLOCKS = Blocks.createTag("megalith_blocks");
 
@@ -42,6 +43,9 @@ public class JamiesModTag {
 
     public static final TagKey<Item> BIGBEAK_FOOD = Items.createTag("bigbeak_food");
     public static final TagKey<Item> WHISKBILL_FOOD = Items.createTag("whiskbill_food");
+
+    public static final TagKey<Item> GUMBO_MAKES_SAFE = Items.createTag("gumbo_makes_safe");
+    public static final TagKey<Item> CANNOT_ADD_TO_GUMBO = Items.createTag("cannot_add_to_gumbo");
 
     public static final TagKey<Item> SABEAST_AFRAID_PLAYER_HOLD = Items.createTag("sabeast_afraid_player_hold");
 

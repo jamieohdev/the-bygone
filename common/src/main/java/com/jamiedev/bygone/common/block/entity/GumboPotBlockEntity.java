@@ -1,7 +1,9 @@
 package com.jamiedev.bygone.common.block.entity;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Streams;
 import com.jamiedev.bygone.common.block.GumboPotBlock;
+import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlockEntities;
 import com.jamiedev.bygone.core.registry.BGDataComponents;
 import com.mojang.datafixers.util.Pair;
@@ -25,9 +27,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +70,7 @@ public class GumboPotBlockEntity extends BlockEntity {
     public boolean canAddIngredient(ItemStack ingredient) {
         BlockState state = this.getBlockState();
 
-        if (GumboPotBlock.canFitAdditionalIngredients(state)) {
+        if (GumboPotBlock.canFitAdditionalIngredients(state) && !ingredient.is(JamiesModTag.CANNOT_ADD_TO_GUMBO)) {
 
             FoodProperties foodProperties = ingredient.get(DataComponents.FOOD);
             if (foodProperties != null) {
@@ -78,42 +82,50 @@ public class GumboPotBlockEntity extends BlockEntity {
         return false;
     }
 
-    // Returns true if the ingredient is accepted, false otherwise. Does not modify the stack.
-    public boolean addIngredient(ItemStack ingredient) {
+    // Returns the remainder itemstack if the ingredient is accepted, empty itemstack otherwise. Does not modify the stack.
+    public void addIngredient(ItemStack ingredient) {
         BlockState state = this.getBlockState();
 
-        if (GumboPotBlock.canFitAdditionalIngredients(state)) {
+        if (GumboPotBlock.canFitAdditionalIngredients(state) && !ingredient.is(JamiesModTag.CANNOT_ADD_TO_GUMBO)) {
+
+            SuspiciousStewEffects suspiciousStewEffects = ingredient.get(DataComponents.SUSPICIOUS_STEW_EFFECTS);
+
 
             FoodProperties foodProperties = ingredient.get(DataComponents.FOOD);
-            if (foodProperties != null) {
-                this.addIngredient(foodProperties);
-                return true;
+            if (foodProperties == null) {
+                GumboIngredientComponent gumboIngredientComponent = ingredient.get(BGDataComponents.GUMBO_INGREDIENT_DATA.value());
+                if (gumboIngredientComponent != null) {
+                    foodProperties = gumboIngredientComponent.properties;
+                }
             }
-            GumboIngredientComponent gumboIngredientComponent = ingredient.get(BGDataComponents.GUMBO_INGREDIENT_DATA.value());
-            if (gumboIngredientComponent != null) {
-                this.addIngredient(gumboIngredientComponent);
-                return true;
+
+            if (foodProperties != null) {
+                this.addIngredient(removeNegativeEffectsIf(
+                        spliceStewEffects(foodProperties, suspiciousStewEffects),
+                        ingredient.is(JamiesModTag.GUMBO_MAKES_SAFE) || this.getBlockState()
+                                .getOptionalValue(GumboPotBlock.HEATED)
+                                .orElse(false)
+                ));
             }
         }
-        return false;
     }
 
-    public boolean canScoopBowl(ItemStack ingredient) {
+    public boolean canScoopBowl(ItemStack bowl) {
         BlockState state = this.getBlockState();
         if (GumboPotBlock.canScoopBowl(state)) {
-            GumboScoopComponent scoopComponent = ingredient.get(BGDataComponents.GUMBO_SCOOP_DATA.value());
+            GumboScoopComponent scoopComponent = bowl.get(BGDataComponents.GUMBO_SCOOP_DATA.value());
             return scoopComponent != null;
         }
         return false;
     }
 
     // Returns the result of scooping a bowl (empty if the stack doesn't have the proper component). Does not modify the stack.
-    public ItemStack scoopBowl(ItemStack ingredient) {
+    public ItemStack scoopBowl(ItemStack bowl) {
         BlockState state = this.getBlockState();
 
         if (GumboPotBlock.canScoopBowl(state)) {
 
-            GumboScoopComponent scoopComponent = ingredient.get(BGDataComponents.GUMBO_SCOOP_DATA.value());
+            GumboScoopComponent scoopComponent = bowl.get(BGDataComponents.GUMBO_SCOOP_DATA.value());
             if (scoopComponent != null) {
                 Item filled = BuiltInRegistries.ITEM.get(scoopComponent.filled());
                 ItemStack scooped = filled == null ? ItemStack.EMPTY : new ItemStack(filled);
@@ -133,12 +145,15 @@ public class GumboPotBlockEntity extends BlockEntity {
 
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     private FoodProperties extractFood(Optional<ItemStack> convertsTo) {
+        boolean thisIsTheLastOfIt = this.getBlockState()
+                .getOptionalValue(GumboPotBlock.LEVEL)
+                .orElse(GumboPotBlock.MIN_LEVEL) <= (GumboPotBlock.MIN_LEVEL + 1);
         List<Pair<Integer, FoodProperties>> resultingContents = new ArrayList<>();
         List<FoodProperties> toCombine = new ArrayList<>();
         for (Pair<Integer, FoodProperties> pair : this.potContents) {
             FoodProperties currentIngredient = pair.getSecond();
             int count = pair.getFirst();
-            if (count > 1) {
+            if (count > 1 && !thisIsTheLastOfIt) {
                 resultingContents.add(Pair.of(count - 1, currentIngredient));
             }
             toCombine.add(currentIngredient);
@@ -148,6 +163,11 @@ public class GumboPotBlockEntity extends BlockEntity {
         return this.combineFoods(toCombine, convertsTo);
     }
 
+    // Maybe scale down for dilution?
+    //        effects.replaceAll(possibleEffect -> new FoodProperties.PossibleEffect(
+    //                possibleEffect.effect(),
+    //                scaleFactor * possibleEffect.probability()
+    //        ));
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     private FoodProperties combineFoods(List<FoodProperties> toCombine, Optional<ItemStack> convertsTo) {
 
@@ -165,17 +185,52 @@ public class GumboPotBlockEntity extends BlockEntity {
             canAlwaysEat |= properties.canAlwaysEat();
             effects.addAll(properties.effects());
         }
-        totalNutrition = Mth.ceil(scaleFactor * totalNutrition);
-        totalSaturation = Mth.ceil(scaleFactor * totalSaturation);
+        // Tweaks prevent errors while giving slight buffs.
+        totalNutrition = Mth.ceil(scaleFactor * totalNutrition) + (count > 2 ? 1 : 0) + (count > 4 ? 1 : 0) + (count > 8 ? 1 : 0);
+        totalSaturation = Mth.ceil(scaleFactor * totalSaturation) + 0.05f;
         eatSeconds = Mth.ceil(scaleFactor * eatSeconds);
-        // TODO Maybe scale down for dilution?
-        //        effects.replaceAll(possibleEffect -> new FoodProperties.PossibleEffect(
-        //                possibleEffect.effect(),
-        //                scaleFactor * possibleEffect.probability()
-        //        ));
+        if (eatSeconds == 0) {
+            eatSeconds += 0.05f;
+        }
 
         return new FoodProperties(totalNutrition, totalSaturation, canAlwaysEat, eatSeconds, convertsTo, effects);
     }
+
+
+    protected FoodProperties removeNegativeEffectsIf(FoodProperties properties, boolean removeIfTrue) {
+        return removeIfTrue ? removeNegativeEffects(properties) : properties;
+    }
+
+    protected FoodProperties removeNegativeEffects(FoodProperties properties) {
+        return new FoodProperties(
+                properties.nutrition(),
+                properties.saturation(),
+                properties.canAlwaysEat(),
+                properties.eatSeconds(),
+                properties.usingConvertsTo(),
+                properties.effects()
+                        .stream()
+                        .filter(possibleEffect -> possibleEffect.effect().getEffect().value().isBeneficial())
+                        .toList()
+        );
+    }
+
+    protected FoodProperties spliceStewEffects(FoodProperties properties, @Nullable SuspiciousStewEffects effects) {
+        return effects == null ? properties : new FoodProperties(
+                properties.nutrition(),
+                properties.saturation(),
+                properties.canAlwaysEat(),
+                properties.eatSeconds(),
+                properties.usingConvertsTo(),
+                Streams.concat(
+                        properties.effects().stream(),
+                        effects.effects()
+                                .stream()
+                                .map(entry -> new FoodProperties.PossibleEffect(entry.createEffectInstance(), 1.0f))
+                ).toList()
+        );
+    }
+
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registryLookup) {

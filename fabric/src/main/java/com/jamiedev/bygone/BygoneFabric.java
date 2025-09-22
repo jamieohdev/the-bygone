@@ -18,10 +18,13 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -56,6 +59,343 @@ public class BygoneFabric implements ModInitializer {
 
             // TODO add gumbo components for sticks, moss, slimeballs, etc.
             //  TODO Keep a central list so the loaders are synced.
+
+            event.modify(
+                    Items.MOSS_BLOCK, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(2)
+                                    .saturationModifier(0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.MOSS_CARPET, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(1)
+                                    .saturationModifier(0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.ALPHA_MOSS_BLOCK.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(2)
+                                    .saturationModifier(0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.ALPHA_MOSS_CARPET.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(1)
+                                    .saturationModifier(0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.STICK, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(1)
+                                    .saturationModifier(0.02f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.BAMBOO, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(4)
+                                    .saturationModifier(0.3f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.BONE, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(4)
+                                    .saturationModifier(0.6f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.SLIME_BALL, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(2)
+                                    .saturationModifier(0.2f)
+                                    .effect(new MobEffectInstance(MobEffects.CONFUSION, 100, 0), 0.3f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.LEATHER, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(2)
+                                    .saturationModifier(0.2f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.LEATHER_BOOTS, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(6)
+                                    .saturationModifier(0.2f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.LEATHER_CHESTPLATE, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(8)
+                                    .saturationModifier(0.2f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.LEATHER_HELMET, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(6)
+                                    .saturationModifier(0.2f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.LEATHER_LEGGINGS, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(6)
+                                    .saturationModifier(0.2f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.BLEMISH.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(2)
+                                    .saturationModifier(0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.BLEMISH_VEIN.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(2)
+                                    .saturationModifier(0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.ORANGE_MUSHROOM_BLOCK.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(3)
+                                    .saturationModifier(0.1f)
+                                    .effect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200, 0), 0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.PINK_MUSHROOM_BLOCK.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(3)
+                                    .saturationModifier(0.1f)
+                                    .effect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0), 0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.PURPLE_MUSHROOM_BLOCK.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(3)
+                                    .saturationModifier(0.1f)
+                                    .effect(new MobEffectInstance(MobEffects.WEAKNESS, 200, 0), 0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGItems.ORANGE_FUNGI.get(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(3)
+                                    .saturationModifier(0.1f)
+                                    .effect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 400, 0), 0.05f)
+                                    .effect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 400, 0), 0.025f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGItems.PINK_FUNGI.get(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(3)
+                                    .saturationModifier(0.1f)
+                                    .effect(new MobEffectInstance(MobEffects.REGENERATION, 200, 0), 0.05f)
+                                    .effect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 400, 0), 0.025f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGItems.PURPLE_FUNGI.get(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(3)
+                                    .saturationModifier(0.1f)
+                                    .effect(new MobEffectInstance(MobEffects.WEAKNESS, 400, 0), 0.05f)
+                                    .effect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 400, 0), 0.025f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.CRIMSON_FUNGUS, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(3)
+                                    .saturationModifier(0.1f)
+                                    .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 400, 0), 0.05f)
+                                    .effect(new MobEffectInstance(MobEffects.WEAKNESS, 400, 0), 0.025f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.CRIMSON_ROOTS, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(1)
+                                    .saturationModifier(0.1f)
+                                    .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 400, 0), 0.05f)
+                                    .effect(new MobEffectInstance(MobEffects.WEAKNESS, 400, 0), 0.025f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.NETHER_SPROUTS, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(1)
+                                    .saturationModifier(0.1f)
+                                    .effect(new MobEffectInstance(MobEffects.CONFUSION, 100, 0), 0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.WARPED_FUNGUS, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(3)
+                                    .saturationModifier(0.1f)
+                                    .effect(new MobEffectInstance(MobEffects.INVISIBILITY, 400, 0), 0.05f)
+                                    .effect(new MobEffectInstance(MobEffects.POISON, 400, 0), 0.025f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.WARPED_ROOTS, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(1)
+                                    .saturationModifier(0.1f)
+                                    .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 400, 0), 0.05f)
+                                    .effect(new MobEffectInstance(MobEffects.WEAKNESS, 400, 0), 0.025f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.BROWN_MUSHROOM, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(3)
+                                    .saturationModifier(0.1f)
+                                    .effect(new MobEffectInstance(MobEffects.DIG_SPEED, 100, 0), 0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.RED_MUSHROOM, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(3)
+                                    .saturationModifier(0.1f)
+                                    .effect(new MobEffectInstance(MobEffects.JUMP, 100, 1), 0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.BROWN_MUSHROOM_BLOCK, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(3)
+                                    .saturationModifier(0.1f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    Items.RED_MUSHROOM_BLOCK, builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(3)
+                                    .saturationModifier(0.1f)
+                                    .build())
+                    )
+            );
+
+
+            event.modify(
+                    BGBlocks.SHELF_FUNGUS.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(3)
+                                    .saturationModifier(0.1f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.SHELF_MOLD.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(3)
+                                    .saturationModifier(0.1f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.SHELF_MOLD_MOSS.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(2)
+                                    .saturationModifier(0.1f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.SHELF_ROOTS.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(1)
+                                    .saturationModifier(0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.SHELF_SPROUTS.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(1)
+                                    .saturationModifier(0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.ORANGE_FUNGI_VINES.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(1)
+                                    .saturationModifier(0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.PINK_FUNGI_VINES.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(1)
+                                    .saturationModifier(0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.PURPLE_FUNGI_VINES.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(1)
+                                    .saturationModifier(0.05f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.BELLADONNA.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(1)
+                                    .saturationModifier(0.02f)
+                                    .effect(new MobEffectInstance(MobEffects.WITHER, 400, 2), 1.0f)
+                                    .build())
+                    )
+            );
         });
 
 
