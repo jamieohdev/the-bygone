@@ -58,7 +58,8 @@
       "bygone:ore_verdigris"
     ],
     [
-      "bygone:sable_vegetation"
+      "bygone:sable_vegetation",
+      "minecraft:patch_tall_grass_2"
     ],
     [
       "minecraft:brown_mushroom_normal",
