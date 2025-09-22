@@ -367,6 +367,8 @@
   "block.bygone.sable_wall_sign": "Sable Wall Sign",
   "block.bygone.sable_hanging_sign": "Sable Hanging Sign",
   "block.bygone.sable_wall_hanging_sign": "Sable Wall Hanging Sign",
+  "block.bygone.sable_moss_block": "Sable Moss Block",
+  "block.bygone.sable_moss_carpet": "Sable Moss Carpet",
 
   "block.bygone.amphora": "Amphora",
   "block.bygone.black_amphora": "Black Amphora",
@@ -409,6 +411,7 @@
   "entity.bygone.pesky": "Pesky",
   "entity.bygone.pest": "Pest",
   "entity.bygone.trilobite": "Trilobite",
+  "entity.bygone.sabeast": "Sabeast",
   "entity.bygone.scuttle": "Scuttle",
   "entity.bygone.scuttle_spike": "Scuttle's Spike",
   "entity.bygone.whiskbill": "Whiskbill",
