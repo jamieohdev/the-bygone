@@ -196,7 +196,7 @@ public class Bygone {
     }
 
     protected static void zombify(Cow cow) {
-        MoobooEntity moobooEntity = cow.convertTo(BGEntityTypes.MOOBOO.get(), true);
+        MoobooEntity2 moobooEntity = cow.convertTo(BGEntityTypes.MOOBOO.get(), true);
         if (moobooEntity != null) {
             moobooEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0));
         }

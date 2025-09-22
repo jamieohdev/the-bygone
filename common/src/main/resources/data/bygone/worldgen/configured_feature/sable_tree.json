@@ -1,0 +1,97 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": {
+          "type": "lithostitched:structure_template",
+          "config": {
+            "template": "bygone:sable_tree_1",
+            "processors": [
+              {
+                "processor_type": "minecraft:nop"
+              }
+            ],
+            "rotation": "none"
+          }
+        },
+        "placement": []
+      },
+      {
+        "feature": {
+          "type": "lithostitched:structure_template",
+          "config": {
+            "template": "bygone:sable_tree_2",
+            "processors": [
+              {
+                "processor_type": "minecraft:nop"
+              }
+            ],
+            "rotation": "none"
+          }
+        },
+        "placement": []
+      },
+      {
+        "feature": {
+          "type": "lithostitched:structure_template",
+          "config": {
+            "template": "bygone:sable_tree_3",
+            "processors": [
+              {
+                "processor_type": "minecraft:nop"
+              }
+            ],
+            "rotation": "none"
+          }
+        },
+        "placement": []
+      },
+      {
+        "feature": {
+          "type": "lithostitched:structure_template",
+          "config": {
+            "template": "bygone:sable_tree_4",
+            "processors": [
+              {
+                "processor_type": "minecraft:nop"
+              }
+            ],
+            "rotation": "none"
+          }
+        },
+        "placement": []
+      },
+      {
+        "feature": {
+          "type": "lithostitched:structure_template",
+          "config": {
+            "template": "bygone:sable_tree_5",
+            "processors": [
+              {
+                "processor_type": "minecraft:nop"
+              }
+            ],
+            "rotation": "none"
+          }
+        },
+        "placement": []
+      },
+      {
+        "feature": {
+          "type": "lithostitched:structure_template",
+          "config": {
+            "template": "bygone:sable_tree_6",
+            "processors": [
+              {
+                "processor_type": "minecraft:nop"
+              }
+            ],
+            "rotation": "none"
+          }
+        },
+        "placement": []
+      }
+    ]
+  }
+}

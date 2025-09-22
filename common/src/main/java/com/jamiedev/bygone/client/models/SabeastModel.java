@@ -2,7 +2,6 @@ package com.jamiedev.bygone.client.models;
 
 import com.jamiedev.bygone.client.models.animations.LithyAnimations;
 import com.jamiedev.bygone.client.models.animations.WraithAnimations;
-import com.jamiedev.bygone.common.entity.SabeastEntity;
 import com.jamiedev.bygone.common.entity.WraithEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -78,7 +77,7 @@ public class SabeastModel<T extends Entity> extends HierarchicalModel<T>{
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (entity instanceof SabeastEntity sabeast)
+		if (entity instanceof com.jamiedev.bygone.common.entity.SabeastEntity sabeast)
 		{
 
 		}

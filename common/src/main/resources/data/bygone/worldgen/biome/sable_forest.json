@@ -15,8 +15,8 @@
     },
     "ambient_sound": "minecraft:ambient.nether_wastes.loop",
     "fog_color": 12634293,
-    "grass_color": 11206458,
-    "foliage_color": 8060727,
+    "grass_color": 6596485,
+    "foliage_color": 6596485,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
@@ -43,7 +43,7 @@
     [],
     [],
     [
-      "bygone:spring_bronze_open",
+      "bygone:sable_tree",
       "minecraft:patch_fire",
       "minecraft:patch_soul_fire",
       "minecraft:glowstone_extra",

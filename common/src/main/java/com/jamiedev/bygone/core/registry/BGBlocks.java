@@ -883,6 +883,10 @@ Blocks ref;
     public static final Supplier<Block> CHIPPED_SABLENUT = registerBlock("chipped_sablenut", () -> new SablenutBlock(BlockBehaviour.Properties.of()
             .mapColor(MapColor.PLANT).randomTicks().strength(0.2F, 3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.DESTROY)));
 
+    public static final Supplier<Block> SABLE_MOSS_CARPET = registerBlock("sable_moss_carpet", () ->
+            new CarpetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS_CARPET).pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> SABLE_MOSS_BLOCK = registerBlock("sable_moss_block", () ->
+            new AlphaMossBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS).pushReaction(PushReaction.DESTROY)));
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
         return (p_50763_) -> (Boolean)p_50763_.getValue(BlockStateProperties.LIT) ? lightValue : 0;

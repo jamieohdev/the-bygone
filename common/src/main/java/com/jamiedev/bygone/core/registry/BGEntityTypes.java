@@ -67,8 +67,8 @@ public class BGEntityTypes {
             EntityType.Builder.of(GlareEntity::new, MobCategory.CREATURE)
                     .sized(0.6F, 0.8F).build(""));
 
-    public static final Supplier<EntityType<MoobooEntity>> MOOBOO = registerEntityType("mooboo", () ->
-            EntityType.Builder.of(MoobooEntity::new, MobCategory.CREATURE)
+    public static final Supplier<EntityType<MoobooEntity2>> MOOBOO = registerEntityType("mooboo", () ->
+            EntityType.Builder.of(MoobooEntity2::new, MobCategory.CREATURE)
                 .sized(0.9F, 1.4F)
                     .eyeHeight(1.3f)
                         .build(""));
