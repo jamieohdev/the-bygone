@@ -79,14 +79,6 @@ public class BGDataComponentsNeoForge {
                     .build()
     );
 
-    private static final Supplier<DataComponentType<GumboPotBlockEntity.GumboScoopComponent>> GUMBO_SCOOP_DATA_SUPPLIER = DATA_COMPONENTS.register(
-            "gumbo_scoop_data",
-            () -> DataComponentType.<GumboPotBlockEntity.GumboScoopComponent>builder()
-                    .persistent(GumboPotBlockEntity.GumboScoopComponent.CODEC)
-                    .networkSynchronized(GumboPotBlockEntity.GumboScoopComponent.STREAM_CODEC)
-                    .build()
-    );
-
     public static void init() {
         DataComponentType<MaliciousWarHornItem.WarHornData> dataComponentType = WAR_HORN_DATA_SUPPLIER.get();
         BGDataComponents.WAR_HORN_DATA = (Holder<DataComponentType<MaliciousWarHornItem.WarHornData>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
@@ -100,10 +92,5 @@ public class BGDataComponentsNeoForge {
 
         BGDataComponents.GUMBO_INGREDIENT_DATA = (Holder<DataComponentType<GumboPotBlockEntity.GumboIngredientComponent>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
                 gumboIngredientDataComponentType);
-
-        DataComponentType<GumboPotBlockEntity.GumboScoopComponent> gumboScoopDataComponentType = GUMBO_SCOOP_DATA_SUPPLIER.get();
-
-        BGDataComponents.GUMBO_SCOOP_DATA = (Holder<DataComponentType<GumboPotBlockEntity.GumboScoopComponent>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
-                gumboScoopDataComponentType);
     }
 }

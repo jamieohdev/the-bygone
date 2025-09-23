@@ -33,8 +33,6 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
-import java.util.Optional;
-
 @Mod(Bygone.MOD_ID)
 public class BygoneNeoForge {
 
@@ -65,27 +63,6 @@ public class BygoneNeoForge {
     //
 
     public void modifyDefaultComponents(ModifyDefaultComponentsEvent event) {
-        event.modify(
-                Items.BOWL, builder -> builder.set(
-                        BGDataComponents.GUMBO_SCOOP_DATA.value(),
-                        new GumboPotBlockEntity.GumboScoopComponent(
-                                BGItems.GUMBO_BOWL.get().builtInRegistryHolder().key(),
-                                Optional.of(Items.BOWL.builtInRegistryHolder().key())
-                        )
-                )
-        );
-        event.modify(
-                Items.GLASS_BOTTLE, builder -> builder.set(
-                        BGDataComponents.GUMBO_SCOOP_DATA.value(),
-                        new GumboPotBlockEntity.GumboScoopComponent(
-                                BGItems.GUMBO_BOTTLE.get().builtInRegistryHolder().key(),
-                                Optional.of(Items.GLASS_BOTTLE.builtInRegistryHolder().key())
-                        )
-                )
-        );
-
-        // TODO add gumbo components for sticks, moss, slimeballs, etc.
-        //  TODO Keep a central list so the loaders are synced.
 
         event.modify(
                 Items.MOSS_BLOCK, builder -> builder.set(
@@ -479,10 +456,15 @@ public class BygoneNeoForge {
     }
 
     void setup(FMLCommonSetupEvent event) {
-        BGDataComponentsNeoForge.init();
-        Bygone.registerStrippables();
-        Bygone.addFlammable();
-        JamiesModPortalsNeoForge.init();
+        // TODO should these be enqueued (Startraveler)
+        event.enqueueWork(() -> {
+            BGDataComponentsNeoForge.init();
+            Bygone.registerStrippables();
+            Bygone.addFlammable();
+            JamiesModPortalsNeoForge.init();
+            GumboPotBlockEntity.GumboScooping.setFilled(Items.BOWL, BGItems.GUMBO_BOWL.get());
+            GumboPotBlockEntity.GumboScooping.setFilled(Items.GLASS_BOTTLE, BGItems.GUMBO_BOTTLE.get());
+        });
     }
 
     void addValidBlocks(BlockEntityTypeAddBlocksEvent event) {

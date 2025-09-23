@@ -32,33 +32,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
 
-import java.util.Optional;
-
 public class BygoneFabric implements ModInitializer {
 
 
     public static void initEvents() {
 
-        DefaultItemComponentEvents.MODIFY.register(event -> {
-            event.modify(
-                    Items.BOWL, builder -> builder.set(
-                            BGDataComponents.GUMBO_SCOOP_DATA.value(), new GumboPotBlockEntity.GumboScoopComponent(
-                                    BGItems.GUMBO_BOWL.get().builtInRegistryHolder().key(),
-                                    Optional.of(Items.BOWL.builtInRegistryHolder().key())
-                            )
-                    )
-            );
-            event.modify(
-                    Items.GLASS_BOTTLE, builder -> builder.set(
-                            BGDataComponents.GUMBO_SCOOP_DATA.value(), new GumboPotBlockEntity.GumboScoopComponent(
-                                    BGItems.GUMBO_BOTTLE.get().builtInRegistryHolder().key(),
-                                    Optional.of(Items.GLASS_BOTTLE.builtInRegistryHolder().key())
-                            )
-                    )
-            );
+        GumboPotBlockEntity.GumboScooping.setFilled(Items.BOWL, BGItems.GUMBO_BOWL.get());
+        GumboPotBlockEntity.GumboScooping.setFilled(Items.GLASS_BOTTLE, BGItems.GUMBO_BOTTLE.get());
 
-            // TODO add gumbo components for sticks, moss, slimeballs, etc.
-            //  TODO Keep a central list so the loaders are synced.
+        DefaultItemComponentEvents.MODIFY.register(event -> {
 
             event.modify(
                     Items.MOSS_BLOCK, builder -> builder.set(

@@ -12,7 +12,6 @@ public class BGDataComponents {
     public static Holder<DataComponentType<BGDataComponentTypes.EchoGongData>> ECHO_GONG_DATA;
 
     public static Holder<DataComponentType<GumboPotBlockEntity.GumboIngredientComponent>> GUMBO_INGREDIENT_DATA;
-    public static Holder<DataComponentType<GumboPotBlockEntity.GumboScoopComponent>> GUMBO_SCOOP_DATA;
 
     public static void init() {
         

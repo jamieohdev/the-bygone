@@ -88,17 +88,5 @@ public class BGDataComponentsFabric {
         BGDataComponents.GUMBO_INGREDIENT_DATA = (Holder<DataComponentType<GumboPotBlockEntity.GumboIngredientComponent>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
                 gumboPotIngredientRegistered);
 
-        DataComponentType<GumboPotBlockEntity.GumboScoopComponent> gumboScoopData = DataComponentType.<GumboPotBlockEntity.GumboScoopComponent>builder()
-                .persistent(GumboPotBlockEntity.GumboScoopComponent.CODEC)
-                .networkSynchronized(GumboPotBlockEntity.GumboScoopComponent.STREAM_CODEC)
-                .build();
-        DataComponentType<GumboPotBlockEntity.GumboScoopComponent> gumboPotScoopRegistered = Registry.register(
-                BuiltInRegistries.DATA_COMPONENT_TYPE,
-                Bygone.id("gumbo_pot_scoop"),
-                gumboScoopData
-        );
-        BGDataComponents.GUMBO_SCOOP_DATA = (Holder<DataComponentType<GumboPotBlockEntity.GumboScoopComponent>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
-                gumboPotScoopRegistered);
-
     }
 }

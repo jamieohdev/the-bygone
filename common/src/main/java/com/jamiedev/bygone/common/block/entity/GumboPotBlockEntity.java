@@ -1,5 +1,7 @@
 package com.jamiedev.bygone.common.block.entity;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
 import com.jamiedev.bygone.common.block.GumboPotBlock;
@@ -13,16 +15,12 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -60,10 +58,6 @@ public class GumboPotBlockEntity extends BlockEntity {
 
     public void addIngredient(FoodProperties ingredient) {
         this.potContents.add(Pair.of(BASE_SERVINGS_PER_INGREDIENT, ingredient));
-    }
-
-    public void addIngredient(GumboIngredientComponent ingredient) {
-        this.potContents.add(Pair.of(BASE_SERVINGS_PER_INGREDIENT, ingredient.properties));
     }
 
 
@@ -110,34 +104,31 @@ public class GumboPotBlockEntity extends BlockEntity {
         }
     }
 
-    public boolean canScoopBowl(ItemStack bowl) {
+    public boolean canScoopBowl(@Nullable ItemStack bowl) {
+        if (bowl == null) {
+            return false;
+        }
         BlockState state = this.getBlockState();
         if (GumboPotBlock.canScoopBowl(state)) {
-            GumboScoopComponent scoopComponent = bowl.get(BGDataComponents.GUMBO_SCOOP_DATA.value());
-            return scoopComponent != null;
+            return GumboScooping.getFilled(bowl.getItem()) != null;
         }
         return false;
     }
 
     // Returns the result of scooping a bowl (empty if the stack doesn't have the proper component). Does not modify the stack.
-    public ItemStack scoopBowl(ItemStack bowl) {
+    public @NotNull ItemStack scoopBowl(@Nullable ItemStack bowl) {
         BlockState state = this.getBlockState();
 
-        if (GumboPotBlock.canScoopBowl(state)) {
+        if ((bowl != null) && GumboPotBlock.canScoopBowl(state)) {
 
-            GumboScoopComponent scoopComponent = bowl.get(BGDataComponents.GUMBO_SCOOP_DATA.value());
-            if (scoopComponent != null) {
-                Item filled = BuiltInRegistries.ITEM.get(scoopComponent.filled());
-                ItemStack scooped = filled == null ? ItemStack.EMPTY : new ItemStack(filled);
-                Optional<ItemStack> turnsIntoWhenConsumed = scoopComponent.emptied().map(key -> {
-                    Item consumeResult = BuiltInRegistries.ITEM.get(key);
-                    if (consumeResult == null) {
-                        return ItemStack.EMPTY;
-                    }
-                    return new ItemStack(consumeResult);
-                }).filter(stack -> !stack.isEmpty());
-                scooped.set(DataComponents.FOOD, this.extractFood(turnsIntoWhenConsumed));
-                return scooped;
+            Item filledItem = GumboScooping.getFilled(bowl.getItem());
+            if (filledItem != null) {
+                ItemStack filledStack = new ItemStack(filledItem);
+                filledStack.set(
+                        DataComponents.FOOD,
+                        this.extractFood(Optional.ofNullable(GumboScooping.getEmptied(filledItem)).map(ItemStack::new))
+                );
+                return filledStack;
             }
         }
         return ItemStack.EMPTY;
@@ -186,12 +177,16 @@ public class GumboPotBlockEntity extends BlockEntity {
             effects.addAll(properties.effects());
         }
         // Tweaks prevent errors while giving slight buffs.
-        totalNutrition = Mth.ceil(scaleFactor * totalNutrition) + (count > 2 ? 1 : 0) + (count > 4 ? 1 : 0) + (count > 8 ? 1 : 0);
+        totalNutrition = Mth.ceil(scaleFactor * totalNutrition) + 1;
         totalSaturation = Mth.ceil(scaleFactor * totalSaturation) + 0.05f;
         eatSeconds = Mth.ceil(scaleFactor * eatSeconds);
         if (eatSeconds == 0) {
             eatSeconds += 0.05f;
         }
+        effects.replaceAll(possibleEffect -> new FoodProperties.PossibleEffect(
+                possibleEffect.effect(),
+                scaleFactor * possibleEffect.probability()
+        ));
 
         return new FoodProperties(totalNutrition, totalSaturation, canAlwaysEat, eatSeconds, convertsTo, effects);
     }
@@ -269,18 +264,22 @@ public class GumboPotBlockEntity extends BlockEntity {
         return nbtCompound;
     }
 
-    public record GumboScoopComponent(ResourceKey<Item> filled, Optional<ResourceKey<Item>> emptied) {
-        public static final Codec<GumboScoopComponent> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-                ResourceKey.codec(Registries.ITEM).fieldOf("filled").forGetter(GumboScoopComponent::filled),
-                ResourceKey.codec(Registries.ITEM).optionalFieldOf("emptied").forGetter(GumboScoopComponent::emptied)
-        ).apply(instance, GumboScoopComponent::new));
-        public static final StreamCodec<RegistryFriendlyByteBuf, GumboScoopComponent> STREAM_CODEC = StreamCodec.composite(
-                ResourceKey.streamCodec(Registries.ITEM),
-                GumboScoopComponent::filled,
-                ByteBufCodecs.optional(ResourceKey.streamCodec(Registries.ITEM)),
-                GumboScoopComponent::emptied,
-                GumboScoopComponent::new
-        );
+    public static class GumboScooping {
+
+        protected static final BiMap<Item, Item> SCOOPING_MAP = HashBiMap.create();
+
+        public static @Nullable Item getFilled(Item in) {
+            return SCOOPING_MAP.get(in);
+        }
+
+        public static @Nullable Item getEmptied(Item out) {
+            return SCOOPING_MAP.inverse().get(out);
+        }
+
+
+        public static @Nullable Item setFilled(Item in, Item out) {
+            return SCOOPING_MAP.put(in, out);
+        }
     }
 
     public record GumboIngredientComponent(FoodProperties properties) {
