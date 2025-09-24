@@ -135,7 +135,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
     }
 
-    void HanginSignRecipe(RecipeOutput exporter, Block input, Item output, RecipeCategory recipeCategory, String group){
+    void HangingSignRecipe(RecipeOutput exporter, Block input, Item output, RecipeCategory recipeCategory, String group){
         ShapedRecipeBuilder.shaped(recipeCategory, output, 1)
                 .pattern("X X")
                 .pattern("WWW")

@@ -18,6 +18,7 @@ public class BygoneBlockLootSubProvider extends BlockLootSubProvider {
 
     @Override
     public void generate() {
+        dropSelf(BGBlocks.GUMBO_POT.get());
         dropSelf(BGBlocks.MEGALITH_BLOCK.get());
         dropWhenSilkTouch(BGBlocks.MEGALITH_FACE.get());
         dropWhenSilkTouch(BGBlocks.MEGALITH_LANTERN.get());
