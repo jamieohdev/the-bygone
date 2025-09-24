@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "bygone:block/tall_umbral_grass_bottom"
+  }
+}

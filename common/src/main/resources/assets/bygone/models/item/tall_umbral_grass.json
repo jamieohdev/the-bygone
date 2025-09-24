@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bygone:block/tall_umbral_grass_top"
+  }
+}

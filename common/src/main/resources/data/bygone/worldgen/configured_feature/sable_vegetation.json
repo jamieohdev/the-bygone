@@ -12,18 +12,24 @@
         },
         {
           "data": {
-            "Name": "minecraft:short_grass"
+            "Name": "bygone:umbral_grass"
           },
           "weight": 50
         },
         {
           "data": {
-            "Name": "minecraft:tall_grass",
+            "Name": "bygone:tall_umbral_grass",
             "Properties": {
               "half": "lower"
             }
           },
           "weight": 25
+        },
+        {
+          "data": {
+            "Name": "bygone:moon_blossom"
+          },
+          "weight": 5
         },
         {
           "data": {

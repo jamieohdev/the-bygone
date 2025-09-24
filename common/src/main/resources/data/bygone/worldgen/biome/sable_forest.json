@@ -14,7 +14,7 @@
       "tick_chance": 0.0111
     },
     "ambient_sound": "minecraft:ambient.nether_wastes.loop",
-    "fog_color": 12634293,
+    "fog_color": 3237964,
     "grass_color": 6596485,
     "foliage_color": 6596485,
     "mood_sound": {
@@ -30,7 +30,7 @@
       "replace_current_music": false,
       "sound": "bygone:music.bygone.megalith_fields"
     },
-    "sky_color": 12634293,
+    "sky_color": 3237964,
     "water_color": 11977417,
     "water_fog_color": 11977417
   },

@@ -888,6 +888,24 @@ Blocks ref;
     public static final Supplier<Block> SABLE_MOSS_BLOCK = registerBlock("sable_moss_block", () ->
             new AlphaMossBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS).pushReaction(PushReaction.DESTROY)));
 
+
+    public static  final Supplier<Block> MOON_BLOSSOM = registerBlock("moon_blossom", () -> new FlowerBlock(MobEffects.LUCK, 12.0F,BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().lightLevel((state) -> {
+        return 0;
+    }).instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+
+    public static  final Supplier<Block> POTTED_MOON_BLOSSOM = registerBlockWithoutBlockItem("potted_moon_blossom", () -> createFlowerPotBlock(MOON_BLOSSOM.get()));
+
+    public static  final Supplier<Block> UMBRAL_GRASS = registerBlock("umbral_grass", () -> new UmbraGrassBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.PLANT).replaceable().noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XYZ)
+            .ignitedByLava().pushReaction(PushReaction.DESTROY)));
+
+    public static  final Supplier<Block> TALL_UMBRAL_GRASS = registerBlock("tall_umbral_grass", () ->  new DoublePlantBlock(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.PLANT).replaceable().noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ)
+            .ignitedByLava().pushReaction(PushReaction.DESTROY)));
+
+    public static  final Supplier<Block> UMBRAL_SOIL = registerBlock("umbral_soil", () ->
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
         return (p_50763_) -> (Boolean)p_50763_.getValue(BlockStateProperties.LIT) ? lightValue : 0;
     }

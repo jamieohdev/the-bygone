@@ -369,6 +369,10 @@
   "block.bygone.sable_wall_hanging_sign": "Sable Wall Hanging Sign",
   "block.bygone.sable_moss_block": "Sable Moss Block",
   "block.bygone.sable_moss_carpet": "Sable Moss Carpet",
+  "block.bygone.umbral_grass": "Umbral Grass",
+  "block.bygone.tall_umbral_grass": "Tall Umbral Grass",
+  "block.bygone.umbral_soil": "Umbral Soil",
+  "block.bygone.moon_blossom": "Moon Blossom",
 
   "block.bygone.amphora": "Amphora",
   "block.bygone.black_amphora": "Black Amphora",
@@ -429,6 +433,7 @@
   "biome.bygone.alphahang": "Alphahang",
   "biome.bygone.amber_desert": "Amber Desert",
   "biome.bygone.megalith_field": "Megalith Fields",
+  "biome.bygone.sable_forest": "Sable Forest",
   "biome.bygone.underhang": "Underhang",
   "biome.bygone.shelfhollow": "Shelf Hollows",
   "biome.bygone.primordial_beach": "Primordial Beach",

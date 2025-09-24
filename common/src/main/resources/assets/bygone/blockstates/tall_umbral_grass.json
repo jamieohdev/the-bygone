@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "bygone:block/tall_umbral_grass_bottom"
+    },
+    "half=upper": {
+      "model": "bygone:block/tall_umbral_grass_top"
+    }
+  }
+}
