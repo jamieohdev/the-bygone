@@ -13,6 +13,7 @@ import net.minecraft.world.level.material.Fluid;
 
 public class JamiesModTag {
 
+    public static final TagKey<Block> SABLE_LOGS = Blocks.createTag("sable_logs");
     public static final TagKey<Block> BIG_BEAK_SPAWNABLE_ON = Blocks.createTag("big_beak_spawnable_on");
     public static final TagKey<Block> GLARE_SPAWNABLE_ON = Blocks.createTag("glare_spawnable_on");
 

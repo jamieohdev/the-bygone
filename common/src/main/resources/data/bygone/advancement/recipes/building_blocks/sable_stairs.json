@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sable_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "bygone:sable_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:sable_stairs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [["has_the_recipe", "has_sable_planks"]],
+  "rewards": {
+    "recipes": ["minecraft:sable_stairs"]
+  }
+}
