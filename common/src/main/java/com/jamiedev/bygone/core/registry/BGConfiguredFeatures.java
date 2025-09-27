@@ -58,8 +58,8 @@ public class BGConfiguredFeatures
     public static final ResourceKey<ConfiguredFeature<?, ?>> AMBER_CLUSTER = FeatureUtils.createKey("amber_cluster");
 
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_TREE = of("sable_trees");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_TREE_MEDIUM = of("sable_trees");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_TREE = of("sable_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_TREE_MEDIUM = of("sable_tree");
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> featureRegisterable) {
         TagMatchTest ruleTest = new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD);

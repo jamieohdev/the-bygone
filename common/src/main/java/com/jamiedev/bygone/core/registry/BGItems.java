@@ -143,7 +143,7 @@ public class BGItems
     public static final Supplier<Item> PLAGA = registerItem("plaga", () ->new StandingAndWallBlockItem(BGBlocks.PLAGA.get(), BGBlocks.PLAGA_WALL.get(),
             new Item.Properties(), Direction.DOWN));
 
-    public static final Supplier<Item> CHANTRELLE_SEEDS = registerItem("chantrelle_seeds", () -> new ItemNameBlockItem(BGBlocks.CHANTRELLE.get(), new Item.Properties()));
+    public static final Supplier<Item> CHANTRELLE_SEEDS = registerItem("chantrelle_spores", () -> new ItemNameBlockItem(BGBlocks.CHANTRELLE.get(), new Item.Properties()));
     public static final Supplier<Item> CHANTRELLE = registerItem("chantrelle", () -> new Item(new Item.Properties().food(AMARANTH_LOAF_COMP)));
 
     public static final Supplier<Item> ORANGE_FUNGI  = registerItem("orange_fungi_vines", () -> new ItemNameBlockItem(BGBlocks.ORANGE_FUNGI_VINES.get(), (new Item.Properties())));

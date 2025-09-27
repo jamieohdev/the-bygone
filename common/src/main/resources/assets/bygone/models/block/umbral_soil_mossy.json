@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "bygone:block/umbral_soil",
+    "particle": "bygone:block/umbral_soil",
+    "side": "bygone:block/umbral_soil_grassy_side",
+    "top": "bygone:block/sable_moss"
+  }
+}

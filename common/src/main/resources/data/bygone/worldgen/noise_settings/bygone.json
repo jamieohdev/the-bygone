@@ -431,12 +431,6 @@
                         "Name": "bygone:sable_moss_block"
                       }
                     }
-                  },
-                  {
-                    "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "bygone:umbral_soil"
-                    }
                   }
                 ]
               }
@@ -447,7 +441,7 @@
                 "type": "minecraft:stone_depth",
                 "surface_type": "floor",
                 "add_surface_depth": true,
-                "secondary_depth_range": 4,
+                "secondary_depth_range": 3,
                 "offset": 0
               },
               "then_run": {

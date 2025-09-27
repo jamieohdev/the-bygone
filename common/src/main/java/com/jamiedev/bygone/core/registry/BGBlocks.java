@@ -907,7 +907,9 @@ Blocks ref;
             .ignitedByLava().pushReaction(PushReaction.DESTROY)));
 
     public static  final Supplier<Block> UMBRAL_SOIL = registerBlock("umbral_soil", () ->
-            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+            new UmbraSoilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+
+
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
         return (p_50763_) -> (Boolean)p_50763_.getValue(BlockStateProperties.LIT) ? lightValue : 0;

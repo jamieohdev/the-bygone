@@ -9,109 +9,240 @@
         {
           "biome": "bygone:primordial_ocean",
           "parameters": {
-            "continentalness": [-1, -0.4],
-            "humidity": [-1, 1],
-            "temperature": [0, 0],
-            "weirdness": [-1, 1],
-            "erosion": [0, 0],
-            "depth": [0, 0],
+            "continentalness": [
+              -1,
+              -0.4
+            ],
+            "humidity": [
+              -1,
+              1
+            ],
+            "temperature": [
+              0,
+              0
+            ],
+            "weirdness": [
+              -1,
+              1
+            ],
+            "erosion": [
+              0,
+              0
+            ],
+            "depth": [
+              0,
+              0
+            ],
             "offset": 0
           }
         },
         {
           "biome": "bygone:primordial_beach",
           "parameters": {
-            "continentalness": [-0.4, -0.35],
-            "humidity": [-1, 1],
-            "temperature": [0, 0],
-            "weirdness": [-1, 1],
-            "erosion": [0, 0],
-            "depth": [0, 0],
+            "continentalness": [
+              -0.4,
+              -0.35
+            ],
+            "humidity": [
+              -1,
+              1
+            ],
+            "temperature": [
+              0,
+              0
+            ],
+            "weirdness": [
+              -1,
+              1
+            ],
+            "erosion": [
+              0,
+              0
+            ],
+            "depth": [
+              0,
+              0
+            ],
             "offset": 0
           }
         },
         {
           "biome": "bygone:megalith_field",
           "parameters": {
-            "continentalness": [-0.35, 1],
-            "humidity": [-1, -0.15],
-            "temperature": [0, 0],
-            "weirdness": [-0.5, -0.2],
-            "erosion": [0, 0],
-            "depth": [0, 0],
+            "continentalness": [
+              -0.35,
+              1
+            ],
+            "humidity": [
+              -1,
+              -0.15
+            ],
+            "temperature": [
+              0,
+              0
+            ],
+            "weirdness": [
+              -0.5,
+              -0.2
+            ],
+            "erosion": [
+              0,
+              0
+            ],
+            "depth": [
+              0,
+              0
+            ],
             "offset": 0
           }
         },
         {
           "biome": "bygone:sable_forest",
           "parameters": {
-            "continentalness": [-0.35, 1],
-            "humidity": [-1, -0.15],
-            "temperature": [0, 0],
-            "weirdness": [-1, -0.5],
-            "erosion": [0, 0],
-            "depth": [0, 0],
+            "continentalness": [
+              -0.35,
+              1
+            ],
+            "humidity": [
+              -1,
+              -0.15
+            ],
+            "temperature": [
+              0,
+              0
+            ],
+            "weirdness": [
+              -1,
+              -0.3
+            ],
+            "erosion": [
+              0,
+              0
+            ],
+            "depth": [
+              0,
+              0
+            ],
             "offset": 0
           }
         },
         {
           "biome": "bygone:amber_desert",
           "parameters": {
-            "continentalness": [-0.35, 1],
-            "humidity": [-1, -0.15],
-            "temperature": [0, 0],
-            "weirdness": [-0.2, 0.2],
-            "erosion": [0, 0],
-            "depth": [0, 0],
-            "offset": 0
-          }
-        },
-        {
-          "reserved_for": "bygone:bronze_barrens",
-          "biome": "bygone:amber_desert",
-          "parameters": {
-            "continentalness": [-0.35, 1],
-            "humidity": [-1, -0.15],
-            "temperature": [0, 0],
-            "weirdness": [0.2, 1],
-            "erosion": [0, 0],
-            "depth": [0, 0],
+            "continentalness": [
+              -0.35,
+              1
+            ],
+            "humidity": [
+              -0.15,
+              -0.15
+            ],
+            "temperature": [
+              0,
+              0
+            ],
+            "weirdness": [
+              -0.2,
+              0.2
+            ],
+            "erosion": [
+              0,
+              0
+            ],
+            "depth": [
+              0,
+              0
+            ],
             "offset": 0
           }
         },
         {
           "biome": "bygone:shelfhollow",
           "parameters": {
-            "continentalness": [-0.35, 1],
-            "humidity": [-0.15, 1],
-            "temperature": [0, 0],
-            "weirdness": [-1, -0.3],
-            "erosion": [0, 0],
-            "depth": [0, 0],
+            "continentalness": [
+              -0.35,
+              1
+            ],
+            "humidity": [
+              -0.15,
+              1
+            ],
+            "temperature": [
+              0,
+              0
+            ],
+            "weirdness": [
+              -1,
+              -0.3
+            ],
+            "erosion": [
+              0,
+              0
+            ],
+            "depth": [
+              0,
+              0
+            ],
             "offset": 0
           }
         },
         {
           "biome": "bygone:underhang",
           "parameters": {
-            "continentalness": [-0.35, 1],
-            "humidity": [-0.15, 1],
-            "temperature": [0, 0],
-            "weirdness": [-0.3, 0.6],
-            "erosion": [0, 0],
-            "depth": [0, 0],
+            "continentalness": [
+              -0.35,
+              1
+            ],
+            "humidity": [
+              0.4,
+              1
+            ],
+            "temperature": [
+              0,
+              0
+            ],
+            "weirdness": [
+              -0.3,
+              0.6
+            ],
+            "erosion": [
+              0,
+              0
+            ],
+            "depth": [
+              0,
+              0
+            ],
             "offset": 0
           }
         },
         {
           "biome": "bygone:alphahang",
           "parameters": {
-            "continentalness": [-0.35, 1],
-            "humidity": [-0.15, 1],
-            "temperature": [0, 0],
-            "weirdness": [0.6, 1],
-            "erosion": [0, 0],
-            "depth": [0, 0],
+            "continentalness": [
+              -0.35,
+              1
+            ],
+            "humidity": [
+              -0.15,
+              1
+            ],
+            "temperature": [
+              0,
+              0
+            ],
+            "weirdness": [
+              0.6,
+              1
+            ],
+            "erosion": [
+              0,
+              0
+            ],
+            "depth": [
+              0,
+              0
+            ],
             "offset": 0
           }
         }

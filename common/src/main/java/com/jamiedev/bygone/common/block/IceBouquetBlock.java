@@ -16,10 +16,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,6 +36,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class IceBouquetBlock extends Block {
+    FireBlock ref;
     public static final int MAX_AGE = 15;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_15;
     public static final BooleanProperty NORTH = PipeBlock.NORTH;
@@ -62,7 +60,7 @@ public class IceBouquetBlock extends Block {
     private static final VoxelShape SOUTH_AABB = Block.box(0.0, 0.0, 15.0, 16.0, 16.0, 16.0);
     private final Map<BlockState, VoxelShape> shapesCache;
 
-    BaseFireBlock ref;
+    BaseFireBlock ref1;
 
     public IceBouquetBlock(BlockBehaviour.Properties properties, float fireDamage) {
         super(properties);
@@ -109,6 +107,11 @@ public class IceBouquetBlock extends Block {
         }
 
         return voxelshape.isEmpty() ? DOWN_AABB : voxelshape;
+    }
+
+    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockPos blockpos = pos.below();
+        return level.getBlockState(blockpos).isFaceSturdy(level, blockpos, Direction.UP) || this.isValidFireLocation(level, pos);
     }
 
     public static boolean canBePlacedAt(Level level, BlockPos pos, Direction direction) {

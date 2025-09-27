@@ -17,7 +17,8 @@ public class BygonePortalBlockEntity extends BlockEntity
         super(BGBlockEntities.BYGONE_PORTAL.get(), pos, state);
     }
 
-    public boolean shouldDrawSide(Direction direction) {
-        return direction.getAxis() == Direction.Axis.Y;
+    public boolean shouldRenderFace(Direction face) {
+        return face.getAxis() == Direction.Axis.Y;
     }
+
 }
