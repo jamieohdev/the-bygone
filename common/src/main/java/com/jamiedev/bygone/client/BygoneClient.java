@@ -8,6 +8,7 @@ import com.jamiedev.bygone.client.models.*;
 import com.jamiedev.bygone.client.particles.*;
 import com.jamiedev.bygone.core.registry.*;
 import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
+import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.ParticleEngine;
@@ -201,7 +202,8 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.SCUTTLE, ScuttleModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.COPPERBUG, CopperbugModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.TRILOBITE, TrilobiteModel::getTexturedModelData);
-        consumer.accept(JamiesModModelLayers.MOOBOO, MoobooModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.MOOBOO, CowModel::createBodyLayer);
+        consumer.accept(JamiesModModelLayers.MOOBOO_TRANS, CowModel::createBodyLayer);
         consumer.accept(JamiesModModelLayers.FUNGALPARENT, FungalParentModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.BIG_BEAK, BigBeakModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.BIG_BEAK_SADDLE, BigBeakModel::getTexturedModelData);
