@@ -3,6 +3,7 @@ package com.jamiedev.bygone.core.registry;
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.worldgen.feature.*;
 import com.jamiedev.bygone.common.worldgen.feature.config.MegalithConfig;
+import com.jamiedev.bygone.common.worldgen.feature.config.SableBranchConfig;
 import com.jamiedev.bygone.common.worldgen.feature.config.SmallCloudConfig;
 import com.jamiedev.bygone.common.worldgen.structure.AncientForestVegetationFeature;
 import com.jamiedev.bygone.common.worldgen.structure.AncientForestVegetationFeatureConfig;
@@ -15,10 +16,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.RandomPatchFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.feature.TwistingVinesFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 
 public class BGFeatures
 {
@@ -46,6 +45,11 @@ public class BGFeatures
     public static  final Feature<NoneFeatureConfiguration> FUNGI_VINES = register("fungi_vines", new TestFungiVineFeature(NoneFeatureConfiguration.CODEC));
 
     public static final Feature<MegalithConfig> MEGALITH = register("megalith", new MegalithFeature(MegalithConfig.CODEC));
+
+    public static  final Feature<SableBranchConfig> SABLE_BRANCH = register("sable_branchs",
+            new SableBranchFeature(SableBranchConfig.CODEC));
+
+
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> F register(String name, F feature) {
         return Registry.register(BuiltInRegistries.FEATURE, Bygone.id(name), feature);

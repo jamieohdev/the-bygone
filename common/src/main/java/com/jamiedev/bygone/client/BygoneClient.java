@@ -54,7 +54,7 @@ public class BygoneClient {
         consumer.accept(BGBlocks.GOURD_DANGO_WALL.get(), RenderType.cutout());
         consumer.accept(BGBlocks.GOURD_VINE.get(), RenderType.cutout());
         consumer.accept(BGBlocks.BIG_WHIRLIWEED.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.WHIRLIWEED.get(), RenderType.cutout());
+
         consumer.accept(BGBlocks.RAFFLESIA.get(), RenderType.cutout());
         consumer.accept(BGBlocks.CAVE_VINES.get(), RenderType.cutout());
         consumer.accept(BGBlocks.CAVE_VINES_PLANT.get(), RenderType.cutout());
@@ -75,6 +75,8 @@ public class BygoneClient {
         consumer.accept(BGBlocks.SABLE_TRAPDOOR.get(), RenderType.cutout());
         consumer.accept(BGBlocks.SABLE_SAPLING.get(), RenderType.cutout());
         consumer.accept(BGBlocks.SABLE_LEAVES.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SABLE_BRANCH.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SABLE_BRANCH_PLANT.get(), RenderType.cutout());
 
         consumer.accept(BGBlocks.UMBRAL_GRASS.get(), RenderType.cutout());
         consumer.accept(BGBlocks.TALL_UMBRAL_GRASS.get(), RenderType.cutout());
@@ -264,6 +266,7 @@ public class BygoneClient {
 
         consumer.accept((ParticleType<T>) BGParticleTypes.AMBER_DUST, spriteProvider -> (ParticleProvider<T>) new AmberDustParticle.Factory(spriteProvider));
         consumer.accept((ParticleType<T>) BGParticleTypes.ANCIENT_LEAVES, spriteProvider -> (ParticleProvider<T>) new AncientLeavesParticle.Factory(spriteProvider));
+        consumer.accept((ParticleType<T>) BGParticleTypes.SABLE_LEAVES, spriteProvider -> (ParticleProvider<T>) new AncientLeavesParticle.Factory(spriteProvider));
         consumer.accept((ParticleType<T>) BGParticleTypes.UPSIDEDOWN, spriteProvider -> (ParticleProvider<T>) new UpsidedownDropParticle.Provider(spriteProvider));
 
     }

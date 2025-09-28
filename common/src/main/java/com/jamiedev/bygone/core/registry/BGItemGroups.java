@@ -281,6 +281,8 @@ public class BGItemGroups {
                 output.accept(BGBlocks.LITHINE_ORE.get());
 
                 output.accept(BGBlocks.SABLE_SAPLING.get());
+                output.accept(BGItems.SABLE_BRANCH.get());
+
                 output.accept(BGBlocks.SABLE_LOG.get());
                 output.accept(BGBlocks.SABLE_LEAVES.get());
                 output.accept(BGBlocks.SABLE_WOOD.get());

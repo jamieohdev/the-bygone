@@ -832,7 +832,7 @@ Blocks ref;
     public static final Supplier<Block> SABLE_LOG = registerBlock("sable_log", () ->
             new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).strength(2.0f)));
     public static final Supplier<Block> SABLE_LEAVES = registerBlock("sable_leaves", () ->
-            new AncientLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+            new SableLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
     public static final Supplier<Block> SABLE_WOOD = registerBlock("sable_wood", () ->
             new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).strength(2.0f)));
 
@@ -889,7 +889,7 @@ Blocks ref;
     public static final Supplier<Block> SABLE_MOSS_CARPET = registerBlock("sable_moss_carpet", () ->
             new CarpetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS_CARPET).pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> SABLE_MOSS_BLOCK = registerBlock("sable_moss_block", () ->
-            new AlphaMossBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS).pushReaction(PushReaction.DESTROY)));
+            new SableMossBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS).pushReaction(PushReaction.DESTROY)));
 
 
     public static  final Supplier<Block> MOON_BLOSSOM = registerBlock("moon_blossom", () -> new FlowerBlock(MobEffects.LUCK, 12.0F,BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().lightLevel((state) -> {
@@ -909,6 +909,12 @@ Blocks ref;
     public static  final Supplier<Block> UMBRAL_SOIL = registerBlock("umbral_soil", () ->
             new UmbraSoilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
 
+    public static final Supplier<Block> SABLE_BRANCH = registerBlockWithoutBlockItem("sable_branch", () ->
+            new SableBranchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).randomTicks().noCollission()
+                    .instabreak().sound(SoundType.WEEPING_VINES).pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> SABLE_BRANCH_PLANT = registerBlockWithoutBlockItem("sable_branch_plant", () ->
+            new SableBranchPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).noCollission().instabreak()
+                    .sound(SoundType.WEEPING_VINES).pushReaction(PushReaction.DESTROY)));
 
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {

@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.TwistingVinesConfig;
 
 public class TestFungiVineFeature extends Feature<NoneFeatureConfiguration> {
     public TestFungiVineFeature(Codec<NoneFeatureConfiguration> codec) {

@@ -49,6 +49,10 @@ public class BGConfiguredFeatures
         features.add(registryKey);
         return registryKey;
     }
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_MOSS_PATCH_BONEMEAL = of("sable_patch");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_MOSS_VEGETATION = FeatureUtils.createKey("sable_vegetation");
+
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> ALPHA_MOSS_PATCH_BONEMEAL = of("alpha_moss_patch_bonemeal");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ALPHA_MOSS_VEGETATION = FeatureUtils.createKey("alpha_moss_vegetation");
 
@@ -106,6 +110,13 @@ public class BGConfiguredFeatures
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(ALPHA_MOSS_VEGETATION),
                         new PlacementModifier[0]), CaveSurface.FLOOR, ConstantInt.of(1), 0.0F, 5,
                 0.6F, UniformInt.of(1, 2), 0.75F));
+
+        FeatureUtils.register(featureRegisterable, SABLE_MOSS_PATCH_BONEMEAL, Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+                BlockTags.MOSS_REPLACEABLE, BlockStateProvider.simple(BGBlocks.SABLE_MOSS_BLOCK.get()),
+                PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(SABLE_MOSS_VEGETATION),
+                        new PlacementModifier[0]), CaveSurface.FLOOR, ConstantInt.of(1), 0.0F, 5,
+                0.6F, UniformInt.of(1, 2), 0.75F));
+
 
         FeatureUtils.register(featureRegisterable, ANCIENT_TREE, Feature.TREE, naturalAncientConfig().build());
         FeatureUtils.register(featureRegisterable, ANCIENT_TREE_MEDIUM, Feature.TREE, naturalAncientConfig().build());
