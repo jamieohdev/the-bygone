@@ -64,7 +64,8 @@
     [
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
-      "bygone:sable_branchs"
+      "bygone:sable_branchs",
+      "bygone:thorny_sable_branchs"
     ]
   ],
   "has_precipitation": false,

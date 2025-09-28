@@ -282,6 +282,7 @@ public class BGItemGroups {
 
                 output.accept(BGBlocks.SABLE_SAPLING.get());
                 output.accept(BGItems.SABLE_BRANCH.get());
+                output.accept(BGItems.THORNY_SABLE_BRANCH.get());
 
                 output.accept(BGBlocks.SABLE_LOG.get());
                 output.accept(BGBlocks.SABLE_LEAVES.get());

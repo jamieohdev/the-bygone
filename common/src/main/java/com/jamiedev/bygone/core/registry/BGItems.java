@@ -158,6 +158,7 @@ public class BGItems
     public static final Supplier<Item> LITHOPLASM = registerItem("lithoplasm", () -> new Item(new Item.Properties().fireResistant()));
 
     public static final Supplier<Item> SABLE_BRANCH  = registerItem("sable_branch", () -> new ItemNameBlockItem(BGBlocks.SABLE_BRANCH.get(), (new Item.Properties())));
+    public static final Supplier<Item> THORNY_SABLE_BRANCH  = registerItem("thorny_sable_branch", () -> new ItemNameBlockItem(BGBlocks.THORNY_SABLE_BRANCH.get(), (new Item.Properties())));
 
 
     public static final Supplier<Item> MUSIC_DISC_SHUFFLE = registerItem("music_disc_shuffle",  () -> new Item((new Item.Properties()).stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(BGJukeboxSongs.THIRTEEN)));

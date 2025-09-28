@@ -9,6 +9,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,6 +49,14 @@ public class SableBranchBlock extends GrowingPlantHeadBlock {
 
     protected boolean canGrowInto(BlockState p_154869_) {
         return NetherVines.isValidGrowthState(p_154869_);
+    }
+
+    @Override
+    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockPos blockpos = pos.relative(this.growthDirection.getOpposite());
+        BlockState blockstate = level.getBlockState(blockpos);
+        return !this.canAttachTo(blockstate) ? false : blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) || blockstate.is(BGBlocks.SABLE_LEAVES.get())
+                || blockstate.isFaceSturdy(level, blockpos, this.growthDirection);
     }
 }
 

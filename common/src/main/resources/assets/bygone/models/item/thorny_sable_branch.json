@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bygone:block/thorny_sable_branch_plant"
+  }
+}

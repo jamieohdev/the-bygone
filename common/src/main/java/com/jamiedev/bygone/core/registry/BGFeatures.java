@@ -5,6 +5,7 @@ import com.jamiedev.bygone.common.worldgen.feature.*;
 import com.jamiedev.bygone.common.worldgen.feature.config.MegalithConfig;
 import com.jamiedev.bygone.common.worldgen.feature.config.SableBranchConfig;
 import com.jamiedev.bygone.common.worldgen.feature.config.SmallCloudConfig;
+import com.jamiedev.bygone.common.worldgen.feature.config.ThornySableBranchConfig;
 import com.jamiedev.bygone.common.worldgen.structure.AncientForestVegetationFeature;
 import com.jamiedev.bygone.common.worldgen.structure.AncientForestVegetationFeatureConfig;
 import com.jamiedev.bygone.common.worldgen.structure.AncientTreeFeature;
@@ -49,7 +50,8 @@ public class BGFeatures
     public static  final Feature<SableBranchConfig> SABLE_BRANCH = register("sable_branchs",
             new SableBranchFeature(SableBranchConfig.CODEC));
 
-
+    public static  final Feature<ThornySableBranchConfig> THORNY_SABLE_BRANCH = register("thorny_sable_branchs",
+            new ThornySableBranchFeature(ThornySableBranchConfig.CODEC));
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> F register(String name, F feature) {
         return Registry.register(BuiltInRegistries.FEATURE, Bygone.id(name), feature);

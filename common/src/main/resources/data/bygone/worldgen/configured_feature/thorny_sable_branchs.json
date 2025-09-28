@@ -1,0 +1,8 @@
+{
+  "type": "bygone:thorny_sable_branchs",
+  "config": {
+    "max_height": 3,
+    "spread_height": 6,
+    "spread_width": 12
+  }
+}

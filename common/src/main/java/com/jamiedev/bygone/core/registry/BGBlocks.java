@@ -916,6 +916,13 @@ Blocks ref;
             new SableBranchPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).noCollission().instabreak()
                     .sound(SoundType.WEEPING_VINES).pushReaction(PushReaction.DESTROY)));
 
+    public static final Supplier<Block> THORNY_SABLE_BRANCH = registerBlockWithoutBlockItem("thorny_sable_branch", () ->
+            new ThornySableBranchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).randomTicks().noCollission()
+                    .instabreak().sound(SoundType.WEEPING_VINES).pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> THORNY_SABLE_BRANCH_PLANT = registerBlockWithoutBlockItem("thorny_sable_branch_plant", () ->
+            new ThornySableBranchPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).noCollission().instabreak()
+                    .sound(SoundType.WEEPING_VINES).pushReaction(PushReaction.DESTROY)));
+
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
         return (p_50763_) -> (Boolean)p_50763_.getValue(BlockStateProperties.LIT) ? lightValue : 0;
