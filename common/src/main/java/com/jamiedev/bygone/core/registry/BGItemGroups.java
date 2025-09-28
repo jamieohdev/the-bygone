@@ -299,6 +299,17 @@ public class BGItemGroups {
                 output.accept(BGBlocks.SABLE_PRESSURE_PLATE.get());
                 output.accept(BGBlocks.SABLE_BUTTON.get());
 
+                output.accept(BGBlocks.UMBRAL_SOIL.get());
+                output.accept(BGBlocks.SABLE_MOSS_BLOCK.get());
+                output.accept(BGBlocks.SABLE_MOSS_CARPET.get());
+                output.accept(BGBlocks.UMBRAL_GRASS.get());
+                output.accept(BGBlocks.TALL_UMBRAL_GRASS.get());
+                output.accept(BGBlocks.MOON_BLOSSOM.get());
+                output.accept(BGBlocks.SABLE_MOSSY_BYSLATE.get());
+                output.accept(BGBlocks.SABLE_MOSSY_BYSLATE_STAIRS.get());
+                output.accept(BGBlocks.SABLE_MOSSY_BYSLATE_SLAB.get());
+                output.accept(BGBlocks.SABLE_MOSSY_BYSLATE_WALL.get());
+
                 output.accept(BGBlocks.AMPHORA.get());
                 output.accept(BGBlocks.GILDED_AMPHORA.get());
                 output.accept(BGBlocks.WHITE_AMPHORA.get());

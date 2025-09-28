@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "bygone:block/sable_mossy_byslate"
+  }
+}

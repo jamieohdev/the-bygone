@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "bygone:block/sable_mossy_byslate_slab"
+    },
+    "type=double": {
+      "model": "bygone:block/sable_mossy_byslate"
+    },
+    "type=top": {
+      "model": "bygone:block/sable_mossy_byslate_slab_top"
+    }
+  }
+}

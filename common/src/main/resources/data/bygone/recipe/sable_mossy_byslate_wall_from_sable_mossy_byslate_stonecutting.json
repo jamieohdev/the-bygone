@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "bygone:sable_mossy_byslate"
+  },
+  "result": {
+    "count": 1,
+    "id": "bygone:sable_mossy_byslate_wall"
+  }
+}

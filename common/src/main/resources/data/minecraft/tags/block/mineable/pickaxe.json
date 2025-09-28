@@ -105,6 +105,10 @@
     "bygone:megalith_face",
     "bygone:megalith_lantern",
     "bygone:megalith_totem",
-    "bygone:gumbo_pot"
+    "bygone:gumbo_pot",
+    "bygone:sable_mossy_byslate",
+    "bygone:sable_mossy_byslate_slab",
+    "bygone:sable_mossy_byslate_stairs",
+    "bygone:sable_mossy_byslate_wall"
   ]
 }

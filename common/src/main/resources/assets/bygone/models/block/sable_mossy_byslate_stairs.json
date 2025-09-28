@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "bygone:block/sable_mossy_byslate",
+    "side": "bygone:block/sable_mossy_byslate",
+    "top": "bygone:block/sable_mossy_byslate"
+  }
+}

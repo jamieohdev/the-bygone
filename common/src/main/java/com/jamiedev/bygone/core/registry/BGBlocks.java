@@ -891,6 +891,16 @@ Blocks ref;
     public static final Supplier<Block> SABLE_MOSS_BLOCK = registerBlock("sable_moss_block", () ->
             new SableMossBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS).pushReaction(PushReaction.DESTROY)));
 
+    public static final Supplier<Block> SABLE_MOSSY_BYSLATE = registerBlock("sable_mossy_byslate", () ->
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.MOSS_CARPET)));
+    public static final Supplier<Block> SABLE_MOSSY_BYSLATE_STAIRS = registerBlock("sable_mossy_byslate_stairs", () ->
+            new StairBlock(BGBlocks.SABLE_MOSSY_BYSLATE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+
+    public static final Supplier<Block> SABLE_MOSSY_BYSLATE_SLAB = registerBlock("sable_mossy_byslate_slab", () ->
+            new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.SABLE_MOSSY_BYSLATE.get()).strength(2.0f)));
+
+    public static final Supplier<Block> SABLE_MOSSY_BYSLATE_WALL = registerBlock("sable_mossy_byslate_wall", () ->
+            new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.SABLE_MOSSY_BYSLATE.get()).strength(2.0f)));
 
     public static  final Supplier<Block> MOON_BLOSSOM = registerBlock("moon_blossom", () -> new FlowerBlock(MobEffects.LUCK, 12.0F,BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().lightLevel((state) -> {
         return 0;

@@ -376,6 +376,11 @@
   "block.bygone.umbral_soil": "Umbral Soil",
   "block.bygone.moon_blossom": "Moon Blossom",
 
+  "block.bygone.sable_mossy_byslate": "Sable Mossy Byslate",
+  "block.bygone.sable_mossy_byslate_slab": "Sable Mossy Byslate Slab",
+  "block.bygone.sable_mossy_byslate_stairs": "Sable Mossy Byslate Stairs",
+  "block.bygone.sable_mossy_byslate_wall": "Sable Mossy Byslate Wall",
+
   "block.bygone.sable_branch": "Sable Branches",
   "block.bygone.sable_branch_plant": "Sable Branches",
   "item.bygone.sable_branch": "Sable Branches",
