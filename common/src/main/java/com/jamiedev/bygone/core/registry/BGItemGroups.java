@@ -300,6 +300,7 @@ public class BGItemGroups {
                 output.accept(BGBlocks.SABLE_BUTTON.get());
 
                 output.accept(BGBlocks.UMBRAL_SOIL.get());
+                output.accept(BGBlocks.WRIGGLING_SOIL.get());
                 output.accept(BGBlocks.SABLE_MOSS_BLOCK.get());
                 output.accept(BGBlocks.SABLE_MOSS_CARPET.get());
                 output.accept(BGBlocks.UMBRAL_GRASS.get());

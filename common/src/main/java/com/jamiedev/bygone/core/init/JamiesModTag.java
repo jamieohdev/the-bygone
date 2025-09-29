@@ -26,6 +26,7 @@ public class JamiesModTag {
 
     public static final TagKey<Block> PEST_REPELLENTS = Blocks.createTag("pest_repellents");
 
+    public static final TagKey<Block>  UMBRAL_SOIL = Blocks.createTag("umbral_soil");
     public static final TagKey<Block>  MOSSY = Blocks.createTag("mossy");
     public static final TagKey<Block>  CORALS = Blocks.createTag("corals");
     public static final TagKey<Block>  CORAL_BLOCKS = Blocks.createTag("coral_blocks");

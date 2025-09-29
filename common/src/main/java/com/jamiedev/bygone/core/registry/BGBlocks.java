@@ -933,6 +933,8 @@ Blocks ref;
             new ThornySableBranchPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).noCollission().instabreak()
                     .sound(SoundType.WEEPING_VINES).pushReaction(PushReaction.DESTROY)));
 
+    public static  final Supplier<Block> WRIGGLING_SOIL = registerBlock("wriggling_soil", () ->
+            new WrigglingSoilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
         return (p_50763_) -> (Boolean)p_50763_.getValue(BlockStateProperties.LIT) ? lightValue : 0;

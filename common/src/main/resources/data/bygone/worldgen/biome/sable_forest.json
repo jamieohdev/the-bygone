@@ -35,7 +35,8 @@
     "water_fog_color": 11977417
   },
   "features": [
-    [],
+    [
+      "bygone:rock"],
     [],
     ["bygone:miniliths", "bygone:miniliths_glowing"],
     [],
@@ -55,7 +56,8 @@
       "bygone:ore_iron_middle",
       "bygone:ore_iron_small",
       "bygone:ore_copper",
-      "bygone:ore_verdigris"
+      "bygone:ore_verdigris",
+      "bygone:ore_wriggling_soil"
     ],
     [
       "bygone:sable_vegetation",
