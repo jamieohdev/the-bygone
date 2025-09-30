@@ -10,6 +10,8 @@ import net.minecraft.world.entity.Entity;
 public class SabeastEyesLayer<T extends Entity, M extends SabeastModel<T>> extends EyesLayer<T, M> {
     private static final RenderType WRAITH_EYES = RenderType.eyes(Bygone.id("textures/entity/sabeast_outer.png"));
 
+    WraithEyesLayer ref;
+
     public SabeastEyesLayer(RenderLayerParent<T, M> p_117507_) {
         super(p_117507_);
     }
