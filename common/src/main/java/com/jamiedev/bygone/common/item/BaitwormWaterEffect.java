@@ -1,7 +1,8 @@
 package com.jamiedev.bygone.common.item;
 
+import com.jamiedev.bygone.core.registry.BGParticleTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 
@@ -71,21 +72,21 @@ public class BaitwormWaterEffect {
     private static void spawnParticles(ServerLevel level, BlockPos centerPos, int radius) {
         for (int i = 0; i < 3; i++) {
             int x = level.random.nextInt(radius * 2 + 1) - radius;
-            int y = level.random.nextInt(radius * 2 + 1) - radius;
             int z = level.random.nextInt(radius * 2 + 1) - radius;
             
-            BlockPos pos = centerPos.offset(x, y, z);
-            if (level.getFluidState(pos).is(FluidTags.WATER)) {
+            BlockPos surfacePos = centerPos.offset(x, 0, z);
+            
+            if (level.getFluidState(surfacePos).is(FluidTags.WATER) && !level.getFluidState(surfacePos.above()).is(FluidTags.WATER)) {
                 level.sendParticles(
-                    ParticleTypes.FISHING,
-                    pos.getX() + 0.5,
-                    pos.getY() + 0.5,
-                    pos.getZ() + 0.5,
-                    1,
-                    level.random.nextDouble() * 0.5 - 0.25,
-                    level.random.nextDouble() * 0.5 - 0.25,
-                    level.random.nextDouble() * 0.5 - 0.25,
-                    0.1
+                    (SimpleParticleType) BGParticleTypes.WORM,
+                    surfacePos.getX() + 0.5,
+                    surfacePos.getY() + 0.5,
+                    surfacePos.getZ() + 0.5,
+                    2,
+                    level.random.nextDouble() * 0.3 - 0.15,
+                    0.05,
+                    level.random.nextDouble() * 0.3 - 0.15,
+                    0.05
                 );
             }
         }

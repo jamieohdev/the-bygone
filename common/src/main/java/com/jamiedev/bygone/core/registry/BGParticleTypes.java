@@ -17,6 +17,7 @@ public class BGParticleTypes
     public static final ParticleType<SimpleParticleType> ANCIENT_LEAVES = simple();
     public static final ParticleType<SimpleParticleType> SABLE_LEAVES = simple();
     public static final ParticleType<SimpleParticleType> UPSIDEDOWN = simple();
+    public static final ParticleType<SimpleParticleType> WORM = simple();
 
     public static void init() {
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "rafflesia_spores"), RAFFLESIA_SPORES);
@@ -27,6 +28,7 @@ public class BGParticleTypes
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "ancient_leaves"), ANCIENT_LEAVES);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "sable_leaves"), SABLE_LEAVES);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "upside_down_rain"), UPSIDEDOWN);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "worm"), WORM);
     }
 
     public static SimpleParticleType simple() {

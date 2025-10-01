@@ -272,6 +272,7 @@ public class BygoneClient {
         consumer.accept((ParticleType<T>) BGParticleTypes.ANCIENT_LEAVES, spriteProvider -> (ParticleProvider<T>) new AncientLeavesParticle.Factory(spriteProvider));
         consumer.accept((ParticleType<T>) BGParticleTypes.SABLE_LEAVES, spriteProvider -> (ParticleProvider<T>) new AncientLeavesParticle.Factory(spriteProvider));
         consumer.accept((ParticleType<T>) BGParticleTypes.UPSIDEDOWN, spriteProvider -> (ParticleProvider<T>) new UpsidedownDropParticle.Provider(spriteProvider));
+        consumer.accept((ParticleType<T>) BGParticleTypes.WORM, spriteProvider -> (ParticleProvider<T>) new WormParticle.Factory(spriteProvider));
 
     }
 

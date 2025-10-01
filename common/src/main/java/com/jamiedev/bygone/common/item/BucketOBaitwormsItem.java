@@ -1,20 +1,15 @@
 package com.jamiedev.bygone.common.item;
 
-import com.jamiedev.bygone.common.block.entity.GumboPotBlockEntity;
 import com.jamiedev.bygone.core.registry.BGBlocks;
-import com.jamiedev.bygone.core.registry.BGDataComponents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -47,7 +42,7 @@ public class BucketOBaitwormsItem extends Item {
         
         if (hitResult.getType() == HitResult.Type.BLOCK) {
             BlockHitResult blockHitResult = (BlockHitResult) hitResult;
-            BlockPos pos = blockHitResult.getBlockPos();
+            BlockPos pos = blockHitResult.getBlockPos().immutable();
             BlockState state = level.getBlockState(pos);
             
             if (level.getFluidState(pos).is(FluidTags.WATER)) {
