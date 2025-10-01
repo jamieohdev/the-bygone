@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FishingHook.class)
@@ -48,17 +48,16 @@ public abstract class FishingHookMixin extends Projectile {
         }
     }
 
-    @Redirect(
+    @ModifyArg(
         method = "retrieve",
         at = @At(
-            value = "FIELD",
-            target = "Lnet/minecraft/world/level/storage/loot/BuiltInLootTables;FISHING:Lnet/minecraft/resources/ResourceKey;"
-        )
+            value = "INVOKE",
+            target = "Lnet/minecraft/server/ReloadableServerRegistries$Holder;getLootTable(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/storage/loot/LootTable;"
+        ),
+        index = 0
     )
-    private ResourceKey<LootTable> redirectFishingLootTable() {
-        FishingHook hook = (FishingHook)(Object)this;
-        
-        if (hook.level() instanceof ServerLevel serverLevel) {
+    private ResourceKey<LootTable> modifyFishingLootTable(ResourceKey<LootTable> original) {
+        if (this.level() instanceof ServerLevel serverLevel) {
             BlockPos pos = this.blockPosition();
             Holder<Biome> biomeHolder = serverLevel.getBiome(pos);
             
@@ -66,11 +65,12 @@ public abstract class FishingHookMixin extends Projectile {
             boolean useRareTable = isInBaitwormWater && serverLevel.random.nextFloat() < 0.5F;
             
             ResourceKey<LootTable> customTable = BGFishingTables.getFishingTableForBiome(biomeHolder, useRareTable);
+            System.out.println("Fishing at " + pos + " in biome " + biomeHolder.unwrapKey().orElse(null) + (isInBaitwormWater ? " with Baitworm effect" : "") + ", using table: " + (customTable != null ? customTable.location() : "default"));
             if (customTable != null) {
                 return customTable;
             }
         }
         
-        return BuiltInLootTables.FISHING;
+        return original;
     }
 }
