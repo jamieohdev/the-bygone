@@ -8,11 +8,13 @@
     "AxeItemAccess",
     "EmptyMapMixin",
     "FarmlandBlockMixin",
+    "FishingHookMixin",
     "LivingEntityMixin",
     "LivingEntityMixinVex",
     "MapItemMixin",
     "MobMixin",
     "PlayerMixin",
+    "ServerLevelMixin",
     "VexMixin"
   ],
   "client": [

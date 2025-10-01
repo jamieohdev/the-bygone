@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.common.block.entity.GumboPotBlockEntity;
 import com.jamiedev.bygone.common.item.*;
 import com.jamiedev.bygone.core.init.JamiesModToolMaterials;
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
@@ -160,6 +161,7 @@ public class BGItems
     public static final Supplier<Item> SABLE_BRANCH  = registerItem("sable_branch", () -> new ItemNameBlockItem(BGBlocks.SABLE_BRANCH.get(), (new Item.Properties())));
     public static final Supplier<Item> THORNY_SABLE_BRANCH  = registerItem("thorny_sable_branch", () -> new ItemNameBlockItem(BGBlocks.THORNY_SABLE_BRANCH.get(), (new Item.Properties())));
 
+    public static final Supplier<Item> BUCKET_O_BAITWORMS = registerItem("bucket_o_baitworms", () -> new BucketOBaitwormsItem(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
     public static final Supplier<Item> MUSIC_DISC_SHUFFLE = registerItem("music_disc_shuffle",  () -> new Item((new Item.Properties()).stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(BGJukeboxSongs.THIRTEEN)));
 

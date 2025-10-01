@@ -110,6 +110,7 @@
   "item.bygone.speed_wheat": "Speed Wheat",
   "item.bygone.sable_sign": "Sable Sign",
   "item.bygone.sable_hanging_sign": "Sable Hanging Sign",
+  "item.bygone.bucket_o_baitworms": "Bucket o' Baitworms",
   "item.bygone.gumbo_bowl": "Gumbo Bowl",
   "item.bygone.gumbo_bottle": "Gumbo Bottle",
 
@@ -374,6 +375,7 @@
   "block.bygone.umbral_grass": "Umbral Grass",
   "block.bygone.tall_umbral_grass": "Tall Umbral Grass",
   "block.bygone.umbral_soil": "Umbral Soil",
+  "block.bygone.sable_soil": "Sable Soil",
   "block.bygone.moon_blossom": "Moon Blossom",
   "block.bygone.wriggling_soil": "Wriggling Soil",
 

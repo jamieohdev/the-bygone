@@ -301,6 +301,7 @@ public class BGItemGroups {
 
                 output.accept(BGBlocks.UMBRAL_SOIL.get());
                 output.accept(BGBlocks.WRIGGLING_SOIL.get());
+                output.accept(BGItems.BUCKET_O_BAITWORMS.get());
                 output.accept(BGBlocks.SABLE_MOSS_BLOCK.get());
                 output.accept(BGBlocks.SABLE_MOSS_CARPET.get());
                 output.accept(BGBlocks.UMBRAL_GRASS.get());
