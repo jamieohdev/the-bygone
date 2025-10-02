@@ -84,21 +84,20 @@
     "ambient": [],
     "axolotls": [],
     "creature": [
-
+      {
+        "type": "bygone:mooboo",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 11
+      }
     ],
     "misc": [],
     "monster": [
       {
-        "type": "bygone:lithy",
+        "type": "bygone:sabeasy",
         "maxCount": 1,
         "minCount": 1,
         "weight": 13
-      },
-      {
-        "type": "bygone:wraith",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 50
       }
     ],
     "underground_water_creature": [],
