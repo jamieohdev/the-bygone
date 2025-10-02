@@ -58,7 +58,7 @@ public class SablossomBlock extends GrowingPlantHeadBlock
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (random.nextDouble() <= 0.7) {
+        if (random.nextDouble() <= 0.95) {
             double d = pos.getX() + random.nextDouble() * 10.0 - 5.0;
             double e = pos.getY() + random.nextDouble() * 5.0;
             double f = pos.getZ() + random.nextDouble() * 10.0 - 5.0;
