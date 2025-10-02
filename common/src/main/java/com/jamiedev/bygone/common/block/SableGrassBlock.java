@@ -10,21 +10,24 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.GrowingPlantHeadBlock;
+import net.minecraft.world.level.block.NetherVines;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SableBranchBlock extends GrowingPlantHeadBlock {
-    public static final MapCodec<SableBranchBlock> CODEC = simpleCodec(SableBranchBlock::new);
+public class SableGrassBlock extends GrowingPlantHeadBlock
+{
+    public static final MapCodec<SableGrassBlock> CODEC = simpleCodec(SableGrassBlock::new);
     public static final VoxelShape SHAPE = Block.box((double)4.0F, (double)0.0F, (double)4.0F, (double)12.0F, (double)15.0F, (double)12.0F);
 
-    public MapCodec<SableBranchBlock> codec() {
+    public MapCodec<SableGrassBlock> codec() {
         return CODEC;
     }
 
-    public SableBranchBlock(BlockBehaviour.Properties p_154864_) {
+    public SableGrassBlock(BlockBehaviour.Properties p_154864_) {
         super(p_154864_, Direction.UP, SHAPE, false, 0.1);
     }
 
@@ -44,7 +47,7 @@ public class SableBranchBlock extends GrowingPlantHeadBlock {
     }
 
     protected Block getBodyBlock() {
-        return BGBlocks.SABLE_BRANCH_PLANT.get();
+        return BGBlocks.SABLE_GRASS_PLANT.get();
     }
 
     protected boolean canGrowInto(BlockState p_154869_) {
@@ -55,8 +58,7 @@ public class SableBranchBlock extends GrowingPlantHeadBlock {
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockPos blockpos = pos.relative(this.growthDirection.getOpposite());
         BlockState blockstate = level.getBlockState(blockpos);
-        return this.canAttachTo(blockstate) && (blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) || blockstate.is(BGBlocks.SABLE_LEAVES.get())
-                || blockstate.isFaceSturdy(level, blockpos, this.growthDirection));
+        return !this.canAttachTo(blockstate) ? false : blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) || blockstate.is(BGBlocks.SABLE_LEAVES.get())
+                || blockstate.isFaceSturdy(level, blockpos, this.growthDirection);
     }
 }
-

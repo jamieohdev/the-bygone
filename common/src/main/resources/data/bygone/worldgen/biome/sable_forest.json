@@ -13,7 +13,7 @@
       "sound": "minecraft:ambient.nether_wastes.additions",
       "tick_chance": 0.0111
     },
-    "ambient_sound": "minecraft:ambient.nether_wastes.loop",
+    "ambient_sound": "bygone:ambient.sable_forest.loop",
     "fog_color": 3237964,
     "grass_color": 6596485,
     "foliage_color": 6596485,
@@ -38,7 +38,7 @@
     [
       "bygone:rock"],
     [],
-    ["bygone:miniliths", "bygone:miniliths_glowing"],
+    ["bygone:miniliths"],
     [],
     [],
     [],
@@ -64,8 +64,7 @@
       "minecraft:patch_tall_grass_2"
     ],
     [
-      "minecraft:brown_mushroom_normal",
-      "minecraft:red_mushroom_normal",
+      "bygone:sable_grass",
       "bygone:sable_branchs",
       "bygone:thorny_sable_branchs"
     ]

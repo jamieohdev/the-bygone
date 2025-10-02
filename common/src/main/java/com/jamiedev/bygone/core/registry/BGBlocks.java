@@ -933,6 +933,16 @@ Blocks ref;
             new ThornySableBranchPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).noCollission().instabreak()
                     .sound(SoundType.WEEPING_VINES).pushReaction(PushReaction.DESTROY)));
 
+    public static final Supplier<Block> SABLE_GRASS = registerBlockWithoutBlockItem("sable_grass", () ->
+            new SableGrassBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).randomTicks().noCollission()
+                    .instabreak().sound(SoundType.WEEPING_VINES).pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> SABLOSSOM = registerBlockWithoutBlockItem("sablossom", () ->
+            new SablossomBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).randomTicks().noCollission()
+                    .instabreak().sound(SoundType.WEEPING_VINES).pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> SABLE_GRASS_PLANT = registerBlockWithoutBlockItem("sable_grass_plant", () ->
+            new SableGrassPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).noCollission().instabreak()
+                    .sound(SoundType.WEEPING_VINES).pushReaction(PushReaction.DESTROY)));
+
     public static  final Supplier<Block> WRIGGLING_SOIL = registerBlock("wriggling_soil", () ->
             new WrigglingSoilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
 

@@ -53,6 +53,9 @@ public class BGFeatures
     public static  final Feature<ThornySableBranchConfig> THORNY_SABLE_BRANCH = register("thorny_sable_branchs",
             new ThornySableBranchFeature(ThornySableBranchConfig.CODEC));
 
+    public static  final Feature<SableBranchConfig> SABLE_GRASS = register("sable_grass",
+            new SableGrassFeature(SableBranchConfig.CODEC));
+
     private static <C extends FeatureConfiguration, F extends Feature<C>> F register(String name, F feature) {
         return Registry.register(BuiltInRegistries.FEATURE, Bygone.id(name), feature);
     }

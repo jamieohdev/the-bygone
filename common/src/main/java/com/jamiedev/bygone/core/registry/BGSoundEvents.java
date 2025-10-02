@@ -27,6 +27,10 @@ public class BGSoundEvents
     public static final ResourceLocation MUSIC_PRIMORDIALOCEAN_ADDITIONS = id("music.bygone.primordial_ocean");
     public static final ResourceLocation AMBIENT_SHELFHOLLOW_ADDITIONS = id("ambient.shelfhollow.additions");
 
+    public static final ResourceLocation AMBIENT_SABLE_FOREST_ADDITIONS = id("ambient.sable_forest.loop");
+    public static SoundEvent AMBIENT_SABLE_FOREST_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_SABLE_FOREST_ADDITIONS);
+
+
 
     public static final Holder.Reference<SoundEvent> MUSIC_DISC_SHUFFLE = registerSoundEventHolder("music_disc.shuffle");
 
@@ -201,6 +205,9 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_AMBERDESERT_ADDITIONS, BGSoundEvents.AMBIENT_AMBERDESERT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_PRIMORDIALOCEAN_ADDITIONS, BGSoundEvents.AMBIENT_PRIMORDIALOCEAN_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_SHELFHOLLOW_ADDITIONS, BGSoundEvents.AMBIENT_SHELFHOLLOW_ADDITIONS_EVENT);
+
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_SABLE_FOREST_ADDITIONS, BGSoundEvents.AMBIENT_SABLE_FOREST_ADDITIONS_EVENT);
+
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.MUSIC_ALPHAHANG_ADDITIONS, BGSoundEvents.MUSIC_ALPHAHANG_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.MUSIC_ANCIENTFOREST_ADDITIONS, BGSoundEvents.MUSIC_ANCIENTFOREST_ADDITIONS_EVENT);
