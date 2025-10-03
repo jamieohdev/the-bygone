@@ -36,14 +36,12 @@ public class BGBiomes
     public static final ResourceKey<Biome> MEGALITH_FIELD= createBiomeKey("megalith_field");
     public static final ResourceKey<Biome> PRIMORDIAL_BEACH = createBiomeKey("primordial_beach");
     public static final ResourceKey<Biome> PRIMORDIAL_OCEAN = createBiomeKey("primordial_ocean");
+    public static final ResourceKey<Biome> SABLE_FOREST = createBiomeKey("sable_forest");
     public static final ResourceKey<Biome> SHELFHOLLOW = createBiomeKey("shelfhollow");
 
     public static void bootstrap(BootstrapContext<Biome> bootstapContext) {
         HolderGetter<PlacedFeature> placeddFeatureHolder = bootstapContext.lookup(Registries.PLACED_FEATURE);
         HolderGetter<ConfiguredWorldCarver<?>> configuredWorldCarverHolderGetter = bootstapContext.lookup(Registries.CONFIGURED_CARVER);
-
-
-        // bootstapContext.register(WOODED_MEADOW, JamiesModBiomeCreator.createWoodedMeadow(placeddFeatureHolder, configuredWorldCarverHolderGetter));
     }
 
     public static void init(){
