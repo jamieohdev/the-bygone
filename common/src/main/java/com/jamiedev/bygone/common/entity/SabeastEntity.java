@@ -1,7 +1,9 @@
 package com.jamiedev.bygone.common.entity;
 
 import com.google.common.collect.ImmutableList;
+import com.jamiedev.bygone.common.entity.ai.AvoidBlockGoal;
 import com.jamiedev.bygone.common.entity.ai.SabeastAI;
+import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -34,6 +36,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -100,6 +103,12 @@ public class SabeastEntity extends Monster {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SabeastFreezeWhenLookedAt(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, (double)2.0F, (p_350292_) -> p_350292_.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES));
+
+        this.goalSelector.addGoal(3, new AvoidBlockGoal(this, 16, 1.4, 1.6, (pos) -> {
+            BlockState state = this.level().getBlockState(pos);
+            return state.is(JamiesModTag.SABEAST_REPELLENTS);
+        }));
+
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, (double)1.0F));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -239,6 +248,11 @@ public class SabeastEntity extends Monster {
                 return false;
             } else {
                 double d0 = this.target.distanceToSqr(this.sabeast);
+
+                if (this.target instanceof Player) {
+                    ((LivingEntity)this.target).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200), this.sabeast);
+                }
+
                 return !(d0 > (double) 256.0F) && this.sabeast.isLookingAtMe((Player) this.target);
             }
         }
