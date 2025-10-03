@@ -22,6 +22,19 @@
     "bygone:ancient_fence_gate": 300,
     "bygone:ancient_fence": 300,
     "bygone:ancient_door": 200,
+
+    "bygone:sable_wood": 300,
+    "bygone:sable_log": 300,
+    "bygone:sable_planks": 300,
+    "bygone:sable_slab": 150,
+    "bygone:sable_stairs": 300,
+    "bygone:sable_pressure_plate": 300,
+    "bygone:sable_button": 100,
+    "bygone:sable_trapdoor": 300,
+    "bygone:sable_fence_gate": 300,
+    "bygone:sable_fence": 300,
+    "bygone:sable_door": 200,
+    
     "bygone:whirliweed": 75,
     "bygone:big_whirliweed": 125
   }

@@ -2,6 +2,7 @@ package com.jamiedev.bygone.common.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.jamiedev.bygone.common.entity.WraithEntity;
+import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -11,6 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.SnowGolem;
@@ -148,7 +150,7 @@ public class IceBouquetBlock extends Block {
     public static BlockState getState(BlockGetter reader, BlockPos pos) {
         BlockPos blockpos = pos.below();
         BlockState blockstate = reader.getBlockState(blockpos);
-        return Blocks.SOUL_FIRE.defaultBlockState();
+        return BGBlocks.ICE_BOUQUET.get().defaultBlockState();
     }
 
     @Override
@@ -240,8 +242,11 @@ public class IceBouquetBlock extends Block {
     }
 
     private boolean isValidFireLocation(BlockGetter level, BlockPos pos) {
-        for (Direction direction : Direction.values()) {
-            return true;
+        for (Direction direction : Direction.Plane.HORIZONTAL ) {
+            BlockState blockstate1 = level.getBlockState(pos.below());
+            if (blockstate1.isSolid() || !blockstate1.isAir()) {
+                return true;
+            }
         }
 
         return false;
