@@ -71,11 +71,11 @@
   ],
   "has_precipitation": false,
   "spawn_costs": {
-    "bygone:lithy": {
+    "bygone:mooboo": {
       "charge": 0.6,
       "energy_budget": 0.18
     },
-    "bygone:wraith": {
+    "bygone:sabeast": {
       "charge": 0.5,
       "energy_budget": 0.1
     }
@@ -89,16 +89,16 @@
         "maxCount": 4,
         "minCount": 1,
         "weight": 11
+      },
+      {
+        "type": "bygone:sabeast",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 13
       }
     ],
     "misc": [],
     "monster": [
-      {
-        "type": "bygone:sabeasy",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 13
-      }
     ],
     "underground_water_creature": [],
     "water_ambient": [],

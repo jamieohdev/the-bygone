@@ -216,7 +216,7 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.LITHY, LithyModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WISP, WispModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WRAITH, WraithModel::getTexturedModelData);
-        consumer.accept(JamiesModModelLayers.SABEAST, SabeastModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.SABEAST, SabeastModel2::getTexturedModelData);
     }
 
     public static void registerModelPredicateProviders() {

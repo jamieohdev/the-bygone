@@ -14,7 +14,7 @@ public abstract class CowEntityMixinFabric {
     @Inject(method = "customServerAiStep",at = @At("RETURN"))
     private void onServerTick(CallbackInfo ci) {
         if ((Object)this instanceof Cow cow) {
-            Bygone.tickCow(cow);
+           // Bygone.tickCow(cow);
         }
     }
 }

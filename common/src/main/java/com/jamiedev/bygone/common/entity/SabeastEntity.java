@@ -13,6 +13,8 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -25,20 +27,28 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.PolarBear;
+import net.minecraft.world.entity.animal.Pufferfish;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
+import java.util.EnumSet;
 import java.util.function.Predicate;
 
 public class SabeastEntity extends Monster {
 
     private static final EntityDataAccessor<Boolean> DATA_STANDING_ID;
-    private float clientSideStandAnimationO;
-    private float clientSideStandAnimation;
     private int warningSoundTicks;
-    private static final float STAND_ANIMATION_TICKS = 6.0F;
-    
+
+    public AnimationState walkAnimationState = new AnimationState();
+    public AnimationState idleAnimationState = new AnimationState();
+    public AnimationState meleeAnimationState = new AnimationState();
+
     protected static final ImmutableList<SensorType<? extends Sensor<? super SabeastEntity>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY
     );
@@ -65,7 +75,6 @@ public class SabeastEntity extends Monster {
             MemoryModuleType.NEAREST_PLAYER_HOLDING_WANTED_ITEM
     );
 
-
     public SabeastEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
     }
@@ -89,13 +98,14 @@ public class SabeastEntity extends Monster {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new SabeastFreezeWhenLookedAt(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, (double)2.0F, (p_350292_) -> p_350292_.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES));
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, (double)1.0F));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new SabeastEntityMeleeAttackGoal());
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Player.class, 10, true, false, (Predicate)null));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, MoobooEntity.class, 10, true, true, (Predicate)null));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, (Predicate)null));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, MoobooEntity.class, 10, true, true, (Predicate)null));
     }
 
     @Override
@@ -130,6 +140,42 @@ public class SabeastEntity extends Monster {
         super.addAdditionalSaveData(compound);
     }
 
+    boolean isLookingAtMe(Player player) {
+        ItemStack itemstack = (ItemStack)player.getInventory().armor.get(3);
+        if (itemstack.is(Blocks.CARVED_PUMPKIN.asItem())) {
+            return false;
+        } else {
+            Vec3 vec3 = player.getViewVector(1.0F).normalize();
+            Vec3 vec31 = new Vec3(this.getX() - player.getX(), this.getEyeY() - player.getEyeY(), this.getZ() - player.getZ());
+            double d0 = vec31.length();
+            vec31 = vec31.normalize();
+            double d1 = vec3.dot(vec31);
+
+            return d1 > (double) 1.0F - 0.025 / d0 && player.hasLineOfSight(this);
+        }
+    }
+    
+    private void setupAnimationStates() {
+
+        this.idleAnimationState.startIfStopped(this.tickCount);
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F) {
+            this.walkAnimationState.startIfStopped(this.tickCount);
+        } else {
+            this.walkAnimationState.stop();
+        }
+
+
+            if (this.attackAnim > 0)
+            {
+                this.meleeAnimationState.start(this.tickCount);
+            }
+            else if (this.attackAnim == 0)
+            {
+                this.meleeAnimationState.stop();
+            }
+
+    }
+
     @Override
     public boolean hurt(DamageSource source, float amount) {
         if (source.is(DamageTypes.IN_FIRE) || source.is(DamageTypes.ON_FIRE)) {
@@ -142,16 +188,7 @@ public class SabeastEntity extends Monster {
     public void tick() {
         super.tick();
         if (this.level().isClientSide) {
-            if (this.clientSideStandAnimation != this.clientSideStandAnimationO) {
-                this.refreshDimensions();
-            }
-
-            this.clientSideStandAnimationO = this.clientSideStandAnimation;
-            if (this.isStanding()) {
-                this.clientSideStandAnimation = Mth.clamp(this.clientSideStandAnimation + 1.0F, 0.0F, 6.0F);
-            } else {
-                this.clientSideStandAnimation = Mth.clamp(this.clientSideStandAnimation - 1.0F, 0.0F, 6.0F);
-            }
+            this.setupAnimationStates();
         }
 
         if (this.warningSoundTicks > 0) {
@@ -164,15 +201,6 @@ public class SabeastEntity extends Monster {
 
     }
 
-    public EntityDimensions getDefaultDimensions(Pose pose) {
-        if (this.clientSideStandAnimation > 0.0F) {
-            float f = this.clientSideStandAnimation / 6.0F;
-            float f1 = 1.0F + f;
-            return super.getDefaultDimensions(pose).scale(1.0F, f1);
-        } else {
-            return super.getDefaultDimensions(pose);
-        }
-    }
 
     public boolean isStanding() {
         return (Boolean)this.entityData.get(DATA_STANDING_ID);
@@ -180,10 +208,6 @@ public class SabeastEntity extends Monster {
 
     public void setStanding(boolean standing) {
         this.entityData.set(DATA_STANDING_ID, standing);
-    }
-
-    public float getStandingAnimationScale(float partialTick) {
-        return Mth.lerp(partialTick, this.clientSideStandAnimationO, this.clientSideStandAnimation) / 6.0F;
     }
 
 
@@ -197,6 +221,38 @@ public class SabeastEntity extends Monster {
 
     static {
         DATA_STANDING_ID = SynchedEntityData.defineId(SabeastEntity.class, EntityDataSerializers.BOOLEAN);
+    }
+
+    static class SabeastFreezeWhenLookedAt extends Goal {
+        private final SabeastEntity sabeast;
+        @Nullable
+        private LivingEntity target;
+
+        public SabeastFreezeWhenLookedAt(SabeastEntity sabeast) {
+            this.sabeast = sabeast;
+            this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
+        }
+
+        public boolean canUse() {
+            this.target = this.sabeast.getTarget();
+            if (!(this.target instanceof Player)) {
+                return false;
+            } else {
+                double d0 = this.target.distanceToSqr(this.sabeast);
+                return !(d0 > (double) 256.0F) && this.sabeast.isLookingAtMe((Player) this.target);
+            }
+        }
+
+        public void start() {
+            this.sabeast.getNavigation().stop();
+        }
+
+        public void tick() {
+            assert this.target != null;
+            this.sabeast.getLookControl().setLookAt(this.target.getX(), this.target.getEyeY(), this.target.getZ());
+
+
+        }
     }
 
     class SabeastEntityMeleeAttackGoal extends MeleeAttackGoal {

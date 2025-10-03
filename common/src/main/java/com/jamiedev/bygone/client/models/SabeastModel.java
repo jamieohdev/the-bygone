@@ -13,13 +13,10 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.PolarBearRenderer;
 import net.minecraft.world.entity.Entity;
+
 public class SabeastModel<T extends Entity> extends HierarchicalModel<T>
 {
-	PolarBearModel ref;
-
-	PolarBearRenderer ref2;
 
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	private final ModelPart base;
@@ -104,9 +101,6 @@ public class SabeastModel<T extends Entity> extends HierarchicalModel<T>
 
 		if (entity instanceof SabeastEntity sabeast)
 		{
-			float f = ageInTicks - (float)entity.tickCount;
-			float f1 = ((SabeastEntity) entity).getStandingAnimationScale(f);
-			f1 *= f1;
 
 		}
 	}
