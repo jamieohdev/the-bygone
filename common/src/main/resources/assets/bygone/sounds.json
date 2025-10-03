@@ -143,6 +143,10 @@
     "sounds": ["bygone:ambience/shelfhollows"],
     "subtitle": "subtitles.ambient.shelfhollows.additions"
   },
+  "ambient.sable_forest.loop": {
+    "sounds": ["bygone:ambience/sable"],
+    "subtitle": "subtitles.ambient.sable_forest.additions"
+  },
   "ambience.volcanic1": {
     "category": "ambient",
     "subtitle": "subtitles.ambient.bygone",

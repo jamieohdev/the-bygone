@@ -81,6 +81,22 @@
       },
       "trigger": "minecraft:location"
     },
+    "bygone:sable_forest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "bygone:sable_forest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
     "bygone:shelfhollow": {
       "conditions": {
         "player": [
@@ -133,6 +149,7 @@
     ["bygone:megalith_field"],
     ["bygone:primordial_beach"],
     ["bygone:primordial_ocean"],
+    ["bygone:sable_forest"],
     ["bygone:shelfhollow"],
     ["bygone:underhang"]
   ],

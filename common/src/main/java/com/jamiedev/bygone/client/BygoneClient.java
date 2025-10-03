@@ -15,21 +15,17 @@ import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SoulParticle;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 import java.util.function.BiConsumer;
@@ -80,6 +76,9 @@ public class BygoneClient {
         consumer.accept(BGBlocks.SABLE_BRANCH_PLANT.get(), RenderType.cutout());
         consumer.accept(BGBlocks.THORNY_SABLE_BRANCH.get(), RenderType.cutout());
         consumer.accept(BGBlocks.THORNY_SABLE_BRANCH_PLANT.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SABLOSSOM.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SABLE_GRASS.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SABLE_GRASS_PLANT.get(), RenderType.cutout());
 
         consumer.accept(BGBlocks.UMBRAL_GRASS.get(), RenderType.cutout());
         consumer.accept(BGBlocks.TALL_UMBRAL_GRASS.get(), RenderType.cutout());
@@ -217,7 +216,7 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.LITHY, LithyModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WISP, WispModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WRAITH, WraithModel::getTexturedModelData);
-        consumer.accept(JamiesModModelLayers.SABEAST, SabeastModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.SABEAST, SabeastModel2::getTexturedModelData);
     }
 
     public static void registerModelPredicateProviders() {
@@ -272,7 +271,10 @@ public class BygoneClient {
         consumer.accept((ParticleType<T>) BGParticleTypes.ANCIENT_LEAVES, spriteProvider -> (ParticleProvider<T>) new AncientLeavesParticle.Factory(spriteProvider));
         consumer.accept((ParticleType<T>) BGParticleTypes.SABLE_LEAVES, spriteProvider -> (ParticleProvider<T>) new AncientLeavesParticle.Factory(spriteProvider));
         consumer.accept((ParticleType<T>) BGParticleTypes.UPSIDEDOWN, spriteProvider -> (ParticleProvider<T>) new UpsidedownDropParticle.Provider(spriteProvider));
+
         consumer.accept((ParticleType<T>) BGParticleTypes.WORM, spriteProvider -> (ParticleProvider<T>) new WormParticle.Factory(spriteProvider));
+
+        consumer.accept((ParticleType<T>) BGParticleTypes.SABLOSSOM, spriteProvider -> (ParticleProvider<T>) new SablossomParticle.Factory(spriteProvider));
 
     }
 

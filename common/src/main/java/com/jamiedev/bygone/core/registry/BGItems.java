@@ -163,6 +163,9 @@ public class BGItems
 
     public static final Supplier<Item> BUCKET_O_BAITWORMS = registerItem("bucket_o_baitworms", () -> new BucketOBaitwormsItem(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
+    public static final Supplier<Item> SABLE_GRASS  = registerItem("sable_grass", () -> new ItemNameBlockItem(BGBlocks.SABLE_GRASS.get(), (new Item.Properties())));
+    public static final Supplier<Item> SABLOSSOM  = registerItem("sablossom", () -> new ItemNameBlockItem(BGBlocks.SABLOSSOM.get(), (new Item.Properties())));
+
     public static final Supplier<Item> MUSIC_DISC_SHUFFLE = registerItem("music_disc_shuffle",  () -> new Item((new Item.Properties()).stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(BGJukeboxSongs.THIRTEEN)));
 
 

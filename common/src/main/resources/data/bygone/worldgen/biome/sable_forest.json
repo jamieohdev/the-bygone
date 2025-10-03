@@ -13,7 +13,7 @@
       "sound": "minecraft:ambient.nether_wastes.additions",
       "tick_chance": 0.0111
     },
-    "ambient_sound": "minecraft:ambient.nether_wastes.loop",
+    "ambient_sound": "bygone:ambient.sable_forest.loop",
     "fog_color": 3237964,
     "grass_color": 6596485,
     "foliage_color": 6596485,
@@ -38,7 +38,7 @@
     [
       "bygone:rock"],
     [],
-    ["bygone:miniliths", "bygone:miniliths_glowing"],
+    ["bygone:miniliths"],
     [],
     [],
     [],
@@ -64,19 +64,18 @@
       "minecraft:patch_tall_grass_2"
     ],
     [
-      "minecraft:brown_mushroom_normal",
-      "minecraft:red_mushroom_normal",
+      "bygone:sable_grass",
       "bygone:sable_branchs",
       "bygone:thorny_sable_branchs"
     ]
   ],
   "has_precipitation": false,
   "spawn_costs": {
-    "bygone:lithy": {
+    "bygone:mooboo": {
       "charge": 0.6,
       "energy_budget": 0.18
     },
-    "bygone:wraith": {
+    "bygone:sabeast": {
       "charge": 0.5,
       "energy_budget": 0.1
     }
@@ -85,22 +84,21 @@
     "ambient": [],
     "axolotls": [],
     "creature": [
-
+      {
+        "type": "bygone:mooboo",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 11
+      },
+      {
+        "type": "bygone:sabeast",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 13
+      }
     ],
     "misc": [],
     "monster": [
-      {
-        "type": "bygone:lithy",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 13
-      },
-      {
-        "type": "bygone:wraith",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 50
-      }
     ],
     "underground_water_creature": [],
     "water_ambient": [],

@@ -24,14 +24,16 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.monster.Vex;
 
+import javax.annotation.Nullable;
+
 public class MoobooRenderer2 extends MobRenderer<MoobooEntity2, CowModel<MoobooEntity2>> {
-    private static final ResourceLocation COW_LOCATION = Bygone.id("textures/entity/mooboo_2.png");
+    private static final ResourceLocation COW_LOCATION = Bygone.id("textures/entity/mooboo.png");
 
     SlimeRenderer ref;
 
     public MoobooRenderer2(EntityRendererProvider.Context context) {
         super(context, new CowModel(context.bakeLayer(JamiesModModelLayers.MOOBOO)), 0.7F);
-        this.addLayer(new MoobooTransRenderer<>(this, context.getModelSet()));
+
     }
 
     @Override
@@ -44,5 +46,9 @@ public class MoobooRenderer2 extends MobRenderer<MoobooEntity2, CowModel<MoobooE
         return 15;
     }
 
-
+    @Nullable
+    @Override
+    protected RenderType getRenderType(MoobooEntity2 p_230496_1_, boolean p_230496_2_, boolean p_230496_3_, boolean p_230496_4_) {
+        return RenderType.entityTranslucent(this.getTextureLocation(p_230496_1_));
+    }
 }

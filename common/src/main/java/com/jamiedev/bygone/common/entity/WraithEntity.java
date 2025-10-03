@@ -57,7 +57,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
     public AnimationState floatAnimationState = new AnimationState();
     public AnimationState idleAnimationState = new AnimationState();
-    private int idleAnimationTimeout = 0;
+
     public AnimationState meleeAnimationState = new AnimationState();
     public AnimationState spellAnimationState = new AnimationState();
 
