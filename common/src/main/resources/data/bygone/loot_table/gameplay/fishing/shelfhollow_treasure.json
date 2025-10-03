@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "bygone:orange_mushroom_block"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:pink_mushroom_block"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:purple_mushroom_block"
+        }
+      ]
+    }
+  ]
+}

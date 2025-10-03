@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.util;
 
+import com.jamiedev.bygone.common.item.BaitwormWaterEffect;
 import net.minecraft.server.MinecraftServer;
 
 public class ServerTickHandler {
@@ -10,5 +11,9 @@ public class ServerTickHandler {
      */
     public static void onServerTick(MinecraftServer server) {
         ShockwaveHandler.tickAll();
+        
+        server.getAllLevels().forEach(level -> {
+            BaitwormWaterEffect.tick(level);
+        });
     }
 }

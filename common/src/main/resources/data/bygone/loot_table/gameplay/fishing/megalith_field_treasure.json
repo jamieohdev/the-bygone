@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "bygone:megalith_totem"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:lithine_ore"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:echo_shard"
+        }
+      ]
+    }
+  ]
+}

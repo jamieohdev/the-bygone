@@ -20,6 +20,7 @@ import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Evoker;
 import net.minecraft.world.entity.projectile.EvokerFangs;
+import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -50,6 +51,7 @@ public class Bygone {
         BGEntityTypes.postInit();
         BGBiomes.init();
         BGItemGroups.register();
+        BGFishingTables.init();
     }
 
     public static void registerStrippables() {
@@ -212,5 +214,4 @@ public class Bygone {
     public static <V> Stream<V> getKnown(Registry<V> registry) {
         return registry.stream().filter(o -> registry.getKey(o).getNamespace().equals(MOD_ID));
     }
-
 }

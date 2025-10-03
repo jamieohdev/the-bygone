@@ -919,6 +919,9 @@ Blocks ref;
     public static  final Supplier<Block> UMBRAL_SOIL = registerBlock("umbral_soil", () ->
             new UmbraSoilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
 
+    public static final Supplier<Block> WRIGGLING_SOIL = registerBlock("wriggling_soil", () ->
+            new WrigglingSoilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL).randomTicks()));
+
     public static final Supplier<Block> SABLE_BRANCH = registerBlockWithoutBlockItem("sable_branch", () ->
             new SableBranchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).randomTicks().noCollission()
                     .instabreak().sound(SoundType.WEEPING_VINES).pushReaction(PushReaction.DESTROY)));
@@ -947,6 +950,7 @@ Blocks ref;
 
     public static  final Supplier<Block> WRIGGLING_SOIL = registerBlock("wriggling_soil", () ->
             new WrigglingSoilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
         return (p_50763_) -> (Boolean)p_50763_.getValue(BlockStateProperties.LIT) ? lightValue : 0;

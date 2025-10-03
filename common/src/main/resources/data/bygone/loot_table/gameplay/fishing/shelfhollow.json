@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:fishing",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 50,
+          "name": "bygone:coelacanth"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 40,
+          "name": "minecraft:brown_mushroom"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 40,
+          "name": "minecraft:red_mushroom"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 10,
+          "value": "bygone:gameplay/fishing/shelfhollow_junk"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 5,
+          "value": "bygone:gameplay/fishing/shelfhollow_treasure"
+        }
+      ]
+    }
+  ]
+}

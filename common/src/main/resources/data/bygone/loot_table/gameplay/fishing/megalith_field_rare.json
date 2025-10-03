@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:fishing",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 85,
+          "name": "bygone:coelacanth"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 15,
+          "value": "bygone:gameplay/fishing/megalith_field_treasure"
+        }
+      ]
+    }
+  ]
+}
