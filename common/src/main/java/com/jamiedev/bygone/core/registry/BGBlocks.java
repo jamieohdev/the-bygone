@@ -61,7 +61,7 @@ Blocks ref;
             new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.STONE).ignitedByLava()));
 
     public static final Supplier<Block> POLISHED_BYSTONE_STAIRS = registerBlock("polished_bystone_stairs", () ->
-            new StairBlock(BGBlocks.POLISHED_BYSTONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+            new StairBlock(BGBlocks.POLISHED_BYSTONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BGBlocks.POLISHED_BYSTONE.get()).strength(2.0f)));
 
     public static final Supplier<Block> POLISHED_BYSTONE_WALL = registerBlock("polished_bystone_wall", () ->
             new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.POLISHED_BYSTONE.get()).strength(2.0f)));
@@ -73,7 +73,7 @@ Blocks ref;
             new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.STONE).ignitedByLava()));
 
     public static final Supplier<Block> POLISHED_BYSLATE_STAIRS = registerBlock("polished_byslate_stairs", () ->
-            new StairBlock(BGBlocks.POLISHED_BYSLATE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+            new StairBlock(BGBlocks.POLISHED_BYSLATE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BGBlocks.POLISHED_BYSLATE.get()).strength(2.0f)));
 
     public static final Supplier<Block> POLISHED_BYSLATE_WALL = registerBlock("polished_byslate_wall", () ->
             new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.POLISHED_BYSLATE.get()).strength(2.0f)));
@@ -85,7 +85,7 @@ Blocks ref;
             new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.STONE).ignitedByLava()));
 
     public static final Supplier<Block> POLISHED_BYSTONE_BRICK_STAIRS = registerBlock("polished_bystone_bricks_stairs", () ->
-            new StairBlock(BGBlocks.POLISHED_BYSTONE_BRICK.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+            new StairBlock(BGBlocks.POLISHED_BYSTONE_BRICK.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BGBlocks.POLISHED_BYSTONE_BRICK.get()).strength(2.0f)));
 
     public static final Supplier<Block> POLISHED_BYSTONE_BRICK_WALL = registerBlock("polished_bystone_bricks_wall", () ->
             new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.POLISHED_BYSTONE_BRICK.get()).strength(2.0f)));
@@ -97,7 +97,7 @@ Blocks ref;
             new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.STONE).ignitedByLava()));
 
     public static final Supplier<Block> POLISHED_BYSLATE_BRICK_STAIRS = registerBlock("polished_byslate_bricks_stairs", () ->
-            new StairBlock(BGBlocks.POLISHED_BYSLATE_BRICK.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+            new StairBlock(BGBlocks.POLISHED_BYSLATE_BRICK.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BGBlocks.POLISHED_BYSLATE_BRICK.get()).strength(2.0f)));
 
     public static final Supplier<Block> POLISHED_BYSLATE_BRICK_WALL = registerBlock("polished_byslate_bricks_wall", () ->
             new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.POLISHED_BYSLATE_BRICK.get()).strength(2.0f)));
@@ -152,7 +152,7 @@ Blocks ref;
     public static final Supplier<Block> COBBLED_BYSTONE = registerBlock("cobbled_bystone", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.4F)));
     public static final Supplier<Block> COBBLED_BYSTONE_STAIRS = registerBlock("cobbled_bystone_stairs", () ->
-            new StairBlock(BGBlocks.COBBLED_BYSTONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+            new StairBlock(BGBlocks.COBBLED_BYSTONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BGBlocks.COBBLED_BYSTONE.get()).strength(2.0f)));
 
     public static final Supplier<Block> COBBLED_BYSTONE_SLAB = registerBlock("cobbled_bystone_slab", () ->
             new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.STONE).ignitedByLava()));
@@ -163,7 +163,7 @@ Blocks ref;
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.0F, 2.0F).sound(SoundType.DEEPSLATE)));
 
     public static final Supplier<Block> COBBLED_BYSLATE_STAIRS = registerBlock("cobbled_byslate_stairs", () ->
-            new StairBlock(BGBlocks.COBBLED_BYSLATE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+            new StairBlock(BGBlocks.COBBLED_BYSLATE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BGBlocks.COBBLED_BYSLATE.get()).strength(2.0f)));
 
     public static final Supplier<Block> COBBLED_BYSLATE_SLAB = registerBlock("cobbled_byslate_slab", () ->
             new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.COBBLED_BYSLATE.get()).strength(2.0f)));
@@ -251,7 +251,7 @@ Blocks ref;
     public static final Supplier<Block> CLAYSTONE_BRICKS = registerBlock("claystone_bricks", () -> new Block(BlockBehaviour.Properties.ofLegacyCopy(DIRT).strength(1.0F, 3.0F).sound(SoundType.PACKED_MUD)));
 
     public static final Supplier<Block> CLAYSTONE_BRICKS_STAIRS = registerBlock("claystone_bricks_stairs", () ->
-            new StairBlock(BGBlocks.CLAYSTONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+            new StairBlock(BGBlocks.CLAYSTONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BGBlocks.CLAYSTONE_BRICKS.get()).strength(2.0f)));
 
     public static final Supplier<Block> CLAYSTONE_BRICKS_SLAB = registerBlock("claystone_bricks_slab", () ->
             new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.CLAYSTONE_BRICKS.get()).strength(2.0f)));
@@ -918,9 +918,6 @@ Blocks ref;
 
     public static  final Supplier<Block> UMBRAL_SOIL = registerBlock("umbral_soil", () ->
             new UmbraSoilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
-
-    public static final Supplier<Block> WRIGGLING_SOIL = registerBlock("wriggling_soil", () ->
-            new WrigglingSoilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL).randomTicks()));
 
     public static final Supplier<Block> SABLE_BRANCH = registerBlockWithoutBlockItem("sable_branch", () ->
             new SableBranchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).randomTicks().noCollission()
