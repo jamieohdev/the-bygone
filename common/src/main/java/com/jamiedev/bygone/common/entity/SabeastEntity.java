@@ -89,7 +89,7 @@ public class SabeastEntity extends Monster {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, (double)50.0F)
                 .add(Attributes.MOVEMENT_SPEED, (double)0.22F)
                 .add(Attributes.ATTACK_DAMAGE, (double)8.0F)
-                .add(Attributes.STEP_HEIGHT, (double)1.0F);
+                .add(Attributes.STEP_HEIGHT, (double)1.6F);
     }
 
     @Override
@@ -274,7 +274,7 @@ public class SabeastEntity extends Monster {
                 double d0 = this.target.distanceToSqr(this.sabeast);
 
                 if (this.target instanceof Player) {
-                    ((LivingEntity)this.target).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200), this.sabeast);
+                    ((LivingEntity)this.target).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200, 0, true, true), this.sabeast);
                 }
 
                 return !(d0 > (double) 256.0F) && this.sabeast.isLookingAtMe((Player) this.target);
