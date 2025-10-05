@@ -116,6 +116,7 @@ public class Bygone {
         consumer.accept((EntityType<T>) BGEntityTypes.WISP.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.WRAITH.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.SABEAST.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
+        consumer.accept((EntityType<T>) BGEntityTypes.MOOBOO.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
     }
 
     public static void addValidBlocks(BiConsumer<BlockEntityType<?>, Block> consumer) {

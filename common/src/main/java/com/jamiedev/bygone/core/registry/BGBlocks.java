@@ -938,7 +938,7 @@ Blocks ref;
                     .instabreak().sound(SoundType.WEEPING_VINES).pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> SABLOSSOM = registerBlockWithoutBlockItem("sablossom", () ->
             new SablossomBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).randomTicks().noCollission().lightLevel((state) -> {
-                        return 8;
+                        return 15;
                     })
                     .instabreak().sound(SoundType.WEEPING_VINES).pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> SABLE_GRASS_PLANT = registerBlockWithoutBlockItem("sable_grass_plant", () ->

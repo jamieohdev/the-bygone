@@ -18,9 +18,7 @@ public class BGItemGroups {
                 output.accept(BGItems.ANCIENT_HANGING_SIGN.get());
                 output.accept(BGItems.SABLE_SIGN.get());
                 output.accept(BGItems.SABLE_HANGING_SIGN.get());
-                output.accept(BGItems.ORANGE_FUNGI.get());
-                output.accept(BGItems.PINK_FUNGI.get());
-                output.accept(BGItems.PURPLE_FUNGI.get());
+
                 output.accept(BGItems.EXOTIC_ARROW.get());
                 output.accept(BGItems.EXOTIC_PLUMAGE.get());
                 output.accept(BGItems.COELECANTH.get());
@@ -246,20 +244,23 @@ public class BGItemGroups {
                 output.accept(BGBlocks.SHELF_MOLD.get());
                 output.accept(BGBlocks.SHELF_MOLD_MOSS.get());
                 output.accept(BGBlocks.ORANGE_MUSHROOM_BLOCK.get());
-                output.accept(BGBlocks.PINK_MUSHROOM_BLOCK.get());
-                output.accept(BGBlocks.PURPLE_MUSHROOM_BLOCK.get());
                 output.accept(BGBlocks.ORANGE_FUNGAL_BRICKS.get());
                 output.accept(BGBlocks.ORANGE_FUNGAL_STAIRS.get());
                 output.accept(BGBlocks.ORANGE_FUNGAL_SLAB.get());
                 output.accept(BGBlocks.ORANGE_FUNGAL_WALL.get());
+                output.accept(BGItems.ORANGE_FUNGI.get());
+                output.accept(BGBlocks.PINK_MUSHROOM_BLOCK.get());
                 output.accept(BGBlocks.PINK_FUNGAL_BRICKS.get());
                 output.accept(BGBlocks.PINK_FUNGAL_STAIRS.get());
                 output.accept(BGBlocks.PINK_FUNGAL_SLAB.get());
                 output.accept(BGBlocks.PINK_FUNGAL_WALL.get());
+                output.accept(BGItems.PINK_FUNGI.get());
+                output.accept(BGBlocks.PURPLE_MUSHROOM_BLOCK.get());
                 output.accept(BGBlocks.PURPLE_FUNGAL_BRICKS.get());
                 output.accept(BGBlocks.PURPLE_FUNGAL_STAIRS.get());
                 output.accept(BGBlocks.PURPLE_FUNGAL_SLAB.get());
                 output.accept(BGBlocks.PURPLE_FUNGAL_WALL.get());
+                output.accept(BGItems.PURPLE_FUNGI.get());
                 output.accept(BGBlocks.SHELF_ROOTS.get());
                 output.accept(BGBlocks.SHELF_SPROUTS.get());
 
@@ -281,9 +282,6 @@ public class BGItemGroups {
                 output.accept(BGBlocks.LITHINE_ORE.get());
 
                 output.accept(BGBlocks.SABLE_SAPLING.get());
-                output.accept(BGItems.SABLE_BRANCH.get());
-                output.accept(BGItems.THORNY_SABLE_BRANCH.get());
-
                 output.accept(BGBlocks.SABLE_LOG.get());
                 output.accept(BGBlocks.SABLE_LEAVES.get());
                 output.accept(BGBlocks.SABLE_WOOD.get());
@@ -302,6 +300,10 @@ public class BGItemGroups {
                 output.accept(BGBlocks.UMBRAL_SOIL.get());
                 output.accept(BGBlocks.WRIGGLING_SOIL.get());
                 output.accept(BGItems.BUCKET_O_BAITWORMS.get());
+                output.accept(BGItems.SABLE_BRANCH.get());
+                output.accept(BGItems.THORNY_SABLE_BRANCH.get());
+                output.accept(BGItems.SABLE_GRASS.get());
+                output.accept(BGItems.SABLOSSOM.get());
                 output.accept(BGBlocks.SABLE_MOSS_BLOCK.get());
                 output.accept(BGBlocks.SABLE_MOSS_CARPET.get());
                 output.accept(BGBlocks.UMBRAL_GRASS.get());

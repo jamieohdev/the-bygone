@@ -46,6 +46,7 @@
     [
       "bygone:sable_tree",
       "bygone:sable_tree2",
+      "bygone:small_sable_tree",
       "minecraft:glowstone_extra",
       "minecraft:glowstone",
       "minecraft:brown_mushroom_nether",
@@ -84,6 +85,10 @@
     "ambient": [],
     "axolotls": [],
     "creature": [
+
+    ],
+    "misc": [],
+    "monster": [
       {
         "type": "bygone:mooboo",
         "maxCount": 4,
@@ -96,9 +101,6 @@
         "minCount": 1,
         "weight": 13
       }
-    ],
-    "misc": [],
-    "monster": [
     ],
     "underground_water_creature": [],
     "water_ambient": [],
