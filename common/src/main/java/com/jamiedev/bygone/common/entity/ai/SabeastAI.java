@@ -37,8 +37,8 @@ public class SabeastAI {
                 Activity.FIGHT,
                 0,
                 ImmutableList.<BehaviorControl<? super SabeastEntity>>of(
-                        SabeastSetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.6f),
-                        SabeastMeleeAttack.create(30)
+                        SabeastSetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.6f)
+                        //SabeastMeleeAttack.create(30)
                 ),
                 MemoryModuleType.ATTACK_TARGET
         );
