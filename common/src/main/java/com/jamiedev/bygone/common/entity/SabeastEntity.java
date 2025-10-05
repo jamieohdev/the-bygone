@@ -37,6 +37,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -46,11 +47,13 @@ import java.util.function.Predicate;
 public class SabeastEntity extends Monster {
 
     private static final EntityDataAccessor<Boolean> DATA_STANDING_ID;
+    private static final EntityDataAccessor<Boolean> DATA_IS_ATTACKING;
     private int warningSoundTicks;
 
     public AnimationState walkAnimationState = new AnimationState();
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState meleeAnimationState = new AnimationState();
+    public int meleeAttackInterval = 0;
 
     protected static final ImmutableList<SensorType<? extends Sensor<? super SabeastEntity>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY
@@ -119,9 +122,9 @@ public class SabeastEntity extends Monster {
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        
         super.defineSynchedData(builder);
         builder.define(DATA_STANDING_ID, false);
+        builder.define(DATA_IS_ATTACKING, false);
     }
 
     @Override
@@ -163,26 +166,24 @@ public class SabeastEntity extends Monster {
             return d1 > (double) 1.0F - 0.025 / d0 && player.hasLineOfSight(this);
         }
     }
-    
-    private void setupAnimationStates() {
 
+    private void setupAnimationStates() {
         this.idleAnimationState.startIfStopped(this.tickCount);
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F) {
-            this.walkAnimationState.startIfStopped(this.tickCount);
-        } else {
+
+        if (this.entityData.get(DATA_IS_ATTACKING)) {
             this.walkAnimationState.stop();
+            this.meleeAnimationState.startIfStopped(this.tickCount);
+        } else {
+            this.meleeAnimationState.stop();
         }
 
-
-            if (this.attackAnim > 0)
-            {
-                this.meleeAnimationState.start(this.tickCount);
+        if (!this.entityData.get(DATA_IS_ATTACKING)) {
+            if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5E-7F) {
+                this.walkAnimationState.startIfStopped(this.tickCount);
+            } else {
+                this.walkAnimationState.stop();
             }
-            else if (this.attackAnim == 0)
-            {
-                this.meleeAnimationState.stop();
-            }
-
+        }
     }
 
     @Override
@@ -205,6 +206,20 @@ public class SabeastEntity extends Monster {
         }
 
         if (!this.level().isClientSide) {
+            if (this.entityData.get(DATA_IS_ATTACKING)) {
+                this.meleeAttackInterval++;
+                if (this.meleeAttackInterval >= 40) {
+                    this.entityData.set(DATA_IS_ATTACKING, false);
+                    this.meleeAttackInterval = 0;
+                    this.entityData.set(DATA_STANDING_ID, true);
+                }
+            }
+
+            if (this.meleeAttackInterval == 10) {
+                if (this.getTarget() != null) {
+                    this.doHurtTarget(this.getTarget());
+                }
+            }
 
         }
 
@@ -219,6 +234,14 @@ public class SabeastEntity extends Monster {
         this.entityData.set(DATA_STANDING_ID, standing);
     }
 
+    public void setDataIsAttacking(boolean attacking) {
+        this.entityData.set(DATA_IS_ATTACKING, attacking);
+    }
+
+    public boolean getDataIsAttacking() {
+        return this.entityData.get(DATA_IS_ATTACKING);
+    }
+
 
     protected void playWarningSound() {
         if (this.warningSoundTicks <= 0) {
@@ -230,6 +253,7 @@ public class SabeastEntity extends Monster {
 
     static {
         DATA_STANDING_ID = SynchedEntityData.defineId(SabeastEntity.class, EntityDataSerializers.BOOLEAN);
+        DATA_IS_ATTACKING = SynchedEntityData.defineId(SabeastEntity.class, EntityDataSerializers.BOOLEAN);
     }
 
     static class SabeastFreezeWhenLookedAt extends Goal {
@@ -269,36 +293,150 @@ public class SabeastEntity extends Monster {
         }
     }
 
-    class SabeastEntityMeleeAttackGoal extends MeleeAttackGoal {
+    class SabeastEntityMeleeAttackGoal extends Goal {
+        protected final SabeastEntity mob;
+        private final double speedModifier;
+        private final boolean followingTargetEvenIfNotSeen;
+        private Path path;
+        private double pathedTargetX;
+        private double pathedTargetY;
+        private double pathedTargetZ;
+        private int ticksUntilNextPathRecalculation;
+        private int ticksUntilNextAttack;
+        private final int attackInterval = 40;
+        private long lastCanUseCheck;
+        private static final long COOLDOWN_BETWEEN_CAN_USE_CHECKS = 20L;
+
         public SabeastEntityMeleeAttackGoal() {
-            super(SabeastEntity.this, (double)1.25F, true);
+            this.mob = SabeastEntity.this;
+            this.speedModifier = 1.25F;
+            this.followingTargetEvenIfNotSeen = true;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            long i = this.mob.level().getGameTime();
+            if (i - this.lastCanUseCheck < 20L) {
+                return false;
+            } else {
+                this.lastCanUseCheck = i;
+                LivingEntity livingentity = this.mob.getTarget();
+                if (livingentity == null) {
+                    return false;
+                } else if (!livingentity.isAlive()) {
+                    return false;
+                } else {
+                    this.path = this.mob.getNavigation().createPath(livingentity, 0);
+                    return this.path != null ? true : this.mob.isWithinMeleeAttackRange(livingentity);
+                }
+            }
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            LivingEntity livingentity = this.mob.getTarget();
+            if (livingentity == null) {
+                return false;
+            } else if (!livingentity.isAlive()) {
+                return false;
+            } else if (!this.followingTargetEvenIfNotSeen) {
+                return !this.mob.getNavigation().isDone();
+            } else {
+                return !this.mob.isWithinRestriction(livingentity.blockPosition())
+                        ? false
+                        : !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player)livingentity).isCreative();
+            }
+        }
+
+        @Override
+        public void start() {
+            this.mob.getNavigation().moveTo(this.path, this.speedModifier);
+            this.mob.setAggressive(true);
+            this.ticksUntilNextPathRecalculation = 0;
+            this.ticksUntilNextAttack = 0;
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity livingentity = this.mob.getTarget();
+            if (livingentity != null) {
+                this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
+                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity))
+                        && this.ticksUntilNextPathRecalculation <= 0
+                        && (
+                        this.pathedTargetX == 0.0 && this.pathedTargetY == 0.0 && this.pathedTargetZ == 0.0
+                                || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0
+                                || this.mob.getRandom().nextFloat() < 0.05F
+                )) {
+                    this.pathedTargetX = livingentity.getX();
+                    this.pathedTargetY = livingentity.getY();
+                    this.pathedTargetZ = livingentity.getZ();
+                    this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
+                    double d0 = this.mob.distanceToSqr(livingentity);
+                    if (d0 > 1024.0) {
+                        this.ticksUntilNextPathRecalculation += 10;
+                    } else if (d0 > 256.0) {
+                        this.ticksUntilNextPathRecalculation += 5;
+                    }
+
+                    if (!this.mob.getNavigation().moveTo(livingentity, this.speedModifier)) {
+                        this.ticksUntilNextPathRecalculation += 15;
+                    }
+
+                    this.ticksUntilNextPathRecalculation = this.adjustedTickDelay(this.ticksUntilNextPathRecalculation);
+                }
+
+                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
+                this.checkAndPerformAttack(livingentity);
+            }
         }
 
         protected void checkAndPerformAttack(LivingEntity target) {
-            if (this.canPerformAttack(target)) {
-                this.resetAttackCooldown();
-                this.mob.doHurtTarget(target);
+            if (this.canPerformAttack(target) && !this.mob.getDataIsAttacking()) {
+                this.mob.setDataIsAttacking(true);
                 SabeastEntity.this.setStanding(false);
-            } else if (this.mob.distanceToSqr(target) < (double)((target.getBbWidth() + 3.0F) * (target.getBbWidth() + 3.0F))) {
-                if (this.isTimeToAttack()) {
-                    SabeastEntity.this.setStanding(false);
-                    this.resetAttackCooldown();
-                }
-
-                if (this.getTicksUntilNextAttack() <= 10) {
-                    SabeastEntity.this.setStanding(true);
-                    SabeastEntity.this.playWarningSound();
-                }
-            } else {
                 this.resetAttackCooldown();
-                SabeastEntity.this.setStanding(false);
             }
 
         }
 
         public void stop() {
             SabeastEntity.this.setStanding(false);
-            super.stop();
+            LivingEntity livingentity = this.mob.getTarget();
+            if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
+                this.mob.setTarget(null);
+            }
+            this.mob.setDataIsAttacking(false);
+            this.mob.setAggressive(false);
+            this.mob.getNavigation().stop();
         }
+
+        protected void resetAttackCooldown() {
+            this.ticksUntilNextAttack = this.adjustedTickDelay(40);
+        }
+
+        protected boolean isTimeToAttack() {
+            return this.ticksUntilNextAttack <= 0;
+        }
+
+        protected boolean canPerformAttack(LivingEntity entity) {
+            return this.isTimeToAttack() && this.mob.isWithinMeleeAttackRange(entity) && this.mob.getSensing().hasLineOfSight(entity);
+        }
+
+        protected int getTicksUntilNextAttack() {
+            return this.ticksUntilNextAttack;
+        }
+
+        protected int getAttackInterval() {
+            return this.adjustedTickDelay(20);
+        }
+
     }
 }
