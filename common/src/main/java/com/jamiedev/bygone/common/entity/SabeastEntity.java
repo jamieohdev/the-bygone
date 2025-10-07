@@ -5,6 +5,7 @@ import com.jamiedev.bygone.common.entity.ai.AvoidBlockGoal;
 import com.jamiedev.bygone.common.entity.ai.SabeastAI;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -185,6 +186,11 @@ public class SabeastEntity extends Monster {
             }
         }
     }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState block) {
+    }
+
 
     @Override
     public boolean hurt(DamageSource source, float amount) {

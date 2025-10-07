@@ -37,17 +37,6 @@ public class SablossomBlock extends GrowingPlantHeadBlock
         return NetherVines.getBlocksToGrowWhenBonemealed(p_222649_);
     }
 
-    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        Vec3 vec3 = new Vec3((double)0.25F, (double)0.05F, (double)0.25F);
-        if (entity instanceof LivingEntity livingentity) {
-            if (livingentity.hasEffect(MobEffects.MOVEMENT_SPEED)) {
-                vec3 = new Vec3((double)0.5F, (double)0.25F, (double)0.5F);
-            }
-        }
-
-        entity.makeStuckInBlock(state, vec3);
-    }
-
     protected Block getBodyBlock() {
         return BGBlocks.SABLE_GRASS_PLANT.get();
     }
