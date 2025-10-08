@@ -11,10 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bygone:megalith_face"
+          "name": "bygone:gumbo_pot"
         }
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "bygone:blocks/gumbo_pot"
 }

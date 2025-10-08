@@ -1,4 +1,5 @@
 {
   "replace": false,
-  "values": ["bygone:ancient_leaves"]
+  "values": ["bygone:ancient_leaves",
+    "bygone:sable_leaves"]
 }

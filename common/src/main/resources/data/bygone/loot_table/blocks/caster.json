@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bygone:megalith_face"
+          "name": "bygone:caster"
         }
       ],
       "rolls": 1.0

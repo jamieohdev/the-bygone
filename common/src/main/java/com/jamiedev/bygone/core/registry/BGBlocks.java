@@ -260,7 +260,6 @@ Blocks ref;
             new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.CLAYSTONE_BRICKS.get()).strength(2.0f)));
 
     public static final Supplier<Block> MOSSY_CLAYSTONE = registerBlock("mossy_claystone", () -> new MossyClaystoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)));
-    public static final Supplier<Block> GRASSY_CLAYSTONE = registerBlockWithoutBlockItem("grassy_claystone", () -> new MossyClaystoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)));
     public static final Supplier<Block> ANCIENT_ROOTS = registerBlock("ancient_roots", () ->
             new AncientRootBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GLOW_LICHEN).instrument(NoteBlockInstrument.BASS).strength(0.7F).sound(SoundType.MANGROVE_ROOTS).noOcclusion().isSuffocating(Blocks::never).isViewBlocking(Blocks::never).noOcclusion().ignitedByLava()));
 

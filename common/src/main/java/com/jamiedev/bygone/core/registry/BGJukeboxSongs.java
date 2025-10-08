@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 
 public class BGJukeboxSongs
 {
-    static ResourceKey<JukeboxSong> THIRTEEN = create("shuffle");
+    static ResourceKey<JukeboxSong> SHUFFLE = create("shuffle");
 
     public static <T extends BlockEntity> Supplier<BlockEntityType<T>> register(String name, Supplier<BlockEntityType<T>> type) {
         return JinxedRegistryHelper.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, Bygone.MOD_ID, name, type);
@@ -41,6 +41,6 @@ public class BGJukeboxSongs
     }
 
     static void bootstrap(BootstrapContext<JukeboxSong> context) {
-        register(context, THIRTEEN, BGSoundEvents.MUSIC_DISC_SHUFFLE, 178, 1);
+        register(context, SHUFFLE, BGSoundEvents.MUSIC_DISC_SHUFFLE, 178, 1);
     }
 }

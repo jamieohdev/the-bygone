@@ -23,7 +23,12 @@
       "sound": "minecraft:ambient.nether_wastes.mood",
       "tick_delay": 6000
     },
-
+    "particle": {
+      "options": {
+        "type": "bygone:sable_leaves"
+      },
+      "probability": 0.004
+    },
     "music": {
       "max_delay": 24000,
       "min_delay": 12000,
@@ -73,8 +78,8 @@
   "has_precipitation": false,
   "spawn_costs": {
     "bygone:mooboo": {
-      "charge": 0.6,
-      "energy_budget": 0.18
+      "charge": 0.4,
+      "energy_budget": 0.2
     },
     "bygone:sabeast": {
       "charge": 0.5,
