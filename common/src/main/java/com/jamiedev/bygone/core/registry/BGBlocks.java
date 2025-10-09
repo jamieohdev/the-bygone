@@ -16,6 +16,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
@@ -946,6 +947,9 @@ Blocks ref;
 
     public static  final Supplier<Block> WRIGGLING_SOIL = registerBlock("wriggling_soil", () ->
             new WrigglingSoilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+    public static  final Supplier<Block>  SUSPICIOUS_CLAYSTONE = registerBlock("suspicious_claystone",() -> new BrushableBlock(CLAYSTONE.get(), SoundEvents.BRUSH_GRAVEL,
+            SoundEvents.BRUSH_GRAVEL_COMPLETED, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE)
+            .strength(0.25F).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY)));
 
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {

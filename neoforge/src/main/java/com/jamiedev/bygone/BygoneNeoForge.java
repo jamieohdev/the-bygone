@@ -1,6 +1,8 @@
 package com.jamiedev.bygone;
 
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.jamiedev.bygone.client.BygoneClientNeoForge;
 import com.jamiedev.bygone.common.block.entity.GumboPotBlockEntity;
 import com.jamiedev.bygone.common.util.ServerTickHandler;
@@ -17,6 +19,8 @@ import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -32,6 +36,8 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.registries.RegisterEvent;
+
+import java.util.Set;
 
 @Mod(Bygone.MOD_ID)
 public class BygoneNeoForge {
@@ -458,6 +464,12 @@ public class BygoneNeoForge {
     void setup(FMLCommonSetupEvent event) {
         // TODO should these be enqueued (Startraveler)
         event.enqueueWork(() -> {
+
+            Set<Block> validBlocks = Sets.newHashSet(BlockEntityType.BRUSHABLE_BLOCK.validBlocks);
+            validBlocks.addAll(Sets.newHashSet(BGBlocks.SUSPICIOUS_CLAYSTONE.get()));
+            BlockEntityType.BRUSHABLE_BLOCK.validBlocks = ImmutableSet.copyOf(validBlocks);
+
+
             BGDataComponentsNeoForge.init();
             Bygone.registerStrippables();
             Bygone.addFlammable();

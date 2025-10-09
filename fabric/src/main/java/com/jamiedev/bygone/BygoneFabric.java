@@ -1,5 +1,7 @@
 package com.jamiedev.bygone;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.jamiedev.bygone.common.block.entity.GumboPotBlockEntity;
 import com.jamiedev.bygone.common.util.ServerTickHandler;
 import com.jamiedev.bygone.common.util.VexDeathTracker;
@@ -29,8 +31,11 @@ import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
+
+import java.util.Set;
 
 public class BygoneFabric implements ModInitializer {
 
@@ -423,6 +428,11 @@ public class BygoneFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
+
+        Set<Block> validBlocks = Sets.newHashSet(BlockEntityType.BRUSHABLE_BLOCK.validBlocks);
+        validBlocks.addAll(Sets.newHashSet(BGBlocks.SUSPICIOUS_CLAYSTONE.get()));
+        BlockEntityType.BRUSHABLE_BLOCK.validBlocks = ImmutableSet.copyOf(validBlocks);
+
         initEvents();
         BGMobEffectsFabric.init();
         BGDataComponentsFabric.init();
