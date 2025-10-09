@@ -1,7 +1,7 @@
 {
-  "": "-|rivers_lower|+0.075",
+  "": "-|rivers_lower|+0.09",
   "type": "minecraft:add",
-  "argument1": 0.075,
+  "argument1": 0.09,
   "argument2": {
     "type": "minecraft:mul",
     "argument1": -1,

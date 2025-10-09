@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.entity;
 
+import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -53,6 +54,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -113,14 +115,19 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 30.0).add(Attributes.FOLLOW_RANGE, 20.0).add(Attributes.MOVEMENT_SPEED, 0.25).add(Attributes.ATTACK_DAMAGE, 8.0);
     }
 
-    public static boolean canSpawn(EntityType<FungalParentEntity> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, @NotNull RandomSource random) {
-        Holder<Biome> registryEntry = world.getBiome(pos);
-        if (!registryEntry.is(BiomeTags.POLAR_BEARS_SPAWN_ON_ALTERNATE_BLOCKS)) {
-            return checkAnimalSpawnRules(type, world, spawnReason, pos, random);
-        } else {
-            return isBrightEnoughToSpawn(world, pos) && world.getBlockState(pos.below()).is(BlockTags.POLAR_BEARS_SPAWNABLE_ON_ALTERNATE);
+    public static boolean canSpawn(EntityType<FungalParentEntity> type,
+                                   LevelAccessor serverWorldAccess,
+        MobSpawnType spawnReason,
+        BlockPos blockPos,
+        RandomSource random
+    ) {
+            return serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_FUNGUS.get())
+                    || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_MOSS.get())
+                    || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_BLOCK.get())
+                    || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_MYCELIUM.get());
         }
-    }
+
+
 
     @Override
     public void readAdditionalSaveData(CompoundTag nbt) {
@@ -260,6 +267,13 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
     static {
         WARNING = SynchedEntityData.defineId(FungalParentEntity.class, EntityDataSerializers.BOOLEAN);
         ANGER_TIME_RANGE = TimeUtil.rangeOfSeconds(20, 39);
+    }
+
+    public static <T extends Mob> boolean canSpawn(EntityType<T> tEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
+        return serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_FUNGUS.get())
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_MOSS.get())
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_BLOCK.get())
+                || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_MYCELIUM.get());
     }
 
     private class AttackGoal extends MeleeAttackGoal {

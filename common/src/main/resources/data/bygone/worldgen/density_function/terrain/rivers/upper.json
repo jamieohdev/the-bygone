@@ -9,7 +9,7 @@
       "type": "minecraft:y_clamped_gradient",
       "from_y": 120,
       "to_y": 125,
-      "from_value": -0.075,
+      "from_value": -0.09,
       "to_value": 0
     },
     "argument2": "bygone:terrain/rivers/transformed_upper"

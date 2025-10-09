@@ -44,8 +44,6 @@
     [],
     [],
     [
-      "minecraft:monster_room",
-      "minecraft:monster_room_deep",
       "bygone:small_cloud"
     ],
     [],
@@ -86,13 +84,25 @@
     ]
   ],
   "has_precipitation": true,
-  "spawn_costs": {},
+  "spawn_costs": {
+    "bygone:fungal_parent": {
+      "charge": 0.5,
+      "energy_budget": 0.1
+    }
+  },
   "spawners": {
     "ambient": [],
     "axolotls": [],
     "creature": [],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "bygone:fungal_parent",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 50
+      }
+    ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

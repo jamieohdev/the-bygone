@@ -54,6 +54,15 @@
         "processors": "minecraft:empty",
         "element_type": "minecraft:single_pool_element"
       }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:village/huts_large/hut_large_6",
+        "projection": "rigid",
+        "processors": "minecraft:empty",
+        "element_type": "minecraft:single_pool_element"
+      }
     }
   ]
 }

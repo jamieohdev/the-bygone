@@ -38,6 +38,7 @@ public class BGItemGroups {
                 output.accept(BGItems.PLAGA.get());
                 output.accept(BGItems.SPEED_WHEAT.get());
                 output.accept(BGBlocks.SPRINKER.get());
+                output.accept(BGBlocks.GUMBO_POT.get());
                 output.accept(BGItems.BIG_BEAK_SPAWN_EGG.get());
                 output.accept(BGItems.COELACANTH_SPAWN_EGG.get());
                 output.accept(BGItems.COPPERBUG_SPAWN_EGG.get());

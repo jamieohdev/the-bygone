@@ -19,6 +19,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Evoker;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.Item;
@@ -116,7 +117,8 @@ public class Bygone {
         consumer.accept((EntityType<T>) BGEntityTypes.WISP.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.WRAITH.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.SABEAST.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
-        consumer.accept((EntityType<T>) BGEntityTypes.MOOBOO.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
+        consumer.accept((EntityType<T>) BGEntityTypes.MOOBOO.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LithyEntity::canSpawn);
+        consumer.accept((EntityType<T>) BGEntityTypes.FUNGAL_PARENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, FungalParentEntity::canSpawn);
     }
 
     public static void addValidBlocks(BiConsumer<BlockEntityType<?>, Block> consumer) {
