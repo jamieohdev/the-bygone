@@ -192,7 +192,7 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+    public @NotNull ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
         return new ItemStack(this.getBodyBlock());
     }
 

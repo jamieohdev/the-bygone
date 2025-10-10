@@ -9,17 +9,21 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.item.Item.Properties;
 
@@ -127,6 +131,9 @@ public class BGItems
     public static final Supplier<Item> NECTAUR_SPAWN_EGG = registerItem("nectaur_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.NECTAUR.get(), 0x50692C, 0x94262B, new Item.Properties()));
     public static final Supplier<Item> WRAITH_SPAWN_EGG = registerItem("wraith_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.WRAITH.get(), 0x22244A, 0xBAEFED, new Item.Properties()));
 
+    public static final Supplier<Item> COELECANTH_BUCKET = registerItem((String)"coelacanth_bucket", () ->
+            new MobBucketItem(BGEntityTypes.COELACANTH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties())
+                    .stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
 
 
     public static final Supplier<Item> ARCANE_CORE = registerItem("arcane_core", () -> new Item(new Item.Properties().fireResistant()));
@@ -165,6 +172,9 @@ public class BGItems
 
     public static final Supplier<Item> SABLE_GRASS  = registerItem("sable_grass", () -> new ItemNameBlockItem(BGBlocks.SABLE_GRASS.get(), (new Item.Properties())));
     public static final Supplier<Item> SABLOSSOM  = registerItem("sablossom", () -> new ItemNameBlockItem(BGBlocks.SABLOSSOM.get(), (new Item.Properties())));
+
+    public static final Supplier<Item> ROASTED_SABLE_NUT = registerItem("roasted_sable_nut", () -> new Item(new Item.Properties().food(Foods.BAKED_POTATO)));
+
 
     public static final Supplier<Item> MUSIC_DISC_SHUFFLE = registerItem("music_disc_shuffle",  () -> new Item((new Item.Properties()).stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(BGJukeboxSongs.SHUFFLE)));
 

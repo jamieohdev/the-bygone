@@ -23,6 +23,7 @@ public class BGItemGroups {
                 output.accept(BGItems.EXOTIC_PLUMAGE.get());
                 output.accept(BGItems.COELECANTH.get());
                 output.accept(BGItems.COELECANTH_COOKED.get());
+                output.accept(BGItems.COELECANTH_BUCKET.get());
                 output.accept(BGItems.BEIGE_SLICE.get());
                 output.accept(BGItems.MUAVE_SLICE.get());
                 output.accept(BGItems.VERDANT_SLICE.get());
@@ -305,6 +306,8 @@ public class BGItemGroups {
                 output.accept(BGItems.THORNY_SABLE_BRANCH.get());
                 output.accept(BGItems.SABLE_GRASS.get());
                 output.accept(BGItems.SABLOSSOM.get());
+                output.accept(BGBlocks.SABLENUT.get());
+                output.accept(BGItems.ROASTED_SABLE_NUT.get());
                 output.accept(BGBlocks.SABLE_MOSS_BLOCK.get());
                 output.accept(BGBlocks.SABLE_MOSS_CARPET.get());
                 output.accept(BGBlocks.UMBRAL_GRASS.get());

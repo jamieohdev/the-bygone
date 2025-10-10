@@ -25,7 +25,7 @@ public class BGBlockEntities {
     public static Supplier<BlockEntityType<BlemishCatalystBlockEntity>> BLEMISH_CATALYST;
     public static Supplier<BlockEntityType<AmphoraBlockEntity>> AMPHORA;
 
-    public static Supplier<BlockEntityType<BrushableBlockEntity>> BRUSHABLE_BLOCK;
+    public  static Supplier<BlockEntityType<DoguEntity>> DOGU;
 
     public static Supplier<BlockEntityType<MegalithTotemEntity>> MEGALITH_TOTEM;
 
@@ -75,5 +75,10 @@ public class BGBlockEntities {
 
         GUMBO_POT = register("gumbo_pot", () ->
                 BlockEntityType.Builder.of(GumboPotBlockEntity::new, BGBlocks.GUMBO_POT.get()).build(null));
+
+         DOGU = register("dogu", () ->
+                BlockEntityType.Builder.of(DoguEntity::new,
+                                BGBlocks.DOGU.get(), BGBlocks.DOGU_ALT.get())
+                        .build(null));
     }
 }

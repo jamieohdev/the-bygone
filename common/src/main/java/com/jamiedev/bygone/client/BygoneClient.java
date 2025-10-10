@@ -79,6 +79,8 @@ public class BygoneClient {
         consumer.accept(BGBlocks.SABLOSSOM.get(), RenderType.cutout());
         consumer.accept(BGBlocks.SABLE_GRASS.get(), RenderType.cutout());
         consumer.accept(BGBlocks.SABLE_GRASS_PLANT.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SABLENUT.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.CHIPPED_SABLENUT.get(), RenderType.cutout());
 
         consumer.accept(BGBlocks.UMBRAL_GRASS.get(), RenderType.cutout());
         consumer.accept(BGBlocks.TALL_UMBRAL_GRASS.get(), RenderType.cutout());
@@ -164,6 +166,9 @@ public class BygoneClient {
         consumer.accept(BGBlocks.TARNISHED_VERDIGRIS_COG.get(), RenderType.cutout());
         consumer.accept(BGBlocks.BROKEN_VERDIGRIS_COG.get(), RenderType.cutout());
         consumer.accept(BGBlocks.RAMSHACKLED_VERDIGRIS_COG.get(), RenderType.cutout());
+
+        consumer.accept(BGBlocks.DOGU.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DOGU_ALT.get(), RenderType.cutout());
     }
 
     public static void createEntityRenderers() {

@@ -51,6 +51,7 @@ public class Bygone {
         BGItems.init();
         BGEntityTypes.postInit();
         BGBiomes.init();
+        BGBlockProperties.init();
         BGItemGroups.register();
         BGFishingTables.init();
     }

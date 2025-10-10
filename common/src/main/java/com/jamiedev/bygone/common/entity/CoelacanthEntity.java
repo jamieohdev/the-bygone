@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.entity;
 
+import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -42,6 +43,8 @@ public class CoelacanthEntity extends AbstractSchoolingFish
         this.lookControl = new LookControl(this);
     }
 
+
+
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4.0);
@@ -77,7 +80,7 @@ public class CoelacanthEntity extends AbstractSchoolingFish
 
     @Override
     public ItemStack getBucketItemStack() {
-        return Items.WATER_BUCKET.getDefaultInstance();
+        return BGItems.COELECANTH_BUCKET.get().getDefaultInstance();
     }
 
     @Override

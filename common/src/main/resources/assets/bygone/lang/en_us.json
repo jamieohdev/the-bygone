@@ -64,6 +64,7 @@
   "item.bygone.scale_boots": "Scale Boots",
   "item.bygone.coelacanth": "Coelacanth",
   "item.bygone.cooked_coelacanth": "'Cooked' Coelacanth",
+  "item.bygone.coelacanth_bucket": "Bucket of Coelacanth",
   "item.bygone.amaranth_grain": "Amaranth Grain",
   "item.bygone.amaranth_loaf": "Amaranth Loaf",
   "item.bygone.amaranth_seeds": "Amaranth Seeds",
@@ -395,6 +396,8 @@
   "item.bygone.sable_grass": "Sable Grass",
   "block.bygone.sablossom": "Sablossom",
   "item.bygone.sablossom": "Sablossom",
+  "block.bygone.sable_nut": "Sable Nut",
+  "item.bygone.roasted_sable_nut": "Roasted Sable Nut",
   
   "block.bygone.amphora": "Amphora",
   "block.bygone.black_amphora": "Black Amphora",
