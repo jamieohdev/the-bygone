@@ -147,6 +147,14 @@
     "sounds": ["bygone:ambience/sable"],
     "subtitle": "subtitles.ambient.sable_forest.additions"
   },
+  "ambient.sable_forest.additions": {
+    "sounds": [
+      "bygone:ambience/sable_forest_1",
+      "bygone:ambience/sable_forest_2",
+      "bygone:ambience/sable_forest_3"
+    ],
+    "subtitle": "subtitles.ambient.sable_forest.additions"
+  },
   "ambience.volcanic1": {
     "category": "ambient",
     "subtitle": "subtitles.ambient.bygone",
@@ -448,17 +456,31 @@
   "entity.mooboo.ambient": {
     "sounds": [
       "bygone:entity/mooboo/idle1",
+      "bygone:entity/mooboo/idle2",
       "bygone:entity/mooboo/idle3",
       "bygone:entity/mooboo/idle4"
     ],
     "subtitle": "subtitles.entity.mooboo.ambient"
   },
   "entity.mooboo.hurt": {
-    "sounds": ["bygone:entity/mooboo/hurt1", "bygone:entity/mooboo/hurt3"],
+    "sounds": [
+      "bygone:entity/mooboo/hurt1",
+      "bygone:entity/mooboo/hurt3"
+    ],
     "subtitle": "subtitles.entity.mooboo.hurt"
   },
+  "entity.mooboo.milk": {
+    "sounds": [
+      "bygone:entity/mooboo/milking1",
+      "bygone:entity/mooboo/milking2",
+      "bygone:entity/mooboo/milking3"
+    ],
+    "subtitle": "subtitles.entity.mooboo.milk"
+  },
   "entity.mooboo.death": {
-    "sounds": ["bygone:entity/mooboo/hurt3"],
+    "sounds": [
+      "bygone:entity/mooboo/death"
+    ],
     "subtitle": "subtitles.entity.mooboo.death"
   },
 

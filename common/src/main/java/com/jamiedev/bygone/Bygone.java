@@ -18,10 +18,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.entity.monster.Evoker;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.projectile.EvokerFangs;
-import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -202,7 +198,7 @@ public class Bygone {
     }
 
     protected static void zombify(Cow cow) {
-        MoobooEntity2 moobooEntity = cow.convertTo(BGEntityTypes.MOOBOO.get(), true);
+        MoobooEntity moobooEntity = cow.convertTo(BGEntityTypes.MOOBOO.get(), true);
         if (moobooEntity != null) {
             moobooEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0));
         }

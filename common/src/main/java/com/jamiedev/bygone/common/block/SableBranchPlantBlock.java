@@ -30,10 +30,10 @@ public class SableBranchPlantBlock extends GrowingPlantBodyBlock {
     }
 
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        Vec3 vec3 = new Vec3((double)0.25F, (double)0.05F, (double)0.25F);
+        Vec3 vec3 = new Vec3((double)0.85F, (double)0.75F, (double)0.85F);
         if (entity instanceof LivingEntity livingentity) {
             if (livingentity.hasEffect(MobEffects.MOVEMENT_SPEED)) {
-                vec3 = new Vec3((double)0.5F, (double)0.25F, (double)0.5F);
+                vec3 = new Vec3((double)0.95F, (double)0.85F, (double)0.95F);
             }
         }
 

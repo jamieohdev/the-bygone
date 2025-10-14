@@ -10,8 +10,8 @@
   "downfall": 0.0,
   "effects": {
     "additions_sound": {
-      "sound": "minecraft:ambient.nether_wastes.additions",
-      "tick_chance": 0.0111
+      "sound": "bygone:ambient.sable_forest.additions",
+      "tick_chance": 0.0009
     },
     "ambient_sound": "bygone:ambient.sable_forest.loop",
     "fog_color": 3237964,
@@ -88,10 +88,22 @@
     }
   },
   "spawners": {
-    "ambient": [],
+    "ambient": [
+      {
+        "type": "bygone:mooboo",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 11
+      }
+    ],
     "axolotls": [],
     "creature": [
-
+      {
+        "type": "bygone:mooboo",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 11
+      }
     ],
     "misc": [],
     "monster": [

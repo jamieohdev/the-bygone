@@ -27,7 +27,9 @@ public class BGSoundEvents
     public static final ResourceLocation MUSIC_PRIMORDIALOCEAN_ADDITIONS = id("music.bygone.primordial_ocean");
     public static final ResourceLocation AMBIENT_SHELFHOLLOW_ADDITIONS = id("ambient.shelfhollow.additions");
 
-    public static final ResourceLocation AMBIENT_SABLE_FOREST_ADDITIONS = id("ambient.sable_forest.loop");
+    public static final ResourceLocation AMBIENT_SABLE_FOREST_LOOPS = id("ambient.sable_forest.loop");
+    public static SoundEvent AMBIENT_SABLE_FOREST_LOOPS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_SABLE_FOREST_LOOPS);
+    public static final ResourceLocation AMBIENT_SABLE_FOREST_ADDITIONS = id("ambient.sable_forest.additions");
     public static SoundEvent AMBIENT_SABLE_FOREST_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(AMBIENT_SABLE_FOREST_ADDITIONS);
 
 
@@ -54,6 +56,7 @@ public class BGSoundEvents
     public static final ResourceLocation ENTITY_MOOBOO_AMBIENT = id("entity.mooboo.ambient");
     public static final ResourceLocation ENTITY_MOOBOO_HURT = id("entity.mooboo.hurt");
     public static final ResourceLocation ENTITY_MOOBOO_DEATH = id("entity.mooboo.death");
+    public static final ResourceLocation ENTITY_MOOBOO_MILK = id("entity.mooboo.milk");
 
     public static final ResourceLocation ENTITY_FUNGUSPARENT_AMBIENT = id("entity.fungus_parent.ambient");
     public static final ResourceLocation ENTITY_FUNGUSPARENT_BABY_AMBIENT = id("entity.fungus_parent.ambient_baby");
@@ -154,6 +157,7 @@ public class BGSoundEvents
     public static SoundEvent MOOBOO_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MOOBOO_AMBIENT);
     public static SoundEvent MOOBOO_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MOOBOO_HURT);
     public static SoundEvent MOOBOO_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MOOBOO_DEATH);
+    public static SoundEvent MOOBOO_MILK_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MOOBOO_MILK);
 
     public static SoundEvent FUNGUSPARENT_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_FUNGUSPARENT_AMBIENT);
     public static SoundEvent FUNGUSPARENT_AMBIENT_BABY_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_FUNGUSPARENT_BABY_AMBIENT);
@@ -207,6 +211,7 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_SHELFHOLLOW_ADDITIONS, BGSoundEvents.AMBIENT_SHELFHOLLOW_ADDITIONS_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_SABLE_FOREST_ADDITIONS, BGSoundEvents.AMBIENT_SABLE_FOREST_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_SABLE_FOREST_LOOPS, BGSoundEvents.AMBIENT_SABLE_FOREST_LOOPS_EVENT);
 
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.MUSIC_ALPHAHANG_ADDITIONS, BGSoundEvents.MUSIC_ALPHAHANG_ADDITIONS_EVENT);
@@ -232,7 +237,8 @@ public class BGSoundEvents
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MOOBOO_AMBIENT, BGSoundEvents.MOOBOO_AMBIENT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MOOBOO_HURT, BGSoundEvents.MOOBOO_HURT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MOOBOO_DEATH, BGSoundEvents.MOOBOO_DEATH_ADDITIONS_EVENT);
-        
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MOOBOO_MILK, BGSoundEvents.MOOBOO_MILK_ADDITIONS_EVENT);
+
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_FUNGUSPARENT_AMBIENT, BGSoundEvents.FUNGUSPARENT_AMBIENT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_FUNGUSPARENT_HURT, BGSoundEvents.FUNGUSPARENT_HURT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_FUNGUSPARENT_DEATH, BGSoundEvents.FUNGUSPARENT_DEATH_ADDITIONS_EVENT);

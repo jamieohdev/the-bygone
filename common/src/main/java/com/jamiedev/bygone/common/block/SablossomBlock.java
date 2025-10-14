@@ -30,7 +30,7 @@ public class SablossomBlock extends GrowingPlantHeadBlock
     }
 
     public SablossomBlock(BlockBehaviour.Properties p) {
-        super(p, Direction.UP, SHAPE, false, 0.1);
+        super(p, Direction.UP, SHAPE, false, 0.00005);
     }
 
     protected int getBlocksToGrowWhenBonemealed(RandomSource p_222649_) {
@@ -61,5 +61,10 @@ public class SablossomBlock extends GrowingPlantHeadBlock
         BlockState blockstate = level.getBlockState(blockpos);
         return !this.canAttachTo(blockstate) ? false : blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) || blockstate.is(BGBlocks.SABLE_LEAVES.get())
                 || blockstate.isFaceSturdy(level, blockpos, this.growthDirection);
+    }
+
+    @Override
+    public boolean isMaxAge(BlockState state) {
+        return (Integer)state.getValue(AGE) == 5;
     }
 }

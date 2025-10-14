@@ -25,7 +25,7 @@ public class SableBranchBlock extends GrowingPlantHeadBlock {
     }
 
     public SableBranchBlock(BlockBehaviour.Properties p_154864_) {
-        super(p_154864_, Direction.UP, SHAPE, false, 0.1);
+        super(p_154864_, Direction.UP, SHAPE, false, 0.00005);
     }
 
     protected int getBlocksToGrowWhenBonemealed(RandomSource p_222649_) {
@@ -33,10 +33,10 @@ public class SableBranchBlock extends GrowingPlantHeadBlock {
     }
 
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        Vec3 vec3 = new Vec3((double)0.25F, (double)0.05F, (double)0.25F);
+        Vec3 vec3 = new Vec3((double)0.85F, (double)0.75F, (double)0.85F);
         if (entity instanceof LivingEntity livingentity) {
             if (livingentity.hasEffect(MobEffects.MOVEMENT_SPEED)) {
-                vec3 = new Vec3((double)0.5F, (double)0.25F, (double)0.5F);
+                vec3 = new Vec3((double)0.95F, (double)0.85F, (double)0.95F);
             }
         }
 
@@ -57,6 +57,11 @@ public class SableBranchBlock extends GrowingPlantHeadBlock {
         BlockState blockstate = level.getBlockState(blockpos);
         return this.canAttachTo(blockstate) && (blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) || blockstate.is(BGBlocks.SABLE_LEAVES.get())
                 || blockstate.isFaceSturdy(level, blockpos, this.growthDirection));
+    }
+
+    @Override
+    public boolean isMaxAge(BlockState state) {
+        return (Integer)state.getValue(AGE) == 5;
     }
 }
 

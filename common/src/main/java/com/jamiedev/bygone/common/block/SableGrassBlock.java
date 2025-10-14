@@ -4,6 +4,7 @@ import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -22,28 +23,18 @@ public class SableGrassBlock extends GrowingPlantHeadBlock
 {
     public static final MapCodec<SableGrassBlock> CODEC = simpleCodec(SableGrassBlock::new);
     public static final VoxelShape SHAPE = Block.box((double)4.0F, (double)0.0F, (double)4.0F, (double)12.0F, (double)15.0F, (double)12.0F);
+    double growPerTickProbability;
 
     public MapCodec<SableGrassBlock> codec() {
         return CODEC;
     }
 
     public SableGrassBlock(BlockBehaviour.Properties p_154864_) {
-        super(p_154864_, Direction.UP, SHAPE, false, 0.1);
+        super(p_154864_, Direction.UP, SHAPE, false, 0.00005);
     }
 
     protected int getBlocksToGrowWhenBonemealed(RandomSource p_222649_) {
         return NetherVines.getBlocksToGrowWhenBonemealed(p_222649_);
-    }
-
-    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        Vec3 vec3 = new Vec3((double)0.25F, (double)0.05F, (double)0.25F);
-        if (entity instanceof LivingEntity livingentity) {
-            if (livingentity.hasEffect(MobEffects.MOVEMENT_SPEED)) {
-                vec3 = new Vec3((double)0.5F, (double)0.25F, (double)0.5F);
-            }
-        }
-
-        entity.makeStuckInBlock(state, vec3);
     }
 
     protected Block getBodyBlock() {
@@ -61,4 +52,21 @@ public class SableGrassBlock extends GrowingPlantHeadBlock
         return !this.canAttachTo(blockstate) ? false : blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) || blockstate.is(BGBlocks.SABLE_LEAVES.get())
                 || blockstate.isFaceSturdy(level, blockpos, this.growthDirection);
     }
+
+    @Override
+    public boolean isMaxAge(BlockState state) {
+        return (Integer)state.getValue(AGE) == 5;
+    }
+
+    /**
+    @Override
+    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if ((Integer)state.getValue(AGE) < 5 && random.nextDouble() < this.growPerTickProbability) {
+            BlockPos blockpos = pos.relative(this.growthDirection);
+            if (this.canGrowInto(level.getBlockState(blockpos))) {
+                level.setBlockAndUpdate(blockpos, this.getGrowIntoState(state, level.random));
+            }
+        }
+
+    }**/
 }

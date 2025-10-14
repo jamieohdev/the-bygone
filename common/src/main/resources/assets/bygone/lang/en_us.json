@@ -483,6 +483,7 @@
   "subtitles.ambient.amber_desert.additions": "Ancient wind howls...",
   "subtitles.ambient.primordial_ocean.additions": "",
   "subtitles.ambient.shelfhollows.additions": "Fungal noises ring...",
+  "subtitles.ambient.sable_forest.additions": "",
 
   "subtitles.entity.bigbeak.step": "Footsteps",
   "subtitles.entity.bigbeak.jump": "Big Beak jumps",
@@ -533,6 +534,11 @@
   "subtitles.entity.lithy.trip": "Lithy trips",
   "subtitles.entity.lithy.hurt": "Lithy hurts",
   "subtitles.entity.lithy.death": "Lithy dies",
+
+  "subtitles.entity.mooboo.milk": "Mooboo gets milked",
+  "subtitles.entity.mooboo.ambient": "Mooboo moos",
+  "subtitles.entity.mooboo.hurt": "Mooboo hurts",
+  "subtitles.entity.mooboo.death": "Mooboo dies",
 
   "subtitles.block.portal.ambient": "Portal frazzles",
 
