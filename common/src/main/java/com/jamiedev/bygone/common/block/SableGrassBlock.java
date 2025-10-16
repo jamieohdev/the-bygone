@@ -12,6 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.NetherVines;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -53,20 +54,29 @@ public class SableGrassBlock extends GrowingPlantHeadBlock
                 || blockstate.isFaceSturdy(level, blockpos, this.growthDirection);
     }
 
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+        BlockPos blockpos = pos.relative(this.growthDirection);
+        int i = Math.min((Integer)state.getValue(AGE) + 1, 25);
+        int j = this.getBlocksToGrowWhenBonemealed(random);
+
+        for(int k = 0; k < j && this.canGrowInto(level.getBlockState(blockpos)); ++k) {
+            if (random.nextInt(5) == 1)
+            {
+                level.setBlockAndUpdate(blockpos, BGBlocks.SABLOSSOM.get().defaultBlockState());
+                level.setBlockAndUpdate(blockpos.below(), BGBlocks.SABLE_GRASS_PLANT.get().defaultBlockState());
+            }
+            else
+            {
+                level.setBlockAndUpdate(blockpos, (BlockState)state.setValue(AGE, i));
+                blockpos = blockpos.relative(this.growthDirection);
+                i = Math.min(i + 1, 25);
+            }
+        }
+
+    }
+
     @Override
     public boolean isMaxAge(BlockState state) {
         return (Integer)state.getValue(AGE) == 5;
     }
-
-    /**
-    @Override
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if ((Integer)state.getValue(AGE) < 5 && random.nextDouble() < this.growPerTickProbability) {
-            BlockPos blockpos = pos.relative(this.growthDirection);
-            if (this.canGrowInto(level.getBlockState(blockpos))) {
-                level.setBlockAndUpdate(blockpos, this.getGrowIntoState(state, level.random));
-            }
-        }
-
-    }**/
 }

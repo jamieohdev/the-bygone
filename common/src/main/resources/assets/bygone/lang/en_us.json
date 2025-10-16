@@ -94,6 +94,7 @@
   "item.bygone.nectaur_spawn_egg": "Nectaur Spawn Egg",
   "item.bygone.pesky_spawn_egg": "Pesky Spawn Egg",
   "item.bygone.pest_spawn_egg": "Pest Spawn Egg",
+  "item.bygone.sabeast_spawn_egg": "Sabeast Spawn Egg",
   "item.bygone.scuttle_spawn_egg": "Scuttle Spawn Egg",
   "item.bygone.trilobite_spawn_egg": "Trilobite Spawn Egg",
   "item.bygone.whiskbill_spawn_egg": "Whiskbill Spawn Egg",
@@ -114,6 +115,7 @@
   "item.bygone.bucket_o_baitworms": "Bucket o' Baitworms",
   "item.bygone.gumbo_bowl": "Gumbo Bowl",
   "item.bygone.gumbo_bottle": "Gumbo Bottle",
+  "item.bygone.ectoplasm_bucket": "Bucket of Ectoplasm",
 
   "trim_material.bygone.verdigris": "Verdigris Material",
 
@@ -206,6 +208,9 @@
   "block.bygone.coarse_claystone": "Coarse Claystone",
   "block.bygone.mossy_claystone": "Mossy Claystone",
   "block.bygone.suspicious_claystone": "Suspicious Claystone",
+
+  "block.bygone.dogu": "Dogu",
+
   "block.bygone.ancient_roots": "Ancient Roots",
   "block.bygone.ancient_vines": "Ancient Vines",
   "block.bygone.ancient_sapling": "Ancient Sapling",

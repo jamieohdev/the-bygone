@@ -85,6 +85,7 @@ public class BygoneClient {
         consumer.accept(BGBlocks.UMBRAL_GRASS.get(), RenderType.cutout());
         consumer.accept(BGBlocks.TALL_UMBRAL_GRASS.get(), RenderType.cutout());
         consumer.accept(BGBlocks.MOON_BLOSSOM.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.POTTED_MOON_BLOSSOM.get(), RenderType.cutout());
 
         consumer.accept(BGBlocks.AMBER_CLUMP.get(), RenderType.cutout());
 
@@ -134,6 +135,7 @@ public class BygoneClient {
         consumer.accept(BGBlocks.PLAGA.get(), RenderType.cutout());
         consumer.accept(BGBlocks.PLAGA_CROP.get(), RenderType.cutout());
         consumer.accept(BGBlocks.CHANTRELLE.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.POTTED_CHANTRELLE.get(), RenderType.cutout());
 
         consumer.accept(BGBlocks.POINTED_AMBER.get(), RenderType.cutout());
         consumer.accept(BGBlocks.CREOSOTE.get(), RenderType.cutout());

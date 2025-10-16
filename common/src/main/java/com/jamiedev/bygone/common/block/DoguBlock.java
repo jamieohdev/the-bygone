@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -42,6 +44,7 @@ import net.minecraft.core.Direction;
 
 public class DoguBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
+
     public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.Plane.HORIZONTAL);
 
     public static final EnumProperty<DoguBlock.Pose> POSE = BGBlockProperties.DOGU_POSE;
@@ -53,9 +56,12 @@ public class DoguBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
     public DoguBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(
-                this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(POSE, Pose.STANDING).setValue(WATERLOGGED, false)
+                this.defaultBlockState().setValue(FACING, Direction.NORTH)
+                        .setValue(POSE, Pose.STANDING).setValue(WATERLOGGED, false)
         );
     }
+
+
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
@@ -129,8 +135,14 @@ public class DoguBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
         return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
 
+    public BlockState updateShape(Direction direction, BlockState neighborState,
+                                  LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+        return this.updateShape(this.defaultBlockState(),
+                direction, neighborState, level, pos, neighborPos);
+    }
+
     static {
-        SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 24.0, 12.0);
+        SHAPE = Block.box(7.0, 0.0, 7.0, 9.0, 16.0, 9.0);
     }
 
     public static enum Pose implements StringRepresentable {

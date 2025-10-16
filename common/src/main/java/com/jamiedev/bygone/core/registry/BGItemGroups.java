@@ -39,15 +39,18 @@ public class BGItemGroups {
                 output.accept(BGItems.PLAGA.get());
                 output.accept(BGItems.SPEED_WHEAT.get());
                 output.accept(BGBlocks.SPRINKER.get());
+                output.accept(BGItems.ECTOPLASM_BUCKET.get());
                 output.accept(BGBlocks.GUMBO_POT.get());
                 output.accept(BGItems.BIG_BEAK_SPAWN_EGG.get());
                 output.accept(BGItems.COELACANTH_SPAWN_EGG.get());
                 output.accept(BGItems.COPPERBUG_SPAWN_EGG.get());
                 output.accept(BGItems.FUNGALPARENT_SPAWN_EGG.get());
                 output.accept(BGItems.LITHY_SPAWN_EGG.get());
+                output.accept(BGItems.MOOBOO_SPAWN_EGG.get());
                 output.accept(BGItems.NECTAUR_SPAWN_EGG.get());
                 output.accept(BGItems.PESKY_SPAWN_EGG.get());
                 output.accept(BGItems.PEST_SPAWN_EGG.get());
+                output.accept(BGItems.SABEAST_SPAWN_EGG.get());
                 output.accept(BGItems.SCUTTLE_SPAWN_EGG.get());
                 output.accept(BGItems.TRILOBITE_SPAWN_EGG.get());
                 output.accept(BGItems.WHISKBILL_SPAWN_EGG.get());
@@ -130,6 +133,7 @@ public class BGItemGroups {
                 output.accept(BGBlocks.WHIRLIWEED.get());
                 output.accept(BGItems.WHIRLIWEED_BUNDLE.get());
                 output.accept(BGBlocks.CLAYSTONE.get());
+                output.accept(BGBlocks.SUSPICIOUS_CLAYSTONE.get());
                 output.accept(BGBlocks.CLAYSTONE_FARMLAND.get());
                 output.accept(BGBlocks.COARSE_CLAYSTONE.get());
                 output.accept(BGBlocks.CLAYSTONE_BRICKS.get());

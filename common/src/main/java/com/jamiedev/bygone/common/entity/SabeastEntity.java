@@ -37,6 +37,7 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class SabeastEntity extends Monster {
@@ -49,6 +50,10 @@ public class SabeastEntity extends Monster {
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState meleeAnimationState = new AnimationState();
     public int meleeAttackInterval = 0;
+
+    private static final EntityDataAccessor<Boolean> DATA_REPEL_RUN;
+    private int checkRepelTicks = 0;
+
 
     protected static final ImmutableList<SensorType<? extends Sensor<? super SabeastEntity>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY
@@ -120,6 +125,7 @@ public class SabeastEntity extends Monster {
         super.defineSynchedData(builder);
         builder.define(DATA_STANDING_ID, false);
         builder.define(DATA_IS_ATTACKING, false);
+        builder.define(DATA_REPEL_RUN, false);
     }
 
     @Override
@@ -205,6 +211,24 @@ public class SabeastEntity extends Monster {
             --this.warningSoundTicks;
         }
 
+        Level level = this.level();
+
+        if (!level.isClientSide()) {
+            if (this.checkRepelTicks <= 0) {
+                Optional<BlockPos> repelPos = BlockPos.findClosestMatch(this.blockPosition(), 8, 4, pos -> level.getBlockState(pos).is(JamiesModTag.SABEAST_REPELLENTS));
+                if (repelPos.isPresent()){
+                    this.entityData.set(DATA_REPEL_RUN, true);
+                }
+                else {
+                    this.entityData.set(DATA_REPEL_RUN, false);
+                }
+                this.checkRepelTicks = 20;
+            }
+        }
+        if (this.checkRepelTicks > 0) {
+            this.checkRepelTicks--;
+        }
+
         if (!this.level().isClientSide) {
             if (this.entityData.get(DATA_IS_ATTACKING)) {
                 this.meleeAttackInterval++;
@@ -223,6 +247,10 @@ public class SabeastEntity extends Monster {
 
         }
 
+    }
+
+    public boolean getDataRepelRun() {
+        return this.entityData.get(DATA_REPEL_RUN);
     }
 
 
@@ -254,6 +282,7 @@ public class SabeastEntity extends Monster {
     static {
         DATA_STANDING_ID = SynchedEntityData.defineId(SabeastEntity.class, EntityDataSerializers.BOOLEAN);
         DATA_IS_ATTACKING = SynchedEntityData.defineId(SabeastEntity.class, EntityDataSerializers.BOOLEAN);
+        DATA_REPEL_RUN = SynchedEntityData.defineId(SabeastEntity.class, EntityDataSerializers.BOOLEAN);
     }
 
     static class SabeastFreezeWhenLookedAt extends Goal {
@@ -317,6 +346,13 @@ public class SabeastEntity extends Monster {
         @Override
         public boolean canUse() {
             long i = this.mob.level().getGameTime();
+
+            if (this.mob instanceof SabeastEntity sabeast) {
+                if (sabeast.getDataRepelRun()) {
+                    return false;
+                }
+            }
+
             if (i - this.lastCanUseCheck < 20L) {
                 return false;
             } else {
@@ -336,6 +372,11 @@ public class SabeastEntity extends Monster {
         @Override
         public boolean canContinueToUse() {
             LivingEntity livingentity = this.mob.getTarget();
+            if (this.mob instanceof SabeastEntity sabeast) {
+                if (sabeast.getDataRepelRun()) {
+                    return false;
+                }
+            }
             if (livingentity == null) {
                 return false;
             } else if (!livingentity.isAlive()) {

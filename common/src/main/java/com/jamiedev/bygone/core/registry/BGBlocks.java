@@ -593,6 +593,9 @@ Blocks ref;
         return 6;
     })));
 
+    public static  final Supplier<Block> POTTED_CHANTRELLE = registerBlockWithoutBlockItem("potted_chantrelle",
+            () -> createFlowerPotBlock(CHANTRELLE.get()));
+
 
     public static final Supplier<Block> AMARANTH_BLOCK = registerBlock("bale_block", () -> new HayBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BANJO).strength(0.5F).sound(SoundType.GRASS)));
 
@@ -719,7 +722,8 @@ Blocks ref;
             .pushReaction(PushReaction.DESTROY)));
 
     public static final Supplier<Block> MEGALITH_BLOCK = registerBlock("megalith_block", () ->
-            new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).sound(SoundType.DEEPSLATE).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+            new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).sound(SoundType.DEEPSLATE)
+                    .instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
     public static final Supplier<Block> CRACKED_MEGALITH_BLOCK = registerBlock("cracked_megalith_block", () ->
             new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).sound(SoundType.DEEPSLATE).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
@@ -776,7 +780,8 @@ Blocks ref;
                     }))));
 
     public static final Supplier<Block> MEGALITH_TOTEM = registerBlock("megalith_totem", () -> new MegalithTotemBlock(
-            BlockBehaviour.Properties.of().sound(SoundType.GLASS).mapColor(MapColor.COLOR_LIGHT_GRAY).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
+            BlockBehaviour.Properties.of().sound(SoundType.GLASS).mapColor(MapColor.COLOR_LIGHT_GRAY).forceSolidOn()
+                    .instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
                     4.0F).lightLevel((state) -> {
                 return 1;
             })));
@@ -881,10 +886,10 @@ Blocks ref;
             new WallHangingSignBlock(JamiesModWoodType.SABLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).strength(1.0f).dropsLike(SABLE_HANGING_SIGN.get()).forceSolidOn()));
 
     public static final Supplier<Block> SABLENUT = registerBlock("sable_nut", () -> new SablenutBlock(BlockBehaviour.Properties.of()
-            .mapColor(MapColor.PLANT).randomTicks().strength(0.2F, 3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.DESTROY)));
+            .mapColor(MapColor.PLANT).randomTicks().forceSolidOn().instabreak().sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.DESTROY)));
 
     public static final Supplier<Block> CHIPPED_SABLENUT = registerBlock("chipped_sable_nut", () -> new SablenutBlock(BlockBehaviour.Properties.of()
-            .mapColor(MapColor.PLANT).randomTicks().strength(0.2F, 3.0F).sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.DESTROY)));
+            .mapColor(MapColor.PLANT).randomTicks().instabreak().sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.DESTROY)));
 
     public static final Supplier<Block> SABLE_MOSS_CARPET = registerBlock("sable_moss_carpet", () ->
             new CarpetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS_CARPET).pushReaction(PushReaction.DESTROY)));

@@ -29,6 +29,8 @@ import net.minecraft.world.item.Item.Properties;
 
 import java.util.function.Supplier;
 
+import static net.minecraft.world.item.Items.BUCKET;
+
 
 public class BGItems
 {
@@ -125,6 +127,7 @@ public class BGItems
     public static final Supplier<Item> MOOBOO_SPAWN_EGG = registerItem("mooboo_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.MOOBOO.get(), 0x5be3e8, 0xb2c7c8, new Item.Properties()));
     public static final Supplier<Item> PESKY_SPAWN_EGG = registerItem("pesky_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.PESKY.get(), 0x846B3C, 0xC66C11, new Item.Properties()));
     public static final Supplier<Item> PEST_SPAWN_EGG = registerItem("pest_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.PEST.get(), 0x846B3C, 0x6C8031, new Item.Properties()));
+    public static final Supplier<Item> SABEAST_SPAWN_EGG = registerItem("sabeast_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.SABEAST.get(), 0x131110, 0x564E4A, new Item.Properties()));
     public static final Supplier<Item> SCUTTLE_SPAWN_EGG = registerItem("scuttle_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.SCUTTLE.get(), 0x274772, 0xeab033, new Item.Properties()));
     public static final Supplier<Item> TRILOBITE_SPAWN_EGG = registerItem("trilobite_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.TRILOBITE.get(), 0x233c56, 0x14a4aa, new Item.Properties()));
     public static final Supplier<Item> WHISKBILL_SPAWN_EGG = registerItem("whiskbill_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.WHISKBILL.get(), 0x50692C, 0x70922D, new Item.Properties()));
@@ -168,12 +171,15 @@ public class BGItems
     public static final Supplier<Item> SABLE_BRANCH  = registerItem("sable_branch", () -> new ItemNameBlockItem(BGBlocks.SABLE_BRANCH.get(), (new Item.Properties())));
     public static final Supplier<Item> THORNY_SABLE_BRANCH  = registerItem("thorny_sable_branch", () -> new ItemNameBlockItem(BGBlocks.THORNY_SABLE_BRANCH.get(), (new Item.Properties())));
 
-    public static final Supplier<Item> BUCKET_O_BAITWORMS = registerItem("bucket_o_baitworms", () -> new BucketOBaitwormsItem(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final Supplier<Item> BUCKET_O_BAITWORMS = registerItem("bucket_o_baitworms", () -> new BucketOBaitwormsItem(new Item.Properties().craftRemainder(BUCKET).stacksTo(1)));
 
     public static final Supplier<Item> SABLE_GRASS  = registerItem("sable_grass", () -> new ItemNameBlockItem(BGBlocks.SABLE_GRASS.get(), (new Item.Properties())));
     public static final Supplier<Item> SABLOSSOM  = registerItem("sablossom", () -> new ItemNameBlockItem(BGBlocks.SABLOSSOM.get(), (new Item.Properties())));
 
     public static final Supplier<Item> ROASTED_SABLE_NUT = registerItem("roasted_sable_nut", () -> new Item(new Item.Properties().food(Foods.BAKED_POTATO)));
+
+    public static final Supplier<Item> ECTOPLASM_BUCKET = registerItem((String)"ectoplasm_bucket",
+            () -> new EctoplasmBucketItem((new Item.Properties()).craftRemainder(BUCKET).stacksTo(1)));
 
 
     public static final Supplier<Item> MUSIC_DISC_SHUFFLE = registerItem("music_disc_shuffle",  () -> new Item((new Item.Properties()).stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(BGJukeboxSongs.SHUFFLE)));

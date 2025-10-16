@@ -1,0 +1,52 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "bygone:sable_moss_carpet"
+          },
+          "weight": 25
+        },
+        {
+          "data": {
+            "Name": "bygone:umbral_grass"
+          },
+          "weight": 50
+        },
+        {
+          "data": {
+            "Name": "bygone:tall_umbral_grass",
+            "Properties": {
+              "half": "lower"
+            }
+          },
+          "weight": 25
+        },
+        {
+          "data": {
+            "Name": "bygone:sablossom"
+          },
+          "weight": 10
+        },
+        {
+          "data": {
+            "Name": "bygone:moon_blossom"
+          },
+          "weight": 5
+        },
+        {
+          "data": {
+            "Name": "bygone:speed_wheat",
+            "Properties": {
+              "half": "lower"
+            }
+          },
+          "weight": 1
+        }
+      ]
+    }
+  }
+}

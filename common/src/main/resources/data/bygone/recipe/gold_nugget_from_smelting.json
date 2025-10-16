@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": [
+    {
+      "item": "bygone:gold_beak_armor"
+    }
+  ],
+  "result": {
+    "id": "minecraft:gold_nugget"
+  }
+}

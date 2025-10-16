@@ -49,7 +49,7 @@ public class BGConfiguredFeatures
         features.add(registryKey);
         return registryKey;
     }
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_MOSS_PATCH_BONEMEAL = of("sable_patch");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_MOSS_PATCH_BONEMEAL = of("sable_patch_bonemeal");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_MOSS_VEGETATION = FeatureUtils.createKey("sable_vegetation");
 
 

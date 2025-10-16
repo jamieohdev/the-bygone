@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 import javax.annotation.Nullable;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -31,6 +33,8 @@ public class AvoidBlockGoal extends Goal
 
     @Nullable
     protected BlockPos toAvoid;
+
+
 
     /**
      * Goal that helps mobs avoid mobs of a specific class
@@ -89,6 +93,9 @@ public class AvoidBlockGoal extends Goal
      * Keep ticking a continuous task that has already been started
      */
     public void tick() {
+
+
+
         if (this.toAvoid == null) {
             return;
         }

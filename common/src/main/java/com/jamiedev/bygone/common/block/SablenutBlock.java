@@ -83,6 +83,10 @@ public class SablenutBlock extends Block implements BonemealableBlock, Fallable
         return SHAPE[i];
     }
 
+    protected @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
+        return RenderShape.MODEL;
+    }
+
     protected void falling(FallingBlockEntity entity) {
     }
 
