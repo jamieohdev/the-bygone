@@ -78,7 +78,7 @@ public class BGBlockEntities {
 
          DOGU = register("dogu", () ->
                 BlockEntityType.Builder.of(DoguEntity::new,
-                                BGBlocks.DOGU.get(), BGBlocks.DOGU_ALT.get())
+                                BGBlocks.DOGU.get())
                         .build(null));
     }
 }

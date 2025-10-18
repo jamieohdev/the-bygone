@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 public class BGItemGroups {
 
     public static final Supplier<CreativeModeTab> EXAMPLE_TAB = registerTab("test", () -> CreativeModeTab.builder(null, -1)
-            .icon(() -> new ItemStack(BGBlocks.MEGALITH_FACE.get()))
+            .icon(() -> new ItemStack(BGBlocks.SABLE_LOG.get()))
             .displayItems((itemDisplayParameters, output) -> {
                 output.accept(BGItems.ANCIENT_SIGN.get());
                 output.accept(BGItems.ANCIENT_HANGING_SIGN.get());

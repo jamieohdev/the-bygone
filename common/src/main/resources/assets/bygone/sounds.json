@@ -391,23 +391,6 @@
     "subtitle": "subtitles.entity.nectaur.screech"
   },
 
-  "entity.pest.ambient": {
-    "sounds": ["bygone:entity/pest/idle1", "bygone:entity/pest/idle2"],
-    "subtitle": "subtitles.entity.pest.ambient"
-  },
-  "entity.pest.hurt": {
-    "sounds": ["bygone:entity/pest/hit1", "bygone:entity/pest/hit2"],
-    "subtitle": "subtitles.entity.pest.hurt"
-  },
-  "entity.pest.death": {
-    "sounds": ["bygone:entity/pest/death"],
-    "subtitle": "subtitles.entity.pest.death"
-  },
-  "entity.pest.eat": {
-    "sounds": ["bygone:entity/pest/eat"],
-    "subtitle": "subtitles.entity.pest.eat"
-  },
-
   "entity.bigbeak.ambient": {
     "sounds": [
       "bygone:entity/bigbeak/ambient1",
@@ -465,7 +448,7 @@
   "entity.mooboo.hurt": {
     "sounds": [
       "bygone:entity/mooboo/hurt1",
-      "bygone:entity/mooboo/hurt3"
+      "bygone:entity/mooboo/hurt2"
     ],
     "subtitle": "subtitles.entity.mooboo.hurt"
   },

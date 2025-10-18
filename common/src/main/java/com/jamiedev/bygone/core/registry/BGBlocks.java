@@ -888,9 +888,6 @@ Blocks ref;
     public static final Supplier<Block> SABLENUT = registerBlock("sable_nut", () -> new SablenutBlock(BlockBehaviour.Properties.of()
             .mapColor(MapColor.PLANT).randomTicks().forceSolidOn().instabreak().sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.DESTROY)));
 
-    public static final Supplier<Block> CHIPPED_SABLENUT = registerBlock("chipped_sable_nut", () -> new SablenutBlock(BlockBehaviour.Properties.of()
-            .mapColor(MapColor.PLANT).randomTicks().instabreak().sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.DESTROY)));
-
     public static final Supplier<Block> SABLE_MOSS_CARPET = registerBlock("sable_moss_carpet", () ->
             new CarpetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS_CARPET).pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> SABLE_MOSS_BLOCK = registerBlock("sable_moss_block", () ->
@@ -957,12 +954,7 @@ Blocks ref;
             .strength(0.25F).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY)));
 
     public  static final Supplier<Block> DOGU = registerBlock("dogu", () ->
-        new DoguBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
-    public  static final Supplier<Block> DOGU_ALT = registerBlock("dogu_alt", () ->
-            new DoguBlock(BlockBehaviour.Properties.of().sound(SoundType.MUD_BRICKS).mapColor(MapColor.COLOR_LIGHT_GRAY).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
-                    4.0F).lightLevel((state) -> {
-                return 1;
-            })));
+        new DoguBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.MUD_BRICKS)));
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
         return (p_50763_) -> (Boolean)p_50763_.getValue(BlockStateProperties.LIT) ? lightValue : 0;
