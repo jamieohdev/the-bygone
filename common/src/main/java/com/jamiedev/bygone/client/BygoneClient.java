@@ -50,6 +50,7 @@ public class BygoneClient {
         consumer.accept(BGBlocks.GOURD_DANGO.get(), RenderType.cutout());
         consumer.accept(BGBlocks.GOURD_DANGO_WALL.get(), RenderType.cutout());
         consumer.accept(BGBlocks.GOURD_VINE.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.WHIRLIWEED.get(), RenderType.cutout());
         consumer.accept(BGBlocks.BIG_WHIRLIWEED.get(), RenderType.cutout());
 
         consumer.accept(BGBlocks.RAFFLESIA.get(), RenderType.cutout());
