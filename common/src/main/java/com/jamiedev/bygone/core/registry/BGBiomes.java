@@ -34,7 +34,7 @@ public class BGBiomes
     public static final ResourceKey<Biome> ANCIENT_FOREST = createBiomeKey("underhang");
     public static final ResourceKey<Biome> AMBER_DESERT = createBiomeKey("amber_desert");
     public static final ResourceKey<Biome> MEGALITH_FIELD= createBiomeKey("megalith_field");
-    public static final ResourceKey<Biome> PRIMORDIAL_BEACH = createBiomeKey("primordial_beach");
+    public static final ResourceKey<Biome> PRIMORDIAL_BEACH = createBiomeKey("primordial_shores");
     public static final ResourceKey<Biome> PRIMORDIAL_OCEAN = createBiomeKey("primordial_ocean");
     public static final ResourceKey<Biome> SABLE_FOREST = createBiomeKey("sable_forest");
     public static final ResourceKey<Biome> SHELFHOLLOW = createBiomeKey("shelfhollow");

@@ -18,12 +18,12 @@
         {
           "type": "minecraft:loot_table",
           "weight": 10,
-          "value": "bygone:gameplay/fishing/primordial_beach_junk"
+          "value": "bygone:gameplay/fishing/primordial_shores_junk"
         },
         {
           "type": "minecraft:loot_table",
           "weight": 5,
-          "value": "bygone:gameplay/fishing/primordial_beach_treasure"
+          "value": "bygone:gameplay/fishing/primordial_shores_treasure"
         }
       ]
     }

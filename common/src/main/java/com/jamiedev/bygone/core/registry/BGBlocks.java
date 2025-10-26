@@ -337,11 +337,11 @@ Blocks ref;
             })
             .ignitedByLava().pushReaction(PushReaction.DESTROY)));
 
-    public static final Supplier<Block> OCEANSTONE = registerBlock("oceanstone", () ->
+    public static final Supplier<Block> SHELLSTONE = registerBlock("shellstone", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
 
-    public static final Supplier<Block> PRIMORDIAL_SAND = registerBlock("primordial_sand", () ->
+    public static final Supplier<Block> SHELLSAND = registerBlock("shellsand", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).sound(SoundType.SAND).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.1F)));
 

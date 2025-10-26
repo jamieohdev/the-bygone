@@ -248,13 +248,20 @@
   "block.bygone.malachite_tile_stairs": "Malachite Tile Stairs",
   "block.bygone.malachite_tile_wall": "Malachite Tile Wall",
 
-  "block.bygone.oceanstone": "Oceanstone",
-  "block.bygone.primordial_sand": "Primordial Sand",
+  "block.bygone.shellstone": "Shellstone",
+  "block.bygone.shellsand": "Shellsand",
+
+  "block.bygone.raw_seaglass": "Raw Seaglass",
+  "block.bygone.cobbled_seaglass": "Cobbled Seaglass",
+  "block.bygone.smooth_seaglass": "Smooth Seaglass",
+  "block.bygone.smooth_seaglass_pane": "Smooth Seaglass Pane",
+
   "block.bygone.blue_algae": "Primordial Algae",
   "block.bygone.primordial_vent": "Primordial Vent",
   "block.bygone.primordial_urchin": "Primordial Urchin",
   "block.bygone.primordial_ventstone": "Primordial Ventstone",
   "block.bygone.crinoid": "Crinoid",
+
   "block.bygone.dead_rugosa_coral": "Dead Rugosa Coral",
   "block.bygone.dead_rugosa_coral_block": "Dead Rugosa  Coral Block",
   "block.bygone.dead_rugosa_coral_fan": "Dead Rugosa Coral Fan",
@@ -267,6 +274,7 @@
   "block.bygone.tabulata_coral": "Tabulata Coral",
   "block.bygone.tabulata_coral_block": "Tabulata Coral Block",
   "block.bygone.tabulata_coral_fan": "Tabulata Coral Fan",
+
   "block.bygone.glow_gravel": "Glow Gravel",
   "block.bygone.charnia": "Charnia",
   "block.bygone.belladonna": "Belladonna",
@@ -468,7 +476,7 @@
   "biome.bygone.sable_forest": "Sable Forest",
   "biome.bygone.underhang": "Underhang",
   "biome.bygone.shelfhollow": "Shelf Hollows",
-  "biome.bygone.primordial_beach": "Primordial Beach",
+  "biome.bygone.primordial_shores": "Primordial Shores",
   "biome.bygone.primordial_ocean": "Primordial Ocean",
 
   "painting.bygone.hallucigeania.title": "Hallucigeania",

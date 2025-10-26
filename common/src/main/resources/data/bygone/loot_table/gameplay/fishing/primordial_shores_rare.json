@@ -13,7 +13,7 @@
         {
           "type": "minecraft:loot_table",
           "weight": 15,
-          "value": "bygone:gameplay/fishing/primordial_beach_treasure"
+          "value": "bygone:gameplay/fishing/primordial_shores_treasure"
         }
       ]
     }

@@ -174,9 +174,8 @@ public class BGItemGroups {
                 output.accept(BGBlocks.BELLADONNA.get());
                 output.accept(BGBlocks.COLEUS.get());
 
-                output.accept(BGBlocks.OCEANSTONE.get());
-
-                output.accept(BGBlocks.PRIMORDIAL_SAND.get());
+                output.accept(BGBlocks.SHELLSTONE.get());
+                output.accept(BGBlocks.SHELLSAND.get());
 
                 output.accept(BGBlocks.GLOW_GRAVEL.get());
 

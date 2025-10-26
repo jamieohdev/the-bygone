@@ -861,7 +861,7 @@
         "type": "minecraft:condition",
         "if_true": {
           "type": "minecraft:biome",
-          "biome_is": ["bygone:primordial_ocean", "bygone:primordial_beach"]
+          "biome_is": ["bygone:primordial_ocean", "bygone:primordial_shores"]
         },
         "then_run": {
           "type": "minecraft:condition",
@@ -893,7 +893,7 @@
               {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "bygone:primordial_sand"
+                  "Name": "bygone:shellsand"
                 }
               }
             ]
@@ -904,7 +904,7 @@
         "type": "minecraft:condition",
         "if_true": {
           "type": "minecraft:biome",
-          "biome_is": ["bygone:primordial_ocean", "bygone:primordial_beach"]
+          "biome_is": ["bygone:primordial_ocean", "bygone:primordial_shores"]
         },
         "then_run": {
           "type": "minecraft:sequence",
@@ -924,7 +924,7 @@
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "bygone:oceanstone"
+                      "Name": "bygone:shellstone"
                     }
                   }
                 ]
@@ -933,7 +933,7 @@
             {
               "type": "minecraft:block",
               "result_state": {
-                "Name": "bygone:oceanstone"
+                "Name": "bygone:shellstone"
               }
             }
           ]

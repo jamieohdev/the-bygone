@@ -19,7 +19,7 @@ public class BGFishingTables {
     public static final ResourceKey<LootTable> ANCIENT_FOREST_FISHING = register("gameplay/fishing/ancient_forest", BGBiomes.ANCIENT_FOREST);
     public static final ResourceKey<LootTable> AMBER_DESERT_FISHING = register("gameplay/fishing/amber_desert", BGBiomes.AMBER_DESERT);
     public static final ResourceKey<LootTable> MEGALITH_FIELD_FISHING = register("gameplay/fishing/megalith_field", BGBiomes.MEGALITH_FIELD);
-    public static final ResourceKey<LootTable> PRIMORDIAL_BEACH_FISHING = register("gameplay/fishing/primordial_beach", BGBiomes.PRIMORDIAL_BEACH);
+    public static final ResourceKey<LootTable> PRIMORDIAL_BEACH_FISHING = register("gameplay/fishing/primordial_shores", BGBiomes.PRIMORDIAL_BEACH);
     public static final ResourceKey<LootTable> PRIMORDIAL_OCEAN_FISHING = register("gameplay/fishing/primordial_ocean", BGBiomes.PRIMORDIAL_OCEAN);
     public static final ResourceKey<LootTable> SABLE_FOREST_FISHING = register("gameplay/fishing/sable_forest", BGBiomes.SABLE_FOREST);
     public static final ResourceKey<LootTable> SHELFHOLLOW_FISHING = register("gameplay/fishing/shelfhollow", BGBiomes.SHELFHOLLOW);
@@ -28,7 +28,7 @@ public class BGFishingTables {
     public static final ResourceKey<LootTable> ANCIENT_FOREST_FISHING_RARE = registerRare("gameplay/fishing/ancient_forest_rare", BGBiomes.ANCIENT_FOREST);
     public static final ResourceKey<LootTable> AMBER_DESERT_FISHING_RARE = registerRare("gameplay/fishing/amber_desert_rare", BGBiomes.AMBER_DESERT);
     public static final ResourceKey<LootTable> MEGALITH_FIELD_FISHING_RARE = registerRare("gameplay/fishing/megalith_field_rare", BGBiomes.MEGALITH_FIELD);
-    public static final ResourceKey<LootTable> PRIMORDIAL_BEACH_FISHING_RARE = registerRare("gameplay/fishing/primordial_beach_rare", BGBiomes.PRIMORDIAL_BEACH);
+    public static final ResourceKey<LootTable> PRIMORDIAL_BEACH_FISHING_RARE = registerRare("gameplay/fishing/primordial_shores_rare", BGBiomes.PRIMORDIAL_BEACH);
     public static final ResourceKey<LootTable> PRIMORDIAL_OCEAN_FISHING_RARE = registerRare("gameplay/fishing/primordial_ocean_rare", BGBiomes.PRIMORDIAL_OCEAN);
     public static final ResourceKey<LootTable> SABLE_FOREST_FISHING_RARE = registerRare("gameplay/fishing/sable_forest_rare", BGBiomes.SABLE_FOREST);
     public static final ResourceKey<LootTable> SHELFHOLLOW_FISHING_RARE = registerRare("gameplay/fishing/shelfhollow_rare", BGBiomes.SHELFHOLLOW);

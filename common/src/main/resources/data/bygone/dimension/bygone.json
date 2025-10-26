@@ -37,7 +37,7 @@
           }
         },
         {
-          "biome": "bygone:primordial_beach",
+          "biome": "bygone:primordial_shores",
           "parameters": {
             "continentalness": [
               -0.4,

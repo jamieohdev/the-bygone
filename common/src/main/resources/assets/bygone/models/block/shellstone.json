@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "bygone:block/shellstone_top",
+    "side": "bygone:block/shellstone_side"
+  }
+}

@@ -49,7 +49,7 @@
       },
       "trigger": "minecraft:location"
     },
-    "bygone:primordial_beach": {
+    "bygone:primordial_shores": {
       "conditions": {
         "player": [
           {
@@ -57,7 +57,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biomes": "bygone:primordial_beach"
+                "biomes": "bygone:primordial_shores"
               }
             }
           }
@@ -147,7 +147,7 @@
     ["bygone:alphahang"],
     ["bygone:amber_desert"],
     ["bygone:megalith_field"],
-    ["bygone:primordial_beach"],
+    ["bygone:primordial_shores"],
     ["bygone:primordial_ocean"],
     ["bygone:sable_forest"],
     ["bygone:shelfhollow"],
