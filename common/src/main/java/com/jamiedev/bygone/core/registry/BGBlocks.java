@@ -341,9 +341,24 @@ Blocks ref;
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
 
+    public static final Supplier<Block> SHELLSTONE_BRICKS = registerBlock("shellstone_bricks", () ->
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+                    .strength(0.8F)));
+
     public static final Supplier<Block> SHELLSAND = registerBlock("shellsand", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).sound(SoundType.SAND).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.1F)));
+
+    public static final Supplier<Block> SEAGLASS = registerBlock("seaglass", () ->
+            new SeaglassBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT)
+                    .strength(0.3F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never)
+                    .isSuffocating(Blocks::never).isViewBlocking(Blocks::never)));
+
+    public static final Supplier<Block> COBBLED_SEAGLASS = registerBlock("cobbled_seaglass", () ->
+            new SeaglassBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT)
+                    .strength(0.3F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never)
+                    .isSuffocating(Blocks::never).isViewBlocking(Blocks::never)));
+
 
     public static final Supplier<Block> GLOW_GRAVEL = registerBlock("glow_gravel", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_CYAN).sound(SoundType.GRAVEL).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()

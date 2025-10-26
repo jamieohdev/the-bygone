@@ -162,6 +162,14 @@ public class SablenutBlock extends Block implements BonemealableBlock, Fallable
         return CODEC;
     }
 
+    public static BlockState createNewHangingNut() {
+        return createNewHangingNut(0);
+    }
+
+    public static BlockState createNewHangingNut(int age) {
+        return (BlockState)((BlockState)BGBlocks.SABLENUT.get().defaultBlockState().setValue(FACING, Direction.UP)).setValue(AGE, age);
+    }
+
     static {
         AGE = BlockStateProperties.AGE_3;
         FACING = BlockStateProperties.FACING;

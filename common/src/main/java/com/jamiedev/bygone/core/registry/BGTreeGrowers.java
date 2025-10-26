@@ -14,18 +14,23 @@ public class BGTreeGrowers {
             Optional.of(BGConfiguredFeatures.ANCIENT_TREE), Optional.empty(), Optional.empty(),
             Optional.empty());
 
-    public static final TreeGrower SABLE_TREE = register("sable_tree", 0.0F, Optional.of(
-            BGConfiguredFeatures.SABLE_TREE_MEDIUM), Optional.empty(),
-            Optional.of(BGConfiguredFeatures.SABLE_TREE), Optional.empty(),
-            Optional.empty(), Optional.empty());
+    public static final TreeGrower SABLE_TREE = register("sable_tree", Optional.of(
+            BGConfiguredFeatures.SABLE_TREE_MEDIUM),
+            Optional.of(BGConfiguredFeatures.SABLE_TREE));
 
 
-    private static TreeGrower register(String name, float secondaryChance, Optional<ResourceKey<ConfiguredFeature<?, ?>>> megaTree, Optional<ResourceKey<ConfiguredFeature<?, ?>>> secondaryMegaTree, Optional<ResourceKey<ConfiguredFeature<?, ?>>> tree, Optional<ResourceKey<ConfiguredFeature<?, ?>>> secondaryTree, Optional<ResourceKey<ConfiguredFeature<?, ?>>> flowers, Optional<ResourceKey<ConfiguredFeature<?, ?>>> secondaryFlowers)
+    private static TreeGrower register(String name, float secondaryChance,
+                                       Optional<ResourceKey<ConfiguredFeature<?, ?>>> megaTree,
+                                       Optional<ResourceKey<ConfiguredFeature<?, ?>>> secondaryMegaTree,
+                                       Optional<ResourceKey<ConfiguredFeature<?, ?>>> tree,
+                                       Optional<ResourceKey<ConfiguredFeature<?, ?>>> secondaryTree,
+                                       Optional<ResourceKey<ConfiguredFeature<?, ?>>> flowers,
+                                       Optional<ResourceKey<ConfiguredFeature<?, ?>>> secondaryFlowers)
     {
         return new TreeGrower(String.format("%s:%s", Bygone.MOD_ID, name), secondaryChance, megaTree, secondaryMegaTree, tree, secondaryTree, flowers, secondaryFlowers);
     }
 
-    private static TreeGrower register(String name, Optional<ResourceKey<ConfiguredFeature<?, ?>>> tree, Optional<ResourceKey<ConfiguredFeature<?, ?>>> secondaryTree) {
-        return register(name, 0, Optional.empty(), Optional.empty(), tree, secondaryTree, Optional.empty(), Optional.empty());
+    private static TreeGrower register(String name, Optional<ResourceKey<ConfiguredFeature<?, ?>>> mega, Optional<ResourceKey<ConfiguredFeature<?, ?>>> tree) {
+        return register(name, 0, mega, Optional.empty(), tree, Optional.empty(), Optional.empty(), Optional.empty());
     }
 }
