@@ -249,12 +249,13 @@
   "block.bygone.malachite_tile_wall": "Malachite Tile Wall",
 
   "block.bygone.shellstone": "Shellstone",
+  "block.bygone.shellstone_bricks": "Shellstone Bricks",
   "block.bygone.shellsand": "Shellsand",
 
   "block.bygone.raw_seaglass": "Raw Seaglass",
   "block.bygone.cobbled_seaglass": "Cobbled Seaglass",
-  "block.bygone.smooth_seaglass": "Smooth Seaglass",
-  "block.bygone.smooth_seaglass_pane": "Smooth Seaglass Pane",
+  "block.bygone.seaglass": "Seaglass",
+  "block.bygone.seaglass_pane": "Seaglass Pane",
 
   "block.bygone.blue_algae": "Primordial Algae",
   "block.bygone.primordial_vent": "Primordial Vent",

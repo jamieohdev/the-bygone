@@ -350,9 +350,7 @@ Blocks ref;
                     .strength(0.1F)));
 
     public static final Supplier<Block> SEAGLASS = registerBlock("seaglass", () ->
-            new SeaglassBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT)
-                    .strength(0.3F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never)
-                    .isSuffocating(Blocks::never).isViewBlocking(Blocks::never)));
+            new SeaglassBlock(BlockBehaviour.Properties.of().strength(0.6F).sound(SoundType.GLASS)));
 
     public static final Supplier<Block> COBBLED_SEAGLASS = registerBlock("cobbled_seaglass", () ->
             new SeaglassBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT)

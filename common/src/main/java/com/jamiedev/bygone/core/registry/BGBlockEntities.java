@@ -30,6 +30,7 @@ public class BGBlockEntities {
     public static Supplier<BlockEntityType<MegalithTotemEntity>> MEGALITH_TOTEM;
 
     public static Supplier<BlockEntityType<GumboPotBlockEntity>> GUMBO_POT;
+    public static Supplier<BlockEntityType<SeaglassBlockEntity>> SEAGLASS;
 
     public static <T extends BlockEntity> Supplier<BlockEntityType<T>> register(String name, Supplier<BlockEntityType<T>> type) {
         return JinxedRegistryHelper.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, Bygone.MOD_ID, name, type);
@@ -79,6 +80,10 @@ public class BGBlockEntities {
          DOGU = register("dogu", () ->
                 BlockEntityType.Builder.of(DoguEntity::new,
                                 BGBlocks.DOGU.get())
+                        .build(null));
+
+        SEAGLASS    = register("seaglass", () ->
+                BlockEntityType.Builder.of(SeaglassBlockEntity::new, BGBlocks.SEAGLASS.get())
                         .build(null));
     }
 }

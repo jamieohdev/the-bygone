@@ -1,45 +1,133 @@
 package com.jamiedev.bygone.common.block;
 
+import com.jamiedev.bygone.common.block.entity.SeaglassBlockEntity;
+import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HalfTransparentBlock;
-import net.minecraft.world.level.block.StainedGlassBlock;
-import net.minecraft.world.level.block.TransparentBlock;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class SeaglassBlock extends TransparentBlock
+import java.util.HashMap;
+import java.util.Map;
+
+public class SeaglassBlock extends BaseSeaglassBlock
 {
-    public static final MapCodec<SeaglassBlock> CODEC = simpleCodec(SeaglassBlock::new);
+    /**
+     * All Seaglass code was lifted from <a href="https://github.com/Scouter456/Clear_Fluid_Glass">Scouter456's Clear Fluid Glass!</a>
+     */
+
+    protected static final VoxelShape SHAPE_DOWN = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 0.01D, 16.0D);
+    protected static final VoxelShape SHAPE_UP = Block.box(0.0D, 15.99D, 0.0D, 16.0D, 16.0D, 16.0D);
+    protected static final VoxelShape SHAPE_NORTH = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 0.01D);
+    protected static final VoxelShape SHAPE_EAST = Block.box(15.99D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+    protected static final VoxelShape SHAPE_SOUTH = Block.box(0.0D, 0.0D, 15.99D, 16.0D, 16.0D, 16.0D);
+    protected static final VoxelShape SHAPE_WEST = Block.box(0.0D, 0.0D, 0.0D, 0.01D, 16.0D, 16.0D);
+    private static final Map<Direction, VoxelShape> occlusionShapes = new HashMap<Direction, VoxelShape>() {{
+        put(Direction.DOWN, SHAPE_DOWN);
+        put(Direction.UP, SHAPE_UP);
+        put(Direction.NORTH, SHAPE_NORTH);
+        put(Direction.EAST, SHAPE_EAST);
+        put(Direction.SOUTH, SHAPE_SOUTH);
+        put(Direction.WEST, SHAPE_WEST);
+    }};
 
     public SeaglassBlock(BlockBehaviour.Properties p_309186_) {
         super(p_309186_);
     }
 
-    protected MapCodec<? extends SeaglassBlock> codec() {
-        return CODEC;
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return null;
     }
 
-    protected @NotNull VoxelShape getVisualShape(BlockState p_309057_, BlockGetter p_308936_, BlockPos p_308956_, CollisionContext p_309006_) {
+    @Override
+    public RenderShape getRenderShape(BlockState pState) {
+        return RenderShape.MODEL;
+    }
+
+    @Override
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
+        if(!pLevel.isClientSide){
+            SeaglassBlockEntity blockEntity = (SeaglassBlockEntity) pLevel.getBlockEntity(pPos);
+            assert blockEntity != null;
+            blockEntity.getOcclusionDirs().clear();
+            blockEntity.setOcclusionShape(Shapes.empty());
+            VoxelShape shape = blockEntity.getOcclusionShape();
+            for(Direction direction : Direction.values()){
+                if(pLevel.getFluidState(pPos.relative(direction)).is(FluidTags.WATER)){
+                    shape = Shapes.or(shape, occlusionShapes.get(direction));
+                    blockEntity.addDirection(direction);
+                }
+            }
+
+            blockEntity.setOcclusionShape(shape);
+        }
+        pLevel.sendBlockUpdated(pPos, pState, pState, Block.UPDATE_IMMEDIATE);
+    }
+
+    @Override
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+        if(!pLevel.isClientSide()){
+            SeaglassBlockEntity blockEntity = (SeaglassBlockEntity) pLevel.getBlockEntity(pPos);
+            assert blockEntity != null;
+            blockEntity.getOcclusionDirs().clear();
+            blockEntity.setOcclusionShape(Shapes.empty());
+            VoxelShape shape = blockEntity.getOcclusionShape();
+
+            for(Direction direction : Direction.values()){
+                if(pLevel.getFluidState(pPos.relative(direction)).is(FluidTags.WATER)){
+                    shape = Shapes.or(shape, occlusionShapes.get(direction));
+                    blockEntity.addDirection(direction);
+                }
+            }
+
+            blockEntity.setOcclusionShape(shape);
+        }
+        pLevel.sendBlockUpdated(pPos, pState, pState, Block.UPDATE_IMMEDIATE);
+        super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
+    }
+
+
+
+    public VoxelShape getVisualShape(BlockState pState, BlockGetter pReader, BlockPos pPos, CollisionContext pContext) {
         return Shapes.empty();
     }
 
-    protected float getShadeBrightness(BlockState p_308911_, BlockGetter p_308952_, BlockPos p_308918_) {
+    public float getShadeBrightness(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         return 1.0F;
     }
 
-    protected boolean propagatesSkylightDown(BlockState p_309084_, BlockGetter p_309133_, BlockPos p_309097_) {
+    @Override
+    public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+        SeaglassBlockEntity blockEntity = (SeaglassBlockEntity) pLevel.getBlockEntity(pPos);
+        if(blockEntity != null) {
+            return blockEntity.getOcclusionShape();
+        }
+        return Shapes.empty();
+    }
+
+    public boolean skipRendering(BlockState pState, BlockState pAdjacentBlockState, Direction pSide) {
+        return pAdjacentBlockState.is(this) || super.skipRendering(pState, pAdjacentBlockState, pSide);
+    }
+
+    public boolean propagatesSkylightDown(BlockState pState, BlockGetter pReader, BlockPos pPos) {
         return true;
     }
 
-    protected boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
-        return adjacentBlockState.is(this) || adjacentBlockState.is(Blocks.WATER) || super.skipRendering(state, adjacentBlockState, side);
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new SeaglassBlockEntity(blockPos, blockState);
     }
 }

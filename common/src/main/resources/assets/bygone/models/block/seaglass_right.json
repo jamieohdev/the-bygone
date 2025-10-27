@@ -1,0 +1,14 @@
+{
+  "parent": "block/cube",
+  "render_type": "cutout_mipped",
+  "textures": {
+    "particle": "bygone:block/seaglass_all",
+    "down": "bygone:block/seaglass_right",
+    "up": "bygone:block/seaglass_right",
+    "north": "bygone:block/seaglass_left",
+    "east": "bygone:block/seaglass_blank",
+    "south": "bygone:block/seaglass_right",
+    "west": "bygone:block/seaglass_blank"
+  }
+}
+
