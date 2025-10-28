@@ -60,6 +60,10 @@ public class BGEntityTypes {
                     .build("")
     );
 
+    public static final Supplier<EntityType<AmoebaEntity>> AMOEBA = registerEntityType("amoeba", () ->
+            EntityType.Builder.of(AmoebaEntity::new, MobCategory.CREATURE)
+                    .sized(0.8F, 0.2F).build(""));
+
 
     public static final Supplier<EntityType<GlareEntity>> GLARE = registerEntityType("glare", () ->
             EntityType.Builder.of(GlareEntity::new, MobCategory.CREATURE)

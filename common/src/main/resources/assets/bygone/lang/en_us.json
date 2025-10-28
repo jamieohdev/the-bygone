@@ -85,6 +85,7 @@
   "item.bygone.gold_beak_armor": "Golden Big Beak Armor",
   "item.bygone.iron_beak_armor": "Iron Big Beak Armor",
   "item.bygone.diamond_beak_armor": "Diamond Big Beak Armor",
+  "item.bygone.amoeba_spawn_egg": "Amoeba Spawn Egg",
   "item.bygone.big_beak_spawn_egg": "Big Beak Spawn Egg",
   "item.bygone.coelacanth_spawn_egg": "Coelacanth Spawn Egg",
   "item.bygone.copperbug_spawn_egg": "Copperbug Spawn Egg",
@@ -116,6 +117,8 @@
   "item.bygone.gumbo_bowl": "Gumbo Bowl",
   "item.bygone.gumbo_bottle": "Gumbo Bottle",
   "item.bygone.ectoplasm_bucket": "Bucket of Ectoplasm",
+  "item.bygone.bucket_o_amoeba": "Bucket of Amoeba",
+  "item.bygone.amoeba_gel": "Amoeba Gel",
 
   "trim_material.bygone.verdigris": "Verdigris Material",
 

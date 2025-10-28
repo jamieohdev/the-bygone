@@ -383,6 +383,14 @@ public class BygoneFabric implements ModInitializer {
                                     .build())
                     )
             );
+            event.modify(
+                    BGItems.AMOEBA_GEL.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(5)
+                                    .saturationModifier(1.0f)
+                                    .build())
+                    )
+            );
         });
 
 

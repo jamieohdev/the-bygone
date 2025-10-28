@@ -10,8 +10,11 @@ public class JamiesModModelLayers {
     public static final ModelLayerLocation HOOK =
             new ModelLayerLocation(Bygone.id("hook"), "main");
 
-    public static final ModelLayerLocation JAWS =
-            new ModelLayerLocation(Bygone.id("jaws"), "main");
+    public static final ModelLayerLocation AMOEBA =
+            new ModelLayerLocation(Bygone.id("amoeba"), "main");
+
+    public static final ModelLayerLocation AMOEBA_OUTER =
+            new ModelLayerLocation(Bygone.id("amoeba"), "outer");
 
     public static final ModelLayerLocation MOOBOO  =
             new ModelLayerLocation(Bygone.id("mooboo"), "main");

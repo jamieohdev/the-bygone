@@ -3,6 +3,7 @@ package com.jamiedev.bygone.client;
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.renderer.BygonePortalRenderer;
 import com.jamiedev.bygone.client.renderer.entity.*;
+import com.jamiedev.bygone.common.entity.AmoebaEntity;
 import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.client.models.*;
 import com.jamiedev.bygone.client.particles.*;
@@ -181,6 +182,7 @@ public class BygoneClient {
         //BlockEntityRenderers.register(BGBlockEntities.AMPHORA.get(), AmphoraBlockEntityRenderer::new);
         BlockEntityRenderers.register(BGBlockEntities.BYGONE_PORTAL.get(), BygonePortalRenderer::new);
 
+        EntityRenderers.register(BGEntityTypes.AMOEBA.get(), AmoebaRenderer::new);
         EntityRenderers.register(BGEntityTypes.GLARE.get(), GlareRenderer::new);
         EntityRenderers.register(BGEntityTypes.COELACANTH.get(), CoelacanthRenderer::new);
         EntityRenderers.register(BGEntityTypes.DUCK.get(), DuckieRenderer::new);
@@ -226,6 +228,8 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.WISP, WispModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WRAITH, WraithModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.SABEAST, SabeastModel2::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.AMOEBA, AmoebaModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.AMOEBA_OUTER, AmoebaModel::createOuterLayer);
     }
 
     public static void registerModelPredicateProviders() {

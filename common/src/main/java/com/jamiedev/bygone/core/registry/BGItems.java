@@ -128,11 +128,18 @@ public class BGItems
     public static final Supplier<Item> PESKY_SPAWN_EGG = registerItem("pesky_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.PESKY.get(), 0x846B3C, 0xC66C11, new Item.Properties()));
     public static final Supplier<Item> PEST_SPAWN_EGG = registerItem("pest_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.PEST.get(), 0x846B3C, 0x6C8031, new Item.Properties()));
     public static final Supplier<Item> SABEAST_SPAWN_EGG = registerItem("sabeast_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.SABEAST.get(), 0x131110, 0x564E4A, new Item.Properties()));
+    public static final Supplier<Item> AMOEBA_SPAWN_EGG = registerItem("amoeba_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.AMOEBA.get(), 0x6C9BB9, 0x8F8763, new Item.Properties()));
     public static final Supplier<Item> SCUTTLE_SPAWN_EGG = registerItem("scuttle_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.SCUTTLE.get(), 0x274772, 0xeab033, new Item.Properties()));
     public static final Supplier<Item> TRILOBITE_SPAWN_EGG = registerItem("trilobite_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.TRILOBITE.get(), 0x233c56, 0x14a4aa, new Item.Properties()));
     public static final Supplier<Item> WHISKBILL_SPAWN_EGG = registerItem("whiskbill_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.WHISKBILL.get(), 0x50692C, 0x70922D, new Item.Properties()));
     public static final Supplier<Item> NECTAUR_SPAWN_EGG = registerItem("nectaur_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.NECTAUR.get(), 0x50692C, 0x94262B, new Item.Properties()));
     public static final Supplier<Item> WRAITH_SPAWN_EGG = registerItem("wraith_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.WRAITH.get(), 0x22244A, 0xBAEFED, new Item.Properties()));
+
+    public static final Supplier<Item> AMOEBA_BUCKET = registerItem((String)"amoeba_bucket", () ->
+            new MobBucketItem(BGEntityTypes.AMOEBA.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties())
+                    .stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+    public static final Supplier<Item> AMOEBA_GEL = registerItem("amoeba_gel", () -> new Item(new Item.Properties().fireResistant()));
+
 
     public static final Supplier<Item> COELECANTH_BUCKET = registerItem((String)"coelacanth_bucket", () ->
             new MobBucketItem(BGEntityTypes.COELACANTH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties())

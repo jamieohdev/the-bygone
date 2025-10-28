@@ -24,6 +24,8 @@ public class BGItemGroups {
                 output.accept(BGItems.COELECANTH.get());
                 output.accept(BGItems.COELECANTH_COOKED.get());
                 output.accept(BGItems.COELECANTH_BUCKET.get());
+                output.accept(BGItems.AMOEBA_GEL.get());
+                output.accept(BGItems.AMOEBA_BUCKET.get());
                 output.accept(BGItems.BEIGE_SLICE.get());
                 output.accept(BGItems.MUAVE_SLICE.get());
                 output.accept(BGItems.VERDANT_SLICE.get());
@@ -41,6 +43,7 @@ public class BGItemGroups {
                 output.accept(BGBlocks.SPRINKER.get());
                 output.accept(BGItems.ECTOPLASM_BUCKET.get());
                 output.accept(BGBlocks.GUMBO_POT.get());
+                output.accept(BGItems.AMOEBA_SPAWN_EGG.get());
                 output.accept(BGItems.BIG_BEAK_SPAWN_EGG.get());
                 output.accept(BGItems.COELACANTH_SPAWN_EGG.get());
                 output.accept(BGItems.COPPERBUG_SPAWN_EGG.get());
@@ -178,7 +181,6 @@ public class BGItemGroups {
                 output.accept(BGBlocks.SUSPICIOUS_SHELLSAND.get());
                 output.accept(BGBlocks.SEAGLASS.get());
                 output.accept(BGBlocks.COBBLED_SEAGLASS.get());
-                output.accept(BGBlocks.SHELLSAND.get());
                 output.accept(BGBlocks.SHELLSTONE.get());
                 output.accept(BGBlocks.SHELLSTONE_STAIRS.get());
                 output.accept(BGBlocks.SHELLSTONE_SLAB.get());
