@@ -340,20 +340,45 @@ Blocks ref;
     public static final Supplier<Block> SHELLSTONE = registerBlock("shellstone", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
+    public static final Supplier<Block> SHELLSTONE_STAIRS = registerBlock("shellstone_stairs", () ->
+            new StairBlock(BGBlocks.SHELLSTONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+
+    public static final Supplier<Block> SHELLSTONE_SLAB = registerBlock("shellstone_slab", () ->
+            new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.SHELLSTONE.get()).strength(2.0f)));
+
+    public static final Supplier<Block> SHELLSTONE_WALL = registerBlock("shellstone_wall", () ->
+            new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.SHELLSTONE.get()).strength(2.0f)));
 
     public static final Supplier<Block> SHELLSTONE_BRICKS = registerBlock("shellstone_bricks", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
 
+    public static final Supplier<Block> CHISELED_SHELLSTONE_BRICKS = registerBlock("chiseled_shellstone_bricks", () ->
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+                    .strength(0.8F)));
+
+    public static final Supplier<Block> SHELLSTONE_BRICKS_STAIRS = registerBlock("shellstone_bricks_stairs", () ->
+            new StairBlock(BGBlocks.SHELLSTONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
+
+    public static final Supplier<Block> SHELLSTONE_BRICKS_SLAB = registerBlock("shellstone_bricks_slab", () ->
+            new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.SHELLSTONE_BRICKS.get()).strength(2.0f)));
+
+    public static final Supplier<Block> SHELLSTONE_BRICKS_WALL = registerBlock("shellstone_bricks_wall", () ->
+            new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.SHELLSTONE_BRICKS.get()).strength(2.0f)));
+    
+
     public static final Supplier<Block> SHELLSAND = registerBlock("shellsand", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).sound(SoundType.SAND).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.1F)));
+    public static  final Supplier<Block>  SUSPICIOUS_SHELLSAND = registerBlock("suspicious_shellsand",() -> new BrushableBlock(SHELLSAND.get(), SoundEvents.BRUSH_SAND,
+            SoundEvents.BRUSH_SAND_COMPLETED, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE)
+            .strength(0.25F).sound(SoundType.SUSPICIOUS_SAND).pushReaction(PushReaction.DESTROY)));
 
     public static final Supplier<Block> SEAGLASS = registerBlock("seaglass", () ->
             new SeaglassBlock(BlockBehaviour.Properties.of().strength(0.6F).sound(SoundType.GLASS)));
 
     public static final Supplier<Block> COBBLED_SEAGLASS = registerBlock("cobbled_seaglass", () ->
-            new SeaglassBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT)
+            new Block(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT)
                     .strength(0.3F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never)
                     .isSuffocating(Blocks::never).isViewBlocking(Blocks::never)));
 

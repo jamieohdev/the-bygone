@@ -174,8 +174,20 @@ public class BGItemGroups {
                 output.accept(BGBlocks.BELLADONNA.get());
                 output.accept(BGBlocks.COLEUS.get());
 
-                output.accept(BGBlocks.SHELLSTONE.get());
                 output.accept(BGBlocks.SHELLSAND.get());
+                output.accept(BGBlocks.SUSPICIOUS_SHELLSAND.get());
+                output.accept(BGBlocks.SEAGLASS.get());
+                output.accept(BGBlocks.COBBLED_SEAGLASS.get());
+                output.accept(BGBlocks.SHELLSAND.get());
+                output.accept(BGBlocks.SHELLSTONE.get());
+                output.accept(BGBlocks.SHELLSTONE_STAIRS.get());
+                output.accept(BGBlocks.SHELLSTONE_SLAB.get());
+                output.accept(BGBlocks.SHELLSTONE_WALL.get());
+                output.accept(BGBlocks.SHELLSTONE_BRICKS.get());
+                output.accept(BGBlocks.CHISELED_SHELLSTONE_BRICKS.get());
+                output.accept(BGBlocks.SHELLSTONE_BRICKS_STAIRS.get());
+                output.accept(BGBlocks.SHELLSTONE_BRICKS_SLAB.get());
+                output.accept(BGBlocks.SHELLSTONE_BRICKS_WALL.get());
 
                 output.accept(BGBlocks.GLOW_GRAVEL.get());
 

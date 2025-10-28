@@ -466,9 +466,8 @@ public class BygoneNeoForge {
         event.enqueueWork(() -> {
 
             Set<Block> validBlocks = Sets.newHashSet(BlockEntityType.BRUSHABLE_BLOCK.validBlocks);
-            validBlocks.addAll(Sets.newHashSet(BGBlocks.SUSPICIOUS_CLAYSTONE.get()));
+            validBlocks.addAll(Sets.newHashSet(BGBlocks.SUSPICIOUS_SHELLSAND.get(), BGBlocks.SUSPICIOUS_CLAYSTONE.get()));
             BlockEntityType.BRUSHABLE_BLOCK.validBlocks = ImmutableSet.copyOf(validBlocks);
-
 
             BGDataComponentsNeoForge.init();
             Bygone.registerStrippables();

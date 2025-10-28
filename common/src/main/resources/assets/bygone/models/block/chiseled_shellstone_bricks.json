@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "bygone:block/chiseled_shellstone_bricks_bottom",
+    "side": "bygone:block/chiseled_shellstone_bricks",
+    "top": "bygone:block/chiseled_shellstone_bricks_top"
+  }
+}
