@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableSet;
 import com.jamiedev.bygone.common.entity.AmoebaEntity;
 import com.jamiedev.bygone.common.entity.SabeastEntity;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -16,7 +17,10 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.animal.frog.Tadpole;
 import net.minecraft.world.entity.animal.frog.TadpoleAi;
+import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.entity.schedule.Activity;
+
+import java.util.Optional;
 
 public class AmoebaAI 
 {
@@ -49,17 +53,32 @@ public class AmoebaAI
     }
 
     private static void initIdleActivity(Brain<AmoebaEntity> brain) {
-        brain.addActivity(Activity.IDLE, ImmutableList.of(Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))), 
-                Pair.of(1, new FollowTemptation((p_218740_) -> 1.25F)), 
-                Pair.of(2, new GateBehavior(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), 
+        brain.addActivity(
+                Activity.IDLE,
+                ImmutableList.of(
+                        Pair.of(0,
+                                SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))
+                                ),
+                        Pair.of(1, new FollowTemptation((p_218740_) -> 1.25F)),
+                        Pair.of(2, new GateBehavior(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
                         ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, 
                         GateBehavior.RunningPolicy.TRY_ALL, 
-                        ImmutableList.of(Pair.of(RandomStroll.swim(0.5F), 2), 
+                        ImmutableList.of(Pair.of(RandomStroll.swim(0.5F), 2),
                                 Pair.of(SetWalkTargetFromLookTarget.create(0.5F, 3), 3),
-                                Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5))))));
+                                Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5))))
+                ));
     }
 
     public static void updateActivity(AmoebaEntity amoeba) {
         amoeba.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.IDLE));
+    }
+
+    private static boolean isNearRepellent(AmoebaEntity amoeba) {
+        return amoeba.getBrain().hasMemoryValue(MemoryModuleType.NEAREST_REPELLENT);
+    }
+
+    public static boolean isPosNearNearestRepellent(AmoebaEntity amoeba, BlockPos pos) {
+        Optional<BlockPos> optional = amoeba.getBrain().getMemory(MemoryModuleType.NEAREST_REPELLENT);
+        return optional.isPresent() && optional.get().closerThan(pos, 8.0);
     }
 }

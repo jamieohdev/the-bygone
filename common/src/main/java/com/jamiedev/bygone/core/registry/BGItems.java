@@ -135,7 +135,7 @@ public class BGItems
     public static final Supplier<Item> NECTAUR_SPAWN_EGG = registerItem("nectaur_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.NECTAUR.get(), 0x50692C, 0x94262B, new Item.Properties()));
     public static final Supplier<Item> WRAITH_SPAWN_EGG = registerItem("wraith_spawn_egg", () -> new SpawnEggItem(BGEntityTypes.WRAITH.get(), 0x22244A, 0xBAEFED, new Item.Properties()));
 
-    public static final Supplier<Item> AMOEBA_BUCKET = registerItem((String)"amoeba_bucket", () ->
+    public static final Supplier<Item> AMOEBA_BUCKET = registerItem((String)"bucket_o_amoeba", () ->
             new MobBucketItem(BGEntityTypes.AMOEBA.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties())
                     .stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
     public static final Supplier<Item> AMOEBA_GEL = registerItem("amoeba_gel", () -> new Item(new Item.Properties().fireResistant()));
