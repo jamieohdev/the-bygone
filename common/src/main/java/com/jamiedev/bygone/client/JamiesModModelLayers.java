@@ -7,8 +7,6 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 public class JamiesModModelLayers {
     public static final ModelLayerLocation DUCKIE =
             new ModelLayerLocation(Bygone.id("duckie"), "main");
-    public static final ModelLayerLocation HOOK =
-            new ModelLayerLocation(Bygone.id("hook"), "main");
 
     public static final ModelLayerLocation AMOEBA =
             new ModelLayerLocation(Bygone.id("amoeba"), "main");
@@ -16,10 +14,10 @@ public class JamiesModModelLayers {
     public static final ModelLayerLocation AMOEBA_OUTER =
             new ModelLayerLocation(Bygone.id("amoeba"), "outer");
 
-    public static final ModelLayerLocation MOOBOO  =
+    public static final ModelLayerLocation MOOBOO =
             new ModelLayerLocation(Bygone.id("mooboo"), "main");
 
-    public static final ModelLayerLocation MOOBOO_TRANS  =
+    public static final ModelLayerLocation MOOBOO_TRANS =
             new ModelLayerLocation(Bygone.id("mooboo"), "outer");
     public static final ModelLayerLocation SCUTTLE =
             new ModelLayerLocation(Bygone.id("scuttle"), "main");
@@ -40,12 +38,9 @@ public class JamiesModModelLayers {
     public static final ModelLayerLocation FUNGALPARENT =
             new ModelLayerLocation(Bygone.id("fungalparent"), "main");
 
-    public static final ModelLayerLocation EXOTIC_ARROW =
-            new ModelLayerLocation(Bygone.id("exotic_arrow"), "main");
-
     public static final ModelLayerLocation BIG_BEAK = new ModelLayerLocation(Bygone.id("big_beak"), "main");
-    public static final ModelLayerLocation BIG_BEAK_SADDLE =  new ModelLayerLocation(Bygone.id("big_beak"), "saddle");
-    public static final ModelLayerLocation BIG_BEAK_ARMOR =  new ModelLayerLocation(Bygone.id("big_beak"), "armor");
+    public static final ModelLayerLocation BIG_BEAK_SADDLE = new ModelLayerLocation(Bygone.id("big_beak"), "saddle");
+    public static final ModelLayerLocation BIG_BEAK_ARMOR = new ModelLayerLocation(Bygone.id("big_beak"), "armor");
 
     public static final ModelLayerLocation WHISKBILL =
             new ModelLayerLocation(Bygone.id("whiskbill"), "main");
