@@ -325,10 +325,6 @@ Blocks ref;
             new AlphaMossBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS).pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> ALPHA_MOSSY_CLAYSTONE = registerBlock("alpha_mossy_claystone", () -> new GrassBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)));
 
-    public static final Supplier<Block> CASTER = registerBlock("caster", () ->
-            new CasterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
-                    .strength(2.8F)));
-
 // Start of the Primordial Ocean blockset
 
     public static final Supplier<Block> BLUE_ALGAE = registerBlock("blue_algae", () -> new BlueAlgueBlock((SimpleParticleType) BGParticleTypes.ALGAE_BLOOM, BlockBehaviour.Properties.of().mapColor(MapColor.GLOW_LICHEN)
