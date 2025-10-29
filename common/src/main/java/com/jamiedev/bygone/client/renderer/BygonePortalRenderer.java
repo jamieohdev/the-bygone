@@ -1,25 +1,16 @@
 package com.jamiedev.bygone.client.renderer;
 
-import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.block.entity.BygonePortalBlockEntity;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.entity.TheEndPortalBlockEntity;
 import org.joml.Matrix4f;
 
 public class BygonePortalRenderer<T extends BygonePortalBlockEntity> implements BlockEntityRenderer<T> {
-    public static final ResourceLocation END_SKY_LOCATION = Bygone.id("textures/environment/end_sky.png");
-    public static final ResourceLocation END_PORTAL_LOCATION = Bygone.id("textures/entity/end_portal.png");
 
     public BygonePortalRenderer(BlockEntityRendererProvider.Context context) {
     }

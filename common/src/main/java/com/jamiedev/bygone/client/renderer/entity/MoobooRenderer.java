@@ -12,12 +12,12 @@ import net.minecraft.world.entity.monster.Vex;
 
 import javax.annotation.Nullable;
 
-public class MoobooRenderer2 extends MobRenderer<MoobooEntity, CowModel<MoobooEntity>> {
+public class MoobooRenderer extends MobRenderer<MoobooEntity, CowModel<MoobooEntity>> {
     private static final ResourceLocation COW_LOCATION = Bygone.id("textures/entity/mooboo.png");
 
     SlimeRenderer ref;
 
-    public MoobooRenderer2(EntityRendererProvider.Context context) {
+    public MoobooRenderer(EntityRendererProvider.Context context) {
         super(context, new CowModel(context.bakeLayer(JamiesModModelLayers.MOOBOO)), 0.7F);
 
     }
