@@ -3,7 +3,6 @@ package com.jamiedev.bygone.client;
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.renderer.BygonePortalRenderer;
 import com.jamiedev.bygone.client.renderer.entity.*;
-import com.jamiedev.bygone.common.entity.AmoebaEntity;
 import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.client.models.*;
 import com.jamiedev.bygone.client.particles.*;
@@ -235,7 +234,7 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.LITHY, LithyModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WISP, WispModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WRAITH, WraithModel::getTexturedModelData);
-        consumer.accept(JamiesModModelLayers.SABEAST, SabeastModel2::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.SABEAST, SabeastModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.AMOEBA, AmoebaModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.AMOEBA_OUTER, AmoebaModel::createOuterLayer);
     }

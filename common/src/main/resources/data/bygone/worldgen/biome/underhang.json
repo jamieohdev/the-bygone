@@ -79,9 +79,7 @@
     ["minecraft:brown_mushroom_normal", "minecraft:red_mushroom_normal"]
   ],
   "has_precipitation": false,
-  "spawn_costs": {
-
-  },
+  "spawn_costs": {},
   "spawners": {
     "ambient": [],
     "axolotls": [],
@@ -112,9 +110,7 @@
       }
     ],
     "misc": [],
-    "monster": [
-
-    ],
+    "monster": [],
     "underground_water_creature": [],
     "water_creature": []
   },
