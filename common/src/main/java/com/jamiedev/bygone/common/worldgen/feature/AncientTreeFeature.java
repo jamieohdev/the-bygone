@@ -1,6 +1,5 @@
-package com.jamiedev.bygone.common.worldgen.structure;
+package com.jamiedev.bygone.common.worldgen.feature;
 
-import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

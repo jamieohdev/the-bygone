@@ -1,0 +1,16 @@
+{
+  "type": "bygone:sunken_city",
+  "biomes": "bygone:primordial_ocean",
+  "spawn_overrides": {},
+  "step": "underground_decoration",
+  "terrain_adaptation": "beard_thin",
+  "height": {
+    "type": "minecraft:uniform",
+    "max_inclusive": {
+      "absolute": 210
+    },
+    "min_inclusive": {
+      "absolute": -15
+    }
+  }
+}

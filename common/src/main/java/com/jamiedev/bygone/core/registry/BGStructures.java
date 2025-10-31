@@ -27,6 +27,10 @@ public class BGStructures
     public static StructureType<MegalithRuinsStructure> MEGALITH_RUINS;
     public static StructureType<MinilithStructure> MINILITHS;
 
+    public static StructureType<SunkenCityStructure> SUNKEN_CITY;
+    public static StructurePieceType SUNKEN_CITY_PIECES = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
+            Bygone.id("sunken_city"), SunkenCityPiece.Piece::new);
+
     public static StructureType<BygoneMineshaftStructure> BYGONE_MINESHAFT;
     public static StructurePieceType BYGONE_MINESHAFT_CORRIDOR = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
             Bygone.id("corr"), BygoneMineshaftGenerator.BygoneMineshaftCorridor::new);
@@ -72,6 +76,7 @@ public class BGStructures
         return register((StructurePieceType)type, id);
     }
 
+
     public static void init()
     {
         ABANDONED_FARM = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "abandoned_farm"),
@@ -87,6 +92,7 @@ public class BGStructures
 
         MEGALITH_RUINS = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "megalith_ruins"), () -> MegalithRuinsStructure.CODEC);
         MINILITHS = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "miniliths"), () -> MinilithStructure.CODEC);
+        SUNKEN_CITY = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_city"), () -> SunkenCityStructure.CODEC);
 
     }
 }

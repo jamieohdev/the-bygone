@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 45,
+    "spacing": 5,
+    "separation": 3
+  },
+  "structures": [
+    {
+      "structure": "bygone:sunken_city",
+      "weight": 1
+    }
+  ]
+}

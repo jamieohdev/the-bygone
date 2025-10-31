@@ -6,10 +6,10 @@ import com.jamiedev.bygone.common.worldgen.feature.config.MegalithConfig;
 import com.jamiedev.bygone.common.worldgen.feature.config.SableBranchConfig;
 import com.jamiedev.bygone.common.worldgen.feature.config.SmallCloudConfig;
 import com.jamiedev.bygone.common.worldgen.feature.config.ThornySableBranchConfig;
-import com.jamiedev.bygone.common.worldgen.structure.AncientForestVegetationFeature;
-import com.jamiedev.bygone.common.worldgen.structure.AncientForestVegetationFeatureConfig;
-import com.jamiedev.bygone.common.worldgen.structure.AncientTreeFeature;
-import com.jamiedev.bygone.common.worldgen.structure.AncientTreeFeatureConfig;
+import com.jamiedev.bygone.common.worldgen.feature.AncientForestVegetationFeature;
+import com.jamiedev.bygone.common.worldgen.feature.AncientForestVegetationFeatureConfig;
+import com.jamiedev.bygone.common.worldgen.feature.AncientTreeFeature;
+import com.jamiedev.bygone.common.worldgen.feature.AncientTreeFeatureConfig;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -17,7 +17,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.RandomPatchFeature;
-import net.minecraft.world.level.levelgen.feature.TwistingVinesFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 
 public class BGFeatures
