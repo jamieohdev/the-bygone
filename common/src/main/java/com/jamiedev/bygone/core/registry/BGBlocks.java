@@ -338,7 +338,7 @@ Blocks ref;
             .ignitedByLava().pushReaction(PushReaction.DESTROY)));
 
     public static final Supplier<Block> SHELLSTONE = registerBlock("shellstone", () ->
-            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.RAW_IRON).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
     public static final Supplier<Block> SHELLSTONE_STAIRS = registerBlock("shellstone_stairs", () ->
             new StairBlock(BGBlocks.SHELLSTONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));
@@ -350,11 +350,15 @@ Blocks ref;
             new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.SHELLSTONE.get()).strength(2.0f)));
 
     public static final Supplier<Block> SHELLSTONE_BRICKS = registerBlock("shellstone_bricks", () ->
-            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.RAW_IRON).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+                    .strength(0.8F)));
+
+    public static final Supplier<Block> SHELLSTONE_PILLAR = registerBlock("shellstone_pillar", () ->
+            new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GREEN).sound(SoundType.AMETHYST).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
 
     public static final Supplier<Block> CHISELED_SHELLSTONE_BRICKS = registerBlock("chiseled_shellstone_bricks", () ->
-            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
+            new Block(BlockBehaviour.Properties.of().mapColor(MapColor.RAW_IRON).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
 
     public static final Supplier<Block> SHELLSTONE_BRICKS_STAIRS = registerBlock("shellstone_bricks_stairs", () ->
@@ -376,6 +380,10 @@ Blocks ref;
 
     public static final Supplier<Block> SEAGLASS = registerBlock("seaglass", () ->
             new SeaglassBlock(BlockBehaviour.Properties.of().strength(0.6F).sound(SoundType.GLASS)));
+
+    public static final Supplier<Block> SEAGLASS_PANE = registerBlock("seaglass_pane", () ->
+            new SeaglassPaneBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT).strength(0.3F).sound(SoundType.GLASS).noOcclusion()));
+
 
     public static final Supplier<Block> COBBLED_SEAGLASS = registerBlock("cobbled_seaglass", () ->
             new Block(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT)
@@ -405,7 +413,7 @@ Blocks ref;
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GREEN).sound(SoundType.AMETHYST).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()
                     .strength(0.8F)));
     public static final Supplier<Block> MALACHITE_DOOR = registerBlock("malachite_door", () ->
-            new DoorBlock(JamiesModBlockSetType.ANCIENT, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR).sound(SoundType.AMETHYST).strength(2.0f)));
+            new MalachiteDoorBlock(JamiesModBlockSetType.ANCIENT, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_DOOR).sound(SoundType.AMETHYST).strength(2.0f)));
 
     public static final Supplier<Block> MALACHITE_STAIRS = registerBlock("malachite_stairs", () ->
             new StairBlock(BGBlocks.MALACHITE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)));

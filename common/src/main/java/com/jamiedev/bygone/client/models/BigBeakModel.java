@@ -35,7 +35,7 @@ public class BigBeakModel<T extends BigBeakEntity> extends HierarchicalModel<T> 
         this.leftLeg = root.getChild("leftLeg");
         this.rightWing = root.getChild("rightWing");
         this.leftWing = root.getChild("leftWing");
-       // this.feathers = root.getChild("feathers");
+        //this.feathers = root.getChild("feathers");
         this.head = root.getChild("head");
         this.body = root.getChild("body");
        // this.tail = root.getChild("tail");
@@ -62,10 +62,15 @@ public class BigBeakModel<T extends BigBeakEntity> extends HierarchicalModel<T> 
                 ,
                 PartPose.offset(0.0F, -6.75F, -12.5F));
 
-        //ModelPartData feathers = head.addChild("feathers", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -24.0F, -11.0F));
-        //ModelPartData cube_r1 = feathers.addChild("cube_r1", ModelPartBuilder.create().uv(42, -2).cuboid(0.0F, -2.0F, 0.0F, 0.0F, 6.0F, 14.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.7854F, 0.0F, 0.0F));
+        PartDefinition feathers = head.addOrReplaceChild("feathers", CubeListBuilder.create(), PartPose.offset(0.0F, -17.0F, 2.0F));
 
-        //ModelPartData cube_r2 = feathers.addChild("cube_r2", ModelPartBuilder.create().uv(42, -2).cuboid(0.0F, -2.0F, 0.0F, 0.0F, 6.0F, 14.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.3927F, 0.0F, 0.0F));
+        PartDefinition cube_r1 = feathers.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(42, -2)
+                .addBox(0.0F, -2.0F, 0.0F, 0.0F, 6.0F, 14.0F, new CubeDeformation(0.0F)),
+                PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.7854F, 0.0F, 0.0F));
+
+        PartDefinition cube_r2 = feathers.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(42, -2)
+                .addBox(0.0F, -2.0F, 0.0F, 0.0F, 6.0F, 14.0F, new CubeDeformation(0.0F)),
+                PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.3927F, 0.0F, 0.0F));
 
         PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -7.5F, -10.5F, 10.0F, 15.0F, 21.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -0.5F, -2.5F));
 

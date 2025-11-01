@@ -68,7 +68,7 @@ public class SunkenCityStructure extends Structure
        WorldgenRandom chunkRandom = context.random();
        int i = context.chunkPos().getMinBlockX() + chunkRandom.nextInt(16);
        int j = context.chunkPos().getMinBlockZ() + chunkRandom.nextInt(16);
-       int k = context.chunkGenerator().getSeaLevel();
+       int k = context.chunkGenerator().getMinY();
        WorldGenerationContext heightContext = new WorldGenerationContext(context.chunkGenerator(), context.heightAccessor());
        int l = this.height.sample(chunkRandom, heightContext);
        NoiseColumn verticalBlockSample = context.chunkGenerator().getBaseColumn(i, j, context.heightAccessor(), context.randomState());

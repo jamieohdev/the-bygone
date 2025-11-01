@@ -41,7 +41,7 @@ public class AncientRootBlock  extends Block implements SimpleWaterloggedBlock {
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
         boolean bl = fluidState.getType() == Fluids.WATER;
-        return super.getStateForPlacement(ctx).setValue(WATERLOGGED, bl);
+        return super.getStateForPlacement(ctx) .setValue(WATERLOGGED,bl);
     }
 
     @Override
