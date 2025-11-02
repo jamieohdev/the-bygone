@@ -17,13 +17,12 @@ import net.minecraft.world.level.levelgen.structure.StructureType;
 import java.util.Optional;
 
 public class BygoneFossilStructure extends Structure {
-    public static final MapCodec<BygoneFossilStructure> CODEC =
-            RecordCodecBuilder.mapCodec(instance ->
-                    instance.group(
-                            settingsCodec(instance),
-                            HeightProvider.CODEC.fieldOf("height").forGetter(structure -> structure.height)
-                    ).apply(instance, BygoneFossilStructure::new)
-            );
+    public static final MapCodec<BygoneFossilStructure> CODEC = RecordCodecBuilder.mapCodec(instance ->
+            instance.group(
+                    settingsCodec(instance),
+                    HeightProvider.CODEC.fieldOf("height").forGetter(structure -> structure.height)
+            ).apply(instance, BygoneFossilStructure::new)
+    );
 
     private final HeightProvider height;
 

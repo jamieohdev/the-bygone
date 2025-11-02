@@ -29,8 +29,6 @@ import java.util.Optional;
 
 public class AncientRootStructure extends Structure {
 
-    // A custom codec that changes the size limit for our code_structure_sky_fan.json's config to not be capped at 7.
-    // With this, we can have a structure with a size limit up to 30 if we want to have extremely long branches of pieces in the structure.
     public static final MapCodec<AncientRootStructure> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(AncientRootStructure.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
@@ -41,7 +39,8 @@ public class AncientRootStructure extends Structure {
                     Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistanceFromCenter),
                     DimensionPadding.CODEC.optionalFieldOf("dimension_padding", JigsawStructure.DEFAULT_DIMENSION_PADDING).forGetter(structure -> structure.dimensionPadding),
                     LiquidSettings.CODEC.optionalFieldOf("liquid_settings", JigsawStructure.DEFAULT_LIQUID_SETTINGS).forGetter(structure -> structure.liquidSettings)
-            ).apply(instance, AncientRootStructure::new));
+            ).apply(instance, AncientRootStructure::new)
+    );
 
     private final Holder<StructureTemplatePool> startPool;
     private final Optional<ResourceLocation> startJigsawName;
