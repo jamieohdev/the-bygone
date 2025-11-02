@@ -11,13 +11,10 @@ import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import java.util.function.Supplier;
 
 public class BGBlockEntities {
-    public static Supplier<BlockEntityType<CopperbugNestBlockEntity>> COPPERBUGNEST;
     public static Supplier<BlockEntityType<BygonePortalBlockEntity>> BYGONE_PORTAL;
     public static Supplier<BlockEntityType<PrimordialVentEntity>> PRIMORDIAL_VENT;
 
     public static Supplier<BlockEntityType<SprinklerEntity>> SPRINKLER;
-
-    public static Supplier<BlockEntityType<CasterBlockEntity>> CASTER;
 
     public static Supplier<BlockEntityType<PrimordialUrchinEntity>> PRIMORDIAL_URCHIN;
 
@@ -41,12 +38,6 @@ public class BGBlockEntities {
         BLEMISH_CATALYST = register("blemish_catalyst", () ->
                 BlockEntityType.Builder.of(BlemishCatalystBlockEntity::new, BGBlocks.BLEMISH_CATALYST.get())
                         .build(null));
-        CASTER = register("caster", () ->
-                BlockEntityType.Builder.of(CasterBlockEntity::new, BGBlocks.CASTER.get())
-                        .build(null));
-        //  COPPERBUGNEST = register("copperbug_nest",
-       //         BlockEntityType.Builder.create(CopperbugNestBlockEntity::new, JamiesModBlocks.COPPERBUG_NEST)
-       //                 .build());
         SPRINKLER = register("ancient_sprinkler", () ->
                 BlockEntityType.Builder.of(SprinklerEntity::new, BGBlocks.SPRINKER.get())
                         .build(null));

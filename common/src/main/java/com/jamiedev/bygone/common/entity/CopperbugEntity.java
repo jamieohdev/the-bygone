@@ -1,12 +1,9 @@
 package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
-import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import com.google.common.collect.Lists;
-import com.jamiedev.bygone.common.block.entity.CopperbugNestBlockEntity;
-import com.jamiedev.bygone.core.registry.BGBlockEntities;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 
 import net.minecraft.core.BlockPos;
@@ -69,7 +66,6 @@ import net.minecraft.world.level.block.StemBlock;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.WeatheringCopperFullBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.pathfinder.Path;
@@ -110,7 +106,6 @@ public class CopperbugEntity extends Animal implements NeutralMob
     @Nullable
     BlockPos nestPos;
     ScrapeGoal scrapeGoal;
-    MoveToNestGoal moveToNestGoal;
 
     MoveToCopperGoal moveToCopperGoal;
 
@@ -128,7 +123,6 @@ public class CopperbugEntity extends Animal implements NeutralMob
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new EnterNestGoal());
         this.goalSelector.addGoal(1, new CopperbugEntity.AttackGoal());
         this.goalSelector.addGoal(1, new PanicGoal(this, 2.0, (polarBear) -> {
             return polarBear.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES;
@@ -246,10 +240,6 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
             if (this.ticksUntilCanScraping > 0) {
                 --this.ticksUntilCanScraping;
-            }
-
-            if (this.tickCount % 20 == 0 && !this.isNestValid()) {
-                this.nestPos = null;
             }
         }
 
@@ -431,10 +421,6 @@ public class CopperbugEntity extends Animal implements NeutralMob
         this.copperPos = copperPos;
     }
 
-    public List<BlockPos> getPossibleNests() {
-        return this.moveToNestGoal.possibleNests;
-    }
-
     private boolean failedScrapingTooLong() {
         return this.ticksSinceScraping > 3600;
     }
@@ -474,53 +460,6 @@ public class CopperbugEntity extends Animal implements NeutralMob
 
         this.setCopperbugFlag(8, hasNectar);
     }
-
-
-    boolean isNestValid() {
-        if (!this.hasNest()) {
-            return false;
-        } else if (this.isTooFar(this.nestPos)) {
-            return false;
-        } else {
-            BlockEntity blockEntity = this.level().getBlockEntity(this.nestPos);
-            return blockEntity != null && blockEntity.getType() == BGBlockEntities.COPPERBUGNEST;
-        }
-    }
-
-    private boolean doesNestHaveSpace(BlockPos pos) {
-        BlockEntity blockEntity = this.level().getBlockEntity(pos);
-        if (blockEntity instanceof CopperbugNestBlockEntity) {
-            return !((CopperbugNestBlockEntity)blockEntity).isFullOfCopperbugs();
-        } else {
-            return false;
-        }
-    }
-
-
-    boolean canEnterNest() {
-        if (this.cannotEnterNestTicks <= 0 && !this.scrapeGoal.isRunning() && !this.isAngry() &&
-                this.getTarget() == null) {
-            boolean bl = this.failedScrapingTooLong() || this.level().isRaining() || this.level().isNight() || this.hasOxidization();
-            return bl && !this.isNestNearFire();
-        } else {
-            return false;
-        }
-    }
-
-    private boolean isNestNearFire() {
-        if (this.nestPos == null) {
-            return false;
-        } else {
-            BlockEntity blockEntity = this.level().getBlockEntity(this.nestPos);
-            return blockEntity instanceof CopperbugNestBlockEntity && ((CopperbugNestBlockEntity)blockEntity).isNearFire();
-        }
-    }
-
-    public void setCannotEnterNestTicks(int cannotEnterNestTicks) {
-        this.cannotEnterNestTicks = cannotEnterNestTicks;
-    }
-    
-    
 
     private void resetCopperCounter() {
         this.copperUpdatedSinceScraping = 0;
@@ -829,45 +768,6 @@ public class CopperbugEntity extends Animal implements NeutralMob
             return Optional.empty();
         }
     }
-    
-    class EnterNestGoal extends Goal {
-        EnterNestGoal() {
-            super();
-        }
-
-        @Override
-        public boolean canUse() {
-            if (CopperbugEntity.this.hasNest() && CopperbugEntity.this.canEnterNest()) {
-                assert CopperbugEntity.this.nestPos != null;
-                if (CopperbugEntity.this.nestPos.closerToCenterThan(CopperbugEntity.this.position(), 2.0)) {
-                    BlockEntity blockEntity = CopperbugEntity.this.level().getBlockEntity(CopperbugEntity.this.nestPos);
-                    if (blockEntity instanceof CopperbugNestBlockEntity beenestBlockEntity) {
-                        if (!beenestBlockEntity.isFullOfCopperbugs()) {
-                            return true;
-                        }
-
-                        CopperbugEntity.this.nestPos = null;
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return false;
-        }
-
-        @Override
-        public void start() {
-            BlockEntity blockEntity = CopperbugEntity.this.level().getBlockEntity(CopperbugEntity.this.nestPos);
-            if (blockEntity instanceof CopperbugNestBlockEntity beenestBlockEntity) {
-                beenestBlockEntity.tryEnterNest(CopperbugEntity.this);
-            }
-
-        }
-    }
 
     private static void cleanOxidationAround(Level world, BlockPos pos, BlockPos.MutableBlockPos mutablePos, int count) {
         mutablePos.set(pos);
@@ -903,178 +803,6 @@ public class CopperbugEntity extends Animal implements NeutralMob
         });
         world.levelEvent(3002, blockPos, -1);
         return Optional.of(blockPos);
-    }
-    
-    class FindNestGoal extends Goal
-    {
-
-        FindNestGoal() {
-            super();
-        }
-
-        @Override
-        public boolean canUse() {
-            return CopperbugEntity.this.ticksLeftToFindNest == 0 && !CopperbugEntity.this.hasNest() && CopperbugEntity.this.canEnterNest();
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return false;
-        }
-
-        @Override
-        public void start() {
-            CopperbugEntity.this.ticksLeftToFindNest = 200;
-            List<BlockPos> list = this.getNearbyFreeNests();
-            if (!list.isEmpty()) {
-                Iterator<BlockPos> var2 = list.iterator();
-
-                BlockPos blockPos;
-                do {
-                    if (!var2.hasNext()) {
-                        CopperbugEntity.this.moveToNestGoal.clearPossibleNests();
-                        CopperbugEntity.this.nestPos = list.get(0);
-                        return;
-                    }
-
-                    blockPos = (BlockPos)var2.next();
-                } while(CopperbugEntity.this.moveToNestGoal.isPossibleNest(blockPos));
-
-                CopperbugEntity.this.nestPos = blockPos;
-            }
-        }
-
-        private List getNearbyFreeNests() {
-            BlockPos blockPos = CopperbugEntity.this.blockPosition();
-            PoiManager pointOfInterestStorage = ((ServerLevel)CopperbugEntity.this.level()).getPoiManager();
-            Stream<PoiRecord> stream = pointOfInterestStorage.getInRange((poiType) -> {
-                return poiType.is(JamiesModTag.PointOfInterests.COPPERBUG_HOME);
-            }, blockPos, 20, PoiManager.Occupancy.ANY);
-            return stream.map(PoiRecord::getPos).filter(CopperbugEntity.this::doesNestHaveSpace).sorted(Comparator.comparingDouble((blockPos2) -> {
-                return blockPos2.distSqr(blockPos);
-            })).collect(Collectors.toList());
-        }
-    }
-    
-    class MoveToNestGoal extends Goal
-    {
-        public static final int field_30295 = 600;
-        int ticks;
-        private static final int field_30296 = 3;
-        final List<BlockPos> possibleNests;
-        @Nullable
-        private Path path;
-        private static final int field_30297 = 60;
-        private int ticksUntilLost;
-
-        MoveToNestGoal() {
-            super();
-            this.ticks = CopperbugEntity.this.level().random.nextInt(10);
-            this.possibleNests = Lists.newArrayList();
-            this.setFlags(EnumSet.of(Flag.MOVE));
-        }
-
-        @Override
-        public boolean canUse() {
-            return CopperbugEntity.this.nestPos != null && !CopperbugEntity.this.hasRestriction() && CopperbugEntity.this.canEnterNest() && !this.isCloseEnough(CopperbugEntity.this.nestPos) && CopperbugEntity.this.level().getBlockState(CopperbugEntity.this.nestPos).is(JamiesModTag.COPPERBUGNESTS);
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return this.canUse();
-        }
-
-        @Override
-        public void start() {
-            this.ticks = 0;
-            this.ticksUntilLost = 0;
-            super.start();
-        }
-
-        @Override
-        public void stop() {
-            this.ticks = 0;
-            this.ticksUntilLost = 0;
-            CopperbugEntity.this.navigation.stop();
-            CopperbugEntity.this.navigation.resetMaxVisitedNodesMultiplier();
-        }
-
-        @Override
-        public void tick() {
-            if (CopperbugEntity.this.nestPos != null) {
-                ++this.ticks;
-                if (this.ticks > this.adjustedTickDelay(600)) {
-                    this.makeChosenNestPossibleNest();
-                } else if (!CopperbugEntity.this.navigation.isInProgress()) {
-                    if (!CopperbugEntity.this.isWithinDistance(CopperbugEntity.this.nestPos, 16)) {
-                        if (CopperbugEntity.this.isTooFar(CopperbugEntity.this.nestPos)) {
-                            this.setLost();
-                        } else {
-                            CopperbugEntity.this.startMovingTo(CopperbugEntity.this.nestPos);
-                        }
-                    } else {
-                        boolean bl = this.startMovingToFar(CopperbugEntity.this.nestPos);
-                        if (!bl) {
-                            this.makeChosenNestPossibleNest();
-                        } else if (this.path != null && CopperbugEntity.this.navigation.getPath().sameAs(this.path)) {
-                            ++this.ticksUntilLost;
-                            if (this.ticksUntilLost > 60) {
-                                this.setLost();
-                                this.ticksUntilLost = 0;
-                            }
-                        } else {
-                            this.path = CopperbugEntity.this.navigation.getPath();
-                        }
-
-                    }
-                }
-            }
-        }
-
-        private boolean startMovingToFar(BlockPos pos) {
-            CopperbugEntity.this.navigation.setMaxVisitedNodesMultiplier(10.0F);
-            CopperbugEntity.this.navigation.moveTo(pos.getX(), pos.getY(), pos.getZ(), 2, 1.0);
-            return CopperbugEntity.this.navigation.getPath() != null && CopperbugEntity.this.navigation.getPath().canReach();
-        }
-
-        boolean isPossibleNest(BlockPos pos) {
-            return this.possibleNests.contains(pos);
-        }
-
-        private void addPossibleNest(BlockPos pos) {
-            this.possibleNests.add(pos);
-
-            while(this.possibleNests.size() > 3) {
-                this.possibleNests.remove(0);
-            }
-
-        }
-
-        void clearPossibleNests() {
-            this.possibleNests.clear();
-        }
-
-        private void makeChosenNestPossibleNest() {
-            if (CopperbugEntity.this.nestPos != null) {
-                this.addPossibleNest(CopperbugEntity.this.nestPos);
-            }
-
-            this.setLost();
-        }
-
-        private void setLost() {
-            CopperbugEntity.this.nestPos = null;
-            CopperbugEntity.this.ticksLeftToFindNest = 200;
-        }
-
-        private boolean isCloseEnough(BlockPos pos) {
-            if (CopperbugEntity.this.isWithinDistance(pos, 2)) {
-                return true;
-            } else {
-                Path path = CopperbugEntity.this.navigation.getPath();
-                return path != null && path.getTarget().equals(pos) && path.canReach() && path.isDone();
-            }
-        }
     }
 
     private void startMovingTo(BlockPos pos) {
@@ -1173,7 +901,7 @@ public class CopperbugEntity extends Animal implements NeutralMob
             } else if (CopperbugEntity.this.random.nextFloat() < 0.3F) {
                 return false;
             } else {
-                return CopperbugEntity.this.hasOxidization() && CopperbugEntity.this.isNestValid();
+                return CopperbugEntity.this.hasOxidization();
             }
         }
 
