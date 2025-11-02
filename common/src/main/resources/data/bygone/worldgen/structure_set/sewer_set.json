@@ -1,14 +1,14 @@
 {
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1337,
+    "separation": 10,
+    "spacing": 24
+  },
   "structures": [
     {
       "structure": "bygone:sewer",
       "weight": 1
     }
-  ],
-  "placement": {
-    "type": "minecraft:random_spread",
-    "separation": 10,
-    "spacing": 24,
-    "salt": 1337
-  }
+  ]
 }
