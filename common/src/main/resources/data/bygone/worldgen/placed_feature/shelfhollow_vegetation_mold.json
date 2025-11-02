@@ -1,0 +1,88 @@
+{
+  "feature": {
+    "type": "minecraft:vegetation_patch",
+    "config": {
+      "depth": 2,
+      "extra_bottom_block_chance": 0.0,
+      "extra_edge_column_chance": 0.3,
+      "ground_state": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "bygone:shelf_mold_block"
+        }
+      },
+      "replaceable": "#minecraft:moss_replaceable",
+      "surface": "floor",
+      "vegetation_chance": 0.8,
+      "vegetation_feature": {
+        "feature": {
+          "type": "minecraft:simple_block",
+          "config": {
+            "to_place": {
+              "type": "minecraft:weighted_state_provider",
+              "entries": [
+                {
+                  "data": {
+                    "Name": "bygone:shelf_mold",
+                    "Properties": {
+                      "half": "lower"
+                    }
+                  },
+                  "weight": 1
+                }
+              ]
+            }
+          }
+        },
+        "placement": []
+      },
+      "vertical_range": 5,
+      "xz_radius": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 7,
+        "min_inclusive": 4
+      }
+    }
+  },
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 75
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 256
+        },
+        "min_inclusive": {
+          "above_bottom": 0
+        }
+      }
+    },
+    {
+      "type": "minecraft:environment_scan",
+      "allowed_search_condition": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:air"
+      },
+      "direction_of_search": "down",
+      "max_steps": 12,
+      "target_condition": {
+        "type": "minecraft:solid"
+      }
+    },
+    {
+      "type": "minecraft:random_offset",
+      "xz_spread": 0,
+      "y_spread": 1
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

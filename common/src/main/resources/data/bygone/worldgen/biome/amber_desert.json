@@ -36,24 +36,30 @@
   "features": [
     [],
     [],
-    ["bygone:amber", "bygone:amber_2", "bygone:amber_blob"],
-    ["bygone:small_cloud"],
+    [],
     [],
     [],
     [
-      "bygone:amber_cluster",
-      "bygone:ore_coal_upper",
-      "bygone:ore_coal_lower",
-      "bygone:ore_iron_upper",
-      "bygone:ore_iron_middle",
-      "bygone:ore_iron_small",
-      "bygone:ore_copper",
-      "bygone:ore_verdigris"
+      "bygone:common_monster_room",
+      "bygone:common_small_cloud",
+      "bygone:common_ore_coal_upper",
+      "bygone:common_ore_coal_lower",
+      "bygone:common_ore_iron_upper",
+      "bygone:common_ore_iron_middle",
+      "bygone:common_ore_iron_small",
+      "bygone:common_ore_copper",
+      "bygone:common_ore_verdigris",
+      "bygone:amber_desert_amber",
+      "bygone:amber_desert_amber_2",
+      "bygone:amber_desert_amber_blob",
+      "bygone:amber_desert_amber_cluster",
+      "bygone:amber_desert_amber_clump"
     ],
+    ["bygone:common_glow_lichen"],
     [],
-    ["minecraft:spring_water", "minecraft:spring_lava"],
-    ["minecraft:glow_lichen", "bygone:amber_clump"],
-    ["minecraft:freeze_top_layer"]
+    [],
+    [],
+    []
   ],
   "has_precipitation": false,
   "spawn_costs": {

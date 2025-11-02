@@ -37,36 +37,31 @@
   "features": [
     [],
     [],
-    ["bygone:miniliths", "bygone:miniliths_glowing", "bygone:megaliths"],
-    [],
-    [],
     [],
     [],
     [
-      "bygone:spring_bronze_open",
-      "minecraft:patch_fire",
-      "minecraft:patch_soul_fire",
-      "minecraft:glowstone_extra",
-      "minecraft:glowstone",
-      "minecraft:brown_mushroom_nether",
-      "minecraft:red_mushroom_nether",
-      "minecraft:ore_magma",
-      "bygone:ore_coal_upper",
-      "bygone:ore_coal_lower",
-      "bygone:ore_iron_upper",
-      "bygone:ore_iron_middle",
-      "bygone:ore_iron_small",
-      "bygone:ore_copper",
-      "bygone:ore_verdigris"
+      "bygone:megalith_field_miniliths",
+      "bygone:megalith_field_miniliths_glowing",
+      "bygone:megalith_field_megaliths"
     ],
     [
-      "bygone:patch_speed_wheat"
+      "bygone:common_monster_room",
+      "bygone:common_small_cloud",
+      "bygone:common_ore_coal_upper",
+      "bygone:common_ore_coal_lower",
+      "bygone:common_ore_iron_upper",
+      "bygone:common_ore_iron_middle",
+      "bygone:common_ore_iron_small",
+      "bygone:common_ore_copper",
+      "bygone:common_ore_verdigris",
+      "bygone:common_patch_speed_wheat",
+      "bygone:megalith_field_vegetation"
     ],
-    [
-      "bygone:megalith_field_vegetation",
-      "minecraft:brown_mushroom_normal",
-      "minecraft:red_mushroom_normal"
-    ]
+    [],
+    [],
+    [],
+    [],
+    []
   ],
   "has_precipitation": false,
   "spawn_costs": {
@@ -82,9 +77,7 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [
-
-    ],
+    "creature": [],
     "misc": [],
     "monster": [
       {

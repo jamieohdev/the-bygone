@@ -1,0 +1,158 @@
+{
+  "feature": {
+    "type": "minecraft:simple_random_selector",
+    "config": {
+      "features": [
+        {
+          "feature": {
+            "type": "lithostitched:structure_template",
+            "config": {
+              "template": "bygone:sable_tree_1",
+              "processors": [
+                {
+                  "processor_type": "minecraft:nop"
+                }
+              ],
+              "rotation": "none"
+            }
+          },
+          "placement": []
+        },
+        {
+          "feature": {
+            "type": "lithostitched:structure_template",
+            "config": {
+              "template": "bygone:sable_tree_2",
+              "processors": [
+                {
+                  "processor_type": "minecraft:nop"
+                }
+              ],
+              "rotation": "none"
+            }
+          },
+          "placement": []
+        },
+        {
+          "feature": {
+            "type": "lithostitched:structure_template",
+            "config": {
+              "template": "bygone:sable_tree_3",
+              "processors": [
+                {
+                  "processor_type": "minecraft:nop"
+                }
+              ],
+              "rotation": "none"
+            }
+          },
+          "placement": []
+        },
+        {
+          "feature": {
+            "type": "lithostitched:structure_template",
+            "config": {
+              "template": "bygone:sable_tree_4",
+              "processors": [
+                {
+                  "processor_type": "minecraft:nop"
+                }
+              ],
+              "rotation": "none"
+            }
+          },
+          "placement": []
+        },
+        {
+          "feature": {
+            "type": "lithostitched:structure_template",
+            "config": {
+              "template": "bygone:sable_tree_5",
+              "processors": [
+                {
+                  "processor_type": "minecraft:nop"
+                }
+              ],
+              "rotation": "none"
+            }
+          },
+          "placement": []
+        },
+        {
+          "feature": {
+            "type": "lithostitched:structure_template",
+            "config": {
+              "template": "bygone:sable_tree_6",
+              "processors": [
+                {
+                  "processor_type": "minecraft:nop"
+                }
+              ],
+              "rotation": "none"
+            }
+          },
+          "placement": []
+        }
+      ]
+    }
+  },
+  "placement": [
+    {
+      "type": "minecraft:count_on_every_layer",
+      "count": 255
+    },
+    {
+      "type": "minecraft:environment_scan",
+      "direction_of_search": "down",
+      "max_steps": 4,
+      "target_condition": {
+        "type": "minecraft:all_of",
+        "predicates": [
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [4, 0, 8],
+            "blocks": "bygone:sable_moss_block"
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [8, 0, 4],
+            "blocks": "bygone:sable_moss_block"
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [12, 0, 8],
+            "blocks": "bygone:sable_moss_block"
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [8, 0, 12],
+            "blocks": "bygone:sable_moss_block"
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [4, 12, 8],
+            "blocks": "minecraft:air"
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [8, 12, 4],
+            "blocks": "minecraft:air"
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [12, 12, 8],
+            "blocks": "minecraft:air"
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [8, 12, 12],
+            "blocks": "minecraft:air"
+          }
+        ]
+      },
+      "allowed_search_condition": {
+        "type": "minecraft:true"
+      }
+    }
+  ]
+}

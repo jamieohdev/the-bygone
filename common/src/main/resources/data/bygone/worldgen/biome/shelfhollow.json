@@ -43,45 +43,34 @@
     [],
     [],
     [],
-    [
-      "bygone:small_cloud"
-    ],
     [],
     [],
     [
-      "bygone:ore_coal_upper",
-      "bygone:ore_coal_lower",
-      "bygone:ore_iron_upper",
-      "bygone:ore_iron_middle",
-      "bygone:ore_iron_small",
-      "bygone:ore_copper",
-      "bygone:ore_verdigris",
-      "bygone:orange_mushroom_shelf",
-      "bygone:pink_mushroom_shelf",
-      "bygone:purple_mushroom_shelf"
-    ],
-    [],
-    [],
-    [
-      "bygone:shelfhollow_ceiling_vegetation",
-      "bygone:shelfhollow_ceiling_vegetation2",
-      "bygone:shelfhollow_ceiling_vegetation3",
+      "bygone:common_monster_room",
+      "bygone:common_small_cloud",
+      "bygone:common_ore_coal_upper",
+      "bygone:common_ore_coal_lower",
+      "bygone:common_ore_iron_upper",
+      "bygone:common_ore_iron_middle",
+      "bygone:common_ore_iron_small",
+      "bygone:common_ore_copper",
+      "bygone:common_ore_verdigris",
+      "bygone:common_patch_speed_wheat",
+      "bygone:shelfhollow_mushroom_shelf_orange",
+      "bygone:shelfhollow_mushroom_shelf_pink",
+      "bygone:shelfhollow_mushroom_shelf_purple",
+      "bygone:shelfhollow_fungi_vines_orange",
+      "bygone:shelfhollow_fungi_vines_pink",
+      "bygone:shelfhollow_fungi_vines_purple",
       "bygone:shelfhollow_vegetation",
-      "bygone:orange_fungi_vines",
-      "bygone:mold_vegetation",
-      "bygone:small_cloud",
-      "bygone:test_cloud",
-      "minecraft:mushroom_island_vegetation",
-      "minecraft:brown_mushroom_taiga",
-      "minecraft:red_mushroom_taiga",
-      "bygone:patch_speed_wheat"
+      "bygone:shelfhollow_shelf_fungi",
+      "bygone:shelfhollow_vegetation_mold"
     ],
-    [
-      "minecraft:glowstone_extra",
-      "minecraft:glowstone",
-      "minecraft:brown_mushroom_nether",
-      "minecraft:red_mushroom_nether"
-    ]
+    [],
+    [],
+    [],
+    [],
+    []
   ],
   "has_precipitation": true,
   "spawn_costs": {
