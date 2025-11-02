@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "bygone:shellstone_bricks_slab"
+    }
+  },
+  "pattern": ["#", "#"],
+  "result": {
+    "count": 1,
+    "id": "bygone:chiseled_shellstone_bricks"
+  }
+}

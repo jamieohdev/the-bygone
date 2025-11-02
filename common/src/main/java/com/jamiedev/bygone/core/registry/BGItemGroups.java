@@ -222,6 +222,12 @@ public class BGItemGroups {
                 output.accept(BGBlocks.BLUE_CORAL.get());
                 output.accept(BGBlocks.DEAD_BLUE_CORAL_FAN.get());
                 output.accept(BGBlocks.BLUE_CORAL_FAN.get());
+                output.accept(BGBlocks.DEAD_PILLAR_CORAL_BLOCK.get());
+                output.accept(BGBlocks.PILLAR_CORAL_BLOCK.get());
+                output.accept(BGBlocks.DEAD_PILLAR_CORAL.get());
+                output.accept(BGBlocks.PILLAR_CORAL.get());
+                output.accept(BGBlocks.DEAD_PILLAR_CORAL_FAN.get());
+                output.accept(BGBlocks.PILLAR_CORAL_FAN.get());
                 output.accept(BGBlocks.CHARNIA.get());
 
 

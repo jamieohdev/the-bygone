@@ -389,6 +389,32 @@ Blocks ref;
             new Block(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT)
                     .strength(0.3F).sound(SoundType.GLASS)));
 
+    public static final Supplier<Block> DEAD_PILLAR_CORAL_BLOCK = registerBlock("dead_pillar_coral_block", () -> new Block(
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
+                    6.0F)));
+    public static final Supplier<Block> PILLAR_CORAL_BLOCK = registerBlock("pillar_coral_block", () -> new CoralBlock(DEAD_PILLAR_CORAL_BLOCK.get(),
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
+                    6.0F).sound(SoundType.CORAL_BLOCK)));
+    public static final Supplier<Block> DEAD_PILLAR_CORAL = registerBlock("dead_pillar_coral", () -> new BaseCoralPlantBlock(
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()
+                    .noCollission().instabreak()));
+    public static final Supplier<Block> PILLAR_CORAL = registerBlock("pillar_coral", () -> new CoralPlantBlock(DEAD_PILLAR_CORAL.get(),
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).noCollission().instabreak().sound(SoundType.WET_GRASS)
+                    .pushReaction(PushReaction.DESTROY)));
+
+    public static final Supplier<Block> DEAD_PILLAR_CORAL_FAN = registerBlock("dead_pillar_coral_fan", () -> new BaseCoralFanBlock(
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()
+                    .noCollission().instabreak()));
+    public static final Supplier<Block> PILLAR_CORAL_FAN = registerBlock("pillar_coral_fan", () -> new CoralFanBlock(DEAD_PILLAR_CORAL_FAN.get(),
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).noCollission().instabreak().sound(SoundType.WET_GRASS)
+                    .pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> DEAD_PILLAR_CORAL_WALL_FAN = registerBlockWithoutBlockItem("dead_pillar_coral_wall_fan", () -> new BaseCoralWallFanBlock(
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()
+                    .noCollission().instabreak().dropsLike(DEAD_PILLAR_CORAL_FAN.get())));
+    public static final Supplier<Block> PILLAR_CORAL_WALL_FAN = registerBlockWithoutBlockItem("pillar_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_PILLAR_CORAL_WALL_FAN.get(),
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).noCollission().instabreak().sound(SoundType.WET_GRASS)
+                    .dropsLike(PILLAR_CORAL_FAN.get()).pushReaction(PushReaction.DESTROY)));
+
 
     public static final Supplier<Block> GLOW_GRAVEL = registerBlock("glow_gravel", () ->
             new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_CYAN).sound(SoundType.GRAVEL).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops()

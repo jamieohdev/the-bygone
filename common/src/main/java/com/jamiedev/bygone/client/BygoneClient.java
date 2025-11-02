@@ -112,6 +112,12 @@ public class BygoneClient {
         consumer.accept(BGBlocks.BLUE_CORAL.get(), RenderType.cutout());
         consumer.accept(BGBlocks.BLUE_CORAL_FAN.get(), RenderType.cutout());
         consumer.accept(BGBlocks.BLUE_CORAL_WALL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_PILLAR_CORAL.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_PILLAR_CORAL_WALL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_PILLAR_CORAL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PILLAR_CORAL.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PILLAR_CORAL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PILLAR_CORAL_WALL_FAN.get(), RenderType.cutout());
         consumer.accept(BGBlocks.BELLADONNA.get(), RenderType.cutout());
         consumer.accept(BGBlocks.COLEUS.get(), RenderType.cutout());
 
