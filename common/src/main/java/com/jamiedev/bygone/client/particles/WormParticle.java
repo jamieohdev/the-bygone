@@ -15,7 +15,7 @@ public class WormParticle extends TextureSheetParticle {
         this.quadSize = 0.1F + this.random.nextFloat() * 0.05F;
         this.lifetime = 40 + this.random.nextInt(20);
         this.gravity = -0.04F;
-        
+
         this.xd = velocityX;
         this.yd = velocityY;
         this.zd = velocityZ;
@@ -26,24 +26,24 @@ public class WormParticle extends TextureSheetParticle {
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
-        
+
         if (this.lifetime-- <= 0) {
             this.remove();
             return;
         }
-        
+
         BlockPos pos = BlockPos.containing(this.x, this.y, this.z);
         BlockPos below = pos.below();
-        
+
         boolean isInWater = this.level.getFluidState(pos).is(FluidTags.WATER);
         boolean isWaterBelow = this.level.getFluidState(below).is(FluidTags.WATER);
         boolean isAtSurface = isWaterBelow && !isInWater;
-        
+
         if (!isInWater && !isWaterBelow) {
             this.remove();
             return;
         }
-        
+
         if (isInWater && !isAtSurface) {
             this.yd = 0.04F;
         } else if (isAtSurface) {
@@ -53,8 +53,8 @@ public class WormParticle extends TextureSheetParticle {
                 this.yd *= 0.8F;
             }
         }
-        
-        this.yd -= (double)this.gravity;
+
+        this.yd -= this.gravity;
         this.move(this.xd, this.yd, this.zd);
         this.xd *= 0.98F;
         this.zd *= 0.98F;

@@ -18,13 +18,12 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class BygoneItem extends Item
-{
+public class BygoneItem extends Item {
+    EnderEyeItem ref;
+
     public BygoneItem(Item.Properties settings) {
         super(settings);
     }
-
-EnderEyeItem ref;
 
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity user) {
@@ -36,10 +35,10 @@ EnderEyeItem ref;
         ItemStack itemStack = user.getItemInHand(hand);
         BlockHitResult blockHitResult = getPlayerPOVHitResult(world, user, ClipContext.Fluid.NONE);
 
-            user.startUsingItem(hand);
-            if (world instanceof ServerLevel serverWorld) {
-                BlockPos blockPos = serverWorld.findNearestMapStructure(JamiesModTag.BYGONE_ITEM_LOCATED, user.blockPosition(), 100, false);
-                if (blockPos != null) {//todo
+        user.startUsingItem(hand);
+        if (world instanceof ServerLevel serverWorld) {
+            BlockPos blockPos = serverWorld.findNearestMapStructure(JamiesModTag.BYGONE_ITEM_LOCATED, user.blockPosition(), 100, false);
+            if (blockPos != null) {//todo
                    /* BygoneItemEntity eyeOfEnderEntity = new BygoneItemEntity(world, user.getX(), user.getY(0.5), user.getZ());
                     eyeOfEnderEntity.setItem(itemStack);
                     eyeOfEnderEntity.initTargetPos(blockPos);
@@ -49,16 +48,16 @@ EnderEyeItem ref;
                         CriteriaTriggers.USED_ENDER_EYE.trigger(serverPlayerEntity, blockPos);
                     }*/
 
-                    float f = Mth.lerp(world.random.nextFloat(), 0.33F, 0.5F);
-                    world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENDER_EYE_LAUNCH, SoundSource.NEUTRAL, 1.0F, f);
-                    itemStack.consume(1, user);
-                    user.awardStat(Stats.ITEM_USED.get(this));
-                    user.swing(hand, true);
-                    return InteractionResultHolder.success(itemStack);
-                }
+                float f = Mth.lerp(world.random.nextFloat(), 0.33F, 0.5F);
+                world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENDER_EYE_LAUNCH, SoundSource.NEUTRAL, 1.0F, f);
+                itemStack.consume(1, user);
+                user.awardStat(Stats.ITEM_USED.get(this));
+                user.swing(hand, true);
+                return InteractionResultHolder.success(itemStack);
             }
+        }
 
-            return InteractionResultHolder.consume(itemStack);
+        return InteractionResultHolder.consume(itemStack);
     }
 
 }

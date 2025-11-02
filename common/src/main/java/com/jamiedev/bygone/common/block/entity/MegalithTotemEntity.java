@@ -10,10 +10,10 @@ import net.minecraft.world.Clearable;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BedBlockEntity;
-
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -24,15 +24,14 @@ import java.util.Map;
 
 public class MegalithTotemEntity extends BlockEntity implements Clearable {
 
-    private final SimpleContainer inventory = new SimpleContainer(1);
-    private int fuel = 0;
+    public static final int BOOST_COOLDOWN_TICKS = 20;
     private static final int FUEL_PER_ITEM = 2400;
     private static final int MAX_FUEL = 24000;
     private static final int RANGE = 15;
     private static final int PLANT_ATTEMPTS_PER_TICK = 4;
-
+    private final SimpleContainer inventory = new SimpleContainer(1);
     private final Map<BlockPos, Integer> bonemealedplants = new HashMap<>();
-    public static final int BOOST_COOLDOWN_TICKS = 20;
+    private int fuel = 0;
 
     public MegalithTotemEntity(BlockPos pos, BlockState state) {
         super(BGBlockEntities.MEGALITH_TOTEM.get(), pos, state);
@@ -102,6 +101,10 @@ public class MegalithTotemEntity extends BlockEntity implements Clearable {
         }
     }
 
+    private static boolean isLithoplasm(ItemStack stack) {
+        return stack.is(BGItems.LITHOPLASM.get());
+    }
+
     @Override
     public void clearContent() {
         inventory.clearContent();
@@ -109,9 +112,5 @@ public class MegalithTotemEntity extends BlockEntity implements Clearable {
 
     public SimpleContainer getInventory() {
         return inventory;
-    }
-
-    private static boolean isLithoplasm(ItemStack stack) {
-        return stack.is(BGItems.LITHOPLASM.get());
     }
 }

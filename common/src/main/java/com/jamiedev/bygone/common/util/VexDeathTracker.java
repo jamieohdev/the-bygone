@@ -8,12 +8,12 @@ import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.item.ItemStack;
 
 public class VexDeathTracker {
-    
+
     public static void onVexDeath(Vex vex, ServerLevel level) {
         for (ServerPlayer player : level.getServer().getPlayerList().getPlayers()) {
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
                 ItemStack stack = player.getInventory().getItem(i);
-                
+
                 if (stack.getItem() == BGItems.MALICIOUS_WAR_HORN.get()) {
                     MaliciousWarHornItem.onVexDeath(vex, stack);
                     return;

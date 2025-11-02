@@ -12,7 +12,6 @@ import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,22 +22,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FishingHook.class)
 public abstract class FishingHookMixin extends Projectile {
-    
-    @Shadow private int timeUntilLured;
-    @Shadow private int timeUntilHooked;
+
+    @Shadow
+    private int timeUntilLured;
+    @Shadow
+    private int timeUntilHooked;
 
     protected FishingHookMixin(EntityType<? extends Projectile> entityType, Level level) {
         super(entityType, level);
     }
-    
+
     @Inject(
-        method = "catchingFish",
-        at = @At(
-            value = "FIELD",
-            target = "Lnet/minecraft/world/entity/projectile/FishingHook;timeUntilLured:I",
-            ordinal = 0,
-            shift = At.Shift.AFTER
-        )
+            method = "catchingFish",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lnet/minecraft/world/entity/projectile/FishingHook;timeUntilLured:I",
+                    ordinal = 0,
+                    shift = At.Shift.AFTER
+            )
     )
     private void reduceFishingTimeInBaitwormWater(BlockPos pos, CallbackInfo ci) {
         if (this.level() instanceof ServerLevel serverLevel) {
@@ -49,28 +50,28 @@ public abstract class FishingHookMixin extends Projectile {
     }
 
     @ModifyArg(
-        method = "retrieve",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/server/ReloadableServerRegistries$Holder;getLootTable(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/storage/loot/LootTable;"
-        ),
-        index = 0
+            method = "retrieve",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/server/ReloadableServerRegistries$Holder;getLootTable(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/storage/loot/LootTable;"
+            ),
+            index = 0
     )
     private ResourceKey<LootTable> modifyFishingLootTable(ResourceKey<LootTable> original) {
         if (this.level() instanceof ServerLevel serverLevel) {
             BlockPos pos = this.blockPosition();
             Holder<Biome> biomeHolder = serverLevel.getBiome(pos);
-            
+
             boolean isInBaitwormWater = BaitwormWaterEffect.isInBaitwormWater(serverLevel, pos);
             boolean useRareTable = isInBaitwormWater && serverLevel.random.nextFloat() < 0.5F;
-            
+
             ResourceKey<LootTable> customTable = BGFishingTables.getFishingTableForBiome(biomeHolder, useRareTable);
             System.out.println("Fishing at " + pos + " in biome " + biomeHolder.unwrapKey().orElse(null) + (isInBaitwormWater ? " with Baitworm effect" : "") + ", using table: " + (customTable != null ? customTable.location() : "default"));
             if (customTable != null) {
                 return customTable;
             }
         }
-        
+
         return original;
     }
 }

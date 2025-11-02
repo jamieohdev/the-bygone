@@ -1,15 +1,15 @@
 package com.jamiedev.bygone.core.init;
 
 import com.google.common.base.Suppliers;
-import java.util.Objects;
-import java.util.function.Supplier;
-
 import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
+
+import java.util.Objects;
+import java.util.function.Supplier;
 
 public enum JamiesModToolMaterials implements Tier {
 

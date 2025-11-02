@@ -1,14 +1,12 @@
 package com.jamiedev.bygone;
 
-import com.jamiedev.bygone.core.registry.BGBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
 
 
-public class ModelDatagen extends FabricModelProvider
-{
+public class ModelDatagen extends FabricModelProvider {
     public ModelDatagen(FabricDataOutput output) {
         super(output);
     }

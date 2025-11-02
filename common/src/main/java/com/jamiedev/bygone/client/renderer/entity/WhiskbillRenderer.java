@@ -24,8 +24,7 @@ public class WhiskbillRenderer extends MobRenderer<WhiskbillEntity, WhiskbillMod
 
     @Override
     protected void scale(WhiskbillEntity slimeEntity, PoseStack matrixStack, float f) {
-        if (slimeEntity.isBaby())
-        {
+        if (slimeEntity.isBaby()) {
             matrixStack.scale(0.45F, 0.45F, 0.45F);
         }
     }

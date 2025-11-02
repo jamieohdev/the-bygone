@@ -3,7 +3,6 @@ package com.jamiedev.bygone.common.block;
 import com.google.common.base.Predicates;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -29,22 +28,38 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class BygonePortalFrameBlock extends Block {
-    public static final MapCodec<BygonePortalFrameBlock> CODEC = simpleCodec(BygonePortalFrameBlock::new);
     public static final DirectionProperty FACING;
     public static final BooleanProperty EYE;
+    public static final MapCodec<BygonePortalFrameBlock> CODEC = simpleCodec(BygonePortalFrameBlock::new);
     protected static final VoxelShape FRAME_SHAPE;
     protected static final VoxelShape EYE_SHAPE;
     protected static final VoxelShape FRAME_WITH_EYE_SHAPE;
     private static BlockPattern COMPLETED_FRAME;
 
-    @Override
-    public MapCodec<BygonePortalFrameBlock> codec() {
-        return CODEC;
+    static {
+        FACING = HorizontalDirectionalBlock.FACING;
+        EYE = BlockStateProperties.EYE;
+        FRAME_SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 13.0, 16.0);
+        EYE_SHAPE = Block.box(4.0, 13.0, 4.0, 12.0, 16.0, 12.0);
+        FRAME_WITH_EYE_SHAPE = Shapes.or(FRAME_SHAPE, EYE_SHAPE);
     }
 
     public BygonePortalFrameBlock(BlockBehaviour.Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(EYE, false));
+    }
+
+    public static BlockPattern getCompletedFramePattern() {
+        if (COMPLETED_FRAME == null) {
+            COMPLETED_FRAME = BlockPatternBuilder.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?").where('?', BlockInWorld.hasState(BlockStatePredicate.ANY)).where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.SOUTH)))).where('>', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.WEST)))).where('v', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.NORTH)))).where('<', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.EAST)))).build();
+        }
+
+        return COMPLETED_FRAME;
+    }
+
+    @Override
+    public MapCodec<BygonePortalFrameBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -87,25 +102,8 @@ public class BygonePortalFrameBlock extends Block {
         builder.add(FACING, EYE);
     }
 
-    public static BlockPattern getCompletedFramePattern() {
-        if (COMPLETED_FRAME == null) {
-            COMPLETED_FRAME = BlockPatternBuilder.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?").where('?', BlockInWorld.hasState(BlockStatePredicate.ANY)).where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.SOUTH)))).where('>', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.WEST)))).where('v', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.NORTH)))).where('<', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(EYE, Predicates.equalTo(true)).where(FACING, Predicates.equalTo(Direction.EAST)))).build();
-        }
-
-        return COMPLETED_FRAME;
-    }
-
     @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
-    }
-
-
-    static {
-        FACING = HorizontalDirectionalBlock.FACING;
-        EYE = BlockStateProperties.EYE;
-        FRAME_SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 13.0, 16.0);
-        EYE_SHAPE = Block.box(4.0, 13.0, 4.0, 12.0, 16.0, 12.0);
-        FRAME_WITH_EYE_SHAPE = Shapes.or(FRAME_SHAPE, EYE_SHAPE);
     }
 }

@@ -2,9 +2,9 @@ package com.jamiedev.bygone.client;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.renderer.entity.BygoneDimensionEffects;
-import com.jamiedev.bygone.core.registry.BGDimensions;
-import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
 import com.jamiedev.bygone.common.block.JamiesModWoodType;
+import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
+import com.jamiedev.bygone.core.registry.BGDimensions;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -17,6 +17,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 
 import java.util.Objects;
+
 public class BygoneClientFabric implements ClientModInitializer {
     public static ResourceLocation BYGONE = Bygone.id("bygone");
 
@@ -24,6 +25,7 @@ public class BygoneClientFabric implements ClientModInitializer {
         Item item = entity.getMainHandItem().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandItem().getItem() : entity.getOffhandItem().getItem();
         return item instanceof VerdigrisBladeItem && item.components() != null && item.components().has(DataComponents.FOOD) && Objects.requireNonNull(item.components().get(DataComponents.FOOD)).eatSeconds() == 3600;
     }
+
     @Override
     public void onInitializeClient() {
         BygoneClient.registerRenderLayers(BlockRenderLayerMap.INSTANCE::putBlock);
@@ -40,6 +42,6 @@ public class BygoneClientFabric implements ClientModInitializer {
         Sheets.SIGN_MATERIALS.put(JamiesModWoodType.ANCIENT, Sheets.getSignMaterial(JamiesModWoodType.ANCIENT));
         Sheets.HANGING_SIGN_MATERIALS.put(JamiesModWoodType.ANCIENT, Sheets.getHangingSignMaterial(JamiesModWoodType.ANCIENT));
 
-     //   BlockEntityRendererFactories.register(JamiesModBlockEntities.BRUSHABLE_BLOCK, BygoneBrushableBlockEntityRenderer::new);
+        //   BlockEntityRendererFactories.register(JamiesModBlockEntities.BRUSHABLE_BLOCK, BygoneBrushableBlockEntityRenderer::new);
     }
 }

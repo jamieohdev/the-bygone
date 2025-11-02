@@ -2,7 +2,6 @@ package com.jamiedev.bygone.common.block;
 
 import com.jamiedev.bygone.core.registry.BGParticleTypes;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
@@ -28,21 +27,19 @@ public class BlueAlgueBlock extends BushBlock {
     protected SimpleParticleType particle;
     Blocks ref;
 
-    @Override
-    public MapCodec<BlueAlgueBlock> codec() {
-        return CODEC;
-    }
-
-
-
     public BlueAlgueBlock(SimpleParticleType particle, BlockBehaviour.Properties settings) {
         super(settings);
         this.particle = particle;
     }
 
-    public BlueAlgueBlock(BlockBehaviour.Properties settings)
-    {
+
+    public BlueAlgueBlock(BlockBehaviour.Properties settings) {
         super(settings);
+    }
+
+    @Override
+    public MapCodec<BlueAlgueBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -50,14 +47,15 @@ public class BlueAlgueBlock extends BushBlock {
         super.entityInside(state, world, pos, entity);
         if (world instanceof ServerLevel && entity instanceof Boat) {
 
-            double d = (double)pos.getX() + 0.5;
-            double e = (double)pos.getY() + 0.7;
-            double f = (double)pos.getZ() + 0.5;
-            ((ServerLevel) world).sendParticles((SimpleParticleType) BGParticleTypes.ALGAE_BLOOM, (double)pos.getX() + 0.7, pos.getY(),
-                    (double)pos.getZ() + 0.7, 1, 0.5, 0.0, 0.5, 0.0);
+            double d = (double) pos.getX() + 0.5;
+            double e = (double) pos.getY() + 0.7;
+            double f = (double) pos.getZ() + 0.5;
+            ((ServerLevel) world).sendParticles((SimpleParticleType) BGParticleTypes.ALGAE_BLOOM, (double) pos.getX() + 0.7, pos.getY(),
+                    (double) pos.getZ() + 0.7, 1, 0.5, 0.0, 0.5, 0.0);
         }
 
     }
+
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;

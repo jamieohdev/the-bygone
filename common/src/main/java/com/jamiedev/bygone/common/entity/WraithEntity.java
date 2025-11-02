@@ -12,7 +12,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -28,7 +27,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.FlyingAnimal;
-import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.monster.Stray;
@@ -43,23 +41,25 @@ import java.util.EnumSet;
 import java.util.function.IntFunction;
 
 public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnimal {
+    public static final int TICKS_PER_FLAP = Mth.ceil(1.4959966F);
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID;
     private static final EntityDataAccessor<Boolean> DATA_PREPARE_TELEPORT;
 
-    Stray ref;
+    static {
+        DATA_SPELL_CASTING_ID = SynchedEntityData.defineId(WraithEntity.class, EntityDataSerializers.BYTE);
+        DATA_PREPARE_TELEPORT = SynchedEntityData.defineId(WraithEntity.class, EntityDataSerializers.BOOLEAN);
+    }
 
+    public AnimationState floatAnimationState = new AnimationState();
+    public AnimationState idleAnimationState = new AnimationState();
+    public AnimationState meleeAnimationState = new AnimationState();
+    public AnimationState spellAnimationState = new AnimationState();
     protected int withinRangeToTeleportTick = 0;
     protected int spellCastingTickCount;
     protected BlockPos targetSavedPos = BlockPos.ZERO;
     protected boolean updatedTargetSavedPos = false;
+    Stray ref;
     private WraithEntity.WraithSpell currentSpell;
-    public static final int TICKS_PER_FLAP = Mth.ceil(1.4959966F);
-
-    public AnimationState floatAnimationState = new AnimationState();
-    public AnimationState idleAnimationState = new AnimationState();
-
-    public AnimationState meleeAnimationState = new AnimationState();
-    public AnimationState spellAnimationState = new AnimationState();
 
     public WraithEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -135,12 +135,12 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
     @Override
     public void performRangedAttack(LivingEntity livingEntity, float v) {
-        
+
     }
 
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(DATA_SPELL_CASTING_ID, (byte)0);
+        builder.define(DATA_SPELL_CASTING_ID, (byte) 0);
         builder.define(DATA_PREPARE_TELEPORT, false);
     }
 
@@ -189,18 +189,17 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     }
 
     public boolean isCastingSpell() {
-        return this.level().isClientSide ? (Byte)this.entityData.get(DATA_SPELL_CASTING_ID) > 0 : this.spellCastingTickCount > 0;
+        return this.level().isClientSide ? this.entityData.get(DATA_SPELL_CASTING_ID) > 0 : this.spellCastingTickCount > 0;
     }
 
     public void setIsCastingSpell(WraithEntity.WraithSpell currentSpell) {
         this.currentSpell = currentSpell;
-        this.entityData.set(DATA_SPELL_CASTING_ID, (byte)currentSpell.id);
+        this.entityData.set(DATA_SPELL_CASTING_ID, (byte) currentSpell.id);
     }
 
     protected WraithEntity.WraithSpell getCurrentSpell() {
-        return !this.level().isClientSide ? this.currentSpell : WraithEntity.WraithSpell.byId((Byte)this.entityData.get(DATA_SPELL_CASTING_ID));
+        return !this.level().isClientSide ? this.currentSpell : WraithEntity.WraithSpell.byId(this.entityData.get(DATA_SPELL_CASTING_ID));
     }
-
 
     protected void customServerAiStep() {
         super.customServerAiStep();
@@ -223,14 +222,10 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
         if (this.isCastingSpell()) {
             this.spellAnimationState.startIfStopped(this.tickCount);
-        }
-        else {
-            if (this.attackAnim > 0)
-            {
+        } else {
+            if (this.attackAnim > 0) {
                 this.meleeAnimationState.start(this.tickCount);
-            }
-            else if (this.attackAnim == 0)
-            {
+            } else if (this.attackAnim == 0) {
                 this.meleeAnimationState.stop();
             }
         }
@@ -246,16 +241,16 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
         if (this.level().isClientSide && this.isCastingSpell()) {
             WraithEntity.WraithSpell spell = this.getCurrentSpell();
-            float f = (float)spell.spellColor[0];
-            float f1 = (float)spell.spellColor[1];
-            float f2 = (float)spell.spellColor[2];
-            float f3 = this.yBodyRot * ((float)Math.PI / 180F) + Mth.cos((float)this.tickCount * 0.6662F) * 0.25F;
+            float f = (float) spell.spellColor[0];
+            float f1 = (float) spell.spellColor[1];
+            float f2 = (float) spell.spellColor[2];
+            float f3 = this.yBodyRot * ((float) Math.PI / 180F) + Mth.cos((float) this.tickCount * 0.6662F) * 0.25F;
             float f4 = Mth.cos(f3);
             float f5 = Mth.sin(f3);
-            double d0 = 0.6 * (double)this.getScale();
-            double d1 = 1.8 * (double)this.getScale();
-            this.level().addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, f, f1, f2), this.getX() + (double)f4 * d0, this.getY() + d1, this.getZ() + (double)f5 * d0, (double)0.0F, (double)0.0F, (double)0.0F);
-            this.level().addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, f, f1, f2), this.getX() - (double)f4 * d0, this.getY() + d1, this.getZ() - (double)f5 * d0, (double)0.0F, (double)0.0F, (double)0.0F);
+            double d0 = 0.6 * (double) this.getScale();
+            double d1 = 1.8 * (double) this.getScale();
+            this.level().addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, f, f1, f2), this.getX() + (double) f4 * d0, this.getY() + d1, this.getZ() + (double) f5 * d0, 0.0F, 0.0F, 0.0F);
+            this.level().addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, f, f1, f2), this.getX() - (double) f4 * d0, this.getY() + d1, this.getZ() - (double) f5 * d0, 0.0F, 0.0F, 0.0F);
         }
 
         if (this.getTarget() != null) {
@@ -276,15 +271,13 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                         int x = targetOnPos.getX();
                         if (random.nextBoolean()) {
                             x -= random.nextInt(7, 11);
-                        }
-                        else {
+                        } else {
                             x += random.nextInt(7, 11);
                         }
                         int z = targetOnPos.getZ();
                         if (random.nextBoolean()) {
                             z -= random.nextInt(7, 11);
-                        }
-                        else {
+                        } else {
                             z += random.nextInt(7, 11);
                         }
 
@@ -296,8 +289,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                                 this.level().getBlockState(groundPos.above().above()).isAir()) {
                             this.teleportTo(x, y + 1, z);
                             break;
-                        }
-                        else {
+                        } else {
                             boolean teleported = false;
                             for (int checkY = -4; checkY <= 4; checkY++) {
                                 BlockPos newGroundPos = groundPos.offset(0, checkY, 0);
@@ -378,6 +370,37 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         return 0.0;
     }
 
+    protected int getSpellCastingTime() {
+        return this.spellCastingTickCount;
+    }
+
+
+    protected SoundEvent getCastingSoundEvent() {
+        return BGSoundEvents.WRAITH_ATTACK_ADDITIONS_EVENT;
+    }
+
+    protected enum WraithSpell {
+        NONE(0, 0.0F, 0.0F, 0.0F),
+        TELEPORT(1, 0.7, 0.7, 0.8),
+        FIRE(2, 0.4, 0.3, 0.35),
+        NOVELTY(3, 0.7, 0.5F, 0.2),
+        DISAPPEAR(4, 0.3, 0.3, 0.8),
+        PUKE(5, 0.1, 0.1, 0.2);
+
+        private static final IntFunction<WraithEntity.WraithSpell> BY_ID = ByIdMap.continuous((p_263091_) -> p_263091_.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
+        final int id;
+        final double[] spellColor;
+
+        WraithSpell(int id, double red, double green, double blue) {
+            this.id = id;
+            this.spellColor = new double[]{red, green, blue};
+        }
+
+        public static WraithEntity.WraithSpell byId(int id) {
+            return BY_ID.apply(id);
+        }
+    }
+
     static class WraithWanderGoal extends WaterAvoidingRandomFlyingGoal {
         public WraithWanderGoal(PathfinderMob mob, double speed) {
             super(mob, speed);
@@ -417,44 +440,6 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
     }
 
-    protected int getSpellCastingTime() {
-        return this.spellCastingTickCount;
-    }
-
-
-    protected SoundEvent getCastingSoundEvent()
-    {
-        return BGSoundEvents.WRAITH_ATTACK_ADDITIONS_EVENT;
-    }
-
-    static {
-        DATA_SPELL_CASTING_ID = SynchedEntityData.defineId(WraithEntity.class, EntityDataSerializers.BYTE);
-        DATA_PREPARE_TELEPORT = SynchedEntityData.defineId(WraithEntity.class, EntityDataSerializers.BOOLEAN);
-    }
-
-
-    protected static enum WraithSpell {
-        NONE(0, (double)0.0F, (double)0.0F, (double)0.0F),
-        TELEPORT(1, 0.7, 0.7, 0.8),
-        FIRE(2, 0.4, 0.3, 0.35),
-        NOVELTY(3, 0.7, (double)0.5F, 0.2),
-        DISAPPEAR(4, 0.3, 0.3, 0.8),
-        PUKE(5, 0.1, 0.1, 0.2);
-
-        private static final IntFunction<WraithEntity.WraithSpell> BY_ID = ByIdMap.continuous((p_263091_) -> p_263091_.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
-        final int id;
-        final double[] spellColor;
-
-        private WraithSpell(int id, double red, double green, double blue) {
-            this.id = id;
-            this.spellColor = new double[]{red, green, blue};
-        }
-
-        public static WraithEntity.WraithSpell byId(int id) {
-            return (WraithEntity.WraithSpell)BY_ID.apply(id);
-        }
-    }
-
     protected class SpellcasterCastingSpellGoal extends Goal {
         public SpellcasterCastingSpellGoal() {
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
@@ -476,7 +461,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
         public void tick() {
             if (WraithEntity.this.getTarget() != null) {
-                WraithEntity.this.getLookControl().setLookAt(WraithEntity.this.getTarget(), (float)WraithEntity.this.getMaxHeadYRot(), (float)WraithEntity.this.getMaxHeadXRot());
+                WraithEntity.this.getLookControl().setLookAt(WraithEntity.this.getTarget(), (float) WraithEntity.this.getMaxHeadYRot(), (float) WraithEntity.this.getMaxHeadXRot());
             }
 
         }
@@ -554,8 +539,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                         if (level.getBlockState(targetPos.offset(checkX, 0, checkZ)).isAir() &&
                                 level.getBlockState(targetPos.offset(checkX, 0, checkZ).below()).isFaceSturdy(level, targetPos.offset(checkX, 0, checkZ).below(), Direction.UP)) {
                             WraithEntity.this.level().setBlockAndUpdate(targetPos.offset(checkX, 0, checkZ), BGBlocks.ICE_BOUQUET.get().defaultBlockState());
-                        }
-                        else {
+                        } else {
                             for (int checkY = -2; checkY <= 2; checkY++) {
                                 BlockPos newYPos = new BlockPos(targetPos.getX() + checkX, targetPos.getY() + checkY, targetPos.getZ() + checkZ);
                                 if (level.getBlockState(newYPos).isAir() &&

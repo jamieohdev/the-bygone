@@ -7,7 +7,6 @@ import com.jamiedev.bygone.common.entity.ai.AvoidBlockGoal;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGItems;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,7 +14,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -24,39 +22,38 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.AbstractFish;
-import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.entity.monster.Slime;
-import net.minecraft.world.entity.monster.hoglin.HoglinAi;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.function.Predicate;
-
-public class AmoebaEntity extends AbstractFish
-{
-    private static final EntityDataAccessor<Integer> ID_SIZE;
-    protected static final ImmutableList<SensorType<? extends Sensor<? super AmoebaEntity>>> SENSOR_TYPES;
-    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES;
+public class AmoebaEntity extends AbstractFish {
     public static final int MIN_SIZE = 1;
     public static final int MAX_SIZE = 5;
     public static final int MAX_NATURAL_SIZE = 4;
+    protected static final ImmutableList<SensorType<? extends Sensor<? super AmoebaEntity>>> SENSOR_TYPES;
+    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES;
+    private static final EntityDataAccessor<Integer> ID_SIZE;
+
+    static {
+        SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY, SensorType.FROG_TEMPTATIONS);
+        MEMORY_TYPES = ImmutableList.of(MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleType.TEMPTATION_COOLDOWN_TICKS, MemoryModuleType.IS_TEMPTED, MemoryModuleType.TEMPTING_PLAYER, MemoryModuleType.BREED_TARGET, MemoryModuleType.IS_PANICKING);
+        ID_SIZE = SynchedEntityData.defineId(AmoebaEntity.class, EntityDataSerializers.INT);
+    }
 
     public AmoebaEntity(EntityType<? extends AbstractFish> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 1.0F).add(Attributes.MAX_HEALTH, 6.0F);
     }
 
     protected void registerGoals() {
@@ -65,7 +62,7 @@ public class AmoebaEntity extends AbstractFish
             BlockState state = this.level().getBlockState(pos);
             return state.is(JamiesModTag.AMOEBA_REPELLENTS);
         }));
-  }
+    }
 
     protected PathNavigation createNavigation(Level level) {
         return new WaterBoundPathNavigation(this, level);
@@ -85,16 +82,12 @@ public class AmoebaEntity extends AbstractFish
 
     protected void customServerAiStep() {
         this.level().getProfiler().push("amoebaBrain");
-        this.getBrain().tick((ServerLevel)this.level(), this);
+        this.getBrain().tick((ServerLevel) this.level(), this);
         this.level().getProfiler().pop();
         this.level().getProfiler().push("amoebaActivityUpdate");
         AmoebaAI.updateActivity(this);
         this.level().getProfiler().pop();
         super.customServerAiStep();
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double)1.0F).add(Attributes.MAX_HEALTH, (double)6.0F);
     }
 
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
@@ -108,8 +101,8 @@ public class AmoebaEntity extends AbstractFish
         this.entityData.set(ID_SIZE, i);
         this.reapplyPosition();
         this.refreshDimensions();
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)(i * i));
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue((double)(0.2F + 0.1F * (float)i));
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(i * i);
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2F + 0.1F * (float) i);
         if (resetHealth) {
             this.setHealth(this.getMaxHealth());
         }
@@ -118,7 +111,7 @@ public class AmoebaEntity extends AbstractFish
     }
 
     public int getSize() {
-        return (Integer)this.entityData.get(ID_SIZE);
+        return this.entityData.get(ID_SIZE);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -155,7 +148,6 @@ public class AmoebaEntity extends AbstractFish
         DebugPackets.sendEntityBrain(this);
     }
 
-
     @Override
     protected SoundEvent getFlopSound() {
         return null;
@@ -164,11 +156,5 @@ public class AmoebaEntity extends AbstractFish
     @Override
     public ItemStack getBucketItemStack() {
         return BGItems.AMOEBA_BUCKET.get().getDefaultInstance();
-    }
-
-    static {
-        SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY, SensorType.FROG_TEMPTATIONS);
-        MEMORY_TYPES = ImmutableList.of(MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleType.TEMPTATION_COOLDOWN_TICKS, MemoryModuleType.IS_TEMPTED, MemoryModuleType.TEMPTING_PLAYER, MemoryModuleType.BREED_TARGET, MemoryModuleType.IS_PANICKING);
-        ID_SIZE = SynchedEntityData.defineId(AmoebaEntity.class, EntityDataSerializers.INT);
     }
 }

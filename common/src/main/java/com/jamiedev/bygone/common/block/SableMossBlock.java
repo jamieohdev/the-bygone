@@ -13,16 +13,16 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class SableMossBlock extends Block implements BonemealableBlock
-{
+public class SableMossBlock extends Block implements BonemealableBlock {
     public static final MapCodec<SableMossBlock> CODEC = simpleCodec(SableMossBlock::new);
+
+    public SableMossBlock(Properties settings) {
+        super(settings);
+    }
 
     @Override
     public MapCodec<SableMossBlock> codec() {
         return CODEC;
-    }
-    public SableMossBlock(Properties settings) {
-        super(settings);
     }
 
     @Override

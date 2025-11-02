@@ -42,13 +42,17 @@ public interface IPlatformHelper {
         return isDevelopmentEnvironment() ? "development" : "production";
     }
 
-    <MSG extends S2CModPacket<?>> void registerClientPlayPacket(CustomPacketPayload.Type<MSG> type, StreamCodec<RegistryFriendlyByteBuf,MSG> streamCodec);
-    <MSG extends C2SModPacket<?>> void registerServerPlayPacket(CustomPacketPayload.Type<MSG> type, StreamCodec<RegistryFriendlyByteBuf,MSG> streamCodec);
+    <MSG extends S2CModPacket<?>> void registerClientPlayPacket(CustomPacketPayload.Type<MSG> type, StreamCodec<RegistryFriendlyByteBuf, MSG> streamCodec);
+
+    <MSG extends C2SModPacket<?>> void registerServerPlayPacket(CustomPacketPayload.Type<MSG> type, StreamCodec<RegistryFriendlyByteBuf, MSG> streamCodec);
 
     void sendToClient(S2CModPacket<?> msg, ServerPlayer player);
+
     void sendToServer(C2SModPacket<?> msg);
-    void sendToTracking(S2CModPacket<?> msg, Entity entity,boolean includeSelf);
+
+    void sendToTracking(S2CModPacket<?> msg, Entity entity, boolean includeSelf);
 
     int getTimeInBygone(Entity entity);
-    void setTimeInBygone(Entity entity,int time);
+
+    void setTimeInBygone(Entity entity, int time);
 }

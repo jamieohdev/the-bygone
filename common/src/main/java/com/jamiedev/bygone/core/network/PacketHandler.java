@@ -23,24 +23,20 @@ public class PacketHandler {
     }
 
     public static void sendTo(S2CModPacket<?> packet, ServerPlayer player) {//todo check for fake players
-            Services.PLATFORM.sendToClient(packet, player);
+        Services.PLATFORM.sendToClient(packet, player);
     }
 
-    public static void sendPacketToAllInArea(ServerLevel level,S2CModPacket<?> packet, BlockPos center, int rangesqr) {
+    public static void sendPacketToAllInArea(ServerLevel level, S2CModPacket<?> packet, BlockPos center, int rangesqr) {
         List<ServerPlayer> playerList = level.players();
-        for (ServerPlayer player : playerList)
-        {
-            if (player.distanceToSqr(center.getX(), center.getY(), center.getZ()) < rangesqr)
-            {
+        for (ServerPlayer player : playerList) {
+            if (player.distanceToSqr(center.getX(), center.getY(), center.getZ()) < rangesqr) {
                 sendTo(packet, player);
             }
         }
     }
 
-    public static void sendPacketToAll(MinecraftServer server,S2CModPacket<?> packet)
-    {
-        for (ServerPlayer player : server.getPlayerList().getPlayers())
-        {
+    public static void sendPacketToAll(MinecraftServer server, S2CModPacket<?> packet) {
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             sendTo(packet, player);
         }
     }

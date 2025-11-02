@@ -12,15 +12,11 @@ import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ClampedNormalFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CaveVines;
-import net.minecraft.world.level.block.CaveVinesBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -29,41 +25,36 @@ import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSi
 import net.minecraft.world.level.levelgen.feature.foliageplacers.SpruceFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
-import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BGConfiguredFeatures
-{
+public class BGConfiguredFeatures {
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_MOSS_VEGETATION = FeatureUtils.createKey("sable_vegetation");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ALPHA_MOSS_VEGETATION = FeatureUtils.createKey("alpha_moss_vegetation");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> POINTED_AMBER = FeatureUtils.createKey("pointed_amber");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> AMBER_CLUSTER = FeatureUtils.createKey("amber_cluster");
     public static List<ResourceKey<ConfiguredFeature<?, ?>>> features = new ArrayList<>();
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_MOSS_PATCH_BONEMEAL = of("sable_patch_bonemeal");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ALPHA_MOSS_PATCH_BONEMEAL = of("alpha_moss_patch_bonemeal");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE = of("underhang/small_underhang_trees");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE_MEDIUM = of("underhang/medium_underhang_trees");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_TREE = of("small_sable_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_TREE_MEDIUM = of("sable_tree");
 
-    public static ResourceKey<ConfiguredFeature<?, ?>> of(String id){
+    public static ResourceKey<ConfiguredFeature<?, ?>> of(String id) {
         ResourceKey<ConfiguredFeature<?, ?>> registryKey = ResourceKey.create(Registries.CONFIGURED_FEATURE, Bygone.id(id));
         features.add(registryKey);
         return registryKey;
     }
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_MOSS_PATCH_BONEMEAL = of("sable_patch_bonemeal");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_MOSS_VEGETATION = FeatureUtils.createKey("sable_vegetation");
-
-
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ALPHA_MOSS_PATCH_BONEMEAL = of("alpha_moss_patch_bonemeal");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ALPHA_MOSS_VEGETATION = FeatureUtils.createKey("alpha_moss_vegetation");
-
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE = of("underhang/small_underhang_trees");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE_MEDIUM = of("underhang/medium_underhang_trees");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> POINTED_AMBER = FeatureUtils.createKey("pointed_amber");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> AMBER_CLUSTER = FeatureUtils.createKey("amber_cluster");
-
-
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_TREE = of("small_sable_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_TREE_MEDIUM = of("sable_tree");
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> featureRegisterable) {
         TagMatchTest ruleTest = new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD);
@@ -107,14 +98,14 @@ public class BGConfiguredFeatures
 
         FeatureUtils.register(featureRegisterable, ALPHA_MOSS_PATCH_BONEMEAL, Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
                 BlockTags.MOSS_REPLACEABLE, BlockStateProvider.simple(Blocks.MOSS_BLOCK),
-                PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(ALPHA_MOSS_VEGETATION),
-                        new PlacementModifier[0]), CaveSurface.FLOOR, ConstantInt.of(1), 0.0F, 5,
+                PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(ALPHA_MOSS_VEGETATION)
+                ), CaveSurface.FLOOR, ConstantInt.of(1), 0.0F, 5,
                 0.6F, UniformInt.of(1, 2), 0.75F));
 
         FeatureUtils.register(featureRegisterable, SABLE_MOSS_PATCH_BONEMEAL, Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
                 BlockTags.MOSS_REPLACEABLE, BlockStateProvider.simple(BGBlocks.SABLE_MOSS_BLOCK.get()),
-                PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(SABLE_MOSS_VEGETATION),
-                        new PlacementModifier[0]), CaveSurface.FLOOR, ConstantInt.of(1), 0.0F, 5,
+                PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(SABLE_MOSS_VEGETATION)
+                ), CaveSurface.FLOOR, ConstantInt.of(1), 0.0F, 5,
                 0.6F, UniformInt.of(1, 2), 0.75F));
 
 

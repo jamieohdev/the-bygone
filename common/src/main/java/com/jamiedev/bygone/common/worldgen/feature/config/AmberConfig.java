@@ -6,8 +6,7 @@ import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class AmberConfig implements FeatureConfiguration
-{
+public class AmberConfig implements FeatureConfiguration {
     public static final Codec<AmberConfig> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(Codec.intRange(1, 512).fieldOf("floor_to_ceiling_search_range").orElse(30).forGetter((config) -> {
             return config.floorToCeilingSearchRange;

@@ -6,16 +6,16 @@ import net.minecraft.core.particles.SimpleParticleType;
 
 public class AncientLeavesParticle extends TextureSheetParticle {
 
-    private float field_43369;
     private final float field_43370;
     private final float field_43371;
+    private float field_43369;
 
     public AncientLeavesParticle(ClientLevel world, double x, double y, double z, SpriteSet spriteProvider) {
         super(world, x, y, z);
         this.setSprite(spriteProvider.get(this.random.nextInt(12), 12));
-        this.field_43369 = (float)Math.toRadians(this.random.nextBoolean() ? -30.0 : 30.0);
+        this.field_43369 = (float) Math.toRadians(this.random.nextBoolean() ? -30.0 : 30.0);
         this.field_43370 = this.random.nextFloat();
-        this.field_43371 = (float)Math.toRadians(this.random.nextBoolean() ? -5.0 : 5.0);
+        this.field_43371 = (float) Math.toRadians(this.random.nextBoolean() ? -5.0 : 5.0);
         this.lifetime = 300;
         this.gravity = 7.5E-4F;
         float f = this.random.nextBoolean() ? 0.05F : 0.075F;
@@ -39,7 +39,7 @@ public class AncientLeavesParticle extends TextureSheetParticle {
         }
 
         if (!this.removed) {
-            float f = (float)(300 - this.lifetime);
+            float f = (float) (300 - this.lifetime);
             float g = Math.min(f / 300.0F, 1.0F);
             double d = Math.cos(Math.toRadians(this.field_43370 * 60.0F)) * 2.0 * Math.pow(g, 1.25);
             double e = Math.sin(Math.toRadians(this.field_43370 * 60.0F)) * 2.0 * Math.pow(g, 1.25);

@@ -6,7 +6,6 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -24,10 +23,9 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import org.jetbrains.annotations.NotNull;
 
-public class BygonePortalGenerator 
-{
+public class BygonePortalGenerator {
     private static final ResourceLocation[] PORTAL = new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "bygone_portal/bygone_portal")};
-    
+
 
     public static void addPieces(StructureTemplateManager manager, StructurePieceAccessor holder, @NotNull RandomSource random, BlockPos pos) {
         Rotation blockRotation = Rotation.getRandom(random);

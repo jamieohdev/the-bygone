@@ -42,19 +42,6 @@ import java.util.function.Predicate;
 
 public class SabeastEntity extends Monster {
 
-    private static final EntityDataAccessor<Boolean> DATA_STANDING_ID;
-    private static final EntityDataAccessor<Boolean> DATA_IS_ATTACKING;
-    private int warningSoundTicks;
-
-    public AnimationState walkAnimationState = new AnimationState();
-    public AnimationState idleAnimationState = new AnimationState();
-    public AnimationState meleeAnimationState = new AnimationState();
-    public int meleeAttackInterval = 0;
-
-    private static final EntityDataAccessor<Boolean> DATA_REPEL_RUN;
-    private int checkRepelTicks = 0;
-
-
     protected static final ImmutableList<SensorType<? extends Sensor<? super SabeastEntity>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY
     );
@@ -80,22 +67,38 @@ public class SabeastEntity extends Monster {
             MemoryModuleType.NEAREST_VISIBLE_NEMESIS,
             MemoryModuleType.NEAREST_PLAYER_HOLDING_WANTED_ITEM
     );
+    private static final EntityDataAccessor<Boolean> DATA_STANDING_ID;
+    private static final EntityDataAccessor<Boolean> DATA_IS_ATTACKING;
+    private static final EntityDataAccessor<Boolean> DATA_REPEL_RUN;
+
+    static {
+        DATA_STANDING_ID = SynchedEntityData.defineId(SabeastEntity.class, EntityDataSerializers.BOOLEAN);
+        DATA_IS_ATTACKING = SynchedEntityData.defineId(SabeastEntity.class, EntityDataSerializers.BOOLEAN);
+        DATA_REPEL_RUN = SynchedEntityData.defineId(SabeastEntity.class, EntityDataSerializers.BOOLEAN);
+    }
+
+    public AnimationState walkAnimationState = new AnimationState();
+    public AnimationState idleAnimationState = new AnimationState();
+    public AnimationState meleeAnimationState = new AnimationState();
+    public int meleeAttackInterval = 0;
+    private int warningSoundTicks;
+    private int checkRepelTicks = 0;
 
     public SabeastEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, (double)50.0F)
-                .add(Attributes.MOVEMENT_SPEED, (double)0.22F)
-                .add(Attributes.ATTACK_DAMAGE, (double)8.0F)
-                .add(Attributes.STEP_HEIGHT, (double)1.6F);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 50.0F)
+                .add(Attributes.MOVEMENT_SPEED, 0.22F)
+                .add(Attributes.ATTACK_DAMAGE, 8.0F)
+                .add(Attributes.STEP_HEIGHT, 1.6F);
     }
 
     @Override
     protected void customServerAiStep() {
         this.level().getProfiler().push("sabeastBrain");
-        this.getBrain().tick((ServerLevel)this.level(), this);
+        this.getBrain().tick((ServerLevel) this.level(), this);
         this.level().getProfiler().pop();
         SabeastAI.updateActivity(this);
         super.customServerAiStep();
@@ -105,19 +108,19 @@ public class SabeastEntity extends Monster {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SabeastFreezeWhenLookedAt(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, (double)2.0F, (p_350292_) -> p_350292_.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 2.0F, (p_350292_) -> p_350292_.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES));
 
         this.goalSelector.addGoal(3, new AvoidBlockGoal(this, 16, 1.4, 1.6, (pos) -> {
             BlockState state = this.level().getBlockState(pos);
             return state.is(JamiesModTag.SABEAST_REPELLENTS);
         }));
 
-        this.goalSelector.addGoal(5, new RandomStrollGoal(this, (double)1.0F));
+        this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0F));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new SabeastEntityMeleeAttackGoal());
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, (Predicate)null));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, MoobooEntity.class, 10, true, true, (Predicate)null));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, (Predicate) null));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, MoobooEntity.class, 10, true, true, (Predicate) null));
     }
 
     @Override
@@ -140,7 +143,7 @@ public class SabeastEntity extends Monster {
 
     @Override
     public Brain<SabeastEntity> getBrain() {
-        return (Brain<SabeastEntity>)super.getBrain();
+        return (Brain<SabeastEntity>) super.getBrain();
     }
 
     @Override
@@ -154,7 +157,7 @@ public class SabeastEntity extends Monster {
     }
 
     boolean isLookingAtMe(Player player) {
-        ItemStack itemstack = (ItemStack)player.getInventory().armor.get(3);
+        ItemStack itemstack = player.getInventory().armor.get(3);
         if (itemstack.is(Blocks.CARVED_PUMPKIN.asItem())) {
             return false;
         } else {
@@ -191,14 +194,13 @@ public class SabeastEntity extends Monster {
     protected void playStepSound(BlockPos pos, BlockState block) {
     }
 
-
     @Override
     public boolean hurt(DamageSource source, float amount) {
         if (source.is(DamageTypes.IN_FIRE) || source.is(DamageTypes.ON_FIRE)) {
-            return super.hurt(source, amount*4);
+            return super.hurt(source, amount * 4);
         }
 
-        return super.hurt(source, (float) (amount*0.8));
+        return super.hurt(source, (float) (amount * 0.8));
     }
 
     public void tick() {
@@ -216,10 +218,9 @@ public class SabeastEntity extends Monster {
         if (!level.isClientSide()) {
             if (this.checkRepelTicks <= 0) {
                 Optional<BlockPos> repelPos = BlockPos.findClosestMatch(this.blockPosition(), 8, 4, pos -> level.getBlockState(pos).is(JamiesModTag.SABEAST_REPELLENTS));
-                if (repelPos.isPresent()){
+                if (repelPos.isPresent()) {
                     this.entityData.set(DATA_REPEL_RUN, true);
-                }
-                else {
+                } else {
                     this.entityData.set(DATA_REPEL_RUN, false);
                 }
                 this.checkRepelTicks = 20;
@@ -253,23 +254,21 @@ public class SabeastEntity extends Monster {
         return this.entityData.get(DATA_REPEL_RUN);
     }
 
-
     public boolean isStanding() {
-        return (Boolean)this.entityData.get(DATA_STANDING_ID);
+        return this.entityData.get(DATA_STANDING_ID);
     }
 
     public void setStanding(boolean standing) {
         this.entityData.set(DATA_STANDING_ID, standing);
     }
 
-    public void setDataIsAttacking(boolean attacking) {
-        this.entityData.set(DATA_IS_ATTACKING, attacking);
-    }
-
     public boolean getDataIsAttacking() {
         return this.entityData.get(DATA_IS_ATTACKING);
     }
 
+    public void setDataIsAttacking(boolean attacking) {
+        this.entityData.set(DATA_IS_ATTACKING, attacking);
+    }
 
     protected void playWarningSound() {
         if (this.warningSoundTicks <= 0) {
@@ -277,12 +276,6 @@ public class SabeastEntity extends Monster {
             this.warningSoundTicks = 40;
         }
 
-    }
-
-    static {
-        DATA_STANDING_ID = SynchedEntityData.defineId(SabeastEntity.class, EntityDataSerializers.BOOLEAN);
-        DATA_IS_ATTACKING = SynchedEntityData.defineId(SabeastEntity.class, EntityDataSerializers.BOOLEAN);
-        DATA_REPEL_RUN = SynchedEntityData.defineId(SabeastEntity.class, EntityDataSerializers.BOOLEAN);
     }
 
     static class SabeastFreezeWhenLookedAt extends Goal {
@@ -303,7 +296,7 @@ public class SabeastEntity extends Monster {
                 double d0 = this.target.distanceToSqr(this.sabeast);
 
                 if (this.target instanceof Player) {
-                    ((LivingEntity)this.target).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200, 0, true, true), this.sabeast);
+                    this.target.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200, 0, true, true), this.sabeast);
                 }
 
                 return !(d0 > (double) 256.0F) && this.sabeast.isLookingAtMe((Player) this.target);
@@ -323,18 +316,18 @@ public class SabeastEntity extends Monster {
     }
 
     class SabeastEntityMeleeAttackGoal extends Goal {
+        private static final long COOLDOWN_BETWEEN_CAN_USE_CHECKS = 20L;
         protected final SabeastEntity mob;
         private final double speedModifier;
         private final boolean followingTargetEvenIfNotSeen;
+        private final int attackInterval = 40;
         private Path path;
         private double pathedTargetX;
         private double pathedTargetY;
         private double pathedTargetZ;
         private int ticksUntilNextPathRecalculation;
         private int ticksUntilNextAttack;
-        private final int attackInterval = 40;
         private long lastCanUseCheck;
-        private static final long COOLDOWN_BETWEEN_CAN_USE_CHECKS = 20L;
 
         public SabeastEntityMeleeAttackGoal() {
             this.mob = SabeastEntity.this;
@@ -364,7 +357,7 @@ public class SabeastEntity extends Monster {
                     return false;
                 } else {
                     this.path = this.mob.getNavigation().createPath(livingentity, 0);
-                    return this.path != null ? true : this.mob.isWithinMeleeAttackRange(livingentity);
+                    return this.path != null || this.mob.isWithinMeleeAttackRange(livingentity);
                 }
             }
         }
@@ -384,9 +377,7 @@ public class SabeastEntity extends Monster {
             } else if (!this.followingTargetEvenIfNotSeen) {
                 return !this.mob.getNavigation().isDone();
             } else {
-                return !this.mob.isWithinRestriction(livingentity.blockPosition())
-                        ? false
-                        : !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player)livingentity).isCreative();
+                return this.mob.isWithinRestriction(livingentity.blockPosition()) && (!(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative());
             }
         }
 

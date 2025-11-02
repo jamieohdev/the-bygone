@@ -10,31 +10,32 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.PotDecorations;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -52,16 +53,10 @@ import java.util.stream.Stream;
 
 
 public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<AmphoraBlock> CODEC = simpleCodec(AmphoraBlock::new);
     public static final ResourceLocation SHERDS_DYNAMIC_DROP_ID = ResourceLocation.withDefaultNamespace("sherds");
-    private static final VoxelShape BOUNDING_BOX = Block.box(5.0, 0.0, 5.0, 11.0, 27.0, 11.0);
-
     public static final BooleanProperty CRACKED;
-    private static final BooleanProperty WATERLOGGED;
     public static final IntegerProperty WATER_LEVEL = IntegerProperty.create("water_level", 0, 8);
-
     public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.Plane.HORIZONTAL);
-
     protected static final VoxelShape[] BOUNDING_BOX1 = new VoxelShape[]{
             Shapes.or(Block.box(5.0, 0.0, 5.0, 11.0, 27.0, 11.0),
                     Block.box(5.0, 0.0, 5.0, 11.0, 27.0, 11.0)),
@@ -75,9 +70,13 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
             Shapes.or(Block.box(12.0, 2.0, 8.0, 16.0, 12.0, 8.0),
                     Block.box(12.0, 2.0, 8.0, 16.0, 12.0, 8.0))
     };
+    private static final VoxelShape BOUNDING_BOX = Block.box(5.0, 0.0, 5.0, 11.0, 27.0, 11.0);
+    private static final BooleanProperty WATERLOGGED;
+    public static final MapCodec<AmphoraBlock> CODEC = simpleCodec(AmphoraBlock::new);
 
-    public MapCodec<AmphoraBlock> codec() {
-        return CODEC;
+    static {
+        CRACKED = BlockStateProperties.CRACKED;
+        WATERLOGGED = BlockStateProperties.WATERLOGGED;
     }
 
     public AmphoraBlock(BlockBehaviour.Properties properties) {
@@ -87,6 +86,27 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
                 .setValue(CRACKED, false)
                 .setValue(WATER_LEVEL, 0)
         );
+    }
+
+    public static void updateWaterLevel(Level level, int waterLevel, BlockState state, BlockPos pos) {
+        BlockState newState = state.setValue(WATER_LEVEL, Integer.valueOf(waterLevel));
+        level.setBlockAndUpdate(pos, newState);
+    }
+
+    public static void doWaterParticles(Level level, BlockPos pos) {
+        if (level.isClientSide) {
+            level.addParticle(ParticleTypes.SPLASH,
+                    pos.getX() + (double) level.random.nextFloat(),
+                    pos.getY() + 1,
+                    pos.getZ() + (double) level.random.nextFloat(),
+                    0.0,
+                    0.0,
+                    0.0);
+        }
+    }
+
+    public MapCodec<AmphoraBlock> codec() {
+        return CODEC;
     }
 
     @Deprecated
@@ -121,7 +141,7 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
                 doWaterParticles(level, pos);
                 level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                 updateWaterLevel(level, state.getValue(WATER_LEVEL) + 1, state, pos);
-                level.gameEvent((Entity)null, GameEvent.BLOCK_CHANGE, pos);
+                level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
                 if (!player.hasInfiniteMaterials())
                     player.setItemInHand(hand, new ItemStack(Items.BUCKET));
                 return ItemInteractionResult.SUCCESS;
@@ -130,7 +150,7 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
                 doWaterParticles(level, pos);
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 updateWaterLevel(level, state.getValue(WATER_LEVEL) - 1, state, pos);
-                level.gameEvent((Entity)null, GameEvent.BLOCK_CHANGE, pos);
+                level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
                 if (!player.hasInfiniteMaterials())
                     player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.WATER_BUCKET)));
                 return ItemInteractionResult.SUCCESS;
@@ -140,24 +160,6 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
         }
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
-
-    public static void updateWaterLevel(Level level, int waterLevel, BlockState state, BlockPos pos) {
-        BlockState newState = state.setValue(WATER_LEVEL, Integer.valueOf(waterLevel));
-        level.setBlockAndUpdate(pos, newState);
-    }
-
-    public static void doWaterParticles(Level level, BlockPos pos) {
-        if (level.isClientSide) {
-            level.addParticle(ParticleTypes.SPLASH,
-                    pos.getX() + (double) level.random.nextFloat(),
-                    pos.getY() + 1,
-                    pos.getZ() + (double) level.random.nextFloat(),
-                    0.0,
-                    0.0,
-                    0.0);
-        }
-    }
-
 
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         BlockEntity var7 = level.getBlockEntity(pos);
@@ -250,7 +252,7 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
     protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
         //return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
-        return (Integer)state.getValue(WATER_LEVEL);
+        return state.getValue(WATER_LEVEL);
     }
 
     protected BlockState rotate(BlockState state, Rotation rotation) {
@@ -261,10 +263,5 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     @Override
     protected boolean useShapeForLightOcclusion(BlockState state) {
         return false;
-    }
-
-    static {
-        CRACKED = BlockStateProperties.CRACKED;
-        WATERLOGGED = BlockStateProperties.WATERLOGGED;
     }
 }

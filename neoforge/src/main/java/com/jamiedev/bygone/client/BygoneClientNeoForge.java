@@ -1,8 +1,8 @@
 package com.jamiedev.bygone.client;
 
+import com.jamiedev.bygone.client.particles.BlemishParticle;
 import com.jamiedev.bygone.client.particles.UpsidedownDropParticle;
 import com.jamiedev.bygone.common.block.JamiesModWoodType;
-import com.jamiedev.bygone.client.particles.BlemishParticle;
 import com.jamiedev.bygone.core.registry.BGParticleTypes;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.Sheets;

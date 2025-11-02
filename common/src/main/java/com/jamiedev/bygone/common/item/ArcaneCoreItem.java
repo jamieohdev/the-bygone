@@ -14,8 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.phys.shapes.CollisionContext;
 
-public class ArcaneCoreItem extends BlockItem
-{
+public class ArcaneCoreItem extends BlockItem {
     public ArcaneCoreItem(Block block, Properties settings) {
         super(block, settings);
     }
@@ -26,9 +25,9 @@ public class ArcaneCoreItem extends BlockItem
         BlockPos blockPos = context.getClickedPos();
         BlockState blockState = world.getBlockState(blockPos);
         InteractionResult actionResult = this.place(new BlockPlaceContext(context));
-        if (blockState.is(BGBlocks.BYGONE_PORTAL_FRAME.get()) && !(Boolean)blockState.getValue(BygonePortalFrameBlock.EYE)) {
+        if (blockState.is(BGBlocks.BYGONE_PORTAL_FRAME.get()) && !(Boolean) blockState.getValue(BygonePortalFrameBlock.EYE)) {
             if (world.isClientSide) {
-               // return ActionResult.SUCCESS;
+                // return ActionResult.SUCCESS;
             } else {
                 BlockState blockState2 = blockState.setValue(BygonePortalFrameBlock.EYE, true);
                 Block.pushEntitiesUp(blockState, blockState2, world, blockPos);
@@ -40,8 +39,8 @@ public class ArcaneCoreItem extends BlockItem
                 if (result != null) {
                     BlockPos blockPos2 = result.getFrontTopLeft().offset(-3, 0, -3);
 
-                    for(int i = 0; i < 3; ++i) {
-                        for(int j = 0; j < 3; ++j) {
+                    for (int i = 0; i < 3; ++i) {
+                        for (int j = 0; j < 3; ++j) {
                             world.setBlock(blockPos2.offset(i, 0, j), BGBlocks.BYGONE_PORTAL.get().defaultBlockState(), 2);
                         }
                     }
@@ -51,13 +50,9 @@ public class ArcaneCoreItem extends BlockItem
 
                 return InteractionResult.CONSUME;
             }
-        }
-        else if (!blockState.is(BGBlocks.BYGONE_PORTAL_FRAME.get()))
-        {
+        } else if (!blockState.is(BGBlocks.BYGONE_PORTAL_FRAME.get())) {
             return actionResult;
-        }
-        else
-        {
+        } else {
             return InteractionResult.FAIL;
         }
         return InteractionResult.FAIL;

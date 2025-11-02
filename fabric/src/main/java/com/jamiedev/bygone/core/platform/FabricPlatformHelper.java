@@ -1,9 +1,9 @@
 package com.jamiedev.bygone.core.platform;
 
-import com.jamiedev.bygone.core.registry.AttachmentTypesFabric;
 import com.jamiedev.bygone.core.network.C2SModPacket;
 import com.jamiedev.bygone.core.network.S2CModPacket;
 import com.jamiedev.bygone.core.platform.services.IPlatformHelper;
+import com.jamiedev.bygone.core.registry.AttachmentTypesFabric;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
@@ -14,7 +14,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
@@ -41,21 +40,21 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public <MSG extends S2CModPacket<?>> void registerClientPlayPacket(CustomPacketPayload.Type<MSG> type, StreamCodec<RegistryFriendlyByteBuf, MSG> streamCodec) {
-        PayloadTypeRegistry.playS2C().register(type,streamCodec);//payload needs to be registered on server/client, packethandler is client only
+        PayloadTypeRegistry.playS2C().register(type, streamCodec);//payload needs to be registered on server/client, packethandler is client only
         if (MixinEnvironment.getCurrentEnvironment().getSide() == MixinEnvironment.Side.CLIENT) {
-            ClientPlayNetworking.registerGlobalReceiver(type,(payload, context) -> context.client().execute(payload::handleClient));
+            ClientPlayNetworking.registerGlobalReceiver(type, (payload, context) -> context.client().execute(payload::handleClient));
         }
     }
 
     @Override
     public <MSG extends C2SModPacket<?>> void registerServerPlayPacket(CustomPacketPayload.Type<MSG> type, StreamCodec<RegistryFriendlyByteBuf, MSG> streamCodec) {
-        PayloadTypeRegistry.playC2S().register(type,streamCodec);
-        ServerPlayNetworking.registerGlobalReceiver(type,(payload, context) -> context.player().server.execute(() -> payload.handleServer(context.player())));
+        PayloadTypeRegistry.playC2S().register(type, streamCodec);
+        ServerPlayNetworking.registerGlobalReceiver(type, (payload, context) -> context.player().server.execute(() -> payload.handleServer(context.player())));
     }
 
     @Override
     public void sendToClient(S2CModPacket<?> msg, ServerPlayer player) {
-        ServerPlayNetworking.send(player,msg);
+        ServerPlayNetworking.send(player, msg);
     }
 
     @Override
@@ -68,11 +67,11 @@ public class FabricPlatformHelper implements IPlatformHelper {
         Collection<ServerPlayer> trackingPlayers = PlayerLookup.tracking(entity);
 
         for (ServerPlayer tracking : trackingPlayers) {
-            sendToClient(msg,tracking);
+            sendToClient(msg, tracking);
         }
 
         if (includeSelf && entity instanceof ServerPlayer self) {
-            sendToClient(msg,self);
+            sendToClient(msg, self);
         }
     }
 
@@ -84,6 +83,6 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public void setTimeInBygone(Entity entity, int time) {
-        entity.setAttached(AttachmentTypesFabric.TIME_IN_BYGONE,time);
+        entity.setAttached(AttachmentTypesFabric.TIME_IN_BYGONE, time);
     }
 }

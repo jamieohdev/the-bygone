@@ -1,11 +1,7 @@
 package com.jamiedev.bygone.common.block.entity;
 
-import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.common.block.BlemishVeinBlock;
 import com.jamiedev.bygone.core.registry.BGBlocks;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Collection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -13,6 +9,10 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
 
 public interface BlemishSpreadable {
     BlemishSpreadable VEIN_ONLY_SPREADER = new BlemishSpreadable() {

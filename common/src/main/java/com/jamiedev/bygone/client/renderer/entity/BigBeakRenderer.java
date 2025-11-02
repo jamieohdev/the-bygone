@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.JamiesModModelLayers;
 import com.jamiedev.bygone.client.models.BigBeakModel;
+import com.jamiedev.bygone.common.entity.BigBeakEntity;
 import com.jamiedev.bygone.common.entity.BigBeakVariants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.Util;
@@ -12,15 +13,14 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.SaddleLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import com.jamiedev.bygone.common.entity.BigBeakEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-public class BigBeakRenderer  extends MobRenderer<BigBeakEntity, BigBeakModel<BigBeakEntity>> {
+public class BigBeakRenderer extends MobRenderer<BigBeakEntity, BigBeakModel<BigBeakEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/big_beak.png");
 
-    private static final Map VARIANTS = (Map) Util.make(Maps.newEnumMap(BigBeakVariants.class), (p_349902_) -> {
+    private static final Map VARIANTS = Util.make(Maps.newEnumMap(BigBeakVariants.class), (p_349902_) -> {
         p_349902_.put(BigBeakVariants.NORMAL, Bygone.id("textures/entity/big_beak.png"));
         p_349902_.put(BigBeakVariants.TROPICAL, Bygone.id("textures/entity/big_beak/tropical.png"));
         p_349902_.put(BigBeakVariants.PEACHY, Bygone.id("textures/entity/big_beak/peachy.png"));
@@ -56,8 +56,7 @@ public class BigBeakRenderer  extends MobRenderer<BigBeakEntity, BigBeakModel<Bi
     @Override
     protected void scale(BigBeakEntity slimeEntity, PoseStack matrixStack, float f) {
 
-        if (slimeEntity.isBaby())
-        {
+        if (slimeEntity.isBaby()) {
             matrixStack.scale(0.5F, 0.5F, 0.5F);
         }
     }

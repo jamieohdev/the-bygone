@@ -1,9 +1,7 @@
 package com.jamiedev.bygone.common.block;
 
-import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.common.entity.RisingBlockEntity;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -19,10 +17,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Fallable;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
-public abstract class RisingBlock  extends Block implements Fallable {
+public abstract class RisingBlock extends Block implements Fallable {
     public RisingBlock(BlockBehaviour.Properties settings) {
         super(settings);
+    }
+
+    public static boolean canRiseThrough(BlockState state) {
+        return state.isAir() || state.is(BlockTags.FIRE) || state.liquid() || state.canBeReplaced();
     }
 
     @Override
@@ -52,10 +55,6 @@ public abstract class RisingBlock  extends Block implements Fallable {
 
     protected int getRiseDelay() {
         return 2;
-    }
-
-    public static boolean canRiseThrough(BlockState state) {
-        return state.isAir() || state.is(BlockTags.FIRE) || state.liquid() || state.canBeReplaced();
     }
 
     @Override

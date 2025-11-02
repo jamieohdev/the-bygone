@@ -19,22 +19,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
-    @Shadow public abstract ItemStack getUseItem();
+    @Shadow
+    protected ItemStack useItem;
+    @Shadow
+    protected int useItemRemaining;
 
-    @Shadow public abstract void makeSound(@Nullable SoundEvent sound);
+    @Shadow
+    public abstract ItemStack getUseItem();
 
-    @Shadow protected ItemStack useItem;
+    @Shadow
+    public abstract void makeSound(@Nullable SoundEvent sound);
 
-    @Shadow protected int useItemRemaining;
+    @Shadow
+    public abstract boolean isUsingItem();
 
-    @Shadow public abstract boolean isUsingItem();
-
-    @Inject(method = "isBlocking", at = @At("HEAD"), cancellable = true) //Fix for compatibility with Guarding mod git issue #20
+    @Inject(method = "isBlocking", at = @At("HEAD"), cancellable = true)
+    //Fix for compatibility with Guarding mod git issue #20
     private void jamies_mod$isBlocking(CallbackInfoReturnable<Boolean> cir) {
-        if(this.useItem.getItem() instanceof VerdigrisBladeItem)
+        if (this.useItem.getItem() instanceof VerdigrisBladeItem)
             if (this.isUsingItem() && !this.useItem.isEmpty()) {
                 Item item = this.useItem.getItem();
-                cir.setReturnValue(item.getUseAnimation(this.useItem) != UseAnim.BLOCK ? false : item.getUseDuration(this.useItem, (LivingEntity) (Object)this) - this.useItemRemaining >= 5);
+                cir.setReturnValue(item.getUseAnimation(this.useItem) == UseAnim.BLOCK && item.getUseDuration(this.useItem, (LivingEntity) (Object) this) - this.useItemRemaining >= 5);
             } else {
                 cir.setReturnValue(false);
             }

@@ -23,8 +23,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import org.jetbrains.annotations.NotNull;
 
-public class AbandonedFarmGenerator
-{
+public class AbandonedFarmGenerator {
     private static final ResourceLocation[] FOSSILS = new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "abandoned_farm_1")};
 
     public AbandonedFarmGenerator() {

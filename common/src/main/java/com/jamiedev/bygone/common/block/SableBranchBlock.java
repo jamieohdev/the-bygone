@@ -10,22 +10,24 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.GrowingPlantHeadBlock;
+import net.minecraft.world.level.block.NetherVines;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class SableBranchBlock extends GrowingPlantHeadBlock {
+    public static final VoxelShape SHAPE = Block.box(4.0F, 0.0F, 4.0F, 12.0F, 15.0F, 12.0F);
     public static final MapCodec<SableBranchBlock> CODEC = simpleCodec(SableBranchBlock::new);
-    public static final VoxelShape SHAPE = Block.box((double)4.0F, (double)0.0F, (double)4.0F, (double)12.0F, (double)15.0F, (double)12.0F);
-
-    public MapCodec<SableBranchBlock> codec() {
-        return CODEC;
-    }
 
     public SableBranchBlock(BlockBehaviour.Properties p_154864_) {
         super(p_154864_, Direction.UP, SHAPE, false, 0.00005);
+    }
+
+    public MapCodec<SableBranchBlock> codec() {
+        return CODEC;
     }
 
     protected int getBlocksToGrowWhenBonemealed(RandomSource p_222649_) {
@@ -33,10 +35,10 @@ public class SableBranchBlock extends GrowingPlantHeadBlock {
     }
 
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        Vec3 vec3 = new Vec3((double)0.85F, (double)0.75F, (double)0.85F);
+        Vec3 vec3 = new Vec3(0.85F, 0.75F, 0.85F);
         if (entity instanceof LivingEntity livingentity) {
             if (livingentity.hasEffect(MobEffects.MOVEMENT_SPEED)) {
-                vec3 = new Vec3((double)0.95F, (double)0.85F, (double)0.95F);
+                vec3 = new Vec3(0.95F, 0.85F, 0.95F);
             }
         }
 
@@ -61,7 +63,7 @@ public class SableBranchBlock extends GrowingPlantHeadBlock {
 
     @Override
     public boolean isMaxAge(BlockState state) {
-        return (Integer)state.getValue(AGE) == 5;
+        return state.getValue(AGE) == 5;
     }
 }
 

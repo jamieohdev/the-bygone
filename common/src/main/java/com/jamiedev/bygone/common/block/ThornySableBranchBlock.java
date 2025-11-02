@@ -18,28 +18,27 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ThornySableBranchBlock extends GrowingPlantHeadBlock {
+    public static final VoxelShape SHAPE = Block.box(4.0F, 0.0F, 4.0F, 12.0F, 15.0F, 12.0F);
     public static final MapCodec<ThornySableBranchBlock> CODEC = simpleCodec(ThornySableBranchBlock::new);
-    public static final VoxelShape SHAPE = Block.box((double)4.0F, (double)0.0F, (double)4.0F, (double)12.0F, (double)15.0F, (double)12.0F);
-
-    public MapCodec<ThornySableBranchBlock> codec() {
-        return CODEC;
-    }
+    CactusBlock ref;
 
     public ThornySableBranchBlock(Properties p_154864_) {
         super(p_154864_, Direction.UP, SHAPE, false, 0.001);
+    }
+
+    public MapCodec<ThornySableBranchBlock> codec() {
+        return CODEC;
     }
 
     protected int getBlocksToGrowWhenBonemealed(RandomSource p_222649_) {
         return NetherVines.getBlocksToGrowWhenBonemealed(p_222649_);
     }
 
-    CactusBlock ref;
-
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        Vec3 vec3 = new Vec3((double)0.75F, (double)0.65F, (double)0.75F);
+        Vec3 vec3 = new Vec3(0.75F, 0.65F, 0.75F);
         if (entity instanceof LivingEntity livingentity) {
             if (livingentity.hasEffect(MobEffects.MOVEMENT_SPEED)) {
-                vec3 = new Vec3((double)0.95F, (double)0.85F, (double)0.95F);
+                vec3 = new Vec3(0.95F, 0.85F, 0.95F);
             }
         }
         entity.makeStuckInBlock(state, vec3);
@@ -62,8 +61,8 @@ public class ThornySableBranchBlock extends GrowingPlantHeadBlock {
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockPos blockpos = pos.relative(this.growthDirection.getOpposite());
         BlockState blockstate = level.getBlockState(blockpos);
-        return !this.canAttachTo(blockstate) ? false : blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) || blockstate.is(BGBlocks.SABLE_LEAVES.get())
-                || blockstate.isFaceSturdy(level, blockpos, this.growthDirection);
+        return this.canAttachTo(blockstate) && (blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) || blockstate.is(BGBlocks.SABLE_LEAVES.get())
+                || blockstate.isFaceSturdy(level, blockpos, this.growthDirection));
     }
 }
 

@@ -9,8 +9,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
-public class WraithRenderer extends MobRenderer<WraithEntity, WraithModel<WraithEntity>>
-{
+public class WraithRenderer extends MobRenderer<WraithEntity, WraithModel<WraithEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/wraith.png");
 
 

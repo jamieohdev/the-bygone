@@ -2,7 +2,6 @@ package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import net.minecraft.core.BlockPos;
-
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -10,23 +9,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.BreedGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.FollowParentGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -38,22 +24,30 @@ import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class DuckEntity extends Animal
-{
+public class DuckEntity extends Animal {
     private static final EntityDimensions BABY_BASE_DIMENSIONS;
+
+    static {
+        BABY_BASE_DIMENSIONS = EntityType.CHICKEN.getDimensions().scale(0.5F).withEyeHeight(0.2975F);
+    }
+
     public float flapProgress;
     public float maxWingDeviation;
     public float prevMaxWingDeviation;
     public float prevFlapProgress;
     public float flapSpeed = 1.0F;
-    private float field_28639 = 1.0F;
     public int eggLayTime;
     public boolean hasJockey;
+    private float field_28639 = 1.0F;
 
     public DuckEntity(EntityType<? extends DuckEntity> entityType, Level world) {
         super(entityType, world);
         this.eggLayTime = this.random.nextInt(6000) + 6000;
         this.setPathfindingMalus(PathType.WATER, 0.0F);
+    }
+
+    public static AttributeSupplier.Builder createDuckAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0).add(Attributes.MOVEMENT_SPEED, 0.25);
     }
 
     @Override
@@ -73,10 +67,6 @@ public class DuckEntity extends Animal
     @Override
     public EntityDimensions getDefaultDimensions(Pose pose) {
         return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getDefaultDimensions(pose);
-    }
-
-    public static AttributeSupplier.Builder createDuckAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0).add(Attributes.MOVEMENT_SPEED, 0.25);
     }
 
     @Override
@@ -178,7 +168,7 @@ public class DuckEntity extends Animal
     protected void positionRider(Entity passenger, Entity.MoveFunction positionUpdater) {
         super.positionRider(passenger, positionUpdater);
         if (passenger instanceof LivingEntity) {
-            ((LivingEntity)passenger).yBodyRot = this.yBodyRot;
+            ((LivingEntity) passenger).yBodyRot = this.yBodyRot;
         }
 
     }
@@ -189,9 +179,5 @@ public class DuckEntity extends Animal
 
     public void setHasJockey(boolean hasJockey) {
         this.hasJockey = hasJockey;
-    }
-
-    static {
-        BABY_BASE_DIMENSIONS = EntityType.CHICKEN.getDimensions().scale(0.5F).withEyeHeight(0.2975F);
     }
 }

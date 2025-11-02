@@ -2,7 +2,6 @@ package com.jamiedev.bygone.client.renderer.entity;
 
 import com.jamiedev.bygone.core.registry.BGDimensions;
 import com.mojang.blaze3d.shaders.FogShape;
-import java.util.function.Consumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
@@ -11,8 +10,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public class BygoneDimensionEffects extends DimensionSpecialEffects
-{
+import java.util.function.Consumer;
+
+public class BygoneDimensionEffects extends DimensionSpecialEffects {
 
     public static final BygoneDimensionEffects INSTANCE = new BygoneDimensionEffects(5.0F, false, SkyType.NORMAL, false, true);
     private final Minecraft minecraft = Minecraft.getInstance();
@@ -22,33 +22,6 @@ public class BygoneDimensionEffects extends DimensionSpecialEffects
         super(Float.NaN, true, SkyType.NORMAL, false, false);
     }
 
-    public Vec3 getFogColor() {
-        float colorFactor = 0.75f;
-
-        colorFactor *= (float) (100d / 100);
-
-
-        return new Vec3((int)(Math.min(Math.min(0.54f * colorFactor, 0.65f + 0)*255, 255)),
-                ((int)(Math.min(Math.max(Math.min(0.3f * colorFactor, 0.87f) - 0 * 0.6f, 0)*255, 255))),
-                (0));
-    }
-
-    @Override
-    public @NotNull Vec3 getBrightnessDependentFogColor(@NotNull Vec3 color, float sunHeight) {
-        return color;
-    }
-
-    @Override
-    public boolean isFoggyAt(int camX, int camY) {
-        Player player = Minecraft.getInstance().player;
-
-        //if (player != null) {
-        //
-       // }
-
-        return true;
-    }
-
     public static boolean fogThicknessAdjustments(
             LocalPlayer player,
             float renderDistance,
@@ -56,14 +29,12 @@ public class BygoneDimensionEffects extends DimensionSpecialEffects
             FogRenderer.FogMode fogType,
             Consumer<Float> setFogStart,
             Consumer<Float> setFogEnd,
-            Consumer<FogShape> setFogShape)
-    {
+            Consumer<FogShape> setFogShape) {
         if (
                 fogType == FogRenderer.FogMode.FOG_TERRAIN &&
-                thickFog &&
-                player != null &&
-                player.level().dimension() == BGDimensions.BYGONE_LEVEL_KEY)
-        {
+                        thickFog &&
+                        player != null &&
+                        player.level().dimension() == BGDimensions.BYGONE_LEVEL_KEY) {
 
 
             float distanceRationAdjuster = 1;
@@ -80,5 +51,32 @@ public class BygoneDimensionEffects extends DimensionSpecialEffects
         }
 
         return false;
+    }
+
+    public Vec3 getFogColor() {
+        float colorFactor = 0.75f;
+
+        colorFactor *= (float) (100d / 100);
+
+
+        return new Vec3((int) (Math.min(Math.min(0.54f * colorFactor, 0.65f + 0) * 255, 255)),
+                ((int) (Math.min(Math.max(Math.min(0.3f * colorFactor, 0.87f) - 0 * 0.6f, 0) * 255, 255))),
+                (0));
+    }
+
+    @Override
+    public @NotNull Vec3 getBrightnessDependentFogColor(@NotNull Vec3 color, float sunHeight) {
+        return color;
+    }
+
+    @Override
+    public boolean isFoggyAt(int camX, int camY) {
+        Player player = Minecraft.getInstance().player;
+
+        //if (player != null) {
+        //
+        // }
+
+        return true;
     }
 }

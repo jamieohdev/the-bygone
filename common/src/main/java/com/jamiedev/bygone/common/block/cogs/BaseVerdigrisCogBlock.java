@@ -2,7 +2,6 @@ package com.jamiedev.bygone.common.block.cogs;
 
 import com.google.common.collect.ImmutableMap;
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -22,7 +21,10 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -34,39 +36,89 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class BaseVerdigrisCogBlock extends PoweredBlock {
-    public static final MapCodec<PoweredBlock> CODEC = RecordCodecBuilder.mapCodec(
-            p_309135_ -> p_309135_.group(
-                            VerdigrisStage.CODEC.fieldOf("verdigris_stage").forGetter(poweredBlock -> ((BaseVerdigrisCogBlock) poweredBlock).verdigrisStage), propertiesCodec()
-                    )
-                    .apply(p_309135_, BaseVerdigrisCogBlock::new)
-    );
     public static final BooleanProperty UP;
     public static final BooleanProperty NORTH;
     public static final BooleanProperty EAST;
     public static final BooleanProperty SOUTH;
     public static final BooleanProperty WEST;
     public static final Map<Direction, BooleanProperty> PROPERTY_BY_DIRECTION;
+    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public static final IntegerProperty DELAY;
+    public static final BooleanProperty POWERED;
     protected static final float AABB_OFFSET = 1.0F;
     private static final VoxelShape UP_AABB;
     private static final VoxelShape WEST_AABB;
     private static final VoxelShape EAST_AABB;
     private static final VoxelShape NORTH_AABB;
     private static final VoxelShape SOUTH_AABB;
-    private final ImmutableMap shapesCache;
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
-    public final VerdigrisStage verdigrisStage;
-    public static final IntegerProperty DELAY;
-    public static final BooleanProperty POWERED;
+    public static final MapCodec<PoweredBlock> CODEC = RecordCodecBuilder.mapCodec(
+            p_309135_ -> p_309135_.group(
+                            VerdigrisStage.CODEC.fieldOf("verdigris_stage").forGetter(poweredBlock -> ((BaseVerdigrisCogBlock) poweredBlock).verdigrisStage), propertiesCodec()
+                    )
+                    .apply(p_309135_, BaseVerdigrisCogBlock::new)
+    );
 
-    public MapCodec<PoweredBlock> codec() {
-        return CODEC;
+    static {
+        POWERED = BlockStateProperties.POWERED;
+        DELAY = IntegerProperty.create("delay", 0, 2);
+        UP = PipeBlock.UP;
+        NORTH = PipeBlock.NORTH;
+        EAST = PipeBlock.EAST;
+        SOUTH = PipeBlock.SOUTH;
+        WEST = PipeBlock.WEST;
+        PROPERTY_BY_DIRECTION = PipeBlock.PROPERTY_BY_DIRECTION.entrySet().stream().filter((p_57886_) -> p_57886_.getKey() != Direction.DOWN).collect(Util.toMap());
+        UP_AABB = Block.box(0.0F, 15.0F, 0.0F, 16.0F, 16.0F, 16.0F);
+        WEST_AABB = Block.box(0.0F, 0.0F, 0.0F, 1.0F, 16.0F, 16.0F);
+        EAST_AABB = Block.box(15.0F, 0.0F, 0.0F, 16.0F, 16.0F, 16.0F);
+        NORTH_AABB = Block.box(0.0F, 0.0F, 0.0F, 16.0F, 16.0F, 1.0F);
+        SOUTH_AABB = Block.box(0.0F, 0.0F, 15.0F, 16.0F, 16.0F, 16.0F);
     }
+
+    public final VerdigrisStage verdigrisStage;
+    private final ImmutableMap shapesCache;
 
     public BaseVerdigrisCogBlock(VerdigrisStage stage, BlockBehaviour.Properties properties) {
         super(properties);
         this.verdigrisStage = stage;
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(UP, false).setValue(NORTH, false).setValue(EAST, false).setValue(SOUTH, false).setValue(WEST, false).setValue(POWERED, true).setValue(DELAY, Integer.valueOf(1)));
         this.shapesCache = ImmutableMap.copyOf((Map) this.stateDefinition.getPossibleStates().stream().collect(Collectors.toMap(Function.identity(), BaseVerdigrisCogBlock::calculateShape)));
+    }
+
+    private static VoxelShape calculateShape(BlockState state) {
+        VoxelShape voxelshape = Shapes.empty();
+        if (state.getValue(UP)) {
+            voxelshape = UP_AABB;
+        }
+
+        if (state.getValue(NORTH)) {
+            voxelshape = Shapes.or(voxelshape, NORTH_AABB);
+        }
+
+        if (state.getValue(SOUTH)) {
+            voxelshape = Shapes.or(voxelshape, SOUTH_AABB);
+        }
+
+        if (state.getValue(EAST)) {
+            voxelshape = Shapes.or(voxelshape, EAST_AABB);
+        }
+
+        if (state.getValue(WEST)) {
+            voxelshape = Shapes.or(voxelshape, WEST_AABB);
+        }
+
+        return voxelshape.isEmpty() ? Shapes.block() : voxelshape;
+    }
+
+    public static boolean isAcceptableNeighbour(BlockGetter blockReader, BlockPos neighborPos, Direction attachedFace) {
+        return MultifaceBlock.canAttachTo(blockReader, attachedFace, neighborPos, blockReader.getBlockState(neighborPos));
+    }
+
+    public static BooleanProperty getPropertyForFace(Direction face) {
+        return PROPERTY_BY_DIRECTION.get(face);
+    }
+
+    public MapCodec<PoweredBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -107,31 +159,6 @@ public class BaseVerdigrisCogBlock extends PoweredBlock {
             return super.getSignal(blockState, blockAccess, pos, side);
         else
             return 0;
-    }
-
-    private static VoxelShape calculateShape(BlockState state) {
-        VoxelShape voxelshape = Shapes.empty();
-        if (state.getValue(UP)) {
-            voxelshape = UP_AABB;
-        }
-
-        if (state.getValue(NORTH)) {
-            voxelshape = Shapes.or(voxelshape, NORTH_AABB);
-        }
-
-        if (state.getValue(SOUTH)) {
-            voxelshape = Shapes.or(voxelshape, SOUTH_AABB);
-        }
-
-        if (state.getValue(EAST)) {
-            voxelshape = Shapes.or(voxelshape, EAST_AABB);
-        }
-
-        if (state.getValue(WEST)) {
-            voxelshape = Shapes.or(voxelshape, WEST_AABB);
-        }
-
-        return voxelshape.isEmpty() ? Shapes.block() : voxelshape;
     }
 
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
@@ -177,17 +204,12 @@ public class BaseVerdigrisCogBlock extends PoweredBlock {
             } else if (direction.getAxis() == Direction.Axis.Y) {
                 return false;
             } else {
-                BooleanProperty booleanproperty = (BooleanProperty) PROPERTY_BY_DIRECTION.get(direction);
+                BooleanProperty booleanproperty = PROPERTY_BY_DIRECTION.get(direction);
                 BlockState blockstate = level.getBlockState(pos.above());
                 return blockstate.is(this) && blockstate.getValue(booleanproperty);
             }
         }
     }
-
-    public static boolean isAcceptableNeighbour(BlockGetter blockReader, BlockPos neighborPos, Direction attachedFace) {
-        return MultifaceBlock.canAttachTo(blockReader, attachedFace, neighborPos, blockReader.getBlockState(neighborPos));
-    }
-
 
     private BlockState getUpdatedState(BlockState state, BlockGetter level, BlockPos pos) {
         BlockPos blockpos = pos.above();
@@ -354,26 +376,6 @@ public class BaseVerdigrisCogBlock extends PoweredBlock {
         }
     }
 
-    public static BooleanProperty getPropertyForFace(Direction face) {
-        return PROPERTY_BY_DIRECTION.get(face);
-    }
-
-    static {
-        POWERED = BlockStateProperties.POWERED;
-        DELAY = IntegerProperty.create("delay", 0, 2);
-        UP = PipeBlock.UP;
-        NORTH = PipeBlock.NORTH;
-        EAST = PipeBlock.EAST;
-        SOUTH = PipeBlock.SOUTH;
-        WEST = PipeBlock.WEST;
-        PROPERTY_BY_DIRECTION = PipeBlock.PROPERTY_BY_DIRECTION.entrySet().stream().filter((p_57886_) -> p_57886_.getKey() != Direction.DOWN).collect(Util.toMap());
-        UP_AABB = Block.box(0.0F, 15.0F, 0.0F, 16.0F, 16.0F, 16.0F);
-        WEST_AABB = Block.box(0.0F, 0.0F, 0.0F, 1.0F, 16.0F, 16.0F);
-        EAST_AABB = Block.box(15.0F, 0.0F, 0.0F, 16.0F, 16.0F, 16.0F);
-        NORTH_AABB = Block.box(0.0F, 0.0F, 0.0F, 16.0F, 16.0F, 1.0F);
-        SOUTH_AABB = Block.box(0.0F, 0.0F, 15.0F, 16.0F, 16.0F, 16.0F);
-    }
-
     public enum VerdigrisStage implements StringRepresentable {
         PRISTINE("pristine", 10),
         TARNISHED("tarnished", 30),
@@ -381,15 +383,16 @@ public class BaseVerdigrisCogBlock extends PoweredBlock {
         BROKEN("broken", 0, false);
 
         public static final Codec<VerdigrisStage> CODEC = StringRepresentable.fromEnum(VerdigrisStage::values);
-        private String stage;
-        private int degradationAmount;
-        private boolean shouldPower;
+        private static final VerdigrisStage[] vals = values();
+        private final String stage;
+        private final int degradationAmount;
+        private final boolean shouldPower;
 
-        private VerdigrisStage(String stage, int degradationAmount) {
+        VerdigrisStage(String stage, int degradationAmount) {
             this(stage, degradationAmount, true);
         }
 
-        private VerdigrisStage(String stage, int degradationAmount, boolean shouldPower) {
+        VerdigrisStage(String stage, int degradationAmount, boolean shouldPower) {
             this.stage = stage;
             this.degradationAmount = degradationAmount;
             this.shouldPower = shouldPower;
@@ -399,8 +402,6 @@ public class BaseVerdigrisCogBlock extends PoweredBlock {
         public String getSerializedName() {
             return stage;
         }
-
-        private static final VerdigrisStage[] vals = values();
 
         public VerdigrisStage next() {
             return vals[(this.ordinal() + 1) % vals.length];

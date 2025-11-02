@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
@@ -19,20 +18,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
-public class RisingBlockEntity extends FallingBlockEntity
-{
-    public interface FallingBlockEntityAccess {
-        void setBlockState(BlockState block);
-    }
-
+public class RisingBlockEntity extends FallingBlockEntity {
     private Level world;
+
     public RisingBlockEntity(EntityType<? extends FallingBlockEntity> entityType, Level world) {
         super(entityType, world);
     }
 
     private RisingBlockEntity(Level world, double x, double y, double z, BlockState block) {
         this(BGEntityTypes.RISING_BLOCK.get(), world);
-        ((FallingBlockEntityAccess)this).setBlockState(block);
+        ((FallingBlockEntityAccess) this).setBlockState(block);
         this.blocksBuilding = true;
         this.setPos(x, y, z);
         this.setDeltaMovement(Vec3.ZERO);
@@ -40,6 +35,14 @@ public class RisingBlockEntity extends FallingBlockEntity
         this.yo = y;
         this.zo = z;
         this.setStartPos(this.blockPosition());
+    }
+
+    public static RisingBlockEntity fall(Level world, BlockPos pos, BlockState state) {
+        RisingBlockEntity fallingBlockEntity = new RisingBlockEntity(world, (double) pos.getX() + 0.5, pos.getY(), (double) pos.getZ() + 0.5, state.hasProperty(BlockStateProperties.WATERLOGGED) ? state.setValue(BlockStateProperties.WATERLOGGED, false) : state);
+        fallingBlockEntity.time -= 1200;
+        world.setBlock(pos, state.getFluidState().createLegacyBlock(), Block.UPDATE_ALL);
+        world.addFreshEntity(fallingBlockEntity);
+        return fallingBlockEntity;
     }
 
     @Override
@@ -72,7 +75,7 @@ public class RisingBlockEntity extends FallingBlockEntity
             if (replaceable && shouldPlace) {
 
                 if (world.setBlock(blockPos, state, Block.UPDATE_ALL)) {
-                    ((ServerLevel)this.world).getChunkSource().chunkMap.broadcast(this, new ClientboundBlockUpdatePacket(blockPos, this.world.getBlockState(blockPos)));
+                    ((ServerLevel) this.world).getChunkSource().chunkMap.broadcast(this, new ClientboundBlockUpdatePacket(blockPos, this.world.getBlockState(blockPos)));
                     this.discard();
                 } else if (dropItem && world.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
                     this.discard();
@@ -89,11 +92,7 @@ public class RisingBlockEntity extends FallingBlockEntity
         }
     }
 
-    public static RisingBlockEntity fall(Level world, BlockPos pos, BlockState state) {
-        RisingBlockEntity fallingBlockEntity = new RisingBlockEntity(world, (double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5, state.hasProperty(BlockStateProperties.WATERLOGGED) ? state.setValue(BlockStateProperties.WATERLOGGED, false) : state);
-        fallingBlockEntity.time -= 1200;
-        world.setBlock(pos, state.getFluidState().createLegacyBlock(), Block.UPDATE_ALL);
-        world.addFreshEntity(fallingBlockEntity);
-        return fallingBlockEntity;
+    public interface FallingBlockEntityAccess {
+        void setBlockState(BlockState block);
     }
 }

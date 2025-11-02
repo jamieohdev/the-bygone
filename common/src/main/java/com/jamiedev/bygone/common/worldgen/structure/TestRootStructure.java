@@ -1,9 +1,9 @@
 package com.jamiedev.bygone.common.worldgen.structure;
+
 import com.jamiedev.bygone.core.registry.BGStructures;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +20,9 @@ import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasLookup;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 
-public class TestRootStructure  extends Structure {
+import java.util.Optional;
+
+public class TestRootStructure extends Structure {
 
     // A custom codec that changes the size limit for our code_structure_sky_fan.json's config to not be capped at 7.
     // With this, we can have a structure with a size limit up to 30 if we want to have extremely long branches of pieces in the structure.
@@ -46,14 +48,14 @@ public class TestRootStructure  extends Structure {
     private final LiquidSettings liquidSettings;
 
     public TestRootStructure(Structure.StructureSettings config,
-                         Holder<StructureTemplatePool> startPool,
-                         Optional<ResourceLocation> startJigsawName,
-                         int size,
-                         HeightProvider startHeight,
-                         Optional<Heightmap.Types> projectStartToHeightmap,
-                         int maxDistanceFromCenter,
-                         DimensionPadding dimensionPadding,
-                         LiquidSettings liquidSettings) {
+                             Holder<StructureTemplatePool> startPool,
+                             Optional<ResourceLocation> startJigsawName,
+                             int size,
+                             HeightProvider startHeight,
+                             Optional<Heightmap.Types> projectStartToHeightmap,
+                             int maxDistanceFromCenter,
+                             DimensionPadding dimensionPadding,
+                             LiquidSettings liquidSettings) {
         super(config);
         this.startPool = startPool;
         this.startJigsawName = startJigsawName;

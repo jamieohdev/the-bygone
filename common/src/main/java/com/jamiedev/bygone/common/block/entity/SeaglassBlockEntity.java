@@ -7,7 +7,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -39,8 +38,9 @@ public class SeaglassBlockEntity extends BlockEntity {
         put(Direction.SOUTH, SHAPE_SOUTH);
         put(Direction.WEST, SHAPE_WEST);
     }};
-    protected VoxelShape occlusionShape = Shapes.empty();
     private final List<Direction> occlusionDirs = new ArrayList<>();
+    protected VoxelShape occlusionShape = Shapes.empty();
+
     public SeaglassBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BGBlockEntities.SEAGLASS.get(), pPos, pBlockState);
     }
@@ -72,7 +72,7 @@ public class SeaglassBlockEntity extends BlockEntity {
         }
         VoxelShape shape = Shapes.empty();
 
-        for(Direction direction : occlusionDirs){
+        for (Direction direction : occlusionDirs) {
             shape = Shapes.or(shape, occlusionShapes.get(direction));
         }
 
@@ -94,7 +94,6 @@ public class SeaglassBlockEntity extends BlockEntity {
     }
 
 
-
     @Nullable
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {
@@ -109,7 +108,7 @@ public class SeaglassBlockEntity extends BlockEntity {
         this.occlusionShape = shape;
     }
 
-    public void addDirection(Direction direction){
+    public void addDirection(Direction direction) {
         occlusionDirs.add(direction);
     }
 

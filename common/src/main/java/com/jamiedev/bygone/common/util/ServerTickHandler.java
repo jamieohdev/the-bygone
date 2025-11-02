@@ -4,14 +4,14 @@ import com.jamiedev.bygone.common.item.BaitwormWaterEffect;
 import net.minecraft.server.MinecraftServer;
 
 public class ServerTickHandler {
-    
+
     /**
      * Called every server tick. This method should be called from both
      * Fabric (ServerTickEvents.END_SERVER_TICK) and NeoForge (ServerTickEvent.Post)
      */
     public static void onServerTick(MinecraftServer server) {
         ShockwaveHandler.tickAll();
-        
+
         server.getAllLevels().forEach(level -> {
             BaitwormWaterEffect.tick(level);
         });

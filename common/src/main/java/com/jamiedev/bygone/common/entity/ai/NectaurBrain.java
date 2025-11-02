@@ -53,7 +53,7 @@ public class NectaurBrain {
                         ),
 
                         // Stop attacking if the target is invalid
-                        StopAttackingIfTargetInvalid.<NectaurEntity>create(
+                        StopAttackingIfTargetInvalid.create(
                                 target -> !isNearestValidAttackTarget(nectaur, target) && !nectaur.isBaby()
                         ),
 
@@ -125,7 +125,7 @@ public class NectaurBrain {
                 10,
                 ImmutableList.of(
                         new NectaurFollowLeader(),
-                        StartAttacking.<NectaurEntity>create(NectaurEntity::isAlive, NectaurBrain::findNearestValidAttackTarget),
+                        StartAttacking.create(NectaurEntity::isAlive, NectaurBrain::findNearestValidAttackTarget),
                         new NectaurJoinGroup(),
                         createIdleLookBehaviors(),
                         createIdleMovementBehaviors()

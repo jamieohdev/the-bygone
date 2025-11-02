@@ -30,10 +30,6 @@
       "translate": "advancements.bygone.ride_big_beak.title"
     }
   },
-  "requirements": [
-    [
-      "ride_big_beak"
-    ]
-  ],
+  "requirements": [["ride_big_beak"]],
   "sends_telemetry_event": true
 }

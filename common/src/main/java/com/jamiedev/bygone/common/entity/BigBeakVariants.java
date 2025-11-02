@@ -23,17 +23,17 @@ public enum BigBeakVariants implements StringRepresentable {
     private final int id;
     private final String name;
 
-    private BigBeakVariants(int id, String name) {
+    BigBeakVariants(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
-        return this.id;
+    public static BigBeakVariants byId(int id) {
+        return BY_ID.apply(id);
     }
 
-    public static BigBeakVariants byId(int id) {
-        return (BigBeakVariants)BY_ID.apply(id);
+    public int getId() {
+        return this.id;
     }
 
     public String getSerializedName() {

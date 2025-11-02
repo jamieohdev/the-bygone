@@ -15,7 +15,7 @@ public class BGTreeGrowers {
             Optional.empty());
 
     public static final TreeGrower SABLE_TREE = register("sable_tree", Optional.of(
-            BGConfiguredFeatures.SABLE_TREE_MEDIUM),
+                    BGConfiguredFeatures.SABLE_TREE_MEDIUM),
             Optional.of(BGConfiguredFeatures.SABLE_TREE));
 
 
@@ -25,8 +25,7 @@ public class BGTreeGrowers {
                                        Optional<ResourceKey<ConfiguredFeature<?, ?>>> tree,
                                        Optional<ResourceKey<ConfiguredFeature<?, ?>>> secondaryTree,
                                        Optional<ResourceKey<ConfiguredFeature<?, ?>>> flowers,
-                                       Optional<ResourceKey<ConfiguredFeature<?, ?>>> secondaryFlowers)
-    {
+                                       Optional<ResourceKey<ConfiguredFeature<?, ?>>> secondaryFlowers) {
         return new TreeGrower(String.format("%s:%s", Bygone.MOD_ID, name), secondaryChance, megaTree, secondaryMegaTree, tree, secondaryTree, flowers, secondaryFlowers);
     }
 

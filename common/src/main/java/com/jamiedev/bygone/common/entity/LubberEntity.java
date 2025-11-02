@@ -3,7 +3,6 @@ package com.jamiedev.bygone.common.entity;
 import com.jamiedev.bygone.common.entity.ai.LubberNavigation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -16,20 +15,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -45,27 +34,35 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class LubberEntity  extends Monster implements RangedAttackMob
-{
-    LubberEntity ref;
-    Skeleton ref2;
-
+public class LubberEntity extends Monster implements RangedAttackMob {
     private static final EntityDataAccessor<Byte> LUBBER_FLAGS;
     private static final float field_30498 = 0.1F;
 
+    static {
+        LUBBER_FLAGS = SynchedEntityData.defineId(LubberEntity.class, EntityDataSerializers.BYTE);
+    }
+
+    LubberEntity ref;
+    Skeleton ref2;
+
     protected LubberEntity(EntityType<? extends LubberEntity> entityType, Level world) {
         super(entityType, world);
+    }
+
+    public static AttributeSupplier.Builder createLubberAttributes() {
+        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 16.0).add(Attributes.MOVEMENT_SPEED, 0.30000001192092896);
     }
 
     @Override
     public void performRangedAttack(LivingEntity target, float pullProgress) {
 
     }
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, BigBeakEntity.class, 6.0F, 1.0, 1.2, (entity) -> {
-            return !((BigBeakEntity)entity).isFlapping();
+            return !((BigBeakEntity) entity).isFlapping();
         }));
         this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(4, new LubberEntity.AttackGoal(this));
@@ -85,7 +82,7 @@ public class LubberEntity  extends Monster implements RangedAttackMob
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(LUBBER_FLAGS, (byte)0);
+        builder.define(LUBBER_FLAGS, (byte) 0);
     }
 
     @Override
@@ -95,10 +92,6 @@ public class LubberEntity  extends Monster implements RangedAttackMob
             this.setClimbingWall(this.horizontalCollision);
         }
 
-    }
-
-    public static AttributeSupplier.Builder createLubberAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 16.0).add(Attributes.MOVEMENT_SPEED, 0.30000001192092896);
     }
 
     @Override
@@ -146,7 +139,7 @@ public class LubberEntity  extends Monster implements RangedAttackMob
     public void setClimbingWall(boolean climbing) {
         byte b = this.entityData.get(LUBBER_FLAGS);
         if (climbing) {
-            b = (byte)(b | 1);
+            b = (byte) (b | 1);
         } else {
             b &= -2;
         }
@@ -171,7 +164,7 @@ public class LubberEntity  extends Monster implements RangedAttackMob
         if (entityData1 == null) {
             entityData1 = new LubberEntity.LubberData();
             if (world.getDifficulty() == Difficulty.HARD && random.nextFloat() < 0.1F * difficulty.getSpecialMultiplier()) {
-                ((LubberEntity.LubberData)entityData1).setEffect(random);
+                ((LubberEntity.LubberData) entityData1).setEffect(random);
             }
         }
 
@@ -187,11 +180,7 @@ public class LubberEntity  extends Monster implements RangedAttackMob
 
     @Override
     public Vec3 getVehicleAttachmentPoint(Entity vehicle) {
-        return vehicle.getBbWidth() <= this.getBbWidth() ? new Vec3(0.0, 0.3125 * (double)this.getScale(), 0.0) : super.getVehicleAttachmentPoint(vehicle);
-    }
-
-    static {
-        LUBBER_FLAGS = SynchedEntityData.defineId(LubberEntity.class, EntityDataSerializers.BYTE);
+        return vehicle.getBbWidth() <= this.getBbWidth() ? new Vec3(0.0, 0.3125 * (double) this.getScale(), 0.0) : super.getVehicleAttachmentPoint(vehicle);
     }
 
     private static class AttackGoal extends MeleeAttackGoal {

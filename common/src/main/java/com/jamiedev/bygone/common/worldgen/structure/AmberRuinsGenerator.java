@@ -6,7 +6,6 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -24,8 +23,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import org.jetbrains.annotations.NotNull;
 
-public class AmberRuinsGenerator
-{
+public class AmberRuinsGenerator {
     private static final ResourceLocation[] FOSSILS = new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "amber_ruins_1"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "amber_ruins_2"),
             ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "amber_ruins_3"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "amber_ruins_4"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "amber_ruins_5")};
 

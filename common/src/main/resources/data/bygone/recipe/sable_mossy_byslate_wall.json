@@ -6,10 +6,7 @@
       "item": "bygone:sable_mossy_byslate"
     }
   },
-  "pattern": [
-    "###",
-    "###"
-  ],
+  "pattern": ["###", "###"],
   "result": {
     "count": 6,
     "id": "bygone:sable_mossy_byslate_wall"

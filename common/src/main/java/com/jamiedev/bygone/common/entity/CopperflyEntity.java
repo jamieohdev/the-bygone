@@ -22,13 +22,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
 
-public class CopperflyEntity extends Animal implements NeutralMob, FlyingAnimal
-{
-    Tadpole ref;
-    Bee ref2;
-
+public class CopperflyEntity extends Animal implements NeutralMob, FlyingAnimal {
     public static final float FLAP_DEGREES_PER_TICK = 120.32113F;
     public static final int TICKS_PER_FLAP = Mth.ceil(1.4959966F);
+    Tadpole ref;
+    Bee ref2;
 
     protected CopperflyEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -94,7 +92,7 @@ public class CopperflyEntity extends Animal implements NeutralMob, FlyingAnimal
         public void start() {
             Vec3 vec3 = this.findPos();
             if (vec3 != null) {
-                CopperflyEntity.this.navigation.moveTo(CopperflyEntity.this.navigation.createPath(BlockPos.containing(vec3), 1), (double)1.0F);
+                CopperflyEntity.this.navigation.moveTo(CopperflyEntity.this.navigation.createPath(BlockPos.containing(vec3), 1), 1.0F);
             }
 
         }
@@ -106,8 +104,8 @@ public class CopperflyEntity extends Animal implements NeutralMob, FlyingAnimal
             vec3 = CopperflyEntity.this.getViewVector(0.0F);
 
             int i = 8;
-            Vec3 vec32 = HoverRandomPos.getPos(CopperflyEntity.this, 8, 7, vec3.x, vec3.z, ((float)Math.PI / 2F), 3, 1);
-            return vec32 != null ? vec32 : AirAndWaterRandomPos.getPos(CopperflyEntity.this, 8, 4, -2, vec3.x, vec3.z, (double)((float)Math.PI / 2F));
+            Vec3 vec32 = HoverRandomPos.getPos(CopperflyEntity.this, 8, 7, vec3.x, vec3.z, ((float) Math.PI / 2F), 3, 1);
+            return vec32 != null ? vec32 : AirAndWaterRandomPos.getPos(CopperflyEntity.this, 8, 4, -2, vec3.x, vec3.z, (float) Math.PI / 2F);
         }
     }
 }

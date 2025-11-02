@@ -1,6 +1,5 @@
 package com.jamiedev.bygone.common.item;
 
-import com.jamiedev.bygone.core.registry.BGMobEffects;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -27,8 +26,8 @@ public class EctoplasmBucketItem extends Item {
         }
 
         if (!level.isClientSide) {
-                entityLiving.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 100, 0));
-                entityLiving.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 600, 0));
+            entityLiving.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 100, 0));
+            entityLiving.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 600, 0));
         }
 
         if (entityLiving instanceof Player player) {

@@ -11,7 +11,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
-public class AmberUnderFeature  extends Feature<NoneFeatureConfiguration> {
+public class AmberUnderFeature extends Feature<NoneFeatureConfiguration> {
     public AmberUnderFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
@@ -25,12 +25,12 @@ public class AmberUnderFeature  extends Feature<NoneFeatureConfiguration> {
             return false;
         } else {
             BlockState blockState = structureWorldAccess.getBlockState(blockPos.above());
-            if (!blockState.is(BGBlocks.AMBERSTONE.get()) && !blockState.is(BGBlocks.AMBER_SAND.get())|| !blockState.is(BGBlocks.AMBER_SANDSTONE.get())) {
+            if (!blockState.is(BGBlocks.AMBERSTONE.get()) && !blockState.is(BGBlocks.AMBER_SAND.get()) || !blockState.is(BGBlocks.AMBER_SANDSTONE.get())) {
                 return false;
             } else {
                 structureWorldAccess.setBlock(blockPos, BGBlocks.FLOWING_AMBER.get().defaultBlockState(), 2);
 
-                for(int i = 0; i < 1500; ++i) {
+                for (int i = 0; i < 1500; ++i) {
                     BlockPos blockPos2 = blockPos.offset(random.nextInt(8) - random.nextInt(8), -random.nextInt(12), random.nextInt(8) - random.nextInt(8));
                     if (structureWorldAccess.getBlockState(blockPos2).isAir()) {
                         int j = 0;

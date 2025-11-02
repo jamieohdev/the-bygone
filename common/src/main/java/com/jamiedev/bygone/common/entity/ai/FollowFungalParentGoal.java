@@ -1,21 +1,20 @@
 package com.jamiedev.bygone.common.entity.ai;
 
 import com.jamiedev.bygone.common.entity.FungalParentEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.world.entity.ai.goal.Goal;
 
-public class FollowFungalParentGoal extends Goal
-{
+public class FollowFungalParentGoal extends Goal {
     public static final int HORIZONTAL_CHECK_RANGE = 8;
     public static final int VERTICAL_CHECK_RANGE = 4;
     public static final int MIN_DISTANCE = 3;
     private final FungalParentEntity animal;
+    private final double speed;
     @Nullable
     private FungalParentEntity parent;
-    private final double speed;
     private int delay;
 
     public FollowFungalParentGoal(FungalParentEntity animal, double speed) {
@@ -33,8 +32,8 @@ public class FollowFungalParentGoal extends Goal
             double d = Double.MAX_VALUE;
             Iterator<? extends FungalParentEntity> var5 = list.iterator();
 
-            while(var5.hasNext()) {
-                FungalParentEntity animalEntity2 = (FungalParentEntity)var5.next();
+            while (var5.hasNext()) {
+                FungalParentEntity animalEntity2 = var5.next();
                 if (animalEntity2.getAge() >= 0) {
                     double e = this.animal.distanceToSqr(animalEntity2);
                     if (!(e > d)) {

@@ -6,8 +6,7 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-public class AncientForestVegetationFeatureConfig extends BlockPileConfiguration
-{
+public class AncientForestVegetationFeatureConfig extends BlockPileConfiguration {
     public static final Codec<AncientForestVegetationFeatureConfig> VEGETATION_CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(BlockStateProvider.CODEC.fieldOf("state_provider").forGetter((config) -> {
             return config.stateProvider;

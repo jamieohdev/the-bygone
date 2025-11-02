@@ -1,10 +1,8 @@
 package com.jamiedev.bygone.common.block;
 
-import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.common.block.entity.BlemishCatalystBlockEntity;
 import com.jamiedev.bygone.core.registry.BGBlockEntities;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -23,21 +21,27 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class BlemishCatalystBlock  extends BaseEntityBlock {
-    public static final MapCodec<BlemishCatalystBlock> CODEC = simpleCodec(BlemishCatalystBlock::new);
+public class BlemishCatalystBlock extends BaseEntityBlock {
     public static final BooleanProperty BLOOM;
-    private final IntProvider experience = ConstantInt.of(5);
+    public static final MapCodec<BlemishCatalystBlock> CODEC = simpleCodec(BlemishCatalystBlock::new);
 
-    @Override
-    public MapCodec<BlemishCatalystBlock> codec() {
-        return CODEC;
+    static {
+        BLOOM = BlockStateProperties.BLOOM;
     }
+
+    private final IntProvider experience = ConstantInt.of(5);
 
     public BlemishCatalystBlock(BlockBehaviour.Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(BLOOM, false));
+    }
+
+    @Override
+    public MapCodec<BlemishCatalystBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -77,10 +81,6 @@ public class BlemishCatalystBlock  extends BaseEntityBlock {
             this.tryDropExperience(world, pos, tool, this.experience);
         }
 
-    }
-
-    static {
-        BLOOM = BlockStateProperties.BLOOM;
     }
 }
 

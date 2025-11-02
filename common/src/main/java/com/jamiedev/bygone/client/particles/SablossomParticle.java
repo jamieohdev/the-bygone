@@ -2,13 +2,11 @@ package com.jamiedev.bygone.client.particles;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
-import net.minecraft.core.BlockPos;
 
-public class SablossomParticle extends TextureSheetParticle
-{
+public class SablossomParticle extends TextureSheetParticle {
 
     protected SablossomParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
         super(level, x, y, z, xSpeed, ySpeed, zSpeed);
@@ -18,6 +16,14 @@ public class SablossomParticle extends TextureSheetParticle
         this.xd *= 0.8F;
         this.yd *= 0.8F;
         this.zd *= 0.8F;
+    }
+
+    private static float magic(float f, float g, float h) {
+        if (f >= 1.0F - g) {
+            return (1.0F - f) / g;
+        } else {
+            return f <= h ? f / h : 1.0F;
+        }
     }
 
     @Override
@@ -40,12 +46,12 @@ public class SablossomParticle extends TextureSheetParticle
 
     @Override
     public int getLightColor(float partialTick) {
-        float f = ((float)this.age + partialTick) / (float)this.lifetime;
+        float f = ((float) this.age + partialTick) / (float) this.lifetime;
         f = Mth.clamp(f, 0.0F, 1.0F);
         int i = super.getLightColor(partialTick);
         int j = i & 0xFF;
         int k = i >> 16 & 0xFF;
-        j += (int)(f * 15.0F * 16.0F);
+        j += (int) (f * 15.0F * 16.0F);
         if (j > 240) {
             j = 240;
         }
@@ -57,14 +63,6 @@ public class SablossomParticle extends TextureSheetParticle
         return Mth.clamp(f / this.lifetime, 0.0F, 1.0F);
     }
 
-    private static float magic(float f, float g, float h) {
-        if (f >= 1.0F - g) {
-            return (1.0F - f) / g;
-        } else {
-            return f <= h ? f / h : 1.0F;
-        }
-    }
-    
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteProvider;
 

@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.common.worldgen.feature;
 
 import com.mojang.serialization.Codec;
-import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -9,6 +8,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class PrimordialCoralTreeFeature extends PrimordialCoralFeature {
     public PrimordialCoralTreeFeature(Codec<NoneFeatureConfiguration> codec) {
@@ -20,7 +21,7 @@ public class PrimordialCoralTreeFeature extends PrimordialCoralFeature {
         BlockPos.MutableBlockPos mutable = pos.mutable();
         int i = random.nextInt(3) + 1;
 
-        for(int j = 0; j < i; ++j) {
+        for (int j = 0; j < i; ++j) {
             if (!this.generateCoralPiece(world, random, mutable, state)) {
                 return true;
             }

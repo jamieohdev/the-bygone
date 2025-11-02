@@ -17,18 +17,22 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
-public class AncientRootBlock  extends Block implements SimpleWaterloggedBlock {
-    public static final MapCodec<AncientRootBlock> CODEC = simpleCodec(AncientRootBlock::new);
+public class AncientRootBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED;
+    public static final MapCodec<AncientRootBlock> CODEC = simpleCodec(AncientRootBlock::new);
 
-    @Override
-    public MapCodec<AncientRootBlock> codec() {
-        return CODEC;
+    static {
+        WATERLOGGED = BlockStateProperties.WATERLOGGED;
     }
 
     public AncientRootBlock(BlockBehaviour.Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
+    }
+
+    @Override
+    public MapCodec<AncientRootBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -61,9 +65,5 @@ public class AncientRootBlock  extends Block implements SimpleWaterloggedBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED);
-    }
-
-    static {
-        WATERLOGGED = BlockStateProperties.WATERLOGGED;
     }
 }

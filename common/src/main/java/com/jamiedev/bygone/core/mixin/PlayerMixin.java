@@ -1,8 +1,8 @@
 package com.jamiedev.bygone.core.mixin;
 
 import com.jamiedev.bygone.common.entity.projectile.HookEntity;
-import com.jamiedev.bygone.core.network.SyncPlayerHookS2C;
 import com.jamiedev.bygone.common.util.PlayerWithHook;
+import com.jamiedev.bygone.core.network.SyncPlayerHookS2C;
 import com.jamiedev.bygone.core.platform.Services;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -37,7 +37,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
 
     @Override
     public @Nullable HookEntity bygone$getHook() {
-        if(this.hookUUID == null) return null;
+        if (this.hookUUID == null) return null;
 
         // This is definitely our hook, so retrieve it
         if (this.hook != null && !this.hook.isRemoved() && this.hookId == this.hook.getId()) {
@@ -50,7 +50,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
             return this.hook;
         }
         // If we are on the client-side, look up the hook by the id we stored
-        else if(this.hookId > 0){
+        else if (this.hookId > 0) {
             Entity entityById = this.level().getEntity(this.hookId);
             this.bygone$setHook(entityById instanceof HookEntity foundHook ? foundHook : null);
             return this.hook;
@@ -68,21 +68,21 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
         this.hookUUID = pHook == null ? null : pHook.getUUID();
         this.hookId = pHook == null ? 0 : pHook.getId();
         // Sync our hook to the client-side counterparts of other players and ourselves
-        if(changed && !this.level().isClientSide){
-            Services.PLATFORM.sendToTracking(new SyncPlayerHookS2C(pHook == null ? 0 : pHook.getId(), this.getUUID()),this,true);
+        if (changed && !this.level().isClientSide) {
+            Services.PLATFORM.sendToTracking(new SyncPlayerHookS2C(pHook == null ? 0 : pHook.getId(), this.getUUID()), this, true);
         }
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
-    private void post_writeCustomDataToNbt(CompoundTag nbt, CallbackInfo ci){
-        if(this.hookUUID != null){
+    private void post_writeCustomDataToNbt(CompoundTag nbt, CallbackInfo ci) {
+        if (this.hookUUID != null) {
             nbt.putUUID("HookUUID", this.hookUUID);
         }
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("RETURN"))
-    private void post_readCustomDataFromNbt(CompoundTag nbt, CallbackInfo ci){
-        if(nbt.hasUUID("HookUUID")){
+    private void post_readCustomDataFromNbt(CompoundTag nbt, CallbackInfo ci) {
+        if (nbt.hasUUID("HookUUID")) {
             this.hookUUID = nbt.getUUID("HookUUID");
         }
     }

@@ -4,8 +4,6 @@ import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -13,36 +11,19 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.*;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.NeutralMob;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.FollowParentGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
@@ -53,32 +34,57 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-public class FungalParentEntity  extends Animal implements NeutralMob {
-
-    EnderMan ref;
+public class FungalParentEntity extends Animal implements NeutralMob {
 
     private static final EntityDataAccessor<Boolean> WARNING;
     private static final float field_30352 = 6.0F;
+    private static final UniformInt ANGER_TIME_RANGE;
+
+    static {
+        WARNING = SynchedEntityData.defineId(FungalParentEntity.class, EntityDataSerializers.BOOLEAN);
+        ANGER_TIME_RANGE = TimeUtil.rangeOfSeconds(20, 39);
+    }
+
+    EnderMan ref;
     private float lastWarningAnimationProgress;
     private float warningAnimationProgress;
     private int warningSoundCooldown;
-    private static final UniformInt ANGER_TIME_RANGE;
     private int angerTime;
     @Nullable
     private UUID angryAt;
 
     public FungalParentEntity(EntityType<? extends FungalParentEntity> entityType, Level world) {
         super(entityType, world);
+    }
+
+    public static AttributeSupplier.Builder createFungieAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 30.0).add(Attributes.FOLLOW_RANGE, 20.0).add(Attributes.MOVEMENT_SPEED, 0.25).add(Attributes.ATTACK_DAMAGE, 8.0);
+    }
+
+    public static boolean canSpawn(EntityType<FungalParentEntity> type,
+                                   LevelAccessor serverWorldAccess,
+                                   MobSpawnType spawnReason,
+                                   BlockPos blockPos,
+                                   RandomSource random
+    ) {
+        return serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_FUNGUS.get())
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_MOSS.get())
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_BLOCK.get())
+                || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_MYCELIUM.get());
+    }
+
+    public static <T extends Mob> boolean canSpawn(EntityType<T> tEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
+        return serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_FUNGUS.get())
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_MOSS.get())
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_BLOCK.get())
+                || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_MYCELIUM.get());
     }
 
     @Override
@@ -111,24 +117,6 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
         this.targetSelector.addGoal(5, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
-    public static AttributeSupplier.Builder createFungieAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 30.0).add(Attributes.FOLLOW_RANGE, 20.0).add(Attributes.MOVEMENT_SPEED, 0.25).add(Attributes.ATTACK_DAMAGE, 8.0);
-    }
-
-    public static boolean canSpawn(EntityType<FungalParentEntity> type,
-                                   LevelAccessor serverWorldAccess,
-        MobSpawnType spawnReason,
-        BlockPos blockPos,
-        RandomSource random
-    ) {
-            return serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_FUNGUS.get())
-                    || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_MOSS.get())
-                    || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_BLOCK.get())
-                    || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_MYCELIUM.get());
-        }
-
-
-
     @Override
     public void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
@@ -147,24 +135,24 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
     }
 
     @Override
-    public void setRemainingPersistentAngerTime(int angerTime) {
-        this.angerTime = angerTime;
-    }
-
-    @Override
     public int getRemainingPersistentAngerTime() {
         return this.angerTime;
     }
 
     @Override
-    public void setPersistentAngerTarget(@Nullable UUID angryAt) {
-        this.angryAt = angryAt;
+    public void setRemainingPersistentAngerTime(int angerTime) {
+        this.angerTime = angerTime;
     }
 
     @Override
     @Nullable
     public UUID getPersistentAngerTarget() {
         return this.angryAt;
+    }
+
+    @Override
+    public void setPersistentAngerTarget(@Nullable UUID angryAt) {
+        this.angryAt = angryAt;
     }
 
     @Override
@@ -222,7 +210,7 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
         }
 
         if (!this.level().isClientSide) {
-            this.updatePersistentAnger((ServerLevel)this.level(), true);
+            this.updatePersistentAnger((ServerLevel) this.level(), true);
         }
 
     }
@@ -264,16 +252,15 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
         return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
-    static {
-        WARNING = SynchedEntityData.defineId(FungalParentEntity.class, EntityDataSerializers.BOOLEAN);
-        ANGER_TIME_RANGE = TimeUtil.rangeOfSeconds(20, 39);
-    }
+    @Override
+    public boolean doHurtTarget(Entity target) {
+        boolean bl = super.doHurtTarget(target);
+        if (bl && this.getMainHandItem().isEmpty() && target instanceof LivingEntity) {
+            float f = this.level().getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
+            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.POISON, 20 * (int) f), this);
+        }
 
-    public static <T extends Mob> boolean canSpawn(EntityType<T> tEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
-        return serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_FUNGUS.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_MOSS.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_BLOCK.get())
-                || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_MYCELIUM.get());
+        return bl;
     }
 
     private class AttackGoal extends MeleeAttackGoal {
@@ -287,7 +274,7 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
                 this.resetAttackCooldown();
                 this.mob.doHurtTarget(target);
                 FungalParentEntity.this.setWarning(false);
-            } else if (this.mob.distanceToSqr(target) < (double)((target.getBbWidth() + 3.0F) * (target.getBbWidth() + 3.0F))) {
+            } else if (this.mob.distanceToSqr(target) < (double) ((target.getBbWidth() + 3.0F) * (target.getBbWidth() + 3.0F))) {
                 if (this.isTimeToAttack()) {
                     FungalParentEntity.this.setWarning(false);
                     this.resetAttackCooldown();
@@ -309,17 +296,6 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
             FungalParentEntity.this.setWarning(false);
             super.stop();
         }
-    }
-
-    @Override
-    public boolean doHurtTarget(Entity target) {
-        boolean bl = super.doHurtTarget(target);
-        if (bl && this.getMainHandItem().isEmpty() && target instanceof LivingEntity) {
-            float f = this.level().getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
-            ((LivingEntity)target).addEffect(new MobEffectInstance(MobEffects.POISON, 20 * (int)f), this);
-        }
-
-        return bl;
     }
 
     class FungalParentRevengeGoal extends HurtByTargetGoal {
@@ -357,14 +333,14 @@ public class FungalParentEntity  extends Animal implements NeutralMob {
                 return false;
             } else {
                 if (super.canUse()) {
-                    List<FungalParentEntity> list = 
-                            FungalParentEntity.this.level().getEntitiesOfClass(FungalParentEntity.class, 
+                    List<FungalParentEntity> list =
+                            FungalParentEntity.this.level().getEntitiesOfClass(FungalParentEntity.class,
                                     FungalParentEntity.this.getBoundingBox().inflate(8.0, 4.0, 8.0));
 
                     Iterator<FungalParentEntity> var2 = list.iterator();
 
-                    while(var2.hasNext()) {
-                        FungalParentEntity polarBearEntity = (FungalParentEntity)var2.next();
+                    while (var2.hasNext()) {
+                        FungalParentEntity polarBearEntity = var2.next();
 
 
                         if (polarBearEntity.isBaby()) {

@@ -14,8 +14,12 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-public class CessLakeFeature  extends Feature<CessLakeFeature.Config> {
+public class CessLakeFeature extends Feature<CessLakeFeature.Config> {
     private static final BlockState CAVE_AIR;
+
+    static {
+        CAVE_AIR = Blocks.CAVE_AIR.defaultBlockState();
+    }
 
     public CessLakeFeature(Codec<Config> codec) {
         super(codec);
@@ -34,7 +38,7 @@ public class CessLakeFeature  extends Feature<CessLakeFeature.Config> {
             boolean[] bls = new boolean[2048];
             int i = random.nextInt(4) + 4;
 
-            for(int j = 0; j < i; ++j) {
+            for (int j = 0; j < i; ++j) {
                 double d = random.nextDouble() * 6.0 + 3.0;
                 double e = random.nextDouble() * 4.0 + 2.0;
                 double f = random.nextDouble() * 6.0 + 3.0;
@@ -42,12 +46,12 @@ public class CessLakeFeature  extends Feature<CessLakeFeature.Config> {
                 double h = random.nextDouble() * (8.0 - e - 4.0) + 2.0 + e / 2.0;
                 double k = random.nextDouble() * (32.0 - f - 2.0) + 1.0 + f / 2.0;
 
-                for(int l = 1; l < 15; ++l) {
-                    for(int m = 1; m < 15; ++m) {
-                        for(int n = 1; n < 7; ++n) {
-                            double o = ((double)l - g) / (d / 2.0);
-                            double p = ((double)n - h) / (e / 2.0);
-                            double q = ((double)m - k) / (f / 2.0);
+                for (int l = 1; l < 15; ++l) {
+                    for (int m = 1; m < 15; ++m) {
+                        for (int n = 1; n < 7; ++n) {
+                            double o = ((double) l - g) / (d / 2.0);
+                            double p = ((double) n - h) / (e / 2.0);
+                            double q = ((double) m - k) / (f / 2.0);
                             double r = o * o + p * p + q * q;
                             if (r < 1.0) {
                                 bls[(l * 16 + m) * 8 + n] = true;
@@ -63,9 +67,9 @@ public class CessLakeFeature  extends Feature<CessLakeFeature.Config> {
             boolean v;
             int s;
             int u;
-            for(s = 0; s < 16; ++s) {
-                for(t = 0; t < 16; ++t) {
-                    for(u = 0; u < 8; ++u) {
+            for (s = 0; s < 16; ++s) {
+                for (t = 0; t < 16; ++t) {
+                    for (u = 0; u < 8; ++u) {
                         v = !bls[(s * 16 + t) * 8 + u] && (s < 15 && bls[((s + 1) * 16 + t) * 8 + u] || s > 0 && bls[((s - 1) * 16 + t) * 8 + u] || t < 15 && bls[(s * 16 + t + 1) * 8 + u] || t > 0 && bls[(s * 16 + (t - 1)) * 8 + u] || u < 7 && bls[(s * 16 + t) * 8 + u + 1] || u > 0 && bls[(s * 16 + t) * 8 + (u - 1)]);
                         if (v) {
                             BlockState blockState2 = structureWorldAccess.getBlockState(blockPos.offset(s, u, t));
@@ -82,9 +86,9 @@ public class CessLakeFeature  extends Feature<CessLakeFeature.Config> {
             }
 
             boolean bl2;
-            for(s = 0; s < 16; ++s) {
-                for(t = 0; t < 16; ++t) {
-                    for(u = 0; u < 8; ++u) {
+            for (s = 0; s < 16; ++s) {
+                for (t = 0; t < 16; ++t) {
+                    for (u = 0; u < 8; ++u) {
                         if (bls[(s * 16 + t) * 8 + u]) {
                             BlockPos blockPos2 = blockPos.offset(s, u, t);
                             if (this.canReplace(structureWorldAccess.getBlockState(blockPos2))) {
@@ -102,9 +106,9 @@ public class CessLakeFeature  extends Feature<CessLakeFeature.Config> {
 
             BlockState blockState3 = config.barrier().getState(random, blockPos);
             if (!blockState3.isAir()) {
-                for(t = 0; t < 16; ++t) {
-                    for(u = 0; u < 16; ++u) {
-                        for(int v1 = 0; v1 < 8; ++v1) {
+                for (t = 0; t < 16; ++t) {
+                    for (u = 0; u < 16; ++u) {
+                        for (int v1 = 0; v1 < 8; ++v1) {
                             bl2 = !bls[(t * 16 + u) * 8 + v1] && (t < 15 && bls[((t + 1) * 16 + u) * 8 + v1] || t > 0 && bls[((t - 1) * 16 + u) * 8 + v1] || u < 15 && bls[(t * 16 + u + 1) * 8 + v1] || u > 0 && bls[(t * 16 + (u - 1)) * 8 + v1] || v1 < 7 && bls[(t * 16 + u) * 8 + v1 + 1] || v1 > 0 && bls[(t * 16 + u) * 8 + (v1 - 1)]);
                             if (bl2 && (v1 < 4 || random.nextInt(2) != 0)) {
                                 BlockState blockState4 = structureWorldAccess.getBlockState(blockPos.offset(t, v1, u));
@@ -120,8 +124,8 @@ public class CessLakeFeature  extends Feature<CessLakeFeature.Config> {
             }
 
             if (blockState.getFluidState().is(FluidTags.WATER)) {
-                for(t = 0; t < 16; ++t) {
-                    for(u = 0; u < 16; ++u) {
+                for (t = 0; t < 16; ++t) {
+                    for (u = 0; u < 16; ++u) {
                         v = true;
                         BlockPos blockPos4 = blockPos.offset(t, 4, u);
                         if (structureWorldAccess.getBiome(blockPos4).value().shouldFreeze(structureWorldAccess, blockPos4, false) && this.canReplace(structureWorldAccess.getBlockState(blockPos4))) {
@@ -137,10 +141,6 @@ public class CessLakeFeature  extends Feature<CessLakeFeature.Config> {
 
     private boolean canReplace(BlockState state) {
         return !state.is(BlockTags.FEATURES_CANNOT_REPLACE);
-    }
-
-    static {
-        CAVE_AIR = Blocks.CAVE_AIR.defaultBlockState();
     }
 
     public record Config(BlockStateProvider fluid, BlockStateProvider barrier) implements FeatureConfiguration {

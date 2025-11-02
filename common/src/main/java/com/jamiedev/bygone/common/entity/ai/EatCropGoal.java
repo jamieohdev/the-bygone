@@ -17,6 +17,12 @@ import java.util.function.Predicate;
 public class EatCropGoal extends Goal {
     private static final int EAT_ANIMATION_TICKS = 40;
     private static final Predicate<BlockState> IS_AMARANTH, IS_OTHER_CROP;
+
+    static {
+        IS_AMARANTH = BlockStatePredicate.forBlock(BGBlocks.AMARANTH_CROP.get());
+        IS_OTHER_CROP = BlockStatePredicate.forBlock(Blocks.BEETROOTS);
+    }
+
     private final Mob mob;
     private final Level level;
     private int eatAnimationTick;
@@ -29,13 +35,13 @@ public class EatCropGoal extends Goal {
 
     public boolean canUse() {
         BlockPos blockpos = this.mob.blockPosition();
-        return IS_OTHER_CROP.test(this.level.getBlockState(blockpos)) ||IS_AMARANTH.test(this.level.getBlockState(blockpos)) || this.level.getBlockState(blockpos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get()) || this.level.getBlockState(blockpos.below()).is(BGBlocks.CLAYSTONE_FARMLAND.get());
+        return IS_OTHER_CROP.test(this.level.getBlockState(blockpos)) || IS_AMARANTH.test(this.level.getBlockState(blockpos)) || this.level.getBlockState(blockpos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get()) || this.level.getBlockState(blockpos.below()).is(BGBlocks.CLAYSTONE_FARMLAND.get());
 
     }
 
     public void start() {
         this.eatAnimationTick = this.adjustedTickDelay(40);
-        this.level.broadcastEntityEvent(this.mob, (byte)10);
+        this.level.broadcastEntityEvent(this.mob, (byte) 10);
         this.mob.getNavigation().stop();
     }
 
@@ -88,10 +94,5 @@ public class EatCropGoal extends Goal {
             }
         }
 
-    }
-
-    static {
-        IS_AMARANTH = BlockStatePredicate.forBlock(BGBlocks.AMARANTH_CROP.get());
-        IS_OTHER_CROP = BlockStatePredicate.forBlock(Blocks.BEETROOTS);
     }
 }

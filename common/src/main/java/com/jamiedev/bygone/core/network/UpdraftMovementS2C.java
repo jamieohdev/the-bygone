@@ -7,7 +7,8 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
-public record UpdraftMovementS2C(double velocityY, boolean isDescending) implements S2CModPacket<RegistryFriendlyByteBuf> {
+public record UpdraftMovementS2C(double velocityY,
+                                 boolean isDescending) implements S2CModPacket<RegistryFriendlyByteBuf> {
     public static final CustomPacketPayload.Type<UpdraftMovementS2C> PACKET_ID = new Type<>(Bygone.id("updraft_movement"));
     public static final StreamCodec<RegistryFriendlyByteBuf, UpdraftMovementS2C> CODEC = StreamCodec.composite(
             ByteBufCodecs.DOUBLE, UpdraftMovementS2C::velocityY,

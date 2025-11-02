@@ -28,19 +28,19 @@ public class JamiesModTag {
     public static final TagKey<Block> PEST_REPELLENTS = Blocks.createTag("pest_repellents");
     public static final TagKey<Block> SABEAST_REPELLENTS = Blocks.createTag("sabeast_repellents");
 
-    public static final TagKey<Block>  UMBRAL_SOIL = Blocks.createTag("umbral_soil");
-    public static final TagKey<Block>  MOSSY = Blocks.createTag("mossy");
-    public static final TagKey<Block>  CORALS = Blocks.createTag("corals");
-    public static final TagKey<Block>  CORAL_BLOCKS = Blocks.createTag("coral_blocks");
-    public static final TagKey<Block>  WALL_CORALS = Blocks.createTag("wall_coral");
+    public static final TagKey<Block> UMBRAL_SOIL = Blocks.createTag("umbral_soil");
+    public static final TagKey<Block> MOSSY = Blocks.createTag("mossy");
+    public static final TagKey<Block> CORALS = Blocks.createTag("corals");
+    public static final TagKey<Block> CORAL_BLOCKS = Blocks.createTag("coral_blocks");
+    public static final TagKey<Block> WALL_CORALS = Blocks.createTag("wall_coral");
 
-    public static final TagKey<Block>  WHIRLIWEEDS = Blocks.createTag("whirliweeds");
-    public static final TagKey<Item>  WHIRLIWEEDS_ITEM = Items.createTag("whirliweeds");
+    public static final TagKey<Block> WHIRLIWEEDS = Blocks.createTag("whirliweeds");
+    public static final TagKey<Item> WHIRLIWEEDS_ITEM = Items.createTag("whirliweeds");
 
 
-    public static final TagKey<Block>  CORAL_PLANTS = Blocks.createTag("coral_plants");
-    public static final TagKey<Block>  BLEMISH_REPLACEABLE = Blocks.createTag("blemish_replaceable");
-    public static final TagKey<Block>  BLEMISH_REPLACEABLE_WORLD_GEN = Blocks.createTag("blemish_replaceable_world_gen");
+    public static final TagKey<Block> CORAL_PLANTS = Blocks.createTag("coral_plants");
+    public static final TagKey<Block> BLEMISH_REPLACEABLE = Blocks.createTag("blemish_replaceable");
+    public static final TagKey<Block> BLEMISH_REPLACEABLE_WORLD_GEN = Blocks.createTag("blemish_replaceable_world_gen");
     public static final TagKey<Block> CREOSOTE_MAY_PLACE_ON = Blocks.createTag("creosote_may_place_on");
 
     public static final TagKey<Item> COPPER_BLOCKS = Items.createTag("copper_blocks");
@@ -57,11 +57,11 @@ public class JamiesModTag {
     public static final TagKey<Structure> ON_BYGONE_PORTAL_MAPS = Structures.createTag("on_bygone_portal_maps");
 
     public static final TagKey<Structure> BYGONE_ITEM_LOCATED = Structures.createTag("bygone_item_located");
-    public static final TagKey<Block> COPPERBUGNESTS = Blocks.createTag("copperbug_nests") ;
+    public static final TagKey<Block> COPPERBUGNESTS = Blocks.createTag("copperbug_nests");
 
     public static final TagKey<EntityType<?>> COPPERBUGNEST_INHABITORS = Entities.createTag("copperbugnest_inhabitors");
-    public static final TagKey<Block> SHELF_FUNGI = Blocks.createTag("shelf_fungi") ;
-    public static final TagKey<Block>  MOLD_REPLACEABLE = Blocks.createTag("mold_replaceable");
+    public static final TagKey<Block> SHELF_FUNGI = Blocks.createTag("shelf_fungi");
+    public static final TagKey<Block> MOLD_REPLACEABLE = Blocks.createTag("mold_replaceable");
 
     public static final TagKey<Biome> SPAWNS_WARM_BIGBEAKS = Biomes.createTag("spawns_warm_bigbeaks");
 

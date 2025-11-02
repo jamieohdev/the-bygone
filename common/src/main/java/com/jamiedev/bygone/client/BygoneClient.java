@@ -1,13 +1,13 @@
 package com.jamiedev.bygone.client;
 
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.client.renderer.BygonePortalRenderer;
-import com.jamiedev.bygone.client.renderer.entity.*;
-import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.client.models.*;
 import com.jamiedev.bygone.client.particles.*;
-import com.jamiedev.bygone.core.registry.*;
+import com.jamiedev.bygone.client.renderer.BygonePortalRenderer;
+import com.jamiedev.bygone.client.renderer.entity.*;
 import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
+import com.jamiedev.bygone.common.util.PlayerWithHook;
+import com.jamiedev.bygone.core.registry.*;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -212,7 +212,7 @@ public class BygoneClient {
         EntityRenderers.register(BGEntityTypes.WRAITH.get(), WraithRenderer::new);
         EntityRenderers.register(BGEntityTypes.SABEAST.get(), SabeastRenderer::new);
     }
-    
+
     public static void createModelLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> consumer) {
         consumer.accept(JamiesModModelLayers.SCUTTLE_SPIKE, ScuttleSpikeModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.COELACANTH, CoelacanthModel::getTexturedModelData);
@@ -242,12 +242,10 @@ public class BygoneClient {
     public static void registerModelPredicateProviders() {
         ItemProperties.register(BGItems.HOOK.get(), Bygone.id("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
             if (livingEntity instanceof Player) {
-                for (InteractionHand value : InteractionHand.values())
-                {
+                for (InteractionHand value : InteractionHand.values()) {
                     ItemStack heldStack = livingEntity.getItemInHand(value);
 
-                    if (heldStack == itemStack && (((PlayerWithHook)livingEntity).bygone$getHook() != null && !((PlayerWithHook)livingEntity).bygone$getHook().isRemoved()))
-                    {
+                    if (heldStack == itemStack && (((PlayerWithHook) livingEntity).bygone$getHook() != null && !((PlayerWithHook) livingEntity).bygone$getHook().isRemoved())) {
                         return 1;
                     }
                 }
@@ -307,6 +305,6 @@ public class BygoneClient {
             Item weaponItem = entity.getOffhandItem().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandItem().getItem() : entity.getOffhandItem().getItem();
             return weaponItem instanceof VerdigrisBladeItem;
         }
-       return false;
+        return false;
     }
 }

@@ -2,7 +2,6 @@ package com.jamiedev.bygone.client.renderer.entity.layers;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.models.WraithModel;
-import com.jamiedev.bygone.common.entity.WraithEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;

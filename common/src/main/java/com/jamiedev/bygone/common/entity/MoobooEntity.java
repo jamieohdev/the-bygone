@@ -24,11 +24,17 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class MoobooEntity extends Cow
-{
+public class MoobooEntity extends Cow {
 
     public MoobooEntity(EntityType<? extends Cow> entityType, Level level) {
         super(entityType, level);
+    }
+
+    public static boolean checkAnimalSpawnRules(
+            EntityType<? extends Animal> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random
+    ) {
+        boolean flag = MobSpawnType.ignoresLightRequirements(spawnType) || isBrightEnoughToSpawn(level, pos);
+        return level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && flag;
     }
 
     public float getWalkTargetValue(BlockPos pos, LevelReader level) {
@@ -65,14 +71,6 @@ public class MoobooEntity extends Cow
         } else {
             return super.mobInteract(player, hand);
         }
-    }
-
-
-    public static boolean checkAnimalSpawnRules(
-            EntityType<? extends Animal> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random
-    ) {
-        boolean flag = MobSpawnType.ignoresLightRequirements(spawnType) || isBrightEnoughToSpawn(level, pos);
-        return level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && flag;
     }
 
 }

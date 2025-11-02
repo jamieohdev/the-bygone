@@ -2,7 +2,6 @@ package com.jamiedev.bygone.common.entity.ai;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.jamiedev.bygone.common.entity.GlareEntity;
 import com.jamiedev.bygone.common.entity.HydropusEntity;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.world.entity.ai.Brain;
@@ -38,7 +37,7 @@ public class HydropusBrain {
                 Activity.FIGHT,
                 0,
                 ImmutableList.<net.minecraft.world.entity.ai.behavior.BehaviorControl<? super HydropusEntity>>of(
-                        StopAttackingIfTargetInvalid.<HydropusEntity>create(p_34981_ -> !hydropus.canAttack(p_34981_) && !hydropus.isBaby()),
+                        StopAttackingIfTargetInvalid.create(p_34981_ -> !hydropus.canAttack(p_34981_) && !hydropus.isBaby()),
                         SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
                         //new LaunchMeleeAttack(),
                         MeleeAttack.create(20)

@@ -1,23 +1,21 @@
 package com.jamiedev.bygone.common.block;
 
-import org.jetbrains.annotations.Nullable;
-
-import java.util.function.ToIntFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.function.ToIntFunction;
 
 public interface AncientCaveVines {
     VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
@@ -43,7 +41,7 @@ public interface AncientCaveVines {
 
     static ToIntFunction<BlockState> getLuminanceSupplier(int luminance) {
         return (state) -> {
-            return (Boolean)state.getValue(BlockStateProperties.BERRIES) ? luminance : 0;
+            return (Boolean) state.getValue(BlockStateProperties.BERRIES) ? luminance : 0;
         };
     }
 }

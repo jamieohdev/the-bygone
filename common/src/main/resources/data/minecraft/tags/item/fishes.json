@@ -1,7 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "bygone:coelacanth",
-    "bygone:cooked_coelacanth"
-  ]
+  "values": ["bygone:coelacanth", "bygone:cooked_coelacanth"]
 }

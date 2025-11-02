@@ -2,16 +2,8 @@ package com.jamiedev.bygone.client;
 
 import com.jamiedev.bygone.Bygone;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.BufferUploader;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.MeshData;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexBuffer;
-import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
-
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.minecraft.client.renderer.GameRenderer;
@@ -20,44 +12,38 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
-public enum BygoneSkyRenderer implements DimensionRenderingRegistry.SkyRenderer
-{
+public enum BygoneSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
     INSTANCE;
 
-    @FunctionalInterface
-    interface BufferFunction {
-        void make(BufferBuilder bufferBuilder, double minSize, double maxSize, int count, long seed);
-    }
-    private static Tesselator tessellator;
     private static final ResourceLocation END_SKY = Bygone.id("textures/environment/bygone_sky.png");
+    private static Tesselator tessellator;
+    //   public BygoneSkyRenderer() {}
+    @Nullable
+    private VertexBuffer lightSkyBuffer;
 
- //   public BygoneSkyRenderer() {}
- @Nullable
- private VertexBuffer lightSkyBuffer;
-    @Override
-    public void render(WorldRenderContext context)
-    {
-        Matrix4f matrix4f = new Matrix4f();
-        PoseStack matrixStack = new PoseStack();
-        matrixStack.mulPose(matrix4f);
-        renderLightSky();
-        //renderSkybox(matrixStack);
-    }
     private static MeshData buildSkyBuffer(Tesselator tessellator, float f) {
         float g = Math.signum(f) * 512.0F;
         float h = 512.0F;
         BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION);
         bufferBuilder.addVertex(0.0F, f, 0.0F);
 
-        for(int i = -180; i <= 180; i += 45) {
-            bufferBuilder.addVertex(g * Mth.cos((float)i * 0.017453292F), f, 512.0F * Mth.sin((float)i * 0.017453292F));
+        for (int i = -180; i <= 180; i += 45) {
+            bufferBuilder.addVertex(g * Mth.cos((float) i * 0.017453292F), f, 512.0F * Mth.sin((float) i * 0.017453292F));
         }
 
         return bufferBuilder.buildOrThrow();
     }
 
-    private void renderLightSky() {
+    @Override
+    public void render(WorldRenderContext context) {
+        Matrix4f matrix4f = new Matrix4f();
+        PoseStack matrixStack = new PoseStack();
+        matrixStack.mulPose(matrix4f);
+        renderLightSky();
+        //renderSkybox(matrixStack);
+    }
 
+    private void renderLightSky() {
 
 
         PoseStack matrices = new PoseStack();
@@ -69,7 +55,7 @@ public enum BygoneSkyRenderer implements DimensionRenderingRegistry.SkyRenderer
         RenderSystem.setShaderTexture(0, END_SKY);
         Tesselator tessellator = Tesselator.getInstance();
 
-        for(int i = 0; i < 6; ++i) {
+        for (int i = 0; i < 6; ++i) {
             matrices.pushPose();
             if (i == 1) {
                 matrices.mulPose(Axis.XP.rotationDegrees(90.0F));
@@ -112,7 +98,7 @@ public enum BygoneSkyRenderer implements DimensionRenderingRegistry.SkyRenderer
         RenderSystem.setShaderTexture(0, END_SKY);
         Tesselator tessellator = Tesselator.getInstance();
 
-        for(int i = 0; i < 6; ++i) {
+        for (int i = 0; i < 6; ++i) {
             assert matrices != null;
             matrices.pushPose();
             if (i == 1) {
@@ -147,5 +133,10 @@ public enum BygoneSkyRenderer implements DimensionRenderingRegistry.SkyRenderer
 
         RenderSystem.depthMask(true);
         RenderSystem.disableBlend();
+    }
+
+    @FunctionalInterface
+    interface BufferFunction {
+        void make(BufferBuilder bufferBuilder, double minSize, double maxSize, int count, long seed);
     }
 }

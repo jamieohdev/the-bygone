@@ -27,25 +27,6 @@ import static com.jamiedev.bygone.Bygone.MAP_HEIGHT;
  */
 public class MapItemMixin {
 
-    @Redirect(method = "update", at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/level/dimension/DimensionType;hasCeiling()Z"))
-    private boolean hasCeiling(DimensionType type) {
-        return false;
-    }
-
-
-    @Inject(method = "update", at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/level/saveddata/maps/MapItemSavedData;getHoldingPlayer(Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/level/saveddata/maps/MapItemSavedData$HoldingPlayer;"))
-    private void provideHeightSelector(Level level, Entity viewer, MapItemSavedData data, CallbackInfo ci, @Share("height_getter") LocalRef<HeightGetter> heightGetter) {
-        if(viewer.level().dimension() != BGDimensions.BYGONE_LEVEL_KEY)
-            heightGetter.set(null);
-        else
-            if(viewer instanceof LivingEntity e)
-                heightGetter.set(()-> the_bygone$getMapHandItem(e).get(MAP_HEIGHT.get()));
-    }
-
     @Unique
     private static ItemStack the_bygone$getMapHandItem(LivingEntity entity) {
         ItemStack mapItem = entity.getMainHandItem();
@@ -53,6 +34,23 @@ public class MapItemMixin {
             mapItem = entity.getOffhandItem();
         }
         return mapItem;
+    }
+
+    @Redirect(method = "update", at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/level/dimension/DimensionType;hasCeiling()Z"))
+    private boolean hasCeiling(DimensionType type) {
+        return false;
+    }
+
+    @Inject(method = "update", at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/level/saveddata/maps/MapItemSavedData;getHoldingPlayer(Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/level/saveddata/maps/MapItemSavedData$HoldingPlayer;"))
+    private void provideHeightSelector(Level level, Entity viewer, MapItemSavedData data, CallbackInfo ci, @Share("height_getter") LocalRef<HeightGetter> heightGetter) {
+        if (viewer.level().dimension() != BGDimensions.BYGONE_LEVEL_KEY)
+            heightGetter.set(null);
+        else if (viewer instanceof LivingEntity e)
+            heightGetter.set(() -> the_bygone$getMapHandItem(e).get(MAP_HEIGHT.get()));
     }
 
     @ModifyExpressionValue(method = "update", at = @At(

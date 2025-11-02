@@ -8,13 +8,13 @@ import net.minecraft.core.particles.SimpleParticleType;
 
 public class UpsidedownDropParticle extends TextureSheetParticle {
     protected UpsidedownDropParticle(ClientLevel level, double x, double y, double z) {
-        super(level, x, y, z, (double)0.0F, (double)0.0F, (double)0.0F);
-        this.xd *= (double)0.3F;
-        this.yd = Math.random() * (double)0.2F + (double)0.1F;
-        this.zd *= (double)0.3F;
+        super(level, x, y, z, 0.0F, 0.0F, 0.0F);
+        this.xd *= 0.3F;
+        this.yd = Math.random() * (double) 0.2F + (double) 0.1F;
+        this.zd *= 0.3F;
         this.setSize(0.01F, 0.01F);
         this.gravity = -0.06F;
-        this.lifetime = (int)((double)8.0F / (Math.random() * 0.8 + 0.2));
+        this.lifetime = (int) ((double) 8.0F / (Math.random() * 0.8 + 0.2));
     }
 
     public ParticleRenderType getRenderType() {
@@ -28,23 +28,23 @@ public class UpsidedownDropParticle extends TextureSheetParticle {
         if (this.lifetime-- <= 0) {
             this.remove();
         } else {
-            this.yd -= (double)this.gravity;
+            this.yd -= this.gravity;
             this.move(this.xd, this.yd, this.zd);
-            this.xd *= (double)0.98F;
-            this.yd *= (double)0.98F;
-            this.zd *= (double)0.98F;
+            this.xd *= 0.98F;
+            this.yd *= 0.98F;
+            this.zd *= 0.98F;
             if (this.onGround) {
-                if (Math.random() < (double)0.5F) {
+                if (Math.random() < (double) 0.5F) {
                     this.remove();
                 }
 
-                this.xd *= (double)0.7F;
-                this.zd *= (double)0.7F;
+                this.xd *= 0.7F;
+                this.zd *= 0.7F;
             }
 
             BlockPos blockpos = BlockPos.containing(this.x, this.y, this.z);
-            double d0 = Math.max(this.level.getBlockState(blockpos).getCollisionShape(this.level, blockpos).max(Direction.Axis.Y, this.x - (double)blockpos.getX(), this.z - (double)blockpos.getZ()), (double)this.level.getFluidState(blockpos).getHeight(this.level, blockpos));
-            if (d0 > (double)0.0F && this.y < (double)blockpos.getY() + d0) {
+            double d0 = Math.max(this.level.getBlockState(blockpos).getCollisionShape(this.level, blockpos).max(Direction.Axis.Y, this.x - (double) blockpos.getX(), this.z - (double) blockpos.getZ()), this.level.getFluidState(blockpos).getHeight(this.level, blockpos));
+            if (d0 > (double) 0.0F && this.y < (double) blockpos.getY() + d0) {
                 this.remove();
             }
         }

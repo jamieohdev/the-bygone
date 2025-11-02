@@ -1,10 +1,10 @@
 package com.jamiedev.bygone;
 
 import com.jamiedev.bygone.common.entity.*;
-import com.jamiedev.bygone.core.init.JamiesModTag;
-import com.jamiedev.bygone.core.registry.*;
-import com.jamiedev.bygone.core.mixin.AxeItemAccess;
 import com.jamiedev.bygone.common.util.Consumer4;
+import com.jamiedev.bygone.core.init.JamiesModTag;
+import com.jamiedev.bygone.core.mixin.AxeItemAccess;
+import com.jamiedev.bygone.core.registry.*;
 import com.jamiedev.bygone.core.util.HeightGetter;
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.BlockPos;
@@ -40,6 +40,8 @@ public class Bygone {
 
     public static final String MOD_ID = "bygone";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+    private static int timeInBygone;
+    private static Level level;
 
     public static void init() {
         BGBlocks.init();
@@ -65,7 +67,7 @@ public class Bygone {
         AxeItemAccess.setStripables(stripables);
     }
 
-    public static ResourceLocation id(String id){
+    public static ResourceLocation id(String id) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, id);
     }
 
@@ -97,10 +99,8 @@ public class Bygone {
         consumer.accept(BGEntityTypes.AMOEBA.get(), AmoebaEntity.createAttributes().build());
     }
 
-
-
     @SuppressWarnings("unchecked")
-    public static<T extends Mob> void registerSpawnPlacements(Consumer4<EntityType<T>,SpawnPlacementType,Heightmap.Types,SpawnPlacements.SpawnPredicate<T>> consumer) {
+    public static <T extends Mob> void registerSpawnPlacements(Consumer4<EntityType<T>, SpawnPlacementType, Heightmap.Types, SpawnPlacements.SpawnPredicate<T>> consumer) {
         consumer.accept((EntityType<T>) BGEntityTypes.SCUTTLE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, iServerWorld, reason1, pos1, random1) -> ScuttleEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<? extends WaterAnimal>) entityType, iServerWorld, reason1, pos1, random1));
         consumer.accept((EntityType<T>) BGEntityTypes.GLARE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.BIG_BEAK.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, BigBeakEntity::canSpawn);
@@ -131,34 +131,33 @@ public class Bygone {
         consumer.accept(BlockEntityType.SIGN, BGBlocks.SABLE_WALL_SIGN.get());
 
         consumer.accept(BlockEntityType.HANGING_SIGN, BGBlocks.SABLE_HANGING_SIGN.get());
-        consumer.accept(BlockEntityType.HANGING_SIGN, BGBlocks.SABLE_WALL_HANGING_SIGN.get());  
+        consumer.accept(BlockEntityType.HANGING_SIGN, BGBlocks.SABLE_WALL_HANGING_SIGN.get());
     }
 
-
     public static void addFlammable() {
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_WOOD.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_LOG.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_PLANKS.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_SLAB.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_STAIRS.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_PRESSURE_PLATE.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_BUTTON.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_TRAPDOOR.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_FENCE_GATE.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_FENCE.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_DOOR.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_WOOD.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_LOG.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_PLANKS.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_SLAB.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_STAIRS.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_PRESSURE_PLATE.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_BUTTON.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_TRAPDOOR.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_FENCE_GATE.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_FENCE.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.ANCIENT_DOOR.get(), 5, 20);
 
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_WOOD.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_LOG.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_PLANKS.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_SLAB.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_STAIRS.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_PRESSURE_PLATE.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_BUTTON.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_TRAPDOOR.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_FENCE_GATE.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_FENCE.get(), 5, 20);
-        ((FireBlock)Blocks.FIRE).setFlammable(BGBlocks.SABLE_DOOR.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.SABLE_WOOD.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.SABLE_LOG.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.SABLE_PLANKS.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.SABLE_SLAB.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.SABLE_STAIRS.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.SABLE_PRESSURE_PLATE.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.SABLE_BUTTON.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.SABLE_TRAPDOOR.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.SABLE_FENCE_GATE.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.SABLE_FENCE.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(BGBlocks.SABLE_DOOR.get(), 5, 20);
     }
 
     public static boolean isSprinklerNearby(LevelReader world, BlockPos pos) {
@@ -173,9 +172,6 @@ public class Bygone {
         return false;
     }
 
-    private static int timeInBygone;
-    private static Level level;
-
     public static Level level() {
         return level;
     }
@@ -189,7 +185,7 @@ public class Bygone {
                 zombify(cow);
             }
         } else {
-            timeInBygone= 0;
+            timeInBygone = 0;
         }
 
 
@@ -209,6 +205,7 @@ public class Bygone {
     public static Stream<Block> getKnownBlocks() {
         return getKnown(BuiltInRegistries.BLOCK);
     }
+
     public static Stream<Item> getKnownItems() {
         return getKnown(BuiltInRegistries.ITEM);
     }

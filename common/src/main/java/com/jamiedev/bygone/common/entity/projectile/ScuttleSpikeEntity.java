@@ -3,9 +3,6 @@ package com.jamiedev.bygone.common.entity.projectile;
 import com.google.common.base.MoreObjects;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGItems;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -20,15 +17,16 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
-public class ScuttleSpikeEntity  extends AbstractArrow
-{
+import java.util.Objects;
+
+public class ScuttleSpikeEntity extends AbstractArrow {
     private boolean dealtDamage;
 
     public ScuttleSpikeEntity(EntityType<? extends ScuttleSpikeEntity> entityType, Level world) {
@@ -54,13 +52,13 @@ public class ScuttleSpikeEntity  extends AbstractArrow
             this.dealtDamage = true;
         }
 
-        if (this.inGroundTime > 8)
-        {
+        if (this.inGroundTime > 8) {
             this.kill();
         }
 
         super.tick();
     }
+
     @Override
     @Nullable
     protected EntityHitResult findHitEntity(Vec3 currentPosition, Vec3 nextPosition) {
@@ -86,7 +84,7 @@ public class ScuttleSpikeEntity  extends AbstractArrow
 
             var7 = this.level();
             if (var7 instanceof ServerLevel serverWorld) {
-                serverWorld = (ServerLevel)var7;
+                serverWorld = (ServerLevel) var7;
                 EnchantmentHelper.doPostAttackEffectsWithItemSource(serverWorld, entity, damageSource, this.getWeaponItem());
             }
 
@@ -118,7 +116,7 @@ public class ScuttleSpikeEntity  extends AbstractArrow
 
     @Override
     protected ItemStack getDefaultPickupItem() {
-        return new  ItemStack(BGItems.SCUTTLE_SPIKE.get());
+        return new ItemStack(BGItems.SCUTTLE_SPIKE.get());
     }
 
     @Override

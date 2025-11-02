@@ -1,6 +1,5 @@
 package com.jamiedev.bygone.common.block.entity;
 
-import org.jetbrains.annotations.NotNull;
 import com.google.common.annotations.VisibleForTesting;
 import com.jamiedev.bygone.common.block.BlemishCatalystBlock;
 import com.jamiedev.bygone.core.registry.BGBlockEntities;
@@ -28,6 +27,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class BlemishCatalystBlockEntity extends BlockEntity implements GameEventListener.Provider<BlemishCatalystBlockEntity.Listener> {
     private final BlemishCatalystBlockEntity.Listener eventListener;
@@ -119,7 +119,7 @@ public class BlemishCatalystBlockEntity extends BlockEntity implements GameEvent
         private void bloom(ServerLevel world, BlockPos pos, BlockState state, @NotNull RandomSource random) {
             world.setBlock(pos, state.setValue(BlemishCatalystBlock.BLOOM, true), 3);
             world.scheduleTick(pos, state.getBlock(), 8);
-            world.sendParticles(ParticleTypes.WITCH, (double)pos.getX() + 0.5, (double)pos.getY() + 1.15, (double)pos.getZ() + 0.5, 2, 0.2, 0.0, 0.2, 0.0);
+            world.sendParticles(ParticleTypes.WITCH, (double) pos.getX() + 0.5, (double) pos.getY() + 1.15, (double) pos.getZ() + 0.5, 2, 0.2, 0.0, 0.2, 0.0);
             world.playSound(null, pos, SoundEvents.SCULK_CATALYST_BLOOM, SoundSource.BLOCKS, 2.0F, 0.6F + random.nextFloat() * 0.4F);
         }
 

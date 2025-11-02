@@ -21,23 +21,23 @@ public class AncientForestVegetationFeature extends Feature<AncientForestVegetat
         AncientForestVegetationFeatureConfig AncientForestVegetationFeatureConfig = context.config();
         RandomSource random = context.random();
 
-            int i = blockPos.getY();
-            if (i >= structureWorldAccess.getMinBuildHeight() + 1 && i + 1 < structureWorldAccess.getMaxBuildHeight()) {
-                int j = 0;
+        int i = blockPos.getY();
+        if (i >= structureWorldAccess.getMinBuildHeight() + 1 && i + 1 < structureWorldAccess.getMaxBuildHeight()) {
+            int j = 0;
 
-                for(int k = 0; k < AncientForestVegetationFeatureConfig.spreadWidth * AncientForestVegetationFeatureConfig.spreadWidth; ++k) {
-                    BlockPos blockPos2 = blockPos.offset(random.nextInt(AncientForestVegetationFeatureConfig.spreadWidth) - random.nextInt(AncientForestVegetationFeatureConfig.spreadWidth), random.nextInt(AncientForestVegetationFeatureConfig.spreadHeight) - random.nextInt(AncientForestVegetationFeatureConfig.spreadHeight), random.nextInt(AncientForestVegetationFeatureConfig.spreadWidth) - random.nextInt(AncientForestVegetationFeatureConfig.spreadWidth));
-                    BlockState blockState2 = AncientForestVegetationFeatureConfig.stateProvider.getState(random, blockPos2);
-                    if (structureWorldAccess.isEmptyBlock(blockPos2) && blockPos2.getY() > structureWorldAccess.getMinBuildHeight() && blockState2.canSurvive(structureWorldAccess, blockPos2)) {
-                        structureWorldAccess.setBlock(blockPos2, blockState2, 2);
-                        ++j;
-                    }
+            for (int k = 0; k < AncientForestVegetationFeatureConfig.spreadWidth * AncientForestVegetationFeatureConfig.spreadWidth; ++k) {
+                BlockPos blockPos2 = blockPos.offset(random.nextInt(AncientForestVegetationFeatureConfig.spreadWidth) - random.nextInt(AncientForestVegetationFeatureConfig.spreadWidth), random.nextInt(AncientForestVegetationFeatureConfig.spreadHeight) - random.nextInt(AncientForestVegetationFeatureConfig.spreadHeight), random.nextInt(AncientForestVegetationFeatureConfig.spreadWidth) - random.nextInt(AncientForestVegetationFeatureConfig.spreadWidth));
+                BlockState blockState2 = AncientForestVegetationFeatureConfig.stateProvider.getState(random, blockPos2);
+                if (structureWorldAccess.isEmptyBlock(blockPos2) && blockPos2.getY() > structureWorldAccess.getMinBuildHeight() && blockState2.canSurvive(structureWorldAccess, blockPos2)) {
+                    structureWorldAccess.setBlock(blockPos2, blockState2, 2);
+                    ++j;
                 }
-
-                return j > 0;
-            } else {
-                return false;
             }
+
+            return j > 0;
+        } else {
+            return false;
+        }
 
     }
 }

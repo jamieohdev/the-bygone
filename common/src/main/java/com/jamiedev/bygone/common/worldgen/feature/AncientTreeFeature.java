@@ -20,43 +20,9 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
-public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
+public class AncientTreeFeature extends Feature<AncientTreeFeatureConfig> {
     public AncientTreeFeature(Codec<AncientTreeFeatureConfig> codec) {
         super(codec);
-    }
-
-    @Override
-    public boolean place(FeaturePlaceContext<AncientTreeFeatureConfig> context) {
-        WorldGenLevel structureWorldAccess = context.level();
-        BlockPos blockPos = context.origin();
-        if (isNotSuitable(structureWorldAccess, blockPos)) {
-            return false;
-        } else {
-            RandomSource random = context.random();
-            AncientTreeFeatureConfig twistingVinesFeatureConfig = context.config();
-            int i = twistingVinesFeatureConfig.spreadWidth();
-            int j = twistingVinesFeatureConfig.spreadHeight();
-            int k = twistingVinesFeatureConfig.maxHeight();
-            BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-
-            for(int l = 0; l < i * i; ++l) {
-                mutable.set(blockPos).move(Mth.nextInt(random, -i, i), Mth.nextInt(random, -j, j), Mth.nextInt(random, -i, i));
-                if (canGenerate(structureWorldAccess, mutable) && !isNotSuitable(structureWorldAccess, mutable)) {
-                    int m = Mth.nextInt(random, 1, k);
-                    if (random.nextInt(6) == 0) {
-                        m *= 2;
-                    }
-
-                    if (random.nextInt(5) == 0) {
-                        m = 1;
-                    }
-
-                    generateVineColumn(structureWorldAccess, random, mutable, m, 17, 25);
-                }
-            }
-
-            return true;
-        }
     }
 
     private static boolean canGenerate(LevelAccessor world, BlockPos.MutableBlockPos pos) {
@@ -65,14 +31,14 @@ public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
             if (world.isOutsideBuildHeight(pos)) {
                 return false;
             }
-        } while(world.getBlockState(pos).isAir());
+        } while (world.getBlockState(pos).isAir());
 
         pos.move(0, 1, 0);
         return true;
     }
 
     public static void generateVineColumn(LevelAccessor world, @NotNull RandomSource random, BlockPos.MutableBlockPos pos, int maxLength, int minAge, int maxAge) {
-        for(int i = 1; i <= maxLength; ++i) {
+        for (int i = 1; i <= maxLength; ++i) {
             if (world.isEmptyBlock(pos)) {
                 if (i == maxLength || !world.isEmptyBlock(pos.above())) {
                     world.setBlock(pos, Blocks.JUNGLE_LOG.defaultBlockState(), 2);
@@ -96,22 +62,6 @@ public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
         }
     }
 
-    protected FoliagePlacerType<?> getType() {
-        return FoliagePlacerType.ACACIA_FOLIAGE_PLACER;
-    }
-    protected boolean isPositionInvalid(RandomSource random, int dx, int y, int dz, int radius, boolean giantTrunk) {
-        int i;
-        int j;
-        if (giantTrunk) {
-            i = Math.min(Math.abs(dx), Math.abs(dx - 1));
-            j = Math.min(Math.abs(dz), Math.abs(dz - 1));
-        } else {
-            i = Math.abs(dx);
-            j = Math.abs(dz);
-        }
-
-        return this.isInvalidForLeaves(random, i, y, j, radius, giantTrunk);
-    }
     private static boolean placeFoliageBlock(LevelSimulatedReader world, FoliagePlacer.FoliageSetter placer, @NotNull RandomSource random, TreeConfiguration config, float chance, BlockPos origin, BlockPos.MutableBlockPos pos) {
         if (pos.distManhattan(origin) >= 7) {
             return false;
@@ -136,12 +86,64 @@ public class AncientTreeFeature  extends Feature<AncientTreeFeatureConfig> {
         }
     }
 
+    @Override
+    public boolean place(FeaturePlaceContext<AncientTreeFeatureConfig> context) {
+        WorldGenLevel structureWorldAccess = context.level();
+        BlockPos blockPos = context.origin();
+        if (isNotSuitable(structureWorldAccess, blockPos)) {
+            return false;
+        } else {
+            RandomSource random = context.random();
+            AncientTreeFeatureConfig twistingVinesFeatureConfig = context.config();
+            int i = twistingVinesFeatureConfig.spreadWidth();
+            int j = twistingVinesFeatureConfig.spreadHeight();
+            int k = twistingVinesFeatureConfig.maxHeight();
+            BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+
+            for (int l = 0; l < i * i; ++l) {
+                mutable.set(blockPos).move(Mth.nextInt(random, -i, i), Mth.nextInt(random, -j, j), Mth.nextInt(random, -i, i));
+                if (canGenerate(structureWorldAccess, mutable) && !isNotSuitable(structureWorldAccess, mutable)) {
+                    int m = Mth.nextInt(random, 1, k);
+                    if (random.nextInt(6) == 0) {
+                        m *= 2;
+                    }
+
+                    if (random.nextInt(5) == 0) {
+                        m = 1;
+                    }
+
+                    generateVineColumn(structureWorldAccess, random, mutable, m, 17, 25);
+                }
+            }
+
+            return true;
+        }
+    }
+
+    protected FoliagePlacerType<?> getType() {
+        return FoliagePlacerType.ACACIA_FOLIAGE_PLACER;
+    }
+
+    protected boolean isPositionInvalid(RandomSource random, int dx, int y, int dz, int radius, boolean giantTrunk) {
+        int i;
+        int j;
+        if (giantTrunk) {
+            i = Math.min(Math.abs(dx), Math.abs(dx - 1));
+            j = Math.min(Math.abs(dz), Math.abs(dz - 1));
+        } else {
+            i = Math.abs(dx);
+            j = Math.abs(dz);
+        }
+
+        return this.isInvalidForLeaves(random, i, y, j, radius, giantTrunk);
+    }
+
     protected void generateSquare(LevelSimulatedReader world, FoliagePlacer.FoliageSetter placer, @NotNull RandomSource random, TreeConfiguration config, BlockPos centerPos, int radius, int y, boolean giantTrunk) {
         int i = giantTrunk ? 1 : 0;
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
-        for(int j = -radius; j <= radius + i; ++j) {
-            for(int k = -radius; k <= radius + i; ++k) {
+        for (int j = -radius; j <= radius + i; ++j) {
+            for (int k = -radius; k <= radius + i; ++k) {
                 if (!this.isPositionInvalid(random, j, y, k, radius, giantTrunk)) {
                     mutable.setWithOffset(centerPos, j, y, k);
                     placeFoliageBlock(world, placer, random, config, mutable);

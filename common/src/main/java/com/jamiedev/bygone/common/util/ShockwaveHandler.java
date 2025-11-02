@@ -13,7 +13,28 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ShockwaveHandler {
     private static final ConcurrentHashMap<UUID, List<ActiveShockwave>> ACTIVE_SHOCKWAVES = new ConcurrentHashMap<>();
-    
+
+    public static void createShockwave(ServerLevel level, Player player, SimpleParticleType particleType,
+                                       float maxRadius, int durationTicks, int particleCount) {
+        UUID playerId = player.getUUID();
+        ActiveShockwave shockwave = new ActiveShockwave(level, player.position(), particleType,
+                maxRadius, durationTicks, particleCount);
+
+        ACTIVE_SHOCKWAVES.computeIfAbsent(playerId, k -> new ArrayList<>()).add(shockwave);
+    }
+
+    public static void tickAll() {
+        ACTIVE_SHOCKWAVES.entrySet().removeIf(entry -> {
+            List<ActiveShockwave> shockwaves = entry.getValue();
+            shockwaves.removeIf(shockwave -> !shockwave.tick());
+            return shockwaves.isEmpty();
+        });
+    }
+
+    public static void clearPlayer(UUID playerId) {
+        ACTIVE_SHOCKWAVES.remove(playerId);
+    }
+
     public static class ActiveShockwave {
         private final ServerLevel level;
         private final Vec3 center;
@@ -23,9 +44,9 @@ public class ShockwaveHandler {
         private final int particleCount;
         private float currentRadius;
         private int ticksAlive;
-        
-        public ActiveShockwave(ServerLevel level, Vec3 center, SimpleParticleType particleType, 
-                             float maxRadius, int duration, int particleCount) {
+
+        public ActiveShockwave(ServerLevel level, Vec3 center, SimpleParticleType particleType,
+                               float maxRadius, int duration, int particleCount) {
             this.level = level;
             this.center = center;
             this.particleType = particleType;
@@ -35,7 +56,7 @@ public class ShockwaveHandler {
             this.currentRadius = 0.5F;
             this.ticksAlive = 0;
         }
-        
+
         public boolean tick() {
             ticksAlive++;
 
@@ -59,29 +80,8 @@ public class ShockwaveHandler {
 
                 level.sendParticles(particleType, x, y, z, 1, 0, 0, 0, 0);
             }
-            
+
             return true;
         }
-    }
-    
-    public static void createShockwave(ServerLevel level, Player player, SimpleParticleType particleType, 
-                                     float maxRadius, int durationTicks, int particleCount) {
-        UUID playerId = player.getUUID();
-        ActiveShockwave shockwave = new ActiveShockwave(level, player.position(), particleType, 
-                                                       maxRadius, durationTicks, particleCount);
-        
-        ACTIVE_SHOCKWAVES.computeIfAbsent(playerId, k -> new ArrayList<>()).add(shockwave);
-    }
-    
-    public static void tickAll() {
-        ACTIVE_SHOCKWAVES.entrySet().removeIf(entry -> {
-            List<ActiveShockwave> shockwaves = entry.getValue();
-            shockwaves.removeIf(shockwave -> !shockwave.tick());
-            return shockwaves.isEmpty();
-        });
-    }
-    
-    public static void clearPlayer(UUID playerId) {
-        ACTIVE_SHOCKWAVES.remove(playerId);
     }
 }

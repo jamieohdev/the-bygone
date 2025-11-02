@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.common.block;
 
 import com.jamiedev.bygone.common.block.entity.SeaglassBlockEntity;
-import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,8 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SeaglassBlock extends BaseSeaglassBlock
-{
+public class SeaglassBlock extends BaseSeaglassBlock {
     /**
      * All Seaglass code was lifted from <a href="https://github.com/Scouter456/Clear_Fluid_Glass">Scouter456's Clear Fluid Glass!</a>
      */
@@ -59,14 +57,14 @@ public class SeaglassBlock extends BaseSeaglassBlock
 
     @Override
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
-        if(!pLevel.isClientSide){
+        if (!pLevel.isClientSide) {
             SeaglassBlockEntity blockEntity = (SeaglassBlockEntity) pLevel.getBlockEntity(pPos);
             assert blockEntity != null;
             blockEntity.getOcclusionDirs().clear();
             blockEntity.setOcclusionShape(Shapes.empty());
             VoxelShape shape = blockEntity.getOcclusionShape();
-            for(Direction direction : Direction.values()){
-                if(pLevel.getFluidState(pPos.relative(direction)).is(FluidTags.WATER)){
+            for (Direction direction : Direction.values()) {
+                if (pLevel.getFluidState(pPos.relative(direction)).is(FluidTags.WATER)) {
                     shape = Shapes.or(shape, occlusionShapes.get(direction));
                     blockEntity.addDirection(direction);
                 }
@@ -79,15 +77,15 @@ public class SeaglassBlock extends BaseSeaglassBlock
 
     @Override
     public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
-        if(!pLevel.isClientSide()){
+        if (!pLevel.isClientSide()) {
             SeaglassBlockEntity blockEntity = (SeaglassBlockEntity) pLevel.getBlockEntity(pPos);
             assert blockEntity != null;
             blockEntity.getOcclusionDirs().clear();
             blockEntity.setOcclusionShape(Shapes.empty());
             VoxelShape shape = blockEntity.getOcclusionShape();
 
-            for(Direction direction : Direction.values()){
-                if(pLevel.getFluidState(pPos.relative(direction)).is(FluidTags.WATER)){
+            for (Direction direction : Direction.values()) {
+                if (pLevel.getFluidState(pPos.relative(direction)).is(FluidTags.WATER)) {
                     shape = Shapes.or(shape, occlusionShapes.get(direction));
                     blockEntity.addDirection(direction);
                 }
@@ -98,7 +96,6 @@ public class SeaglassBlock extends BaseSeaglassBlock
         pLevel.sendBlockUpdated(pPos, pState, pState, Block.UPDATE_IMMEDIATE);
         super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
     }
-
 
 
     public VoxelShape getVisualShape(BlockState pState, BlockGetter pReader, BlockPos pPos, CollisionContext pContext) {
@@ -112,7 +109,7 @@ public class SeaglassBlock extends BaseSeaglassBlock
     @Override
     public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         SeaglassBlockEntity blockEntity = (SeaglassBlockEntity) pLevel.getBlockEntity(pPos);
-        if(blockEntity != null) {
+        if (blockEntity != null) {
             return blockEntity.getOcclusionShape();
         }
         return Shapes.empty();

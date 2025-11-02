@@ -1,9 +1,7 @@
 package com.jamiedev.bygone.common.block;
 
-import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -14,11 +12,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.piston.MovingPistonBlock;
@@ -31,25 +25,72 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
-public class ClaystoneFarmlandBlock extends Block
-{
-    public static final MapCodec<ClaystoneFarmlandBlock> CODEC = simpleCodec(ClaystoneFarmlandBlock::new);
+public class ClaystoneFarmlandBlock extends Block {
     public static final IntegerProperty MOISTURE;
-    protected static final VoxelShape SHAPE;
+    public static final MapCodec<ClaystoneFarmlandBlock> CODEC = simpleCodec(ClaystoneFarmlandBlock::new);
     public static final int MAX_MOISTURE = 7;
+    protected static final VoxelShape SHAPE;
 
-    @Override
-    public MapCodec<ClaystoneFarmlandBlock> codec() {
-        return CODEC;
+    static {
+        MOISTURE = BlockStateProperties.MOISTURE;
+        SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 15.0, 16.0);
     }
 
     public ClaystoneFarmlandBlock(BlockBehaviour.Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(MOISTURE, 0));
+    }
+
+    public static void setToDirt(@Nullable Entity entity, BlockState state, Level world, BlockPos pos) {
+        BlockState blockState = pushEntitiesUp(state, BGBlocks.CLAYSTONE.get().defaultBlockState(), world, pos);
+        world.setBlockAndUpdate(pos, blockState);
+        world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, blockState));
+    }
+
+    private static boolean hasCrop(BlockGetter world, BlockPos pos) {
+        return world.getBlockState(pos.above()).is(BlockTags.MAINTAINS_FARMLAND);
+    }
+
+    private static boolean isWaterNearby(LevelReader world, BlockPos pos) {
+        Iterator<BlockPos> var2 = BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4)).iterator();
+
+        BlockPos blockPos;
+        do {
+            if (!var2.hasNext()) {
+                return false;
+            }
+
+            blockPos = var2.next();
+        } while (!world.getFluidState(blockPos).is(FluidTags.WATER));
+
+
+        return true;
+    }
+
+    private static boolean isSprinklerNearby(LevelReader world, BlockPos pos) {
+        Iterator<BlockPos> var2 = BlockPos.betweenClosed(pos.offset(-15, 0, -15), pos.offset(15, 1, 15)).iterator();
+
+        BlockPos blockPos;
+        do {
+            if (!var2.hasNext()) {
+                return false;
+            }
+
+            blockPos = var2.next();
+            BlockState blockstate1 = world.getBlockState(blockPos);
+        } while (!world.getBlockState(blockPos).is(BGBlocks.SPRINKER.get()));
+
+        return true;
+    }
+
+    @Override
+    public MapCodec<ClaystoneFarmlandBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -99,9 +140,7 @@ public class ClaystoneFarmlandBlock extends Block
             } else if (!hasCrop(world, pos)) {
                 setToDirt(null, state, world, pos);
             }
-        }
-
-        else if (i < 7) {
+        } else if (i < 7) {
             world.setBlock(pos, state.setValue(MOISTURE, 7), 2);
         }
 
@@ -116,48 +155,6 @@ public class ClaystoneFarmlandBlock extends Block
         super.fallOn(world, state, pos, entity, fallDistance);
     }
 
-    public static void setToDirt(@Nullable Entity entity, BlockState state, Level world, BlockPos pos) {
-        BlockState blockState = pushEntitiesUp(state, BGBlocks.CLAYSTONE.get().defaultBlockState(), world, pos);
-        world.setBlockAndUpdate(pos, blockState);
-        world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, blockState));
-    }
-
-    private static boolean hasCrop(BlockGetter world, BlockPos pos) {
-        return world.getBlockState(pos.above()).is(BlockTags.MAINTAINS_FARMLAND);
-    }
-
-    private static boolean isWaterNearby(LevelReader world, BlockPos pos) {
-        Iterator<BlockPos> var2 = BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4)).iterator();
-
-        BlockPos blockPos;
-        do {
-            if (!var2.hasNext()) {
-                return false;
-            }
-
-            blockPos = (BlockPos)var2.next();
-        } while(!world.getFluidState(blockPos).is(FluidTags.WATER));
-
-
-        return true;
-    }
-
-    private static boolean isSprinklerNearby(LevelReader world, BlockPos pos) {
-        Iterator<BlockPos> var2 = BlockPos.betweenClosed(pos.offset(-15, 0, -15), pos.offset(15, 1, 15)).iterator();
-
-        BlockPos blockPos;
-        do {
-            if (!var2.hasNext()) {
-                return false;
-            }
-
-            blockPos = (BlockPos)var2.next();
-            BlockState blockstate1 = world.getBlockState(blockPos);
-        } while(!world.getBlockState(blockPos).is(BGBlocks.SPRINKER.get()));
-
-        return true;
-    }
-
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(MOISTURE);
@@ -166,10 +163,5 @@ public class ClaystoneFarmlandBlock extends Block
     @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
-    }
-
-    static {
-        MOISTURE = BlockStateProperties.MOISTURE;
-        SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 15.0, 16.0);
     }
 }

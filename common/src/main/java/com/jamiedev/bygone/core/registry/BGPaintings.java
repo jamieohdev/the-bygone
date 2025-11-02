@@ -6,8 +6,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 
-public class BGPaintings
-{
+public class BGPaintings {
     public static final ResourceKey<PaintingVariant> HALLUCIGENIA = of("hallucigenia");
 
     public static void bootstrap(BootstrapContext<PaintingVariant> registry) {
@@ -19,6 +18,6 @@ public class BGPaintings
     }
 
     private static ResourceKey<PaintingVariant> of(String id) {
-        return ResourceKey.create(Registries.PAINTING_VARIANT, Bygone.id( id));
+        return ResourceKey.create(Registries.PAINTING_VARIANT, Bygone.id(id));
     }
 }

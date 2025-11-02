@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.common.item;
 
 import com.jamiedev.bygone.core.registry.BGItems;
-import java.util.List;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -15,6 +14,8 @@ import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.util.List;
+
 public class VerdigrisBowItem extends BowItem {
     public VerdigrisBowItem(Properties settings) {
         super(settings);
@@ -26,7 +27,8 @@ public class VerdigrisBowItem extends BowItem {
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {}
+    public void releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
+    }
 
     @Override
     public void onUseTick(Level world, LivingEntity user, ItemStack stack, int remainingUseTicks) {

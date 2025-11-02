@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.core.registry;
 
+import com.jamiedev.bygone.Bygone;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -11,12 +12,9 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 
-import com.jamiedev.bygone.Bygone;
-
 import java.util.Map;
 
-public class BGTrimMaterials
-{
+public class BGTrimMaterials {
     public static final ResourceKey<TrimMaterial> VERDIGRIS = registerKey("verdigris");
 
     private static ResourceKey<TrimMaterial> registerKey(String name) {

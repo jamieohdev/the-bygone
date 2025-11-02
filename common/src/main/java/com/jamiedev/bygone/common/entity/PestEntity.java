@@ -5,9 +5,9 @@ import com.jamiedev.bygone.common.block.AmaranthCropBlock;
 import com.jamiedev.bygone.common.block.PlagaCropBlock;
 import com.jamiedev.bygone.common.entity.ai.AvoidBlockGoal;
 import com.jamiedev.bygone.common.entity.ai.EatCropGoal;
+import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
-import com.jamiedev.bygone.core.init.JamiesModTag;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -20,7 +20,9 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Rabbit;
+import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Spider;
@@ -28,40 +30,48 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import javax.annotation.Nullable;
 
-public class PestEntity extends Animal
-{
-    Spider ref1;
-
+public class PestEntity extends Animal {
     protected static final ImmutableList<SensorType<? extends Sensor<? super PestEntity>>> SENSOR_TYPES;
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES;
+
+    static {
+        SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.NEAREST_ITEMS,
+                SensorType.HURT_BY, SensorType.PIGLIN_SPECIFIC_SENSOR);
+        MEMORY_TYPES = ImmutableList.of(MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_LIVING_ENTITIES,
+                MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.ATE_RECENTLY,
+                MemoryModuleType.NEAREST_REPELLENT);
+
+    }
+
+    Spider ref1;
+    Rabbit ref;
     private int moreCropTicks;
     private int eatAnimationTick;
     private EatCropGoal eatBlockGoal;
 
-    Rabbit ref;
-
     public PestEntity(EntityType<? extends PestEntity> entityType, Level level) {
         super(BGEntityTypes.PEST.get(), level);
-        this.setSpeedModifier((double)0.1F);;
+        this.setSpeedModifier(0.1F);
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 6.0F)
+                .add(Attributes.MOVEMENT_SPEED, 0.3F)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0F).add(Attributes.ATTACK_DAMAGE, 5.0F).add(Attributes.STEP_HEIGHT, 3.0F);
     }
 
     public void setSpeedModifier(double speedModifier) {
         this.getNavigation().setSpeedModifier(speedModifier);
         this.moveControl.setWantedPosition(this.moveControl.getWantedX(), this.moveControl.getWantedY(), this.moveControl.getWantedZ(), speedModifier);
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, (double)6.0F)
-                .add(Attributes.MOVEMENT_SPEED, (double)0.3F)
-                .add(Attributes.KNOCKBACK_RESISTANCE, (double)1.0F).add(Attributes.ATTACK_DAMAGE, (double)5.0F).add(Attributes.STEP_HEIGHT, (double)3.0F);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -85,20 +95,20 @@ public class PestEntity extends Animal
         }));
         this.goalSelector.addGoal(3, new AvoidBlockGoal(this, 8, 1.2, 2.1, (pos) -> {
             BlockState state = this.level().getBlockState(pos);
-            if (state.is(BGBlocks.PLAGA_CROP.get())){
+            if (state.is(BGBlocks.PLAGA_CROP.get())) {
                 return state.getValue(PlagaCropBlock.AGE) > 5;
             } else return false;
         }));
         this.goalSelector.addGoal(3, new AvoidBlockGoal(this, 4, 1.2, 2.1, (pos) -> {
             BlockState state = this.level().getBlockState(pos);
-            if (state.is(BGBlocks.PLAGA_CROP.get())){
+            if (state.is(BGBlocks.PLAGA_CROP.get())) {
                 return state.getValue(PlagaCropBlock.AGE) < 5;
             } else return false;
         }));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Wolf.class, 6.0F, (double)1.0F, 1.2));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Wolf.class, 6.0F, 1.0F, 1.2));
 
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8));
-        this.goalSelector.addGoal(3, new TemptGoal(this, (double)1.0F, (p_335873_) -> p_335873_.is(ItemTags.ARMOR_ENCHANTABLE), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0F, (p_335873_) -> p_335873_.is(ItemTags.ARMOR_ENCHANTABLE), false));
         this.goalSelector.addGoal(4, new PestEntity.PestAvoidEntityGoal<>(this, NectaurEntity.class, 4.0F, 1.1, 1.5));
         this.goalSelector.addGoal(4, new PestEntity.PestAvoidEntityGoal<>(this, Player.class, 8.0F, 1.2, 2.3));
         this.goalSelector.addGoal(4, new PestEntity.PestAvoidEntityGoal<>(this, BigBeakEntity.class, 16.0F, 0.8, 1.12));
@@ -136,7 +146,7 @@ public class PestEntity extends Animal
 
     protected void doPush(Entity entity) {
         if (entity instanceof Enemy && !(entity instanceof Creeper) && this.getRandom().nextInt(20) == 0) {
-            this.setTarget((LivingEntity)entity);
+            this.setTarget((LivingEntity) entity);
         }
 
         super.doPush(entity);
@@ -153,6 +163,17 @@ public class PestEntity extends Animal
         return BGEntityTypes.PEST.get().create(level);
     }
 
+    boolean wantsMoreFood() {
+        return true;
+    }
+
+    public void ate() {
+        super.ate();
+        if (this.isBaby()) {
+            this.ageUp(60);
+        }
+
+    }
 
     static class PestAvoidEntityGoal<T extends LivingEntity> extends AvoidEntityGoal<T> {
 
@@ -163,6 +184,7 @@ public class PestEntity extends Animal
         public boolean canUse() {
             return super.canUse();
         }
+
         public boolean canContinueToUse() {
             return super.canContinueToUse();
         }
@@ -174,7 +196,7 @@ public class PestEntity extends Animal
         private boolean canRaid;
 
         public RaidGardenGoal(PestEntity pest) {
-            super(pest, (double)0.7F, 64);
+            super(pest, 0.7F, 64);
             this.pest = pest;
         }
 
@@ -193,19 +215,19 @@ public class PestEntity extends Animal
 
         public void tick() {
             super.tick();
-            this.pest.getLookControl().setLookAt((double)this.blockPos.getX() + (double)0.5F, (double)(this.blockPos.getY() + 1), (double)this.blockPos.getZ() + (double)0.5F, 10.0F, (float)this.pest.getMaxHeadXRot());
+            this.pest.getLookControl().setLookAt((double) this.blockPos.getX() + (double) 0.5F, this.blockPos.getY() + 1, (double) this.blockPos.getZ() + (double) 0.5F, 10.0F, (float) this.pest.getMaxHeadXRot());
             if (this.isReachedTarget()) {
                 Level level = this.pest.level();
                 BlockPos blockpos = this.blockPos.above();
                 BlockState blockstate = level.getBlockState(blockpos);
                 Block block = blockstate.getBlock();
                 if (this.canRaid && block instanceof CropBlock) {
-                    int i = (Integer)blockstate.getValue(CropBlock.AGE);
+                    int i = blockstate.getValue(CropBlock.AGE);
                     if (i == 0) {
                         level.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 2);
                         level.destroyBlock(blockpos, true, this.pest);
                     } else {
-                        level.setBlock(blockpos, (BlockState)blockstate.setValue(CropBlock.AGE, i - 1), 2);
+                        level.setBlock(blockpos, blockstate.setValue(CropBlock.AGE, i - 1), 2);
                         level.gameEvent(GameEvent.BLOCK_CHANGE, blockpos, GameEvent.Context.of(this.pest));
                         level.levelEvent(2001, blockpos, Block.getId(blockstate));
                     }
@@ -213,12 +235,12 @@ public class PestEntity extends Animal
                     this.pest.moreCropTicks = 40;
                 }
                 if (this.canRaid && block instanceof AmaranthCropBlock) {
-                    int i = (Integer)blockstate.getValue(AmaranthCropBlock.AGE);
+                    int i = blockstate.getValue(AmaranthCropBlock.AGE);
                     if (i == 0) {
                         level.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 2);
                         level.destroyBlock(blockpos, true, this.pest);
                     } else {
-                        level.setBlock(blockpos, (BlockState)blockstate.setValue(AmaranthCropBlock.AGE, i - 1), 2);
+                        level.setBlock(blockpos, blockstate.setValue(AmaranthCropBlock.AGE, i - 1), 2);
                         level.gameEvent(GameEvent.BLOCK_CHANGE, blockpos, GameEvent.Context.of(this.pest));
                         level.levelEvent(2001, blockpos, Block.getId(blockstate));
                     }
@@ -236,7 +258,7 @@ public class PestEntity extends Animal
             BlockState blockstate = level.getBlockState(pos);
             if (blockstate.is(Blocks.FARMLAND) && this.wantsToRaid && !this.canRaid) {
                 blockstate = level.getBlockState(pos.above());
-                if (blockstate.getBlock() instanceof CropBlock || blockstate.getBlock() instanceof AmaranthCropBlock && ((AmaranthCropBlock)blockstate.getBlock()).isMaxAge(blockstate)) {
+                if (blockstate.getBlock() instanceof CropBlock || blockstate.getBlock() instanceof AmaranthCropBlock && ((AmaranthCropBlock) blockstate.getBlock()).isMaxAge(blockstate)) {
                     this.canRaid = true;
                     return true;
                 }
@@ -244,26 +266,5 @@ public class PestEntity extends Animal
 
             return false;
         }
-    }
-
-    boolean wantsMoreFood() {
-        return true;
-    }
-
-    public void ate() {
-        super.ate();
-        if (this.isBaby()) {
-            this.ageUp(60);
-        }
-
-    }
-
-    static {
-        SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.NEAREST_ITEMS,
-                SensorType.HURT_BY, SensorType.PIGLIN_SPECIFIC_SENSOR);
-        MEMORY_TYPES = ImmutableList.of(MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_LIVING_ENTITIES,
-                MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.ATE_RECENTLY,
-                MemoryModuleType.NEAREST_REPELLENT);
-
     }
 }

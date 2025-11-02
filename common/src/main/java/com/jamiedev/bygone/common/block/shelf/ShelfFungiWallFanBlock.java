@@ -3,19 +3,13 @@ package com.jamiedev.bygone.common.block.shelf;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.MultifaceBlock;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -26,20 +20,32 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class ShelfFungiWallFanBlock extends ShelfFungiFanBlock
-{
-    public static final MapCodec<ShelfFungiWallFanBlock> CODEC = simpleCodec(ShelfFungiWallFanBlock::new);
+public class ShelfFungiWallFanBlock extends ShelfFungiFanBlock {
     public static final DirectionProperty FACING;
+    public static final MapCodec<ShelfFungiWallFanBlock> CODEC = simpleCodec(ShelfFungiWallFanBlock::new);
     private static final Map<Direction, VoxelShape> FACING_TO_SHAPE;
 
-    @Override
-    public MapCodec<? extends ShelfFungiWallFanBlock> codec() {
-        return CODEC;
+    static {
+        FACING = HorizontalDirectionalBlock.FACING;
+        FACING_TO_SHAPE = Maps.newEnumMap(ImmutableMap.of(
+                Direction.NORTH, box(0.0, 4.0, 5.0, 16.0, 12.0, 16.0),
+                Direction.SOUTH, box(0.0, 4.0, 0.0, 16.0, 12.0, 11.0),
+                Direction.WEST, box(5.0, 4.0, 0.0, 16.0, 12.0, 16.0),
+                Direction.EAST, box(0.0, 4.0, 0.0, 11.0, 12.0, 16.0)));
     }
 
     public ShelfFungiWallFanBlock(BlockBehaviour.Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+
+    public static boolean shouldConnectTo(BlockGetter world, BlockPos pos, Direction direction) {
+        return MultifaceBlock.canAttachTo(world, direction, pos, world.getBlockState(pos));
+    }
+
+    @Override
+    public MapCodec<? extends ShelfFungiWallFanBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -85,7 +91,7 @@ public class ShelfFungiWallFanBlock extends ShelfFungiFanBlock
         Direction[] var6 = directions;
         int var7 = directions.length;
 
-        for(int var8 = 0; var8 < var7; ++var8) {
+        for (int var8 = 0; var8 < var7; ++var8) {
             Direction direction = var6[var8];
             if (direction.getAxis().isHorizontal()) {
                 blockState = blockState.setValue(FACING, direction.getOpposite());
@@ -96,19 +102,5 @@ public class ShelfFungiWallFanBlock extends ShelfFungiFanBlock
         }
 
         return null;
-    }
-
-    public static boolean shouldConnectTo(BlockGetter world, BlockPos pos, Direction direction) {
-        return MultifaceBlock.canAttachTo(world, direction, pos, world.getBlockState(pos));
-    }
-
-
-    static {
-        FACING = HorizontalDirectionalBlock.FACING;
-        FACING_TO_SHAPE = Maps.newEnumMap(ImmutableMap.of(
-                Direction.NORTH, box(0.0, 4.0, 5.0, 16.0, 12.0, 16.0),
-                Direction.SOUTH, box(0.0, 4.0, 0.0, 16.0, 12.0, 11.0),
-                Direction.WEST, box(5.0, 4.0, 0.0, 16.0, 12.0, 16.0),
-                Direction.EAST, box(0.0, 4.0, 0.0, 11.0, 12.0, 16.0)));
     }
 }

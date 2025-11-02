@@ -3,7 +3,6 @@ package com.jamiedev.bygone.common.worldgen.feature;
 import com.jamiedev.bygone.common.block.shelf.ShelfFungiWallFanBlock;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.mojang.serialization.Codec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -23,11 +22,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Iterator;
 
 public class ShelfFungiFeature extends Feature<NoneFeatureConfiguration> {
+    CoralFeature ref;
+
     public ShelfFungiFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
-
-    CoralFeature ref;
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
@@ -44,8 +43,8 @@ public class ShelfFungiFeature extends Feature<NoneFeatureConfiguration> {
                 if (direction != Direction.DOWN && ShelfFungiWallFanBlock.shouldConnectTo(structureWorldAccess, blockPos.relative(direction), direction)) {
                     Iterator<Direction> var7 = Direction.Plane.HORIZONTAL.iterator();
 
-                    while(var7.hasNext()) {
-                        Direction direction1 = (Direction) var7.next();
+                    while (var7.hasNext()) {
+                        Direction direction1 = var7.next();
                         //structureWorldAccess.setBlockState(blockPos, (BlockState) JamiesModBlocks.ORANGE_FUNGI_WALL_FAN.getDefaultState().with(ShelfFungiWallFanBlock2.getFacingProperty(direction), true), 2);
                         return true;
                     }
@@ -56,6 +55,7 @@ public class ShelfFungiFeature extends Feature<NoneFeatureConfiguration> {
             return false;
         }
     }
+
     protected boolean generateCoralPiece(LevelAccessor world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
         BlockPos blockPos = pos.above();
         BlockState blockState = world.getBlockState(pos);
@@ -65,8 +65,8 @@ public class ShelfFungiFeature extends Feature<NoneFeatureConfiguration> {
 
             Iterator<Direction> var7 = Direction.Plane.HORIZONTAL.iterator();
 
-            while(var7.hasNext()) {
-                Direction direction = (Direction)var7.next();
+            while (var7.hasNext()) {
+                Direction direction = var7.next();
                 if (random.nextFloat() < 0.2F) {
                     BlockPos blockPos2 = pos.relative(direction);
                     if (world.getBlockState(blockPos2).is(Blocks.AIR)) {

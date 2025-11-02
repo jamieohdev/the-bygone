@@ -1,9 +1,8 @@
 package com.jamiedev.bygone.common.item;
 
-import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.common.entity.projectile.HookEntity;
+import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
@@ -13,7 +12,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
@@ -21,65 +19,22 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
-public class HookItem extends Item
-{
+public class HookItem extends Item {
     static boolean isGrappling;
+
     public HookItem(Properties settings) {
         super(settings);
-    }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
-        PlayerWithHook hookuser = (PlayerWithHook)user;
-        ItemStack itemStack = user.getItemInHand(hand);
-        HookEntity hook = hookuser.bygone$getHook();
-        boolean secondaryUse = user.isSecondaryUseActive();
-        boolean used = false;
-        if(!secondaryUse){
-            user.startUsingItem(hand);
-            used = true;
-            user.awardStat(Stats.ITEM_USED.get(this));
-            user.gameEvent(GameEvent.ITEM_INTERACT_START);
-        }
-        if (hook != null && secondaryUse) {
-            retrieve(world, user, hook);
-            used = true;
-            user.awardStat(Stats.ITEM_USED.get(this));
-            user.gameEvent(GameEvent.ITEM_INTERACT_START);
-        }
-            user.awardStat(Stats.ITEM_USED.get(this));
-            user.gameEvent(GameEvent.ITEM_INTERACT_START);
-        return used ? InteractionResultHolder.consume(itemStack) : InteractionResultHolder.fail(itemStack);
     }
 
     private static void retrieve(Level level, Player player, HookEntity hook) {
         level.playSound(null, player.getX(), player.getY(), player.getZ(), BGSoundEvents.HOOK_RETRIEVE_ADDITIONS_EVENT, SoundSource.NEUTRAL, 1.0F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
         if (!level.isClientSide()) {
             hook.discard();
-            ((PlayerWithHook)player).bygone$setHook(null);
+            ((PlayerWithHook) player).bygone$setHook(null);
             isGrappling = false;
         }
 
         player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
-    }
-
-    @Override
-    public void onUseTick(Level world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
-        if (user instanceof Player player) {
-            HookEntity hook = ((PlayerWithHook) player).bygone$getHook();
-            if (hook != null) {
-                if(remainingUseTicks % 5 == 0){
-                    world.playSound(null, user.getX(), user.getY(), user.getZ(), BGSoundEvents.HOOK_RETRIEVE_ADDITIONS_EVENT, SoundSource.NEUTRAL, 1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-                }
-
-                if (hook.isInWall())
-                {
-                grapple(hook, player);
-                }
-
-
-            }
-        }
     }
 
     // Based on how TridentItem launches the player when enchanted with Riptide
@@ -109,6 +64,57 @@ public class HookItem extends Item
 
     }
 
+    public static float getPullProgress(int useTicks) {
+        float pullProgress = (float) useTicks / 20.0F;
+        pullProgress = (pullProgress * pullProgress + pullProgress * 2.0F) / 3.0F;
+        if (pullProgress > 1.0F) {
+            pullProgress = 1.0F;
+        }
+
+        return pullProgress;
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
+        PlayerWithHook hookuser = (PlayerWithHook) user;
+        ItemStack itemStack = user.getItemInHand(hand);
+        HookEntity hook = hookuser.bygone$getHook();
+        boolean secondaryUse = user.isSecondaryUseActive();
+        boolean used = false;
+        if (!secondaryUse) {
+            user.startUsingItem(hand);
+            used = true;
+            user.awardStat(Stats.ITEM_USED.get(this));
+            user.gameEvent(GameEvent.ITEM_INTERACT_START);
+        }
+        if (hook != null && secondaryUse) {
+            retrieve(world, user, hook);
+            used = true;
+            user.awardStat(Stats.ITEM_USED.get(this));
+            user.gameEvent(GameEvent.ITEM_INTERACT_START);
+        }
+        user.awardStat(Stats.ITEM_USED.get(this));
+        user.gameEvent(GameEvent.ITEM_INTERACT_START);
+        return used ? InteractionResultHolder.consume(itemStack) : InteractionResultHolder.fail(itemStack);
+    }
+
+    @Override
+    public void onUseTick(Level world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
+        if (user instanceof Player player) {
+            HookEntity hook = ((PlayerWithHook) player).bygone$getHook();
+            if (hook != null) {
+                if (remainingUseTicks % 5 == 0) {
+                    world.playSound(null, user.getX(), user.getY(), user.getZ(), BGSoundEvents.HOOK_RETRIEVE_ADDITIONS_EVENT, SoundSource.NEUTRAL, 1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                }
+
+                if (hook.isInWall()) {
+                    grapple(hook, player);
+                }
+
+
+            }
+        }
+    }
 
     // Similar to a bow
     @Override
@@ -124,9 +130,9 @@ public class HookItem extends Item
                 if (!world.isClientSide) {
                     stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(user.getUsedItemHand()));
                     HookEntity hook = new HookEntity(world, player);
-                    this.shoot(user, hook, powerForTime *  15.0F);
-                    if(world.addFreshEntity(hook)){
-                        ((PlayerWithHook)player).bygone$setHook(hook);
+                    this.shoot(user, hook, powerForTime * 15.0F);
+                    if (world.addFreshEntity(hook)) {
+                        ((PlayerWithHook) player).bygone$setHook(hook);
                     }
                     player.awardStat(Stats.ITEM_USED.get(this));
                 }
@@ -134,17 +140,6 @@ public class HookItem extends Item
             }
         }
     }
-
-    public static float getPullProgress(int useTicks) {
-        float pullProgress = (float)useTicks / 20.0F;
-        pullProgress = (pullProgress * pullProgress + pullProgress * 2.0F) / 3.0F;
-        if (pullProgress > 1.0F) {
-            pullProgress = 1.0F;
-        }
-
-        return pullProgress;
-    }
-
 
     protected void shoot(LivingEntity shooter, Projectile projectile, float speed) {
         projectile.shootFromRotation(shooter, shooter.getXRot(), shooter.getYRot(), 0.0F, speed, 0.0F);

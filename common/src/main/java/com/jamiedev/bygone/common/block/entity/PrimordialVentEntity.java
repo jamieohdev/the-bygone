@@ -8,12 +8,10 @@ import net.minecraft.world.Clearable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class PrimordialVentEntity  extends BlockEntity implements Clearable
-{
+public class PrimordialVentEntity extends BlockEntity implements Clearable {
 
     CampfireBlockEntity ref;
 
@@ -28,7 +26,7 @@ public class PrimordialVentEntity  extends BlockEntity implements Clearable
         int i;
 
         if (random.nextFloat() < 0.11F) {
-            for(i = 0; i < random.nextInt(2) + 2; ++i) {
+            for (i = 0; i < random.nextInt(2) + 2; ++i) {
                 PrimordialVentBlock.spawnSmokeParticle(world, pos, false);
             }
         }

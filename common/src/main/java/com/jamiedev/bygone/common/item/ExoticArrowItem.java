@@ -14,11 +14,11 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public class ExoticArrowItem extends ArrowItem {
+    TridentItem ref;
+
     public ExoticArrowItem(Item.Properties settings) {
         super(settings);
     }
-
-    TridentItem ref;
 
     @Override
     public AbstractArrow createArrow(Level world, ItemStack stack, LivingEntity shooter, @Nullable ItemStack shotFrom) {

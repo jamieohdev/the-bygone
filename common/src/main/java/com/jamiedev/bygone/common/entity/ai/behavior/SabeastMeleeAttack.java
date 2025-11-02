@@ -9,7 +9,6 @@ import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.ai.behavior.OneShot;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ProjectileWeaponItem;
 
@@ -28,12 +27,12 @@ public class SabeastMeleeAttack {
                                     LivingEntity target = sabeast.get(attack_target);
                                     if (!isHoldingUsableProjectileWeapon(p_258540_)
                                             && p_258540_.isWithinMeleeAttackRange(target)
-                                            && sabeast.<NearestVisibleLivingEntities>get(p_258532_).contains(target)
+                                            && sabeast.get(p_258532_).contains(target)
                                             && !target.isHolding(heldItemStack -> heldItemStack.is(JamiesModTag.SABEAST_AFRAID_PLAYER_HOLD))) {
                                         p_258529_.set(new EntityTracker(target, true));
                                         p_258540_.swing(InteractionHand.MAIN_HAND);
                                         p_258540_.doHurtTarget(target);
-                                        p_258531_.setWithExpiry(true, (long)cooldownBetweenAttacks);
+                                        p_258531_.setWithExpiry(true, cooldownBetweenAttacks);
                                         return true;
                                     } else {
                                         return false;
@@ -47,7 +46,7 @@ public class SabeastMeleeAttack {
         return mob.isHolding(p_147697_ -> {
             Item item = p_147697_.getItem();
 
-            return item instanceof ProjectileWeaponItem && mob.canFireProjectileWeapon((ProjectileWeaponItem)item);
+            return item instanceof ProjectileWeaponItem && mob.canFireProjectileWeapon((ProjectileWeaponItem) item);
         });
     }
 }

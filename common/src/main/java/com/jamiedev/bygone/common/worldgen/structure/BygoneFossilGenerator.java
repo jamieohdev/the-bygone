@@ -6,7 +6,6 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -24,11 +23,11 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import org.jetbrains.annotations.NotNull;
 
-public class BygoneFossilGenerator 
-{
+public class BygoneFossilGenerator {
     private static final ResourceLocation[] FOSSILS = new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "bygone_fossil/bygone_fossil_1"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "bygone_fossil/bygone_fossil_2"),
             ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "bygone_fossil/bygone_fossil_3"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "bygone_fossil/bygone_fossil_4"),
             ResourceLocation.withDefaultNamespace("nether_fossils/fossil_1"), ResourceLocation.withDefaultNamespace("nether_fossils/fossil_2"), ResourceLocation.withDefaultNamespace("nether_fossils/fossil_3"), ResourceLocation.withDefaultNamespace("nether_fossils/fossil_4"), ResourceLocation.withDefaultNamespace("nether_fossils/fossil_5"), ResourceLocation.withDefaultNamespace("nether_fossils/fossil_6"), ResourceLocation.withDefaultNamespace("nether_fossils/fossil_7"), ResourceLocation.withDefaultNamespace("nether_fossils/fossil_8"), ResourceLocation.withDefaultNamespace("nether_fossils/fossil_9"), ResourceLocation.withDefaultNamespace("nether_fossils/fossil_10"), ResourceLocation.withDefaultNamespace("nether_fossils/fossil_11"), ResourceLocation.withDefaultNamespace("nether_fossils/fossil_12"), ResourceLocation.withDefaultNamespace("nether_fossils/fossil_13"), ResourceLocation.withDefaultNamespace("nether_fossils/fossil_14")};
+
     public BygoneFossilGenerator() {
     }
 

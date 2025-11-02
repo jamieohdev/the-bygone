@@ -23,20 +23,47 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
-public class UpsidedownTallPlantBlock extends UpsidedownPlantBlock
-{
+public class UpsidedownTallPlantBlock extends UpsidedownPlantBlock {
 
-    public static final MapCodec<UpsidedownTallPlantBlock> CODEC = simpleCodec(UpsidedownTallPlantBlock::new);
     public static final EnumProperty<DoubleBlockHalf> HALF;
+    public static final MapCodec<UpsidedownTallPlantBlock> CODEC = simpleCodec(UpsidedownTallPlantBlock::new);
 
-    @Override
-    public MapCodec<? extends UpsidedownTallPlantBlock> codec() {
-        return CODEC;
+    static {
+        HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     }
 
     public UpsidedownTallPlantBlock(BlockBehaviour.Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER));
+    }
+
+    public static void placeAt(LevelAccessor world, BlockState state, BlockPos pos, int flags) {
+        BlockPos blockPos = pos.below();
+        world.setBlock(pos, withWaterloggedState(world, pos, state.setValue(HALF, DoubleBlockHalf.LOWER)), flags);
+        world.setBlock(blockPos, withWaterloggedState(world, blockPos, state.setValue(HALF, DoubleBlockHalf.UPPER)), flags);
+    }
+
+    public static BlockState withWaterloggedState(LevelReader world, BlockPos pos, BlockState state) {
+        return state.hasProperty(BlockStateProperties.WATERLOGGED) ? state.setValue(BlockStateProperties.WATERLOGGED, world.isWaterAt(pos)) : state;
+    }
+
+    protected static void onBreakInCreative(Level world, BlockPos pos, BlockState state, Player player) {
+        DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
+        if (doubleBlockHalf == DoubleBlockHalf.UPPER) {
+            BlockPos blockPos = pos.above();
+            BlockState blockState = world.getBlockState(blockPos);
+            if (blockState.is(state.getBlock()) && blockState.getValue(HALF) == DoubleBlockHalf.LOWER) {
+                BlockState blockState2 = blockState.getFluidState().is(Fluids.WATER) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+                world.setBlock(blockPos, blockState2, 35);
+                world.levelEvent(player, 2001, blockPos, getId(blockState));
+            }
+        }
+
+    }
+
+    @Override
+    public MapCodec<? extends UpsidedownTallPlantBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -73,16 +100,6 @@ public class UpsidedownTallPlantBlock extends UpsidedownPlantBlock
         }
     }
 
-    public static void placeAt(LevelAccessor world, BlockState state, BlockPos pos, int flags) {
-        BlockPos blockPos = pos.below();
-        world.setBlock(pos, withWaterloggedState(world, pos, state.setValue(HALF, DoubleBlockHalf.LOWER)), flags);
-        world.setBlock(blockPos, withWaterloggedState(world, blockPos, state.setValue(HALF, DoubleBlockHalf.UPPER)), flags);
-    }
-
-    public static BlockState withWaterloggedState(LevelReader world, BlockPos pos, BlockState state) {
-        return state.hasProperty(BlockStateProperties.WATERLOGGED) ? state.setValue(BlockStateProperties.WATERLOGGED, world.isWaterAt(pos)) : state;
-    }
-
     @Override
     public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
         if (!world.isClientSide) {
@@ -101,20 +118,6 @@ public class UpsidedownTallPlantBlock extends UpsidedownPlantBlock
         super.playerDestroy(world, player, pos, Blocks.AIR.defaultBlockState(), blockEntity, tool);
     }
 
-    protected static void onBreakInCreative(Level world, BlockPos pos, BlockState state, Player player) {
-        DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
-        if (doubleBlockHalf == DoubleBlockHalf.UPPER) {
-            BlockPos blockPos = pos.above();
-            BlockState blockState = world.getBlockState(blockPos);
-            if (blockState.is(state.getBlock()) && blockState.getValue(HALF) == DoubleBlockHalf.LOWER) {
-                BlockState blockState2 = blockState.getFluidState().is(Fluids.WATER) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
-                world.setBlock(blockPos, blockState2, 35);
-                world.levelEvent(player, 2001, blockPos, getId(blockState));
-            }
-        }
-
-    }
-
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HALF);
@@ -123,9 +126,5 @@ public class UpsidedownTallPlantBlock extends UpsidedownPlantBlock
     @Override
     protected long getSeed(BlockState state, BlockPos pos) {
         return Mth.getSeed(pos.getX(), pos.below(state.getValue(HALF) == DoubleBlockHalf.LOWER ? 0 : 1).getY(), pos.getZ());
-    }
-
-    static {
-        HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     }
 }

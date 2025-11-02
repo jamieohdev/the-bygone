@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.common.block;
 
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -17,19 +16,18 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-public class UpsidedownShortPlantBlock extends UpsidedownPlantBlock implements BonemealableBlock
-{
+public class UpsidedownShortPlantBlock extends UpsidedownPlantBlock implements BonemealableBlock {
     public static final MapCodec<UpsidedownShortPlantBlock> CODEC = simpleCodec(UpsidedownShortPlantBlock::new);
     protected static final float field_31261 = 6.0F;
     protected static final VoxelShape SHAPE = box(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
 
+    public UpsidedownShortPlantBlock(BlockBehaviour.Properties settings) {
+        super(settings);
+    }
+
     @Override
     public MapCodec<UpsidedownShortPlantBlock> codec() {
         return CODEC;
-    }
-
-    public UpsidedownShortPlantBlock(BlockBehaviour.Properties settings) {
-        super(settings);
     }
 
     @Override
@@ -49,7 +47,7 @@ public class UpsidedownShortPlantBlock extends UpsidedownPlantBlock implements B
 
     @Override
     public void performBonemeal(ServerLevel world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
-        DoublePlantBlock tallPlantBlock = (DoublePlantBlock)(state.is(Blocks.FERN) ? Blocks.LARGE_FERN : Blocks.TALL_GRASS);
+        DoublePlantBlock tallPlantBlock = (DoublePlantBlock) (state.is(Blocks.FERN) ? Blocks.LARGE_FERN : Blocks.TALL_GRASS);
         if (tallPlantBlock.defaultBlockState().canSurvive(world, pos) && world.isEmptyBlock(pos.above())) {
             DoublePlantBlock.placeAt(world, tallPlantBlock.defaultBlockState(), pos, 2);
         }

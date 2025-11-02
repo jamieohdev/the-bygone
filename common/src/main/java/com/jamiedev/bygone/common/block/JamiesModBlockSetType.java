@@ -5,8 +5,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 
-public class JamiesModBlockSetType
-{
+public class JamiesModBlockSetType {
 
     public static final BlockSetType ANCIENT = BlockSetType.register(
             new BlockSetType(

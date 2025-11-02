@@ -1,8 +1,6 @@
 package com.jamiedev.bygone.common.worldgen.feature;
 
 import com.mojang.serialization.Codec;
-import java.util.List;
-import java.util.stream.Stream;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,6 +9,9 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 public class PrimordialCoralClawFeature extends PrimordialCoralFeature {
     public PrimordialCoralClawFeature(Codec<NoneFeatureConfiguration> codec) {

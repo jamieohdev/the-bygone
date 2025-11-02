@@ -9,12 +9,13 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+
 import java.util.concurrent.CompletableFuture;
+
 public class BygoneRecipeProvider extends RecipeProvider {
     public BygoneRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
@@ -39,7 +40,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
     }
 
 
-    void BricksRecipe(RecipeOutput exporter, Block input, Block output){
+    void BricksRecipe(RecipeOutput exporter, Block input, Block output) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 4)
                 .pattern("XX")
                 .pattern("XX")
@@ -49,7 +50,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
 
     }
 
-    void SlabRecipe(RecipeOutput exporter, Block input, Block output){
+    void SlabRecipe(RecipeOutput exporter, Block input, Block output) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 6)
                 .pattern("XXX")
                 .define('X', input.asItem())
@@ -59,7 +60,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
     }
 
 
-    void StairsRecipe(RecipeOutput exporter, Block input, Block output){
+    void StairsRecipe(RecipeOutput exporter, Block input, Block output) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 4)
                 .pattern("X  ")
                 .pattern("XX ")
@@ -69,7 +70,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
     }
 
-    void WallsRecipe(RecipeOutput exporter, Block input, Block output){
+    void WallsRecipe(RecipeOutput exporter, Block input, Block output) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 6)
                 .pattern("XXX")
                 .pattern("XXX")
@@ -79,7 +80,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
 
     }
 
-    void PressurePlateRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory, String group){
+    void PressurePlateRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory, String group) {
         ShapedRecipeBuilder.shaped(recipeCategory, output, 1)
                 .pattern("XX")
                 .define('X', input.asItem())
@@ -88,7 +89,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
     }
 
-    void ChiseledRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory){
+    void ChiseledRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory) {
         ShapedRecipeBuilder.shaped(recipeCategory, output, 1)
                 .pattern("X")
                 .pattern("X")
@@ -97,7 +98,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
     }
 
-    void WoodRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory){
+    void WoodRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory) {
         ShapedRecipeBuilder.shaped(recipeCategory, output, 3)
                 .pattern("XX")
                 .pattern("XX")
@@ -107,7 +108,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
     }
 
-    void DoorRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory, String group){
+    void DoorRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory, String group) {
         ShapedRecipeBuilder.shaped(recipeCategory, output, 3)
                 .pattern("XX")
                 .pattern("XX")
@@ -119,7 +120,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
     }
 
-    void FenceRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory, String group){
+    void FenceRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory, String group) {
         ShapedRecipeBuilder.shaped(recipeCategory, output, 3)
                 .pattern("WXW")
                 .pattern("WXW")
@@ -130,7 +131,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
     }
 
-    void FenceGateRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory, String group){
+    void FenceGateRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory, String group) {
         ShapedRecipeBuilder.shaped(recipeCategory, output, 1)
                 .pattern("XWX")
                 .pattern("XWX")
@@ -141,7 +142,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
     }
 
-    void HangingSignRecipe(RecipeOutput exporter, Block input, Item output, RecipeCategory recipeCategory, String group){
+    void HangingSignRecipe(RecipeOutput exporter, Block input, Item output, RecipeCategory recipeCategory, String group) {
         ShapedRecipeBuilder.shaped(recipeCategory, output, 1)
                 .pattern("X X")
                 .pattern("WWW")
@@ -153,7 +154,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
     }
 
-    void SignRecipe(RecipeOutput exporter, Block input, Item output, RecipeCategory recipeCategory, String group){
+    void SignRecipe(RecipeOutput exporter, Block input, Item output, RecipeCategory recipeCategory, String group) {
         ShapedRecipeBuilder.shaped(recipeCategory, output, 3)
                 .pattern("WWW")
                 .pattern("WWW")
@@ -166,7 +167,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
     }
 
-    void TrapDoorRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory, String group){
+    void TrapDoorRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory, String group) {
         ShapedRecipeBuilder.shaped(recipeCategory, output, 2)
                 .pattern("XXX")
                 .pattern("XXX")

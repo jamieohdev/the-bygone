@@ -12,8 +12,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
-public abstract class BaseSeaglassBlock extends BaseEntityBlock
-{
+public abstract class BaseSeaglassBlock extends BaseEntityBlock {
+    public static final BooleanProperty UP = BooleanProperty.create("up");
+    public static final BooleanProperty DOWN = BooleanProperty.create("down");
+    public static final BooleanProperty EAST = BooleanProperty.create("east");
+    public static final BooleanProperty WEST = BooleanProperty.create("west");
+    public static final BooleanProperty NORTH = BooleanProperty.create("north");
+    public static final BooleanProperty SOUTH = BooleanProperty.create("south");
+
     protected BaseSeaglassBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(UP, Boolean.valueOf(false))
@@ -23,13 +29,6 @@ public abstract class BaseSeaglassBlock extends BaseEntityBlock
                 .setValue(NORTH, Boolean.valueOf(false))
                 .setValue(SOUTH, Boolean.valueOf(false)));
     }
-
-    public static final BooleanProperty UP = BooleanProperty.create("up");
-    public static final BooleanProperty DOWN = BooleanProperty.create("down");
-    public static final BooleanProperty EAST = BooleanProperty.create("east");
-    public static final BooleanProperty WEST = BooleanProperty.create("west");
-    public static final BooleanProperty NORTH = BooleanProperty.create("north");
-    public static final BooleanProperty SOUTH = BooleanProperty.create("south");
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_58032_) {
         p_58032_.add(UP, DOWN, NORTH, SOUTH, EAST, WEST);

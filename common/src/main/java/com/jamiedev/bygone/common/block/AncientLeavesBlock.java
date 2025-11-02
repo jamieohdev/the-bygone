@@ -10,20 +10,19 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import org.jetbrains.annotations.NotNull;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
-public class AncientLeavesBlock extends LeavesBlock
-{
+public class AncientLeavesBlock extends LeavesBlock {
     public static final MapCodec<AncientLeavesBlock> CODEC = simpleCodec(AncientLeavesBlock::new);
+
+    public AncientLeavesBlock(BlockBehaviour.Properties settings) {
+        super(settings);
+    }
 
     @Override
     public MapCodec<AncientLeavesBlock> codec() {
         return CODEC;
-    }
-
-    public AncientLeavesBlock(BlockBehaviour.Properties settings) {
-        super(settings);
     }
 
     @Override

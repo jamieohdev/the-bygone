@@ -25,7 +25,7 @@ public class JamiesModPortalsFabric {
                         ItemStack heldItem = player.getMainHandItem().getItem() == BGItems.HOOK ?
                                 player.getMainHandItem() : player.getOffhandItem();
 
-                        heldItem.hurtAndBreak(1 , player, player.getEquipmentSlotForItem(player.getUseItem()));
+                        heldItem.hurtAndBreak(1, player, player.getEquipmentSlotForItem(player.getUseItem()));
                     }
                 })
                 .registerPortal();
@@ -45,7 +45,7 @@ public class JamiesModPortalsFabric {
                         ItemStack heldItem = player.getMainHandItem().getItem() == BGItems.HOOK ?
                                 player.getMainHandItem() : player.getOffhandItem();
 
-                        heldItem.hurtAndBreak(1 , player, player.getEquipmentSlotForItem(player.getUseItem()));
+                        heldItem.hurtAndBreak(1, player, player.getEquipmentSlotForItem(player.getUseItem()));
                     }
                 })
                 .registerPortal();
@@ -65,7 +65,7 @@ public class JamiesModPortalsFabric {
                         ItemStack heldItem = player.getMainHandItem().getItem() == BGItems.HOOK ?
                                 player.getMainHandItem() : player.getOffhandItem();
 
-                        heldItem.hurtAndBreak(1 , player, player.getEquipmentSlotForItem(player.getUseItem()));
+                        heldItem.hurtAndBreak(1, player, player.getEquipmentSlotForItem(player.getUseItem()));
                     }
                 })
                 .registerPortal();

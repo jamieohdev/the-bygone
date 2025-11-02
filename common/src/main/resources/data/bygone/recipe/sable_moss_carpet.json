@@ -7,9 +7,7 @@
       "item": "bygone:sable_moss_block"
     }
   },
-  "pattern": [
-    "##"
-  ],
+  "pattern": ["##"],
   "result": {
     "count": 3,
     "id": "bygone:sable_moss_carpet"

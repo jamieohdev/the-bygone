@@ -1,9 +1,7 @@
 package com.jamiedev.bygone.common.block.shelf;
 
-import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -18,17 +16,18 @@ import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import org.jetbrains.annotations.NotNull;
 
 public class ShelfOrangeFungiVinesBodyBlock extends GrowingPlantBodyBlock implements BonemealableBlock, ShelfVines {
     public static final MapCodec<ShelfOrangeFungiVinesBodyBlock> CODEC = simpleCodec(ShelfOrangeFungiVinesBodyBlock::new);
 
+    public ShelfOrangeFungiVinesBodyBlock(BlockBehaviour.Properties settings) {
+        super(settings, Direction.DOWN, SHAPE, false);
+    }
+
     @Override
     public MapCodec<ShelfOrangeFungiVinesBodyBlock> codec() {
         return CODEC;
-    }
-
-    public ShelfOrangeFungiVinesBodyBlock(BlockBehaviour.Properties settings) {
-        super(settings, Direction.DOWN, SHAPE, false);
     }
 
     @Override
@@ -40,7 +39,6 @@ public class ShelfOrangeFungiVinesBodyBlock extends GrowingPlantBodyBlock implem
     public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
         return new ItemStack(BGBlocks.ORANGE_FUNGI_PLANT.get());
     }
-
 
 
     @Override

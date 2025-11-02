@@ -2,7 +2,6 @@ package com.jamiedev.bygone.common.block;
 
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -12,11 +11,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DoublePlantBlock;
-import net.minecraft.world.level.block.KelpBlock;
-import net.minecraft.world.level.block.LiquidBlockContainer;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -29,19 +24,25 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class CharniaBlock extends DoublePlantBlock implements LiquidBlockContainer {
-    KelpBlock ref;
     public static final MapCodec<CharniaBlock> CODEC = simpleCodec(CharniaBlock::new);
     public static final EnumProperty<DoubleBlockHalf> HALF;
     protected static final float field_31262 = 6.0F;
     protected static final VoxelShape SHAPE;
 
-    @Override
-    public MapCodec<CharniaBlock> codec() {
-        return CODEC;
+    static {
+        HALF = DoublePlantBlock.HALF;
+        SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
     }
+
+    KelpBlock ref;
 
     public CharniaBlock(BlockBehaviour.Properties settings) {
         super(settings);
+    }
+
+    @Override
+    public MapCodec<CharniaBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -97,10 +98,5 @@ public class CharniaBlock extends DoublePlantBlock implements LiquidBlockContain
     @Override
     public boolean placeLiquid(LevelAccessor world, BlockPos pos, BlockState state, FluidState fluidState) {
         return false;
-    }
-
-    static {
-        HALF = DoublePlantBlock.HALF;
-        SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
     }
 }

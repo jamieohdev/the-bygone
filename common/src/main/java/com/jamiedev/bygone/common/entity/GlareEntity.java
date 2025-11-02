@@ -8,7 +8,6 @@ import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
-
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -20,17 +19,9 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.*;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -48,11 +39,7 @@ import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
@@ -62,24 +49,28 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class GlareEntity extends Animal implements FlyingAnimal
-{
+public class GlareEntity extends Animal implements FlyingAnimal {
 
+    public static final int MAX_SIZE = 127;
     protected static final ImmutableList<SensorType<? extends Sensor<? super GlareEntity>>> SENSORS;
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES;
-
     /*
     Glare will be pretty different, has different sizes that the smaller ones gather to.
     rn its basically like a zombie glare lmao
      */
     private static final EntityDataAccessor<Integer> GLARE_SIZE;
 
-    public static final int MAX_SIZE = 127;
+    static {
+        GLARE_SIZE = SynchedEntityData.defineId(GlareEntity.class, EntityDataSerializers.INT);
+        SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY, SensorType.NEAREST_ITEMS);
+        MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.HURT_BY, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.LIKED_PLAYER, MemoryModuleType.LIKED_NOTEBLOCK_POSITION, MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS, MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, MemoryModuleType.IS_PANICKING);
+    }
+
     public final AnimationState idleAnimationState = new AnimationState();
+    public GlarePathHolder glarePathHolder = new GlarePathHolder();
+    Pig ref;
     private int idleAnimationTimeout = 0;
     private Vec2 targetEyesPositionOffset;
-
-    public GlarePathHolder glarePathHolder = new GlarePathHolder();
 
     public GlareEntity(EntityType<? extends GlareEntity> entityType, Level world) {
         super(BGEntityTypes.GLARE.get(), world);
@@ -95,14 +86,43 @@ public class GlareEntity extends Animal implements FlyingAnimal
         this.targetEyesPositionOffset = new Vec2(0.0F, 0.0F);
     }
 
+    public static Builder createGlareAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 20.0D)
+                .add(Attributes.FLYING_SPEED, 0.10000000149011612)
+                .add(Attributes.MOVEMENT_SPEED, 0.10000000149011612)
+                .add(Attributes.FOLLOW_RANGE, 48.0D);
+    }
+
+    public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> type, LevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, @NotNull RandomSource random) {
+        boolean bl = MobSpawnType.ignoresLightRequirements(spawnReason) || isBrightEnoughToSpawn(serverWorldAccess, blockPos);
+        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK)
+                || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get())
+                && bl;
+    }
+
+    protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter world, BlockPos pos) {
+        return world.getRawBrightness(pos, 0) > 1;
+    }
+
+    public static boolean canSpawn(EntityType<? extends Mob> glareEntityEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, @NotNull RandomSource random) {
+        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK)
+                || serverWorldAccess.getBlockState(blockPos).is(Blocks.MOSS_CARPET)
+                || serverWorldAccess.getBlockState(blockPos).is(Blocks.SHORT_GRASS)
+                || serverWorldAccess.getBlockState(blockPos).is(Blocks.TALL_GRASS)
+                || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get());
+    }
+
     @Override
     protected Brain.Provider<GlareEntity> brainProvider() {
         return Brain.provider(MEMORY_MODULES, SENSORS);
     }
+
     @Override
     protected Brain<?> makeBrain(Dynamic<?> dynamic) {
         return GlareBrain.create(dynamic);
     }
+
     @Override
     @SuppressWarnings("all")
     public Brain<GlareEntity> getBrain() {
@@ -147,13 +167,13 @@ public class GlareEntity extends Animal implements FlyingAnimal
         }
     }
 
+    public int getSize() {
+        return this.entityData.get(GLARE_SIZE);
+    }
+
     @VisibleForTesting
     public void setSize(int size) {
         this.entityData.set(GLARE_SIZE, Mth.clamp(size, 0, 2));
-    }
-
-    public int getSize() {
-        return this.entityData.get(GLARE_SIZE);
     }
 
     private void onSizeChanged() {
@@ -177,9 +197,8 @@ public class GlareEntity extends Animal implements FlyingAnimal
     public EntityDimensions getDefaultDimensions(Pose pose) {
         int i = this.getSize();
         EntityDimensions entityDimensions = super.getDefaultDimensions(pose);
-        return entityDimensions.scale(1.0F + 0.15F * (float)i);
+        return entityDimensions.scale(1.0F + 0.15F * (float) i);
     }
-
 
     public Vec2 getTargetEyesPositionOffset() {
         return this.targetEyesPositionOffset;
@@ -198,14 +217,6 @@ public class GlareEntity extends Animal implements FlyingAnimal
                 -0.5F + this.getRandom().nextFloat(),
                 -0.4F + this.getRandom().nextFloat() * (0.4F - -0.4F)
         );
-    }
-
-    public static Builder createGlareAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 20.0D)
-                .add(Attributes.FLYING_SPEED, 0.10000000149011612)
-                .add(Attributes.MOVEMENT_SPEED, 0.10000000149011612)
-                .add(Attributes.FOLLOW_RANGE, 48.0D);
     }
 
     @Override
@@ -229,13 +240,10 @@ public class GlareEntity extends Animal implements FlyingAnimal
     @Override
     public void travel(@NotNull Vec3 movementInput) {
         if (this.isControlledByLocalInstance()) {
-            if (!this.navigation.isInProgress())
-            {
+            if (!this.navigation.isInProgress()) {
                 double hoverY = Math.sin(this.tickCount * 0.1) * 0.02;
                 this.push(new Vec3(0, hoverY, 0));
-            }
-            else
-            {
+            } else {
                 super.travel(movementInput);
             }
         }
@@ -275,8 +283,6 @@ public class GlareEntity extends Animal implements FlyingAnimal
         return stack.is(ItemTags.DIRT);
     }
 
-    Pig ref;
-
     @Override
     @Nullable
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
@@ -309,8 +315,7 @@ public class GlareEntity extends Animal implements FlyingAnimal
 
     @Override
     protected PathNavigation createNavigation(Level world) {
-        FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, world)
-        {
+        FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, world) {
             @Override
             public boolean isStableDestination(BlockPos pos) {
                 boolean isValidPos = !this.level.getBlockState(pos.below()).isAir() && !this.level.getBlockState(pos.below()).liquid();
@@ -324,22 +329,6 @@ public class GlareEntity extends Animal implements FlyingAnimal
         birdNavigation.setCanPassDoors(true);
 
         return birdNavigation;
-    }
-
-    final class GlareMoveControl extends FlyingMoveControl
-    {
-        public GlareMoveControl(GlareEntity glare, int maxPitchChange, boolean noGravity) {
-            super(glare, maxPitchChange, noGravity);
-        }
-
-        @Override
-        public void tick() {
-            if (GlareEntity.this.isAggressive()) {
-                return;
-            }
-
-            super.tick();
-        }
     }
 
     @Override
@@ -360,25 +349,6 @@ public class GlareEntity extends Animal implements FlyingAnimal
         return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
-    public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> type, LevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, @NotNull RandomSource random) {
-        boolean bl = MobSpawnType.ignoresLightRequirements(spawnReason) || isBrightEnoughToSpawn(serverWorldAccess, blockPos);
-        return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK)
-                || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get())
-                && bl;
-    }
-
-    protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter world, BlockPos pos) {
-        return world.getRawBrightness(pos, 0) > 1;
-    }
-
-    public static boolean canSpawn(EntityType<? extends Mob> glareEntityEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, @NotNull RandomSource random) {
-       return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK)
-               || serverWorldAccess.getBlockState(blockPos).is(Blocks.MOSS_CARPET)
-               || serverWorldAccess.getBlockState(blockPos).is(Blocks.SHORT_GRASS)
-               || serverWorldAccess.getBlockState(blockPos).is(Blocks.TALL_GRASS)
-               || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get());
-    }
-
     @Override
     public boolean removeWhenFarAway(double distanceSquared) {
         return true;
@@ -394,14 +364,23 @@ public class GlareEntity extends Animal implements FlyingAnimal
 
     }
 
-    static {
-        GLARE_SIZE = SynchedEntityData.defineId(GlareEntity.class, EntityDataSerializers.INT);
-        SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY, SensorType.NEAREST_ITEMS);
-        MEMORY_MODULES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.HURT_BY, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.LIKED_PLAYER, MemoryModuleType.LIKED_NOTEBLOCK_POSITION, MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS, MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, MemoryModuleType.IS_PANICKING);
-    }
-
     @Override
     public boolean checkSpawnObstruction(LevelReader world) {
         return world.isUnobstructed(this);
+    }
+
+    final class GlareMoveControl extends FlyingMoveControl {
+        public GlareMoveControl(GlareEntity glare, int maxPitchChange, boolean noGravity) {
+            super(glare, maxPitchChange, noGravity);
+        }
+
+        @Override
+        public void tick() {
+            if (GlareEntity.this.isAggressive()) {
+                return;
+            }
+
+            super.tick();
+        }
     }
 }

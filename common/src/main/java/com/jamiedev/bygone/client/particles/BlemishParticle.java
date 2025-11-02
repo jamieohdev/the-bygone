@@ -8,12 +8,12 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 
-public class BlemishParticle extends PortalParticle
-{
-    ParticleTypes ref;
+public class BlemishParticle extends PortalParticle {
     private final double startX;
     private final double startY;
     private final double startZ;
+    ParticleTypes ref;
+
     protected BlemishParticle(ClientLevel clientWorld, double d, double e, double f, double g, double h, double i) {
         super(clientWorld, d, e, f, g, h, i);
         this.startX = this.x;
@@ -23,7 +23,7 @@ public class BlemishParticle extends PortalParticle
 
     @Override
     public float getQuadSize(float p_107608_) {
-        float f = 1.0F - ((float)this.age + p_107608_) / ((float)this.lifetime * 1.5F);
+        float f = 1.0F - ((float) this.age + p_107608_) / ((float) this.lifetime * 1.5F);
         return this.quadSize * f;
     }
 
@@ -35,12 +35,12 @@ public class BlemishParticle extends PortalParticle
         if (this.age++ >= this.lifetime) {
             this.remove();
         } else {
-            float f = (float)this.age / (float)this.lifetime;
+            float f = (float) this.age / (float) this.lifetime;
 
 
-            this.x += this.xd * (double)f;
-            this.y += this.yd * (double)f;
-            this.z += this.zd * (double)f;
+            this.x += this.xd * (double) f;
+            this.y += this.yd * (double) f;
+            this.z += this.zd * (double) f;
 
             this.setPos(this.x, this.y, this.z);
         }

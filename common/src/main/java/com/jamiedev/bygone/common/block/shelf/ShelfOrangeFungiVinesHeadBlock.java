@@ -1,9 +1,7 @@
 package com.jamiedev.bygone.common.block.shelf;
 
-import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -17,19 +15,20 @@ import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import org.jetbrains.annotations.NotNull;
 
 public class ShelfOrangeFungiVinesHeadBlock extends GrowingPlantHeadBlock implements BonemealableBlock, ShelfVines {
     public static final MapCodec<ShelfOrangeFungiVinesHeadBlock> CODEC = simpleCodec(ShelfOrangeFungiVinesHeadBlock::new);
     private static final float GROW_CHANCE = 0.11F;
 
-    @Override
-    public MapCodec<ShelfOrangeFungiVinesHeadBlock> codec() {
-        return CODEC;
-    }
-
     public ShelfOrangeFungiVinesHeadBlock(BlockBehaviour.Properties settings) {
         super(settings, Direction.DOWN, SHAPE, false, 0.1);
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
+    }
+
+    @Override
+    public MapCodec<ShelfOrangeFungiVinesHeadBlock> codec() {
+        return CODEC;
     }
 
     @Override

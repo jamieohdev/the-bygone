@@ -14,8 +14,8 @@ public class NearbyNectaurAlliesSensor extends Sensor<NectaurEntity> {
     @Override
     protected void doTick(ServerLevel level, NectaurEntity entity) {
         List<NectaurEntity> allies = level.getEntitiesOfClass(NectaurEntity.class,
-                entity.getBoundingBox().inflate(16)
-        ).stream()
+                        entity.getBoundingBox().inflate(16)
+                ).stream()
                 .filter(possible -> entity.closerThan(possible, 16))
                 .filter(NectaurEntity::isAlive)
                 .toList();

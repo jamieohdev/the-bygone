@@ -5,6 +5,7 @@ import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.ParticleGroup;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
+
 import java.util.Optional;
 
 public class AmberDustParticle extends TextureSheetParticle {
@@ -14,7 +15,7 @@ public class AmberDustParticle extends TextureSheetParticle {
         this.setSize(0.01F, 0.01F);
         this.pickSprite(spriteProvider);
         this.quadSize *= this.random.nextFloat() * 0.6F + 0.2F;
-        this.lifetime = (int)(16.0 / (Math.random() * 0.8 + 0.2));
+        this.lifetime = (int) (16.0 / (Math.random() * 0.8 + 0.2));
         this.hasPhysics = false;
         this.friction = 1.0F;
         this.gravity = 0.0F;
@@ -25,23 +26,24 @@ public class AmberDustParticle extends TextureSheetParticle {
         this.setSize(0.01F, 0.01F);
         this.pickSprite(spriteProvider);
         this.quadSize *= this.random.nextFloat() * 0.6F + 0.6F;
-        this.lifetime = (int)(16.0 / (Math.random() * 0.8 + 0.2));
-        this.hasPhysics = false;
-        this.friction = 1.0F;
-        this.gravity = 0.0F;
-    }
-    protected  AmberDustParticle(ClientLevel world, double x, double y, double z, float randomVelocityXMultiplier, float randomVelocityYMultiplier, float randomVelocityZMultiplier, double velocityX, double velocityY, double velocityZ, float scaleMultiplier, SpriteSet spriteProvider, float colorMultiplier, int baseMaxAge, float gravityStrength, boolean collidesWithWorld) {
-        super(world, x, y, z);
-        this.setSize(0.01F, 0.01F);
-        this.pickSprite(spriteProvider);
-        this.quadSize *= this.random.nextFloat() * 0.6F + 0.2F;
-        this.lifetime = (int)(16.0 / (Math.random() * 0.8 + 0.2));
+        this.lifetime = (int) (16.0 / (Math.random() * 0.8 + 0.2));
         this.hasPhysics = false;
         this.friction = 1.0F;
         this.gravity = 0.0F;
     }
 
-    public  AmberDustParticle(AmberDustParticle.SporeBlossomAirFactory sporeBlossomAirFactory, ClientLevel clientWorld, SpriteSet spriteProvider, double d, double e, double f, double v, double v1, double v2) {
+    protected AmberDustParticle(ClientLevel world, double x, double y, double z, float randomVelocityXMultiplier, float randomVelocityYMultiplier, float randomVelocityZMultiplier, double velocityX, double velocityY, double velocityZ, float scaleMultiplier, SpriteSet spriteProvider, float colorMultiplier, int baseMaxAge, float gravityStrength, boolean collidesWithWorld) {
+        super(world, x, y, z);
+        this.setSize(0.01F, 0.01F);
+        this.pickSprite(spriteProvider);
+        this.quadSize *= this.random.nextFloat() * 0.6F + 0.2F;
+        this.lifetime = (int) (16.0 / (Math.random() * 0.8 + 0.2));
+        this.hasPhysics = false;
+        this.friction = 1.0F;
+        this.gravity = 0.0F;
+    }
+
+    public AmberDustParticle(AmberDustParticle.SporeBlossomAirFactory sporeBlossomAirFactory, ClientLevel clientWorld, SpriteSet spriteProvider, double d, double e, double f, double v, double v1, double v2) {
         super(clientWorld, d, e, f);
     }
 
@@ -83,8 +85,8 @@ public class AmberDustParticle extends TextureSheetParticle {
 
         @Override
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i) {
-            double j = (double)clientWorld.random.nextFloat() * -1.9 * (double)clientWorld.random.nextFloat() * 0.1;
-            AmberDustParticle waterSuspendParticle = new  AmberDustParticle(clientWorld, this.spriteProvider, d, e, f, 0.0, j, 0.0);
+            double j = (double) clientWorld.random.nextFloat() * -1.9 * (double) clientWorld.random.nextFloat() * 0.1;
+            AmberDustParticle waterSuspendParticle = new AmberDustParticle(clientWorld, this.spriteProvider, d, e, f, 0.0, j, 0.0);
             waterSuspendParticle.setColor(0.882F, 0.448F, 0.005F);
             waterSuspendParticle.setSize(0.001F, 0.001F);
             return waterSuspendParticle;

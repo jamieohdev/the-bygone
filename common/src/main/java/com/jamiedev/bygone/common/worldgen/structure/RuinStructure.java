@@ -4,7 +4,6 @@ import com.jamiedev.bygone.core.registry.BGStructures;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
@@ -23,6 +22,8 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasLookup;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
+
+import java.util.Optional;
 
 public class RuinStructure extends Structure {
 
@@ -56,8 +57,7 @@ public class RuinStructure extends Structure {
                          Optional<Heightmap.Types> projectStartToHeightmap,
                          int maxDistanceFromCenter,
                          DimensionPadding dimensionPadding,
-                         LiquidSettings liquidSettings)
-    {
+                         LiquidSettings liquidSettings) {
         super(config);
         this.startPool = startPool;
         this.startJigsawName = startJigsawName;

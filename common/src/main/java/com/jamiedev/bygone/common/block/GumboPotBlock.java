@@ -124,7 +124,6 @@ public class GumboPotBlock extends AbstractCauldronBlock implements EntityBlock 
                 if (!isClientSide) {
                     gumboPotBlockEntity.addIngredient(stack);
                     stack.shrink(1);
-;
                     level.setBlockAndUpdate(pos, state.setValue(LEVEL, state.getValue(LEVEL) + 1));
                 }
 

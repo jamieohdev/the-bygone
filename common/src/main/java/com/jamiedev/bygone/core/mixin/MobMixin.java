@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.core.mixin;
 
-import org.spongepowered.asm.mixin.Mixin;
 import net.minecraft.world.entity.Mob;
+import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(Mob.class)
 public class MobMixin {

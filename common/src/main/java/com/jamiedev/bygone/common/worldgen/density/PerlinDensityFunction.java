@@ -2,44 +2,52 @@ package com.jamiedev.bygone.common.worldgen.density;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.util.KeyDispatchDataCodec;
+import net.minecraft.world.level.levelgen.DensityFunction;
+import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
+import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
-import net.minecraft.util.KeyDispatchDataCodec;
-import net.minecraft.world.level.levelgen.DensityFunction;
-import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
-import net.minecraft.world.level.levelgen.synth.NormalNoise;
-public class PerlinDensityFunction implements DensityFunction
-{
+
+public class PerlinDensityFunction implements DensityFunction {
     public static final KeyDispatchDataCodec<PerlinDensityFunction> CODEC =
             KeyDispatchDataCodec.of(RecordCodecBuilder.mapCodec(
-            p_208798_ -> p_208798_.group(
-                            NormalNoise.NoiseParameters.DIRECT_CODEC.fieldOf("noise").forGetter((func)
-                                    -> func.param),
-                            Codec.DOUBLE.fieldOf("xz_scale").forGetter((func) -> func.xz),
-                            Codec.DOUBLE.fieldOf("y_scale").forGetter((func) -> func.y),
-                            Codec.LONG.fieldOf("seed").forGetter((func) -> func.seed)
-                    )
-                    .apply(p_208798_, PerlinDensityFunction::new)));
+                    p_208798_ -> p_208798_.group(
+                                    NormalNoise.NoiseParameters.DIRECT_CODEC.fieldOf("noise").forGetter((func)
+                                            -> func.param),
+                                    Codec.DOUBLE.fieldOf("xz_scale").forGetter((func) -> func.xz),
+                                    Codec.DOUBLE.fieldOf("y_scale").forGetter((func) -> func.y),
+                                    Codec.LONG.fieldOf("seed").forGetter((func) -> func.seed)
+                            )
+                            .apply(p_208798_, PerlinDensityFunction::new)));
+    private static final Map<Long, Visitor> VISITORS = new HashMap<>();
     @Nullable
     public NormalNoise noise = null;
-    private static final  Map<Long, Visitor> VISITORS = new HashMap<>();
-
     public NormalNoise.NoiseParameters param;
     public NormalNoise fake;
     long seed;
     double xz, y;
 
-    public PerlinDensityFunction(NormalNoise.NoiseParameters params, double xz, double y, long seed)
-    {
+    public PerlinDensityFunction(NormalNoise.NoiseParameters params, double xz, double y, long seed) {
         this.seed = seed;
         this.param = params;
         this.xz = xz;
         this.y = y;
         this.fake = NormalNoise.create(new XoroshiroRandomSource(seed), params.firstOctave(), params.amplitudes().getDouble(params.firstOctave()));
+    }
+
+    public static PerlinNoiseVisitor createOrGetVisitor(long seed) {
+        return (PerlinNoiseVisitor) VISITORS.computeIfAbsent(seed, l -> new PerlinNoiseVisitor(noise -> {
+            if (noise.initialized()) {
+                return noise;
+            } else {
+                return noise.initialize(offset -> new XoroshiroRandomSource(l + offset));
+            }
+        }));
     }
 
     @Override
@@ -64,24 +72,11 @@ public class PerlinDensityFunction implements DensityFunction
 
     @Override
     public double maxValue() {
-        if (this.noise != null)
-        {
+        if (this.noise != null) {
             return this.noise.maxValue();
-        }
-        else
-        {
+        } else {
             return this.fake.maxValue();
         }
-    }
-
-    public static PerlinNoiseVisitor createOrGetVisitor(long seed) {
-        return (PerlinNoiseVisitor) VISITORS.computeIfAbsent(seed, l -> new PerlinNoiseVisitor(noise -> {
-            if (noise.initialized()) {
-                return noise;
-            } else {
-                return noise.initialize(offset -> new XoroshiroRandomSource(l + offset));
-            }
-        }));
     }
 
     @Override

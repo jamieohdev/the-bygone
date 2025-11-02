@@ -2,18 +2,18 @@ package com.jamiedev.bygone.client;
 
 
 import com.jamiedev.bygone.common.entity.projectile.HookEntity;
-import java.util.UUID;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
 
-public record RecordHookPacket(	UUID uuid,
-                                   int id,
-                                   double x, double y, double z,
-                                   int xRot, int yRot,
-                                   boolean hasGrapplingPlayer,
-                                   int grapplingPlayerId
-)
-{
+import java.util.UUID;
+
+public record RecordHookPacket(UUID uuid,
+                               int id,
+                               double x, double y, double z,
+                               int xRot, int yRot,
+                               boolean hasGrapplingPlayer,
+                               int grapplingPlayerId
+) {
 
     public RecordHookPacket(HookEntity entity) {
         this(

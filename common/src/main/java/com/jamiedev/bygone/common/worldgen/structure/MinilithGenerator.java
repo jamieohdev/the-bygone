@@ -23,9 +23,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import org.jetbrains.annotations.NotNull;
 
-public class MinilithGenerator
-{
-    private static final ResourceLocation[] FOSSILS = new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, 
+public class MinilithGenerator {
+    private static final ResourceLocation[] FOSSILS = new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
             "miniliths/minilith_1x2"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
             "miniliths/minilith_1x3"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
             "miniliths/minilith_1x4"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
@@ -35,6 +34,7 @@ public class MinilithGenerator
             "miniliths/minilith_cluster_2"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
             "miniliths/minilith_fallen_1x4"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
             "miniliths/minilith_fallen_1x7")};
+
     public MinilithGenerator() {
     }
 

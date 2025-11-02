@@ -5,8 +5,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
-public class BGParticleTypes
-{
+
+public class BGParticleTypes {
 
     public static final ParticleType<SimpleParticleType> AMBER_DUST = simple();
     public static final ParticleType<SimpleParticleType> RAFFLESIA_SPORES = simple();
@@ -24,23 +24,24 @@ public class BGParticleTypes
 
 
     public static void init() {
-        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "rafflesia_spores"), RAFFLESIA_SPORES);
-        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "algae_bloom"), ALGAE_BLOOM);
-        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "blemish_bubble"), BLEMISH);
-        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "amber_dust"), AMBER_DUST);
-        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "shelf"), SHELF);
-        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "ancient_leaves"), ANCIENT_LEAVES);
-        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "sable_leaves"), SABLE_LEAVES);
-        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "upside_down_rain"), UPSIDEDOWN);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id("rafflesia_spores"), RAFFLESIA_SPORES);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id("algae_bloom"), ALGAE_BLOOM);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id("blemish_bubble"), BLEMISH);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id("amber_dust"), AMBER_DUST);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id("shelf"), SHELF);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id("ancient_leaves"), ANCIENT_LEAVES);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id("sable_leaves"), SABLE_LEAVES);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id("upside_down_rain"), UPSIDEDOWN);
 
-        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "worm"), WORM);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id("worm"), WORM);
 
-        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id( "sablossom"), SABLOSSOM);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Bygone.id("sablossom"), SABLOSSOM);
 
     }
 
     public static SimpleParticleType simple() {
-        return new SimpleParticleType(false) { };
+        return new SimpleParticleType(false) {
+        };
     }
 
 }

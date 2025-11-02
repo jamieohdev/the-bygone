@@ -4,9 +4,7 @@ import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGItems;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
@@ -16,21 +14,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class HookEntity extends AbstractArrow
-{
+public class HookEntity extends AbstractArrow {
 
+    private final SoundEvent soundEvent;
     FishingHook ref;
-
     @javax.annotation.Nullable
     private BlockState lastState;
-    private SoundEvent soundEvent;
 
     public HookEntity(EntityType<? extends HookEntity> entityType, Level pLevel) {
         super(entityType, pLevel);
@@ -59,7 +53,7 @@ public class HookEntity extends AbstractArrow
     @Nullable
     public Player getPlayerOwner() {
         Entity entity = this.getOwner();
-        return entity instanceof Player ? (Player)entity : null;
+        return entity instanceof Player ? (Player) entity : null;
     }
 
     @Override
@@ -100,7 +94,7 @@ public class HookEntity extends AbstractArrow
         } else {
             float f = this.getDimensions(this.getPose()).width() * 0.8F;
             AABB box = AABB.ofSize(this.getEyePosition(), f, 1.0E-6, f);
-           // this.playSound(BGSoundEvents.HOOK_HIT_ADDITIONS_EVENT, 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+            // this.playSound(BGSoundEvents.HOOK_HIT_ADDITIONS_EVENT, 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
             return BlockPos.betweenClosedStream(box).anyMatch((pos) -> {
                 BlockState blockState = this.level().getBlockState(pos);
                 return !blockState.isAir() && Shapes.joinIsNotEmpty(blockState.getCollisionShape(this.level(), pos)

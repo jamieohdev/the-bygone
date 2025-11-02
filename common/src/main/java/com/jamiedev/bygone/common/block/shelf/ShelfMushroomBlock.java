@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.common.block.shelf;
 
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,20 +12,13 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-public class ShelfMushroomBlock extends Block
-{
+public class ShelfMushroomBlock extends Block {
+    public static final MapCodec<ShelfMushroomBlock> CODEC = simpleCodec(ShelfMushroomBlock::new);
     public int variation;
     BedBlock ref;
 
-    public static final MapCodec<ShelfMushroomBlock> CODEC = simpleCodec(ShelfMushroomBlock::new);
-
     public ShelfMushroomBlock(BlockBehaviour.Properties settings) {
         super(settings);
-    }
-
-    @Override
-    public MapCodec<ShelfMushroomBlock> codec() {
-        return CODEC;
     }
 
     public ShelfMushroomBlock(BlockBehaviour.Properties settings, int variation) {
@@ -34,6 +26,10 @@ public class ShelfMushroomBlock extends Block
         this.variation = variation;
     }
 
+    @Override
+    public MapCodec<ShelfMushroomBlock> codec() {
+        return CODEC;
+    }
 
     @Override
     public void fallOn(Level world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
@@ -81,9 +77,7 @@ public class ShelfMushroomBlock extends Block
                 double d = entity instanceof LivingEntity ? 1.0 : 0.1;
                 entity.setDeltaMovement(vec3d.x, -vec3d.y * d * 1.5, vec3d.z);
             }
-        }
-
-        else // orange
+        } else // orange
         {
             Vec3 vec3d = entity.getDeltaMovement();
             if (vec3d.y < 0.0) {

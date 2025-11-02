@@ -23,7 +23,6 @@
       "sound": "minecraft:ambient.nether_wastes.mood",
       "tick_delay": 6000
     },
-
     "music": {
       "max_delay": 24000,
       "min_delay": 12000,

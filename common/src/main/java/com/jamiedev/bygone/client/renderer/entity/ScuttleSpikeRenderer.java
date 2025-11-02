@@ -2,6 +2,8 @@ package com.jamiedev.bygone.client.renderer.entity;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.JamiesModModelLayers;
+import com.jamiedev.bygone.client.models.ScuttleSpikeModel;
+import com.jamiedev.bygone.common.entity.projectile.ScuttleSpikeEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -12,10 +14,8 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import com.jamiedev.bygone.client.models.ScuttleSpikeModel;
-import com.jamiedev.bygone.common.entity.projectile.ScuttleSpikeEntity;
 
-public class ScuttleSpikeRenderer  extends EntityRenderer<ScuttleSpikeEntity> {
+public class ScuttleSpikeRenderer extends EntityRenderer<ScuttleSpikeEntity> {
     public static final ResourceLocation TEXTURE = Bygone.id("textures/entity/scuttlespike.png");
     private final ScuttleSpikeModel model;
 

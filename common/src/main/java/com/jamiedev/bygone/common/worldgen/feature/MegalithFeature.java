@@ -20,6 +20,23 @@ public class MegalithFeature extends Feature<MegalithConfig> {
         super(configCodec);
     }
 
+    private static float[][] createErosionMask(int x, int z) {
+        float[][] mask = new float[x][z];
+        float centerX = x / 2.0f;
+        float centerZ = z / 2.0f;
+        float maxDistSquared = centerX * centerX + centerZ * centerZ;
+
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < z; j++) {
+                float dXSquared = (j - centerX) * (j - centerX);
+                float dZSquared = (i - centerZ) * (i - centerZ);
+                float distSquared = dXSquared + dZSquared;
+                mask[i][j] = (float) StrictMath.sqrt(StrictMath.sqrt(distSquared / maxDistSquared));
+            }
+        }
+        return mask;
+    }
+
     @Override
     public boolean place(FeaturePlaceContext<MegalithConfig> context) {
         WorldGenLevel level = context.level();
@@ -78,7 +95,7 @@ public class MegalithFeature extends Feature<MegalithConfig> {
                     // Erosion layer placement
                     if (y < megalithConfig.maxErosionDepth()) {
                         float erosionDepthMask = 1 - ((float) y / megalithConfig.maxErosionDepth());
-                        float combinedErosionChance = ((float)megalithConfig.erosionChance() * erosionMask[x][z] * erosionDepthMask);
+                        float combinedErosionChance = ((float) megalithConfig.erosionChance() * erosionMask[x][z] * erosionDepthMask);
                         if (canErodeLayer &&
                                 random.nextFloat() < combinedErosionChance) {
                             this.setBlock(level, currPos, blockState);
@@ -98,7 +115,6 @@ public class MegalithFeature extends Feature<MegalithConfig> {
         return true;
     }
 
-
     private void placeFallenBlocks(List<BlockPos> coords, int count, BlockStateProvider blockStateProvider, RandomSource random, WorldGenLevel level) {
         for (int i = coords.size() - 1; i > 0; i--) {
             int j = random.nextInt(i + 1);
@@ -110,22 +126,5 @@ public class MegalithFeature extends Feature<MegalithConfig> {
             BlockState blockState = blockStateProvider.getState(random, pos);
             this.setBlock(level, pos, blockState);
         }
-    }
-
-    private static float[][] createErosionMask(int x, int z) {
-        float[][] mask = new float[x][z];
-        float centerX = x / 2.0f;
-        float centerZ = z / 2.0f;
-        float maxDistSquared = centerX * centerX + centerZ * centerZ;
-
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < z; j++) {
-                float dXSquared = (j - centerX) * (j - centerX);
-                float dZSquared = (i - centerZ) * (i - centerZ);
-                float distSquared = dXSquared + dZSquared;
-                mask[i][j] = (float) StrictMath.sqrt(StrictMath.sqrt(distSquared / maxDistSquared));
-            }
-        }
-        return mask;
     }
 }

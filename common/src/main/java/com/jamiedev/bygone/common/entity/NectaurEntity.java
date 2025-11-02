@@ -1,17 +1,12 @@
 package com.jamiedev.bygone.common.entity;
 
 import com.google.common.collect.ImmutableList;
-import com.jamiedev.bygone.common.entity.ai.HydropusBrain;
 import com.jamiedev.bygone.common.entity.ai.NectaurBrain;
 import com.jamiedev.bygone.common.entity.projectile.NectaurPetalEntity;
-import com.jamiedev.bygone.common.entity.projectile.ScuttleSpikeEntity;
-import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGMemoryModuleTypes;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -32,38 +27,18 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
-import net.minecraft.world.entity.monster.piglin.PiglinBruteAi;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.entity.projectile.ThrownPotion;
-import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.LingeringPotionItem;
-import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Random;
 import java.util.UUID;
 
 public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob {
-
-    ZombifiedPiglin ref;
-    private static final UniformInt FIRST_ANGER_SOUND_DELAY;
-    private int playFirstAngerSoundIn;
-
-    public final AnimationState idleAnimationState = new AnimationState();
-    private int idleAnimationTimeout = 0;
-
-    public final AnimationState sneezeAnimationState = new AnimationState();
-    private int sneezeAnimationTimeout = 0;
-
 
     protected static final ImmutableList<SensorType<? extends Sensor<? super NectaurEntity>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
@@ -97,6 +72,18 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
             MemoryModuleType.UNIVERSAL_ANGER,
             MemoryModuleType.NEAREST_ATTACKABLE
     );
+    private static final UniformInt FIRST_ANGER_SOUND_DELAY;
+
+    static {
+        FIRST_ANGER_SOUND_DELAY = TimeUtil.rangeOfSeconds(0, 1);
+    }
+
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState sneezeAnimationState = new AnimationState();
+    private final int sneezeAnimationTimeout = 0;
+    ZombifiedPiglin ref;
+    private int playFirstAngerSoundIn;
+    private int idleAnimationTimeout = 0;
 
     public NectaurEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -104,8 +91,8 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, (double)0.1F)
-                .add(Attributes.ATTACK_DAMAGE, (double)4.0F)
+                .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0.1F)
+                .add(Attributes.ATTACK_DAMAGE, 4.0F)
                 .add(Attributes.MAX_HEALTH, 8.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.25);
     }
@@ -134,7 +121,7 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
         }
 
         this.level().getProfiler().push("nectaurBrain");
-        this.getBrain().tick((ServerLevel)this.level(), this);
+        this.getBrain().tick((ServerLevel) this.level(), this);
         this.level().getProfiler().pop();
         NectaurBrain.updateActivity(this);
         super.customServerAiStep();
@@ -144,8 +131,7 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
     public boolean hurt(DamageSource source, float amount) {
         if (source.getEntity() instanceof LivingEntity entity && source.isDirect() && entity.getMainHandItem().isEmpty()) {
             entity.hurt(damageSources().generic(), 1.0F);
-        }
-        else if (source.getEntity() instanceof NectaurEntity) {
+        } else if (source.getEntity() instanceof NectaurEntity) {
             return false;
         }
 
@@ -160,21 +146,17 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
 
             if (randomSpawns < 0.30F) {
 
-            }
-            else if (randomSpawns < 0.70F) {
+            } else if (randomSpawns < 0.70F) {
 
-            }
-            else if (randomSpawns < 0.85F) {
+            } else if (randomSpawns < 0.85F) {
                 for (int i = 0; i < 2; i++) {
 
                 }
-            }
-            else if (randomSpawns < 0.95F) {
+            } else if (randomSpawns < 0.95F) {
                 for (int i = 0; i < 3; i++) {
 
                 }
-            }
-            else if (randomSpawns < 1.00F) {
+            } else if (randomSpawns < 1.00F) {
                 for (int i = 0; i < 4; i++) {
 
                 }
@@ -230,7 +212,7 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isAngry() ? BGSoundEvents.NECTAUR_SCREECH_ADDITIONS_EVENT:BGSoundEvents.NECTAUR_AMBIENT_ADDITIONS_EVENT;
+        return this.isAngry() ? BGSoundEvents.NECTAUR_SCREECH_ADDITIONS_EVENT : BGSoundEvents.NECTAUR_AMBIENT_ADDITIONS_EVENT;
     }
 
     @Override
@@ -276,10 +258,7 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
     public void performRangedAttack(LivingEntity target, float velocity) {
 
 
-
-
-        if (target.getRandom().nextInt(3) == 1)
-        {
+        if (target.getRandom().nextInt(3) == 1) {
             ItemStack itemstack1 = new ItemStack(Items.ARROW);
             itemstack1.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.SLOWNESS));
             this.lookAt(this, 100, 100);
@@ -293,8 +272,7 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
             this.playSound(SoundEvents.FOX_SPIT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
             this.level().addFreshEntity(glass);
         }
-        if (target.getRandom().nextInt(10) == 1)
-        {
+        if (target.getRandom().nextInt(10) == 1) {
             ItemStack itemstack1 = new ItemStack(Items.ARROW);
             itemstack1.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.STRONG_SLOWNESS));
             this.lookAt(this, 100, 100);
@@ -308,8 +286,7 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
             this.playSound(SoundEvents.FOX_SPIT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
             this.level().addFreshEntity(glass);
         }
-        if (target.getRandom().nextInt(25) == 1)
-        {
+        if (target.getRandom().nextInt(25) == 1) {
             ItemStack itemstack1 = new ItemStack(Items.ARROW);
             itemstack1.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.STRONG_POISON));
             this.lookAt(this, 100, 100);
@@ -322,9 +299,7 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
             glass.shoot(xDistance, yDistance + yMath * 0.10000000298023224D, zDistance, 1.6F, 11.0F);
             this.playSound(SoundEvents.FOX_SPIT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
             this.level().addFreshEntity(glass);
-        }
-        else
-        {
+        } else {
             ItemStack itemstack1 = new ItemStack(Items.ARROW);
             itemstack1.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.POISON));
             this.lookAt(this, 100, 100);
@@ -339,10 +314,5 @@ public class NectaurEntity extends Animal implements NeutralMob, RangedAttackMob
             this.level().addFreshEntity(glass);
         }
 
-    }
-
-    static
-    {
-        FIRST_ANGER_SOUND_DELAY = TimeUtil.rangeOfSeconds(0, 1);
     }
 }

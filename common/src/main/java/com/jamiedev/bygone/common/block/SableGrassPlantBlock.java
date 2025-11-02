@@ -6,34 +6,18 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrowingPlantBodyBlock;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BambooLeaves;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SableGrassPlantBlock  extends GrowingPlantBodyBlock
-{
+public class SableGrassPlantBlock extends GrowingPlantBodyBlock {
+    public static final VoxelShape SHAPE = Block.box(4.0F, 0.0F, 4.0F, 12.0F, 16.0F, 12.0F);
     public static final MapCodec<SableGrassPlantBlock> CODEC = simpleCodec(SableGrassPlantBlock::new);
-    public static final VoxelShape SHAPE = Block.box((double)4.0F, (double)0.0F, (double)4.0F, (double)12.0F, (double)16.0F, (double)12.0F);
-
-
-    public MapCodec<SableGrassPlantBlock> codec() {
-        return CODEC;
-    }
+    IntegerProperty AGE;
 
     public SableGrassPlantBlock(BlockBehaviour.Properties p_154873_) {
 
@@ -41,7 +25,9 @@ public class SableGrassPlantBlock  extends GrowingPlantBodyBlock
 
     }
 
-    IntegerProperty AGE;
+    public MapCodec<SableGrassPlantBlock> codec() {
+        return CODEC;
+    }
 
     @Override
     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {

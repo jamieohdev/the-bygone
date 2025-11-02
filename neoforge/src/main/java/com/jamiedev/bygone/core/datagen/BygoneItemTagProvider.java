@@ -11,10 +11,11 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
+
 public class BygoneItemTagProvider extends ItemTagsProvider {
 
 
-    public BygoneItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags,@Nullable ExistingFileHelper existingFileHelper) {
+    public BygoneItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, blockTags, Bygone.MOD_ID, existingFileHelper);
     }
 
@@ -24,19 +25,19 @@ public class BygoneItemTagProvider extends ItemTagsProvider {
         slabs();
         stairs();
         walls();
-   }
+    }
 
-   private void signs() {
+    private void signs() {
 
-   }
+    }
 
-   private void slabs() {
-       this.tag(ItemTags.SLABS)
-               .add(BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.get().asItem())
-               .add(BGBlocks.POLISHED_BYSTONE_SLAB.get().asItem())
-               .add(BGBlocks.POLISHED_BYSLATE_BRICK_SLAB.get().asItem())
-               .add(BGBlocks.POLISHED_BYSLATE_SLAB.get().asItem());
-   }
+    private void slabs() {
+        this.tag(ItemTags.SLABS)
+                .add(BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.get().asItem())
+                .add(BGBlocks.POLISHED_BYSTONE_SLAB.get().asItem())
+                .add(BGBlocks.POLISHED_BYSLATE_BRICK_SLAB.get().asItem())
+                .add(BGBlocks.POLISHED_BYSLATE_SLAB.get().asItem());
+    }
 
     private void stairs() {
         this.tag(ItemTags.STAIRS)

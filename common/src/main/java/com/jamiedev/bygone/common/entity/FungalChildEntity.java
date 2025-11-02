@@ -3,7 +3,6 @@ package com.jamiedev.bygone.common.entity;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -20,23 +19,10 @@ import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.FollowParentGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
@@ -56,23 +42,40 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-public class FungalChildEntity extends FungalParentEntity
-{
-
-    EnderMan ref;
+public class FungalChildEntity extends FungalParentEntity {
 
     private static final EntityDataAccessor<Boolean> WARNING;
     private static final float field_30352 = 6.0F;
+    private static final UniformInt ANGER_TIME_RANGE;
+
+    static {
+        WARNING = SynchedEntityData.defineId(FungalChildEntity.class, EntityDataSerializers.BOOLEAN);
+        ANGER_TIME_RANGE = TimeUtil.rangeOfSeconds(20, 39);
+    }
+
+    EnderMan ref;
     private float lastWarningAnimationProgress;
     private float warningAnimationProgress;
     private int warningSoundCooldown;
-    private static final UniformInt ANGER_TIME_RANGE;
     private int angerTime;
     @Nullable
     private UUID angryAt;
 
     public FungalChildEntity(EntityType<? extends FungalChildEntity> entityType, Level world) {
         super(entityType, world);
+    }
+
+    public static AttributeSupplier.Builder createFungieAttributes() {
+        return createMobAttributes().add(Attributes.MAX_HEALTH, 30.0).add(Attributes.FOLLOW_RANGE, 20.0).add(Attributes.MOVEMENT_SPEED, 0.25).add(Attributes.ATTACK_DAMAGE, 6.0);
+    }
+
+    public static boolean canSpawn(EntityType<FungalParentEntity> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, @NotNull RandomSource random) {
+        Holder<Biome> registryEntry = world.getBiome(pos);
+        if (!registryEntry.is(BiomeTags.POLAR_BEARS_SPAWN_ON_ALTERNATE_BLOCKS)) {
+            return checkAnimalSpawnRules(type, world, spawnReason, pos, random);
+        } else {
+            return isBrightEnoughToSpawn(world, pos) && world.getBlockState(pos.below()).is(BlockTags.POLAR_BEARS_SPAWNABLE_ON_ALTERNATE);
+        }
     }
 
     @Override
@@ -105,19 +108,6 @@ public class FungalChildEntity extends FungalParentEntity
         this.targetSelector.addGoal(5, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
-    public static AttributeSupplier.Builder createFungieAttributes() {
-        return createMobAttributes().add(Attributes.MAX_HEALTH, 30.0).add(Attributes.FOLLOW_RANGE, 20.0).add(Attributes.MOVEMENT_SPEED, 0.25).add(Attributes.ATTACK_DAMAGE, 6.0);
-    }
-
-    public static boolean canSpawn(EntityType<FungalParentEntity> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, @NotNull RandomSource random) {
-        Holder<Biome> registryEntry = world.getBiome(pos);
-        if (!registryEntry.is(BiomeTags.POLAR_BEARS_SPAWN_ON_ALTERNATE_BLOCKS)) {
-            return checkAnimalSpawnRules(type, world, spawnReason, pos, random);
-        } else {
-            return isBrightEnoughToSpawn(world, pos) && world.getBlockState(pos.below()).is(BlockTags.POLAR_BEARS_SPAWNABLE_ON_ALTERNATE);
-        }
-    }
-
     @Override
     public void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
@@ -136,24 +126,24 @@ public class FungalChildEntity extends FungalParentEntity
     }
 
     @Override
-    public void setRemainingPersistentAngerTime(int angerTime) {
-        this.angerTime = angerTime;
-    }
-
-    @Override
     public int getRemainingPersistentAngerTime() {
         return this.angerTime;
     }
 
     @Override
-    public void setPersistentAngerTarget(@Nullable UUID angryAt) {
-        this.angryAt = angryAt;
+    public void setRemainingPersistentAngerTime(int angerTime) {
+        this.angerTime = angerTime;
     }
 
     @Override
     @Nullable
     public UUID getPersistentAngerTarget() {
         return this.angryAt;
+    }
+
+    @Override
+    public void setPersistentAngerTarget(@Nullable UUID angryAt) {
+        this.angryAt = angryAt;
     }
 
     @Override
@@ -212,7 +202,7 @@ public class FungalChildEntity extends FungalParentEntity
         }
 
         if (!this.level().isClientSide) {
-            this.updatePersistentAnger((ServerLevel)this.level(), true);
+            this.updatePersistentAnger((ServerLevel) this.level(), true);
         }
 
     }
@@ -257,11 +247,6 @@ public class FungalChildEntity extends FungalParentEntity
         return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
-    static {
-        WARNING = SynchedEntityData.defineId(FungalChildEntity.class, EntityDataSerializers.BOOLEAN);
-        ANGER_TIME_RANGE = TimeUtil.rangeOfSeconds(20, 39);
-    }
-
     private class AttackGoal extends MeleeAttackGoal {
         public AttackGoal() {
             super(FungalChildEntity.this, 1.25, true);
@@ -273,7 +258,7 @@ public class FungalChildEntity extends FungalParentEntity
                 this.resetAttackCooldown();
                 this.mob.doHurtTarget(target);
                 FungalChildEntity.this.setWarning(false);
-            } else if (this.mob.distanceToSqr(target) < (double)((target.getBbWidth() + 3.0F) * (target.getBbWidth() + 3.0F))) {
+            } else if (this.mob.distanceToSqr(target) < (double) ((target.getBbWidth() + 3.0F) * (target.getBbWidth() + 3.0F))) {
                 if (this.isTimeToAttack()) {
                     FungalChildEntity.this.setWarning(false);
                     this.resetAttackCooldown();
@@ -338,8 +323,8 @@ public class FungalChildEntity extends FungalParentEntity
 
                     Iterator<FungalChildEntity> var2 = list.iterator();
 
-                    while(var2.hasNext()) {
-                        FungalChildEntity polarBearEntity = (FungalChildEntity)var2.next();
+                    while (var2.hasNext()) {
+                        FungalChildEntity polarBearEntity = var2.next();
 
 
                         if (polarBearEntity.isBaby()) {

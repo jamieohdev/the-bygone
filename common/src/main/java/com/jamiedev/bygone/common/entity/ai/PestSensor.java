@@ -22,8 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class PestSensor extends Sensor<LivingEntity>
-{
+public class PestSensor extends Sensor<LivingEntity> {
     private static Optional<BlockPos> findNearestRepellent(ServerLevel level, LivingEntity livingEntity) {
         return BlockPos.findClosestMatch(livingEntity.blockPosition(), 8, 4, p_186160_ -> isValidRepellent(level, p_186160_));
     }
@@ -50,27 +49,24 @@ public class PestSensor extends Sensor<LivingEntity>
                 .orElse(NearestVisibleLivingEntities.empty());
 
         for (LivingEntity livingentity : nearestvisiblelivingentities.findAll(p_186157_ -> true)) {
-            if (livingentity instanceof PestEntity) {
-                PestEntity PestEntity = (PestEntity)livingentity;
+            if (livingentity instanceof PestEntity PestEntity) {
                 if (PestEntity.isBaby() && optional3.isEmpty()) {
                     optional3 = Optional.of(PestEntity);
                 } else if (!PestEntity.isBaby()) {
                     list.add(PestEntity);
                 }
-            } else if (livingentity instanceof Player) {
-                Player player = (Player)livingentity;
-                if (optional5.isEmpty()  && entity.canAttack(livingentity)) {
+            } else if (livingentity instanceof Player player) {
+                if (optional5.isEmpty() && entity.canAttack(livingentity)) {
                     optional5 = Optional.of(player);
                 }
 
             } else {
-                optional = Optional.of((Mob)livingentity);
+                optional = Optional.of((Mob) livingentity);
             }
         }
 
         for (LivingEntity livingentity1 : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of())) {
-            if (livingentity1 instanceof PestEntity) {
-                PestEntity abstractPestEntity = (PestEntity)livingentity1;
+            if (livingentity1 instanceof PestEntity abstractPestEntity) {
                 if (!abstractPestEntity.isBaby()) {
                     list1.add(abstractPestEntity);
                 }

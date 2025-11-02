@@ -4,7 +4,6 @@ import com.jamiedev.bygone.core.registry.BGConfiguredFeatures;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -14,16 +13,16 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class AlphaMossBlock extends Block implements BonemealableBlock
-{
+public class AlphaMossBlock extends Block implements BonemealableBlock {
     public static final MapCodec<AlphaMossBlock> CODEC = simpleCodec(AlphaMossBlock::new);
+
+    public AlphaMossBlock(Properties settings) {
+        super(settings);
+    }
 
     @Override
     public MapCodec<AlphaMossBlock> codec() {
         return CODEC;
-    }
-    public AlphaMossBlock(Properties settings) {
-        super(settings);
     }
 
     @Override

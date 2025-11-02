@@ -1,6 +1,5 @@
 package com.jamiedev.bygone.common.entity.projectile;
 
-import com.jamiedev.bygone.common.entity.NectaurEntity;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.core.Holder;
@@ -17,16 +16,17 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.Level;
 
-public class NectaurPetalEntity extends AbstractArrow
-{
+public class NectaurPetalEntity extends AbstractArrow {
     private static final EntityDataAccessor<Integer> ID_EFFECT_COLOR;
+
+    static {
+        ID_EFFECT_COLOR = SynchedEntityData.defineId(NectaurPetalEntity.class, EntityDataSerializers.INT);
+    }
 
     public NectaurPetalEntity(EntityType<? extends NectaurPetalEntity> entityType, Level world) {
         super(entityType, world);
@@ -50,7 +50,7 @@ public class NectaurPetalEntity extends AbstractArrow
     }
 
     private PotionContents getPotionContents() {
-        return (PotionContents)this.getPickupItemStackOrigin().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+        return this.getPickupItemStackOrigin().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
     }
 
     private void setPotionContents(PotionContents potionContents) {
@@ -85,20 +85,18 @@ public class NectaurPetalEntity extends AbstractArrow
                     this.makeParticle(1);
                 }
 
-                if (this.inGroundTime > 8)
-                {
+                if (this.inGroundTime > 8) {
                     this.kill();
                 }
             } else {
                 this.makeParticle(2);
             }
         } else if (this.inGround && this.inGroundTime != 0 && !this.getPotionContents().equals(PotionContents.EMPTY) && this.inGroundTime >= 600) {
-            this.level().broadcastEntityEvent(this, (byte)0);
+            this.level().broadcastEntityEvent(this, (byte) 0);
             this.setPickupItemStack(new ItemStack(BGItems.NECTAUR_PETAL.get()));
         }
 
-        if (this.inGroundTime > 8)
-        {
+        if (this.inGroundTime > 8) {
             this.kill();
         }
 
@@ -107,15 +105,15 @@ public class NectaurPetalEntity extends AbstractArrow
     private void makeParticle(int particleAmount) {
         int i = this.getColor();
         if (i != -1 && particleAmount > 0) {
-            for(int j = 0; j < particleAmount; ++j) {
-                this.level().addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, i), this.getRandomX((double)0.5F), this.getRandomY(), this.getRandomZ((double)0.5F), (double)0.0F, (double)0.0F, (double)0.0F);
+            for (int j = 0; j < particleAmount; ++j) {
+                this.level().addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, i), this.getRandomX(0.5F), this.getRandomY(), this.getRandomZ(0.5F), 0.0F, 0.0F, 0.0F);
             }
         }
 
     }
 
     public int getColor() {
-        return (Integer)this.entityData.get(ID_EFFECT_COLOR);
+        return this.entityData.get(ID_EFFECT_COLOR);
     }
 
     protected void doPostHurtEffects(LivingEntity living) {
@@ -123,12 +121,12 @@ public class NectaurPetalEntity extends AbstractArrow
         Entity entity = this.getEffectSource();
         PotionContents potioncontents = this.getPotionContents();
         if (potioncontents.potion().isPresent()) {
-            for(MobEffectInstance mobeffectinstance : ((Potion)((Holder)potioncontents.potion().get()).value()).getEffects()) {
+            for (MobEffectInstance mobeffectinstance : ((Potion) ((Holder) potioncontents.potion().get()).value()).getEffects()) {
                 living.addEffect(new MobEffectInstance(mobeffectinstance.getEffect(), Math.max(mobeffectinstance.mapDuration((p_268168_) -> p_268168_ / 8), 1), mobeffectinstance.getAmplifier(), mobeffectinstance.isAmbient(), mobeffectinstance.isVisible()), entity);
             }
         }
 
-        for(MobEffectInstance mobeffectinstance1 : potioncontents.customEffects()) {
+        for (MobEffectInstance mobeffectinstance1 : potioncontents.customEffects()) {
             living.addEffect(mobeffectinstance1, entity);
         }
 
@@ -138,21 +136,17 @@ public class NectaurPetalEntity extends AbstractArrow
         if (id == 0) {
             int i = this.getColor();
             if (i != -1) {
-                float f = (float)(i >> 16 & 255) / 255.0F;
-                float f1 = (float)(i >> 8 & 255) / 255.0F;
-                float f2 = (float)(i >> 0 & 255) / 255.0F;
+                float f = (float) (i >> 16 & 255) / 255.0F;
+                float f1 = (float) (i >> 8 & 255) / 255.0F;
+                float f2 = (float) (i >> 0 & 255) / 255.0F;
 
-                for(int j = 0; j < 20; ++j) {
-                    this.level().addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, f, f1, f2), this.getRandomX((double)0.5F), this.getRandomY(), this.getRandomZ((double)0.5F), (double)0.0F, (double)0.0F, (double)0.0F);
+                for (int j = 0; j < 20; ++j) {
+                    this.level().addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, f, f1, f2), this.getRandomX(0.5F), this.getRandomY(), this.getRandomZ(0.5F), 0.0F, 0.0F, 0.0F);
                 }
             }
         } else {
             super.handleEntityEvent(id);
         }
 
-    }
-
-    static {
-        ID_EFFECT_COLOR = SynchedEntityData.defineId(NectaurPetalEntity.class, EntityDataSerializers.INT);
     }
 }

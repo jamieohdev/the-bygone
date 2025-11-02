@@ -1,9 +1,5 @@
 package com.jamiedev.bygone.core.registry;
 
-import java.util.EnumMap;
-import java.util.List;
-import java.util.function.Supplier;
-
 import com.jamiedev.bygone.Bygone;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
@@ -17,8 +13,11 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class BGArmorMaterials
-{
+import java.util.EnumMap;
+import java.util.List;
+import java.util.function.Supplier;
+
+public class BGArmorMaterials {
     public static Holder<ArmorMaterial> SCALE = register("scale", Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
         map.put(ArmorItem.Type.BOOTS, 3);
         map.put(ArmorItem.Type.LEGGINGS, 6);

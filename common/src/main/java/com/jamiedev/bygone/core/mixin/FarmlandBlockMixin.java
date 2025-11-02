@@ -3,17 +3,15 @@ package com.jamiedev.bygone.core.mixin;
 import com.jamiedev.bygone.Bygone;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FarmBlock;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(FarmBlock.class)
-public class FarmlandBlockMixin extends Block
-{
+public class FarmlandBlockMixin extends Block {
 
     public FarmlandBlockMixin(Properties settings) {
         super(settings);

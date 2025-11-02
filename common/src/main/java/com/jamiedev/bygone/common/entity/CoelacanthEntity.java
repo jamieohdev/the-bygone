@@ -12,11 +12,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.LookControl;
@@ -27,14 +23,12 @@ import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.entity.animal.Salmon;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
-public class CoelacanthEntity extends AbstractSchoolingFish
-{
+public class CoelacanthEntity extends AbstractSchoolingFish {
     Salmon ref;
 
     public CoelacanthEntity(EntityType<? extends CoelacanthEntity> entityType, Level world) {
@@ -44,11 +38,17 @@ public class CoelacanthEntity extends AbstractSchoolingFish
     }
 
 
-
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4.0);
     }
+
+    public static boolean checkSurfaceWaterAnimalSpawnRule(EntityType<CoelacanthEntity> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, @NotNull RandomSource random) {
+        int i = world.getSeaLevel();
+        int j = i - 13;
+        return pos.getY() >= j && pos.getY() <= i && world.getFluidState(pos.below()).is(FluidTags.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER);
+    }
+
     @Override
     protected void registerGoals() {
         super.registerGoals();
@@ -98,12 +98,6 @@ public class CoelacanthEntity extends AbstractSchoolingFish
             }
             return super.hurt(source, amount);
         }
-    }
-
-    public static boolean checkSurfaceWaterAnimalSpawnRule(EntityType<CoelacanthEntity> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, @NotNull RandomSource random) {
-        int i = world.getSeaLevel();
-        int j = i - 13;
-        return pos.getY() >= j && pos.getY() <= i && world.getFluidState(pos.below()).is(FluidTags.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER);
     }
 
 

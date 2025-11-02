@@ -34,7 +34,10 @@
             {
               "condition": "minecraft:location_check",
               "predicate": {
-                "biomes": ["bygone:primordial_ocean", "bygone:primordial_shores"]
+                "biomes": [
+                  "bygone:primordial_ocean",
+                  "bygone:primordial_shores"
+                ]
               }
             }
           ],

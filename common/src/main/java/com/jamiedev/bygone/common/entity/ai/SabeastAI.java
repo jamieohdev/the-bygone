@@ -3,7 +3,6 @@ package com.jamiedev.bygone.common.entity.ai;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.jamiedev.bygone.common.entity.SabeastEntity;
-import com.jamiedev.bygone.common.entity.ai.behavior.SabeastMeleeAttack;
 import com.jamiedev.bygone.common.entity.ai.behavior.SabeastSetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
@@ -61,7 +60,7 @@ public class SabeastAI {
                 Activity.IDLE,
                 10,
                 ImmutableList.of(
-                        StartAttacking.<SabeastEntity>create((sabeast) -> sabeast.isAlive(),
+                        StartAttacking.create((sabeast) -> sabeast.isAlive(),
                                 SabeastAI::findNearestValidAttackTarget),
                         createIdleMovementBehaviors()
                 )

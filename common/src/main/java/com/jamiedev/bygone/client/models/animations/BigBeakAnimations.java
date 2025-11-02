@@ -5,8 +5,7 @@ import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
-public class BigBeakAnimations
-{
+public class BigBeakAnimations {
 
     public static final AnimationDefinition BIGBEAK_WALKING_SIMPLE = AnimationDefinition.Builder.withLength(1f).looping()
             .addAnimation("rightLeg",

@@ -20,12 +20,39 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-public class HookRenderer extends EntityRenderer<HookEntity>
-{
+public class HookRenderer extends EntityRenderer<HookEntity> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/hook.png");
     private static final RenderType LAYER = RenderType.entityCutout(TEXTURE);
+
     public HookRenderer(EntityRendererProvider.Context ctx) {
         super(ctx);
+    }
+
+    private static float percentage(int value, int max) {
+        return (float) value / (float) max;
+    }
+
+    private static void vertex(VertexConsumer buffer, PoseStack.Pose matrix, int light, float x, int y, int u, int v) {
+        buffer.addVertex(matrix, x - 0.5F, (float) y - 0.5F, 0.0F)
+                .setColor(-1)
+                .setUv((float) u, (float) v)
+                .setOverlay(OverlayTexture.NO_OVERLAY)
+                .setLight(light)
+                .setNormal(matrix, 0.0F, 1.0F, 0.0F);
+    }
+
+    private static void renderFishingLine(float xDist, float yDist, float zDist, VertexConsumer buffer, PoseStack.Pose matrices, float segmentStart, float segmentEnd, int lineARGBColor) {
+        float xStart = xDist * segmentStart;
+        float yStart = yDist * (segmentStart * segmentStart + segmentStart) * 0.5F + 0.25F;
+        float zStart = zDist * segmentStart;
+        float xStep = xDist * segmentEnd - xStart;
+        float yStep = yDist * (segmentEnd * segmentEnd + segmentEnd) * 0.5F + 0.25F - yStart;
+        float zStep = zDist * segmentEnd - zStart;
+        float step = Mth.sqrt(xStep * xStep + yStep * yStep + zStep * zStep);
+        xStep /= step;
+        yStep /= step;
+        zStep /= step;
+        buffer.addVertex(matrices, xStart, yStart, zStart).setColor(lineARGBColor).setNormal(matrices, xStep, yStep, zStep);
     }
 
     @Override
@@ -47,13 +74,13 @@ public class HookRenderer extends EntityRenderer<HookEntity>
             float handBob = Mth.sin(Mth.sqrt(handSwingProgress) * Mth.PI);
             Vec3 handPos = this.getHandPos(playerOwner, handBob, tickDelta, BGItems.HOOK.get());
             Vec3 lerpedPos = hook.getPosition(tickDelta).add(0.0, 0.25, 0.0);
-            float xDiff = (float)(handPos.x - lerpedPos.x);
-            float yDiff = (float)(handPos.y - lerpedPos.y);
-            float zDiff = (float)(handPos.z - lerpedPos.z);
+            float xDiff = (float) (handPos.x - lerpedPos.x);
+            float yDiff = (float) (handPos.y - lerpedPos.y);
+            float zDiff = (float) (handPos.z - lerpedPos.z);
             VertexConsumer lineStripBuffer = vertexConsumerProvider.getBuffer(RenderType.lineStrip());
             PoseStack.Pose lineEntry = matrixStack.last();
 
-            for(int o = 0; o <= 16; ++o) {
+            for (int o = 0; o <= 16; ++o) {
                 renderFishingLine(xDiff, yDiff, zDiff, lineStripBuffer, lineEntry, percentage(o, 16), percentage(o + 1, 16), DyeColor.BROWN.getTextureDiffuseColor());
             }
 
@@ -84,34 +111,6 @@ public class HookRenderer extends EntityRenderer<HookEntity>
             return player.getEyePosition(tickDelta).add(-e * j - d * k, (double) yOffset - 0.45 * (double) playerScale, -d * j + e * k);
         }
     }
-
-    private static float percentage(int value, int max) {
-        return (float)value / (float)max;
-    }
-
-    private static void vertex(VertexConsumer buffer, PoseStack.Pose matrix, int light, float x, int y, int u, int v) {
-        buffer.addVertex(matrix, x - 0.5F, (float)y - 0.5F, 0.0F)
-                .setColor(-1)
-                .setUv((float)u, (float)v)
-                .setOverlay(OverlayTexture.NO_OVERLAY)
-                .setLight(light)
-                .setNormal(matrix, 0.0F, 1.0F, 0.0F);
-    }
-
-    private static void renderFishingLine(float xDist, float yDist, float zDist, VertexConsumer buffer, PoseStack.Pose matrices, float segmentStart, float segmentEnd, int lineARGBColor) {
-        float xStart = xDist * segmentStart;
-        float yStart = yDist * (segmentStart * segmentStart + segmentStart) * 0.5F + 0.25F;
-        float zStart = zDist * segmentStart;
-        float xStep = xDist * segmentEnd - xStart;
-        float yStep = yDist * (segmentEnd * segmentEnd + segmentEnd) * 0.5F + 0.25F - yStart;
-        float zStep = zDist * segmentEnd - zStart;
-        float step = Mth.sqrt(xStep * xStep + yStep * yStep + zStep * zStep);
-        xStep /= step;
-        yStep /= step;
-        zStep /= step;
-        buffer.addVertex(matrices, xStart, yStart, zStart).setColor(lineARGBColor).setNormal(matrices, xStep, yStep, zStep);
-    }
-
 
     @Override
     public ResourceLocation getTextureLocation(HookEntity entity) {

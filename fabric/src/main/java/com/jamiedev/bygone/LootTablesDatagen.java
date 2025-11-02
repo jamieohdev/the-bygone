@@ -7,8 +7,7 @@ import net.minecraft.core.HolderLookup;
 
 import java.util.concurrent.CompletableFuture;
 
-public class LootTablesDatagen  extends FabricBlockLootTableProvider
-{
+public class LootTablesDatagen extends FabricBlockLootTableProvider {
     // i hate you so much datagen
     protected LootTablesDatagen(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);

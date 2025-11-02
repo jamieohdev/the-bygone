@@ -15,7 +15,8 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> {
     @Shadow
     protected abstract void poseRightArm(T entity);
 
-    @Shadow protected abstract void poseLeftArm(T entity);
+    @Shadow
+    protected abstract void poseLeftArm(T entity);
 
     @Inject(method = "setupAnim(Lnet/minecraft/world/entity/LivingEntity;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/HumanoidModel;setupAttackAnimation(Lnet/minecraft/world/entity/LivingEntity;F)V", shift = At.Shift.BEFORE))
     private void bygone$setBlockingAngles(T livingEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {

@@ -168,7 +168,6 @@ public class BGItemGroups {
                 output.accept(BGBlocks.ALPHA_MOSSY_CLAYSTONE.get());
 
 
-
 // Start of the Primordial Ocean blockset
 
                 output.accept(BGBlocks.BLUE_ALGAE.get());
@@ -371,6 +370,7 @@ public class BGItemGroups {
         return JinxedRegistryHelper.register(BuiltInRegistries.CREATIVE_MODE_TAB, Bygone.MOD_ID, name, supplier);
     }
 
-    public static void register() {}
+    public static void register() {
+    }
 
 }

@@ -1,20 +1,19 @@
-
 {
   "variants": {
     "snowy=false": [
       {
-      "model": "bygone:block/umbral_soil"
+        "model": "bygone:block/umbral_soil"
       },
       {
-      "model": "bygone:block/umbral_soil",
+        "model": "bygone:block/umbral_soil",
         "y": 90
       },
       {
-      "model": "bygone:block/umbral_soil",
+        "model": "bygone:block/umbral_soil",
         "y": 180
       },
       {
-      "model": "bygone:block/umbral_soil",
+        "model": "bygone:block/umbral_soil",
         "y": 270
       }
     ],

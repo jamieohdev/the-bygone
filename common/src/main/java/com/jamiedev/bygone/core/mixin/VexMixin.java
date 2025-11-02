@@ -11,11 +11,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Vex.class)
 public class VexMixin {
-    
+
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void modifyGoals(CallbackInfo ci) {
-        Vex vex = (Vex)(Object)this;
-        
+        Vex vex = (Vex) (Object) this;
+
         vex.targetSelector.addGoal(0, new WarHornVexTargetGoal(vex));
         vex.targetSelector.addGoal(1, new HurtByTargetGoal(vex) {
             @Override
@@ -27,11 +27,11 @@ public class VexMixin {
                         break;
                     }
                 }
-                
+
                 if (warHornGoal != null && warHornGoal.isWarHornVex()) {
                     return super.canUse() && !(vex.getLastHurtByMob() instanceof Player);
                 }
-                
+
                 return super.canUse();
             }
         });

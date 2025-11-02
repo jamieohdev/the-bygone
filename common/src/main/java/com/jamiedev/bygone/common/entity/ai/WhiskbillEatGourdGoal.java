@@ -9,7 +9,6 @@ import net.minecraft.core.SectionPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -31,11 +30,14 @@ import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WhiskbillEatGourdGoal extends MoveToBlockGoal {
 
     private static final Map<Block, Item> blocksToRemove;
+    private static final int WAIT_AFTER_BLOCK_FOUND = 20;
 
     static {
         Map<Block, Item> blockItemMap = new HashMap<>();
@@ -47,13 +49,12 @@ public class WhiskbillEatGourdGoal extends MoveToBlockGoal {
     }
 
     private final Mob removerMob;
+    private final int minAmount = 1;
+    private final int maxAmount = 1;
     private int ticksSinceReachedGoal;
     private int ticksSinceStartedGoal;
     private int ticksWaitForGourd;
-    private static final int WAIT_AFTER_BLOCK_FOUND = 20;
     private Item dropItem = Items.AIR;
-    private int minAmount = 1;
-    private int maxAmount = 1;
     private Block blockToRemove;
 
     public WhiskbillEatGourdGoal(PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
@@ -129,7 +130,7 @@ public class WhiskbillEatGourdGoal extends MoveToBlockGoal {
                 this.removerMob.setDeltaMovement(vec3.x, 0.3, vec3.z);
                 if (!level.isClientSide) {
                     double d0 = 0.08;
-                    ((ServerLevel)level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(this.blockToRemove.asItem())), (double)blockpos1.getX() + (double)0.5F, (double)blockpos1.getY() + 0.7, (double)blockpos1.getZ() + (double)0.5F, 3, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, (double)0.15F);
+                    ((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(this.blockToRemove.asItem())), (double) blockpos1.getX() + (double) 0.5F, (double) blockpos1.getY() + 0.7, (double) blockpos1.getZ() + (double) 0.5F, 3, ((double) randomsource.nextFloat() - (double) 0.5F) * 0.08, ((double) randomsource.nextFloat() - (double) 0.5F) * 0.08, ((double) randomsource.nextFloat() - (double) 0.5F) * 0.08, 0.15F);
                 }
             }
 
@@ -144,15 +145,15 @@ public class WhiskbillEatGourdGoal extends MoveToBlockGoal {
             if (this.ticksSinceReachedGoal > 60) {
                 level.removeBlock(blockpos1, false);
                 if (!level.isClientSide) {
-                    for(int i = 0; i < 20; ++i) {
+                    for (int i = 0; i < 20; ++i) {
                         double d3 = randomsource.nextGaussian() * 0.02;
                         double d1 = randomsource.nextGaussian() * 0.02;
                         double d2 = randomsource.nextGaussian() * 0.02;
-                        ((ServerLevel)level).sendParticles(ParticleTypes.POOF, (double)blockpos1.getX() + (double)0.5F, (double)blockpos1.getY(), (double)blockpos1.getZ() + (double)0.5F, 1, d3, d1, d2, (double)0.15F);
+                        ((ServerLevel) level).sendParticles(ParticleTypes.POOF, (double) blockpos1.getX() + (double) 0.5F, blockpos1.getY(), (double) blockpos1.getZ() + (double) 0.5F, 1, d3, d1, d2, 0.15F);
                     }
-                    if (this.dropItem != null){
+                    if (this.dropItem != null) {
                         int randomInt = this.removerMob.getRandom().nextInt(Math.max(this.minAmount, 1), Math.max(this.maxAmount, this.minAmount + 1));
-                        for (int i = 0; i < randomInt; i++){
+                        for (int i = 0; i < randomInt; i++) {
                             this.removerMob.spawnAtLocation(this.dropItem);
                         }
                     }
@@ -165,23 +166,23 @@ public class WhiskbillEatGourdGoal extends MoveToBlockGoal {
         }
 
         if ((!this.isReachedTarget() && this.ticksSinceStartedGoal > 220) ||
-                (!this.isReachedTarget() && blockpos1.getY() > blockpos.getY()+1 &&
-                        Math.abs(blockpos.getX() - blockpos1.getX()) < 4 && Math.abs(blockpos.getZ() - blockpos1.getZ()) < 4)){
+                (!this.isReachedTarget() && blockpos1.getY() > blockpos.getY() + 1 &&
+                        Math.abs(blockpos.getX() - blockpos1.getX()) < 4 && Math.abs(blockpos.getZ() - blockpos1.getZ()) < 4)) {
 
-            if (this.ticksWaitForGourd > 65){
+            if (this.ticksWaitForGourd > 65) {
                 if (!level.isClientSide) {
                     Vec3 starter = this.removerMob.getEyePosition();
                     Vec3 ender = blockpos1.getCenter().subtract(starter);
                     Vec3 normVec3 = ender.normalize();
                     int disLength = Mth.floor(ender.length());
 
-                    for (int i = 1; i < disLength; i++){
+                    for (int i = 1; i < disLength; i++) {
                         Vec3 placeVec3 = starter.add(normVec3.scale(i));
                         for (int j = 0; j < 4; j++) {
                             double d3 = randomsource.nextGaussian() * 0.02;
                             double d1 = randomsource.nextGaussian() * 0.02;
                             double d2 = randomsource.nextGaussian() * 0.02;
-                            ((ServerLevel)level).sendParticles(ParticleTypes.SMALL_GUST, placeVec3.x, placeVec3.y, placeVec3.z, 1, d3, d1, d2, 0.15);
+                            ((ServerLevel) level).sendParticles(ParticleTypes.SMALL_GUST, placeVec3.x, placeVec3.y, placeVec3.z, 1, d3, d1, d2, 0.15);
                         }
                     }
                 }
@@ -199,11 +200,11 @@ public class WhiskbillEatGourdGoal extends MoveToBlockGoal {
 
     }
 
-    public Item getDropItem(){
+    public Item getDropItem() {
         return this.dropItem;
     }
 
-    public void setDropItem(Item item){
+    public void setDropItem(Item item) {
         this.dropItem = item;
     }
 
@@ -214,7 +215,7 @@ public class WhiskbillEatGourdGoal extends MoveToBlockGoal {
         if (chunkaccess != null && blocksToRemove.containsKey(chunkaccess.getBlockState(pos).getBlock())) {
             Block tempBlock = chunkaccess.getBlockState(pos).getBlock();
             this.blockToRemove = tempBlock;
-            if (!((ServerLevel)level).isClientSide && ((GourdLanternBlock)tempBlock).isFullyGrown(chunkaccess.getBlockState(pos))){
+            if (!((ServerLevel) level).isClientSide && ((GourdLanternBlock) tempBlock).isFullyGrown(chunkaccess.getBlockState(pos))) {
                 this.dropItem = blocksToRemove.getOrDefault(this.blockToRemove, Items.AIR);
                 return true;
             }

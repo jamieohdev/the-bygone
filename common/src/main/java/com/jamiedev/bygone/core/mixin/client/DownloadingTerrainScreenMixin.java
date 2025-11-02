@@ -22,7 +22,7 @@ public class DownloadingTerrainScreenMixin extends Screen {
             at = @At(value = "HEAD"), cancellable = true, require = 0)
     private void bygone$renderNewScreenWhenEnteringBygone(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         if (Minecraft.getInstance().player != null && Minecraft.getInstance().level.dimension() == BGDimensions.BYGONE_LEVEL_KEY) {
-            DimensionScreen.renderScreenAndText(((ReceivingLevelScreen)(Object)this), guiGraphics);
+            DimensionScreen.renderScreenAndText(((ReceivingLevelScreen) (Object) this), guiGraphics);
             ci.cancel();
         }
     }

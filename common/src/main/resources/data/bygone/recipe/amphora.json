@@ -6,11 +6,7 @@
       "item": "bygone:claystone"
     }
   },
-  "pattern": [
-    "# #",
-    "# #",
-    "###"
-  ],
+  "pattern": ["# #", "# #", "###"],
   "result": {
     "count": 1,
     "id": "bygone:amphora"

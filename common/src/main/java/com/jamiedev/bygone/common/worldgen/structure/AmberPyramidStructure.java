@@ -56,8 +56,7 @@ public class AmberPyramidStructure extends Structure {
                                  Optional<Heightmap.Types> projectStartToHeightmap,
                                  int maxDistanceFromCenter,
                                  DimensionPadding dimensionPadding,
-                                 LiquidSettings liquidSettings)
-    {
+                                 LiquidSettings liquidSettings) {
         super(config);
         this.startPool = startPool;
         this.startJigsawName = startJigsawName;

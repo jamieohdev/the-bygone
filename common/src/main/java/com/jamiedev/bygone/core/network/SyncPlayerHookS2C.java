@@ -1,15 +1,14 @@
 package com.jamiedev.bygone.core.network;
 
 import com.jamiedev.bygone.Bygone;
-
-import java.util.UUID;
-
 import com.jamiedev.bygone.client.ClientPacketHandler;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
+import java.util.UUID;
 
 public record SyncPlayerHookS2C(int hookId, UUID playerUUID) implements S2CModPacket<RegistryFriendlyByteBuf> {
     public static final CustomPacketPayload.Type<SyncPlayerHookS2C> PACkET_ID = new Type<>(Bygone.id("sync_player_hook"));

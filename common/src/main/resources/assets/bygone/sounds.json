@@ -446,10 +446,7 @@
     "subtitle": "subtitles.entity.mooboo.ambient"
   },
   "entity.mooboo.hurt": {
-    "sounds": [
-      "bygone:entity/mooboo/hurt1",
-      "bygone:entity/mooboo/hurt2"
-    ],
+    "sounds": ["bygone:entity/mooboo/hurt1", "bygone:entity/mooboo/hurt2"],
     "subtitle": "subtitles.entity.mooboo.hurt"
   },
   "entity.mooboo.milk": {
@@ -461,9 +458,7 @@
     "subtitle": "subtitles.entity.mooboo.milk"
   },
   "entity.mooboo.death": {
-    "sounds": [
-      "bygone:entity/mooboo/death"
-    ],
+    "sounds": ["bygone:entity/mooboo/death"],
     "subtitle": "subtitles.entity.mooboo.death"
   },
 

@@ -9,14 +9,12 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.LavaFluid;
 
-public class BronzeFluid extends FlowingFluid
-{
+public class BronzeFluid extends FlowingFluid {
 
     LavaFluid ref;
 
@@ -91,11 +89,11 @@ public class BronzeFluid extends FlowingFluid
 
         protected void createFluidStateDefinition(StateDefinition.Builder<Fluid, FluidState> builder) {
             super.createFluidStateDefinition(builder);
-            builder.add(new Property[]{LEVEL});
+            builder.add(LEVEL);
         }
 
         public int getAmount(FluidState state) {
-            return (Integer)state.getValue(LEVEL);
+            return state.getValue(LEVEL);
         }
 
         public boolean isSource(FluidState state) {

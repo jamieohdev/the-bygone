@@ -2,13 +2,12 @@ package com.jamiedev.bygone.common.worldgen.structure;
 
 import com.google.common.collect.Lists;
 import com.jamiedev.bygone.common.block.gourds.GourdDangoWallBlock;
-import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.init.JamiesModLootTables;
+import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGStructures;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -17,19 +16,9 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.MinecartChest;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.StructureManager;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FallingBlock;
-import net.minecraft.world.level.block.FenceBlock;
-import net.minecraft.world.level.block.RailBlock;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -51,6 +40,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class BygoneMineshaftGenerator {
+    public static final int field_34729 = 50;
     static final Logger LOGGER = LogUtils.getLogger();
     private static final int field_31551 = 3;
     private static final int field_31552 = 3;
@@ -58,7 +48,6 @@ public class BygoneMineshaftGenerator {
     private static final int field_31554 = 20;
     private static final int field_31555 = 50;
     private static final int field_31556 = 8;
-    public static final int field_34729 = 50;
 
 
     public BygoneMineshaftGenerator() {
@@ -92,7 +81,7 @@ public class BygoneMineshaftGenerator {
         if (chainLength > 8) {
             return null;
         } else if (Math.abs(x - start.getBoundingBox().minX()) <= 80 && Math.abs(z - start.getBoundingBox().minZ()) <= 80) {
-            BygoneMineshaftStructure.Type type = ((BygoneMineshaftGenerator.BygoneMineshaftPart)start).mineshaftType;
+            BygoneMineshaftStructure.Type type = ((BygoneMineshaftGenerator.BygoneMineshaftPart) start).mineshaftType;
             BygoneMineshaftGenerator.BygoneMineshaftPart mineshaftPart = pickPiece(holder, random, x, y, z, orientation, chainLength + 1, type);
             if (mineshaftPart != null) {
                 holder.addPiece(mineshaftPart);
@@ -112,12 +101,6 @@ public class BygoneMineshaftGenerator {
         public BygoneMineshaftCrossing(StructurePieceSerializationContext context, CompoundTag nbt) {
             super(BGStructures.BYGONE_MINESHAFT_CROSSING, nbt);
             this.direction = Direction.from2DDataValue(nbt.getInt("D"));
-        }
-
-        @Override
-        protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag nbt) {
-            super.addAdditionalSaveData(context, nbt);
-            nbt.putInt("D", this.direction.get2DDataValue());
         }
 
         public BygoneMineshaftCrossing(int chainLength, BoundingBox boundingBox, @Nullable Direction orientation, BygoneMineshaftStructure.Type type) {
@@ -155,6 +138,12 @@ public class BygoneMineshaftGenerator {
         }
 
         @Override
+        protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag nbt) {
+            super.addAdditionalSaveData(context, nbt);
+            nbt.putInt("D", this.direction.get2DDataValue());
+        }
+
+        @Override
         public void addChildren(StructurePiece start, StructurePieceAccessor holder, @NotNull RandomSource random) {
             int i = this.getGenDepth();
             switch (this.direction) {
@@ -181,7 +170,6 @@ public class BygoneMineshaftGenerator {
             }
 
 
-
         }
 
         @Override
@@ -198,8 +186,8 @@ public class BygoneMineshaftGenerator {
                 this.generateCrossingPillar(world, chunkBox, this.boundingBox.maxX() - 1, this.boundingBox.minY(), this.boundingBox.maxZ() - 1, this.boundingBox.maxY());
                 int i = this.boundingBox.minY() - 1;
 
-                for(int j = this.boundingBox.minX(); j <= this.boundingBox.maxX(); ++j) {
-                    for(int k = this.boundingBox.minZ(); k <= this.boundingBox.maxZ(); ++k) {
+                for (int j = this.boundingBox.minX(); j <= this.boundingBox.maxX(); ++j) {
+                    for (int k = this.boundingBox.minZ(); k <= this.boundingBox.maxZ(); ++k) {
                         this.tryPlaceFloor(world, chunkBox, blockState, j, i, k);
                     }
                 }
@@ -276,7 +264,7 @@ public class BygoneMineshaftGenerator {
                 this.generateBox(world, chunkBox, 0, 5, 0, 2, 7, 1, CAVE_AIR, CAVE_AIR, false);
                 this.generateBox(world, chunkBox, 0, 0, 7, 2, 2, 8, CAVE_AIR, CAVE_AIR, false);
 
-                for(int i = 0; i < 5; ++i) {
+                for (int i = 0; i < 5; ++i) {
                     this.generateBox(world, chunkBox, 0, 5 - i - (i < 4 ? 1 : 0), 2 + i, 2, 7 - i, 2 + i, CAVE_AIR, CAVE_AIR, false);
                 }
 
@@ -287,8 +275,8 @@ public class BygoneMineshaftGenerator {
     public static class BygoneMineshaftCorridor extends BygoneMineshaftGenerator.BygoneMineshaftPart {
         private final boolean hasRails;
         private final boolean hasCobwebs;
-        private boolean hasSpawner;
         private final int length;
+        private boolean hasSpawner;
 
         public BygoneMineshaftCorridor(CompoundTag nbt) {
             super(BGStructures.BYGONE_MINESHAFT_CORRIDOR, nbt);
@@ -306,15 +294,6 @@ public class BygoneMineshaftGenerator {
             this.length = nbt.getInt("Num");
         }
 
-        @Override
-        protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag nbt) {
-            super.addAdditionalSaveData(context, nbt);
-            nbt.putBoolean("hr", this.hasRails);
-            nbt.putBoolean("sc", this.hasCobwebs);
-            nbt.putBoolean("hps", this.hasSpawner);
-            nbt.putInt("Num", this.length);
-        }
-
         public BygoneMineshaftCorridor(int chainLength, @NotNull RandomSource random, BoundingBox boundingBox, Direction orientation, BygoneMineshaftStructure.Type type) {
             super(BGStructures.BYGONE_MINESHAFT_CORRIDOR, chainLength, type, boundingBox);
             this.setOrientation(orientation);
@@ -330,7 +309,7 @@ public class BygoneMineshaftGenerator {
 
         @Nullable
         public static BoundingBox getBoundingBox(StructurePieceAccessor holder, @NotNull RandomSource random, int x, int y, int z, Direction orientation) {
-            for(int i = random.nextInt(3) + 2; i > 0; --i) {
+            for (int i = random.nextInt(3) + 2; i > 0; --i) {
                 int j = i * 5;
                 BoundingBox blockBox;
                 switch (orientation) {
@@ -355,6 +334,22 @@ public class BygoneMineshaftGenerator {
             }
 
             return null;
+        }
+
+        private static void fillColumn(WorldGenLevel world, BlockState state, BlockPos.MutableBlockPos pos, int startY, int endY) {
+            for (int i = startY; i < endY; ++i) {
+                world.setBlock(pos.setY(i), state, 2);
+            }
+
+        }
+
+        @Override
+        protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag nbt) {
+            super.addAdditionalSaveData(context, nbt);
+            nbt.putBoolean("hr", this.hasRails);
+            nbt.putBoolean("sc", this.hasCobwebs);
+            nbt.putBoolean("hps", this.hasSpawner);
+            nbt.putInt("Num", this.length);
         }
 
         @Override
@@ -407,7 +402,7 @@ public class BygoneMineshaftGenerator {
                 int k;
                 int l;
                 if (direction != Direction.NORTH && direction != Direction.SOUTH) {
-                    for(k = this.boundingBox.minX() + 3; k + 3 <= this.boundingBox.maxX(); k += 5) {
+                    for (k = this.boundingBox.minX() + 3; k + 3 <= this.boundingBox.maxX(); k += 5) {
                         l = random.nextInt(5);
                         if (l == 0) {
                             BygoneMineshaftGenerator.pieceGenerator(start, holder, random, k, this.boundingBox.minY(), this.boundingBox.minZ() - 1, Direction.NORTH, i + 1);
@@ -416,7 +411,7 @@ public class BygoneMineshaftGenerator {
                         }
                     }
                 } else {
-                    for(k = this.boundingBox.minZ() + 3; k + 3 <= this.boundingBox.maxZ(); k += 5) {
+                    for (k = this.boundingBox.minZ() + 3; k + 3 <= this.boundingBox.maxZ(); k += 5) {
                         l = random.nextInt(5);
                         if (l == 0) {
                             BygoneMineshaftGenerator.pieceGenerator(start, holder, random, this.boundingBox.minX() - 1, this.boundingBox.minY(), k, Direction.WEST, i + 1);
@@ -435,7 +430,7 @@ public class BygoneMineshaftGenerator {
             if (boundingBox.isInside(blockPos) && world.getBlockState(blockPos).isAir() && !world.getBlockState(blockPos.below()).isAir()) {
                 BlockState blockState = Blocks.RAIL.defaultBlockState().setValue(RailBlock.SHAPE, random.nextBoolean() ? RailShape.NORTH_SOUTH : RailShape.EAST_WEST);
                 this.placeBlock(world, blockState, x, y, z, boundingBox);
-                MinecartChest chestMinecartEntity = new MinecartChest(world.getLevel(), (double)blockPos.getX() + 0.5, (double)blockPos.getY() + 0.5, (double)blockPos.getZ() + 0.5);
+                MinecartChest chestMinecartEntity = new MinecartChest(world.getLevel(), (double) blockPos.getX() + 0.5, (double) blockPos.getY() + 0.5, (double) blockPos.getZ() + 0.5);
                 chestMinecartEntity.setLootTable(lootTable, random.nextLong());
                 world.addFreshEntity(chestMinecartEntity);
                 return true;
@@ -458,7 +453,7 @@ public class BygoneMineshaftGenerator {
 
                 int n;
                 int o;
-                for(n = 0; n < this.length; ++n) {
+                for (n = 0; n < this.length; ++n) {
                     o = 2 + n * 5;
                     this.generateSupports(world, chunkBox, 0, 0, o, 2, 2, random);
                     this.addCobwebsUnderground(world, chunkBox, random, 0.1F, 0, 2, o - 1);
@@ -492,8 +487,8 @@ public class BygoneMineshaftGenerator {
                     }
                 }
 
-                for(n = 0; n <= 2; ++n) {
-                    for(o = 0; o <= m; ++o) {
+                for (n = 0; n <= 2; ++n) {
+                    for (o = 0; o <= m; ++o) {
                         this.tryPlaceFloor(world, chunkBox, blockState, n, -1, o);
                     }
                 }
@@ -508,7 +503,7 @@ public class BygoneMineshaftGenerator {
                 if (this.hasRails) {
                     BlockState blockState2 = Blocks.RAIL.defaultBlockState().setValue(RailBlock.SHAPE, RailShape.NORTH_SOUTH);
 
-                    for(int p = 0; p <= m; ++p) {
+                    for (int p = 0; p <= m; ++p) {
                         BlockState blockState3 = this.getBlock(world, 1, -1, p, chunkBox);
                         if (!blockState3.isAir() && blockState3.isSolidRender(world, this.getWorldPos(1, -1, p))) {
                             float f = this.isInterior(world, 1, 0, p, chunkBox) ? 0.7F : 0.9F;
@@ -539,12 +534,12 @@ public class BygoneMineshaftGenerator {
             if (box.isInside(mutable)) {
                 int i = mutable.getY();
 
-                while(this.isReplaceableByStructures(world.getBlockState(mutable)) && mutable.getY() > world.getMinBuildHeight() + 1) {
+                while (this.isReplaceableByStructures(world.getBlockState(mutable)) && mutable.getY() > world.getMinBuildHeight() + 1) {
                     mutable.move(Direction.DOWN);
                 }
 
                 if (this.isUpsideSolidFullSquare(world, mutable, world.getBlockState(mutable))) {
-                    while(mutable.getY() < i) {
+                    while (mutable.getY() < i) {
                         mutable.move(Direction.UP);
                         world.setBlock(mutable, state, 2);
                     }
@@ -560,7 +555,7 @@ public class BygoneMineshaftGenerator {
                 int j = 1;
                 boolean bl = true;
 
-                for(boolean bl2 = true; bl || bl2; ++j) {
+                for (boolean bl2 = true; bl || bl2; ++j) {
                     BlockState blockState;
                     boolean bl3;
                     if (bl) {
@@ -590,13 +585,6 @@ public class BygoneMineshaftGenerator {
                 }
 
             }
-        }
-
-        private static void fillColumn(WorldGenLevel world, BlockState state, BlockPos.MutableBlockPos pos, int startY, int endY) {
-            for(int i = startY; i < endY; ++i) {
-                world.setBlock(pos.setY(i), state, 2);
-            }
-
         }
 
         private boolean isUpsideSolidFullSquare(LevelReader world, BlockPos pos, BlockState state) {
@@ -638,7 +626,7 @@ public class BygoneMineshaftGenerator {
             Direction[] var9 = Direction.values();
             int var10 = var9.length;
 
-            for(int var11 = 0; var11 < var10; ++var11) {
+            for (int var11 = 0; var11 < var10; ++var11) {
                 Direction direction = var9[var11];
                 mutable.move(direction);
                 if (box.isInside(mutable) && world.getBlockState(mutable).isFaceSturdy(world, mutable, direction.getOpposite())) {
@@ -680,7 +668,7 @@ public class BygoneMineshaftGenerator {
         }
 
         protected boolean isSolidCeiling(BlockGetter world, BoundingBox boundingBox, int minX, int maxX, int y, int z) {
-            for(int i = minX; i <= maxX; ++i) {
+            for (int i = minX; i <= maxX; ++i) {
                 if (this.getBlock(world, i, y + 1, z, boundingBox).isAir()) {
                     return false;
                 }
@@ -702,8 +690,8 @@ public class BygoneMineshaftGenerator {
             } else {
                 int o;
                 int p;
-                for(o = i; o <= l; ++o) {
-                    for(p = k; p <= n; ++p) {
+                for (o = i; o <= l; ++o) {
+                    for (p = k; p <= n; ++p) {
                         if (world.getBlockState(mutable.set(o, j, p)).liquid()) {
                             return true;
                         }
@@ -714,8 +702,8 @@ public class BygoneMineshaftGenerator {
                     }
                 }
 
-                for(o = i; o <= l; ++o) {
-                    for(p = j; p <= m; ++p) {
+                for (o = i; o <= l; ++o) {
+                    for (p = j; p <= m; ++p) {
                         if (world.getBlockState(mutable.set(o, p, k)).liquid()) {
                             return true;
                         }
@@ -726,8 +714,8 @@ public class BygoneMineshaftGenerator {
                     }
                 }
 
-                for(o = k; o <= n; ++o) {
-                    for(p = j; p <= m; ++p) {
+                for (o = k; o <= n; ++o) {
+                    for (p = j; p <= m; ++p) {
                         if (world.getBlockState(mutable.set(i, p, o)).liquid()) {
                             return true;
                         }
@@ -784,7 +772,7 @@ public class BygoneMineshaftGenerator {
             int k;
             BygoneMineshaftGenerator.BygoneMineshaftPart structurePiece;
             BoundingBox blockBox;
-            for(k = 0; k < this.boundingBox.getXSpan(); k += 4) {
+            for (k = 0; k < this.boundingBox.getXSpan(); k += 4) {
                 k += random.nextInt(this.boundingBox.getXSpan());
                 if (k + 3 > this.boundingBox.getXSpan()) {
                     break;
@@ -797,7 +785,7 @@ public class BygoneMineshaftGenerator {
                 }
             }
 
-            for(k = 0; k < this.boundingBox.getXSpan(); k += 4) {
+            for (k = 0; k < this.boundingBox.getXSpan(); k += 4) {
                 k += random.nextInt(this.boundingBox.getXSpan());
                 if (k + 3 > this.boundingBox.getXSpan()) {
                     break;
@@ -810,7 +798,7 @@ public class BygoneMineshaftGenerator {
                 }
             }
 
-            for(k = 0; k < this.boundingBox.getZSpan(); k += 4) {
+            for (k = 0; k < this.boundingBox.getZSpan(); k += 4) {
                 k += random.nextInt(this.boundingBox.getZSpan());
                 if (k + 3 > this.boundingBox.getZSpan()) {
                     break;
@@ -823,7 +811,7 @@ public class BygoneMineshaftGenerator {
                 }
             }
 
-            for(k = 0; k < this.boundingBox.getZSpan(); k += 4) {
+            for (k = 0; k < this.boundingBox.getZSpan(); k += 4) {
                 k += random.nextInt(this.boundingBox.getZSpan());
                 if (k + 3 > this.boundingBox.getZSpan()) {
                     break;
@@ -844,8 +832,8 @@ public class BygoneMineshaftGenerator {
                 this.generateBox(world, chunkBox, this.boundingBox.minX(), this.boundingBox.minY() + 1, this.boundingBox.minZ(), this.boundingBox.maxX(), Math.min(this.boundingBox.minY() + 3, this.boundingBox.maxY()), this.boundingBox.maxZ(), CAVE_AIR, CAVE_AIR, false);
                 Iterator<BoundingBox> var8 = this.entrances.iterator();
 
-                while(var8.hasNext()) {
-                    BoundingBox blockBox = (BoundingBox)var8.next();
+                while (var8.hasNext()) {
+                    BoundingBox blockBox = var8.next();
                     this.generateBox(world, chunkBox, blockBox.minX(), blockBox.maxY() - 2, blockBox.minZ(), blockBox.maxX(), blockBox.maxY(), blockBox.maxZ(), CAVE_AIR, CAVE_AIR, false);
                 }
 
@@ -858,8 +846,8 @@ public class BygoneMineshaftGenerator {
             super.move(x, y, z);
             Iterator<BoundingBox> var4 = this.entrances.iterator();
 
-            while(var4.hasNext()) {
-                BoundingBox blockBox = (BoundingBox)var4.next();
+            while (var4.hasNext()) {
+                BoundingBox blockBox = var4.next();
                 blockBox.move(x, y, z);
             }
 

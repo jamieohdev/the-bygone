@@ -6,7 +6,6 @@ import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 
 import java.util.function.Supplier;
 
@@ -22,7 +21,7 @@ public class BGBlockEntities {
     public static Supplier<BlockEntityType<BlemishCatalystBlockEntity>> BLEMISH_CATALYST;
     public static Supplier<BlockEntityType<AmphoraBlockEntity>> AMPHORA;
 
-    public  static Supplier<BlockEntityType<DoguEntity>> DOGU;
+    public static Supplier<BlockEntityType<DoguEntity>> DOGU;
 
     public static Supplier<BlockEntityType<MegalithTotemEntity>> MEGALITH_TOTEM;
 
@@ -33,8 +32,7 @@ public class BGBlockEntities {
         return JinxedRegistryHelper.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, Bygone.MOD_ID, name, type);
     }
 
-    public static void init()
-    {
+    public static void init() {
         BLEMISH_CATALYST = register("blemish_catalyst", () ->
                 BlockEntityType.Builder.of(BlemishCatalystBlockEntity::new, BGBlocks.BLEMISH_CATALYST.get())
                         .build(null));
@@ -58,9 +56,9 @@ public class BGBlockEntities {
                                 BGBlocks.RED_AMPHORA.get(), BGBlocks.WHITE_AMPHORA.get(), BGBlocks.YELLOW_AMPHORA.get())
                         .build(null));
 
-        BYGONE_PORTAL =  register(
+        BYGONE_PORTAL = register(
                 "bygone_portal", () ->
-                BlockEntityType.Builder.of(BygonePortalBlockEntity::new, BGBlocks.BYGONE_PORTAL.get()).build(null));
+                        BlockEntityType.Builder.of(BygonePortalBlockEntity::new, BGBlocks.BYGONE_PORTAL.get()).build(null));
 
         MEGALITH_TOTEM = register("megalith_totem", () ->
                 BlockEntityType.Builder.of(MegalithTotemEntity::new, BGBlocks.MEGALITH_TOTEM.get()).build(null));
@@ -68,12 +66,12 @@ public class BGBlockEntities {
         GUMBO_POT = register("gumbo_pot", () ->
                 BlockEntityType.Builder.of(GumboPotBlockEntity::new, BGBlocks.GUMBO_POT.get()).build(null));
 
-         DOGU = register("dogu", () ->
+        DOGU = register("dogu", () ->
                 BlockEntityType.Builder.of(DoguEntity::new,
                                 BGBlocks.DOGU.get())
                         .build(null));
 
-        SEAGLASS    = register("seaglass", () ->
+        SEAGLASS = register("seaglass", () ->
                 BlockEntityType.Builder.of(SeaglassBlockEntity::new, BGBlocks.SEAGLASS.get())
                         .build(null));
     }

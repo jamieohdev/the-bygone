@@ -4,7 +4,6 @@ import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -13,41 +12,39 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 
-public class UmbraSoilBlock extends Block
-{
-    public static final MapCodec<UmbraSoilBlock> CODEC = simpleCodec(UmbraSoilBlock::new);
+public class UmbraSoilBlock extends Block {
     public static final BooleanProperty SNOWY;
+    public static final MapCodec<UmbraSoilBlock> CODEC = simpleCodec(UmbraSoilBlock::new);
 
-    protected MapCodec<? extends UmbraSoilBlock> codec() {
-        return CODEC;
+    static {
+        SNOWY = BlockStateProperties.SNOWY;
     }
 
     public UmbraSoilBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(SNOWY, false));
-    }
-
-    protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
-        return facing == Direction.UP ? (BlockState)state.setValue(SNOWY, isSnowySetting(facingState))
-                : super.updateShape(state, facing, facingState, level, currentPos, facingPos);
-    }
-
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos().above());
-        return (BlockState)this.defaultBlockState().setValue(SNOWY, isSnowySetting(blockstate));
+        this.registerDefaultState(this.stateDefinition.any().setValue(SNOWY, false));
     }
 
     private static boolean isSnowySetting(BlockState state) {
         return state.is(JamiesModTag.MOSSY);
     }
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{SNOWY});
+    protected MapCodec<? extends UmbraSoilBlock> codec() {
+        return CODEC;
     }
 
-    static {
-        SNOWY = BlockStateProperties.SNOWY;
+    protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+        return facing == Direction.UP ? state.setValue(SNOWY, isSnowySetting(facingState))
+                : super.updateShape(state, facing, facingState, level, currentPos, facingPos);
+    }
+
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos().above());
+        return this.defaultBlockState().setValue(SNOWY, isSnowySetting(blockstate));
+    }
+
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(SNOWY);
     }
 }

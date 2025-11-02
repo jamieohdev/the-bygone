@@ -2,47 +2,43 @@ package com.jamiedev.bygone.common.block.gourds;
 
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.entity.projectile.ThrownTrident;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.NetherVines;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class GourdVineBlock extends GrowingPlantHeadBlock {
-    public static final MapCodec<GourdVineBlock> CODEC = simpleCodec(GourdVineBlock::new);
-    protected static final VoxelShape SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 16.0, 12.0);
-    private final double growPerTickProbability;
     public static final IntegerProperty GOURD_TYPE;
+    protected static final VoxelShape SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 16.0, 12.0);
+    public static final MapCodec<GourdVineBlock> CODEC = simpleCodec(GourdVineBlock::new);
 
-    @Override
-    public MapCodec<GourdVineBlock> codec() {
-        return CODEC;
+    static {
+        GOURD_TYPE = IntegerProperty.create("gourd_type", 0, 2);
     }
+
+    private final double growPerTickProbability;
 
     public GourdVineBlock(BlockBehaviour.Properties settings) {
         super(settings, Direction.DOWN, SHAPE, false, 0.1);
         this.registerDefaultState(this.getStateDefinition().any().setValue(GOURD_TYPE, 0));
         this.growPerTickProbability = 0.1;
+    }
+
+    @Override
+    public MapCodec<GourdVineBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -65,6 +61,18 @@ public class GourdVineBlock extends GrowingPlantHeadBlock {
     protected boolean canGrowInto(BlockState state) {
         return NetherVines.isValidGrowthState(state);
     }
+
+    /*@Override
+    protected void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
+        if (!level.isClientSide) {
+            BlockPos blockpos = hit.getBlockPos();
+            if (projectile.mayInteract(level, blockpos)
+                    && projectile.mayBreak(level)
+                    && projectile.getDeltaMovement().length() > 0.6) {
+                level.destroyBlock(blockpos, false);
+            }
+        }
+    }*/
 
     @Override
     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
@@ -91,7 +99,7 @@ public class GourdVineBlock extends GrowingPlantHeadBlock {
             }
         }*/
         if (random.nextDouble() < this.growPerTickProbability) {
-            if (random.nextInt(0, 6) == 1){
+            if (random.nextInt(0, 6) == 1) {
                 BlockPos blockpos = pos.relative(this.growthDirection);
                 if (this.canGrowInto(level.getBlockState(blockpos))) {
                     Set<Block> gourds = Set.of(
@@ -104,21 +112,5 @@ public class GourdVineBlock extends GrowingPlantHeadBlock {
                 }
             }
         }
-    }
-
-    /*@Override
-    protected void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
-        if (!level.isClientSide) {
-            BlockPos blockpos = hit.getBlockPos();
-            if (projectile.mayInteract(level, blockpos)
-                    && projectile.mayBreak(level)
-                    && projectile.getDeltaMovement().length() > 0.6) {
-                level.destroyBlock(blockpos, false);
-            }
-        }
-    }*/
-
-    static {
-        GOURD_TYPE = IntegerProperty.create("gourd_type", 0, 2);
     }
 }

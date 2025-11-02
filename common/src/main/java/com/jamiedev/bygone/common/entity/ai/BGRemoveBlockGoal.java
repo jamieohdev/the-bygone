@@ -1,6 +1,5 @@
 package com.jamiedev.bygone.common.entity.ai;
 
-import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -16,25 +15,24 @@ import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 public class BGRemoveBlockGoal extends MoveToBlockGoal {
 
+    private static final int WAIT_AFTER_BLOCK_FOUND = 20;
     private final Block blockToRemove;
     private final Mob removerMob;
     private int ticksSinceReachedGoal;
     private int ticksSinceStartedGoal;
-    private static final int WAIT_AFTER_BLOCK_FOUND = 20;
     private Item dropItem = null;
     private int minAmount = 1;
     private int maxAmount = 1;
@@ -128,7 +126,7 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
                 this.removerMob.setDeltaMovement(vec3.x, 0.3, vec3.z);
                 if (!level.isClientSide) {
                     double d0 = 0.08;
-                    ((ServerLevel)level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(this.blockToRemove.asItem())), (double)blockpos1.getX() + (double)0.5F, (double)blockpos1.getY() + 0.7, (double)blockpos1.getZ() + (double)0.5F, 3, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, ((double)randomsource.nextFloat() - (double)0.5F) * 0.08, (double)0.15F);
+                    ((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(this.blockToRemove.asItem())), (double) blockpos1.getX() + (double) 0.5F, (double) blockpos1.getY() + 0.7, (double) blockpos1.getZ() + (double) 0.5F, 3, ((double) randomsource.nextFloat() - (double) 0.5F) * 0.08, ((double) randomsource.nextFloat() - (double) 0.5F) * 0.08, ((double) randomsource.nextFloat() - (double) 0.5F) * 0.08, 0.15F);
                 }
             }
 
@@ -143,15 +141,15 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
             if (this.ticksSinceReachedGoal > 60) {
                 level.removeBlock(blockpos1, false);
                 if (!level.isClientSide) {
-                    for(int i = 0; i < 20; ++i) {
+                    for (int i = 0; i < 20; ++i) {
                         double d3 = randomsource.nextGaussian() * 0.02;
                         double d1 = randomsource.nextGaussian() * 0.02;
                         double d2 = randomsource.nextGaussian() * 0.02;
-                        ((ServerLevel)level).sendParticles(ParticleTypes.POOF, (double)blockpos1.getX() + (double)0.5F, (double)blockpos1.getY(), (double)blockpos1.getZ() + (double)0.5F, 1, d3, d1, d2, (double)0.15F);
+                        ((ServerLevel) level).sendParticles(ParticleTypes.POOF, (double) blockpos1.getX() + (double) 0.5F, blockpos1.getY(), (double) blockpos1.getZ() + (double) 0.5F, 1, d3, d1, d2, 0.15F);
                     }
-                    if (this.dropItem != null){
+                    if (this.dropItem != null) {
                         int randomInt = this.removerMob.getRandom().nextInt(Math.max(this.minAmount, 1), Math.max(this.maxAmount, this.minAmount + 1));
-                        for (int i = 0; i < randomInt; i++){
+                        for (int i = 0; i < randomInt; i++) {
                             this.removerMob.spawnAtLocation(this.dropItem);
                         }
                     }
@@ -164,8 +162,8 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
         }
 
         if ((!this.isReachedTarget() && this.ticksSinceStartedGoal > 220) ||
-                (!this.isReachedTarget() && blockpos1.getY() > blockpos.getY()+1 &&
-                        Math.abs(blockpos.getX() - blockpos1.getX()) < 4 && Math.abs(blockpos.getZ() - blockpos1.getZ()) < 4)){
+                (!this.isReachedTarget() && blockpos1.getY() > blockpos.getY() + 1 &&
+                        Math.abs(blockpos.getX() - blockpos1.getX()) < 4 && Math.abs(blockpos.getZ() - blockpos1.getZ()) < 4)) {
 
             if (!level.isClientSide) {
                 Vec3 starter = this.removerMob.getEyePosition();
@@ -173,13 +171,13 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
                 Vec3 normVec3 = ender.normalize();
                 int disLength = Mth.floor(ender.length());
 
-                for (int i = 1; i < disLength; i++){
+                for (int i = 1; i < disLength; i++) {
                     Vec3 placeVec3 = starter.add(normVec3.scale(i));
                     for (int j = 0; j < 4; j++) {
                         double d3 = randomsource.nextGaussian() * 0.02;
                         double d1 = randomsource.nextGaussian() * 0.02;
                         double d2 = randomsource.nextGaussian() * 0.02;
-                        ((ServerLevel)level).sendParticles(ParticleTypes.SMALL_GUST, placeVec3.x, placeVec3.y, placeVec3.z, 1, d3, d1, d2, 0.15);
+                        ((ServerLevel) level).sendParticles(ParticleTypes.SMALL_GUST, placeVec3.x, placeVec3.y, placeVec3.z, 1, d3, d1, d2, 0.15);
                     }
                 }
             }
@@ -195,11 +193,11 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
 
     }
 
-    public Item getDropItem(){
+    public Item getDropItem() {
         return this.dropItem;
     }
 
-    public void setDropItem(Item item){
+    public void setDropItem(Item item) {
         this.dropItem = item;
     }
 
@@ -207,7 +205,7 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
     protected boolean isValidTarget(LevelReader level, BlockPos pos) {
         ChunkAccess chunkaccess = level.getChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ()), ChunkStatus.FULL, false);
         //return chunkaccess == null ? false : chunkaccess.getBlockState(pos).is(this.blockToRemove) && chunkaccess.getBlockState(pos.above()).isAir() && chunkaccess.getBlockState(pos.above(2)).isAir();
-        return chunkaccess == null ? false : chunkaccess.getBlockState(pos).is(this.blockToRemove);
+        return chunkaccess != null && chunkaccess.getBlockState(pos).is(this.blockToRemove);
     }
 
     /*@Override

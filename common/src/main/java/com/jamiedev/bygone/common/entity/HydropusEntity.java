@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.common.entity;
 
 import com.google.common.collect.ImmutableList;
-import com.jamiedev.bygone.common.entity.ai.GlareBrain;
 import com.jamiedev.bygone.common.entity.ai.HydropusBrain;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.server.level.ServerLevel;
@@ -61,10 +60,12 @@ public class HydropusEntity extends Animal implements NeutralMob {
     protected Brain.Provider<HydropusEntity> brainProvider() {
         return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
     }
+
     @Override
     protected Brain<?> makeBrain(Dynamic<?> dynamic) {
         return HydropusBrain.create(dynamic, MEMORY_TYPES, SENSOR_TYPES, this);
     }
+
     @Override
     @SuppressWarnings("all")
     public Brain<HydropusEntity> getBrain() {
@@ -73,7 +74,7 @@ public class HydropusEntity extends Animal implements NeutralMob {
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-        if (spawnType == MobSpawnType.STRUCTURE){
+        if (spawnType == MobSpawnType.STRUCTURE) {
             // Need to ask if they are immediately hostile
         }
 

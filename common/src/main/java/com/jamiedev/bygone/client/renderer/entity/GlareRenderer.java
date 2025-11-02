@@ -1,15 +1,15 @@
 package com.jamiedev.bygone.client.renderer.entity;
 
 import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.client.JamiesModModelLayers;
+import com.jamiedev.bygone.client.models.GlareModel;
+import com.jamiedev.bygone.common.entity.GlareEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import com.jamiedev.bygone.client.JamiesModModelLayers;
-import com.jamiedev.bygone.client.models.GlareModel;
-import com.jamiedev.bygone.common.entity.GlareEntity;
 
-public class GlareRenderer  extends MobRenderer<GlareEntity, GlareModel<GlareEntity>> {
+public class GlareRenderer extends MobRenderer<GlareEntity, GlareModel<GlareEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/glare.png");
 
     public GlareRenderer(EntityRendererProvider.Context context) {
@@ -28,7 +28,7 @@ public class GlareRenderer  extends MobRenderer<GlareEntity, GlareModel<GlareEnt
     @Override
     protected void scale(GlareEntity daGlare, PoseStack matrixStack, float f) {
         int i = daGlare.getSize();
-        float g = 1.0F + 0.15F * (float)i;
+        float g = 1.0F + 0.15F * (float) i;
         matrixStack.scale(g, g, g);
         matrixStack.translate(0.0F, 0.65F, 0.1875F);
     }

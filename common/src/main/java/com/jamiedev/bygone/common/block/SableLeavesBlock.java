@@ -12,22 +12,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.MangroveLeavesBlock;
-import net.minecraft.world.level.block.MangrovePropaguleBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class SableLeavesBlock extends LeavesBlock implements BonemealableBlock
-{
+public class SableLeavesBlock extends LeavesBlock implements BonemealableBlock {
     public static final MapCodec<SableLeavesBlock> CODEC = simpleCodec(SableLeavesBlock::new);
+
+    public SableLeavesBlock(Properties settings) {
+        super(settings);
+    }
 
     @Override
     public MapCodec<SableLeavesBlock> codec() {
         return CODEC;
-    }
-
-    public SableLeavesBlock(Properties settings) {
-        super(settings);
     }
 
     @Override

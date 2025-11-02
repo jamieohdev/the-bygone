@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.common.block.gourds;
 
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -9,24 +8,22 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CocoaBlock;
-import net.minecraft.world.level.block.TorchBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class GourdDangoBlock extends Block
-{
-    public static MapCodec<GourdDangoBlock> CODEC;
-
-    @Override
-    protected MapCodec<? extends GourdDangoBlock> codec() { return CODEC; }
-
+public class GourdDangoBlock extends Block {
     protected static final VoxelShape SHAPE = Block.box(6.0, 0.0, 6.0, 10.0, 10.0, 10.0);
+    public static MapCodec<GourdDangoBlock> CODEC;
 
     public GourdDangoBlock(BlockBehaviour.Properties settings) {
         super(settings);
+    }
+
+    @Override
+    protected MapCodec<? extends GourdDangoBlock> codec() {
+        return CODEC;
     }
 
     @Override

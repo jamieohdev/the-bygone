@@ -3,14 +3,10 @@ package com.jamiedev.bygone.common.entity.ai.behavior;
 import com.jamiedev.bygone.common.entity.NectaurEntity;
 import com.jamiedev.bygone.core.registry.BGMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.memory.MemoryStatus;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 public class NectaurJoinGroup extends Behavior<NectaurEntity> {
@@ -21,9 +17,9 @@ public class NectaurJoinGroup extends Behavior<NectaurEntity> {
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, NectaurEntity owner) {
         List<NectaurEntity> nectaurs = level.getEntitiesOfClass(
-                NectaurEntity.class,
-                owner.getBoundingBox().inflate(16)
-        ).stream()
+                        NectaurEntity.class,
+                        owner.getBoundingBox().inflate(16)
+                ).stream()
                 .filter(entity -> entity != owner)
                 .toList();
 
@@ -33,14 +29,14 @@ public class NectaurJoinGroup extends Behavior<NectaurEntity> {
     @Override
     protected void start(ServerLevel level, NectaurEntity owner, long gameTime) {
         List<NectaurEntity> nectaurs = level.getEntitiesOfClass(
-                NectaurEntity.class,
-                owner.getBoundingBox().inflate(16)
-        ).stream()
+                        NectaurEntity.class,
+                        owner.getBoundingBox().inflate(16)
+                ).stream()
                 .filter(entity -> entity != owner)
                 .toList();
 
-        if (nectaurs.isEmpty()){
-            if (owner.getBrain().getMemory(BGMemoryModuleTypes.GROUP_LEADER).isPresent() && level.getEntity(owner.getBrain().getMemory(BGMemoryModuleTypes.GROUP_LEADER).get()) == null){
+        if (nectaurs.isEmpty()) {
+            if (owner.getBrain().getMemory(BGMemoryModuleTypes.GROUP_LEADER).isPresent() && level.getEntity(owner.getBrain().getMemory(BGMemoryModuleTypes.GROUP_LEADER).get()) == null) {
                 owner.getBrain().eraseMemory(BGMemoryModuleTypes.GROUP_LEADER);
             }
             return;

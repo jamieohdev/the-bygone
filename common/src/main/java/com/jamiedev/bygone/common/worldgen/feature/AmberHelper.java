@@ -2,7 +2,6 @@ package com.jamiedev.bygone.common.worldgen.feature;
 
 import com.jamiedev.bygone.common.block.PointedAmberBlock;
 import com.jamiedev.bygone.core.registry.BGBlocks;
-import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -13,8 +12,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 
-public class AmberHelper 
-{
+import java.util.function.Consumer;
+
+public class AmberHelper {
     public AmberHelper() {
     }
 
@@ -38,11 +38,11 @@ public class AmberHelper
             return false;
         } else {
             float f = 6.0F;
-            float g = 6.0F / (float)height;
+            float g = 6.0F / (float) height;
 
-            for(float h = 0.0F; h < 6.2831855F; h += g) {
-                int i = (int)(Mth.cos(h) * (float)height);
-                int j = (int)(Mth.sin(h) * (float)height);
+            for (float h = 0.0F; h < 6.2831855F; h += g) {
+                int i = (int) (Mth.cos(h) * (float) height);
+                int j = (int) (Mth.sin(h) * (float) height);
                 if (canGenerateOrLava(world, pos.offset(i, 0, j))) {
                     return false;
                 }
@@ -64,7 +64,7 @@ public class AmberHelper
         if (height >= 3) {
             callback.accept(getState(direction, DripstoneThickness.BASE));
 
-            for(int i = 0; i < height - 3; ++i) {
+            for (int i = 0; i < height - 3; ++i) {
                 callback.accept(getState(direction, DripstoneThickness.MIDDLE));
             }
         }
@@ -112,7 +112,7 @@ public class AmberHelper
     }
 
     public static boolean canReplace(BlockState state) {
-        return state.is(BGBlocks.AMBER_SANDSTONE.get()) ||state.is(BGBlocks.AMBER_SAND.get()) || state.is(BlockTags.DRIPSTONE_REPLACEABLE);
+        return state.is(BGBlocks.AMBER_SANDSTONE.get()) || state.is(BGBlocks.AMBER_SAND.get()) || state.is(BlockTags.DRIPSTONE_REPLACEABLE);
     }
 
     public static boolean canGenerate(BlockState state) {

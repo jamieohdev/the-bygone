@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.common.util;
 
 import com.google.common.primitives.Doubles;
-import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -13,21 +12,19 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.levelgen.structure.StructurePiece;
 
-public class BygoneUtils
-{
+import java.util.List;
+
+public class BygoneUtils {
     public static BlockPos getLowestLand(ChunkGenerator chunkGenerator, RandomState randomState, BlockPos centerPos, LevelHeightAccessor heightLimitView, boolean canBeOnLiquid, boolean canBeInLiquid) {
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos().set(centerPos.getX(), 1, centerPos.getZ());
         NoiseColumn blockView = chunkGenerator.getBaseColumn(mutable.getX(), mutable.getZ(), heightLimitView, randomState);
         BlockState currentBlockstate = blockView.getBlock(mutable.getY());
         BlockState pastBlockstate = currentBlockstate;
         while (mutable.getY() <= getMaxTerrainLimit(chunkGenerator)) {
-            if(canBeInLiquid && !currentBlockstate.getFluidState().isEmpty())
-            {
+            if (canBeInLiquid && !currentBlockstate.getFluidState().isEmpty()) {
                 mutable.move(Direction.UP);
                 return mutable;
-            }
-            else if((canBeOnLiquid || !pastBlockstate.getFluidState().isEmpty()) && currentBlockstate.isAir())
-            {
+            } else if ((canBeOnLiquid || !pastBlockstate.getFluidState().isEmpty()) && currentBlockstate.isAir()) {
                 mutable.move(Direction.UP);
                 return mutable;
             }
@@ -54,13 +51,13 @@ public class BygoneUtils
     }
 
     public static void centerAllPieces(BlockPos targetPos, List<? extends StructurePiece> pieces) {
-        if(pieces.isEmpty()) return;
+        if (pieces.isEmpty()) return;
 
         Vec3i structureCenter = pieces.get(0).getBoundingBox().getCenter();
         int xOffset = targetPos.getX() - structureCenter.getX();
         int zOffset = targetPos.getZ() - structureCenter.getZ();
 
-        for(StructurePiece structurePiece : pieces) {
+        for (StructurePiece structurePiece : pieces) {
             structurePiece.move(xOffset, 0, zOffset);
         }
     }

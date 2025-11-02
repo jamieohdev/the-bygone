@@ -24,10 +24,10 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
-public class TrilobiteEntity extends AbstractFish
-{
-    GlowSquid ref;
+public class TrilobiteEntity extends AbstractFish {
     private static final EntityDataAccessor<Integer> DARK_TICKS_REMAINING1 = SynchedEntityData.defineId(TrilobiteEntity.class, EntityDataSerializers.INT);
+    GlowSquid ref;
+
     public TrilobiteEntity(EntityType<? extends TrilobiteEntity> entityType, Level world) {
         super(entityType, world);
     }
@@ -36,6 +36,14 @@ public class TrilobiteEntity extends AbstractFish
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 5.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.35);
+    }
+
+    public static boolean checkSurfaceWaterAnimalSpawnRule(EntityType<? extends WaterAnimal> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, @NotNull RandomSource random) {
+        int i = world.getSeaLevel();
+        int j = i - 13;
+
+        return world.getBlockState(pos).getFluidState().is(FluidTags.WATER)
+                && world.getBlockState(pos.above()).is(Blocks.WATER);
     }
 
     @Override
@@ -56,16 +64,6 @@ public class TrilobiteEntity extends AbstractFish
         this.setDarkTicksRemaining(nbt.getInt("DarkTicksRemaining"));
     }
 
-    public static boolean checkSurfaceWaterAnimalSpawnRule(EntityType<? extends WaterAnimal> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, @NotNull RandomSource random) {
-        int i = world.getSeaLevel();
-        int j = i - 13;
-
-        return  world.getBlockState(pos).getFluidState().is(FluidTags.WATER)
-                    && world.getBlockState(pos.above()).is(Blocks.WATER);
-    }
-
-
-
     @Override
     protected SoundEvent getFlopSound() {
         return SoundEvents.TADPOLE_FLOP;
@@ -76,12 +74,12 @@ public class TrilobiteEntity extends AbstractFish
         return Items.WATER_BUCKET.getDefaultInstance();
     }
 
-    private void setDarkTicksRemaining(int ticks) {
-        this.entityData.set(DARK_TICKS_REMAINING1, ticks);
-    }
-
     public int getDarkTicksRemaining() {
         return this.entityData.get(DARK_TICKS_REMAINING1);
+    }
+
+    private void setDarkTicksRemaining(int ticks) {
+        this.entityData.set(DARK_TICKS_REMAINING1, ticks);
     }
 
 

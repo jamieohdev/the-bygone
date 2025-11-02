@@ -6,7 +6,6 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -24,12 +23,11 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import org.jetbrains.annotations.NotNull;
 
-public class AncientRootGenerator
-{
+public class AncientRootGenerator {
     private static final ResourceLocation[] FOSSILS = new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "ancient_roots_1"),
-            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "ancient_roots_2"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,"ancient_roots_3"),
-            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,"ancient_roots_4"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,"ancient_roots_5"),
-            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,"ancient_roots_6")};
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "ancient_roots_2"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "ancient_roots_3"),
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "ancient_roots_4"), ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "ancient_roots_5"),
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "ancient_roots_6")};
 
     public AncientRootGenerator() {
     }

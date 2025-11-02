@@ -23,20 +23,38 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class BygonePortalFramePlaceableBlock extends Block {
-    public static final MapCodec<BygonePortalFramePlaceableBlock> CODEC = simpleCodec(BygonePortalFramePlaceableBlock::new);
     public static final DirectionProperty FACING;
-     protected static final VoxelShape FRAME_SHAPE;
+    public static final MapCodec<BygonePortalFramePlaceableBlock> CODEC = simpleCodec(BygonePortalFramePlaceableBlock::new);
+    protected static final VoxelShape FRAME_SHAPE;
 
     private static BlockPattern COMPLETED_FRAME;
 
-    @Override
-    public MapCodec<BygonePortalFramePlaceableBlock> codec() {
-        return CODEC;
+    static {
+        FACING = HorizontalDirectionalBlock.FACING;
+        FRAME_SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 13.0, 16.0);
     }
 
     public BygonePortalFramePlaceableBlock(Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+
+    public static BlockPattern getCompletedFramePattern() {
+        if (COMPLETED_FRAME == null) {
+            COMPLETED_FRAME = BlockPatternBuilder.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?").where('?',
+                            BlockInWorld.hasState(BlockStatePredicate.ANY))
+                    .where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.SOUTH))))
+                    .where('>', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.WEST))))
+                    .where('v', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.NORTH))))
+                    .where('<', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.EAST)))).build();
+        }
+
+        return COMPLETED_FRAME;
+    }
+
+    @Override
+    public MapCodec<BygonePortalFramePlaceableBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -74,27 +92,8 @@ public class BygonePortalFramePlaceableBlock extends Block {
         builder.add(FACING);
     }
 
-    public static BlockPattern getCompletedFramePattern() {
-        if (COMPLETED_FRAME == null) {
-            COMPLETED_FRAME = BlockPatternBuilder.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?").where('?',
-                    BlockInWorld.hasState(BlockStatePredicate.ANY))
-                    .where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.SOUTH))))
-                    .where('>', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.WEST))))
-                    .where('v', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.NORTH))))
-                    .where('<', BlockInWorld.hasState(BlockStatePredicate.forBlock(BGBlocks.BYGONE_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.EAST)))).build();
-        }
-
-        return COMPLETED_FRAME;
-    }
-
     @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
-    }
-
-
-    static {
-        FACING = HorizontalDirectionalBlock.FACING;
-        FRAME_SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 13.0, 16.0);
     }
 }

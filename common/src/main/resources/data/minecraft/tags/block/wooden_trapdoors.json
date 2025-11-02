@@ -1,6 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "bygone:ancient_trapdoor",
-    "bygone:sable_trapdoor"]
+  "values": ["bygone:ancient_trapdoor", "bygone:sable_trapdoor"]
 }

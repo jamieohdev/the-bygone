@@ -18,11 +18,31 @@ import net.minecraft.world.level.levelgen.feature.HugeFungusConfiguration;
 import net.minecraft.world.level.levelgen.feature.WeepingVinesFeature;
 import org.jetbrains.annotations.NotNull;
 
-public class AncientFungusFeature  extends Feature<HugeFungusConfiguration> {
+public class AncientFungusFeature extends Feature<HugeFungusConfiguration> {
     private static final float field_31507 = 0.06F;
 
     public AncientFungusFeature(Codec<HugeFungusConfiguration> codec) {
         super(codec);
+    }
+
+    private static boolean isReplaceable(WorldGenLevel world, BlockPos pos, HugeFungusConfiguration config, boolean checkConfig) {
+        if (world.isStateAtPosition(pos, BlockBehaviour.BlockStateBase::canBeReplaced)) {
+            return true;
+        } else {
+            return checkConfig && config.replaceableBlocks.test(world, pos);
+        }
+    }
+
+    private static void generateVines(BlockPos pos, LevelAccessor world, @NotNull RandomSource random) {
+        BlockPos.MutableBlockPos mutable = pos.mutable().move(Direction.UP);
+        if (world.isEmptyBlock(mutable)) {
+            int i = Mth.nextInt(random, 1, 5);
+            if (random.nextInt(7) == 0) {
+                i *= 2;
+            }
+
+            WeepingVinesFeature.placeWeepingVinesColumn(world, random, mutable, i, 23, 25);
+        }
     }
 
     @Override
@@ -62,24 +82,16 @@ public class AncientFungusFeature  extends Feature<HugeFungusConfiguration> {
         }
     }
 
-    private static boolean isReplaceable(WorldGenLevel world, BlockPos pos, HugeFungusConfiguration config, boolean checkConfig) {
-        if (world.isStateAtPosition(pos, BlockBehaviour.BlockStateBase::canBeReplaced)) {
-            return true;
-        } else {
-            return checkConfig && config.replaceableBlocks.test(world, pos);
-        }
-    }
-
     private void generateStem(WorldGenLevel world, @NotNull RandomSource random, HugeFungusConfiguration config, BlockPos pos, int stemHeight, boolean thickStem) {
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
         BlockState blockState = config.stemState;
         int i = thickStem ? 1 : 0;
 
-        for(int j = -i; j <= i; ++j) {
-            for(int k = -i; k <= i; ++k) {
+        for (int j = -i; j <= i; ++j) {
+            for (int k = -i; k <= i; ++k) {
                 boolean bl = thickStem && Mth.abs(j) == i && Mth.abs(k) == i;
 
-                for(int l = 0; l < stemHeight; ++l) {
+                for (int l = 0; l < stemHeight; ++l) {
                     mutable.setWithOffset(pos, j, l, k);
                     if (isReplaceable(world, mutable, config, true)) {
                         if (config.planted) {
@@ -108,7 +120,7 @@ public class AncientFungusFeature  extends Feature<HugeFungusConfiguration> {
         int i = Math.min(random.nextInt(1 + hatHeight / 3) + 5, hatHeight);
         int j = hatHeight - i;
 
-        for(int k = j; k <= hatHeight; ++k) {
+        for (int k = j; k <= hatHeight; ++k) {
             int l = k < hatHeight - random.nextInt(3) ? 2 : 1;
             if (i > 8 && k < j + 4) {
                 l = 3;
@@ -118,8 +130,8 @@ public class AncientFungusFeature  extends Feature<HugeFungusConfiguration> {
                 ++l;
             }
 
-            for(int m = -l; m <= l; ++m) {
-                for(int n = -l; n <= l; ++n) {
+            for (int m = -l; m <= l; ++m) {
+                for (int n = -l; n <= l; ++n) {
                     boolean bl2 = m == -l || m == l;
                     boolean bl3 = n == -l || n == l;
                     boolean bl4 = !bl2 && !bl3 && k != hatHeight;
@@ -164,24 +176,12 @@ public class AncientFungusFeature  extends Feature<HugeFungusConfiguration> {
     private void placeWithOptionalVines(LevelAccessor world, @NotNull RandomSource random, BlockPos pos, BlockState state, boolean vines) {
         if (world.getBlockState(pos.above()).is(state.getBlock())) {
             this.setBlock(world, pos, state);
-        } else if ((double)random.nextFloat() < 0.15) {
+        } else if ((double) random.nextFloat() < 0.15) {
             this.setBlock(world, pos, state);
             if (vines && random.nextInt(11) == 0) {
                 generateVines(pos, world, random);
             }
         }
 
-    }
-
-    private static void generateVines(BlockPos pos, LevelAccessor world, @NotNull RandomSource random) {
-        BlockPos.MutableBlockPos mutable = pos.mutable().move(Direction.UP);
-        if (world.isEmptyBlock(mutable)) {
-            int i = Mth.nextInt(random, 1, 5);
-            if (random.nextInt(7) == 0) {
-                i *= 2;
-            }
-
-            WeepingVinesFeature.placeWeepingVinesColumn(world, random, mutable, i, 23, 25);
-        }
     }
 }

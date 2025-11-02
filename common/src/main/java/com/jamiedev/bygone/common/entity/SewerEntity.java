@@ -11,8 +11,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
-public class SewerEntity  extends Monster
-{
+public class SewerEntity extends Monster {
     PolarBear ref;
 
 

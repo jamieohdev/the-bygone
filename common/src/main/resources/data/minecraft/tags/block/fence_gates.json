@@ -1,5 +1,4 @@
 {
   "replace": false,
-  "values": ["bygone:ancient_fence_gate",
-    "bygone:sable_fence_gate"]
+  "values": ["bygone:ancient_fence_gate", "bygone:sable_fence_gate"]
 }

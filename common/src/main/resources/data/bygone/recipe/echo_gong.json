@@ -9,11 +9,7 @@
       "item": "minecraft:echo_shard"
     }
   },
-  "pattern": [
-    " S ",
-    "SCS",
-    " S "
-  ],
+  "pattern": [" S ", "SCS", " S "],
   "result": {
     "count": 1,
     "id": "bygone:echo_gong"

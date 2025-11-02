@@ -1,11 +1,9 @@
 package com.jamiedev.bygone.core.datagen;
 
-import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.level.block.Block;
 
 import java.util.Set;
 

@@ -13,6 +13,13 @@
   },
   "placement": [
     {
+      "type": "minecraft:rarity_filter",
+      "chance": 16
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
       "type": "minecraft:height_range",
       "height": {
         "type": "minecraft:uniform",
@@ -23,13 +30,6 @@
           "above_bottom": 0
         }
       }
-    },
-    {
-      "type": "minecraft:rarity_filter",
-      "chance": 16
-    },
-    {
-      "type": "minecraft:in_square"
     },
     {
       "type": "minecraft:biome"

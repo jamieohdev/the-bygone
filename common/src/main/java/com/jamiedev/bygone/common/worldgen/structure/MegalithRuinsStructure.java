@@ -25,8 +25,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSetting
 
 import java.util.Optional;
 
-public class MegalithRuinsStructure extends Structure
-{
+public class MegalithRuinsStructure extends Structure {
     public static final MapCodec<MegalithRuinsStructure> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(MegalithRuinsStructure.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
@@ -49,15 +48,14 @@ public class MegalithRuinsStructure extends Structure
     private final LiquidSettings liquidSettings;
 
     public MegalithRuinsStructure(Structure.StructureSettings config,
-                               Holder<StructureTemplatePool> startPool,
-                               Optional<ResourceLocation> startJigsawName,
-                               int size,
-                               HeightProvider startHeight,
-                               Optional<Heightmap.Types> projectStartToHeightmap,
-                               int maxDistanceFromCenter,
-                               DimensionPadding dimensionPadding,
-                               LiquidSettings liquidSettings)
-    {
+                                  Holder<StructureTemplatePool> startPool,
+                                  Optional<ResourceLocation> startJigsawName,
+                                  int size,
+                                  HeightProvider startHeight,
+                                  Optional<Heightmap.Types> projectStartToHeightmap,
+                                  int maxDistanceFromCenter,
+                                  DimensionPadding dimensionPadding,
+                                  LiquidSettings liquidSettings) {
         super(config);
         this.startPool = startPool;
         this.startJigsawName = startJigsawName;

@@ -9,8 +9,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
-public class SabeastRenderer extends MobRenderer<SabeastEntity, SabeastModel<SabeastEntity>>
-{
+public class SabeastRenderer extends MobRenderer<SabeastEntity, SabeastModel<SabeastEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/sabeast.png");
 
     public SabeastRenderer(EntityRendererProvider.Context context) {

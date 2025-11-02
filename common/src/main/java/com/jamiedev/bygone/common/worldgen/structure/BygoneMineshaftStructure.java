@@ -6,9 +6,6 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.Optional;
-import java.util.function.IntFunction;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
@@ -20,6 +17,9 @@ import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
+
+import java.util.Optional;
+import java.util.function.IntFunction;
 
 public class BygoneMineshaftStructure extends Structure {
     public static final MapCodec<BygoneMineshaftStructure> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
@@ -53,7 +53,7 @@ public class BygoneMineshaftStructure extends Structure {
         mineshaftRoom.addChildren(mineshaftRoom, collector, chunkRandom);
         int i = chunkGenerator.getSeaLevel();
 
-       return collector.moveBelowSeaLevel(i, chunkGenerator.getMinY() + 150, chunkRandom, 10);
+        return collector.moveBelowSeaLevel(i, chunkGenerator.getMinY() + 150, chunkRandom, 10);
 
     }
 
@@ -79,12 +79,12 @@ public class BygoneMineshaftStructure extends Structure {
             this.fence = fence.defaultBlockState();
         }
 
-        public String getName() {
-            return this.name;
-        }
-
         public static BygoneMineshaftStructure.Type byId(int id) {
             return BY_ID.apply(id);
+        }
+
+        public String getName() {
+            return this.name;
         }
 
         public BlockState getLog() {

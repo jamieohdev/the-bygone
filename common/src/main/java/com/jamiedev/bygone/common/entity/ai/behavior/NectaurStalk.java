@@ -10,18 +10,17 @@ import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import net.minecraft.world.level.Level;
 
 import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Function;
 
 public class NectaurStalk {
+    private static final int STALK_DURATION_TICKS = 60;
+
     public static BehaviorControl<Mob> create(float speedModifier, int closeEnoughDist, int tooFarDist) {
         return create(p_147908_ -> speedModifier, closeEnoughDist, tooFarDist);
     }
-
-    private static final int STALK_DURATION_TICKS = 60;
 
     public static BehaviorControl<Mob> create(Function<LivingEntity, Float> speedModifier, int closeDist, int farDist) {
         return BehaviorBuilder.create(
@@ -41,7 +40,7 @@ public class NectaurStalk {
                                     LivingEntity target = inst.get(attack_target);
                                     UUID leaderUUID = self.getBrain().getMemory(BGMemoryModuleTypes.GROUP_LEADER).orElse(null);
 
-                                    if (leaderUUID == null || !self.getUUID().equals(leaderUUID))
+                                    if (!self.getUUID().equals(leaderUUID))
                                         return true;
 
                                     double distanceSq = self.distanceToSqr(target);
@@ -53,7 +52,7 @@ public class NectaurStalk {
                                         self.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
 
                                         lookAtTarget(self, target);
-                                        self.getBrain().setMemoryWithExpiry(MemoryModuleType.TOUCH_COOLDOWN, Unit.INSTANCE, (long)STALK_DURATION_TICKS);
+                                        self.getBrain().setMemoryWithExpiry(MemoryModuleType.TOUCH_COOLDOWN, Unit.INSTANCE, STALK_DURATION_TICKS);
 
                                         signalNearbyAllies(level, self, BGMemoryModuleTypes.IS_STALKING, true, 8);
                                     }
@@ -113,6 +112,6 @@ public class NectaurStalk {
     }
 
     public static void setCooldown(LivingEntity entity, int cooldown) {
-        entity.getBrain().setMemoryWithExpiry(MemoryModuleType.SONIC_BOOM_COOLDOWN, Unit.INSTANCE, (long)cooldown);
+        entity.getBrain().setMemoryWithExpiry(MemoryModuleType.SONIC_BOOM_COOLDOWN, Unit.INSTANCE, cooldown);
     }
 }

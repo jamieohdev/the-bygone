@@ -5,7 +5,6 @@ import com.jamiedev.bygone.core.registry.BGBlockEntities;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -22,12 +21,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CoralFanBlock;
-import net.minecraft.world.level.block.FlowerBlock;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -44,28 +38,26 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
-{
-    CoralFanBlock ref1;
+public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED;
-
     public static final MapCodec<PrimordialVentBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
         return instance.group(Codec.BOOL.fieldOf("spawn_particles").forGetter((block) -> {
             return block.emitsParticles;
         }), propertiesCodec()).apply(instance, PrimordialVentBlock::new);
     });
-
+    protected static final VoxelShape SHAPE;
     public static BooleanProperty SIGNAL_FIRE;
 
-    @Override
-    public MapCodec<PrimordialVentBlock> codec() {
-        return CODEC;
+    static {
+        WATERLOGGED = BlockStateProperties.WATERLOGGED;
+        SIGNAL_FIRE = BlockStateProperties.SIGNAL_FIRE;
+        SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 14.0, 14.0);
     }
 
-    FlowerBlock ref;
-
-    protected static final VoxelShape SHAPE;
     private final boolean emitsParticles;
+    CoralFanBlock ref1;
+    FlowerBlock ref;
+    CoralFanBlock ref2;
 
     public PrimordialVentBlock(boolean emitsParticles, Properties settings) {
         super(settings);
@@ -80,7 +72,7 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
             Direction[] var3 = Direction.values();
             int var4 = var3.length;
 
-            for(int var5 = 0; var5 < var4; ++var5) {
+            for (int var5 = 0; var5 < var4; ++var5) {
                 Direction direction = var3[var5];
                 if (world.getFluidState(pos.relative(direction)).is(FluidTags.WATER)) {
                     return true;
@@ -90,6 +82,23 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
             return false;
         }
     }
+
+    public static void spawnSmokeParticle(Level world, BlockPos pos, boolean lotsOfSmoke) {
+        RandomSource random = world.getRandom();
+        SimpleParticleType simpleParticleType = ParticleTypes.CAMPFIRE_COSY_SMOKE;
+
+        world.addParticle(simpleParticleType, true, (double) pos.getX() + 0.5 + random.nextDouble() / 3.0 * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getY() + random.nextDouble() + random.nextDouble(), (double) pos.getZ() + 0.5 + random.nextDouble() / 3.0 * (double) (random.nextBoolean() ? 1 : -1), 0.0, 0.07, 0.0);
+        if (lotsOfSmoke) {
+            world.addParticle(ParticleTypes.SMOKE, (double) pos.getX() + 0.5 + random.nextDouble() / 4.0 * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getY() + 0.4, (double) pos.getZ() + 0.5 + random.nextDouble() / 4.0 * (double) (random.nextBoolean() ? 1 : -1), 0.0, 0.005, 0.0);
+        }
+
+    }
+
+    @Override
+    public MapCodec<PrimordialVentBlock> codec() {
+        return CODEC;
+    }
+
     @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
@@ -98,8 +107,6 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
 
         return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
-
-    CoralFanBlock ref2;
 
     @Override
     protected void tick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
@@ -124,23 +131,11 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
         super.entityInside(state, world, pos, entity);
     }
 
-    public static void spawnSmokeParticle(Level world, BlockPos pos, boolean lotsOfSmoke) {
-        RandomSource random = world.getRandom();
-        SimpleParticleType simpleParticleType = ParticleTypes.CAMPFIRE_COSY_SMOKE;
-
-        world.addParticle(simpleParticleType, true, (double)pos.getX() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), 0.0, 0.07, 0.0);
-        if (lotsOfSmoke) {
-            world.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + 0.5 + random.nextDouble() / 4.0 * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + 0.4, (double)pos.getZ() + 0.5 + random.nextDouble() / 4.0 * (double)(random.nextBoolean() ? 1 : -1), 0.0, 0.005, 0.0);
-        }
-
-    }
-
     @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, @NotNull RandomSource random) {
-        if (state.getValue(WATERLOGGED))
-        {
+        if (state.getValue(WATERLOGGED)) {
             if (random.nextInt(100) == 0) {
-                world.playLocalSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
+                world.playLocalSound((double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
             }
         }
     }
@@ -159,9 +154,9 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
         if (world.isClientSide) {
-            return  state.getValue(WATERLOGGED) ? createTickerHelper(type, BGBlockEntities.PRIMORDIAL_VENT.get(), PrimordialVentEntity::clientTick) : null;
+            return state.getValue(WATERLOGGED) ? createTickerHelper(type, BGBlockEntities.PRIMORDIAL_VENT.get(), PrimordialVentEntity::clientTick) : null;
         } else {
-            return  state.getValue(WATERLOGGED) ? createTickerHelper(type, BGBlockEntities.PRIMORDIAL_VENT.get(), PrimordialVentEntity::litServerTick) : null;
+            return state.getValue(WATERLOGGED) ? createTickerHelper(type, BGBlockEntities.PRIMORDIAL_VENT.get(), PrimordialVentEntity::litServerTick) : null;
         }
     }
 
@@ -191,12 +186,5 @@ public class PrimordialVentBlock extends BaseEntityBlock implements SimpleWaterl
         FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
         BlockState blockState = this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
         return blockState;
-    }
-
-
-    static {
-        WATERLOGGED = BlockStateProperties.WATERLOGGED;
-        SIGNAL_FIRE = BlockStateProperties.SIGNAL_FIRE;
-        SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 14.0, 14.0);
     }
 }

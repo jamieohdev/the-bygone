@@ -1,10 +1,6 @@
 package com.jamiedev.bygone.common.worldgen.feature;
 
 import com.mojang.serialization.Codec;
-
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.OptionalInt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -22,9 +18,17 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Iterator;
+import java.util.Optional;
+import java.util.OptionalInt;
+
 public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatureConfig> {
     public PointedAmberClusterFeature(Codec<PointedAmberClusterFeatureConfig> codec) {
         super(codec);
+    }
+
+    private static float clampedGaussian(RandomSource random, float min, float max, float mean, float deviation) {
+        return ClampedNormalFloat.sample(random, mean, deviation, min, max);
     }
 
     @Override
@@ -42,8 +46,8 @@ public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatu
             int j = PointedAmberClusterFeatureConfig.radius.sample(random);
             int k = PointedAmberClusterFeatureConfig.radius.sample(random);
 
-            for(int l = -j; l <= j; ++l) {
-                for(int m = -k; m <= k; ++m) {
+            for (int l = -j; l <= j; ++l) {
+                for (int m = -k; m <= k; ++m) {
                     double d = this.amberChance(j, k, l, m, PointedAmberClusterFeatureConfig);
                     BlockPos blockPos2 = blockPos.offset(l, 0, m);
                     this.generate(structureWorldAccess, random, blockPos2, l, m, f, d, i, g, PointedAmberClusterFeatureConfig);
@@ -124,8 +128,8 @@ public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatu
                 }
 
                 /**if (optionalInt3.isPresent()) {
-                    AmberHelper.generatePointedAmber(world, pos.atY(optionalInt3.getAsInt() + 1), Direction.UP, t, bl4);
-                }**/
+                 AmberHelper.generatePointedAmber(world, pos.atY(optionalInt3.getAsInt() + 1), Direction.UP, t, bl4);
+                 }**/
 
             }
         }
@@ -140,8 +144,8 @@ public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatu
             return 0;
         } else {
             int i = Math.abs(localX) + Math.abs(localZ);
-            float f = (float)Mth.clampedMap(i, 0.0, config.maxDistanceFromCenterAffectingHeightBias, (double)height / 2.0, 0.0);
-            return (int)clampedGaussian(random, 0.0F, (float)height, f, (float)config.heightDeviation);
+            float f = (float) Mth.clampedMap(i, 0.0, config.maxDistanceFromCenterAffectingHeightBias, (double) height / 2.0, 0.0);
+            return (int) clampedGaussian(random, 0.0F, (float) height, f, (float) config.heightDeviation);
         }
     }
 
@@ -159,8 +163,8 @@ public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatu
                         return this.isStoneOrWater(world, pos.below());
                     }
 
-                    direction = (Direction)var4.next();
-                } while(this.isStoneOrWater(world, pos.relative(direction)));
+                    direction = var4.next();
+                } while (this.isStoneOrWater(world, pos.relative(direction)));
 
                 return false;
             }
@@ -177,7 +181,7 @@ public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatu
     private void placeAmberBlocks(WorldGenLevel world, BlockPos pos, int height, Direction direction) {
         BlockPos.MutableBlockPos mutable = pos.mutable();
 
-        for(int i = 0; i < height; ++i) {
+        for (int i = 0; i < height; ++i) {
             if (!AmberHelper.generateAmberBlock(world, mutable)) {
                 return;
             }
@@ -191,10 +195,6 @@ public class PointedAmberClusterFeature extends Feature<PointedAmberClusterFeatu
         int i = radiusX - Math.abs(localX);
         int j = radiusZ - Math.abs(localZ);
         int k = Math.min(i, j);
-        return Mth.clampedMap((float)k, 0.0F, (float)config.maxDistanceFromCenterAffectingChanceOfAmberColumn, config.chanceOfAmberColumnAtMaxDistanceFromCenter, 1.0F);
-    }
-
-    private static float clampedGaussian(RandomSource random, float min, float max, float mean, float deviation) {
-        return ClampedNormalFloat.sample(random, mean, deviation, min, max);
+        return Mth.clampedMap((float) k, 0.0F, (float) config.maxDistanceFromCenterAffectingChanceOfAmberColumn, config.chanceOfAmberColumnAtMaxDistanceFromCenter, 1.0F);
     }
 }

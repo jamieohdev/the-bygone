@@ -7,8 +7,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 
-public class BGCriteria
-{
+public class BGCriteria {
     public static final KilledTrigger KILLED_BY_BLEMISH_CRITERION = new KilledTrigger();
     public static final ResourceLocation ENTER_BYGONE_ADVANCEMENT = ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,
             "bygone/enter_bygone");

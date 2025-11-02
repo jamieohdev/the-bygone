@@ -3,7 +3,6 @@ package com.jamiedev.bygone.common.worldgen.structure;
 import com.jamiedev.bygone.core.registry.BGStructures;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.EmptyBlockGetter;
@@ -16,8 +15,9 @@ import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 
-public class BygonePortalStructure extends Structure
-{
+import java.util.Optional;
+
+public class BygonePortalStructure extends Structure {
     public static final MapCodec<BygonePortalStructure> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
         return instance.group(settingsCodec(instance), HeightProvider.CODEC.fieldOf("height").forGetter((structure) -> {
             return structure.height;
@@ -41,7 +41,7 @@ public class BygonePortalStructure extends Structure
         NoiseColumn verticalBlockSample = context.chunkGenerator().getBaseColumn(i, j, context.heightAccessor(), context.randomState());
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos(i, l, j);
 
-        while(l > k) {
+        while (l > k) {
             BlockState blockState = verticalBlockSample.getBlock(l);
             --l;
             BlockState blockState2 = verticalBlockSample.getBlock(l);

@@ -435,7 +435,7 @@ public class BygoneNeoForge {
     void entityTick(EntityTickEvent.Post event) {
         Entity entity = event.getEntity();
         if (entity instanceof Cow cow && !entity.level().isClientSide) {
-        //    Bygone.tickCow(cow);
+            //    Bygone.tickCow(cow);
         }
     }
 

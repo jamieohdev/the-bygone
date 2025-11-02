@@ -9,8 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
-public class SmallCloudFeature extends Feature<SmallCloudConfig>
-{
+public class SmallCloudFeature extends Feature<SmallCloudConfig> {
 
     public SmallCloudFeature(Codec<SmallCloudConfig> configCodec) {
         super(configCodec);
@@ -37,8 +36,7 @@ public class SmallCloudFeature extends Feature<SmallCloudConfig>
                     for (int z = 0; z < baseWidth + random.nextInt(3); ++z) {
                         BlockPos newPosition = blockPos.offset(x, y, z);
                         BlockState blockState2 = level.getBlockState(blockPos.offset(x, y, z));
-                        if (level.isEmptyBlock(newPosition))
-                        {
+                        if (level.isEmptyBlock(newPosition)) {
                             if (x + y + z < 9 + random.nextInt(16)) {
                                 this.setBlock(level, newPosition, blockState);
                             }

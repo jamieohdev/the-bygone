@@ -2,7 +2,6 @@ package com.jamiedev.bygone.common.block.shelf;
 
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -21,13 +20,13 @@ import org.jetbrains.annotations.NotNull;
 public class ShelfPurpleFungiVinesBodyBlock extends GrowingPlantBodyBlock implements BonemealableBlock, ShelfVines {
     public static final MapCodec<ShelfPurpleFungiVinesBodyBlock> CODEC = simpleCodec(ShelfPurpleFungiVinesBodyBlock::new);
 
+    public ShelfPurpleFungiVinesBodyBlock(Properties settings) {
+        super(settings, Direction.DOWN, SHAPE, false);
+    }
+
     @Override
     public MapCodec<ShelfPurpleFungiVinesBodyBlock> codec() {
         return CODEC;
-    }
-
-    public ShelfPurpleFungiVinesBodyBlock(Properties settings) {
-        super(settings, Direction.DOWN, SHAPE, false);
     }
 
     @Override
@@ -39,7 +38,6 @@ public class ShelfPurpleFungiVinesBodyBlock extends GrowingPlantBodyBlock implem
     public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
         return new ItemStack(BGBlocks.PURPLE_FUNGI_VINES_PLANT.get());
     }
-
 
 
     @Override

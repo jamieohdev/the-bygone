@@ -12,7 +12,6 @@ public class AttachmentTypesNeoForge {
             AttachmentType.builder(() -> 0).serialize(Codec.INT).build());
 
 
-
     public static void init() {
 
     }

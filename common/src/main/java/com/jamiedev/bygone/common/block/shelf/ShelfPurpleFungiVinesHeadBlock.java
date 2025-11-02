@@ -20,14 +20,14 @@ public class ShelfPurpleFungiVinesHeadBlock extends GrowingPlantHeadBlock implem
     public static final MapCodec<ShelfPurpleFungiVinesHeadBlock> CODEC = simpleCodec(ShelfPurpleFungiVinesHeadBlock::new);
     private static final float GROW_CHANCE = 0.11F;
 
-    @Override
-    public MapCodec<ShelfPurpleFungiVinesHeadBlock> codec() {
-        return CODEC;
-    }
-
     public ShelfPurpleFungiVinesHeadBlock(Properties settings) {
         super(settings, Direction.DOWN, SHAPE, false, 0.1);
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
+    }
+
+    @Override
+    public MapCodec<ShelfPurpleFungiVinesHeadBlock> codec() {
+        return CODEC;
     }
 
     @Override

@@ -1,13 +1,6 @@
 package com.jamiedev.bygone.common.entity.ai;
 
-import java.util.EnumSet;
-import java.util.Optional;
-import java.util.function.Predicate;
-import javax.annotation.Nullable;
-
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -15,25 +8,27 @@ import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 
-public class AvoidBlockGoal extends Goal
-{
+import javax.annotation.Nullable;
+import java.util.EnumSet;
+import java.util.Optional;
+import java.util.function.Predicate;
+
+public class AvoidBlockGoal extends Goal {
 
     /**
      * @author CrimsonCrips (https://github.com/CrimsonCrips)
      * Please check them out!!
      */
     protected final PathfinderMob mob;
-    private final double walkSpeedModifier;
-    private final double sprintSpeedModifier;
     protected final float maxDist;
-    @Nullable
-    protected Path path;
     protected final PathNavigation pathNav;
     protected final Predicate<BlockPos> posFilter;
-
+    private final double walkSpeedModifier;
+    private final double sprintSpeedModifier;
+    @Nullable
+    protected Path path;
     @Nullable
     protected BlockPos toAvoid;
-
 
 
     /**
@@ -93,7 +88,6 @@ public class AvoidBlockGoal extends Goal
      * Keep ticking a continuous task that has already been started
      */
     public void tick() {
-
 
 
         if (this.toAvoid == null) {

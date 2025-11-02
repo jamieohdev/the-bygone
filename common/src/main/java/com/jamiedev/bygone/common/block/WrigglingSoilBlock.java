@@ -15,13 +15,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class WrigglingSoilBlock extends Block
-{
+public class WrigglingSoilBlock extends Block {
     public WrigglingSoilBlock(Properties properties) {
         super(properties);
     }
@@ -31,26 +29,26 @@ public class WrigglingSoilBlock extends Block
         if (stack.is(Items.BUCKET)) {
             if (!level.isClientSide) {
                 ItemStack baitwormBucket = new ItemStack(BGItems.BUCKET_O_BAITWORMS.get());
-                
+
                 level.setBlock(pos, BGBlocks.UMBRAL_SOIL.get().defaultBlockState(), 3);
-                
+
                 if (!player.getAbilities().instabuild) {
                     stack.shrink(1);
                 }
-                
+
                 if (stack.isEmpty()) {
                     player.setItemInHand(hand, baitwormBucket);
                 } else if (!player.getInventory().add(baitwormBucket)) {
                     player.drop(baitwormBucket, false);
                 }
-                
+
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
             return ItemInteractionResult.sidedSuccess(level.isClientSide);
         }
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
-    
+
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         for (int x = -1; x <= 1; x++) {
@@ -58,12 +56,12 @@ public class WrigglingSoilBlock extends Block
                 BlockPos farmlandPos = pos.offset(x, 0, z);
                 BlockState farmlandState = level.getBlockState(farmlandPos);
                 Block farmlandBlock = farmlandState.getBlock();
-                
+
                 if (farmlandBlock instanceof FarmBlock ||
-                    farmlandBlock instanceof ClaystoneFarmlandBlock) {
+                        farmlandBlock instanceof ClaystoneFarmlandBlock) {
                     BlockPos cropPos = farmlandPos.above();
                     BlockState cropState = level.getBlockState(cropPos);
-                    
+
                     if (cropState.getBlock() instanceof BonemealableBlock bonemealable) {
                         if (bonemealable.isValidBonemealTarget(level, cropPos, cropState) && random.nextInt(3) == 0) {
                             if (bonemealable.isBonemealSuccess(level, random, cropPos, cropState)) {
@@ -75,7 +73,7 @@ public class WrigglingSoilBlock extends Block
             }
         }
     }
-    
+
     @Override
     public boolean isRandomlyTicking(BlockState state) {
         return true;

@@ -1,9 +1,7 @@
 package com.jamiedev.bygone.common.block;
 
-import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -23,30 +21,15 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.lighting.LightEngine;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.Optional;
 
-public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements BonemealableBlock
-{
-    GrassBlock ref;
+public class MossyClaystoneBlock extends SpreadingSnowyDirtBlock implements BonemealableBlock {
     public static final MapCodec<MossyClaystoneBlock> CODEC = simpleCodec(MossyClaystoneBlock::new);
+    GrassBlock ref;
 
-    @Override
-    public MapCodec<MossyClaystoneBlock> codec() {
-        return CODEC;
-    }
-
-    @Override
-    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
-        return world.getBlockState(pos.above()).isAir();
-    }
-
-    @Override
-    public boolean isBonemealSuccess(Level world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
-        return true;
-    }
-
-    
     public MossyClaystoneBlock(Properties settings) {
         super(settings);
     }
@@ -68,6 +51,21 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
     }
 
     @Override
+    public MapCodec<MossyClaystoneBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
+        return world.getBlockState(pos.above()).isAir();
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level world, @NotNull RandomSource random, BlockPos pos, BlockState state) {
+        return true;
+    }
+
+    @Override
     protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, @NotNull RandomSource random) {
         if (!canBeGrass(state, world, pos)) {
             world.setBlockAndUpdate(pos, BGBlocks.CLAYSTONE.get().defaultBlockState());
@@ -75,7 +73,7 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
             if (world.getMaxLocalRawBrightness(pos.above()) >= 0) {
                 BlockState blockState = this.defaultBlockState();
 
-                for(int i = 0; i < 4; ++i) {
+                for (int i = 0; i < 4; ++i) {
                     BlockPos blockPos = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
                     if (world.getBlockState(blockPos).is(BGBlocks.CLAYSTONE.get()) && canPropagate(blockState, world, blockPos)) {
                         world.setBlockAndUpdate(blockPos, blockState.setValue(SNOWY, world.getBlockState(blockPos.above()).is(Blocks.MOSS_BLOCK)));
@@ -98,10 +96,10 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
         Optional<Holder.Reference<PlacedFeature>> optional = world.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(VegetationPlacements.GRASS_BONEMEAL);
 
         label49:
-        for(int i = 0; i < 128; ++i) {
+        for (int i = 0; i < 128; ++i) {
             BlockPos blockPos2 = blockPos;
 
-            for(int j = 0; j < i / 16; ++j) {
+            for (int j = 0; j < i / 16; ++j) {
                 blockPos2 = blockPos2.offset(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
                 if (!world.getBlockState(blockPos2.below()).is(this) || world.getBlockState(blockPos2).isCollisionShapeFullBlock(world, blockPos2)) {
                     continue label49;
@@ -110,7 +108,7 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
 
             BlockState blockState2 = world.getBlockState(blockPos2);
             if (blockState2.is(blockState.getBlock()) && random.nextInt(10) == 0) {
-                ((BonemealableBlock)blockState.getBlock()).performBonemeal(world, random, blockPos2, blockState2);
+                ((BonemealableBlock) blockState.getBlock()).performBonemeal(world, random, blockPos2, blockState2);
             }
 
             if (blockState2.isAir()) {
@@ -121,7 +119,7 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
                         continue;
                     }
 
-                    registryEntry = ((RandomPatchConfiguration)((ConfiguredFeature<?, ?>)list.get(0)).config()).feature();
+                    registryEntry = ((RandomPatchConfiguration) list.get(0).config()).feature();
                 } else {
                     if (optional.isEmpty()) {
                         continue;
@@ -130,7 +128,7 @@ public class MossyClaystoneBlock  extends SpreadingSnowyDirtBlock implements Bon
                     registryEntry = optional.get();
                 }
 
-                ((PlacedFeature)registryEntry.value()).place(world, world.getChunkSource().getGenerator(), random, blockPos2);
+                ((PlacedFeature) registryEntry.value()).place(world, world.getChunkSource().getGenerator(), random, blockPos2);
             }
         }
 

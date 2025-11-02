@@ -1,9 +1,7 @@
 package com.jamiedev.bygone.common.block;
 
-import org.jetbrains.annotations.NotNull;
 import com.jamiedev.bygone.common.block.entity.PrimordialUrchinEntity;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -36,33 +34,30 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 import java.util.List;
 
-public class PrimordialUrchinBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
-{
-    public static final MapCodec<PrimordialUrchinBlock> CODEC = simpleCodec(PrimordialUrchinBlock::new);
+public class PrimordialUrchinBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final IntegerProperty ACTIVATED;
-    public static BooleanProperty ACTIVATEDBOOL;
     public static final VoxelShape SHAPE;
     public static final BooleanProperty WATERLOGGED;
-
+    public static BooleanProperty ACTIVATEDBOOL;
+    public static final MapCodec<PrimordialUrchinBlock> CODEC = simpleCodec(PrimordialUrchinBlock::new);
     public static boolean test = false;
 
-
-    @Override
-    public MapCodec<PrimordialUrchinBlock> codec() { return CODEC; }
+    static {
+        WATERLOGGED = BlockStateProperties.WATERLOGGED;
+        ACTIVATED = BlockStateProperties.POWER;
+        ACTIVATEDBOOL = BlockStateProperties.INVERTED;
+        SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 8.0, 12.0);
+    }
 
     public PrimordialUrchinBlock(Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(ACTIVATED, 0).setValue(ACTIVATEDBOOL, false).setValue(WATERLOGGED, false));
-    }
-
-    @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return SHAPE;
     }
 
     protected static boolean isInWater(BlockState state, BlockGetter world, BlockPos pos) {
@@ -72,7 +67,7 @@ public class PrimordialUrchinBlock extends BaseEntityBlock implements SimpleWate
             Direction[] var3 = Direction.values();
             int var4 = var3.length;
 
-            for(int var5 = 0; var5 < var4; ++var5) {
+            for (int var5 = 0; var5 < var4; ++var5) {
                 Direction direction = var3[var5];
                 if (world.getFluidState(pos.relative(direction)).is(FluidTags.WATER)) {
                     return true;
@@ -82,6 +77,24 @@ public class PrimordialUrchinBlock extends BaseEntityBlock implements SimpleWate
             return false;
         }
     }
+
+    private static void updateState(BlockState state, Level world, BlockPos pos) {
+
+        boolean bl = state.getValue(ACTIVATEDBOOL);
+
+
+    }
+
+    @Override
+    public MapCodec<PrimordialUrchinBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return SHAPE;
+    }
+
     @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
@@ -96,14 +109,6 @@ public class PrimordialUrchinBlock extends BaseEntityBlock implements SimpleWate
         if (!isInWater(state, world, pos)) {
             world.setBlock(pos, this.defaultBlockState().setValue(WATERLOGGED, false), 2);
         }
-
-    }
-
-    private static void updateState(BlockState state, Level world, BlockPos pos) {
-
-        boolean bl = state.getValue(ACTIVATEDBOOL);
-
-
 
     }
 
@@ -127,8 +132,8 @@ public class PrimordialUrchinBlock extends BaseEntityBlock implements SimpleWate
         if (!list.isEmpty()) {
             Iterator<? extends Entity> var7 = list.iterator();
 
-            while(var7.hasNext()) {
-                Entity entity = (Entity)var7.next();
+            while (var7.hasNext()) {
+                Entity entity = var7.next();
                 if (!entity.isIgnoringBlockTriggers()) {
                     bl2 = true;
                     break;
@@ -150,9 +155,9 @@ public class PrimordialUrchinBlock extends BaseEntityBlock implements SimpleWate
     @Override
     protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
         if (!world.isClientSide && world.getDifficulty() != Difficulty.PEACEFUL) {
-            if (entity instanceof LivingEntity livingEntity && !(Boolean)state.getValue(ACTIVATEDBOOL)) {
+            if (entity instanceof LivingEntity livingEntity && !(Boolean) state.getValue(ACTIVATEDBOOL)) {
                 if (!livingEntity.isInvulnerableTo(world.damageSources().cactus()) && !livingEntity.hasInfiniteMaterials()) {
-                    world.playLocalSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.PUFFER_FISH_BLOW_UP,
+                    world.playLocalSound((double) pos.getX() + 0.5, (double) pos.getY() + 0.5, (double) pos.getZ() + 0.5, SoundEvents.PUFFER_FISH_BLOW_UP,
                             SoundSource.BLOCKS, 0.5F + world.random.nextFloat(), world.random.nextFloat() * 0.7F + 0.6F, false);
                     BlockState blockState = state.cycle(ACTIVATEDBOOL);
                     world.setBlock(pos, blockState, 2);
@@ -188,12 +193,5 @@ public class PrimordialUrchinBlock extends BaseEntityBlock implements SimpleWate
     @Override
     protected FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
-    }
-
-    static {
-        WATERLOGGED = BlockStateProperties.WATERLOGGED;
-        ACTIVATED = BlockStateProperties.POWER;
-        ACTIVATEDBOOL = BlockStateProperties.INVERTED;
-        SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 8.0, 12.0);
     }
 }
