@@ -53,10 +53,9 @@
       "bygone:common_ore_iron_small",
       "bygone:common_ore_copper",
       "bygone:common_ore_verdigris",
-      "bygone:common_patch_speed_wheat",
       "bygone:megalith_field_vegetation"
     ],
-    [],
+    ["bygone:common_glow_lichen"],
     [],
     [],
     [],

@@ -1,93 +1,60 @@
 {
   "feature": {
-    "type": "minecraft:vegetation_patch",
+    "type": "minecraft:simple_random_selector",
     "config": {
-      "surface": "ceiling",
-      "depth": 2,
-      "vertical_range": 5,
-      "extra_bottom_block_chance": 0,
-      "extra_edge_column_chance": 0,
-      "vegetation_chance": 1,
-      "xz_radius": 0,
-      "replaceable": "#minecraft:air",
-      "ground_state": {
-        "type": "minecraft:weighted_state_provider",
-        "entries": [
-          {
-            "weight": 1,
-            "data": {
-              "Name": "bygone:claystone"
+      "features": [
+        {
+          "feature": "bygone:underhang/small_underhang_tree_1",
+          "placement": [
+            {
+              "type": "minecraft:count",
+              "count": 8
             }
-          },
-          {
-            "weight": 1,
-            "data": {
-              "Name": "minecraft:moss_block"
-            }
-          }
-        ]
-      },
-      "vegetation_feature": {
-        "feature": {
-          "type": "minecraft:simple_random_selector",
-          "config": {
-            "features": [
-              {
-                "feature": "bygone:underhang/small_underhang_tree_1",
-                "placement": [
-                  {
-                    "type": "minecraft:count",
-                    "count": 12
-                  }
-                ]
-              },
-              {
-                "feature": "bygone:underhang/small_underhang_tree_2",
-                "placement": [
-                  {
-                    "type": "minecraft:count",
-                    "count": 12
-                  }
-                ]
-              },
-              {
-                "feature": "bygone:underhang/small_underhang_tree_3",
-                "placement": [
-                  {
-                    "type": "minecraft:count",
-                    "count": 10
-                  }
-                ]
-              },
-              {
-                "feature": "bygone:underhang/small_underhang_tree_4",
-                "placement": [
-                  {
-                    "type": "minecraft:count",
-                    "count": 10
-                  }
-                ]
-              },
-              {
-                "feature": "bygone:underhang/small_underhang_tree_5",
-                "placement": [
-                  {
-                    "type": "minecraft:count",
-                    "count": 8
-                  }
-                ]
-              }
-            ]
-          }
+          ]
         },
-        "placement": []
-      }
+        {
+          "feature": "bygone:underhang/small_underhang_tree_2",
+          "placement": [
+            {
+              "type": "minecraft:count",
+              "count": 8
+            }
+          ]
+        },
+        {
+          "feature": "bygone:underhang/small_underhang_tree_3",
+          "placement": [
+            {
+              "type": "minecraft:count",
+              "count": 8
+            }
+          ]
+        },
+        {
+          "feature": "bygone:underhang/small_underhang_tree_4",
+          "placement": [
+            {
+              "type": "minecraft:count",
+              "count": 8
+            }
+          ]
+        },
+        {
+          "feature": "bygone:underhang/small_underhang_tree_5",
+          "placement": [
+            {
+              "type": "minecraft:count",
+              "count": 8
+            }
+          ]
+        }
+      ]
     }
   },
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 100
+      "count": 40
     },
     {
       "type": "minecraft:in_square"
@@ -107,15 +74,20 @@
     {
       "type": "minecraft:environment_scan",
       "direction_of_search": "up",
-      "max_steps": 16,
+      "max_steps": 8,
       "target_condition": {
-        "type": "minecraft:solid"
+        "type": "minecraft:matching_blocks",
+        "offset": [0, 1, 0],
+        "blocks": "minecraft:moss_block"
       },
       "allowed_search_condition": {
         "type": "minecraft:matching_blocks",
         "offset": [0, 0, 0],
         "blocks": "#minecraft:air"
       }
+    },
+    {
+      "type": "minecraft:biome"
     }
   ]
 }

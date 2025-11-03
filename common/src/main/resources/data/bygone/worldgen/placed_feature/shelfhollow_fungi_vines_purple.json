@@ -1,141 +1,96 @@
 {
   "feature": {
-    "type": "minecraft:vegetation_patch",
+    "type": "minecraft:block_column",
     "config": {
-      "depth": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 2,
-        "min_inclusive": 1
+      "allowed_placement": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:air"
       },
-      "extra_bottom_block_chance": 0.0,
-      "extra_edge_column_chance": 0.3,
-      "ground_state": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "bygone:shelf_mold_moss_block"
-        }
-      },
-      "replaceable": "#bygone:mold_replaceable",
-      "surface": "ceiling",
-      "vegetation_chance": 0.08,
-      "vegetation_feature": {
-        "feature": {
-          "type": "minecraft:block_column",
-          "config": {
-            "allowed_placement": {
-              "type": "minecraft:matching_blocks",
-              "blocks": "minecraft:air"
-            },
-            "direction": "down",
-            "layers": [
+      "direction": "down",
+      "layers": [
+        {
+          "height": {
+            "type": "minecraft:weighted_list",
+            "distribution": [
               {
-                "height": {
-                  "type": "minecraft:weighted_list",
-                  "distribution": [
-                    {
-                      "data": {
-                        "type": "minecraft:uniform",
-                        "max_inclusive": 3,
-                        "min_inclusive": 0
-                      },
-                      "weight": 5
-                    },
-                    {
-                      "data": {
-                        "type": "minecraft:uniform",
-                        "max_inclusive": 7,
-                        "min_inclusive": 1
-                      },
-                      "weight": 1
-                    }
-                  ]
+                "data": {
+                  "type": "minecraft:uniform",
+                  "max_inclusive": 3,
+                  "min_inclusive": 0
                 },
-                "provider": {
-                  "type": "minecraft:weighted_state_provider",
-                  "entries": [
-                    {
-                      "data": {
-                        "Name": "bygone:purple_fungi_vines_plant"
-                      },
-                      "weight": 4
-                    },
-                    {
-                      "data": {
-                        "Name": "bygone:purple_fungi_vines_plant"
-                      },
-                      "weight": 1
-                    }
-                  ]
-                }
+                "weight": 5
               },
               {
-                "height": 1,
-                "provider": {
-                  "type": "minecraft:randomized_int_state_provider",
-                  "property": "age",
-                  "source": {
-                    "type": "minecraft:weighted_state_provider",
-                    "entries": [
-                      {
-                        "data": {
-                          "Name": "bygone:purple_fungi_vines",
-                          "Properties": {
-                            "age": "0"
-                          }
-                        },
-                        "weight": 4
-                      },
-                      {
-                        "data": {
-                          "Name": "bygone:purple_fungi_vines",
-                          "Properties": {
-                            "age": "0"
-                          }
-                        },
-                        "weight": 1
-                      }
-                    ]
-                  },
-                  "values": {
-                    "type": "minecraft:uniform",
-                    "max_inclusive": 25,
-                    "min_inclusive": 23
-                  }
-                }
+                "data": {
+                  "type": "minecraft:uniform",
+                  "max_inclusive": 7,
+                  "min_inclusive": 1
+                },
+                "weight": 1
               }
-            ],
-            "prioritize_tip": true
+            ]
+          },
+          "provider": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "bygone:purple_fungi_vines_plant"
+                },
+                "weight": 4
+              },
+              {
+                "data": {
+                  "Name": "bygone:purple_fungi_vines_plant"
+                },
+                "weight": 1
+              }
+            ]
           }
         },
-        "placement": []
-      },
-      "vertical_range": 5,
-      "xz_radius": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 7,
-        "min_inclusive": 4
-      }
+        {
+          "height": 1,
+          "provider": {
+            "type": "minecraft:randomized_int_state_provider",
+            "property": "age",
+            "source": {
+              "type": "minecraft:weighted_state_provider",
+              "entries": [
+                {
+                  "data": {
+                    "Name": "bygone:purple_fungi_vines",
+                    "Properties": {
+                      "age": "0"
+                    }
+                  },
+                  "weight": 4
+                },
+                {
+                  "data": {
+                    "Name": "bygone:purple_fungi_vines",
+                    "Properties": {
+                      "age": "0"
+                    }
+                  },
+                  "weight": 1
+                }
+              ]
+            },
+            "values": {
+              "type": "minecraft:uniform",
+              "max_inclusive": 25,
+              "min_inclusive": 23
+            }
+          }
+        }
+      ],
+      "prioritize_tip": true
     }
   },
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 20
-    },
-    {
-      "type": "minecraft:in_square"
-    },
-    {
-      "type": "minecraft:height_range",
-      "height": {
-        "type": "minecraft:uniform",
-        "max_inclusive": {
-          "absolute": 256
-        },
-        "min_inclusive": {
-          "above_bottom": 0
-        }
-      }
+      "type": "minecraft:count_on_every_layer",
+      "count": 2
     },
     {
       "type": "minecraft:environment_scan",
@@ -146,13 +101,10 @@
       "direction_of_search": "up",
       "max_steps": 12,
       "target_condition": {
-        "type": "minecraft:solid"
+        "type": "minecraft:has_sturdy_face",
+        "offset": [0, 1, 0],
+        "direction": "down"
       }
-    },
-    {
-      "type": "minecraft:random_offset",
-      "xz_spread": 0,
-      "y_spread": -1
     },
     {
       "type": "minecraft:biome"

@@ -25,23 +25,8 @@
   },
   "placement": [
     {
-      "type": "minecraft:in_square"
-    },
-    {
-      "type": "minecraft:count",
-      "count": 256
-    },
-    {
-      "type": "minecraft:height_range",
-      "height": {
-        "type": "minecraft:uniform",
-        "min_inclusive": {
-          "above_bottom": -63
-        },
-        "max_inclusive": {
-          "absolute": -8
-        }
-      }
+      "type": "minecraft:count_on_every_layer",
+      "count": 1
     },
     {
       "type": "minecraft:block_predicate_filter",

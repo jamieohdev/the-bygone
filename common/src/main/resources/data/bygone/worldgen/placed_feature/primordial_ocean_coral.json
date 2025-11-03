@@ -41,11 +41,11 @@
       "type": "minecraft:height_range",
       "height": {
         "type": "minecraft:uniform",
+        "max_inclusive": {
+          "below_top": 0
+        },
         "min_inclusive": {
           "absolute": 64
-        },
-        "max_inclusive": {
-          "absolute": 320
         }
       }
     },
@@ -53,14 +53,14 @@
       "type": "minecraft:environment_scan",
       "direction_of_search": "down",
       "max_steps": 12,
+      "allowed_search_condition": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:water"
+      },
       "target_condition": {
         "type": "minecraft:has_sturdy_face",
         "offset": [0, -1, 0],
         "direction": "up"
-      },
-      "allowed_search_condition": {
-        "type": "minecraft:matching_blocks",
-        "blocks": "minecraft:water"
       }
     },
     {

@@ -117,7 +117,7 @@
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 100
+      "count": 80
     },
     {
       "type": "minecraft:in_square"
@@ -126,11 +126,11 @@
       "type": "minecraft:height_range",
       "height": {
         "type": "minecraft:uniform",
-        "max_inclusive": {
-          "absolute": 256
-        },
         "min_inclusive": {
           "above_bottom": 0
+        },
+        "max_inclusive": {
+          "below_top": 0
         }
       }
     },
@@ -144,13 +144,9 @@
       "max_steps": 12,
       "target_condition": {
         "type": "minecraft:has_sturdy_face",
+        "offset": [0, 1, 0],
         "direction": "down"
       }
-    },
-    {
-      "type": "minecraft:random_offset",
-      "xz_spread": 0,
-      "y_spread": -1
     },
     {
       "type": "minecraft:biome"

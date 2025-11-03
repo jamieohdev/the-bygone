@@ -24,15 +24,15 @@
           }
         ]
       },
-      "tries": 32,
+      "tries": 96,
       "xz_spread": 7,
-      "y_spread": 3
+      "y_spread": 2
     }
   },
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 25
+      "count": 48
     },
     {
       "type": "minecraft:in_square"

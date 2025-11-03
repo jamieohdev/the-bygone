@@ -11,7 +11,7 @@
           },
           "target": {
             "predicate_type": "minecraft:tag_match",
-            "tag": "minecraft:stone_ore_replaceables"
+            "tag": "bygone:bystone_ore_replaceables"
           }
         },
         {
@@ -20,7 +20,7 @@
           },
           "target": {
             "predicate_type": "minecraft:tag_match",
-            "tag": "minecraft:deepslate_ore_replaceables"
+            "tag": "bygone:byslate_ore_replaceables"
           }
         }
       ]
@@ -39,10 +39,10 @@
       "height": {
         "type": "minecraft:trapezoid",
         "max_inclusive": {
-          "absolute": 250
+          "below_top": 16
         },
         "min_inclusive": {
-          "absolute": 100
+          "above_bottom": 16
         }
       }
     },

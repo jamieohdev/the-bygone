@@ -99,12 +99,12 @@
   "placement": [
     {
       "type": "minecraft:count_on_every_layer",
-      "count": 255
+      "count": 1
     },
     {
       "type": "minecraft:environment_scan",
       "direction_of_search": "down",
-      "max_steps": 4,
+      "max_steps": 32,
       "target_condition": {
         "type": "minecraft:all_of",
         "predicates": [

@@ -1,0 +1,84 @@
+{
+  "feature": {
+    "type": "minecraft:random_patch",
+    "config": {
+      "feature": {
+        "feature": {
+          "type": "minecraft:simple_block",
+          "config": {
+            "to_place": {
+              "type": "minecraft:weighted_state_provider",
+              "entries": [
+                {
+                  "data": {
+                    "Name": "minecraft:seagrass"
+                  },
+                  "weight": 200
+                },
+                {
+                  "data": {
+                    "Name": "bygone:primordial_urchin",
+                    "Properties": {
+                      "waterlogged": "true"
+                    }
+                  },
+                  "weight": 40
+                },
+                {
+                  "data": {
+                    "Name": "bygone:crinoid"
+                  },
+                  "weight": 40
+                },
+                {
+                  "data": {
+                    "Name": "bygone:primordial_vent",
+                    "Properties": {
+                      "waterlogged": "true"
+                    }
+                  },
+                  "weight": 1
+                }
+              ]
+            }
+          }
+        },
+        "placement": [
+          {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+              "type": "minecraft:matching_blocks",
+              "blocks": "minecraft:water",
+              "offset": [0, 0, 0]
+            }
+          },
+          {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+              "type": "minecraft:has_sturdy_face",
+              "offset": [0, -1, 0],
+              "direction": "up"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "placement": [
+    {
+      "type": "minecraft:count_on_every_layer",
+      "count": 4
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:water",
+        "offset": [0, 0, 0]
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

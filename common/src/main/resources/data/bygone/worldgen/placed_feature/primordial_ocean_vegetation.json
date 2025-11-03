@@ -11,7 +11,7 @@
           "Name": "bygone:shellsand"
         }
       },
-      "replaceable": "#minecraft:moss_replaceable",
+      "replaceable": "#bygone:mold_replaceable",
       "surface": "floor",
       "vegetation_chance": 0.8,
       "vegetation_feature": {
@@ -25,13 +25,333 @@
                   "data": {
                     "Name": "bygone:creosote"
                   },
-                  "weight": 1
+                  "weight": 16
                 },
                 {
                   "data": {
                     "Name": "bygone:creosote_sprouts"
                   },
-                  "weight": 2
+                  "weight": 32
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "north",
+                      "flower_amount": "1"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "east",
+                      "flower_amount": "1"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "south",
+                      "flower_amount": "1"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "west",
+                      "flower_amount": "1"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "north",
+                      "flower_amount": "2"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "east",
+                      "flower_amount": "2"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "south",
+                      "flower_amount": "2"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "west",
+                      "flower_amount": "2"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "north",
+                      "flower_amount": "3"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "east",
+                      "flower_amount": "3"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "south",
+                      "flower_amount": "3"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "west",
+                      "flower_amount": "3"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "north",
+                      "flower_amount": "4"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "east",
+                      "flower_amount": "4"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "south",
+                      "flower_amount": "4"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:belladonna",
+                    "Properties": {
+                      "facing": "west",
+                      "flower_amount": "4"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "north",
+                      "flower_amount": "1"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "east",
+                      "flower_amount": "1"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "south",
+                      "flower_amount": "1"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "west",
+                      "flower_amount": "1"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "north",
+                      "flower_amount": "2"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "east",
+                      "flower_amount": "2"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "south",
+                      "flower_amount": "2"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "west",
+                      "flower_amount": "2"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "north",
+                      "flower_amount": "3"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "east",
+                      "flower_amount": "3"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "south",
+                      "flower_amount": "3"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "west",
+                      "flower_amount": "3"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "north",
+                      "flower_amount": "4"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "east",
+                      "flower_amount": "4"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "south",
+                      "flower_amount": "4"
+                    }
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:coleus",
+                    "Properties": {
+                      "facing": "west",
+                      "flower_amount": "4"
+                    }
+                  },
+                  "weight": 1
                 }
               ]
             }
