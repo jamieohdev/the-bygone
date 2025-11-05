@@ -1,13 +1,29 @@
 {
   "type": "minecraft:cache_once",
   "argument": {
-    "type": "minecraft:spline",
-    "spline": {
-      "coordinate": "bygone:biome_parameters/continents",
-      "points": [
-        { "location": -0.5, "value": -0.5, "derivative": 0 },
-        { "location": -0.4, "value": 0, "derivative": 0 }
-      ]
+    "type": "minecraft:range_choice",
+    "input": "minecraft:y",
+    "min_inclusive": 112,
+    "max_exclusive": 160,
+    "when_in_range": {
+      "type": "minecraft:spline",
+      "spline": {
+        "coordinate": "bygone:biome_parameters/continents",
+        "points": [
+          { "location": -0.6, "value": 0.25, "derivative": 0 },
+          { "location": -0.5, "value": 0, "derivative": 0 }
+        ]
+      }
+    },
+    "when_out_of_range": {
+      "type": "minecraft:spline",
+      "spline": {
+        "coordinate": "bygone:biome_parameters/continents",
+        "points": [
+          { "location": -0.6, "value": -0.5, "derivative": 0 },
+          { "location": -0.5, "value": 0, "derivative": 0 }
+        ]
+      }
     }
   }
 }

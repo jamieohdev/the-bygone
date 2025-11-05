@@ -1,9 +1,9 @@
 {
-  "": "in_primordial_ocean, use oceans/fluid_level_floodedness for aquifers, out of it none",
+  "": "in_primordial_shores, use oceans/fluid_level_floodedness for aquifers, out of it none",
   "type": "minecraft:range_choice",
   "input": "bygone:util/in_primordial_ocean",
   "min_inclusive": 0,
   "max_exclusive": 1,
-  "when_out_of_range": "bygone:aquifers/oceans/fluid_level_floodedness",
+  "when_out_of_range": "bygone:aquifers/shores/fluid_level_floodedness",
   "when_in_range": 0
 }

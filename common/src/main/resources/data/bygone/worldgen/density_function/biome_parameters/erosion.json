@@ -1,4 +1,12 @@
 {
-  "type": "minecraft:constant",
-  "argument": 0
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "minecraft:noise",
+      "noise": "bygone:biome_parameters/erosion",
+      "xz_scale": 0.3,
+      "y_scale": 0
+    }
+  }
 }

@@ -1,4 +1,7 @@
 {
-  "type": "minecraft:constant",
-  "argument": 0
+  "type": "minecraft:y_clamped_gradient",
+  "from_value": 2,
+  "to_value": 0,
+  "from_y": 144,
+  "to_y": 120
 }

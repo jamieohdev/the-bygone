@@ -7,8 +7,8 @@
   "when_in_range": 1,
   "when_out_of_range": {
     "type": "minecraft:y_clamped_gradient",
-    "from_y": 124,
-    "to_y": 136,
+    "from_y": 144,
+    "to_y": 160,
     "from_value": 1,
     "to_value": -1
   }

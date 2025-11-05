@@ -4,7 +4,7 @@
     "type": "minecraft:range_choice",
     "input": "bygone:biome_parameters/continents",
     "min_inclusive": -10,
-    "max_exclusive": -0.4,
+    "max_exclusive": -0.45,
     "when_in_range": 1,
     "when_out_of_range": 0
   }
