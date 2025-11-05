@@ -389,6 +389,11 @@ Blocks ref;
             new Block(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT)
                     .strength(0.3F).sound(SoundType.GLASS)));
 
+    public static final Supplier<Block> BREATH_POD = registerBlock("breath_pod_plant", () ->
+            new CrinoidBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).replaceable().noCollission().randomTicks().strength(0.0F).sound(SoundType.VINE).ignitedByLava().pushReaction(PushReaction.DESTROY).lightLevel((state) -> {
+                return 1;
+            })));
+
     public static final Supplier<Block> DEAD_PILLAR_CORAL_BLOCK = registerBlock("dead_pillar_coral_block", () -> new Block(
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F,
                     6.0F)));

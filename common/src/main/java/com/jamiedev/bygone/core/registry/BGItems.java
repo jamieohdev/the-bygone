@@ -81,7 +81,7 @@ public class BGItems
     public static final Supplier<Item> GLOW_CHITIN = registerItem("glow_chitin", () -> new Item(new Item.Properties().fireResistant()));
     public static final Supplier<Item> NECTAUR_PETAL = registerItem("nectaur_petal", () -> new Item(new Item.Properties().fireResistant()));
     public static final Supplier<Item> SCUTTLE_SPIKE = registerItem("scuttle_spike", () -> new Item(new Item.Properties().fireResistant()));
-    ArmorMaterials mat;;
+    ArmorMaterials ma;;
 
     public static final Supplier<Item> BEIGE_SLICE = registerItem("glow_gourd_beige_slice", () -> new Item(new Item.Properties().food(Foods.CARROT)));
     public static final Supplier<Item> BEIGE_GOURD_SEEDS = registerItem("glow_gourd_beige_seeds", () -> new ItemNameBlockItem(BGBlocks.GOURD_LANTERN_BEIGE.get(), new Item.Properties()));
@@ -188,6 +188,9 @@ public class BGItems
     public static final Supplier<Item> ECTOPLASM_BUCKET = registerItem((String)"ectoplasm_bucket",
             () -> new EctoplasmBucketItem((new Item.Properties()).craftRemainder(BUCKET).stacksTo(1)));
 
+
+    public static final Supplier<Item> BREATH_POD = registerItem("breath_pod", () ->
+            new BreathPodItem(new Item.Properties().fireResistant()));
 
     public static final Supplier<Item> MUSIC_DISC_SHUFFLE = registerItem("music_disc_shuffle",  () -> new Item((new Item.Properties()).stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(BGJukeboxSongs.SHUFFLE)));
 

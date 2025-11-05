@@ -12,6 +12,10 @@
             {
               "chance": 0.3,
               "feature": "bygone:placed_tall_seagrass"
+            },
+            {
+              "chance": 0.2,
+              "feature": "bygone:placed_breath_pod"
             }
           ],
           "default": "bygone:placed_seagrass"

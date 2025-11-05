@@ -20,6 +20,10 @@
             {
               "chance": 0.9,
               "feature": "bygone:placed_crinoid"
+            },
+            {
+              "chance": 0.6,
+              "feature": "bygone:placed_breath_pod"
             }
           ],
           "default": "bygone:placed_seagrass"

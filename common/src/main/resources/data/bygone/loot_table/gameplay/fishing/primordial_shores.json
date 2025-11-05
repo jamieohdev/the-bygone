@@ -16,6 +16,10 @@
           "name": "minecraft:kelp"
         },
         {
+          "type": "minecraft:item",
+          "name": "bygone:breath_pod"
+        },
+        {
           "type": "minecraft:loot_table",
           "weight": 10,
           "value": "bygone:gameplay/fishing/primordial_shores_junk"

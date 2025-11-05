@@ -43,6 +43,7 @@ public class BygoneClient {
         consumer.accept(BGBlocks.SEAGLASS.get(), RenderType.translucent());
         consumer.accept(BGBlocks.SEAGLASS_PANE.get(), RenderType.translucent());
         consumer.accept(BGBlocks.COBBLED_SEAGLASS.get(), RenderType.translucent());
+        consumer.accept(BGBlocks.BREATH_POD.get(), RenderType.cutout());
 
         consumer.accept(BGBlocks.ANCIENT_LEAVES.get(), RenderType.cutout());
         consumer.accept(BGBlocks.ANCIENT_ROOTS.get(), RenderType.cutout());

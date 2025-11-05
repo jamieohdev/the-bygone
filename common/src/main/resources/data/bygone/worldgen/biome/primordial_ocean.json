@@ -35,8 +35,7 @@
     [],
     [],
     [
-      "bygone:fossil_upper",
-      "bygone:fossil_lower",
+
       "minecraft:monster_room",
       "minecraft:monster_room_deep"
     ],
@@ -103,9 +102,9 @@
       },
       {
         "type": "bygone:amoeba",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 10
+        "maxCount": 6,
+        "minCount": 2,
+        "weight": 15
       },
       {
         "type": "bygone:trilobite",
