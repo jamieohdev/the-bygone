@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.worldgen.feature;
 
+import com.jamiedev.bygone.common.worldgen.structure.AncientTreeFeatureConfig;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -32,6 +32,12 @@
                 },
                 {
                   "data": {
+                    "Name": "bygone:breath_pod_plant"
+                  },
+                  "weight": 40
+                },
+                {
+                  "data": {
                     "Name": "bygone:primordial_vent",
                     "Properties": {
                       "waterlogged": "true"

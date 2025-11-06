@@ -9,7 +9,7 @@ import com.jamiedev.bygone.common.worldgen.feature.config.ThornySableBranchConfi
 import com.jamiedev.bygone.common.worldgen.feature.AncientForestVegetationFeature;
 import com.jamiedev.bygone.common.worldgen.feature.AncientForestVegetationFeatureConfig;
 import com.jamiedev.bygone.common.worldgen.feature.AncientTreeFeature;
-import com.jamiedev.bygone.common.worldgen.feature.AncientTreeFeatureConfig;
+import com.jamiedev.bygone.common.worldgen.structure.AncientTreeFeatureConfig;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.features.FeatureUtils;

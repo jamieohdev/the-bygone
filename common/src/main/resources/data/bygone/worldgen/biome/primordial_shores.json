@@ -91,6 +91,12 @@
         "weight": 15
       },
       {
+        "type": "bygone:amoeba",
+        "maxCount": 6,
+        "minCount": 2,
+        "weight": 15
+      },
+      {
         "type": "bygone:trilobite",
         "maxCount": 8,
         "minCount": 4,
