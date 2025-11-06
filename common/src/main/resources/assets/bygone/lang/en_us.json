@@ -301,8 +301,6 @@
   "block.bygone.belladonna": "Belladonna",
   "block.bygone.coleus": "Coleus",
 
-  "block.bygone.caster": "Caster (WIP!)",
-
   "block.bygone.blemish": "Blemish Block",
   "block.bygone.blemish_rooted_block": "Blemished Rooted Stone",
   "block.bygone.blemish_roots": "Blemished Roots",
@@ -509,10 +507,6 @@
   "painting.bygone.shelves.author": "Iri Dark",
 
   "filled_map.bygone_portal": "Bygone Portal Map",
-
-  "": "",
-
-  "bygone:container.caster": "Caster",
 
   "subtitles.ambient.underhang.additions": "",
   "subtitles.ambient.amber_desert.additions": "Ancient wind howls...",
