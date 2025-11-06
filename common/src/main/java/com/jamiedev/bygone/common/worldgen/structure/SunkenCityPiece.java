@@ -50,16 +50,12 @@ public class SunkenCityPiece
         }
 
         public Piece(StructureTemplateManager manager, CompoundTag tag) {
-            super(BGStructures.SUNKEN_CITY_PIECES, tag, manager, (x) -> {
-                return makeSettings(Rotation.valueOf(tag.getString("Rot")));
-            });
+            super(BGStructures.SUNKEN_CITY_PIECES, tag, manager, (x) -> makeSettings(Rotation.valueOf(tag.getString("Rot"))));
         }
 
 
         public Piece(StructurePieceSerializationContext context, CompoundTag tag) {
-            super(BGStructures.SUNKEN_CITY_PIECES, tag, context.structureTemplateManager(), (x) -> {
-                return makeSettings(Rotation.valueOf(tag.getString("Rot")));
-            });
+            super(BGStructures.SUNKEN_CITY_PIECES, tag, context.structureTemplateManager(), (x) -> makeSettings(Rotation.valueOf(tag.getString("Rot"))));
         }
 
         private static StructurePlaceSettings makeSettings(Rotation rotation) {
