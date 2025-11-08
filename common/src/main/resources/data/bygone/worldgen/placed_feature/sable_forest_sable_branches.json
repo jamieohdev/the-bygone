@@ -1,0 +1,19 @@
+{
+  "feature": {
+    "type": "bygone:sable_branches",
+    "config": {
+      "max_height": 4,
+      "spread_height": 4,
+      "spread_width": 8
+    }
+  },
+  "placement": [
+    {
+      "type": "minecraft:count_on_every_layer",
+      "count": 4
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

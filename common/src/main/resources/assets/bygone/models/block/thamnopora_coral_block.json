@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "bygone:block/thamnopora_coral_block"
+  }
+}

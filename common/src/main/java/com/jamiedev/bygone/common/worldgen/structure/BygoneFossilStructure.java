@@ -13,6 +13,7 @@ import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public class BygoneFossilStructure extends Structure {
     }
 
     @Override
-    public Optional<GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
+    public @NotNull Optional<GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
         WorldgenRandom chunkRandom = context.random();
         ChunkPos chunkPos = context.chunkPos();
 
@@ -72,7 +73,7 @@ public class BygoneFossilStructure extends Structure {
     }
 
     @Override
-    public StructureType<?> type() {
+    public @NotNull StructureType<?> type() {
         return BGStructures.BYGONE_FOSSIL;
     }
 }

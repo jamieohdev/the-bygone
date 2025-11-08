@@ -1,32 +1,5 @@
 {
-  "feature": {
-    "type": "minecraft:simple_random_selector",
-    "config": {
-      "features": [
-        {
-          "feature": {
-            "type": "bygone:primordial_coral_tree",
-            "config": {}
-          },
-          "placement": []
-        },
-        {
-          "feature": {
-            "type": "bygone:primordial_coral_claw",
-            "config": {}
-          },
-          "placement": []
-        },
-        {
-          "feature": {
-            "type": "bygone:primordial_coral_mushroom",
-            "config": {}
-          },
-          "placement": []
-        }
-      ]
-    }
-  },
+  "feature": "bygone:primordial_ocean_coral",
   "placement": [
     {
       "type": "minecraft:noise_based_count",

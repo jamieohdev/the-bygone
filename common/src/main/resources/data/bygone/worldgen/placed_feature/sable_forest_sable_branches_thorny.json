@@ -1,0 +1,19 @@
+{
+  "feature": {
+    "type": "bygone:thorny_sable_branches",
+    "config": {
+      "max_height": 3,
+      "spread_height": 6,
+      "spread_width": 12
+    }
+  },
+  "placement": [
+    {
+      "type": "minecraft:count_on_every_layer",
+      "count": 4
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

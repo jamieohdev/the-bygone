@@ -1,0 +1,144 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "chance": 0.15,
+        "feature": {
+          "feature": {
+            "config": {
+              "state": {
+                "Name": "bygone:thamnopora_coral_block"
+              }
+            },
+            "type": "bygone:bycoral_tree"
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.10,
+        "feature": {
+          "feature": {
+            "config": {
+              "state": {
+                "Name": "bygone:thamnopora_coral_block"
+              }
+            },
+            "type": "bygone:bycoral_claw"
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.10,
+        "feature": {
+          "feature": {
+            "config": {
+              "state": {
+                "Name": "bygone:rugosa_coral_block"
+              }
+            },
+            "type": "bygone:bycoral_tree"
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.05,
+        "feature": {
+          "feature": {
+            "config": {
+              "state": {
+                "Name": "bygone:rugosa_coral_block"
+              }
+            },
+            "type": "bygone:bycoral_claw"
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.1,
+        "feature": {
+          "feature": {
+            "config": {
+              "state": {
+                "Name": "bygone:rugosa_coral_block"
+              }
+            },
+            "type": "bygone:bycoral_mushroom"
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.20,
+        "feature": {
+          "feature": {
+            "config": {
+              "state": {
+                "Name": "bygone:tabulata_coral_block"
+              }
+            },
+            "type": "bygone:bycoral_mushroom"
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.15,
+        "feature": {
+          "feature": {
+            "config": {
+              "state": {
+                "Name": "bygone:tabulata_coral_block"
+              }
+            },
+            "type": "bygone:bycoral_pillars"
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.05,
+        "feature": {
+          "feature": {
+            "config": {
+              "state": {
+                "Name": "bygone:pillar_coral_block"
+              }
+            },
+            "type": "bygone:bycoral_mushroom"
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.10,
+        "feature": {
+          "feature": {
+            "config": {
+              "state": {
+                "Name": "bygone:pillar_coral_block"
+              }
+            },
+            "type": "bygone:bycoral_pillars"
+          },
+          "placement": []
+        }
+      }
+    ],
+    "default": {
+      "feature": {
+        "config": {
+          "state": {
+            "Name": "bygone:pillar_coral_block"
+          }
+        },
+        "type": "bygone:bycoral_pillars"
+      },
+      "placement": []
+    }
+  }
+}

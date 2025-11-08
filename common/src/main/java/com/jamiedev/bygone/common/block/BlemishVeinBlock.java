@@ -43,18 +43,22 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
 
     public BlemishVeinBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.allGrowTypeGrower = new MultifaceSpreader(new BlemishVeinBlock.BlemishVeinGrowChecker(this, MultifaceSpreader.DEFAULT_SPREAD_ORDER));
-        this.samePositionOnlyGrower = new MultifaceSpreader(new BlemishVeinBlock.BlemishVeinGrowChecker(this, MultifaceSpreader.SpreadType.SAME_POSITION));
+        this.allGrowTypeGrower = new MultifaceSpreader(new BlemishVeinGrowChecker(
+                this,
+                MultifaceSpreader.DEFAULT_SPREAD_ORDER
+        ));
+        this.samePositionOnlyGrower = new MultifaceSpreader(new BlemishVeinGrowChecker(
+                this,
+                MultifaceSpreader.SpreadType.SAME_POSITION
+        ));
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
     }
 
     public static boolean place(LevelAccessor world, BlockPos pos, BlockState state, Collection<Direction> directions) {
         boolean bl = false;
         BlockState blockState = BGBlocks.BLEMISH_VEIN.get().defaultBlockState();
-        Iterator<Direction> var6 = directions.iterator();
 
-        while (var6.hasNext()) {
-            Direction direction = var6.next();
+        for (Direction direction : directions) {
             BlockPos blockPos = pos.relative(direction);
             if (canAttachTo(world, direction, blockPos, world.getBlockState(blockPos))) {
                 blockState = blockState.setValue(getFaceProperty(direction), true);
@@ -78,12 +82,10 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
         if (!state.is(BGBlocks.BLEMISH_VEIN.get())) {
             return false;
         } else {
-            Direction[] var3 = DIRECTIONS;
-            int var4 = var3.length;
 
-            for (int var5 = 0; var5 < var4; ++var5) {
-                Direction direction = var3[var5];
-                if (hasFace(state, direction) && world.getBlockState(pos.relative(direction)).is(JamiesModTag.BLEMISH_REPLACEABLE)) {
+            for (Direction direction : DIRECTIONS) {
+                if (hasFace(state, direction) && world.getBlockState(pos.relative(direction))
+                        .is(JamiesModTag.BLEMISH_REPLACEABLE)) {
                     return true;
                 }
             }
@@ -93,12 +95,12 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
     }
 
     @Override
-    public MapCodec<BlemishVeinBlock> codec() {
+    public @NotNull MapCodec<BlemishVeinBlock> codec() {
         return CODEC;
     }
 
     @Override
-    public MultifaceSpreader getSpreader() {
+    public @NotNull MultifaceSpreader getSpreader() {
         return this.allGrowTypeGrower;
     }
 
@@ -109,13 +111,11 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
     @Override
     public void spreadAtSamePosition(LevelAccessor world, BlockState state, BlockPos pos, @NotNull RandomSource random) {
         if (state.is(this)) {
-            Direction[] var5 = DIRECTIONS;
-            int var6 = var5.length;
 
-            for (int var7 = 0; var7 < var6; ++var7) {
-                Direction direction = var5[var7];
+            for (Direction direction : DIRECTIONS) {
                 BooleanProperty booleanProperty = getFaceProperty(direction);
-                if (state.getValue(booleanProperty) && world.getBlockState(pos.relative(direction)).is(BGBlocks.BLEMISH.get())) {
+                if (state.getValue(booleanProperty) && world.getBlockState(pos.relative(direction))
+                        .is(BGBlocks.BLEMISH.get())) {
                     state = state.setValue(booleanProperty, false);
                 }
             }
@@ -142,10 +142,8 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
     private boolean convertToBlock(BlemishSpreadManager spreadManager, LevelAccessor world, BlockPos pos, @NotNull RandomSource random) {
         BlockState blockState = world.getBlockState(pos);
         TagKey<Block> tagKey = spreadManager.getReplaceableTag();
-        Iterator<Direction> var7 = Direction.allShuffled(random).iterator();
 
-        while (var7.hasNext()) {
-            Direction direction = var7.next();
+        for (Direction direction : Direction.allShuffled(random)) {
             if (hasFace(blockState, direction)) {
                 BlockPos blockPos = pos.relative(direction);
                 BlockState blockState2 = world.getBlockState(blockPos);
@@ -156,11 +154,8 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
                     world.playSound(null, blockPos, SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.BLOCKS, 1.0F, 1.0F);
                     this.allGrowTypeGrower.spreadAll(blockState3, world, blockPos, spreadManager.isWorldGen());
                     Direction direction2 = direction.getOpposite();
-                    Direction[] var13 = DIRECTIONS;
-                    int var14 = var13.length;
 
-                    for (int var15 = 0; var15 < var14; ++var15) {
-                        Direction direction3 = var13[var15];
+                    for (Direction direction3 : DIRECTIONS) {
                         if (direction3 != direction2) {
                             BlockPos blockPos2 = blockPos.relative(direction3);
                             BlockState blockState4 = world.getBlockState(blockPos2);
@@ -179,7 +174,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+    protected @NotNull BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor world, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
@@ -188,22 +183,22 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(WATERLOGGED);
     }
 
     @Override
-    protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+    protected boolean canBeReplaced(@NotNull BlockState state, BlockPlaceContext context) {
         return !context.getItemInHand().is(Item.byBlock(BGBlocks.BLEMISH_VEIN.get())) || super.canBeReplaced(state, context);
     }
 
     @Override
-    protected FluidState getFluidState(BlockState state) {
+    protected @NotNull FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
-    private class BlemishVeinGrowChecker extends MultifaceSpreader.DefaultSpreaderConfig {
+    private static class BlemishVeinGrowChecker extends MultifaceSpreader.DefaultSpreaderConfig {
         private final MultifaceSpreader.SpreadType[] growTypes;
 
         public BlemishVeinGrowChecker(final BlemishVeinBlock BlemishVeinBlock, final MultifaceSpreader.SpreadType... growTypes) {
@@ -212,7 +207,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
         }
 
         @Override
-        public boolean stateCanBeReplaced(BlockGetter world, BlockPos pos, BlockPos growPos, Direction direction, BlockState state) {
+        public boolean stateCanBeReplaced(BlockGetter world, @NotNull BlockPos pos, BlockPos growPos, @NotNull Direction direction, @NotNull BlockState state) {
             BlockState blockState = world.getBlockState(growPos.relative(direction));
             if (!blockState.is(BGBlocks.BLEMISH.get()) && !blockState.is(BGBlocks.BLEMISH_CATALYST.get()) && !blockState.is(Blocks.MOVING_PISTON)) {
                 if (pos.distManhattan(growPos) == 2) {
@@ -236,7 +231,7 @@ public class BlemishVeinBlock extends MultifaceBlock implements BlemishSpreadabl
         }
 
         @Override
-        public MultifaceSpreader.SpreadType[] getSpreadTypes() {
+        public MultifaceSpreader.SpreadType @NotNull [] getSpreadTypes() {
             return this.growTypes;
         }
 

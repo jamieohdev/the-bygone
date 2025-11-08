@@ -100,24 +100,30 @@ public class BygoneClient {
         consumer.accept(BGBlocks.PRIMORDIAL_URCHIN.get(), RenderType.cutout());
         consumer.accept(BGBlocks.PRIMORDIAL_VENT.get(), RenderType.cutout());
 
-        consumer.accept(BGBlocks.DEAD_ORANGE_CORAL.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.DEAD_ORANGE_CORAL_WALL_FAN.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.DEAD_ORANGE_CORAL_FAN.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.ORANGE_CORAL.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.ORANGE_CORAL_FAN.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.ORANGE_CORAL_WALL_FAN.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.DEAD_BLUE_CORAL.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.DEAD_BLUE_CORAL_WALL_FAN.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.DEAD_BLUE_CORAL_FAN.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.BLUE_CORAL.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.BLUE_CORAL_FAN.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.BLUE_CORAL_WALL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_RUGOSA_CORAL.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_RUGOSA_CORAL_WALL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_RUGOSA_CORAL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.RUGOSA_CORAL.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.RUGOSA_CORAL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.RUGOSA_CORAL_WALL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_TABULATA_CORAL.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_TABULATA_CORAL_WALL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_TABULATA_CORAL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.TABULATA_CORAL.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.TABULATA_CORAL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.TABULATA_CORAL_WALL_FAN.get(), RenderType.cutout());
         consumer.accept(BGBlocks.DEAD_PILLAR_CORAL.get(), RenderType.cutout());
         consumer.accept(BGBlocks.DEAD_PILLAR_CORAL_WALL_FAN.get(), RenderType.cutout());
         consumer.accept(BGBlocks.DEAD_PILLAR_CORAL_FAN.get(), RenderType.cutout());
         consumer.accept(BGBlocks.PILLAR_CORAL.get(), RenderType.cutout());
         consumer.accept(BGBlocks.PILLAR_CORAL_FAN.get(), RenderType.cutout());
         consumer.accept(BGBlocks.PILLAR_CORAL_WALL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_THAMNOPORA_CORAL.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_THAMNOPORA_CORAL_WALL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.DEAD_THAMNOPORA_CORAL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.THAMNOPORA_CORAL.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.THAMNOPORA_CORAL_FAN.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.THAMNOPORA_CORAL_WALL_FAN.get(), RenderType.cutout());
         consumer.accept(BGBlocks.BELLADONNA.get(), RenderType.cutout());
         consumer.accept(BGBlocks.COLEUS.get(), RenderType.cutout());
 
@@ -240,25 +246,35 @@ public class BygoneClient {
     }
 
     public static void registerModelPredicateProviders() {
-        ItemProperties.register(BGItems.HOOK.get(), Bygone.id("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
-            if (livingEntity instanceof Player) {
-                for (InteractionHand value : InteractionHand.values()) {
-                    ItemStack heldStack = livingEntity.getItemInHand(value);
+        ItemProperties.register(
+                BGItems.HOOK.get(), Bygone.id("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
+                    if (livingEntity instanceof Player) {
+                        for (InteractionHand value : InteractionHand.values()) {
+                            ItemStack heldStack = livingEntity.getItemInHand(value);
 
-                    if (heldStack == itemStack && (((PlayerWithHook) livingEntity).bygone$getHook() != null && !((PlayerWithHook) livingEntity).bygone$getHook().isRemoved())) {
+                            if (heldStack == itemStack && (((PlayerWithHook) livingEntity).bygone$getHook() != null && !((PlayerWithHook) livingEntity).bygone$getHook()
+                                    .isRemoved())) {
+                                return 1;
+                            }
+                        }
+                    }
+
+                    if (livingEntity == null) {
+                        return 0.0F;
+                    }
+                    return 0;
+                }
+        );
+
+        ItemProperties.register(
+                BGItems.VERDIGRIS_BLADE.get(), Bygone.id("blocking"),
+                (itemStack, clientWorld, livingEntity, seed) -> {
+                    if (livingEntity == null) {
+                        return 0;
+                    }
+                    if (livingEntity instanceof Player && livingEntity.isBlocking()) {
                         return 1;
                     }
-                }
-            }
-
-            if (livingEntity == null) return 0.0F;
-            return 0;
-        });
-
-        ItemProperties.register(BGItems.VERDIGRIS_BLADE.get(), Bygone.id("blocking"),
-                (itemStack, clientWorld, livingEntity, seed) -> {
-                    if (livingEntity == null) return 0;
-                    if (livingEntity instanceof Player && livingEntity.isBlocking()) return 1;
                     return 0;
                 }
         );
@@ -280,19 +296,49 @@ public class BygoneClient {
 
     @SuppressWarnings("unchecked")
     public static <T extends ParticleOptions> void registerParticleFactories(BiConsumer<ParticleType<T>, ParticleEngine.SpriteParticleRegistration<T>> consumer) {
-        consumer.accept((ParticleType<T>) BGParticleTypes.BLEMISH, p_107611_ -> (ParticleProvider<T>) new BlemishParticle.BlemishBlockProvider(p_107611_));
-        consumer.accept((ParticleType<T>) BGParticleTypes.RAFFLESIA_SPORES, spriteProvider -> (ParticleProvider<T>) new RafflesiaSporeParticle.Factory(spriteProvider));
-        consumer.accept((ParticleType<T>) BGParticleTypes.ALGAE_BLOOM, sprite -> (ParticleProvider<T>) new SoulParticle.EmissiveProvider(sprite));
-        consumer.accept((ParticleType<T>) BGParticleTypes.SHELF, spriteProvider -> (ParticleProvider<T>) new ShelfParticle.Factory(spriteProvider));
+        consumer.accept(
+                (ParticleType<T>) BGParticleTypes.BLEMISH,
+                p_107611_ -> (ParticleProvider<T>) new BlemishParticle.BlemishBlockProvider(p_107611_)
+        );
+        consumer.accept(
+                (ParticleType<T>) BGParticleTypes.RAFFLESIA_SPORES,
+                spriteProvider -> (ParticleProvider<T>) new RafflesiaSporeParticle.Factory(spriteProvider)
+        );
+        consumer.accept(
+                (ParticleType<T>) BGParticleTypes.ALGAE_BLOOM,
+                sprite -> (ParticleProvider<T>) new SoulParticle.EmissiveProvider(sprite)
+        );
+        consumer.accept(
+                (ParticleType<T>) BGParticleTypes.SHELF,
+                spriteProvider -> (ParticleProvider<T>) new ShelfParticle.Factory(spriteProvider)
+        );
 
-        consumer.accept((ParticleType<T>) BGParticleTypes.AMBER_DUST, spriteProvider -> (ParticleProvider<T>) new AmberDustParticle.Factory(spriteProvider));
-        consumer.accept((ParticleType<T>) BGParticleTypes.ANCIENT_LEAVES, spriteProvider -> (ParticleProvider<T>) new AncientLeavesParticle.Factory(spriteProvider));
-        consumer.accept((ParticleType<T>) BGParticleTypes.SABLE_LEAVES, spriteProvider -> (ParticleProvider<T>) new AncientLeavesParticle.Factory(spriteProvider));
-        consumer.accept((ParticleType<T>) BGParticleTypes.UPSIDEDOWN, spriteProvider -> (ParticleProvider<T>) new UpsidedownDropParticle.Provider(spriteProvider));
+        consumer.accept(
+                (ParticleType<T>) BGParticleTypes.AMBER_DUST,
+                spriteProvider -> (ParticleProvider<T>) new AmberDustParticle.Factory(spriteProvider)
+        );
+        consumer.accept(
+                (ParticleType<T>) BGParticleTypes.ANCIENT_LEAVES,
+                spriteProvider -> (ParticleProvider<T>) new AncientLeavesParticle.Factory(spriteProvider)
+        );
+        consumer.accept(
+                (ParticleType<T>) BGParticleTypes.SABLE_LEAVES,
+                spriteProvider -> (ParticleProvider<T>) new AncientLeavesParticle.Factory(spriteProvider)
+        );
+        consumer.accept(
+                (ParticleType<T>) BGParticleTypes.UPSIDEDOWN,
+                spriteProvider -> (ParticleProvider<T>) new UpsidedownDropParticle.Provider(spriteProvider)
+        );
 
-        consumer.accept((ParticleType<T>) BGParticleTypes.WORM, spriteProvider -> (ParticleProvider<T>) new WormParticle.Factory(spriteProvider));
+        consumer.accept(
+                (ParticleType<T>) BGParticleTypes.WORM,
+                spriteProvider -> (ParticleProvider<T>) new WormParticle.Factory(spriteProvider)
+        );
 
-        consumer.accept((ParticleType<T>) BGParticleTypes.SABLOSSOM, spriteProvider -> (ParticleProvider<T>) new SablossomParticle.Factory(spriteProvider));
+        consumer.accept(
+                (ParticleType<T>) BGParticleTypes.SABLOSSOM,
+                spriteProvider -> (ParticleProvider<T>) new SablossomParticle.Factory(spriteProvider)
+        );
 
     }
 
@@ -302,7 +348,8 @@ public class BygoneClient {
 
     public static boolean canWeaponBlock(LivingEntity entity) {
         if ((entity.getMainHandItem().getItem() instanceof VerdigrisBladeItem)) {
-            Item weaponItem = entity.getOffhandItem().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandItem().getItem() : entity.getOffhandItem().getItem();
+            Item weaponItem = entity.getOffhandItem().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandItem()
+                    .getItem() : entity.getOffhandItem().getItem();
             return weaponItem instanceof VerdigrisBladeItem;
         }
         return false;

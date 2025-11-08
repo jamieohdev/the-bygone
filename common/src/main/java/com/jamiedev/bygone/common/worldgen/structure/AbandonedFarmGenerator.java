@@ -40,15 +40,11 @@ public class AbandonedFarmGenerator {
         }
 
         public Piece(StructureTemplateManager manager, CompoundTag nbt) {
-            super(BGStructures.ANCIENT_ROOTS_PIECES, nbt, manager, (id) -> {
-                return createPlacementData(Rotation.valueOf(nbt.getString("Rot")));
-            });
+            super(BGStructures.ANCIENT_ROOTS_PIECES, nbt, manager, (id) -> createPlacementData(Rotation.valueOf(nbt.getString("Rot"))));
         }
 
         public Piece(StructurePieceSerializationContext structureContext, CompoundTag nbt) {
-            super(BGStructures.ANCIENT_ROOTS_PIECES, nbt, structureContext.structureTemplateManager(), (id) -> {
-                return createPlacementData(Rotation.valueOf(nbt.getString("Rot")));
-            });
+            super(BGStructures.ANCIENT_ROOTS_PIECES, nbt, structureContext.structureTemplateManager(), (id) -> createPlacementData(Rotation.valueOf(nbt.getString("Rot"))));
         }
 
 
@@ -63,11 +59,11 @@ public class AbandonedFarmGenerator {
         }
 
         @Override
-        protected void handleDataMarker(String metadata, BlockPos pos, ServerLevelAccessor world, @NotNull RandomSource random, BoundingBox boundingBox) {
+        protected void handleDataMarker(@NotNull String metadata, @NotNull BlockPos pos, @NotNull ServerLevelAccessor world, @NotNull RandomSource random, @NotNull BoundingBox boundingBox) {
         }
 
         @Override
-        public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, @NotNull RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
+        public void postProcess(@NotNull WorldGenLevel world, @NotNull StructureManager structureAccessor, @NotNull ChunkGenerator chunkGenerator, @NotNull RandomSource random, BoundingBox chunkBox, @NotNull ChunkPos chunkPos, @NotNull BlockPos pivot) {
             chunkBox.encapsulate(this.template.getBoundingBox(this.placeSettings, this.templatePosition));
             super.postProcess(world, structureAccessor, chunkGenerator, random, chunkBox, chunkPos, pivot);
         }

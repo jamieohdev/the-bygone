@@ -26,6 +26,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 public class BygonePortalFrameBlock extends Block {
     public static final DirectionProperty FACING;
@@ -58,17 +59,17 @@ public class BygonePortalFrameBlock extends Block {
     }
 
     @Override
-    public MapCodec<BygonePortalFrameBlock> codec() {
+    public @NotNull MapCodec<BygonePortalFrameBlock> codec() {
         return CODEC;
     }
 
     @Override
-    protected boolean useShapeForLightOcclusion(BlockState state) {
+    protected boolean useShapeForLightOcclusion(@NotNull BlockState state) {
         return true;
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+    protected @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return state.getValue(EYE) ? FRAME_WITH_EYE_SHAPE : FRAME_SHAPE;
     }
 
@@ -78,22 +79,22 @@ public class BygonePortalFrameBlock extends Block {
     }
 
     @Override
-    protected boolean hasAnalogOutputSignal(BlockState state) {
+    protected boolean hasAnalogOutputSignal(@NotNull BlockState state) {
         return true;
     }
 
     @Override
-    protected int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+    protected int getAnalogOutputSignal(BlockState state, @NotNull Level world, @NotNull BlockPos pos) {
         return state.getValue(EYE) ? 15 : 0;
     }
 
     @Override
-    protected BlockState rotate(BlockState state, Rotation rotation) {
+    protected @NotNull BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    protected BlockState mirror(BlockState state, Mirror mirror) {
+    protected @NotNull BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
@@ -103,7 +104,7 @@ public class BygonePortalFrameBlock extends Block {
     }
 
     @Override
-    protected boolean isPathfindable(BlockState state, PathComputationType type) {
+    protected boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType type) {
         return false;
     }
 }
