@@ -97,11 +97,13 @@ public class Bygone {
         consumer.accept(BGEntityTypes.WRAITH.get(), WraithEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.SABEAST.get(), SabeastEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.AMOEBA.get(), AmoebaEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.AQUIFAWN.get(), AquifawnEntity.createAttributes().build());
     }
 
     @SuppressWarnings("unchecked")
     public static <T extends Mob> void registerSpawnPlacements(Consumer4<EntityType<T>, SpawnPlacementType, Heightmap.Types, SpawnPlacements.SpawnPredicate<T>> consumer) {
         consumer.accept((EntityType<T>) BGEntityTypes.SCUTTLE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, iServerWorld, reason1, pos1, random1) -> ScuttleEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<? extends WaterAnimal>) entityType, iServerWorld, reason1, pos1, random1));
+        consumer.accept((EntityType<T>) BGEntityTypes.AQUIFAWN.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, iServerWorld, reason1, pos1, random1) -> ScuttleEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<? extends WaterAnimal>) entityType, iServerWorld, reason1, pos1, random1));
         consumer.accept((EntityType<T>) BGEntityTypes.GLARE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.BIG_BEAK.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, BigBeakEntity::canSpawn);
         consumer.accept((EntityType<T>) BGEntityTypes.TRILOBITE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type1, world1, reason1, pos1, random1) -> TrilobiteEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<? extends WaterAnimal>) type1, world1, reason1, pos1, random1));

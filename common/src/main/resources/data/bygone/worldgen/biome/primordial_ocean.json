@@ -92,7 +92,13 @@
         "type": "bygone:amoeba",
         "maxCount": 6,
         "minCount": 2,
-        "weight": 15
+        "weight": 2
+      },
+      {
+        "type": "bygone:aquifawn",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 10
       },
       {
         "type": "bygone:trilobite",

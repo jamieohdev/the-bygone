@@ -22,6 +22,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
@@ -62,6 +63,7 @@ public class AmoebaEntity extends AbstractFish {
             BlockState state = this.level().getBlockState(pos);
             return state.is(JamiesModTag.AMOEBA_REPELLENTS);
         }));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, AquifawnEntity.class, 8.0F, (double)1.0F, (double)1.0F));
     }
 
     protected PathNavigation createNavigation(Level level) {
