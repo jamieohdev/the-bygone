@@ -405,9 +405,9 @@
   },
   "entity.amoeba.hurt": {
     "sounds": [
-      "bygone:entity/amoeba/hit1",
-      "bygone:entity/amoeba/hit2",
-      "bygone:entity/amoeba/hit3"
+      "bygone:entity/amoeba/hurt1",
+      "bygone:entity/amoeba/hurt2",
+      "bygone:entity/amoeba/hurt3"
     ],
     "subtitle": "subtitles.entity.amoeba.hurt"
   },
