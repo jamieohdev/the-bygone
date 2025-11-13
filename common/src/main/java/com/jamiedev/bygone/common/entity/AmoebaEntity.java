@@ -6,6 +6,7 @@ import com.jamiedev.bygone.common.entity.ai.AmoebaAI;
 import com.jamiedev.bygone.common.entity.ai.AvoidBlockGoal;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGItems;
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
@@ -14,7 +15,9 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
@@ -151,8 +154,23 @@ public class AmoebaEntity extends AbstractFish {
     }
 
     @Override
+    protected SoundEvent getAmbientSound() {
+        return BGSoundEvents.AMOEBA_AMBIENT_ADDITIONS_EVENT;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return BGSoundEvents.AMOEBA_HURT_ADDITIONS_EVENT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return BGSoundEvents.AMOEBA_DEATH_ADDITIONS_EVENT;
+    }
+
+    @Override
     protected SoundEvent getFlopSound() {
-        return null;
+        return BGSoundEvents.AMOEBA_FLOP_ADDITIONS_EVENT;
     }
 
     @Override
