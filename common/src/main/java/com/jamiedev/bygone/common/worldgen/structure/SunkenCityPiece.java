@@ -31,9 +31,14 @@ import org.jetbrains.annotations.NotNull;
 public class SunkenCityPiece
 {
     private static final ResourceLocation[] SUNKEN_NBT = new ResourceLocation[]{
-            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "big_shellbrick_1"),
-            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "big_shellbrick_2"),
-            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "big_shellbrick_3"),
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_ruins/big_shellbrick_1"),
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_ruins/big_shellbrick_2"),
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_ruins/big_shellbrick_3"),
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_ruins/long_shellhouse"),
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_ruins/sea_ruins_1"),
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_ruins/sea_storehouse"),
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_ruins/sea_temple"),
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_ruins/shellhouses")
     };
 
     public SunkenCityPiece() {}
@@ -51,13 +56,13 @@ public class SunkenCityPiece
 
         public Piece(StructureTemplateManager manager, CompoundTag tag) {
             super(BGStructures.SUNKEN_CITY_PIECES, tag, manager,
-                    (x) -> makeSettings(Rotation.valueOf(tag.getString("Rotation"))));
+                    (x) -> makeSettings(Rotation.valueOf(tag.getString("Rot"))));
         }
 
 
         public Piece(StructurePieceSerializationContext context, CompoundTag tag) {
             super(BGStructures.SUNKEN_CITY_PIECES, tag, context.structureTemplateManager(),
-                    (x) -> makeSettings(Rotation.valueOf(tag.getString("Rotation"))));
+                    (x) -> makeSettings(Rotation.valueOf(tag.getString("Rot"))));
         }
 
         private static StructurePlaceSettings makeSettings(Rotation rotation) {
@@ -66,7 +71,7 @@ public class SunkenCityPiece
 
         protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag tag) {
             super.addAdditionalSaveData(context, tag);
-            tag.putString("Rotation", this.placeSettings.getRotation().name());
+            tag.putString("Rot", this.placeSettings.getRotation().name());
         }
 
         public void postProcess(WorldGenLevel world, StructureManager structureAccessor, ChunkGenerator chunkGenerator, @NotNull RandomSource random, BoundingBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
