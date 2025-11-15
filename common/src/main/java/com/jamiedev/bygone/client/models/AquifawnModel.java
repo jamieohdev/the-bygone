@@ -32,6 +32,10 @@ public class AquifawnModel<T extends AquifawnEntity> extends HierarchicalModel<T
 
 	public AquifawnModel(ModelPart root) {
 		this.root  = root;
+		this.tail0 = root.getChild("tail0");
+		this.tail1 = root.getChild("tail1");
+		this.tail2 = root.getChild("tail2");
+
 		this.leg1 = root.getChild("leg1");
 		this.leg0 = root.getChild("leg0");
 		this.neck = root.getChild("neck");
@@ -43,9 +47,6 @@ public class AquifawnModel<T extends AquifawnEntity> extends HierarchicalModel<T
 		this.horn2 = this.head.getChild("horn2");
 		this.cape = this.neck.getChild("cape");
 		this.body = root.getChild("body");
-		this.tail0 = this.body.getChild("tail0");
-		this.tail1 = this.tail0.getChild("tail1");
-		this.tail2 = this.tail1.getChild("tail2");
 	}
 
 	public static LayerDefinition getTexturedModelData() {
@@ -53,6 +54,13 @@ public class AquifawnModel<T extends AquifawnEntity> extends HierarchicalModel<T
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
 		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
+
+		PartDefinition tail1 = partdefinition.addOrReplaceChild("tail0", CubeListBuilder.create().texOffs(0, 35).addBox(-2.0F, 14.0F, 7.0F, 4.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -3.0F, 0.0F));
+
+		PartDefinition tail2 = partdefinition.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(25, 39).addBox(0.0F, 14.0F, 0.0F, 3.0F, 3.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.5F, -2.5F, 14.0F));
+
+		PartDefinition tail3 = partdefinition.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(48, 20).addBox(0.0F, 14.0F, 0.0F, 2.0F, 2.0F, 6.0F, new CubeDeformation(0.0F))
+				.texOffs(27, 20).addBox(1.0F, 10.5F, 3.0F, 1.0F, 9.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, -2.0F, 20.0F));
 
 
 		PartDefinition leg1 = partdefinition.addOrReplaceChild("leg1", CubeListBuilder.create(), PartPose.offset(-3.0F, 15.0F, -6.5F));
@@ -89,12 +97,6 @@ public class AquifawnModel<T extends AquifawnEntity> extends HierarchicalModel<T
 
 		PartDefinition body_r1 = body.addOrReplaceChild("body_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -16.8F, -2.5F, 7.0F, 8.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 13.0F, -1.0F, -0.0873F, 0.0F, 0.0F));
 
-		PartDefinition tail1 = body.addOrReplaceChild("tail0", CubeListBuilder.create().texOffs(0, 35).addBox(-2.0F, 14.0F, 7.0F, 4.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -3.0F, 0.0F));
-
-		PartDefinition tail2 = tail1.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(25, 39).addBox(0.0F, 14.0F, 0.0F, 3.0F, 3.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.5F, -2.5F, 14.0F));
-
-		PartDefinition tail3 = tail2.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(48, 20).addBox(0.0F, 14.0F, 0.0F, 2.0F, 2.0F, 6.0F, new CubeDeformation(0.0F))
-				.texOffs(27, 20).addBox(1.0F, 10.5F, 3.0F, 1.0F, 9.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, -2.0F, 20.0F));
 
 
 		return LayerDefinition.create(meshdefinition, 128, 128);
@@ -105,6 +107,7 @@ public class AquifawnModel<T extends AquifawnEntity> extends HierarchicalModel<T
 
 		float f = ageInTicks - (float)entity.tickCount;
 		float f2 = entity.getTailAnimation(f);
+
 		this.tail0.yRot = Mth.sin(f2) * (float)Math.PI * 0.05F;
 		this.tail1.yRot = Mth.sin(f2) * (float)Math.PI * 0.1F;
 		this.tail2.yRot = Mth.sin(f2) * (float)Math.PI * 0.15F;

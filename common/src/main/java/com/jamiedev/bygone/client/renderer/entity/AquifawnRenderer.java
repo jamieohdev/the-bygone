@@ -6,11 +6,13 @@ import com.jamiedev.bygone.client.models.AquifawnModel;
 import com.jamiedev.bygone.client.models.AquifawnModel;
 import com.jamiedev.bygone.common.entity.AquifawnEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.GuardianRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class AquifawnRenderer extends MobRenderer<AquifawnEntity, AquifawnModel<AquifawnEntity>>
 {
+
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/aquifawn.png");
 
     public AquifawnRenderer(EntityRendererProvider.Context context) {

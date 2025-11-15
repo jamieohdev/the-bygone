@@ -19,8 +19,8 @@
         },
         {
           "input_predicate": {
-            "block": "minecraft:air",
-            "probability": 1.0,
+            "block": "bygone:shellstone",
+            "probability": 0.2,
             "predicate_type": "minecraft:random_block_match"
           },
           "location_predicate": {
@@ -32,8 +32,8 @@
         },
         {
           "input_predicate": {
-            "block": "minecraft:void_air",
-            "probability": 1.0,
+            "block": "bygone:chiseled_shellstone_bricks",
+            "probability": 0.2,
             "predicate_type": "minecraft:random_block_match"
           },
           "location_predicate": {
@@ -45,8 +45,21 @@
         },
         {
           "input_predicate": {
-            "block": "minecraft:cave_air",
-            "probability": 1.0,
+            "block": "bygone:shellstone_bricks",
+            "probability": 0.35,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:water"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "bygone:shellstone_pillar",
+            "probability": 0.3,
             "predicate_type": "minecraft:random_block_match"
           },
           "location_predicate": {

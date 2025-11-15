@@ -79,6 +79,11 @@ public class FungalChildEntity extends FungalParentEntity {
     }
 
     @Override
+    protected float getSoundVolume() {
+        return 0.25F;
+    }
+
+    @Override
     @Nullable
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
         return BGEntityTypes.FUNGAL_PARENT.get().create(world);

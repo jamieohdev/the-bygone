@@ -148,6 +148,10 @@ public class AmoebaEntity extends AbstractFish {
         super.onSyncedDataUpdated(key);
     }
 
+    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+        return true;
+    }
+
     protected void sendDebugPackets() {
         super.sendDebugPackets();
         DebugPackets.sendEntityBrain(this);
