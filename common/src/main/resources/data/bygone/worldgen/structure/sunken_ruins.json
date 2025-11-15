@@ -1,5 +1,5 @@
 {
-  "type": "bygone:sunken_city",
+  "type": "bygone:sunken_ruins",
   "biomes": "bygone:primordial_ocean",
   "spawn_overrides": {},
   "step": "underground_decoration",

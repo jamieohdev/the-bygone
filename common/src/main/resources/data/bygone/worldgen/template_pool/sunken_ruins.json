@@ -1,0 +1,86 @@
+{
+  "fallback": "bygone:sunken_ruins",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:sunken_ruins/big_shellbrick_1",
+        "projection": "rigid",
+        "processors": "bygone:sunken_ruins",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:sunken_ruins/big_shellbrick_2",
+        "projection": "rigid",
+        "processors": "bygone:sunken_ruins",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:sunken_ruins/big_shellbrick_3",
+        "projection": "rigid",
+        "processors": "bygone:sunken_ruins",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:sunken_ruins/long_shellhouse",
+        "projection": "rigid",
+        "processors": "bygone:sunken_ruins",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:sunken_ruins/sea_ruins_1",
+        "projection": "rigid",
+        "processors": "bygone:sunken_ruins",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:sunken_ruins/sea_storehouse",
+        "projection": "rigid",
+        "processors": "bygone:sunken_ruins",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:sunken_ruins/sea_temple",
+        "projection": "rigid",
+        "processors": "bygone:sunken_ruins",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:sunken_ruins/seashrine",
+        "projection": "rigid",
+        "processors": "bygone:sunken_ruins",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:sunken_ruins/shell_houses",
+        "projection": "rigid",
+        "processors": "bygone:sunken_ruins",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}
