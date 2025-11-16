@@ -10,6 +10,7 @@ import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.core.registry.*;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.ParticleProvider;
@@ -32,7 +33,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 public class BygoneClient {
-
+    public static final CubeDeformation FISH_PATTERN_DEFORMATION = new CubeDeformation(0.008F);
 
     public static void registerRenderLayers(BiConsumer<Block, RenderType> consumer) {
         consumer.accept(BGBlocks.AMBER.get(), RenderType.translucent());
@@ -217,6 +218,7 @@ public class BygoneClient {
         EntityRenderers.register(BGEntityTypes.WISP.get(), WispRenderer::new);
         EntityRenderers.register(BGEntityTypes.WRAITH.get(), WraithRenderer::new);
         EntityRenderers.register(BGEntityTypes.SABEAST.get(), SabeastRenderer::new);
+        EntityRenderers.register(BGEntityTypes.PRIMORDIAL_FISH.get(), PrimordialFishRenderer::new);
     }
 
     public static void createModelLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> consumer) {
@@ -243,6 +245,22 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.SABEAST, SabeastModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.AMOEBA, AmoebaModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.AMOEBA_OUTER, AmoebaModel::createOuterLayer);
+        consumer.accept(
+                JamiesModModelLayers.PRIMORDIAL_FISH_SMALL,
+                () -> PrimordialFishModelA.createBodyLayer(CubeDeformation.NONE)
+        );
+        consumer.accept(
+                JamiesModModelLayers.PRIMORDIAL_FISH_LARGE,
+                () -> PrimordialFishModelB.createBodyLayer(CubeDeformation.NONE)
+        );
+        consumer.accept(
+                JamiesModModelLayers.PRIMORDIAL_FISH_SMALL_PATTERN,
+                () -> PrimordialFishModelA.createBodyLayer(FISH_PATTERN_DEFORMATION)
+        );
+        consumer.accept(
+                JamiesModModelLayers.PRIMORDIAL_FISH_LARGE_PATTERN,
+                () -> PrimordialFishModelB.createBodyLayer(FISH_PATTERN_DEFORMATION)
+        );
     }
 
     public static void registerModelPredicateProviders() {
@@ -267,8 +285,7 @@ public class BygoneClient {
         );
 
         ItemProperties.register(
-                BGItems.VERDIGRIS_BLADE.get(), Bygone.id("blocking"),
-                (itemStack, clientWorld, livingEntity, seed) -> {
+                BGItems.VERDIGRIS_BLADE.get(), Bygone.id("blocking"), (itemStack, clientWorld, livingEntity, seed) -> {
                     if (livingEntity == null) {
                         return 0;
                     }
@@ -282,15 +299,13 @@ public class BygoneClient {
         ItemProperties.register(
                 BGItems.ECHO_GONG.get(),
                 ResourceLocation.withDefaultNamespace("tooting"),
-                (p_234978_, p_234979_, p_234980_, p_234981_) -> p_234980_ != null
-                        && p_234980_.isUsingItem() && p_234980_.getUseItem() == p_234978_ ? 1.0F : 0.0F
+                (p_234978_, p_234979_, p_234980_, p_234981_) -> p_234980_ != null && p_234980_.isUsingItem() && p_234980_.getUseItem() == p_234978_ ? 1.0F : 0.0F
         );
 
         ItemProperties.register(
                 BGItems.MALICIOUS_WAR_HORN.get(),
                 ResourceLocation.withDefaultNamespace("tooting"),
-                (p_234978_, p_234979_, p_234980_, p_234981_) -> p_234980_ != null
-                        && p_234980_.isUsingItem() && p_234980_.getUseItem() == p_234978_ ? 1.0F : 0.0F
+                (p_234978_, p_234979_, p_234980_, p_234981_) -> p_234980_ != null && p_234980_.isUsingItem() && p_234980_.getUseItem() == p_234978_ ? 1.0F : 0.0F
         );
     }
 

@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -31,6 +32,9 @@ import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class AmoebaEntity extends AbstractFish {
     public static final int MIN_SIZE = 1;
@@ -41,8 +45,25 @@ public class AmoebaEntity extends AbstractFish {
     private static final EntityDataAccessor<Integer> ID_SIZE;
 
     static {
-        SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY, SensorType.FROG_TEMPTATIONS);
-        MEMORY_TYPES = ImmutableList.of(MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleType.TEMPTATION_COOLDOWN_TICKS, MemoryModuleType.IS_TEMPTED, MemoryModuleType.TEMPTING_PLAYER, MemoryModuleType.BREED_TARGET, MemoryModuleType.IS_PANICKING);
+        SENSOR_TYPES = ImmutableList.of(
+                SensorType.NEAREST_LIVING_ENTITIES,
+                SensorType.NEAREST_PLAYERS,
+                SensorType.HURT_BY,
+                SensorType.FROG_TEMPTATIONS
+        );
+        MEMORY_TYPES = ImmutableList.of(
+                MemoryModuleType.LOOK_TARGET,
+                MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
+                MemoryModuleType.WALK_TARGET,
+                MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+                MemoryModuleType.PATH,
+                MemoryModuleType.NEAREST_VISIBLE_ADULT,
+                MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
+                MemoryModuleType.IS_TEMPTED,
+                MemoryModuleType.TEMPTING_PLAYER,
+                MemoryModuleType.BREED_TARGET,
+                MemoryModuleType.IS_PANICKING
+        );
         ID_SIZE = SynchedEntityData.defineId(AmoebaEntity.class, EntityDataSerializers.INT);
     }
 
@@ -52,32 +73,100 @@ public class AmoebaEntity extends AbstractFish {
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static AttributeSupplier.@NotNull Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 1.0F).add(Attributes.MAX_HEALTH, 6.0F);
+    }
+
+    @SuppressWarnings("unchecked")
+    public @NotNull Brain<AmoebaEntity> getBrain() {
+        return (Brain<AmoebaEntity>) super.getBrain();
+    }
+
+    protected Brain.@NotNull Provider<AmoebaEntity> brainProvider() {
+        return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
+    }
+
+    protected @NotNull Brain<?> makeBrain(@NotNull Dynamic<?> dynamic) {
+        return AmoebaAI.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+    }
+
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (ID_SIZE.equals(key)) {
+            this.refreshDimensions();
+            this.setYRot(this.yHeadRot);
+            this.yBodyRot = this.yHeadRot;
+
+        }
+
+        super.onSyncedDataUpdated(key);
+    }
+
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(ID_SIZE, MIN_SIZE);
+    }
+
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("Size", this.getSize() - 1);
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        this.setSize(compound.getInt("Size") + 1, false);
+        super.readAdditionalSaveData(compound);
     }
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new AvoidBlockGoal(this, 32, 1.4, 1.6, (pos) -> {
-            BlockState state = this.level().getBlockState(pos);
-            return state.is(JamiesModTag.AMOEBA_REPELLENTS);
-        }));
+        this.goalSelector.addGoal(
+                0, new AvoidBlockGoal(
+                        this, 32, 1.4, 1.6, (pos) -> {
+                    BlockState state = this.level().getBlockState(pos);
+                    return state.is(JamiesModTag.AMOEBA_REPELLENTS);
+                }
+                )
+        );
     }
 
-    protected PathNavigation createNavigation(Level level) {
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
         return new WaterBoundPathNavigation(this, level);
     }
 
-    protected Brain.Provider<AmoebaEntity> brainProvider() {
-        return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
+    @Override
+    protected @NotNull SoundEvent getFlopSound() {
+        return SoundEvents.TADPOLE_FLOP;
     }
 
-    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
-        return AmoebaAI.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+    @VisibleForTesting
+    public void setSize(int size, boolean resetHealth) {
+        int i = Mth.clamp(size, MIN_SIZE, 127);
+        this.entityData.set(ID_SIZE, i);
+        this.reapplyPosition();
+        this.refreshDimensions();
+        Objects.requireNonNull(this.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(i * i);
+        Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.2F + 0.1F * (float) i);
+        if (resetHealth) {
+            this.setHealth(this.getMaxHealth());
+        }
+
+        this.xpReward = i;
     }
 
-    public Brain<AmoebaEntity> getBrain() {
-        return (Brain<AmoebaEntity>) super.getBrain();
+    public int getSize() {
+        return this.entityData.get(ID_SIZE);
+    }
+
+    public void refreshDimensions() {
+        double x = this.getX();
+        double y = this.getY();
+        double z = this.getZ();
+        super.refreshDimensions();
+        this.setPos(x, y, z);
+    }
+
+    protected void sendDebugPackets() {
+        super.sendDebugPackets();
+        DebugPackets.sendEntityBrain(this);
     }
 
     protected void customServerAiStep() {
@@ -90,71 +179,8 @@ public class AmoebaEntity extends AbstractFish {
         super.customServerAiStep();
     }
 
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(ID_SIZE, 1);
-    }
-
-    @VisibleForTesting
-    public void setSize(int size, boolean resetHealth) {
-        int i = Mth.clamp(size, 1, 127);
-        this.entityData.set(ID_SIZE, i);
-        this.reapplyPosition();
-        this.refreshDimensions();
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(i * i);
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2F + 0.1F * (float) i);
-        if (resetHealth) {
-            this.setHealth(this.getMaxHealth());
-        }
-
-        this.xpReward = i;
-    }
-
-    public int getSize() {
-        return this.entityData.get(ID_SIZE);
-    }
-
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("Size", this.getSize() - 1);
-    }
-
-    public void readAdditionalSaveData(CompoundTag compound) {
-        this.setSize(compound.getInt("Size") + 1, false);
-        super.readAdditionalSaveData(compound);
-    }
-
-    public void refreshDimensions() {
-        double d0 = this.getX();
-        double d1 = this.getY();
-        double d2 = this.getZ();
-        super.refreshDimensions();
-        this.setPos(d0, d1, d2);
-    }
-
-    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
-        if (ID_SIZE.equals(key)) {
-            this.refreshDimensions();
-            this.setYRot(this.yHeadRot);
-            this.yBodyRot = this.yHeadRot;
-
-        }
-
-        super.onSyncedDataUpdated(key);
-    }
-
-    protected void sendDebugPackets() {
-        super.sendDebugPackets();
-        DebugPackets.sendEntityBrain(this);
-    }
-
     @Override
-    protected SoundEvent getFlopSound() {
-        return null;
-    }
-
-    @Override
-    public ItemStack getBucketItemStack() {
+    public @NotNull ItemStack getBucketItemStack() {
         return BGItems.AMOEBA_BUCKET.get().getDefaultInstance();
     }
 }

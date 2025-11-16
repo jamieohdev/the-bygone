@@ -12,6 +12,7 @@
     "LivingEntityMixin",
     "LivingEntityMixinVex",
     "MapItemMixin",
+    "MobBucketItemMixin",
     "MobMixin",
     "PlayerMixin",
     "ServerLevelMixin",

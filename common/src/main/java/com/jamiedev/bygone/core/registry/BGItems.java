@@ -23,6 +23,20 @@ import static net.minecraft.world.item.Items.BUCKET;
 
 public class BGItems {
 
+    public static final Supplier<Item> PRIMORDIAL_FISH_BUCKET = registerItem(
+            "primordial_fish_bucket",
+            () -> new MobBucketItem(
+                    BGEntityTypes.PRIMORDIAL_FISH.get(),
+                    Fluids.WATER,
+                    SoundEvents.BUCKET_EMPTY_FISH,
+                    (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)
+            )
+    );
+
+    public static final Supplier<Item> PRIMORDIAL_FISH_SPAWN_EGG = registerItem(
+            "primordial_fish_spawn_egg",
+            () -> new SpawnEggItem(BGEntityTypes.PRIMORDIAL_FISH.get(), 0x99c2fc, 0xa82c47, new Item.Properties())
+    );
     public static final Supplier<Item> GUMBO_BOWL = registerItem(
             "gumbo_bowl",
             () -> new Item(new Item.Properties().craftRemainder(Items.BOWL).stacksTo(1))
