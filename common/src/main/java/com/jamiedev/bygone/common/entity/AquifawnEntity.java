@@ -9,6 +9,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -19,6 +21,8 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.Ocelot;
@@ -27,18 +31,23 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class AquifawnEntity extends WaterAnimal implements NeutralMob {
+public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRideableJumping {
 
     @Nullable
     private AquifawnEntity leader;
     private int schoolSize = 1;
+    private int playerAirBubbleAmount;
 
     private float clientSideTailAnimation;
     private float clientSideTailAnimationO;
@@ -74,15 +83,15 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob {
 
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new RandomSwimmingGoal(this, (double)1.0F, 10));
-        this.goalSelector.addGoal(1, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2, true));
+        this.goalSelector.addGoal(2, new AquifawnAvoidGoal(this, 8.0F, 1.0, 1.0));
         this.goalSelector.addGoal(3, new FollowAquifawnLeaderGoal(this));
-        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, (double)1.2F, true));
         this.goalSelector.addGoal(4, new FollowBoatGoal(this));
-        this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, ScuttleEntity.class, 8.0F, (double)1.0F, (double)1.0F));
+        this.goalSelector.addGoal(5, new RandomSwimmingGoal(this, 1.0, 10));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AmoebaEntity.class, false));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, new Class[]{ScuttleEntity.class})).setAlertOthers(new Class[0]));
+        this.targetSelector.addGoal(2, (new HurtByTargetGoal(this, new Class[]{ScuttleEntity.class})).setAlertOthers(new Class[0]));
     }
 
     protected PathNavigation createNavigation(Level level) {
@@ -117,22 +126,48 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob {
                 this.clientSideTailAnimation += this.clientSideTailAnimationSpeed;
             }
         }
+        if (this.isInWater() && this.isVehicle()) {
+           // this.setNoGravity(true);
+        }
 
         super.aiStep();
     }
 
+    @Override
     public void travel(Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
             if (this.getTarget() == null) {
-                this.setDeltaMovement(this.getDeltaMovement().add((double)0.0F, -0.005, (double)0.0F));
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.005, 0.0));
             }
-        } else {
+        }
+        else if (this.isVehicle() && this.getControllingPassenger() instanceof Player player) {
+            this.setYRot(player.getYRot());
+            this.yRotO = this.getYRot();
+            this.setXRot(player.getXRot() * 0.5F);
+            this.setRot(this.getYRot(), this.getXRot());
+            this.yBodyRot = this.getYRot();
+            this.yHeadRot = this.getYRot();
+
+            if (this.isInWater()) {
+                float speed = this.getRiddenSpeed(player);
+
+                if (travelVector.lengthSqr() > 1.0E-5) {
+                    this.moveRelative(speed, travelVector);
+                }
+
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.97));
+
+            } else {
+                super.travel(travelVector);
+            }
+        }
+        else {
             super.travel(travelVector);
         }
-
     }
 
     public void tick()
@@ -151,6 +186,80 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob {
         {
             this.updatePersistentAnger((ServerLevel)this.level(), true);
         }
+    }
+
+    @Override
+    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+        if (this.isVehicle() || this.isBaby()) {
+            return super.mobInteract(player, hand);
+        }
+        else {
+            this.playerAirBubbleAmount = player.getAirSupply();
+            this.doPlayerRide(player);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+
+        //return super.mobInteract(player, hand);
+    }
+
+    protected void doPlayerRide(Player player) {
+        if (!this.level().isClientSide) {
+            player.setYRot(this.getYRot());
+            player.setXRot(this.getXRot());
+            player.startRiding(this);
+        }
+    }
+
+    @javax.annotation.Nullable
+    @Override
+    public LivingEntity getControllingPassenger() {
+        Entity entity = this.getFirstPassenger();
+        if (entity instanceof Player) {
+            return (Player)entity;
+        }
+
+        return super.getControllingPassenger();
+    }
+
+    @Override
+    protected void tickRidden(Player player, Vec3 travelVector) {
+        super.tickRidden(player, travelVector);
+        player.setAirSupply(this.playerAirBubbleAmount);
+    }
+
+    @Override
+    protected Vec3 getRiddenInput(Player player, Vec3 travelVector) {
+        float f = player.xxa * 0.5F;
+        float f1 = player.zza;
+        double yInput = 0.0;
+
+        if (f1 > 0.0F) {
+            yInput = player.getLookAngle().y * 2.0;
+        }
+
+        if (f1 <= 0.0F) {
+            f1 *= 0.5F;
+        }
+
+        return new Vec3((double)f, yInput, (double)f1);
+    }
+
+    protected Vec2 getRiddenRotation(LivingEntity entity) {
+        return new Vec2(entity.getXRot() * 0.5F, entity.getYRot());
+    }
+
+    @Override
+    protected float getRiddenSpeed(Player player) {
+        if (this.isInWater()){
+            return 0.05F;
+            //return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED);
+        }
+        return 0.01F;
+    }
+
+    @Override
+    public boolean isImmobile() {
+        return super.isImmobile() && this.isVehicle();
     }
 
     public int getMaxSpawnClusterSize() {
@@ -221,11 +330,13 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob {
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.readPersistentAngerSaveData(this.level(), compound);
+        this.playerAirBubbleAmount = compound.getInt("PlayerAirBubbleAmount");
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         this.addPersistentAngerSaveData(compound);
+        compound.putInt("PlayerAirBubbleAmount", this.playerAirBubbleAmount);
     }
 
     public void startPersistentAngerTimer() {
@@ -269,11 +380,88 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob {
         return spawnGroupData;
     }
 
+    @Override
+    public void onPlayerJump(int jumpPower) {
+
+    }
+
+    @Override
+    public boolean canJump() {
+        return false;
+    }
+
+    @Override
+    public void handleStartJump(int jumpPower) {
+
+    }
+
+    @Override
+    public void handleStopJump() {
+
+    }
+
     public static class AquifawnSpawnGroupData implements SpawnGroupData {
         public final AquifawnEntity leader;
 
         public AquifawnSpawnGroupData(AquifawnEntity leader) {
             this.leader = leader;
+        }
+    }
+
+    public static class AquifawnAvoidGoal extends AvoidEntityGoal {
+        protected final PathfinderMob mob;
+        private final double walkSpeedModifier;
+        private final double sprintSpeedModifier;
+        protected final float maxDist;
+        @Nullable
+        protected Path path;
+        protected final PathNavigation pathNav;
+        /**
+         * Class of entity this behavior seeks to avoid
+         */
+        private final TargetingConditions avoidEntityTargeting;
+
+        public AquifawnAvoidGoal(PathfinderMob mob, float maxDistance, double walkSpeedModifier, double sprintSpeedModifier) {
+            super(mob, LivingEntity.class, maxDistance, walkSpeedModifier, sprintSpeedModifier);
+            this.mob = mob;
+            this.maxDist = maxDistance;
+            this.walkSpeedModifier = walkSpeedModifier;
+            this.sprintSpeedModifier = sprintSpeedModifier;
+            this.pathNav = mob.getNavigation();
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.avoidEntityTargeting = TargetingConditions.forCombat().range((double)maxDistance).selector(predicateOnAvoidEntity.and(avoidPredicate));
+        }
+
+        @Override
+        public boolean canUse() {
+            this.toAvoid = this.mob
+                    .level()
+                    .getNearestEntity(
+                            this.mob
+                                    .level()
+                                    .getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate((double)this.maxDist, 3.0, (double)this.maxDist),
+                                            livingEntity -> livingEntity.isAlive() &&
+                                                    !(livingEntity instanceof AquifawnEntity) &&
+                                                    !(livingEntity instanceof AmoebaEntity)),
+                            this.avoidEntityTargeting,
+                            this.mob,
+                            this.mob.getX(),
+                            this.mob.getY(),
+                            this.mob.getZ()
+                    );
+            if (this.toAvoid == null) {
+                return false;
+            } else {
+                Vec3 vec3 = DefaultRandomPos.getPosAway(this.mob, 16, 7, this.toAvoid.position());
+                if (vec3 == null) {
+                    return false;
+                } else if (this.toAvoid.distanceToSqr(vec3.x, vec3.y, vec3.z) < this.toAvoid.distanceToSqr(this.mob)) {
+                    return false;
+                } else {
+                    this.path = this.pathNav.createPath(vec3.x, vec3.y, vec3.z, 0);
+                    return this.path != null;
+                }
+            }
         }
     }
 
