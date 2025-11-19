@@ -56,64 +56,62 @@ public class PrimordialFishEntity extends AbstractSchoolingFish implements Varia
                 // 0
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.BROCHO, DyeColor.GREEN, DyeColor.RED),
                 // 1
-                new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.BROCHO, DyeColor.BLUE, DyeColor.GRAY),
-                // 2
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.AGONUS, DyeColor.BROWN, DyeColor.WHITE),
-                // 3
+                // 2
                 new PrimordialFishEntity.Variant(
                         PrimordialFishEntity.Pattern.AGONUS,
                         DyeColor.BROWN,
                         DyeColor.LIGHT_GRAY
                 ),
-                //4
+                // 3
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.EUSTHENO, DyeColor.BLUE, DyeColor.BROWN),
-                // 5
+                // 4
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.EUSTHENO, DyeColor.GREEN, DyeColor.GRAY),
-                // 6
+                // 5
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.ABSALOM, DyeColor.GREEN, DyeColor.CYAN),
-                // 7
+                // 6
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.ACENTRO, DyeColor.BROWN, DyeColor.WHITE),
-                // 8
+                // 7
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.ACENTRO, DyeColor.WHITE, DyeColor.RED),
-                // 9
+                // 8
                 new PrimordialFishEntity.Variant(
                         PrimordialFishEntity.Pattern.ACENTRO,
                         DyeColor.LIGHT_GRAY,
                         DyeColor.PINK
                 ),
-                // 10
+                // 9
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.HAIKO, DyeColor.LIGHT_BLUE, DyeColor.RED),
-                // 11
+                // 10
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.HAIKO, DyeColor.BROWN, DyeColor.BROWN),
+                // 11
+                new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.HAIKO, DyeColor.LIME, DyeColor.BLUE),
                 // 12
-                new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.HAIKO, DyeColor.WHITE, DyeColor.BLACK),
-                // 13
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.HAIKO, DyeColor.BROWN, DyeColor.GRAY),
-                // 14
+                // 13
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.MESA, DyeColor.GRAY, DyeColor.LIGHT_GRAY),
-                // 15
+                // 14
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.MESA, DyeColor.GRAY, DyeColor.YELLOW),
-                // 16
+                // 15
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.PSEUDA, DyeColor.WHITE, DyeColor.RED),
-                // 17
+                // 16
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.TETAN, DyeColor.WHITE, DyeColor.BLACK),
-                // 18
+                // 17
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.TETAN, DyeColor.WHITE, DyeColor.BROWN),
-                // 19
+                // 18
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.TETAN, DyeColor.WHITE, DyeColor.GRAY),
-                // 20
+                // 19
                 new PrimordialFishEntity.Variant(
                         PrimordialFishEntity.Pattern.TETAN,
-                        DyeColor.LIGHT_GRAY,
+                        DyeColor.LIGHT_BLUE,
                         DyeColor.PURPLE
                 ),
-                // 21
+                // 20
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.BROCHO, DyeColor.BROWN, DyeColor.RED),
-                // 22
+                // 21
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.SIMULA, DyeColor.YELLOW, DyeColor.BLUE),
-                // 23
+                // 22
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.SIMULA, DyeColor.MAGENTA, DyeColor.LIME),
-                // 24
+                // 23
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.SIMULA, DyeColor.RED, DyeColor.LIGHT_GRAY)
         );
     }

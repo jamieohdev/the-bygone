@@ -33,6 +33,11 @@ public class BGItems {
             )
     );
 
+    public static final Supplier<Item> PRIMORDIAL_FISH = registerItem(
+            "primordial_fish",
+            () -> new Item(new Item.Properties().food(Foods.TROPICAL_FISH))
+    );
+
     public static final Supplier<Item> PRIMORDIAL_FISH_SPAWN_EGG = registerItem(
             "primordial_fish_spawn_egg",
             () -> new SpawnEggItem(BGEntityTypes.PRIMORDIAL_FISH.get(), 0x99c2fc, 0xa82c47, new Item.Properties())
