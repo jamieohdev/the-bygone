@@ -26,6 +26,11 @@ public class BGSoundEvents {
     public static final ResourceLocation AMBIENT_SABLE_FOREST_ADDITIONS = id("ambient.sable_forest.additions");
     public static final Holder.Reference<SoundEvent> MUSIC_DISC_SHUFFLE = registerSoundEventHolder("music_disc.shuffle");
     public static final ResourceLocation BLOCK_MEGALITH_BLOCK_IDLE = id("block.megalith_block.idle");
+
+    public static final ResourceLocation ENTITY_AMOEBA_AMBIENT = id("entity.amoeba.ambient");
+    public static final ResourceLocation ENTITY_AMOEBA_FLOP = id("entity.amoeba.flop");
+    public static final ResourceLocation ENTITY_AMOEBA_HURT = id("entity.amoeba.hurt");
+    public static final ResourceLocation ENTITY_AMOEBA_DEATH = id("entity.amoeba.death");
     public static final ResourceLocation ENTITY_BIGBEAK_AMBIENT = id("entity.bigbeak.ambient");
     public static final ResourceLocation ENTITY_BIGBEAK_HURT = id("entity.bigbeak.hurt");
     public static final ResourceLocation ENTITY_BIGBEAK_DEATH = id("entity.bigbeak.death");
@@ -68,6 +73,7 @@ public class BGSoundEvents {
     public static final ResourceLocation ENTITY_LITHY_TRIP = id("entity.lithy.trip");
     public static final ResourceLocation ENTITY_LITHY_HURT = id("entity.lithy.hurt");
     public static final ResourceLocation ENTITY_LITHY_DEATH = id("entity.lithy.death");
+    
     public static final ResourceLocation HOOK_RETRIEVE = id("entity.hook.retrieve");
     public static final ResourceLocation HOOK_HIT = id("entity.hook.hit");
     public static final ResourceLocation HOOK_THROW = id("entity.hook.throw");
@@ -97,6 +103,13 @@ public class BGSoundEvents {
     public static SoundEvent WRAITH_FLY_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_FLY);
     public static SoundEvent WRAITH_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_HURT);
     public static SoundEvent WRAITH_TELEPORT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_TELEPORT);
+
+
+    public static SoundEvent AMOEBA_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AMOEBA_AMBIENT);
+    public static SoundEvent AMOEBA_FLOP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AMOEBA_FLOP);
+    public static SoundEvent AMOEBA_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AMOEBA_DEATH);
+    public static SoundEvent AMOEBA_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AMOEBA_HURT);
+    
     public static SoundEvent LITHY_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_AMBIENT);
     public static SoundEvent LITHY_TRIP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_TRIP);
     public static SoundEvent LITHY_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_DEATH);
@@ -181,6 +194,12 @@ public class BGSoundEvents {
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.MUSIC_SHELFHOLLOWS_ADDITIONS, BGSoundEvents.MUSIC_SHELFHOLLOWS_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.MUSIC_PRIMORDIALOCEAN_ADDITIONS, BGSoundEvents.MUSIC_PRIMORDIALOCEAN_ADDITIONS_EVENT);
 
+
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_AMOEBA_AMBIENT, BGSoundEvents.AMOEBA_AMBIENT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_AMOEBA_FLOP, BGSoundEvents.AMOEBA_FLOP_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_AMOEBA_HURT, BGSoundEvents.AMOEBA_HURT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_AMOEBA_DEATH, BGSoundEvents.AMOEBA_DEATH_ADDITIONS_EVENT);
+        
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_BIGBEAK_AMBIENT, BGSoundEvents.BIGBEAK_AMBIENT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_BIGBEAK_HURT, BGSoundEvents.BIGBEAK_HURT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_BIGBEAK_DEATH, BGSoundEvents.BIGBEAK_DEATH_ADDITIONS_EVENT);

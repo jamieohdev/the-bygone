@@ -197,6 +197,7 @@ public class BygoneClient {
         BlockEntityRenderers.register(BGBlockEntities.BYGONE_PORTAL.get(), BygonePortalRenderer::new);
 
         EntityRenderers.register(BGEntityTypes.AMOEBA.get(), AmoebaRenderer::new);
+        EntityRenderers.register(BGEntityTypes.AQUIFAWN.get(), AquifawnRenderer::new);
         EntityRenderers.register(BGEntityTypes.GLARE.get(), GlareRenderer::new);
         EntityRenderers.register(BGEntityTypes.COELACANTH.get(), CoelacanthRenderer::new);
         EntityRenderers.register(BGEntityTypes.DUCK.get(), DuckieRenderer::new);
@@ -261,6 +262,7 @@ public class BygoneClient {
                 JamiesModModelLayers.PRIMORDIAL_FISH_LARGE_PATTERN,
                 () -> PrimordialFishModelB.createBodyLayer(FISH_PATTERN_DEFORMATION)
         );
+        consumer.accept(JamiesModModelLayers.AQUIFAWN, AquifawnModel::getTexturedModelData);
     }
 
     public static void registerModelPredicateProviders() {

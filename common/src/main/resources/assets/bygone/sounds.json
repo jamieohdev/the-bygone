@@ -94,6 +94,10 @@
       {
         "name": "bygone:music/gelida",
         "stream": true
+      },
+      {
+        "name": "bygone:music/lullaby",
+        "stream": true
       }
     ]
   },
@@ -389,6 +393,31 @@
   "entity.nectaur.screech": {
     "sounds": ["bygone:entity/nectaur/screech"],
     "subtitle": "subtitles.entity.nectaur.screech"
+  },
+
+  "entity.amoeba.ambient": {
+    "sounds": [
+      "bygone:entity/amoeba/idle1",
+      "bygone:entity/amoeba/idle2",
+      "bygone:entity/amoeba/idle3"
+    ],
+    "subtitle": "subtitles.entity.amoeba.ambient"
+  },
+  "entity.amoeba.hurt": {
+    "sounds": [
+      "bygone:entity/amoeba/hurt1",
+      "bygone:entity/amoeba/hurt2",
+      "bygone:entity/amoeba/hurt3"
+    ],
+    "subtitle": "subtitles.entity.amoeba.hurt"
+  },
+  "entity.amoeba.death": {
+    "sounds": [
+      "bygone:entity/amoeba/death1",
+      "bygone:entity/amoeba/death2",
+      "bygone:entity/amoeba/death3"
+    ],
+    "subtitle": "subtitles.entity.amoeba.death"
   },
 
   "entity.bigbeak.ambient": {

@@ -103,6 +103,7 @@ public class Bygone {
         consumer.accept(BGEntityTypes.SABEAST.get(), SabeastEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.AMOEBA.get(), AmoebaEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.PRIMORDIAL_FISH.get(), PrimordialFishEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.AQUIFAWN.get(), AquifawnEntity.createAttributes().build());
     }
 
     @SuppressWarnings("unchecked")
@@ -113,6 +114,18 @@ public class Bygone {
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 (entityType, iServerWorld, reason1, pos1, random1) -> ScuttleEntity.checkSurfaceWaterAnimalSpawnRule(
                         (EntityType<? extends WaterAnimal>) entityType,
+                        iServerWorld,
+                        reason1,
+                        pos1,
+                        random1
+                )
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.AQUIFAWN.get(), 
+                SpawnPlacementTypes.IN_WATER, 
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, 
+                (entityType, iServerWorld, reason1, pos1, random1) -> ScuttleEntity.checkSurfaceWaterAnimalSpawnRule(
+                        (EntityType<? extends WaterAnimal>) entityType, 
                         iServerWorld,
                         reason1,
                         pos1,
