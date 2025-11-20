@@ -10,14 +10,15 @@ import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.animal.horse.Horse;
 
 import java.util.function.Supplier;
 
 public class BGEntityTypes {
 
-    public static final Supplier<EntityType<HookEntity>> HOOK = registerEntityType(
-            "hook",
-            () -> EntityType.Builder.<HookEntity>of(HookEntity::new, MobCategory.MISC)
+
+    public static final Supplier<EntityType<HookEntity>> HOOK = registerEntityType("hook", () ->
+            EntityType.Builder.<HookEntity>of(HookEntity::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .updateInterval(5)
@@ -67,14 +68,18 @@ public class BGEntityTypes {
                     .build("")
     );
 
-    public static final Supplier<EntityType<AmoebaEntity>> AMOEBA = registerEntityType(
-            "amoeba",
-            () -> EntityType.Builder.of(AmoebaEntity::new, MobCategory.CREATURE).sized(0.8F, 0.2F).build("")
-    );
+    public static final Supplier<EntityType<AmoebaEntity>> AMOEBA = registerEntityType("amoeba", () ->
+            EntityType.Builder.of(AmoebaEntity::new, MobCategory.CREATURE)
+                    .sized(0.8F, 0.2F).build(""));
 
-    public static final Supplier<EntityType<MoobooEntity>> MOOBOO = registerEntityType(
-            "mooboo",
-            () -> EntityType.Builder.of(MoobooEntity::new, MobCategory.CREATURE)
+
+    public static final Supplier<EntityType<AquifawnEntity>> AQUIFAWN = registerEntityType("aquifawn", () ->
+            EntityType.Builder.of(AquifawnEntity::new, MobCategory.CREATURE)
+                    .sized(1.3964844F, 1.6F).eyeHeight(1.52F).passengerAttachments(1.44375F).build(""));
+
+
+    public static final Supplier<EntityType<MoobooEntity>> MOOBOO = registerEntityType("mooboo", () ->
+            EntityType.Builder.of(MoobooEntity::new, MobCategory.CREATURE)
                     .sized(0.9F, 1.4F)
                     .eyeHeight(1.3f)
                     .build("")
