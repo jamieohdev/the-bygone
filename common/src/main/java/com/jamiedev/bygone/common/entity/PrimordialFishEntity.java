@@ -72,7 +72,11 @@ public class PrimordialFishEntity extends AbstractSchoolingFish implements Varia
                 // 6
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.ACENTRO, DyeColor.BROWN, DyeColor.WHITE),
                 // 7
-                new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.ACENTRO, DyeColor.WHITE, DyeColor.RED),
+                new PrimordialFishEntity.Variant(
+                        PrimordialFishEntity.Pattern.ACENTRO_GLOW,
+                        DyeColor.WHITE,
+                        DyeColor.RED
+                ),
                 // 8
                 new PrimordialFishEntity.Variant(
                         PrimordialFishEntity.Pattern.ACENTRO,
@@ -84,7 +88,7 @@ public class PrimordialFishEntity extends AbstractSchoolingFish implements Varia
                 // 10
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.HAIKO, DyeColor.BROWN, DyeColor.BROWN),
                 // 11
-                new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.HAIKO, DyeColor.LIME, DyeColor.BLUE),
+                new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.HAIKO_GLOW, DyeColor.LIME, DyeColor.BLUE),
                 // 12
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.HAIKO, DyeColor.BROWN, DyeColor.GRAY),
                 // 13
@@ -101,7 +105,7 @@ public class PrimordialFishEntity extends AbstractSchoolingFish implements Varia
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.TETAN, DyeColor.WHITE, DyeColor.GRAY),
                 // 19
                 new PrimordialFishEntity.Variant(
-                        PrimordialFishEntity.Pattern.TETAN,
+                        PrimordialFishEntity.Pattern.TETAN_GLOW,
                         DyeColor.LIGHT_BLUE,
                         DyeColor.PURPLE
                 ),
@@ -110,7 +114,11 @@ public class PrimordialFishEntity extends AbstractSchoolingFish implements Varia
                 // 21
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.SIMULA, DyeColor.YELLOW, DyeColor.BLUE),
                 // 22
-                new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.SIMULA, DyeColor.MAGENTA, DyeColor.LIME),
+                new PrimordialFishEntity.Variant(
+                        PrimordialFishEntity.Pattern.SIMULA_GLOW,
+                        DyeColor.MAGENTA,
+                        DyeColor.LIME
+                ),
                 // 23
                 new PrimordialFishEntity.Variant(PrimordialFishEntity.Pattern.SIMULA, DyeColor.RED, DyeColor.LIGHT_GRAY)
         );
@@ -123,7 +131,6 @@ public class PrimordialFishEntity extends AbstractSchoolingFish implements Varia
     }
 
     public static String getPredefinedName(int variantId) {
-        // TODO
         return "entity.bygone.primordial_fish.predefined." + variantId;
     }
 
@@ -295,7 +302,21 @@ public class PrimordialFishEntity extends AbstractSchoolingFish implements Varia
         PSEUDA("pseuda", PrimordialFishEntity.Base.LARGE, 2),
         PTOMA("ptoma", PrimordialFishEntity.Base.LARGE, 3),
         TETAN("tetan", PrimordialFishEntity.Base.LARGE, 4),
-        SIMULA("simula", PrimordialFishEntity.Base.LARGE, 5);
+        SIMULA("simula", PrimordialFishEntity.Base.LARGE, 5),
+
+        AGONUS_GLOW("agonus_glow", PrimordialFishEntity.Base.SMALL_GLOW, 0),
+        EUSTHENO_GLOW("eustheno_glow", PrimordialFishEntity.Base.SMALL_GLOW, 1),
+        ABSALOM_GLOW("absalom_glow", PrimordialFishEntity.Base.SMALL_GLOW, 2),
+        ACENTRO_GLOW("acentro_glow", PrimordialFishEntity.Base.SMALL_GLOW, 3),
+        HAIKO_GLOW("haiko_glow", PrimordialFishEntity.Base.SMALL_GLOW, 4),
+        MESA_GLOW("mesa_glow", PrimordialFishEntity.Base.SMALL_GLOW, 5),
+
+        BROCHO_GLOW("brocho_glow", PrimordialFishEntity.Base.LARGE_GLOW, 0),
+        PAREXUS_GLOW("parexus_glow", PrimordialFishEntity.Base.LARGE_GLOW, 1),
+        PSEUDA_GLOW("pseuda_glow", PrimordialFishEntity.Base.LARGE_GLOW, 2),
+        PTOMA_GLOW("ptoma_glow", PrimordialFishEntity.Base.LARGE_GLOW, 3),
+        TETAN_GLOW("tetan_glow", PrimordialFishEntity.Base.LARGE_GLOW, 4),
+        SIMULA_GLOW("simula_glow", PrimordialFishEntity.Base.LARGE_GLOW, 5);
 
         public static final Codec<PrimordialFishEntity.Pattern> CODEC = StringRepresentable.fromEnum(
                 PrimordialFishEntity.Pattern::values);
@@ -315,7 +336,6 @@ public class PrimordialFishEntity extends AbstractSchoolingFish implements Varia
             this.base = base;
             this.rawId = id;
             this.packedId = base.id | id << 8;
-            // TODO
             this.displayName = Component.translatable("entity.bygone.primordial_fish.type." + this.name);
         }
 
