@@ -6,7 +6,6 @@ import com.jamiedev.bygone.common.entity.ai.AmoebaAI;
 import com.jamiedev.bygone.common.entity.ai.AvoidBlockGoal;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGItems;
-import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
@@ -17,7 +16,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
@@ -25,7 +23,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
@@ -80,17 +77,9 @@ public class AmoebaEntity extends AbstractFish {
         return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 1.0F).add(Attributes.MAX_HEALTH, 6.0F);
     }
 
-    protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(0, new AvoidBlockGoal(this, 32, 1.4, 1.6, (pos) -> {
-            BlockState state = this.level().getBlockState(pos);
-            return state.is(JamiesModTag.AMOEBA_REPELLENTS);
-        }));
-        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, AquifawnEntity.class, 8.0F, (double)1.0F, (double)1.0F));
-    }
-
-    protected PathNavigation createNavigation(Level level) {
-        return new WaterBoundPathNavigation(this, level);
+    @SuppressWarnings("unchecked")
+    public @NotNull Brain<AmoebaEntity> getBrain() {
+        return (Brain<AmoebaEntity>) super.getBrain();
     }
 
     protected Brain.@NotNull Provider<AmoebaEntity> brainProvider() {
@@ -175,33 +164,19 @@ public class AmoebaEntity extends AbstractFish {
         this.setPos(x, y, z);
     }
 
-    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
-        return true;
-    }
-
     protected void sendDebugPackets() {
         super.sendDebugPackets();
         DebugPackets.sendEntityBrain(this);
     }
 
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return BGSoundEvents.AMOEBA_AMBIENT_ADDITIONS_EVENT;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(DamageSource source) {
-        return BGSoundEvents.AMOEBA_HURT_ADDITIONS_EVENT;
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return BGSoundEvents.AMOEBA_DEATH_ADDITIONS_EVENT;
-    }
-
-    @Override
-    protected SoundEvent getFlopSound() {
-        return BGSoundEvents.AMOEBA_FLOP_ADDITIONS_EVENT;
+    protected void customServerAiStep() {
+        this.level().getProfiler().push("amoebaBrain");
+        this.getBrain().tick((ServerLevel) this.level(), this);
+        this.level().getProfiler().pop();
+        this.level().getProfiler().push("amoebaActivityUpdate");
+        AmoebaAI.updateActivity(this);
+        this.level().getProfiler().pop();
+        super.customServerAiStep();
     }
 
     @Override

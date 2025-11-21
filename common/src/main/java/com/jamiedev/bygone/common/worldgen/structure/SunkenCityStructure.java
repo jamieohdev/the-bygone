@@ -29,6 +29,12 @@ public class SunkenCityStructure extends Structure {
             ).apply(instance, SunkenCityStructure::new)
     );
 
+    private static final ResourceLocation[] SUNKEN_NBT = new ResourceLocation[]{
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_city/big_shellbrick_1"),
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_city/big_shellbrick_2"),
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_city/big_shellbrick_3"),
+    };
+
     public SunkenCityStructure(Structure.StructureSettings settings, HeightProvider height) {
         super(settings);
         this.height = height;

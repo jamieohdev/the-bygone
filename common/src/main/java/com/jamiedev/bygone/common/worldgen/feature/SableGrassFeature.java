@@ -37,7 +37,7 @@ public class SableGrassFeature extends Feature<SableBranchConfig> {
             if (level.isEmptyBlock(pos)) {
                 if (i == length || !level.isEmptyBlock(pos.above())) {
 
-                    if (random.nextInt(8) == 1) {
+                    if (random.nextInt(5) == 1) {
                         level.setBlock(pos, BGBlocks.SABLOSSOM.get().defaultBlockState().setValue(GrowingPlantHeadBlock.AGE, Mth.nextInt(random, minAge, maxAge)), 2);
                         break;
                     } else {

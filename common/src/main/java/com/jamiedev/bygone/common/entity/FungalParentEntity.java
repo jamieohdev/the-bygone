@@ -99,11 +99,6 @@ public class FungalParentEntity extends Animal implements NeutralMob {
     }
 
     @Override
-    protected float getSoundVolume() {
-        return 0.25F;
-    }
-
-    @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
