@@ -67,6 +67,9 @@ public class JamiesModTag {
 
     public static final TagKey<Biome> SPAWNS_WARM_BIGBEAKS = Biomes.createTag("spawns_warm_bigbeaks");
 
+    public static final TagKey<Biome> ALLOWS_PRIMORDIAL_FISH_SPAWNS_AT_ANY_HEIGHT = Biomes.createTag(
+            "allows_primordial_fish_spawns_at_any_height");
+
     public static class Blocks {
 
         private static TagKey<Block> createTag(String name) {

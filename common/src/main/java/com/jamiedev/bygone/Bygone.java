@@ -36,7 +36,12 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class Bygone {
-    public static final Supplier<DataComponentType<Integer>> MAP_HEIGHT = JinxedRegistryHelper.register(BuiltInRegistries.DATA_COMPONENT_TYPE, "bygone", "map_height", () -> HeightGetter.MAP_HEIGHT);
+    public static final Supplier<DataComponentType<Integer>> MAP_HEIGHT = JinxedRegistryHelper.register(
+            BuiltInRegistries.DATA_COMPONENT_TYPE,
+            "bygone",
+            "map_height",
+            () -> HeightGetter.MAP_HEIGHT
+    );
 
     public static final String MOD_ID = "bygone";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
@@ -97,29 +102,168 @@ public class Bygone {
         consumer.accept(BGEntityTypes.WRAITH.get(), WraithEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.SABEAST.get(), SabeastEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.AMOEBA.get(), AmoebaEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.PRIMORDIAL_FISH.get(), PrimordialFishEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.AQUIFAWN.get(), AquifawnEntity.createAttributes().build());
     }
 
     @SuppressWarnings("unchecked")
     public static <T extends Mob> void registerSpawnPlacements(Consumer4<EntityType<T>, SpawnPlacementType, Heightmap.Types, SpawnPlacements.SpawnPredicate<T>> consumer) {
-        consumer.accept((EntityType<T>) BGEntityTypes.SCUTTLE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, iServerWorld, reason1, pos1, random1) -> ScuttleEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<? extends WaterAnimal>) entityType, iServerWorld, reason1, pos1, random1));
-        consumer.accept((EntityType<T>) BGEntityTypes.AQUIFAWN.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, iServerWorld, reason1, pos1, random1) -> ScuttleEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<? extends WaterAnimal>) entityType, iServerWorld, reason1, pos1, random1));
-        consumer.accept((EntityType<T>) BGEntityTypes.GLARE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
-        consumer.accept((EntityType<T>) BGEntityTypes.BIG_BEAK.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, BigBeakEntity::canSpawn);
-        consumer.accept((EntityType<T>) BGEntityTypes.TRILOBITE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type1, world1, reason1, pos1, random1) -> TrilobiteEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<? extends WaterAnimal>) type1, world1, reason1, pos1, random1));
-        consumer.accept((EntityType<T>) BGEntityTypes.AMOEBA.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type1, world1, reason1, pos1, random1) -> ScuttleEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<? extends WaterAnimal>) type1, world1, reason1, pos1, random1));
-        consumer.accept((EntityType<T>) BGEntityTypes.COPPERBUG.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, (type1, world1, spawnReason, pos1, random1) -> CopperbugEntity.canSpawn((EntityType<CopperbugEntity>) type1, world1, spawnReason, pos1, random1));
-        consumer.accept((EntityType<T>) BGEntityTypes.COELACANTH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, world, reason, pos, random) -> CoelacanthEntity.checkSurfaceWaterAnimalSpawnRule((EntityType<CoelacanthEntity>) type, world, reason, pos, random));
-        consumer.accept((EntityType<T>) BGEntityTypes.PESKY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
-        consumer.accept((EntityType<T>) BGEntityTypes.PEST.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, GlareEntity::canSpawn);
-        consumer.accept((EntityType<T>) BGEntityTypes.NECTAUR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, BigBeakEntity::canSpawn);
-        consumer.accept((EntityType<T>) BGEntityTypes.WHISKBILL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, BigBeakEntity::canSpawn);
-        consumer.accept((EntityType<T>) BGEntityTypes.LITHY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
-        consumer.accept((EntityType<T>) BGEntityTypes.WISP.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
-        consumer.accept((EntityType<T>) BGEntityTypes.WRAITH.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
-        consumer.accept((EntityType<T>) BGEntityTypes.SABEAST.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, LithyEntity::canSpawn);
-        consumer.accept((EntityType<T>) BGEntityTypes.MOOBOO.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LithyEntity::canSpawn);
-        consumer.accept((EntityType<T>) BGEntityTypes.FUNGAL_PARENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING, FungalParentEntity::canSpawn);
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.SCUTTLE.get(),
+                SpawnPlacementTypes.IN_WATER,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (entityType, iServerWorld, reason1, pos1, random1) -> ScuttleEntity.checkSurfaceWaterAnimalSpawnRule(
+                        (EntityType<? extends WaterAnimal>) entityType,
+                        iServerWorld,
+                        reason1,
+                        pos1,
+                        random1
+                )
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.AQUIFAWN.get(), 
+                SpawnPlacementTypes.IN_WATER, 
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, 
+                (entityType, iServerWorld, reason1, pos1, random1) -> ScuttleEntity.checkSurfaceWaterAnimalSpawnRule(
+                        (EntityType<? extends WaterAnimal>) entityType, 
+                        iServerWorld,
+                        reason1,
+                        pos1,
+                        random1
+                )
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.GLARE.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                GlareEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.BIG_BEAK.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                BigBeakEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.TRILOBITE.get(),
+                SpawnPlacementTypes.IN_WATER,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type1, world1, reason1, pos1, random1) -> TrilobiteEntity.checkSurfaceWaterAnimalSpawnRule(
+                        (EntityType<? extends WaterAnimal>) type1,
+                        world1,
+                        reason1,
+                        pos1,
+                        random1
+                )
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.AMOEBA.get(),
+                SpawnPlacementTypes.IN_WATER,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type1, world1, reason1, pos1, random1) -> TrilobiteEntity.checkSurfaceWaterAnimalSpawnRule(
+                        (EntityType<? extends WaterAnimal>) type1,
+                        world1,
+                        reason1,
+                        pos1,
+                        random1
+                )
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.COPPERBUG.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                (type1, world1, spawnReason, pos1, random1) -> CopperbugEntity.canSpawn(
+                        (EntityType<CopperbugEntity>) type1,
+                        world1,
+                        spawnReason,
+                        pos1,
+                        random1
+                )
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.COELACANTH.get(),
+                SpawnPlacementTypes.IN_WATER,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, world, reason, pos, random) -> CoelacanthEntity.checkSurfaceWaterAnimalSpawnRule(
+                        (EntityType<CoelacanthEntity>) type,
+                        world,
+                        reason,
+                        pos,
+                        random
+                )
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.PESKY.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                GlareEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.PEST.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                GlareEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.NECTAUR.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                BigBeakEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.WHISKBILL.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                BigBeakEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.LITHY.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                LithyEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.WISP.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                LithyEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.WRAITH.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                LithyEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.SABEAST.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                LithyEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.MOOBOO.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                LithyEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.FUNGAL_PARENT.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                FungalParentEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.PRIMORDIAL_FISH.get(),
+                SpawnPlacementTypes.IN_WATER,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type1, world1, reason1, pos1, random1) -> PrimordialFishEntity.checkPrimordialFishEntitySpawnRules(
+                        (EntityType<PrimordialFishEntity>) type1,
+                        world1,
+                        reason1,
+                        pos1,
+                        random1
+                )
+        );
     }
 
     public static void addValidBlocks(BiConsumer<BlockEntityType<?>, Block> consumer) {

@@ -70,4 +70,24 @@ public class JamiesModModelLayers {
 
     public static final ModelLayerLocation SABEAST =
             new ModelLayerLocation(Bygone.id("sabeast"), "main");
+
+    public static final ModelLayerLocation PRIMORDIAL_FISH_SMALL = new ModelLayerLocation(
+            Bygone.id("primordial_fish_small"),
+            "main"
+    );
+
+    public static final ModelLayerLocation PRIMORDIAL_FISH_LARGE = new ModelLayerLocation(
+            Bygone.id("primordial_fish_large"),
+            "main"
+    );
+
+    public static final ModelLayerLocation PRIMORDIAL_FISH_SMALL_PATTERN = new ModelLayerLocation(
+            Bygone.id("primordial_fish_small"),
+            "pattern"
+    );
+
+    public static final ModelLayerLocation PRIMORDIAL_FISH_LARGE_PATTERN = new ModelLayerLocation(
+            Bygone.id("primordial_fish_large"),
+            "pattern"
+    );
 }
