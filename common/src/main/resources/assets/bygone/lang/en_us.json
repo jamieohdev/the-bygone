@@ -88,6 +88,7 @@
   "item.bygone.iron_beak_armor": "Iron Big Beak Armor",
   "item.bygone.diamond_beak_armor": "Diamond Big Beak Armor",
   "item.bygone.amoeba_spawn_egg": "Amoeba Spawn Egg",
+  "item.bygone.aquifawn_spawn_egg": "Aquifawn Spawn Egg",
   "item.bygone.big_beak_spawn_egg": "Big Beak Spawn Egg",
   "item.bygone.coelacanth_spawn_egg": "Coelacanth Spawn Egg",
   "item.bygone.copperbug_spawn_egg": "Copperbug Spawn Egg",
@@ -262,6 +263,7 @@
   "block.bygone.shellstone_bricks_slab": "Shellstone Bricks Slab",
   "block.bygone.shellstone_bricks_stairs": "Shellstone Bricks Stairs",
   "block.bygone.shellstone_bricks_wall": "Shellstone Bricks Wall",
+  "block.bygone.cracked_shellstone_bricks": "Cracked Shellstone Bricks",
   "block.bygone.chiseled_shellstone_bricks": "Chiseled Shellstone Bricks",
   "block.bygone.shellstone_pillar": "Shellstone Pillar",
   "block.bygone.shellsand": "Shellsand",
@@ -471,6 +473,7 @@
 
   "entity.bygone.amoeba": "Amoeba",
   "entity.bygone.ammonite": "Ammonite",
+  "entity.bygone.aquifawn": "Aquifawn",
   "entity.bygone.big_beak": "Big Beak",
   "entity.bygone.coelacanth": "Coelacanth",
   "entity.bygone.copperbug": "Copperbug",

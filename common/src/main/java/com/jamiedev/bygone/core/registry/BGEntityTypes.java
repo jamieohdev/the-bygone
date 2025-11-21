@@ -10,6 +10,8 @@ import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Supplier;
 
@@ -72,9 +74,12 @@ public class BGEntityTypes {
             () -> EntityType.Builder.of(AmoebaEntity::new, MobCategory.CREATURE).sized(0.8F, 0.2F).build("")
     );
 
-    public static final Supplier<EntityType<MoobooEntity>> MOOBOO = registerEntityType(
-            "mooboo",
-            () -> EntityType.Builder.of(MoobooEntity::new, MobCategory.CREATURE)
+    public static final Supplier<EntityType<AquifawnEntity>> AQUIFAWN = registerEntityType("aquifawn", () ->
+            EntityType.Builder.of(AquifawnEntity::new, MobCategory.CREATURE)
+                    .sized(1.3964844F, 1.6F).eyeHeight(1.52F).passengerAttachments(new Vec3(0.0, 0.0, 0.0)).build(""));
+
+    public static final Supplier<EntityType<MoobooEntity>> MOOBOO = registerEntityType("mooboo", () ->
+            EntityType.Builder.of(MoobooEntity::new, MobCategory.CREATURE)
                     .sized(0.9F, 1.4F)
                     .eyeHeight(1.3f)
                     .build("")

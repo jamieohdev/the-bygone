@@ -820,6 +820,14 @@ public class BGBlocks {
                             .requiresCorrectToolForDrops()
                             .strength(0.8F))
     );
+    public static final Supplier<Block> CRACKED_SHELLSTONE_BRICKS = registerBlock(
+            "cracked_shellstone_bricks", () ->
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.RAW_IRON)
+                            .instrument(NoteBlockInstrument.XYLOPHONE)
+                            .requiresCorrectToolForDrops()
+                            .strength(0.8F))
+    );
     public static final Supplier<Block> CHISELED_SHELLSTONE_BRICKS = registerBlock(
             "chiseled_shellstone_bricks", () ->
                     new Block(BlockBehaviour.Properties.of()

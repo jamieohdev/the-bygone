@@ -45,6 +45,7 @@ public class BGItemGroups {
                         output.accept(BGItems.ECTOPLASM_BUCKET.get());
                         output.accept(BGBlocks.GUMBO_POT.get());
                         output.accept(BGItems.AMOEBA_SPAWN_EGG.get());
+                        output.accept(BGItems.AQUIFAWN_SPAWN_EGG.get());
                         output.accept(BGItems.BIG_BEAK_SPAWN_EGG.get());
                         output.accept(BGItems.COELACANTH_SPAWN_EGG.get());
                         output.accept(BGItems.COPPERBUG_SPAWN_EGG.get());
@@ -188,6 +189,7 @@ public class BGItemGroups {
                         output.accept(BGBlocks.SHELLSTONE_WALL.get());
                         output.accept(BGBlocks.SHELLSTONE_BRICKS.get());
                         output.accept(BGBlocks.SHELLSTONE_PILLAR.get());
+                        output.accept(BGBlocks.CRACKED_SHELLSTONE_BRICKS.get());
                         output.accept(BGBlocks.CHISELED_SHELLSTONE_BRICKS.get());
                         output.accept(BGBlocks.SHELLSTONE_BRICKS_STAIRS.get());
                         output.accept(BGBlocks.SHELLSTONE_BRICKS_SLAB.get());

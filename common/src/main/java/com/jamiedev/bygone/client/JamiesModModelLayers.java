@@ -14,6 +14,11 @@ public class JamiesModModelLayers {
     public static final ModelLayerLocation AMOEBA_OUTER =
             new ModelLayerLocation(Bygone.id("amoeba"), "outer");
 
+    public static final ModelLayerLocation AQUIFAWN =
+            new ModelLayerLocation(Bygone.id("aquifawn"), "main");
+    public static final ModelLayerLocation AQUIFAWN_SADDLE =
+            new ModelLayerLocation(Bygone.id("aquifawn"), "saddle");
+
     public static final ModelLayerLocation MOOBOO =
             new ModelLayerLocation(Bygone.id("mooboo"), "main");
 

@@ -261,6 +261,8 @@ public class BygoneClient {
                 JamiesModModelLayers.PRIMORDIAL_FISH_LARGE_PATTERN,
                 () -> PrimordialFishModelB.createBodyLayer(FISH_PATTERN_DEFORMATION)
         );
+        consumer.accept(JamiesModModelLayers.AQUIFAWN, AquifawnModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.AQUIFAWN_SADDLE, AquifawnModel::getTexturedModelData);
     }
 
     public static void registerModelPredicateProviders() {
