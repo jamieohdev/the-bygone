@@ -259,6 +259,10 @@ public class BGItems {
             "amoeba_spawn_egg",
             () -> new SpawnEggItem(BGEntityTypes.AMOEBA.get(), 0x6C9BB9, 0x8F8763, new Item.Properties())
     );
+    public static final Supplier<Item> AQUIFAWN_SPAWN_EGG = registerItem(
+            "aquifawn_spawn_egg",
+            () -> new SpawnEggItem(BGEntityTypes.AQUIFAWN.get(), 0x0D2B50, 0x4E6F99, new Item.Properties())
+    );
     public static final Supplier<Item> SCUTTLE_SPAWN_EGG = registerItem(
             "scuttle_spawn_egg",
             () -> new SpawnEggItem(BGEntityTypes.SCUTTLE.get(), 0x274772, 0xeab033, new Item.Properties())

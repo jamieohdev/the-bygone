@@ -5,6 +5,7 @@ import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -42,7 +43,7 @@ import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRideableJumping {
+public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRideableJumping, Saddleable {
 
     @Nullable
     private AquifawnEntity leader;
@@ -52,7 +53,7 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRid
     private float clientSideTailAnimation;
     private float clientSideTailAnimationO;
     private float clientSideTailAnimationSpeed;
-    
+
     private static final UniformInt PERSISTENT_ANGER_TIME;
     private int remainingPersistentAngerTime;
     @javax.annotation.Nullable
@@ -127,7 +128,7 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRid
             }
         }
         if (this.isInWater() && this.isVehicle()) {
-           // this.setNoGravity(true);
+            // this.setNoGravity(true);
         }
 
         super.aiStep();
@@ -398,6 +399,21 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRid
     @Override
     public void handleStopJump() {
 
+    }
+
+    @Override
+    public boolean isSaddleable() {
+        return false;
+    }
+
+    @Override
+    public void equipSaddle(ItemStack stack, @org.jetbrains.annotations.Nullable SoundSource soundSource) {
+
+    }
+
+    @Override
+    public boolean isSaddled() {
+        return false;
     }
 
     public static class AquifawnSpawnGroupData implements SpawnGroupData {

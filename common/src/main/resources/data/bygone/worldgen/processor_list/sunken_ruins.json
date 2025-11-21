@@ -19,6 +19,19 @@
         },
         {
           "input_predicate": {
+            "block": "bygone:shellstone_bricks",
+            "probability": 0.5,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "bygone:cracked_shellstone_bricks"
+          }
+        },
+        {
+          "input_predicate": {
             "block": "bygone:shellstone",
             "probability": 0.2,
             "predicate_type": "minecraft:random_block_match"

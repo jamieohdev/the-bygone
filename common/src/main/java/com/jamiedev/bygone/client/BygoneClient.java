@@ -245,6 +245,7 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.AMOEBA, AmoebaModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.AMOEBA_OUTER, AmoebaModel::createOuterLayer);
         consumer.accept(JamiesModModelLayers.AQUIFAWN, AquifawnModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.AQUIFAWN_SADDLE, AquifawnModel::getTexturedModelData);
     }
 
     public static void registerModelPredicateProviders() {
