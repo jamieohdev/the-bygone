@@ -40,6 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public class AmoebaEntity extends AbstractFish {
+
     public static final int MIN_SIZE = 1;
     public static final int MAX_SIZE = 5;
     public static final int MAX_NATURAL_SIZE = 4;
@@ -156,6 +157,10 @@ public class AmoebaEntity extends AbstractFish {
         double z = this.getZ();
         super.refreshDimensions();
         this.setPos(x, y, z);
+    }
+
+    public int getMaxSpawnClusterSize() {
+        return 1;
     }
 
     public boolean removeWhenFarAway(double distanceToClosestPlayer) {

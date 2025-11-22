@@ -67,7 +67,7 @@ public class BygoneFabric implements ModInitializer {
                     BGBlocks.ALPHA_MOSS_BLOCK.get().asItem(), builder -> builder.set(
                             BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
                             new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(2)
-                                    .saturationModifier(0.05f)
+                                    .saturationModifier(0.10f)
                                     .build())
                     )
             );
@@ -75,7 +75,23 @@ public class BygoneFabric implements ModInitializer {
                     BGBlocks.ALPHA_MOSS_CARPET.get().asItem(), builder -> builder.set(
                             BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
                             new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(1)
-                                    .saturationModifier(0.05f)
+                                    .saturationModifier(0.10f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.SABLE_MOSS_BLOCK.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(2)
+                                    .saturationModifier(0.15f)
+                                    .build())
+                    )
+            );
+            event.modify(
+                    BGBlocks.SABLE_MOSS_CARPET.get().asItem(), builder -> builder.set(
+                            BGDataComponents.GUMBO_INGREDIENT_DATA.value(),
+                            new GumboPotBlockEntity.GumboIngredientComponent(new FoodProperties.Builder().nutrition(1)
+                                    .saturationModifier(0.15f)
                                     .build())
                     )
             );

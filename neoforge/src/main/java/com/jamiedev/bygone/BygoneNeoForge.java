@@ -21,10 +21,12 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
@@ -32,6 +34,7 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -60,13 +63,22 @@ public class BygoneNeoForge {
         eventBus.addListener(this::createAttributes);
         eventBus.addListener(this::addValidBlocks);
         eventBus.addListener(this::modifyDefaultComponents);
+        NeoForge.EVENT_BUS.addListener(this::blockModifications);
         NeoForge.EVENT_BUS.addListener(this::entityTick);
         NeoForge.EVENT_BUS.addListener(this::damageEvent);
         NeoForge.EVENT_BUS.addListener(this::onLivingDeath);
         NeoForge.EVENT_BUS.addListener(this::onServerTick);
     }
 
-    //
+    private void blockModifications(final BlockEvent.BlockToolModificationEvent event) {
+        if (event.getItemAbility() == ItemAbilities.HOE_TILL && event.getLevel().getBlockState(event.getPos().above()).isAir()) {
+            BlockState state = event.getState();
+            if (state.is(BGBlocks.CLAYSTONE.get()))
+                event.setFinalState(BGBlocks.CLAYSTONE_FARMLAND.get().defaultBlockState());
+            else if (state.is(BGBlocks.COARSE_CLAYSTONE.get()))
+                event.setFinalState(BGBlocks.CLAYSTONE.get().defaultBlockState());
+        }
+    }
 
     public void modifyDefaultComponents(ModifyDefaultComponentsEvent event) {
 
