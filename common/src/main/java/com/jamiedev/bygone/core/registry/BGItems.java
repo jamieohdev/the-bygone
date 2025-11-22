@@ -489,10 +489,10 @@ public class BGItems {
             )
     );
 
-    public static final Supplier<Item> CARAPACE_HELM = registerItem(
-            "carapace_helm", () ->
+    public static final Supplier<Item> CARAPACE_GREAVES = registerItem(
+            "carapace_greaves", () ->
                     new ArmorItem(
-                            BGArmorMaterials.CARAPACE, ArmorItem.Type.HELMET,
+                            BGArmorMaterials.CARAPACE, ArmorItem.Type.LEGGINGS,
                             new Item.Properties().fireResistant()
                     )
     );
