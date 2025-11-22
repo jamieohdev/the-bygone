@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.common.effect.CarapaceEffect;
 import com.jamiedev.bygone.common.effect.UpdraftEffect;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
@@ -14,6 +15,9 @@ public class BGMobEffectsNeoForge {
 
     public static final DeferredHolder<MobEffect, MobEffect> UPDRAFT =
             MOB_EFFECTS.register("updraft", UpdraftEffect::new);
+
+    public static final DeferredHolder<MobEffect, MobEffect> CARAPACE =
+            MOB_EFFECTS.register("carapace", CarapaceEffect::new);
 
     public static void init(net.neoforged.bus.api.IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);

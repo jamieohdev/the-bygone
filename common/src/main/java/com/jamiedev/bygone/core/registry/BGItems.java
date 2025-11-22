@@ -488,6 +488,16 @@ public class BGItems {
                     Direction.DOWN
             )
     );
+
+    public static final Supplier<Item> CARAPACE_HELM = registerItem(
+            "carapace_helm", () ->
+                    new ArmorItem(
+                            BGArmorMaterials.CARAPACE, ArmorItem.Type.HELMET,
+                            new Item.Properties().fireResistant()
+                    )
+    );
+
+
     public static FoodProperties AMARANTH_LOAF_COMP = (new FoodProperties.Builder()).nutrition(0)
             .saturationModifier(0F)
             .effect(new MobEffectInstance(MobEffects.HEAL, 1, 0), 1.0F)

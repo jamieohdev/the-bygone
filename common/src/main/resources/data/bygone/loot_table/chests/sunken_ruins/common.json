@@ -43,6 +43,22 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
+                "max": 4,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:glow_chitin",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
                 "max": 3,
                 "min": 1
               },
@@ -115,26 +131,6 @@
           ],
           "name": "minecraft:fishing_rod",
           "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "decoration": "minecraft:red_x",
-              "function": "minecraft:exploration_map",
-              "skip_existing_chunks": false,
-              "zoom": 1
-            },
-            {
-              "function": "minecraft:set_name",
-              "name": {
-                "translate": "filled_map.buried_treasure"
-              },
-              "target": "item_name"
-            }
-          ],
-          "name": "minecraft:map",
-          "weight": 10
         }
       ],
       "rolls": 1

@@ -4,12 +4,19 @@ import com.jamiedev.bygone.common.entity.projectile.HookEntity;
 import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.core.network.SyncPlayerHookS2C;
 import com.jamiedev.bygone.core.platform.Services;
+import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -61,6 +68,14 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
         }
     }
 
+    private void carapaceHelmTick() {
+        ItemStack itemstack = this.getItemBySlot(EquipmentSlot.HEAD);
+        if (itemstack.is(BGItems.CARAPACE_HELM.get()) && this.isEyeInFluid(FluidTags.WATER)) {
+            this.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 200, 0, false, false, false));
+            this.addEffect(new MobEffectInstance(MobEffects.CONDUIT_POWER, 200, 0, false, false, false));
+        }
+    }
+
     @Override
     public void bygone$setHook(@Nullable HookEntity pHook) {
         boolean changed = this.hook != pHook;
@@ -85,6 +100,11 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
         if (nbt.hasUUID("HookUUID")) {
             this.hookUUID = nbt.getUUID("HookUUID");
         }
+    }
+
+    @Inject(at = @At("RETURN"), method = "tick()V")
+    public void tick(CallbackInfo ci) {
+        this.carapaceHelmTick();
     }
 
     /*todo use forge event

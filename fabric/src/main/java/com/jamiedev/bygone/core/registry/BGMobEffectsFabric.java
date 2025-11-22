@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.common.effect.CarapaceEffect;
 import com.jamiedev.bygone.common.effect.UpdraftEffect;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -13,6 +14,12 @@ public class BGMobEffectsFabric {
             BuiltInRegistries.MOB_EFFECT,
             ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "updraft"),
             new UpdraftEffect()
+    );
+
+    public static final MobEffect CARAPACE = Registry.register(
+            BuiltInRegistries.MOB_EFFECT,
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "updraft"),
+            new CarapaceEffect()
     );
 
     public static void init() {

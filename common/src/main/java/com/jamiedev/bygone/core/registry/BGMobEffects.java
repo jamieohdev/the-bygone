@@ -12,6 +12,13 @@ public class BGMobEffects {
 
     public static Supplier<Holder<MobEffect>> UPDRAFT = () -> {
         MobEffect effect = BuiltInRegistries.MOB_EFFECT.get(ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "updraft"));
+        assert effect != null;
+        return BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect);
+    };
+
+    public static Supplier<Holder<MobEffect>> CARAPACE = () -> {
+        MobEffect effect = BuiltInRegistries.MOB_EFFECT.get(ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "carapace"));
+        assert effect != null;
         return BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect);
     };
 

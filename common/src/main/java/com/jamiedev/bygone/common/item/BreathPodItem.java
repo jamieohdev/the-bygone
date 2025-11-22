@@ -17,6 +17,8 @@ import net.minecraft.world.level.Level;
 
 public class BreathPodItem extends Item
 {
+
+
     public BreathPodItem(Item.Properties properties)
     {
         super(properties);
@@ -35,7 +37,7 @@ public class BreathPodItem extends Item
     }
 
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
-        return 40;
+        return 20;
     }
 
     public UseAnim getUseAnimation(ItemStack stack) {
