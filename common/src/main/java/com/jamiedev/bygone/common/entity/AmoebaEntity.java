@@ -80,18 +80,6 @@ public class AmoebaEntity extends AbstractFish {
         return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 1.0F).add(Attributes.MAX_HEALTH, 6.0F);
     }
 
-    protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(0, new AvoidBlockGoal(this, 32, 1.4, 1.6, (pos) -> {
-            BlockState state = this.level().getBlockState(pos);
-            return state.is(JamiesModTag.AMOEBA_REPELLENTS);
-        }));
-        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, AquifawnEntity.class, 8.0F, (double)1.0F, (double)1.0F));
-    }
-
-    protected PathNavigation createNavigation(Level level) {
-        return new WaterBoundPathNavigation(this, level);
-    }
 
     protected Brain.@NotNull Provider<AmoebaEntity> brainProvider() {
         return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
@@ -141,11 +129,6 @@ public class AmoebaEntity extends AbstractFish {
 
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
         return new WaterBoundPathNavigation(this, level);
-    }
-
-    @Override
-    protected @NotNull SoundEvent getFlopSound() {
-        return SoundEvents.TADPOLE_FLOP;
     }
 
     @VisibleForTesting
