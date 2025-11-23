@@ -49,7 +49,7 @@ public class ScuttleEntity extends WaterAnimal implements RangedAttackMob {
         TARGET_ID = SynchedEntityData.defineId(ScuttleEntity.class, EntityDataSerializers.INT);
     }
 
-    Guardian ref;
+
     int attackCooldown = 0;
     int attackAnimTick;
     @Nullable
@@ -98,6 +98,7 @@ public class ScuttleEntity extends WaterAnimal implements RangedAttackMob {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Squid.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AmoebaEntity.class, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Animal.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
 
     }

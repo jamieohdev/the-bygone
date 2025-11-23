@@ -76,7 +76,7 @@ public class BGEntityTypes {
 
     public static final Supplier<EntityType<AquifawnEntity>> AQUIFAWN = registerEntityType("aquifawn", () ->
             EntityType.Builder.of(AquifawnEntity::new, MobCategory.CREATURE)
-                    .sized(1.3964844F, 1.6F).eyeHeight(1.52F).passengerAttachments(new Vec3(0.0, 0.0, 0.0)).build(""));
+                    .sized(1.3964844F, 1.6F).eyeHeight(1.52F).passengerAttachments(new Vec3(0.0, 1.0, -0.25)).build(""));
 
 
     public static final Supplier<EntityType<MoobooEntity>> MOOBOO = registerEntityType("mooboo", () ->

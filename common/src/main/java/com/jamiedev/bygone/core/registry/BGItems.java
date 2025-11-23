@@ -23,6 +23,7 @@ import static net.minecraft.world.item.Items.BUCKET;
 
 public class BGItems {
 
+
     public static final Supplier<Item> PRIMORDIAL_FISH_BUCKET = registerItem(
             "primordial_fish_bucket",
             () -> new MobBucketItem(
@@ -316,6 +317,10 @@ public class BGItems {
             "amoeba_gel",
             () -> new Item(new Item.Properties().fireResistant())
     );
+    public static final Supplier<Item> AMOEBA_GEL_ON_A_STICK = registerItem((String)"amoeba_gel_on_a_stick", () ->
+            new FoodOnAStickItem((
+            new Item.Properties()).durability(25), BGEntityTypes.AQUIFAWN.get(), 7));
+
     public static final Supplier<Item> COELECANTH_BUCKET = registerItem(
             (String) "coelacanth_bucket", () ->
                     new MobBucketItem(

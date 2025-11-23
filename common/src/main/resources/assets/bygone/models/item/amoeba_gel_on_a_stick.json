@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld_rod",
+  "textures": {
+    "layer0": "bygone:item/amoeba_gel_on_a_stick"
+  }
+}

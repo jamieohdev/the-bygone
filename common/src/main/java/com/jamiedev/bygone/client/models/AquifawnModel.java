@@ -55,12 +55,12 @@ public class AquifawnModel<T extends AquifawnEntity> extends HierarchicalModel<T
 
 		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		PartDefinition tail1 = partdefinition.addOrReplaceChild("tail0", CubeListBuilder.create().texOffs(0, 35).addBox(-2.0F, 14.0F, 7.0F, 4.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -3.0F, 0.0F));
+		PartDefinition tail1 = partdefinition.addOrReplaceChild("tail0", CubeListBuilder.create().texOffs(0, 35).addBox(-2.0F, -2.0F, 1.0F, 4.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 13.0F, 6.0F));
 
-		PartDefinition tail2 = partdefinition.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(25, 39).addBox(0.0F, 14.0F, 0.0F, 3.0F, 3.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.5F, -2.5F, 14.0F));
+		PartDefinition tail2 = partdefinition.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(25, 39).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 13.0F, 14.0F));
 
-		PartDefinition tail3 = partdefinition.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(48, 20).addBox(0.0F, 14.0F, 0.0F, 2.0F, 2.0F, 6.0F, new CubeDeformation(0.0F))
-				.texOffs(27, 20).addBox(1.0F, 10.5F, 3.0F, 1.0F, 9.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, -2.0F, 20.0F));
+		PartDefinition tail3 = partdefinition.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(48, 20).addBox(0.0F, -1.0F, 0.0F, 2.0F, 2.0F, 6.0F, new CubeDeformation(0.0F))
+				.texOffs(27, 20).addBox(1.0F, -4.5F, 3.0F, 1.0F, 9.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 13.0F, 20.0F));
 
 
 		PartDefinition leg1 = partdefinition.addOrReplaceChild("leg1", CubeListBuilder.create(), PartPose.offset(-3.0F, 15.0F, -6.5F));
@@ -104,6 +104,9 @@ public class AquifawnModel<T extends AquifawnEntity> extends HierarchicalModel<T
 
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+
+		this.horn.visible = !entity.isBaby();
+		this.horn2.visible = !entity.isBaby();
 
 		float f = ageInTicks - (float)entity.tickCount;
 		float f2 = entity.getTailAnimation(f);

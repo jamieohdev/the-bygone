@@ -1,11 +1,18 @@
 package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.common.entity.ai.goal.FollowAquifawnLeaderGoal;
+import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
+import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -24,12 +31,10 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
-import net.minecraft.world.entity.animal.Chicken;
-import net.minecraft.world.entity.animal.Fox;
-import net.minecraft.world.entity.animal.Ocelot;
-import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.Path;
@@ -43,7 +48,11 @@ import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRideableJumping, Saddleable {
+public class AquifawnEntity extends WaterAnimal implements NeutralMob, ItemSteerable, PlayerRideableJumping, Saddleable {
+
+    private static final EntityDataAccessor<Boolean> DATA_SADDLE_ID;
+    private static final EntityDataAccessor<Integer> DATA_BOOST_TIME;
+    private final ItemBasedSteering steering;
 
     @Nullable
     private AquifawnEntity leader;
@@ -65,6 +74,7 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRid
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
         this.clientSideTailAnimationO = this.clientSideTailAnimation;
+        this.steering = new ItemBasedSteering(this.entityData, DATA_BOOST_TIME, DATA_SADDLE_ID);
     }
 
     public int getMaxHeadXRot() {
@@ -88,11 +98,28 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRid
         this.goalSelector.addGoal(2, new AquifawnAvoidGoal(this, 8.0F, 1.0, 1.0));
         this.goalSelector.addGoal(3, new FollowAquifawnLeaderGoal(this));
         this.goalSelector.addGoal(4, new FollowBoatGoal(this));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2, (p_336182_) -> p_336182_.is(BGItems.AMOEBA_GEL_ON_A_STICK.get()), false));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2, (p_335406_) -> p_335406_.is(JamiesModTag.AQUIFAWN_FOOD), false));
         this.goalSelector.addGoal(5, new RandomSwimmingGoal(this, 1.0, 10));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AmoebaEntity.class, false));
         this.targetSelector.addGoal(2, (new HurtByTargetGoal(this, new Class[]{ScuttleEntity.class})).setAlertOthers(new Class[0]));
+    }
+
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        if (DATA_BOOST_TIME.equals(key) && this.level().isClientSide) {
+            this.steering.onSynced();
+        }
+
+        super.onSyncedDataUpdated(key);
+    }
+
+
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_BOOST_TIME, 0);
+        builder.define(DATA_SADDLE_ID, false);
     }
 
     protected PathNavigation createNavigation(Level level) {
@@ -191,16 +218,27 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRid
 
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
-        if (this.isVehicle() || this.isBaby()) {
-            return super.mobInteract(player, hand);
-        }
-        else {
-            this.playerAirBubbleAmount = player.getAirSupply();
-            this.doPlayerRide(player);
+        boolean flag = this.isFood(player.getItemInHand(hand));
+        if (!flag && this.isSaddled() && !this.isVehicle() && !player.isSecondaryUseActive()) {
+            if (!this.level().isClientSide) {
+                player.startRiding(this);
+            }
+
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
 
-        //return super.mobInteract(player, hand);
+        else {
+            InteractionResult interactionresult = super.mobInteract(player, hand);
+            this.playerAirBubbleAmount = player.getAirSupply();
+
+            if (!interactionresult.consumesAction()) {
+                ItemStack itemstack = player.getItemInHand(hand);
+                return itemstack.is(Items.SADDLE) ? itemstack.interactLivingEntity(player, this, hand) : InteractionResult.PASS;
+            } else {
+                return interactionresult;
+            }
+        }
+
     }
 
     protected void doPlayerRide(Player player) {
@@ -214,18 +252,27 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRid
     @javax.annotation.Nullable
     @Override
     public LivingEntity getControllingPassenger() {
-        Entity entity = this.getFirstPassenger();
-        if (entity instanceof Player) {
-            return (Player)entity;
+        Object var10000;
+        if (this.isSaddled()) {
+            Entity var2 = this.getFirstPassenger();
+            if (var2 instanceof Player) {
+                Player player = (Player)var2;
+                if (player.isHolding(BGItems.AMOEBA_GEL_ON_A_STICK.get())) {
+                    var10000 = player;
+                    return (LivingEntity)var10000;
+                }
+            }
         }
 
-        return super.getControllingPassenger();
+        var10000 = super.getControllingPassenger();
+        return (LivingEntity)var10000;
     }
 
     @Override
     protected void tickRidden(Player player, Vec3 travelVector) {
         super.tickRidden(player, travelVector);
         player.setAirSupply(this.playerAirBubbleAmount);
+        this.steering.tickBoost();
     }
 
     @Override
@@ -331,12 +378,14 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRid
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.readPersistentAngerSaveData(this.level(), compound);
+        this.steering.readAdditionalSaveData(compound);
         this.playerAirBubbleAmount = compound.getInt("PlayerAirBubbleAmount");
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         this.addPersistentAngerSaveData(compound);
+        this.steering.addAdditionalSaveData(compound);
         compound.putInt("PlayerAirBubbleAmount", this.playerAirBubbleAmount);
     }
 
@@ -361,8 +410,8 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRid
         return this.persistentAngerTarget;
     }
 
-    public boolean isFood(ItemStack itemStack) {
-        return false;
+    public boolean isFood(ItemStack stack) {
+        return stack.is(JamiesModTag.AQUIFAWN_FOOD);
     }
 
     public AquifawnEntity getBreedOffspring(ServerLevel level, AgeableMob ageableMob) {
@@ -401,19 +450,32 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRid
 
     }
 
-    @Override
     public boolean isSaddleable() {
-        return false;
+        return this.isAlive() && !this.isBaby();
     }
 
-    @Override
-    public void equipSaddle(ItemStack stack, @org.jetbrains.annotations.Nullable SoundSource soundSource) {
+    protected void dropEquipment() {
+        super.dropEquipment();
+        if (this.isSaddled()) {
+            this.spawnAtLocation(Items.SADDLE);
+        }
 
     }
 
-    @Override
+    public boolean boost() {
+        return this.steering.boost(this.getRandom());
+    }
+
     public boolean isSaddled() {
-        return false;
+        return this.steering.hasSaddle();
+    }
+
+    public void equipSaddle(ItemStack stack, @Nullable SoundSource soundSource) {
+        this.steering.setSaddle(true);
+        if (soundSource != null) {
+            this.level().playSound((Player)null, this, SoundEvents.PIG_SADDLE, soundSource, 0.5F, 1.0F);
+        }
+
     }
 
     public static class AquifawnSpawnGroupData implements SpawnGroupData {
@@ -482,6 +544,8 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, PlayerRid
     }
 
     static {
+        DATA_SADDLE_ID = SynchedEntityData.defineId(AquifawnEntity.class, EntityDataSerializers.BOOLEAN);
+        DATA_BOOST_TIME = SynchedEntityData.defineId(AquifawnEntity.class, EntityDataSerializers.INT);
         PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     }
 }

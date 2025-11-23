@@ -27,6 +27,11 @@ public class BGItemGroups {
                         output.accept(BGItems.COELECANTH_BUCKET.get());
                         output.accept(BGItems.AMOEBA_GEL.get());
                         output.accept(BGItems.AMOEBA_BUCKET.get());
+                        output.accept(BGItems.AMOEBA_GEL_ON_A_STICK.get());
+                        output.accept(BGItems.GLOW_CHITIN.get());
+                        output.accept(BGItems.PRIMORDIAL_FISH.get());
+                        output.accept(BGItems.PRIMORDIAL_FISH_BUCKET.get());
+                        output.accept(BGItems.CARAPACE_GREAVES.get());
                         output.accept(BGItems.BEIGE_SLICE.get());
                         output.accept(BGItems.MUAVE_SLICE.get());
                         output.accept(BGItems.VERDANT_SLICE.get());
@@ -55,6 +60,7 @@ public class BGItemGroups {
                         output.accept(BGItems.NECTAUR_SPAWN_EGG.get());
                         output.accept(BGItems.PESKY_SPAWN_EGG.get());
                         output.accept(BGItems.PEST_SPAWN_EGG.get());
+                        output.accept(BGItems.PRIMORDIAL_FISH_SPAWN_EGG.get());
                         output.accept(BGItems.SABEAST_SPAWN_EGG.get());
                         output.accept(BGItems.SCUTTLE_SPAWN_EGG.get());
                         output.accept(BGItems.TRILOBITE_SPAWN_EGG.get());

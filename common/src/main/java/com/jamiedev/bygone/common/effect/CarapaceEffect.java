@@ -19,7 +19,6 @@ public class CarapaceEffect extends MobEffect
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         if (!entity.level().isClientSide && entity instanceof Player player) {
             player.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 200, 0, false, false, false));
-            player.addEffect(new MobEffectInstance(MobEffects.CONDUIT_POWER, 200, 0, false, false, false));
         }
         return true;
     }

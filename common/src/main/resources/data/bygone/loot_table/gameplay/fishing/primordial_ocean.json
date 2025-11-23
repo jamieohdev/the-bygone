@@ -17,6 +17,10 @@
         },
         {
           "type": "minecraft:item",
+          "name": "bygone:glow_chitin"
+        },
+        {
+          "type": "minecraft:item",
           "name": "bygone:breath_pod"
         },
         {
