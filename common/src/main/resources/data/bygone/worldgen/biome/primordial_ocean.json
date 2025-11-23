@@ -27,8 +27,8 @@
       "tick_delay": 6000
     },
     "sky_color": 10143420,
-    "water_color": 461100,
-    "water_fog_color": 461105
+    "water_color": 4445678,
+    "water_fog_color": 270131
   },
   "features": [
     [],
@@ -99,13 +99,7 @@
         "type": "bygone:amoeba",
         "maxCount": 6,
         "minCount": 2,
-        "weight": 2
-      },
-      {
-        "type": "bygone:aquifawn",
-        "maxCount": 3,
-        "minCount": 2,
-        "weight": 10
+        "weight": 15
       },
       {
         "type": "bygone:trilobite",

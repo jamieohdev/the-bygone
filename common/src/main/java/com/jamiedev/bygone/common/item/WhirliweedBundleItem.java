@@ -24,7 +24,7 @@ public class WhirliweedBundleItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
 
-        if (!level.isClientSide && (!player.isCreative() || player.tryToStartFallFlying())) {
+        if (!level.isClientSide) {
             player.addEffect(new MobEffectInstance(BGMobEffects.UPDRAFT.get(), 600, 0));
 
             level.playSound(null, player.getX(), player.getY(), player.getZ(),

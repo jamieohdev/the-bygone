@@ -556,10 +556,9 @@
 
   "dimension.bygone.bygone": "The Bygone",
 
-  "biome.bygone.alloy_fields": "Alloy Fields",
+  "biome.bygone.alloy_fields": "Alloy Fields (Not added yet)",
   "biome.bygone.alphahang": "Alphahang",
   "biome.bygone.amber_desert": "Amber Desert",
-  "biome.bygone.bygone_barrens": "Bygone Barrens",
   "biome.bygone.megalith_field": "Megalith Fields",
   "biome.bygone.sable_forest": "Sable Forest",
   "biome.bygone.underhang": "Underhang",
@@ -582,12 +581,6 @@
   "subtitles.ambient.shelfhollows.additions": "Fungal noises ring...",
   "subtitles.ambient.sable_forest.additions": "",
 
-  "subtitles.entity.amoeba.ambient": "Amoeba squeaks",
-  "subtitles.entity.amoeba.bucket": "Amoeba bucketed",
-  "subtitles.entity.amoeba.hurt": "Amoeba hurts",
-  "subtitles.entity.amoeba.flop": "Amoeba flops",
-  "subtitles.entity.amoeba.death": "Amoeba dies",
-  
   "subtitles.entity.bigbeak.step": "Footsteps",
   "subtitles.entity.bigbeak.jump": "Big Beak jumps",
   "subtitles.entity.bigbeak.ambient": "Big Beak caws",

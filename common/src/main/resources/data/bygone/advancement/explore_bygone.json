@@ -33,22 +33,6 @@
       },
       "trigger": "minecraft:location"
     },
-    "bygone:bygone_barrens": {
-      "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "location": {
-                "biomes": "bygone:bygone_barrens"
-              }
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:location"
-    },
     "bygone:megalith_field": {
       "conditions": {
         "player": [
@@ -162,7 +146,6 @@
   "requirements": [
     ["bygone:alphahang"],
     ["bygone:amber_desert"],
-    ["bygone:bygone_barrens"],
     ["bygone:megalith_field"],
     ["bygone:primordial_shores"],
     ["bygone:primordial_ocean"],
