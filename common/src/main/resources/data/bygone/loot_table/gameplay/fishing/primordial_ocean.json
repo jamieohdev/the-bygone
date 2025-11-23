@@ -12,6 +12,11 @@
         },
         {
           "type": "minecraft:item",
+          "weight": 60,
+          "name": "bygone:primordial_fish"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 25,
           "name": "minecraft:kelp"
         },

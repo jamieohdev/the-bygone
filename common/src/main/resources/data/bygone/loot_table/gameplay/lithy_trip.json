@@ -19,6 +19,16 @@
           "type": "minecraft:item",
           "name": "bygone:byslate",
           "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:alpha_moss_block",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:sable_moss_block",
+          "weight": 1
         }
       ],
       "rolls": 1.0

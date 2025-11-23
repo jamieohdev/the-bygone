@@ -10,7 +10,11 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:sand"
+          "name": "bygone:malachite"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:shellsand"
         },
         {
           "type": "minecraft:item",

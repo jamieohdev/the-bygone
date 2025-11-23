@@ -10,7 +10,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:moss_block"
+          "name": "bygone:alpha_moss_block"
         },
         {
           "type": "minecraft:item",
