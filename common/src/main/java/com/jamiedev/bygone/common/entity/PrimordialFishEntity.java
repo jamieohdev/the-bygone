@@ -40,9 +40,7 @@ import java.util.List;
 import java.util.function.IntFunction;
 
 // Problems to be solved: how to add more data without breaking the int-packing?
-// Solution: embed it in the base model type.
 public class PrimordialFishEntity extends AbstractSchoolingFish implements VariantHolder<PrimordialFishEntity.Pattern> {
-    
     public static final String BUCKET_VARIANT_TAG = "PrimordialBucketVariantTag";
     public static final String VARIANT_TAG = "PrimordialVariant";
     public static final float COMMON_VARIANT_CHANCE = 0.75f;

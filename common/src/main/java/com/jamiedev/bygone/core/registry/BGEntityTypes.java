@@ -17,9 +17,9 @@ import java.util.function.Supplier;
 
 public class BGEntityTypes {
 
-    public static final Supplier<EntityType<HookEntity>> HOOK = registerEntityType(
-            "hook",
-            () -> EntityType.Builder.<HookEntity>of(HookEntity::new, MobCategory.MISC)
+
+    public static final Supplier<EntityType<HookEntity>> HOOK = registerEntityType("hook", () ->
+            EntityType.Builder.<HookEntity>of(HookEntity::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .updateInterval(5)
@@ -69,14 +69,15 @@ public class BGEntityTypes {
                     .build("")
     );
 
-    public static final Supplier<EntityType<AmoebaEntity>> AMOEBA = registerEntityType(
-            "amoeba",
-            () -> EntityType.Builder.of(AmoebaEntity::new, MobCategory.CREATURE).sized(0.8F, 0.2F).build("")
-    );
+    public static final Supplier<EntityType<AmoebaEntity>> AMOEBA = registerEntityType("amoeba", () ->
+            EntityType.Builder.of(AmoebaEntity::new, MobCategory.CREATURE)
+                    .sized(0.8F, 0.2F).build(""));
+
 
     public static final Supplier<EntityType<AquifawnEntity>> AQUIFAWN = registerEntityType("aquifawn", () ->
             EntityType.Builder.of(AquifawnEntity::new, MobCategory.CREATURE)
                     .sized(1.3964844F, 1.6F).eyeHeight(1.52F).passengerAttachments(new Vec3(0.0, 1.0, -0.25)).build(""));
+
 
     public static final Supplier<EntityType<MoobooEntity>> MOOBOO = registerEntityType("mooboo", () ->
             EntityType.Builder.of(MoobooEntity::new, MobCategory.CREATURE)
