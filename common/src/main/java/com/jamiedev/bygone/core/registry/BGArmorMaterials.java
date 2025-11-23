@@ -33,7 +33,7 @@ public class BGArmorMaterials {
         map.put(ArmorItem.Type.CHESTPLATE, 6);
         map.put(ArmorItem.Type.HELMET, 2);
         map.put(ArmorItem.Type.BODY, 5);
-    }), 9, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.3F, () -> Ingredient.of(BGItems.GLOW_CHITIN.get()));
+    }), 1, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, 0.0F, () -> Ingredient.of(BGItems.GLOW_CHITIN.get()));
 
     public static Holder<ArmorMaterial> BIG_BEAK = register("big_beak", Util.make(new EnumMap(AnimalArmorItem.BodyType.class), map -> {
         map.put(AnimalArmorItem.BodyType.EQUESTRIAN, 1);
