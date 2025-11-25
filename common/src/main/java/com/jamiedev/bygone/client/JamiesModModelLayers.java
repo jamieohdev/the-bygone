@@ -24,6 +24,10 @@ public class JamiesModModelLayers {
 
     public static final ModelLayerLocation MOOBOO_TRANS =
             new ModelLayerLocation(Bygone.id("mooboo"), "outer");
+
+    public static final ModelLayerLocation MURKLING =
+            new ModelLayerLocation(Bygone.id("murkling"), "main");
+
     public static final ModelLayerLocation SCUTTLE =
             new ModelLayerLocation(Bygone.id("scuttle"), "main");
 

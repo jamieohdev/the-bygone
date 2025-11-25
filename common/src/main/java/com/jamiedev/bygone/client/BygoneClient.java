@@ -220,6 +220,7 @@ public class BygoneClient {
         EntityRenderers.register(BGEntityTypes.WRAITH.get(), WraithRenderer::new);
         EntityRenderers.register(BGEntityTypes.SABEAST.get(), SabeastRenderer::new);
         EntityRenderers.register(BGEntityTypes.PRIMORDIAL_FISH.get(), PrimordialFishRenderer::new);
+        EntityRenderers.register(BGEntityTypes.MURKLING.get(), MurklingRenderer::new);
     }
 
     public static void createModelLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> consumer) {
@@ -246,6 +247,7 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.SABEAST, SabeastModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.AMOEBA, AmoebaModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.AMOEBA_OUTER, AmoebaModel::createOuterLayer);
+        consumer.accept(JamiesModModelLayers.MURKLING, MurklingModel::createBodyLayer);
         consumer.accept(
                 JamiesModModelLayers.PRIMORDIAL_FISH_SMALL,
                 () -> PrimordialFishModelA.createBodyLayer(CubeDeformation.NONE)

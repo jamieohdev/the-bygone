@@ -78,6 +78,9 @@ public class BGEntityTypes {
             EntityType.Builder.of(AquifawnEntity::new, MobCategory.CREATURE)
                     .sized(1.3964844F, 1.6F).eyeHeight(1.52F).passengerAttachments(new Vec3(0.0, 1.0, -0.25)).build(""));
 
+    public static final Supplier<EntityType<MurklingEntity>> MURKLING = registerEntityType("murkling", () ->
+            EntityType.Builder.of(MurklingEntity::new, MobCategory.MONSTER)
+                    .sized(1.0F, 2.0F).eyeHeight(2.0F).build(""));
 
     public static final Supplier<EntityType<MoobooEntity>> MOOBOO = registerEntityType("mooboo", () ->
             EntityType.Builder.of(MoobooEntity::new, MobCategory.CREATURE)
