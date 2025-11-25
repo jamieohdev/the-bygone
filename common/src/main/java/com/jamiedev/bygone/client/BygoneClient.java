@@ -148,7 +148,7 @@ public class BygoneClient {
 
         consumer.accept(BGBlocks.CLAYSTONE_FARMLAND.get(), RenderType.cutout());
         consumer.accept(BGBlocks.AMARANTH_CROP.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.SPRINKER.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.ANCIENT_SPRINKLER.get(), RenderType.cutout());
         consumer.accept(BGBlocks.PLAGA_WALL.get(), RenderType.cutout());
         consumer.accept(BGBlocks.PLAGA.get(), RenderType.cutout());
         consumer.accept(BGBlocks.PLAGA_CROP.get(), RenderType.cutout());

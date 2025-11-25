@@ -82,8 +82,7 @@ public class ClaystoneFarmlandBlock extends Block {
             }
 
             blockPos = var2.next();
-            BlockState blockstate1 = world.getBlockState(blockPos);
-        } while (!world.getBlockState(blockPos).is(BGBlocks.SPRINKER.get()));
+        } while (!world.getBlockState(blockPos).is(BGBlocks.ANCIENT_SPRINKLER.get()));
 
         return true;
     }

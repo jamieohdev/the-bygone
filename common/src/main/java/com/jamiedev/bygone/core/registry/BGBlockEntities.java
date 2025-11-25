@@ -37,7 +37,7 @@ public class BGBlockEntities {
                 BlockEntityType.Builder.of(BlemishCatalystBlockEntity::new, BGBlocks.BLEMISH_CATALYST.get())
                         .build(null));
         SPRINKLER = register("ancient_sprinkler", () ->
-                BlockEntityType.Builder.of(SprinklerEntity::new, BGBlocks.SPRINKER.get())
+                BlockEntityType.Builder.of(SprinklerEntity::new, BGBlocks.ANCIENT_SPRINKLER.get())
                         .build(null));
         PRIMORDIAL_VENT = register("primordial_vent", () ->
                 BlockEntityType.Builder.of(PrimordialVentEntity::new, BGBlocks.PRIMORDIAL_VENT.get())

@@ -62,12 +62,5 @@
     }
   },
   "placement": [
-    {
-      "type": "minecraft:count_on_every_layer",
-      "count": 6
-    },
-    {
-      "type": "minecraft:biome"
-    }
   ]
 }

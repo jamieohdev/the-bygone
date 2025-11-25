@@ -5,7 +5,7 @@
       "alternate_inner_layer_provider": {
         "type": "minecraft:simple_state_provider",
         "state": {
-          "Name": "bygone:claystone"
+          "Name": "bygone:bystone"
         }
       },
       "cannot_replace": "#minecraft:features_cannot_replace",
@@ -18,40 +18,44 @@
       "inner_layer_provider": {
         "type": "minecraft:simple_state_provider",
         "state": {
-          "Name": "bygone:shelf_mold_moss_block"
+          "Name": "bygone:bystone"
         }
       },
       "inner_above_features": [
+				{
+					"data": "bygone:mycelium_geode_vegetation_mold",
+					"weight": 1
+				},
 				{
 					"data": "bygone:mycelium_geode_patch_decorators",
 					"weight": 1
 				}
       ],
       "inner_features": [
+				{
+					"data": "bygone:mycelium_geode_patch_mycelium",
+					"weight": 1
+				}
       ],
 			"inner_below_features": [
 				{
-					"data": "bygone:shelfhollow_fungal_vines_orange",
+					"data": "bygone:mycelium_geode_fungi_vines_orange",
 					"weight": 1
 				},
 				{
-					"data": "bygone:shelfhollow_fungal_vines_pink",
+					"data": "bygone:mycelium_geode_fungi_vines_pink",
 					"weight": 1
 				},
 				{
-					"data": "bygone:shelfhollow_fungal_vines_purple",
+					"data": "bygone:mycelium_geode_fungi_vines_purple",
 					"weight": 1
-				},
-				{
-					"data": "bygone:moss_geode_patch_undergrass",
-					"weight": 4
 				}
       ],
       "invalid_blocks": "#minecraft:geode_invalid_blocks",
       "middle_layer_provider": {
         "type": "minecraft:simple_state_provider",
         "state": {
-          "Name": "bygone:claystone"
+          "Name": "bygone:bystone"
         }
       },
       "outer_layer_provider": {
@@ -64,7 +68,7 @@
     "crack": {
       "base_crack_size": 2.0,
       "crack_point_offset": 2,
-      "generate_crack_chance": 0.10
+      "generate_crack_chance": 0.50
     },
     "distribution_points": {
       "type": "minecraft:uniform",

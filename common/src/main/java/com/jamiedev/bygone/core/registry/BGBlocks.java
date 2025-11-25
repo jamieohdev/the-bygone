@@ -1686,7 +1686,7 @@ public class BGBlocks {
                     .ignitedByLava()
                     .pushReaction(PushReaction.DESTROY))
     );
-    public static final Supplier<Block> SPRINKER = registerBlock(
+    public static final Supplier<Block> ANCIENT_SPRINKLER = registerBlock(
             "ancient_sprinkler",
             () -> new SprinklerBlock(BlockBehaviour.Properties.of().randomTicks().instabreak().sound(SoundType.METAL)
                     .pushReaction(PushReaction.DESTROY).noOcclusion())
