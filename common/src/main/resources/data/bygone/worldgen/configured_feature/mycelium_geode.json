@@ -23,18 +23,18 @@
       },
       "inner_above_features": [
 				{
-					"data": "bygone:mycelium_geode_vegetation_mold",
-					"weight": 1
-				},
-				{
 					"data": "bygone:mycelium_geode_patch_decorators",
-					"weight": 1
+					"weight": 3
 				}
       ],
       "inner_features": [
 				{
-					"data": "bygone:mycelium_geode_patch_mycelium",
+					"data": "bygone:mycelium_geode_vegetation_mold",
 					"weight": 1
+				},
+				{
+					"data": "bygone:mycelium_geode_patch_mycelium",
+					"weight": 31
 				}
       ],
 			"inner_below_features": [
