@@ -26,14 +26,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "bygone:amaranth_seeds"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "bygone:ancient_hanging_sign"
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:coal"
         },
         {
@@ -42,11 +34,11 @@
         },
         {
           "type": "minecraft:item",
-          "name": "bygone:claystone_bricks"
+          "name": "bygone:shellstone_bricks"
         },
         {
           "type": "minecraft:item",
-          "name": "bygone:beak_pottery_sherd"
+          "name": "bygone:murky_pottery_sherd"
         },
         {
           "type": "minecraft:item",
@@ -55,14 +47,10 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:lead"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "bygone:music_disc_shuffle"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "bygone:archaeology/village"
+  "random_sequence": "bygone:archaeology/sunken_ruins"
 }

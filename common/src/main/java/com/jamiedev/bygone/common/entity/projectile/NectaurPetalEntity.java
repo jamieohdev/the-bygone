@@ -138,7 +138,7 @@ public class NectaurPetalEntity extends AbstractArrow {
             if (i != -1) {
                 float f = (float) (i >> 16 & 255) / 255.0F;
                 float f1 = (float) (i >> 8 & 255) / 255.0F;
-                float f2 = (float) (i >> 0 & 255) / 255.0F;
+                float f2 = (float) (i & 255) / 255.0F;
 
                 for (int j = 0; j < 20; ++j) {
                     this.level().addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, f, f1, f2), this.getRandomX(0.5F), this.getRandomY(), this.getRandomZ(0.5F), 0.0F, 0.0F, 0.0F);

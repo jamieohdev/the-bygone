@@ -67,6 +67,7 @@
   "item.bygone.cooked_coelacanth": "'Cooked' Coelacanth",
   "item.bygone.coelacanth_bucket": "Bucket of Coelacanth",
   "item.bygone.primordial_fish": "Primordial Fish",
+  "item.bygone.cooked_primordial_fish": "Cooked Primordial Fish",
   "item.bygone.primordial_fish_bucket": "Bucket of Primordial Fish",
   "item.bygone.amaranth_grain": "Amaranth Grain",
   "item.bygone.amaranth_loaf": "Amaranth Loaf",
@@ -125,6 +126,8 @@
   "item.bygone.bucket_o_amoeba": "Bucket of Amoeba",
   "item.bygone.amoeba_gel": "Amoeba Gel",
   "item.bygone.amoeba_gel_on_a_stick": "Amoeba Gel on a Stick",
+  "item.bygone.beak_pottery_sherd": "Beak Pottery Sherd",
+  "item.bygone.murky_pottery_sherd": "Murky Pottery Sherd",
 
   "trim_material.bygone.verdigris": "Verdigris Material",
 

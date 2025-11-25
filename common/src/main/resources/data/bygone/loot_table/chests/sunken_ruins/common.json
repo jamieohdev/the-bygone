@@ -27,7 +27,7 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 6,
+                "max": 4,
                 "min": 2
               },
               "function": "minecraft:set_count"
@@ -43,14 +43,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 4,
+                "max": 3,
                 "min": 1
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "bygone:glow_chitin",
-          "weight": 15
+          "weight": 8
         },
         {
           "type": "minecraft:item",
@@ -71,6 +71,10 @@
         {
           "type": "minecraft:item",
           "name": "bygone:coelacanth"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:primordial_fish"
         },
         {
           "type": "minecraft:item",

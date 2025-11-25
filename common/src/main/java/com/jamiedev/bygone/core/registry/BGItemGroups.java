@@ -75,6 +75,8 @@ public class BGItemGroups {
                         output.accept(BGItems.IRON_BIG_BEAK_ARMOR.get());
                         output.accept(BGItems.DIAMOND_BIG_BEAK_ARMOR.get());
 
+                        output.accept(BGItems.BEAK_POTTERY_SHERD.get());
+                        output.accept(BGItems.MURKY_POTTERY_SHERD.get());
                         output.accept(BGItems.VERDIGRIS_SCRAP.get());
                         output.accept(BGItems.VERDIGRIS_INGOT.get());
                         output.accept(BGBlocks.VERDIGRIS_SCRAP_BLOCK.get());

@@ -23,6 +23,15 @@ import static net.minecraft.world.item.Items.BUCKET;
 
 public class BGItems {
 
+    public static final Supplier<Item> BEAK_POTTERY_SHERD = registerItem(
+            "beak_pottery_sherd",
+            () -> new Item(new Item.Properties())
+    );
+
+    public static final Supplier<Item> MURKY_POTTERY_SHERD = registerItem(
+            "murky_pottery_sherd",
+            () -> new Item(new Item.Properties())
+    );
 
     public static final Supplier<Item> PRIMORDIAL_FISH_BUCKET = registerItem(
             "primordial_fish_bucket",
