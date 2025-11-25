@@ -30,14 +30,22 @@
     [],
     [
       "bygone:common_monster_room",
+      "bygone:moss_geode",
+      "bygone:sable_geode",
+      "bygone:mycelium_geode",
       "bygone:common_small_cloud",
+      "bygone:common_ore_bystone",
+      "bygone:rare_ore_bystone",
+      "bygone:common_ore_claystone",
       "bygone:common_ore_coal_upper",
       "bygone:common_ore_coal_lower",
       "bygone:common_ore_iron_upper",
       "bygone:common_ore_iron_middle",
       "bygone:common_ore_iron_small",
       "bygone:common_ore_copper",
-      "bygone:common_ore_verdigris"
+      "bygone:common_ore_verdigris",
+      "bygone:barrens_patch_undergrass",
+      "bygone:barrens_patch_decorators"
     ],
     ["bygone:common_glow_lichen"],
     [],

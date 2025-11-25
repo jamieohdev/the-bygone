@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,28 +38,28 @@ public class GourdVineBlock extends GrowingPlantHeadBlock {
     }
 
     @Override
-    public MapCodec<GourdVineBlock> codec() {
+    public @NotNull MapCodec<GourdVineBlock> codec() {
         return CODEC;
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(GOURD_TYPE);
     }
 
     @Override
-    protected int getBlocksToGrowWhenBonemealed(RandomSource random) {
+    protected int getBlocksToGrowWhenBonemealed(@NotNull RandomSource random) {
         return NetherVines.getBlocksToGrowWhenBonemealed(random);
     }
 
     @Override
-    protected Block getBodyBlock() {
+    protected @NotNull Block getBodyBlock() {
         return BGBlocks.GOURD_VINE.get();
     }
 
     @Override
-    protected boolean canGrowInto(BlockState state) {
+    protected boolean canGrowInto(@NotNull BlockState state) {
         return NetherVines.isValidGrowthState(state);
     }
 
@@ -75,7 +76,7 @@ public class GourdVineBlock extends GrowingPlantHeadBlock {
     }*/
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    protected void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource random) {
         // Going to keep this for now just in case
         /*if (state.getValue(AGE) < 25 && random.nextDouble() < this.growPerTickProbability) {
             if (random.nextInt(0, 6) == 1){

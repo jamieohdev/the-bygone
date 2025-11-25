@@ -1,26 +1,33 @@
 {
   "feature": {
-    "type": "minecraft:disk",
+    "type": "bygone:disk_shelf_fungi",
     "config": {
-      "half_height": 2,
+      "half_height": 1,
+      "place_in_air": true,
       "radius": {
         "type": "minecraft:uniform",
         "max_inclusive": 8,
-        "min_inclusive": 6
+        "min_inclusive": 3
       },
-      "state_provider": {
+      "outside_state_provider": {
         "fallback": {
           "type": "minecraft:simple_state_provider",
           "state": {
-            "Name": "bygone:purple_mushroom_block"
+            "Name": "bygone:orange_mushroom_block"
           }
         },
         "rules": []
       },
-      "target": {
-        "type": "minecraft:matching_blocks",
-        "blocks": ["minecraft:air"]
-      }
+      "inside_state_provider": {
+        "fallback": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "bygone:shelf_mold_moss_block"
+          }
+        },
+        "rules": []
+      },
+      "replaces": "minecraft:replaceable_by_trees"
     }
   },
   "placement": [

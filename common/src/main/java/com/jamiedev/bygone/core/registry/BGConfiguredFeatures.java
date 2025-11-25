@@ -1,8 +1,8 @@
 package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
-import com.jamiedev.bygone.common.worldgen.feature.PointedAmberClusterFeatureConfig;
-import com.jamiedev.bygone.common.worldgen.feature.PointedAmberFeatureConfig;
+import com.jamiedev.bygone.common.worldgen.feature.config.PointedAmberClusterFeatureConfig;
+import com.jamiedev.bygone.common.worldgen.feature.config.PointedAmberFeatureConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;

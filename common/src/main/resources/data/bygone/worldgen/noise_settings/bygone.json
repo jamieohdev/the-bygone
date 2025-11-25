@@ -490,7 +490,14 @@
         },
         "then_run": {
           "type": "minecraft:sequence",
-          "sequence": []
+          "sequence": [
+            {
+              "type": "minecraft:block",
+              "result_state": {
+                "Name": "bygone:byslate"
+              }
+            }
+					]
         }
       },
       {

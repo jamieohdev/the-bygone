@@ -2,18 +2,13 @@ package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.worldgen.feature.*;
-import com.jamiedev.bygone.common.worldgen.feature.config.MegalithConfig;
-import com.jamiedev.bygone.common.worldgen.feature.config.SableBranchConfig;
-import com.jamiedev.bygone.common.worldgen.feature.config.SmallCloudConfig;
-import com.jamiedev.bygone.common.worldgen.feature.config.ThornySableBranchConfig;
-import com.jamiedev.bygone.common.worldgen.structure.AncientTreeFeatureConfig;
+import com.jamiedev.bygone.common.worldgen.feature.config.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FossilFeature;
 import net.minecraft.world.level.levelgen.feature.RandomPatchFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -83,9 +78,14 @@ public class BGFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> MOSS_PATCH_BONEMEAL = FeatureUtils.createKey(
             "alpha_moss_patch_bonemeal");
 
-    public static final Feature<NoneFeatureConfiguration> SHELF_FUNGI = register(
-            "shelf_fungi",
-            new ShelfFungiFeature(NoneFeatureConfiguration.CODEC)
+    public static final Feature<DiskShelfFungiConfig> DISK_SHELF_FUNGI = register(
+            "disk_shelf_fungi",
+            new DiskShelfFungiFeature(DiskShelfFungiConfig.CODEC)
+    );
+
+    public static final Feature<FeatureFilledGeodeConfig> FEATURE_FILLED_GEODE = register(
+            "feature_filled_geode",
+            new FeatureFilledGeodeFeature(FeatureFilledGeodeConfig.CODEC)
     );
     public static final Feature<NoneFeatureConfiguration> FUNGI_VINES = register(
             "fungi_vines",

@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,8 +46,6 @@ public class Bygone {
 
     public static final String MOD_ID = "bygone";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-    private static int timeInBygone;
-    private static Level level;
 
     public static void init() {
         BGBlocks.init();
@@ -318,35 +317,6 @@ public class Bygone {
         return false;
     }
 
-    public static Level level() {
-        return level;
-    }
-
-    public static void tickCow(Cow cow) {
-
-        if (canCowZombify(cow)) {
-            ++timeInBygone;
-            if (timeInBygone > 300) {
-
-                zombify(cow);
-            }
-        } else {
-            timeInBygone = 0;
-        }
-
-
-    }
-
-    public static boolean canCowZombify(Cow cow) {
-        return cow.level().dimension() == BGDimensions.BYGONE_LEVEL_KEY && !cow.isNoAi();
-    }
-
-    protected static void zombify(Cow cow) {
-        MoobooEntity moobooEntity = cow.convertTo(BGEntityTypes.MOOBOO.get(), true);
-        if (moobooEntity != null) {
-            moobooEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0));
-        }
-    }
 
     public static Stream<Block> getKnownBlocks() {
         return getKnown(BuiltInRegistries.BLOCK);

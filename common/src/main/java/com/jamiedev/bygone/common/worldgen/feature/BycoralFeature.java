@@ -31,6 +31,7 @@ public abstract class BycoralFeature extends Feature<BlockStateConfiguration> {
     }
 
 
+    @SuppressWarnings("SameParameterValue")
     protected @Nullable BlockPos findFloorInColumn(@NotNull LevelAccessor level, @NotNull BlockPos startingPos, int maxDistance, @NotNull TagKey<Block> passable, @NotNull TagKey<Block> invalidSurface) {
 
         BlockState startingState = level.getBlockState(startingPos);
