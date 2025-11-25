@@ -37,6 +37,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
@@ -133,6 +134,10 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, ItemSteer
     protected boolean closeToNextPos() {
         BlockPos blockpos = this.getNavigation().getTargetPos();
         return blockpos != null && blockpos.closerToCenterThan(this.position(), (double) 12.0F);
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState block) {
     }
 
 

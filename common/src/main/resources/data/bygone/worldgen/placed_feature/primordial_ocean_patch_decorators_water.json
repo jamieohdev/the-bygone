@@ -11,9 +11,18 @@
               "entries": [
                 {
                   "data": {
+                    "Name": "bygone:charnia",
+                    "Properties": {
+                      "half": "lower"
+                    }
+                  },
+                  "weight": 100
+                },
+                {
+                  "data": {
                     "Name": "minecraft:seagrass"
                   },
-                  "weight": 200
+                  "weight": 40
                 },
                 {
                   "data": {
@@ -28,7 +37,7 @@
                   "data": {
                     "Name": "bygone:crinoid"
                   },
-                  "weight": 40
+                  "weight": 50
                 },
                 {
                   "data": {
@@ -43,7 +52,7 @@
                       "waterlogged": "true"
                     }
                   },
-                  "weight": 1
+                  "weight": 5
                 }
               ]
             }

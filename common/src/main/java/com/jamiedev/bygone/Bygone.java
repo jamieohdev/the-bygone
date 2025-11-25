@@ -1,5 +1,6 @@
 package com.jamiedev.bygone;
 
+import com.jamiedev.bygone.client.models.MurklingModel;
 import com.jamiedev.bygone.common.entity.*;
 import com.jamiedev.bygone.common.util.Consumer4;
 import com.jamiedev.bygone.core.init.JamiesModTag;
@@ -104,6 +105,7 @@ public class Bygone {
         consumer.accept(BGEntityTypes.AMOEBA.get(), AmoebaEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.PRIMORDIAL_FISH.get(), PrimordialFishEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.AQUIFAWN.get(), AquifawnEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.MURKLING.get(), MurklingEntity.createAttributes().build());
     }
 
     @SuppressWarnings("unchecked")

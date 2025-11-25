@@ -30,6 +30,7 @@ public class BGItemGroups {
                         output.accept(BGItems.AMOEBA_GEL_ON_A_STICK.get());
                         output.accept(BGItems.GLOW_CHITIN.get());
                         output.accept(BGItems.PRIMORDIAL_FISH.get());
+                        output.accept(BGItems.COOKED_PRIMORDIAL_FISH.get());
                         output.accept(BGItems.PRIMORDIAL_FISH_BUCKET.get());
                         output.accept(BGItems.CARAPACE_GREAVES.get());
                         output.accept(BGItems.BEIGE_SLICE.get());

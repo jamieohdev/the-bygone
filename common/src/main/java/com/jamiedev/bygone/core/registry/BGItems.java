@@ -38,6 +38,10 @@ public class BGItems {
             "primordial_fish",
             () -> new Item(new Item.Properties().food(Foods.TROPICAL_FISH))
     );
+    public static final Supplier<Item> COOKED_PRIMORDIAL_FISH = registerItem(
+            "cooked_primordial_fish",
+            () -> new Item(new Item.Properties().food(Foods.COOKED_SALMON))
+    );
 
     public static final Supplier<Item> PRIMORDIAL_FISH_SPAWN_EGG = registerItem(
             "primordial_fish_spawn_egg",
