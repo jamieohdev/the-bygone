@@ -2245,6 +2245,16 @@ public class BGBlocks {
                     .noOcclusion()
                     .pushReaction(PushReaction.DESTROY))
     );
+    public static final Supplier<Block> SABLENUT_BLOCK = registerBlock(
+            "sable_nut_block", () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .randomTicks()
+                    .forceSolidOn()
+                    .instabreak()
+                    .sound(SoundType.WOOD)
+                    .noOcclusion()
+                    .pushReaction(PushReaction.DESTROY))
+    );
     public static final Supplier<Block> SABLE_MOSS_CARPET = registerBlock(
             "sable_moss_carpet", () ->
                     new CarpetBlock(BlockBehaviour.Properties.of()

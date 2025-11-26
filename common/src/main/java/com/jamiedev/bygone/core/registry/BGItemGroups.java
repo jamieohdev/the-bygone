@@ -350,6 +350,7 @@ public class BGItemGroups {
                         output.accept(BGItems.SABLOSSOM.get());
                         output.accept(BGBlocks.SABLENUT.get());
                         output.accept(BGItems.ROASTED_SABLE_NUT.get());
+                        output.accept(BGBlocks.SABLENUT_BLOCK.get());
                         output.accept(BGBlocks.SABLE_MOSS_BLOCK.get());
                         output.accept(BGBlocks.SABLE_MOSS_CARPET.get());
                         output.accept(BGBlocks.UMBRAL_GRASS.get());

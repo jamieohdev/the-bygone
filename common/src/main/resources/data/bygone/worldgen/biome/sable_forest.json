@@ -27,7 +27,7 @@
       "options": {
         "type": "bygone:sable_leaves"
       },
-      "probability": 0.004
+      "probability": 0
     },
     "music": {
       "max_delay": 24000,

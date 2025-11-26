@@ -32,6 +32,12 @@
                 },
                 {
                   "data": {
+                    "Name": "bygone:sable_nut_block"
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
                     "Name": "bygone:moon_blossom"
                   },
                   "weight": 5

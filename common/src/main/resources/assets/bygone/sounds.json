@@ -225,6 +225,7 @@
     "sounds": [
       {
         "name": "bygone:ambience/upsidedown1",
+        "volume": 0.75,
         "stream": false
       }
     ]
@@ -235,6 +236,7 @@
     "sounds": [
       {
         "name": "bygone:ambience/upsidedown2",
+        "volume": 0.75,
         "stream": false
       }
     ]
@@ -245,6 +247,7 @@
     "sounds": [
       {
         "name": "bygone:ambience/upsidedown3",
+        "volume": 0.75,
         "stream": false
       }
     ]

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "bygone:sable_nut"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"],
+  "result": {
+    "count": 1,
+    "id": "bygone:sable_nut_block"
+  }
+}
