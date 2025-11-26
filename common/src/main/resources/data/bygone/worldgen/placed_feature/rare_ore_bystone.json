@@ -1,9 +1,9 @@
 {
-  "feature": "bygone:patch_undergrass",
+  "feature": "bygone:ore_bystone",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 48
+      "count": 32
     },
     {
       "type": "minecraft:in_square"

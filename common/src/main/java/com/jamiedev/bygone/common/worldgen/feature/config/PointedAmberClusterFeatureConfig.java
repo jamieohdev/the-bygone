@@ -1,4 +1,4 @@
-package com.jamiedev.bygone.common.worldgen.feature;
+package com.jamiedev.bygone.common.worldgen.feature.config;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
