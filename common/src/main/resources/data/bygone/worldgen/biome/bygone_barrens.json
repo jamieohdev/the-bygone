@@ -47,7 +47,7 @@
       "bygone:barrens_patch_undergrass",
       "bygone:barrens_patch_decorators"
     ],
-    ["bygone:common_glow_lichen"],
+    ["bygone:common_glow_lichen", "bygone:barrens_glow_lichen", "bygone:barrens_ancient_vines"],
     [],
     [],
     [],

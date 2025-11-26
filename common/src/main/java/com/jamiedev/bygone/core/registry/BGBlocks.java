@@ -500,16 +500,37 @@ public class BGBlocks {
                     .pushReaction(PushReaction.DESTROY))
     );
     public static final Supplier<Block> GOURD_LANTERN_VERDANT = registerBlock(
-            "glow_gourd_verdant", () -> new GourdLanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS)
-                    .forceSolidOn().instabreak().strength(0.1F).sound(SoundType.SHROOMLIGHT).lightLevel((state) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY))
+            "glow_gourd_verdant", () -> new GourdLanternBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.GRASS)
+                    .forceSolidOn()
+                    .instabreak()
+                    .strength(0.1F)
+                    .sound(SoundType.SHROOMLIGHT)
+                    .lightLevel((state) -> 15)
+                    .noOcclusion()
+                    .pushReaction(PushReaction.DESTROY))
     );
     public static final Supplier<Block> GOURD_LANTERN_BEIGE = registerBlock(
-            "glow_gourd_beige", () -> new GourdLanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND)
-                    .forceSolidOn().instabreak().strength(0.1F).sound(SoundType.SHROOMLIGHT).lightLevel((state) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY))
+            "glow_gourd_beige", () -> new GourdLanternBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.SAND)
+                    .forceSolidOn()
+                    .instabreak()
+                    .strength(0.1F)
+                    .sound(SoundType.SHROOMLIGHT)
+                    .lightLevel((state) -> 15)
+                    .noOcclusion()
+                    .pushReaction(PushReaction.DESTROY))
     );
     public static final Supplier<Block> GOURD_LANTERN_MUAVE = registerBlock(
-            "glow_gourd_muave", () -> new GourdLanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.ICE)
-                    .forceSolidOn().instabreak().strength(0.1F).sound(SoundType.SHROOMLIGHT).lightLevel((state) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY))
+            "glow_gourd_muave", () -> new GourdLanternBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.ICE)
+                    .forceSolidOn()
+                    .instabreak()
+                    .strength(0.1F)
+                    .sound(SoundType.SHROOMLIGHT)
+                    .lightLevel((state) -> 15)
+                    .noOcclusion()
+                    .pushReaction(PushReaction.DESTROY))
     );
     public static final Supplier<Block> GOURD_DANGO = registerBlockWithoutBlockItem(
             "glow_gourd_dango", () -> new GourdDangoBlock(BlockBehaviour.Properties.of().instabreak()
@@ -612,6 +633,7 @@ public class BGBlocks {
                             .ignitedByLava()
                             .pushReaction(PushReaction.DESTROY))
     );
+
     public static final Supplier<Block> ANCIENT_SAPLING = registerBlock(
             "ancient_sapling",
             () -> new AncientSaplingBlock(
@@ -1806,7 +1828,9 @@ public class BGBlocks {
             "orange_fungal_stairs", () ->
                     new StairBlock(
                             BGBlocks.ORANGE_FUNGAL_BRICKS.get().defaultBlockState(),
-                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).mapColor(MapColor.COLOR_ORANGE).strength(2.0f)
+                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS)
+                                    .mapColor(MapColor.COLOR_ORANGE)
+                                    .strength(2.0f)
                     )
     );
     public static final Supplier<Block> ORANGE_FUNGAL_SLAB = registerBlock(
@@ -1838,7 +1862,9 @@ public class BGBlocks {
             "pink_fungal_stairs", () ->
                     new StairBlock(
                             BGBlocks.PINK_FUNGAL_BRICKS.get().defaultBlockState(),
-                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).mapColor(MapColor.COLOR_PINK).strength(2.0f)
+                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS)
+                                    .mapColor(MapColor.COLOR_PINK)
+                                    .strength(2.0f)
                     )
     );
     public static final Supplier<Block> PINK_FUNGAL_SLAB = registerBlock(
@@ -1870,7 +1896,9 @@ public class BGBlocks {
             "purple_fungal_stairs", () ->
                     new StairBlock(
                             BGBlocks.PURPLE_FUNGAL_BRICKS.get().defaultBlockState(),
-                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).mapColor(MapColor.COLOR_PURPLE).strength(2.0f)
+                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS)
+                                    .mapColor(MapColor.COLOR_PURPLE)
+                                    .strength(2.0f)
                     )
     );
     public static final Supplier<Block> PURPLE_FUNGAL_SLAB = registerBlock(
@@ -1890,7 +1918,11 @@ public class BGBlocks {
     );
     public static final Supplier<Block> ORANGE_FUNGI_PLANT = registerBlockWithoutBlockItem(
             "orange_fungi_vines_plant", () -> new ShelfOrangeFungiVinesBodyBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.PLANT).noCollission().lightLevel((state) -> 1).instabreak().sound(SoundType.CAVE_VINES)
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .lightLevel((state) -> 1)
+                    .instabreak()
+                    .sound(SoundType.CAVE_VINES)
                     .pushReaction(PushReaction.DESTROY))
     );
     public static final Supplier<Block> PINK_FUNGI_VINES = registerBlockWithoutBlockItem(
@@ -1900,7 +1932,11 @@ public class BGBlocks {
     );
     public static final Supplier<Block> PINK_FUNGI_VINES_PLANT = registerBlockWithoutBlockItem(
             "pink_fungi_vines_plant", () -> new ShelfPinkFungiVinesBodyBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.PLANT).noCollission().lightLevel((state) -> 1).instabreak().sound(SoundType.CAVE_VINES)
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .lightLevel((state) -> 1)
+                    .instabreak()
+                    .sound(SoundType.CAVE_VINES)
                     .pushReaction(PushReaction.DESTROY))
     );
     public static final Supplier<Block> PURPLE_FUNGI_VINES = registerBlockWithoutBlockItem(
@@ -1910,7 +1946,11 @@ public class BGBlocks {
     );
     public static final Supplier<Block> PURPLE_FUNGI_VINES_PLANT = registerBlockWithoutBlockItem(
             "purple_fungi_vines_plant", () -> new ShelfPurpleFungiVinesBodyBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.PLANT).noCollission().lightLevel((state) -> 1).instabreak().sound(SoundType.CAVE_VINES)
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .lightLevel((state) -> 1)
+                    .instabreak()
+                    .sound(SoundType.CAVE_VINES)
                     .pushReaction(PushReaction.DESTROY))
     );
     public static final Supplier<Block> MEGALITH_BLOCK = registerBlock(

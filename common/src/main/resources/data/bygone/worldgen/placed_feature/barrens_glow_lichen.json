@@ -1,0 +1,23 @@
+{
+  "feature": {
+    "type": "minecraft:multiface_growth",
+    "config": {
+      "block": "minecraft:glow_lichen",
+      "can_be_placed_on": "#bygone:lichen_can_place_on",
+      "can_place_on_ceiling": true,
+      "can_place_on_floor": false,
+      "can_place_on_wall": true,
+      "chance_of_spreading": 0.8,
+      "search_range": 20
+    }
+  },
+  "placement": [
+    {
+      "type": "minecraft:count_on_every_layer",
+      "count": 2
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

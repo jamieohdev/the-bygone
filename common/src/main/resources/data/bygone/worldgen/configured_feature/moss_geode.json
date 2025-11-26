@@ -18,7 +18,7 @@
       "inner_layer_provider": {
         "type": "minecraft:simple_state_provider",
         "state": {
-          "Name": "minecraft:moss_block"
+          "Name": "bygone:claystone"
         }
       },
       "inner_above_features": [
@@ -28,6 +28,14 @@
 				}
       ],
       "inner_features": [
+				{
+					"data": "bygone:moss_geode_patch_moss",
+					"weight": 1
+				},
+				{
+					"data": "bygone:moss_geode_patch_mossy_claystone",
+					"weight": 1
+				}
       ],
 			"inner_below_features": [
 				{
