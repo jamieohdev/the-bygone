@@ -26,9 +26,9 @@
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
-    "sky_color": 10143420,
-    "water_color": 461100,
-    "water_fog_color": 461105
+    "sky_color": 8821215,
+    "water_color": 11584220,
+    "water_fog_color": 10796511
   },
   "features": [
     [],
