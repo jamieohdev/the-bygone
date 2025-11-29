@@ -1,9 +1,11 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.jamiedev.bygone.mixin",
+  "package": "com.jamiedev.bygone.core.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": [
+
+  ],
   "client": [
   ],
   "server": [],

@@ -50,6 +50,7 @@ public class BygoneNeoForge {
     public BygoneNeoForge(IEventBus eventBus, Dist dist) {
         BGMobEffectsNeoForge.init(eventBus);
         BGDataComponentsNeoForge.DATA_COMPONENTS.register(eventBus);
+        BGDecoratedPotPatternsNeoForge.POT_PATTERNS.register(eventBus);
         Bygone.init();
 
         eventBus.addListener(PacketHandlerNeoForge::register);
@@ -490,6 +491,7 @@ public class BygoneNeoForge {
             BlockEntityType.BRUSHABLE_BLOCK.validBlocks = ImmutableSet.copyOf(validBlocks);
 
             BGDataComponentsNeoForge.init();
+            BGDecoratedPotPatternsNeoForge.expandVanilla();
             Bygone.registerStrippables();
             Bygone.addFlammable();
             JamiesModPortalsNeoForge.init();

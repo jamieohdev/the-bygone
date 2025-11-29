@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class MurklingRenderer extends MobRenderer<MurklingEntity, MurklingModel<MurklingEntity>>
 {
-    final ResourceLocation TEXTURE = Bygone.id("textures/entity/murkling.png    ");
+    final ResourceLocation TEXTURE = Bygone.id("textures/entity/murkling.png");
 
     public MurklingRenderer(EntityRendererProvider.Context context) {
         super(context, new MurklingModel<>(context.bakeLayer(JamiesModModelLayers.MURKLING)), 0.35F);

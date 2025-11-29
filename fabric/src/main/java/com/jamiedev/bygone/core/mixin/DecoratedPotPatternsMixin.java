@@ -1,6 +1,6 @@
 package com.jamiedev.bygone.core.mixin;
 
-import com.jamiedev.bygone.core.registry.BGDecoratedPotPatterns;
+import com.jamiedev.bygone.core.registry.BGDecoratedPotPatternsFabric;
 import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.core.Registry;
 import net.minecraft.world.item.Item;
@@ -17,16 +17,16 @@ public abstract class DecoratedPotPatternsMixin {
     @Inject(method = "getPatternFromItem", at = @At("RETURN"), cancellable = true)
     private static void bygone$getPatternFromItem(Item item, CallbackInfoReturnable<ResourceKey<DecoratedPotPattern>> cir) {
         if (item == BGItems.BEAK_POTTERY_SHERD.get()) {
-            cir.setReturnValue(BGDecoratedPotPatterns.BEAK);
+            cir.setReturnValue(BGDecoratedPotPatternsFabric.BEAK);
         }
         if (item == BGItems.MURKY_POTTERY_SHERD.get()) {
-            cir.setReturnValue(BGDecoratedPotPatterns.MURKY);
+            cir.setReturnValue(BGDecoratedPotPatternsFabric.MURKY);
         }
     }
 
     @Inject(method = "bootstrap", at = @At("TAIL"))
     private static void bygone$bootstrap(Registry<DecoratedPotPattern> registry, CallbackInfoReturnable<DecoratedPotPattern> cir) {
-        BGDecoratedPotPatterns.register(registry, BGDecoratedPotPatterns.BEAK, "beak_pottery_pattern");
-        BGDecoratedPotPatterns.register(registry, BGDecoratedPotPatterns.MURKY, "murky_pottery_pattern");
+        BGDecoratedPotPatternsFabric.register(registry, BGDecoratedPotPatternsFabric.BEAK, "beak_pottery_pattern");
+        BGDecoratedPotPatternsFabric.register(registry, BGDecoratedPotPatternsFabric.MURKY, "murky_pottery_pattern");
     }
 }
