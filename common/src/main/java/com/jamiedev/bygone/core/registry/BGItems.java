@@ -314,7 +314,7 @@ public class BGItems {
     );
     public static final Supplier<Item> WRAITH_SPAWN_EGG = registerItem(
             "wraith_spawn_egg",
-            () -> new SpawnEggItem(BGEntityTypes.WRAITH.get(), 0x22244A, 0xBAEFED, new Item.Properties())
+            () -> new SpawnEggItem(BGEntityTypes.WRAITH.get(), 0x3c3c3c, 0x9de8c0, new Item.Properties())
     );
     public static final Supplier<Item> AMOEBA_BUCKET = registerItem(
             (String) "bucket_o_amoeba", () ->
