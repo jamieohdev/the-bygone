@@ -5,6 +5,8 @@ import com.jamiedev.bygone.common.item.MaliciousWarHornItem;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 
+import java.util.function.Supplier;
+
 public class BGDataComponents {
 
     public static Holder<DataComponentType<MaliciousWarHornItem.WarHornData>> WAR_HORN_DATA;
