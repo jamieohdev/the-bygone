@@ -74,6 +74,15 @@ public class BGSoundEvents {
     public static final ResourceLocation ENTITY_LITHY_HURT = id("entity.lithy.hurt");
     public static final ResourceLocation ENTITY_LITHY_DEATH = id("entity.lithy.death");
     
+    public static final ResourceLocation ENTITY_SABEAST_AMBIENT = id("entity.sabeast.ambient");
+    public static final ResourceLocation ENTITY_SABEAST_ATTACK = id("entity.sabeast.attack");
+    public static final ResourceLocation ENTITY_SABEAST_HURT = id("entity.sabeast.hurt");
+    public static final ResourceLocation ENTITY_SABEAST_DEATH = id("entity.sabeast.death");
+    public static SoundEvent SABEAST_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SABEAST_AMBIENT);
+    public static SoundEvent SABEAST_ATTACK_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SABEAST_ATTACK);
+    public static SoundEvent SABEAST_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SABEAST_DEATH);
+    public static SoundEvent SABEAST_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SABEAST_HURT);
+    
     public static final ResourceLocation HOOK_RETRIEVE = id("entity.hook.retrieve");
     public static final ResourceLocation HOOK_HIT = id("entity.hook.hit");
     public static final ResourceLocation HOOK_THROW = id("entity.hook.throw");
@@ -100,8 +109,8 @@ public class BGSoundEvents {
     public static SoundEvent WRAITH_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_AMBIENT);
     public static SoundEvent WRAITH_ATTACK_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_ATTACK);
     public static SoundEvent WRAITH_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_DEATH);
-    public static SoundEvent WRAITH_FLY_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_FLY);
     public static SoundEvent WRAITH_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_HURT);
+    public static SoundEvent WRAITH_FLY_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_FLY);
     public static SoundEvent WRAITH_TELEPORT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WRAITH_TELEPORT);
 
 
@@ -257,6 +266,11 @@ public class BGSoundEvents {
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_TRIP, BGSoundEvents.LITHY_TRIP_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_HURT, BGSoundEvents.LITHY_HURT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_DEATH, BGSoundEvents.LITHY_DEATH_ADDITIONS_EVENT);
+
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SABEAST_AMBIENT, BGSoundEvents.SABEAST_AMBIENT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SABEAST_ATTACK, BGSoundEvents.SABEAST_ATTACK_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SABEAST_HURT, BGSoundEvents.SABEAST_HURT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SABEAST_DEATH, BGSoundEvents.SABEAST_DEATH_ADDITIONS_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.BLOCK_MEGALITH_BLOCK_IDLE, BLOCK_MEGALITH_BLOCK_IDLE_ADDITIONS_EVENT);
 

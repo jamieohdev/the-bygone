@@ -249,12 +249,14 @@ public class MalachiteDoorBlock extends Block implements SimpleWaterloggedBlock 
         level.playSound(source, pos, isOpening ? this.type.doorOpen() : this.type.doorClose(), SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.1F + 0.9F);
     }
 
-    /** @deprecated */
+
+    @Deprecated
     protected BlockState rotate(BlockState state, Rotation rotation) {
         return (BlockState)state.setValue(FACING, rotation.rotate((Direction)state.getValue(FACING)));
     }
 
-    /** @deprecated */
+
+    @Deprecated
     protected BlockState mirror(BlockState state, Mirror mirror) {
         return mirror == Mirror.NONE ? state : (BlockState)state.rotate(mirror.getRotation((Direction)state.getValue(FACING))).cycle(HINGE);
     }
@@ -265,10 +267,6 @@ public class MalachiteDoorBlock extends Block implements SimpleWaterloggedBlock 
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(new Property[]{HALF, FACING, OPEN, HINGE, POWERED, WATERLOGGED});
-    }
-
-    public static boolean isWoodenDoor(Level level, BlockPos pos) {
-        return isWoodenDoor(level.getBlockState(pos));
     }
 
     public static boolean isWoodenDoor(BlockState state) {

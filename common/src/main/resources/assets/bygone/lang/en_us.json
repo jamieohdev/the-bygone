@@ -633,9 +633,9 @@
 
   "subtitles.entity.wraith.ambient": "Wraith wheezes",
   "subtitles.entity.wraith.attack": "Wraith attacks",
-  "subtitles.entity.wraith.fly": "Wraith flies",
   "subtitles.entity.wraith.hurt": "Wraith hurts",
   "subtitles.entity.wraith.death": "Wraith dies",
+  "subtitles.entity.wraith.fly": "Wraith flies",
   "subtitles.entity.wraith.teleport": "Wraith teleports",
 
   "subtitles.entity.lithy.ambient": "Lithy crackles",
@@ -647,6 +647,11 @@
   "subtitles.entity.mooboo.ambient": "Mooboo moos",
   "subtitles.entity.mooboo.hurt": "Mooboo hurts",
   "subtitles.entity.mooboo.death": "Mooboo dies",
+
+  "subtitles.entity.sabeast.ambient": "Sabeast squeaks",
+  "subtitles.entity.sabeast.attack": "Sabeast attacks",
+  "subtitles.entity.sabeast.hurt": "Sabeast hurts",
+  "subtitles.entity.sabeast.death": "Sabeast dies",
 
   "subtitles.block.portal.ambient": "Portal frazzles",
 

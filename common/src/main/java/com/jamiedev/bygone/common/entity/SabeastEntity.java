@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.jamiedev.bygone.common.entity.ai.AvoidBlockGoal;
 import com.jamiedev.bygone.common.entity.ai.SabeastAI;
 import com.jamiedev.bygone.core.init.JamiesModTag;
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -11,6 +12,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -29,6 +31,7 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -131,6 +134,26 @@ public class SabeastEntity extends Monster {
         builder.define(DATA_REPEL_RUN, false);
     }
 
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return BGSoundEvents.SABEAST_AMBIENT_ADDITIONS_EVENT;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return BGSoundEvents.SABEAST_HURT_ADDITIONS_EVENT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return BGSoundEvents.SABEAST_DEATH_ADDITIONS_EVENT;
+    }
+
+    @Override
+    public void playAttackSound() {
+        this.playSound(BGSoundEvents.SABEAST_ATTACK_ADDITIONS_EVENT, 1.0F, 1.0F);
+    }
+    
     @Override
     protected Brain.Provider<SabeastEntity> brainProvider() {
         return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
@@ -248,6 +271,10 @@ public class SabeastEntity extends Monster {
 
         }
 
+    }
+
+    protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter level, BlockPos pos) {
+        return level.getRawBrightness(pos, 0) > 1;
     }
 
     public boolean getDataRepelRun() {

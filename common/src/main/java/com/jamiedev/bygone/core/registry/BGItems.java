@@ -5,8 +5,10 @@ import com.jamiedev.bygone.common.item.*;
 import com.jamiedev.bygone.core.init.JamiesModToolMaterials;
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -22,6 +24,7 @@ import static net.minecraft.world.item.Items.BUCKET;
 
 
 public class BGItems {
+
 
     public static final Supplier<Item> BEAK_POTTERY_SHERD = registerItem(
             "beak_pottery_sherd",

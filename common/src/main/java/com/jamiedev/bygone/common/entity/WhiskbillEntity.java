@@ -98,20 +98,6 @@ public class WhiskbillEntity extends Animal {
 
     }
 
-    boolean isLookingAtMe(Player player) {
-        ItemStack itemstack = player.getInventory().armor.get(3);
-        if (itemstack.is(Blocks.CARVED_PUMPKIN.asItem())) {
-            return false;
-        } else {
-            Vec3 vec3 = player.getViewVector(1.0F).normalize();
-            Vec3 vec31 = new Vec3(this.getX() - player.getX(), this.getEyeY() - player.getEyeY(), this.getZ() - player.getZ());
-            double d0 = vec31.length();
-            vec31 = vec31.normalize();
-            double d1 = vec3.dot(vec31);
-            return d1 > (double) 1.0F - 0.025 / d0 && player.hasLineOfSight(this);
-        }
-    }
-
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.SNIFFER_STEP, 0.15F, 1.0F);
     }
@@ -183,12 +169,7 @@ public class WhiskbillEntity extends Animal {
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0F, (p_335873_) -> p_335873_.is(JamiesModTag.WHISKBILL_FOOD), false));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.3, 1.4, (p_352798_) -> AVOID_PLAYERS.test(p_352798_) && !this.isBaby()));
-
         this.goalSelector.addGoal(4, new WhiskbillEntity.EatGourdGoal(this, 1.5, 11, 9));
-        /*this.goalSelector.addGoal(4, new WhiskbillEntity.EatVerdantGourdGoal(this, 1.5, 9, 9));
-        this.goalSelector.addGoal(4, new WhiskbillEntity.EatBeigeGourdGoal(this, 1.5, 9, 9));
-        this.goalSelector.addGoal(4, new WhiskbillEntity.EatMuaveGourdGoal(this, 1.5, 9, 9));*/
-
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.6));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
     }

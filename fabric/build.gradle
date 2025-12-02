@@ -30,6 +30,8 @@ dependencies {
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     modImplementation "curse.maven:lithostitched-936015:6703597"
     modImplementation "curse.maven:jinxedlib-1203401:6268910"
+    include "curse.maven:jinxedlib-1203401:6268910"
+
 
 
     //modImplementation "curse.maven:supermartijn642s-core-lib-454372:6076743" // Needed for formations, despite none of the documentation or pages saying so...
