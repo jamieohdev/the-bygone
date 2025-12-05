@@ -61,16 +61,16 @@ public class Bygone {
     }
 
     public static void registerStrippables() {
-        Map<Block, Block> stripables = new IdentityHashMap<>(AxeItemAccess.getStripables());
+        Map<Block, Block> strippables = new IdentityHashMap<>(AxeItemAccess.getStripables());
 
-        stripables.put(BGBlocks.ANCIENT_LOG.get(), BGBlocks.STRIPPED_ANCIENT_LOG.get());
-        stripables.put(BGBlocks.ANCIENT_WOOD.get(), BGBlocks.STRIPPED_ANCIENT_WOOD.get());
+        strippables.put(BGBlocks.ANCIENT_LOG.get(), BGBlocks.STRIPPED_ANCIENT_LOG.get());
+        strippables.put(BGBlocks.ANCIENT_WOOD.get(), BGBlocks.STRIPPED_ANCIENT_WOOD.get());
 
-        stripables.put(BGBlocks.SABLE_LOG.get(), BGBlocks.STRIPPED_SABLE_LOG.get());
-        stripables.put(BGBlocks.SABLE_WOOD.get(), BGBlocks.STRIPPED_SABLE_WOOD.get());
+        strippables.put(BGBlocks.SABLE_LOG.get(), BGBlocks.STRIPPED_SABLE_LOG.get());
+        strippables.put(BGBlocks.SABLE_WOOD.get(), BGBlocks.STRIPPED_SABLE_WOOD.get());
 
 
-        AxeItemAccess.setStripables(stripables);
+        AxeItemAccess.setStripables(strippables);
     }
 
     public static ResourceLocation id(String id) {

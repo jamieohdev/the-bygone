@@ -1,6 +1,13 @@
 {
   "effect.bygone.jamieseffect": "",
+  "effect.bygone.asphyxiating": "Asphyxiating",
+  "effect.bygone.siphoning": "Siphoning",
   "effect.bygone.updraft": "Updraft",
+  "effect.bygone.carapace": "Carapace",
+  "effect.bygone.satiety": "Satiety",
+
+  "enchantment.bygone.leeching": "Leeching",
+  "enchantment.bygone.siphoning": "Siphoning",
 
   "system.bygone.entering_into_bygone": "Entering/Leaving the Bygone...",
   "system.bygone.teleporting_into_bygone": "Teleporting into the Bygone...",
