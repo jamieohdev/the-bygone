@@ -48,7 +48,7 @@ public class BygoneNeoForge {
     IPayloadContext ctx;
 
     public BygoneNeoForge(IEventBus eventBus, Dist dist) {
-        BGMobEffectsNeoForge.init(eventBus);
+
         BGDataComponentsNeoForge.DATA_COMPONENTS.register(eventBus);
         BGDecoratedPotPatternsNeoForge.POT_PATTERNS.register(eventBus);
         Bygone.init();
