@@ -10,6 +10,22 @@
     "bygone:glow_gravel",
     "bygone:amber_sand",
     "bygone:umbral_soil",
-    "bygone:wriggling_soil"
+    "bygone:wriggling_soil",
+    "bygone:white_glow_concrete_powder",
+    "bygone:orange_glow_concrete_powder",
+    "bygone:magenta_glow_concrete_powder",
+    "bygone:light_blue_glow_concrete_powder",
+    "bygone:yellow_glow_concrete_powder",
+    "bygone:lime_glow_concrete_powder",
+    "bygone:pink_glow_concrete_powder",
+    "bygone:gray_glow_concrete_powder",
+    "bygone:light_gray_glow_concrete_powder",
+    "bygone:cyan_glow_concrete_powder",
+    "bygone:purple_glow_concrete_powder",
+    "bygone:blue_glow_concrete_powder",
+    "bygone:brown_glow_concrete_powder",
+    "bygone:green_glow_concrete_powder",
+    "bygone:red_glow_concrete_powder",
+    "bygone:black_glow_concrete_powder"
   ]
 }

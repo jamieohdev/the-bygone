@@ -125,7 +125,6 @@
     "bygone:sable_mossy_byslate_slab",
     "bygone:sable_mossy_byslate_stairs",
     "bygone:sable_mossy_byslate_wall",
-
     "bygone:shellstone",
     "bygone:shellstone_slab",
     "bygone:shellstone_stairs",
@@ -134,6 +133,22 @@
     "bygone:shellstone_bricks_slab",
     "bygone:shellstone_bricks_stairs",
     "bygone:shellstone_bricks_wall",
-    "bygone:chiseled_shellstone_bricks"
+    "bygone:chiseled_shellstone_bricks",
+    "bygone:white_glow_concrete",
+    "bygone:orange_glow_concrete",
+    "bygone:magenta_glow_concrete",
+    "bygone:light_blue_glow_concrete",
+    "bygone:yellow_glow_concrete",
+    "bygone:lime_glow_concrete",
+    "bygone:pink_glow_concrete",
+    "bygone:gray_glow_concrete",
+    "bygone:light_gray_glow_concrete",
+    "bygone:cyan_glow_concrete",
+    "bygone:purple_glow_concrete",
+    "bygone:blue_glow_concrete",
+    "bygone:brown_glow_concrete",
+    "bygone:green_glow_concrete",
+    "bygone:red_glow_concrete",
+    "bygone:black_glow_concrete"
   ]
 }

@@ -107,9 +107,9 @@ public class LithyEntity extends PathfinderMob {
                 || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYSLATE.get())
                 || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SABLE_MOSS_BLOCK.get())
                 || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.UMBRAL_SOIL.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYGONESLATE_COAL_ORE.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYGONESLATE_COPPER_ORE.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYGONESLATE_IRON_ORE.get())
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYSLATE_COAL_ORE.get())
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYSLATE_COPPER_ORE.get())
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYSLATE_IRON_ORE.get())
                 || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.ALPHA_MOSS_BLOCK.get());
     }
 
