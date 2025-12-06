@@ -15,6 +15,7 @@ import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,6 +30,315 @@ import java.util.function.ToIntFunction;
 import static net.minecraft.world.level.block.Blocks.DIRT;
 
 public class BGBlocks {
+
+    public static final Supplier<Block> WHITE_GLOW_CONCRETE = registerBlock("white_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.WHITE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> ORANGE_GLOW_CONCRETE = registerBlock("orange_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.ORANGE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> MAGENTA_GLOW_CONCRETE = registerBlock("magenta_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.MAGENTA)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> LIGHT_BLUE_GLOW_CONCRETE = registerBlock("light_blue_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.LIGHT_BLUE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> YELLOW_GLOW_CONCRETE = registerBlock("yellow_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.YELLOW)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> LIME_GLOW_CONCRETE = registerBlock("lime_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.LIME)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> PINK_GLOW_CONCRETE = registerBlock("pink_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.PINK)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> GRAY_GLOW_CONCRETE = registerBlock("gray_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.GRAY)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> LIGHT_GRAY_GLOW_CONCRETE = registerBlock("light_gray_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.LIGHT_GRAY)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> CYAN_GLOW_CONCRETE = registerBlock("cyan_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.CYAN)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> PURPLE_GLOW_CONCRETE = registerBlock("purple_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.PURPLE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> BLUE_GLOW_CONCRETE = registerBlock("blue_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.BLUE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> BROWN_GLOW_CONCRETE = registerBlock("brown_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.BROWN)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> GREEN_GLOW_CONCRETE = registerBlock("green_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.GREEN)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> RED_GLOW_CONCRETE = registerBlock("red_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.RED)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> BLACK_GLOW_CONCRETE = registerBlock("black_glow_concrete",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(DyeColor.BLACK)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.8F)
+                    .lightLevel(state -> 14))
+    );
+    public static final Supplier<Block> WHITE_GLOW_CONCRETE_POWDER = registerBlock("white_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    WHITE_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.WHITE)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> ORANGE_GLOW_CONCRETE_POWDER = registerBlock("orange_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    ORANGE_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.ORANGE)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> MAGENTA_GLOW_CONCRETE_POWDER = registerBlock("magenta_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    MAGENTA_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.MAGENTA)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> LIGHT_BLUE_GLOW_CONCRETE_POWDER = registerBlock(
+            "light_blue_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    LIGHT_BLUE_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.LIGHT_BLUE)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> YELLOW_GLOW_CONCRETE_POWDER = registerBlock("yellow_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    YELLOW_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.YELLOW)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> LIME_GLOW_CONCRETE_POWDER = registerBlock("lime_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    LIME_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.LIME)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> PINK_GLOW_CONCRETE_POWDER = registerBlock("pink_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    PINK_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.PINK)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> GRAY_GLOW_CONCRETE_POWDER = registerBlock("gray_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    GRAY_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.GRAY)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> LIGHT_GRAY_GLOW_CONCRETE_POWDER = registerBlock(
+            "light_gray_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    LIGHT_GRAY_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.LIGHT_GRAY)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> CYAN_GLOW_CONCRETE_POWDER = registerBlock("cyan_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    CYAN_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.CYAN)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> PURPLE_GLOW_CONCRETE_POWDER = registerBlock("purple_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    PURPLE_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.PURPLE)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> BLUE_GLOW_CONCRETE_POWDER = registerBlock("blue_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    BLUE_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.BLUE)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> BROWN_GLOW_CONCRETE_POWDER = registerBlock("brown_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    BROWN_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.BROWN)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> GREEN_GLOW_CONCRETE_POWDER = registerBlock("green_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    GREEN_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.GREEN)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> RED_GLOW_CONCRETE_POWDER = registerBlock("red_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    RED_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.RED)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final Supplier<Block> BLACK_GLOW_CONCRETE_POWDER = registerBlock("black_glow_concrete_powder",
+            () -> new ConcretePowderBlock(
+                    BLACK_GLOW_CONCRETE.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(DyeColor.BLACK)
+                            .instrument(NoteBlockInstrument.SNARE)
+                            .strength(0.5F)
+                            .sound(SoundType.SAND)
+                            .lightLevel(state -> 14)
+            )
+    );
+
+
     public static final Supplier<Block> GUMBO_POT = registerBlock(
             "gumbo_pot", () ->
                     new GumboPotBlock(BlockBehaviour.Properties.of()
@@ -252,7 +562,7 @@ public class BGBlocks {
                             .strength(3.0F, 3.0F)
             )
     );
-    public static final Supplier<Block> BYGONESLATE_IRON_ORE = registerBlock(
+    public static final Supplier<Block> BYSLATE_IRON_ORE = registerBlock(
             "byslate_iron_ore", () -> new DropExperienceBlock(
                     ConstantInt.of(0),
                     BlockBehaviour.Properties.ofLegacyCopy(BYSTONE_IRON_ORE.get())
@@ -261,7 +571,7 @@ public class BGBlocks {
                             .sound(SoundType.DEEPSLATE)
             )
     );
-    public static final Supplier<Block> BYGONESTONE_COAL_ORE = registerBlock(
+    public static final Supplier<Block> BYSTONE_COAL_ORE = registerBlock(
             "bystone_coal_ore", () -> new DropExperienceBlock(
                     ConstantInt.of(0),
                     BlockBehaviour.Properties.of()
@@ -271,16 +581,16 @@ public class BGBlocks {
                             .strength(3.0F, 3.0F)
             )
     );
-    public static final Supplier<Block> BYGONESLATE_COAL_ORE = registerBlock(
+    public static final Supplier<Block> BYSLATE_COAL_ORE = registerBlock(
             "byslate_coal_ore", () -> new DropExperienceBlock(
                     ConstantInt.of(0),
-                    BlockBehaviour.Properties.ofLegacyCopy(BYGONESTONE_COAL_ORE.get())
+                    BlockBehaviour.Properties.ofLegacyCopy(BYSTONE_COAL_ORE.get())
                             .mapColor(MapColor.DEEPSLATE)
                             .strength(4.5F, 3.0F)
                             .sound(SoundType.DEEPSLATE)
             )
     );
-    public static final Supplier<Block> BYGONESTONE_COPPER_ORE = registerBlock(
+    public static final Supplier<Block> BYSTONE_COPPER_ORE = registerBlock(
             "bystone_copper_ore", () -> new DropExperienceBlock(
                     ConstantInt.of(0),
                     BlockBehaviour.Properties.of()
@@ -290,10 +600,10 @@ public class BGBlocks {
                             .strength(3.0F, 3.0F)
             )
     );
-    public static final Supplier<Block> BYGONESLATE_COPPER_ORE = registerBlock(
+    public static final Supplier<Block> BYSLATE_COPPER_ORE = registerBlock(
             "byslate_copper_ore", () -> new DropExperienceBlock(
                     ConstantInt.of(0),
-                    BlockBehaviour.Properties.ofLegacyCopy(BYGONESTONE_COPPER_ORE.get())
+                    BlockBehaviour.Properties.ofLegacyCopy(BYSTONE_COPPER_ORE.get())
                             .mapColor(MapColor.DEEPSLATE)
                             .strength(4.5F, 3.0F)
                             .sound(SoundType.DEEPSLATE)
@@ -423,9 +733,7 @@ public class BGBlocks {
             "montsechia", () -> new FlowerBlock(
                     MobEffects.UNLUCK, 12.0F, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.PLANT)
-                    .lightLevel((state) -> {
-                        return 14;
-                    })
+                    .lightLevel((state) -> 14)
                     .noCollission()
                     .instabreak()
                     .sound(SoundType.GRASS)
@@ -444,9 +752,7 @@ public class BGBlocks {
                     BlockBehaviour.Properties.of()
                             .mapColor(MapColor.PLANT)
                             .noCollission()
-                            .lightLevel((state) -> {
-                                return 14;
-                            })
+                            .lightLevel((state) -> 14)
                             .instabreak()
                             .sound(SoundType.GRASS)
                             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -464,9 +770,7 @@ public class BGBlocks {
                     BlockBehaviour.Properties.of()
                             .mapColor(MapColor.PLANT)
                             .noCollission()
-                            .lightLevel((state) -> {
-                                return 0;
-                            })
+                            .lightLevel((state) -> 0)
                             .instabreak()
                             .sound(SoundType.GRASS)
                             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -483,9 +787,7 @@ public class BGBlocks {
                     .mapColor(MapColor.CRIMSON_STEM)
                     .instabreak()
                     .noCollission()
-                    .lightLevel((state) -> {
-                        return 12;
-                    })
+                    .lightLevel((state) -> 12)
                     .sound(SoundType.SPORE_BLOSSOM)
                     .pushReaction(PushReaction.DESTROY))
     );
@@ -538,9 +840,7 @@ public class BGBlocks {
     );
     public static final Supplier<Block> GOURD_DANGO_WALL = registerBlockWithoutBlockItem(
             "glow_gourd_dango_wall", () -> new GourdDangoWallBlock(BlockBehaviour.Properties.of().instabreak()
-                    .sound(SoundType.BAMBOO).lightLevel((state) -> {
-                        return 15;
-                    }))
+                    .sound(SoundType.BAMBOO).lightLevel((state) -> 15))
     );
     public static final Supplier<Block> BIG_WHIRLIWEED = registerBlock(
             "big_whirliweed",
@@ -1512,9 +1812,7 @@ public class BGBlocks {
                             .sound(SoundType.VINE)
                             .ignitedByLava()
                             .pushReaction(PushReaction.DESTROY)
-                            .lightLevel((state) -> {
-                                return 10;
-                            }))
+                            .lightLevel((state) -> 10))
     );
     public static final Supplier<Block> AMBER = registerBlock(
             "amber", () ->
@@ -1527,9 +1825,7 @@ public class BGBlocks {
                             .isRedstoneConductor(Blocks::never)
                             .isSuffocating(Blocks::never)
                             .isViewBlocking(Blocks::never)
-                            .lightLevel((state) -> {
-                                return 4;
-                            }))
+                            .lightLevel((state) -> 4))
     );
     public static final Supplier<Block> AMBER_BRICKS = registerBlock(
             "amber_bricks", () -> new Block(
@@ -1543,9 +1839,7 @@ public class BGBlocks {
                                     1.5F,
                                     6.0F
                             )
-                            .lightLevel((state) -> {
-                                return 4;
-                            }))
+                            .lightLevel((state) -> 4))
     );
     public static final Supplier<Block> FLOWING_AMBER = registerBlock(
             "glowing_amber", () -> new Block(
@@ -1559,9 +1853,7 @@ public class BGBlocks {
                                     1.5F,
                                     6.0F
                             )
-                            .lightLevel((state) -> {
-                                return 5;
-                            }))
+                            .lightLevel((state) -> 5))
     );
     public static final Supplier<Block> COBBLED_AMBER = registerBlock(
             "cobbled_amber", () -> new Block(
@@ -1575,9 +1867,7 @@ public class BGBlocks {
                                     1.5F,
                                     6.0F
                             )
-                            .lightLevel((state) -> {
-                                return 2;
-                            }))
+                            .lightLevel((state) -> 2))
     );
     public static final Supplier<Block> AMBERSTONE = registerBlock(
             "amberstone", () -> new Block(
@@ -1607,9 +1897,7 @@ public class BGBlocks {
                                     1.5F,
                                     3.0F
                             )
-                            .lightLevel((state) -> {
-                                return 2;
-                            }))
+                            .lightLevel((state) -> 2))
     );
     public static final Supplier<Block> POINTED_AMBER = registerBlock(
             "pointed_amber",
@@ -1646,9 +1934,7 @@ public class BGBlocks {
                     .sound(SoundType.GRASS)
                     .ignitedByLava()
                     .pushReaction(PushReaction.DESTROY)
-                    .lightLevel((state) -> {
-                        return 5;
-                    }))
+                    .lightLevel((state) -> 5))
     );
     public static final Supplier<Block> CLAYSTONE_FARMLAND = registerBlock(
             "claystone_farmland", () -> new ClaystoneFarmlandBlock(BlockBehaviour.Properties.of()
@@ -1669,15 +1955,11 @@ public class BGBlocks {
     );
     public static final Supplier<Block> PLAGA = registerBlockWithoutBlockItem(
             "plaga", () -> new GourdDangoBlock(BlockBehaviour.Properties.of().instabreak()
-                    .sound(SoundType.BAMBOO).lightLevel((state) -> {
-                        return 5;
-                    }))
+                    .sound(SoundType.BAMBOO).lightLevel((state) -> 5))
     );
     public static final Supplier<Block> PLAGA_WALL = registerBlockWithoutBlockItem(
             "plaga_wall", () -> new GourdDangoWallBlock(BlockBehaviour.Properties.of().instabreak()
-                    .sound(SoundType.BAMBOO).lightLevel((state) -> {
-                        return 5;
-                    }))
+                    .sound(SoundType.BAMBOO).lightLevel((state) -> 5))
     );
     public static final Supplier<Block> CHANTRELLE = registerBlockWithoutBlockItem(
             "chantrelle", () -> new ChantrelleCropBlock(BlockBehaviour.Properties.of()

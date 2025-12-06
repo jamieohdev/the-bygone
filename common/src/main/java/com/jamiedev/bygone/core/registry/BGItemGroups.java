@@ -94,11 +94,11 @@ public class BGItemGroups {
 
                         output.accept(BGBlocks.BYGONE_PORTAL_FRAME_BLOCK.get());
                         output.accept(BGBlocks.BYSTONE_IRON_ORE.get());
-                        output.accept(BGBlocks.BYGONESLATE_IRON_ORE.get());
-                        output.accept(BGBlocks.BYGONESTONE_COAL_ORE.get());
-                        output.accept(BGBlocks.BYGONESLATE_COAL_ORE.get());
-                        output.accept(BGBlocks.BYGONESTONE_COPPER_ORE.get());
-                        output.accept(BGBlocks.BYGONESLATE_COPPER_ORE.get());
+                        output.accept(BGBlocks.BYSLATE_IRON_ORE.get());
+                        output.accept(BGBlocks.BYSTONE_COAL_ORE.get());
+                        output.accept(BGBlocks.BYSLATE_COAL_ORE.get());
+                        output.accept(BGBlocks.BYSTONE_COPPER_ORE.get());
+                        output.accept(BGBlocks.BYSLATE_COPPER_ORE.get());
 
                         output.accept(BGBlocks.BYSTONE.get());
                         output.accept(BGBlocks.COBBLED_BYSTONE.get());

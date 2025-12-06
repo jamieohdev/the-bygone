@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 public class WrigglingSoilBlock extends Block {
     public WrigglingSoilBlock(Properties properties) {
@@ -25,7 +26,7 @@ public class WrigglingSoilBlock extends Block {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected @NotNull ItemInteractionResult useItemOn(ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
         if (stack.is(Items.BUCKET)) {
             if (!level.isClientSide) {
                 ItemStack baitwormBucket = new ItemStack(BGItems.BUCKET_O_BAITWORMS.get());
@@ -50,7 +51,7 @@ public class WrigglingSoilBlock extends Block {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         for (int x = -1; x <= 1; x++) {
             for (int z = -1; z <= 1; z++) {
                 BlockPos farmlandPos = pos.offset(x, 0, z);
@@ -75,7 +76,7 @@ public class WrigglingSoilBlock extends Block {
     }
 
     @Override
-    public boolean isRandomlyTicking(BlockState state) {
+    public boolean isRandomlyTicking(@NotNull BlockState state) {
         return true;
     }
 }
