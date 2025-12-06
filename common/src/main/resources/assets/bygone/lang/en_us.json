@@ -221,7 +221,9 @@
   "block.bygone.mossy_claystone": "Mossy Claystone",
   "block.bygone.suspicious_claystone": "Suspicious Claystone",
 
-  "block.bygone.dogu": "Dogu",
+  "block.bygone.ancient_dogu": "Ancient Dogu",
+  "block.bygone.painted_dogu": "Painted Dogu",
+  "block.bygone.shellstone_dogu": "Shellstone Dogu",
 
   "block.bygone.ancient_roots": "Ancient Roots",
   "block.bygone.ancient_vines": "Ancient Vines",

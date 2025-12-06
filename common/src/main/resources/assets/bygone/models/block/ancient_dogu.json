@@ -3,8 +3,8 @@
   "parent": "block/block",
   "texture_size": [64, 64],
   "textures": {
-    "0": "bygone:block/dogu",
-    "particle": "bygone:block/dogu"
+    "0": "bygone:block/ancient_dogu",
+    "particle": "bygone:block/ancient_dogu"
   },
   "elements": [
     {

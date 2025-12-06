@@ -63,25 +63,7 @@ public class BygoneAdvancementProvider extends AdvancementProvider {
             HolderLookup.RegistryLookup<Biome> biomes1 = provider.lookupOrThrow(Registries.BIOME);
             HolderGetter<Structure> structures = provider.lookupOrThrow(Registries.STRUCTURE);
 
-            AdvancementHolder root = Advancement.Builder.advancement()
-                    .display(BGItems.ARCANE_CORE.get(),
-                            Component.translatable("advancement.bygone.bygone.title"),
-                            Component.translatable("advancement.bygone.bygone.desc"),
-                            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "textures/block/bygone.png"),
-                            AdvancementType.TASK, false, false, false)
-                    .addCriterion("bygone", ChangeDimensionTrigger.TriggerInstance.changedDimensionTo(BGDimensions.BYGONE_LEVEL_KEY))
-                    .save(consumer, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "bygone"), existingFileHelper);
 
-            AdvancementHolder enterBygone = Advancement.Builder.advancement()
-                    .parent(root)
-                    .display(BGItems.ARCANE_CORE.get(),
-                            Component.translatable("advancement.bygone.enter_bygone.title"),
-                            Component.translatable("advancement.bygone.enter_bygone.desc"),
-                            null,
-                            AdvancementType.TASK, true, true, false)
-                    .addCriterion("enter_bygone", ChangeDimensionTrigger.TriggerInstance.changedDimensionTo(BGDimensions.BYGONE_LEVEL_KEY))
-                    .rewards(new AdvancementRewards(100, List.of(), List.of(), Optional.empty()))
-                    .save(consumer, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "enter_bygone"), existingFileHelper);
         }
     }
 }

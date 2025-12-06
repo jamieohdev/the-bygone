@@ -1,0 +1,6 @@
+{
+  "parent": "bygone:block/shellstone_dogu",
+  "textures": {
+    "particle": "bygone:block/shellstone_dogu"
+  }
+}

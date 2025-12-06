@@ -1,0 +1,6 @@
+{
+  "parent": "bygone:block/painted_dogu",
+  "textures": {
+    "particle": "bygone:block/painted_dogu"
+  }
+}

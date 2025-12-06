@@ -187,7 +187,9 @@ public class BygoneClient {
         consumer.accept(BGBlocks.BROKEN_VERDIGRIS_COG.get(), RenderType.cutout());
         consumer.accept(BGBlocks.RAMSHACKLED_VERDIGRIS_COG.get(), RenderType.cutout());
 
-        consumer.accept(BGBlocks.DOGU.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.ANCIENT_DOGU.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PAINTED_DOGU.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SHELLSTONE_DOGU.get(), RenderType.cutout());
     }
 
     public static void createEntityRenderers() {

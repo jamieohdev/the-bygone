@@ -68,7 +68,9 @@ public class BGBlockEntities {
 
         DOGU = register("dogu", () ->
                 BlockEntityType.Builder.of(DoguEntity::new,
-                                BGBlocks.DOGU.get())
+                                BGBlocks.ANCIENT_DOGU.get(),
+                                BGBlocks.PAINTED_DOGU.get(),
+                                BGBlocks.SHELLSTONE_DOGU.get())
                         .build(null));
 
         SEAGLASS = register("seaglass", () ->

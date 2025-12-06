@@ -2437,8 +2437,22 @@ public class BGBlocks {
                             .strength(0.25F).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY)
             )
     );
-    public static final Supplier<Block> DOGU = registerBlock(
-            "dogu", () ->
+    public static final Supplier<Block> ANCIENT_DOGU = registerBlock(
+            "ancient_dogu", () ->
+                    new DoguBlock(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.DIRT)
+                            .strength(0.5F)
+                            .sound(SoundType.MUD_BRICKS))
+    );
+    public static final Supplier<Block> PAINTED_DOGU = registerBlock(
+            "painted_dogu", () ->
+                    new DoguBlock(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.DIRT)
+                            .strength(0.5F)
+                            .sound(SoundType.MUD_BRICKS))
+    );
+    public static final Supplier<Block> SHELLSTONE_DOGU = registerBlock(
+            "shellstone_dogu", () ->
                     new DoguBlock(BlockBehaviour.Properties.of()
                             .mapColor(MapColor.DIRT)
                             .strength(0.5F)
