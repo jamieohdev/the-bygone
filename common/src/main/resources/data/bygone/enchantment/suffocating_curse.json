@@ -1,0 +1,61 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.bygone.suffocating_curse"
+  },
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "affected": "victim",
+        "effect": {
+          "type": "minecraft:all_of",
+          "effects": [
+            {
+              "type": "minecraft:apply_mob_effect",
+              "to_apply": "bygone:asphyxiating",
+              "min_duration": {
+                "type": "minecraft:linear",
+                "base": 0.5,
+                "per_level_above_first": 0.5
+              },
+              "max_duration": {
+                "type": "minecraft:linear",
+                "base": 0.5,
+                "per_level_above_first": 0.5
+              },
+              "min_amplifier": 3,
+              "max_amplifier": 3
+            }
+          ]
+        },
+        "enchanted": "victim",
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "minecraft:damage_source_properties",
+              "predicate": {
+                "is_direct": true
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 50,
+    "per_level_above_first": 25
+  },
+  "exclusive_set": "#bygone:exclusive_set/theft_curse",
+  "max_level": 3,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 25
+  },
+  "slots": [
+    "armor"
+  ],
+  "supported_items": "#minecraft:enchantable/equippable",
+  "weight": 1
+}

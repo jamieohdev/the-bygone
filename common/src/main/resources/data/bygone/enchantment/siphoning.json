@@ -83,6 +83,7 @@
     "base": 75,
     "per_level_above_first": 25
   },
+  "exclusive_set": "#bygone:exclusive_set/theft",
   "max_level": 3,
   "min_cost": {
     "base": 25,
@@ -93,5 +94,5 @@
     "mainhand"
   ],
   "supported_items": "#minecraft:enchantable/weapon",
-  "weight": 2
+  "weight": 1
 }

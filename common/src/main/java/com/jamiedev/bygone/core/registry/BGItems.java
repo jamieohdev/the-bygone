@@ -5,10 +5,8 @@ import com.jamiedev.bygone.common.item.*;
 import com.jamiedev.bygone.core.init.JamiesModToolMaterials;
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -71,7 +69,8 @@ public class BGItems {
             "verdigris_blade",
             () -> new VerdigrisBladeItem(
                     JamiesModToolMaterials.VERDIGRIS,
-                    new Item.Properties().stacksTo(1).attributes(HoeItem.createAttributes(Tiers.IRON, -2.0F, 3.0F))
+                    new Item.Properties().stacksTo(1)
+                            .attributes(SwordItem.createAttributes(JamiesModToolMaterials.VERDIGRIS, 3, 3.0F))
             )
     );
     public static final Supplier<Item> VERDIGRIS_BOW = registerItem(
@@ -333,9 +332,13 @@ public class BGItems {
             "amoeba_gel",
             () -> new Item(new Item.Properties().fireResistant())
     );
-    public static final Supplier<Item> AMOEBA_GEL_ON_A_STICK = registerItem((String)"amoeba_gel_on_a_stick", () ->
-            new FoodOnAStickItem((
-            new Item.Properties()).durability(25), BGEntityTypes.AQUIFAWN.get(), 7));
+    public static final Supplier<Item> AMOEBA_GEL_ON_A_STICK = registerItem(
+            (String) "amoeba_gel_on_a_stick", () ->
+                    new FoodOnAStickItem(
+                            (
+                                    new Item.Properties()).durability(25), BGEntityTypes.AQUIFAWN.get(), 7
+                    )
+    );
 
     public static final Supplier<Item> COELECANTH_BUCKET = registerItem(
             (String) "coelacanth_bucket", () ->
@@ -515,8 +518,9 @@ public class BGItems {
                     new ArmorItem(
                             BGArmorMaterials.CARAPACE, ArmorItem.Type.LEGGINGS,
                             new Item.Properties().fireResistant().durability(ArmorItem.Type.LEGGINGS.getDurability(15)
+                            )
                     )
-    ));
+    );
 
 
     public static FoodProperties AMARANTH_LOAF_COMP = (new FoodProperties.Builder()).nutrition(0)

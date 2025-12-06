@@ -92,15 +92,6 @@ public class BaitwormWaterEffect {
         }
     }
 
-    private static class EffectData {
-        final int radius;
-        final int duration;
-        final long startTime;
-
-        EffectData(int radius, int duration, long startTime) {
-            this.radius = radius;
-            this.duration = duration;
-            this.startTime = startTime;
-        }
+    private record EffectData(int radius, int duration, long startTime) {
     }
 }

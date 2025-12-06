@@ -6,6 +6,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import org.jetbrains.annotations.NotNull;
 
 public record UpdraftMovementS2C(double velocityY,
                                  boolean isDescending) implements S2CModPacket<RegistryFriendlyByteBuf> {
@@ -16,7 +17,7 @@ public record UpdraftMovementS2C(double velocityY,
             UpdraftMovementS2C::new);
 
     @Override
-    public Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends CustomPacketPayload> type() {
         return PACKET_ID;
     }
 

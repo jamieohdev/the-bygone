@@ -10,10 +10,12 @@ accessible method net/minecraft/world/level/block/state/properties/WoodType regi
 accessible field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
 accessible method net/minecraft/client/renderer/entity/EntityRenderers register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/client/renderer/entity/EntityRendererProvider;)V
 accessible method net/minecraft/client/renderer/blockentity/BlockEntityRenderers register (Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider;)V
+
 accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
+accessible field net/minecraft/world/entity/Entity fluidHeight Lit/unimi/dsi/fastutil/objects/Object2DoubleMap;
 
 accessible method net/minecraft/world/entity/LivingEntity lerpHeadRotationStep (ID)V
 accessible method net/minecraft/world/entity/LivingEntity increaseAirSupply (I)I
-
+accessible method net/minecraft/world/level/block/DoublePlantBlock preventDropFromBottomPart (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)V
 accessible field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
 transitive-mutable field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
