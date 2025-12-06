@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 
 public enum JamiesModToolMaterials implements Tier {
 
-    VERDIGRIS(BlockTags.INCORRECT_FOR_IRON_TOOL, 250, 6.0F, 2.0F, 0, () -> Ingredient.of(BGItems.VERDIGRIS_INGOT.get()));
+    VERDIGRIS(BlockTags.INCORRECT_FOR_IRON_TOOL, 250, 6.0F, 0.0F, 0, () -> Ingredient.of(BGItems.VERDIGRIS_INGOT.get()));
 
     private final TagKey<Block> inverseTag;
     private final int itemDurability;

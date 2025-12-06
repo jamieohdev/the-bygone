@@ -458,7 +458,6 @@ public class BygoneFabric implements ModInitializer {
         BlockEntityType.BRUSHABLE_BLOCK.validBlocks = ImmutableSet.copyOf(validBlocks);
 
         initEvents();
-        BGMobEffectsFabric.init();
         BGDataComponentsFabric.init();
         Bygone.init();
 
