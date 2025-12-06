@@ -49,6 +49,9 @@ public class BGItemGroups {
                         output.accept(BGItems.SPEED_WHEAT.get());
                         output.accept(BGBlocks.ANCIENT_SPRINKLER.get());
                         output.accept(BGItems.ECTOPLASM_BUCKET.get());
+                        output.accept(BGBlocks.ANCIENT_DOGU.get());
+                        output.accept(BGBlocks.PAINTED_DOGU.get());
+                        output.accept(BGBlocks.SHELLSTONE_DOGU.get());
                         output.accept(BGBlocks.GUMBO_POT.get());
                         output.accept(BGItems.AMOEBA_SPAWN_EGG.get());
                         output.accept(BGItems.AQUIFAWN_SPAWN_EGG.get());

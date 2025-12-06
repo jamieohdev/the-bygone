@@ -140,7 +140,9 @@
     "subtitle": "subtitles.ambient.amber_desert.additions"
   },
   "ambient.primordial_ocean.additions": {
-    "sounds": [],
+    "sounds": [
+      "bygone:ambience/primordial_ocean"
+    ],
     "subtitle": "subtitles.ambient.primordial_ocean.additions"
   },
   "ambient.shelfhollow.additions": {
@@ -601,6 +603,40 @@
     ],
     "subtitle": "subtitles.entity.lithy.trip"
   },
+
+  "entity.sabeast.ambient": {
+    "sounds": [
+      "bygone:entity/sabeast/idle1",
+      "bygone:entity/sabeast/idle2",
+      "bygone:entity/sabeast/idle3"
+    ],
+    "subtitle": "subtitles.entity.sabeast.ambient"
+  },
+  "entity.sabeast.hurt": {
+    "sounds": [
+      "bygone:entity/sabeast/hurt1",
+      "bygone:entity/sabeast/hurt2",
+      "bygone:entity/sabeast/hurt3"
+    ],
+    "subtitle": "subtitles.entity.sabeast.hurt"
+  },
+  "entity.sabeast.death": {
+    "sounds": [
+      "bygone:entity/sabeast/death1",
+      "bygone:entity/sabeast/death2",
+      "bygone:entity/sabeast/death3"
+    ],
+    "subtitle": "subtitles.entity.sabeast.death"
+  },
+  "entity.sabeast.attack": {
+    "sounds": [
+      "bygone:entity/sabeast/attack1",
+      "bygone:entity/sabeast/attack2",
+      "bygone:entity/sabeast/attack3"
+    ],
+    "subtitle": "subtitles.entity.sabeast.attack"
+  },
+
   "item.war_horn.use": {
     "sounds": [
       {

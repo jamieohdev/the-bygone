@@ -1,6 +1,15 @@
 {
   "effect.bygone.jamieseffect": "",
+  "effect.bygone.asphyxiating": "Asphyxiating",
+  "effect.bygone.siphoning": "Siphoning",
   "effect.bygone.updraft": "Updraft",
+  "effect.bygone.carapace": "Carapace",
+  "effect.bygone.satiety": "Satiety",
+
+  "enchantment.bygone.leeching": "Leeching",
+  "enchantment.bygone.siphoning": "Siphoning",
+  "enchantment.bygone.famine_curse": "Curse of Famine",
+  "enchantment.bygone.suffocating_curse": "Curse of Suffocation",
 
   "system.bygone.entering_into_bygone": "Entering/Leaving the Bygone...",
   "system.bygone.teleporting_into_bygone": "Teleporting into the Bygone...",
@@ -255,7 +264,9 @@
   "block.bygone.mossy_claystone": "Mossy Claystone",
   "block.bygone.suspicious_claystone": "Suspicious Claystone",
 
-  "block.bygone.dogu": "Dogu",
+  "block.bygone.ancient_dogu": "Ancient Dogu",
+  "block.bygone.painted_dogu": "Painted Dogu",
+  "block.bygone.shellstone_dogu": "Shellstone Dogu",
 
   "block.bygone.ancient_roots": "Ancient Roots",
   "block.bygone.ancient_vines": "Ancient Vines",
@@ -667,9 +678,9 @@
 
   "subtitles.entity.wraith.ambient": "Wraith wheezes",
   "subtitles.entity.wraith.attack": "Wraith attacks",
-  "subtitles.entity.wraith.fly": "Wraith flies",
   "subtitles.entity.wraith.hurt": "Wraith hurts",
   "subtitles.entity.wraith.death": "Wraith dies",
+  "subtitles.entity.wraith.fly": "Wraith flies",
   "subtitles.entity.wraith.teleport": "Wraith teleports",
 
   "subtitles.entity.lithy.ambient": "Lithy crackles",
@@ -681,6 +692,11 @@
   "subtitles.entity.mooboo.ambient": "Mooboo moos",
   "subtitles.entity.mooboo.hurt": "Mooboo hurts",
   "subtitles.entity.mooboo.death": "Mooboo dies",
+
+  "subtitles.entity.sabeast.ambient": "Sabeast squeaks",
+  "subtitles.entity.sabeast.attack": "Sabeast attacks",
+  "subtitles.entity.sabeast.hurt": "Sabeast hurts",
+  "subtitles.entity.sabeast.death": "Sabeast dies",
 
   "subtitles.block.portal.ambient": "Portal frazzles",
 

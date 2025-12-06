@@ -32,26 +32,14 @@ public class BygoneItemTagProvider extends ItemTagsProvider {
     }
 
     private void slabs() {
-        this.tag(ItemTags.SLABS)
-                .add(BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.get().asItem())
-                .add(BGBlocks.POLISHED_BYSTONE_SLAB.get().asItem())
-                .add(BGBlocks.POLISHED_BYSLATE_BRICK_SLAB.get().asItem())
-                .add(BGBlocks.POLISHED_BYSLATE_SLAB.get().asItem());
+
     }
 
     private void stairs() {
-        this.tag(ItemTags.STAIRS)
-                .add(BGBlocks.POLISHED_BYSTONE_BRICK_STAIRS.get().asItem())
-                .add(BGBlocks.POLISHED_BYSTONE_STAIRS.get().asItem())
-                .add(BGBlocks.POLISHED_BYSLATE_BRICK_STAIRS.get().asItem())
-                .add(BGBlocks.POLISHED_BYSLATE_STAIRS.get().asItem());
+
     }
 
     private void walls() {
-        this.tag(ItemTags.WALLS)
-                .add(BGBlocks.POLISHED_BYSTONE_BRICK_WALL.get().asItem())
-                .add(BGBlocks.POLISHED_BYSTONE_WALL.get().asItem())
-                .add(BGBlocks.POLISHED_BYSLATE_BRICK_WALL.get().asItem())
-                .add(BGBlocks.POLISHED_BYSLATE_WALL.get().asItem());
+
     }
 }

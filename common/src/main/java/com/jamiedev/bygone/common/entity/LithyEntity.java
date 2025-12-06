@@ -87,6 +87,7 @@ public class LithyEntity extends PathfinderMob {
                 .add(Attributes.STEP_HEIGHT, 1.0F);
     }
 
+
     protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter level, BlockPos pos) {
         return level.getRawBrightness(pos, 0) > 3;
     }

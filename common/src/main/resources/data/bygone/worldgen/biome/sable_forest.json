@@ -75,45 +75,70 @@
   "has_precipitation": false,
   "spawn_costs": {
     "bygone:mooboo": {
-      "charge": 0.4,
+      "charge": 0.45,
       "energy_budget": 0.2
     },
     "bygone:sabeast": {
       "charge": 0.5,
-      "energy_budget": 0.1
+      "energy_budget": 0.15
     }
   },
   "spawners": {
     "ambient": [
       {
         "type": "bygone:mooboo",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 11
+        "maxCount": 10,
+        "minCount": 5,
+        "weight": 2
+      },
+      {
+        "type": "bygone:sabeast",
+        "maxCount": 10,
+        "minCount": 5,
+        "weight": 1
       }
     ],
     "axolotls": [],
     "creature": [
       {
         "type": "bygone:mooboo",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 11
-      }
-    ],
-    "misc": [],
-    "monster": [
-      {
-        "type": "bygone:mooboo",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 11
+        "maxCount": 10,
+        "minCount": 5,
+        "weight": 2
       },
       {
         "type": "bygone:sabeast",
-        "maxCount": 2,
+        "maxCount": 10,
+        "minCount": 5,
+        "weight": 1
+      }
+    ],
+    "misc": [
+      {
+        "type": "bygone:mooboo",
+        "maxCount": 10,
+        "minCount": 5,
+        "weight": 2
+      },
+      {
+        "type": "bygone:sabeast",
+        "maxCount": 10,
+        "minCount": 5,
+        "weight": 1
+      }
+    ],
+    "monster": [
+      {
+        "type": "bygone:mooboo",
+        "maxCount": 10,
+        "minCount": 5,
+        "weight": 2
+      },
+      {
+        "type": "bygone:sabeast",
+        "maxCount": 10,
         "minCount": 1,
-        "weight": 13
+        "weight": 10
       }
     ],
     "underground_water_creature": [],

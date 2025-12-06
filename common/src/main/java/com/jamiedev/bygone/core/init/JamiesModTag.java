@@ -3,6 +3,7 @@ package com.jamiedev.bygone.core.init;
 import com.jamiedev.bygone.Bygone;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.Item;
@@ -12,6 +13,8 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.material.Fluid;
 
 public class JamiesModTag {
+
+    public static final TagKey<MobEffect> AIRLESS_BREATHING = MobEffects.createTag("airless_breathing");
 
     public static final TagKey<Block> SABLE_LOGS = Blocks.createTag("sable_logs");
     public static final TagKey<Block> BIG_BEAK_SPAWNABLE_ON = Blocks.createTag("big_beak_spawnable_on");
@@ -70,6 +73,13 @@ public class JamiesModTag {
 
     public static final TagKey<Biome> ALLOWS_PRIMORDIAL_FISH_SPAWNS_AT_ANY_HEIGHT = Biomes.createTag(
             "allows_primordial_fish_spawns_at_any_height");
+
+    public static class MobEffects {
+
+        private static TagKey<MobEffect> createTag(String name) {
+            return TagKey.create(Registries.MOB_EFFECT, Bygone.id(name));
+        }
+    }
 
     public static class Blocks {
 

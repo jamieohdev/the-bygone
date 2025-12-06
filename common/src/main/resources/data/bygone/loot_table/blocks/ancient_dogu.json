@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bygone:dogu"
+          "name": "bygone:ancient_dogu"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "bygone:blocks/dogu"
+  "random_sequence": "bygone:blocks/ancient_dogu"
 }
