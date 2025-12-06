@@ -160,6 +160,22 @@
           "type": "minecraft:item",
           "name": "bygone:malicious_war_horn",
           "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly",
+              "options": [
+                "bygone:famine_curse",
+                "bygone:leeching",
+                "bygone:siphoning",
+                "bygone:suffocating_curse"
+              ]
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 1
         }
       ],
       "rolls": {

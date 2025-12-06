@@ -18,7 +18,7 @@ public class CarapaceEffect extends MobEffect {
 
     @Override
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
-        if (!entity.level().isClientSide && entity instanceof Player player && !player.isEyeInFluid(FluidTags.WATER)) {
+        if (!entity.level().isClientSide && entity instanceof Player player && player.isEyeInFluid(FluidTags.WATER)) {
             player.addEffect(new MobEffectInstance(
                     MobEffects.DOLPHINS_GRACE,
                     CARAPACE_EFFECT_LENGTH_BASE + CARAPACE_EFFECT_LENGTH_PER_LEVEL * (amplifier + 1),

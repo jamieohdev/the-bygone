@@ -76,7 +76,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
     private void carapaceHelmTick() {
         ItemStack itemstack = this.getItemBySlot(EquipmentSlot.LEGS);
         if (itemstack.is(BGItems.CARAPACE_GREAVES.get()) && this.isEyeInFluid(FluidTags.WATER)) {
-            this.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 200, 0, false, false, false));
+            this.addEffect(new MobEffectInstance(BGMobEffects.CARAPACE.get(), 200, 0, false, false, false));
         }
     }
 
