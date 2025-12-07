@@ -1,5 +1,8 @@
 package com.jamiedev.bygone.common.entity;
 
+import com.google.common.collect.ImmutableRangeSet;
+import com.google.common.collect.Range;
+import com.google.common.collect.RangeSet;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -11,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
@@ -44,12 +48,12 @@ import java.util.function.IntFunction;
 public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnimal {
     public static final int SPELL_PARTICLES_PER_HAND_PER_TICK = 1;
     public static final int TICKS_PER_FLAP = Mth.ceil(1.4959966F);
+    public static final double TELEPORT_TARGET_AWAY_RANGE = 6.0;
+    public static final double FIRE_SQUARE_MIN_RANGE = 3.0;
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID;
-    private static final EntityDataAccessor<Boolean> DATA_PREPARE_TELEPORT;
 
     static {
         DATA_SPELL_CASTING_ID = SynchedEntityData.defineId(WraithEntity.class, EntityDataSerializers.BYTE);
-        DATA_PREPARE_TELEPORT = SynchedEntityData.defineId(WraithEntity.class, EntityDataSerializers.BOOLEAN);
     }
 
     public AnimationState floatAnimationState = new AnimationState();
@@ -88,8 +92,20 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SpellcasterCastingSpellGoal());
-        this.goalSelector.addGoal(2, new WraithFireSquareSpellGoal());
-        this.goalSelector.addGoal(2, new WraithEntity.WraithTeleportSpellGoal());
+        this.goalSelector.addGoal(
+                2,
+                new WraithFireSquareSpellGoal(ImmutableRangeSet.of(Range.open(
+                        FIRE_SQUARE_MIN_RANGE,
+                        Double.POSITIVE_INFINITY
+                )))
+        );
+        this.goalSelector.addGoal(
+                2,
+                new WraithEntity.WraithTeleportSpellGoal(ImmutableRangeSet.of(Range.closed(
+                        0.0,
+                        TELEPORT_TARGET_AWAY_RANGE
+                )))
+        );
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.1, true));
 
         this.goalSelector.addGoal(8, new WraithEntity.WraithWanderGoal(this, 0.6));
@@ -124,7 +140,6 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_SPELL_CASTING_ID, (byte) 0);
-        builder.define(DATA_PREPARE_TELEPORT, false);
     }
 
     public void tick() {
@@ -449,15 +464,18 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     }
 
     protected abstract class SpellcasterUseSpellGoal extends Goal {
+        protected final RangeSet<Double> validTargetRanges;
         protected int attackWarmupDelay;
         protected int nextAttackTickCount;
 
-        protected SpellcasterUseSpellGoal() {
+        protected SpellcasterUseSpellGoal(RangeSet<Double> validTargetRanges) {
+            this.validTargetRanges = validTargetRanges;
         }
 
         public boolean canUse() {
             LivingEntity target = WraithEntity.this.getTarget();
-            if (target != null && target.isAlive()) {
+            if (target != null && target.isAlive() && this.validTargetRanges.contains((double) WraithEntity.this.distanceTo(
+                    target))) {
                 return !WraithEntity.this.isCastingSpell() && WraithEntity.this.tickCount >= this.nextAttackTickCount;
             } else {
                 return false;
@@ -508,15 +526,17 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
     public class WraithTeleportSpellGoal extends SpellcasterUseSpellGoal {
 
+        protected WraithTeleportSpellGoal(RangeSet<Double> validTargetRanges) {
+            super(validTargetRanges);
+        }
+
         public boolean canUse() {
-            return super.canUse() && ((WraithEntity.this.getTarget() != null) && (WraithEntity.this.distanceTo(
-                    WraithEntity.this.getTarget()) < 6 && !WraithEntity.this.entityData.get(DATA_PREPARE_TELEPORT)));
+            return super.canUse();
         }
 
         @Override
         public void start() {
             super.start();
-            WraithEntity.this.entityData.set(DATA_PREPARE_TELEPORT, true);
             WraithEntity.this.withinRangeToTeleportTick = 0;
         }
 
@@ -525,60 +545,57 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
             LivingEntity target = Objects.requireNonNull(WraithEntity.this.getTarget());
 
-            BlockPos targetOnPos = target.getOnPos();
             RandomSource random = WraithEntity.this.random;
             Level level = WraithEntity.this.level();
+            BlockPos wraithPos = WraithEntity.this.getOnPos();
 
-            for (int check = 0; check < 10; check++) {
-                int x = targetOnPos.getX();
-                if (random.nextBoolean()) {
-                    x -= random.nextInt(7, 11);
-                } else {
-                    x += random.nextInt(7, 11);
-                }
-                int z = targetOnPos.getZ();
-                if (random.nextBoolean()) {
-                    z -= random.nextInt(7, 11);
-                } else {
-                    z += random.nextInt(7, 11);
-                }
+            boolean hasTeleported = false;
 
-                int y = targetOnPos.getY();
-                BlockPos groundPos = new BlockPos(x, y, z);
+            for (int check = 0; !hasTeleported && (check < 10); check++) {
+                int xOffset = random.nextIntBetweenInclusive(7, 11) * ((random.nextIntBetweenInclusive(0, 1) * 2) - 1);
+                int zOffset = random.nextIntBetweenInclusive(7, 11) * ((random.nextIntBetweenInclusive(0, 1) * 2) - 1);
+                BlockPos horizontallyOffsetDestination = wraithPos.offset(xOffset, 0, zOffset);
 
-                if (level
-                        .getBlockState(groundPos)
-                        .isFaceSturdy(level, groundPos, Direction.DOWN) && level
-                        .getBlockState(groundPos.above())
-                        .isAir() && level.getBlockState(groundPos.above().above()).isAir()) {
-                    WraithEntity.this.teleportTo(x, y + 1, z);
-                    break;
-                } else {
-                    boolean teleported = false;
-                    for (int checkY = -4; checkY <= 4; checkY++) {
-                        BlockPos newGroundPos = groundPos.offset(0, checkY, 0);
-                        if (level
-                                .getBlockState(newGroundPos)
-                                .isFaceSturdy(level, newGroundPos, Direction.DOWN) && level
-                                .getBlockState(newGroundPos.above())
-                                .isAir() && level.getBlockState(newGroundPos.above().above()).isAir()) {
-                            target.teleportTo(x, y + 1, z);
-                            level.playSound(
-                                    null,
-                                    WraithEntity.this.xo,
-                                    WraithEntity.this.yo,
-                                    WraithEntity.this.zo,
-                                    BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT,
-                                    WraithEntity.this.getSoundSource(),
-                                    1.0F,
-                                    1.0F
-                            );
-                            WraithEntity.this.playSound(BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT, 1.0F, 1.0F);
-                            teleported = true;
-                            break;
-                        }
-                    }
-                    if (teleported) {
+                for (int checkY = -4; checkY <= 4; checkY++) {
+                    BlockPos teleportDestination = horizontallyOffsetDestination.above(checkY);
+                    BlockPos belowTeleportDestination = teleportDestination.below();
+                    BlockPos aboveTeleportDestination = teleportDestination.above();
+                    BlockState teleportDestinationState = level.getBlockState(teleportDestination);
+                    BlockState belowTeleportDestinationState = level.getBlockState(belowTeleportDestination);
+                    BlockState aboveTeleportDestinationState = level.getBlockState(aboveTeleportDestination);
+
+                    // Note; maybe change the isAir to something less stringent, so it can teleport into grass and whatnot? Not sure what the best alternative is.
+                    if (belowTeleportDestinationState.isFaceSturdy(
+                            level,
+                            belowTeleportDestination,
+                            Direction.UP
+                    ) && teleportDestinationState.isAir() && aboveTeleportDestinationState.isAir()) {
+
+                        target.teleportTo(
+                                teleportDestination.getX(),
+                                teleportDestination.getY(),
+                                teleportDestination.getZ()
+                        );
+
+                        hasTeleported = true;
+
+                        level.playSound(
+                                null,
+                                WraithEntity.this.xo,
+                                WraithEntity.this.yo,
+                                WraithEntity.this.zo,
+                                BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT,
+                                WraithEntity.this.getSoundSource(),
+                                1.0F,
+                                0.8F + random.nextFloat() * 0.4F
+                        );
+
+                        WraithEntity.this.playSound(
+                                BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT,
+                                1.0F,
+                                0.8F + random.nextFloat() * 0.4F
+                        );
+
                         break;
                     }
                 }
@@ -609,13 +626,16 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         @Override
         public void stop() {
             super.stop();
-            WraithEntity.this.entityData.set(DATA_PREPARE_TELEPORT, false);
         }
     }
 
     public class WraithFireSquareSpellGoal extends SpellcasterUseSpellGoal {
         public static final int FLAME_HORIZONTAL_RADIUS = 1;
         public static final int FLAME_VERTICAL_RADIUS = 2;
+
+        protected WraithFireSquareSpellGoal(RangeSet<Double> validTargetRanges) {
+            super(validTargetRanges);
+        }
 
         @Override
         public void start() {
@@ -657,7 +677,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
         @Override
         protected SoundEvent getSpellPrepareSound() {
-            return null;
+            return SoundEvents.BLAZE_SHOOT;
         }
 
         @Override
