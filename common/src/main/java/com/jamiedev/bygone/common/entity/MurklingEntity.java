@@ -17,9 +17,12 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -31,6 +34,7 @@ import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.pathfinder.Path;
@@ -49,6 +53,7 @@ public class MurklingEntity extends Monster implements RangedAttackMob
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.moveControl = new MurklingEntityMoveControl(this);
+        this.lookControl = new SmoothSwimmingLookControl(this, 10);
         this.waterNavigation = new WaterBoundPathNavigation(this, level);
     }
 
@@ -118,8 +123,23 @@ public class MurklingEntity extends Monster implements RangedAttackMob
     }
 
     @Override
+    public int getMaxHeadXRot() {
+        return 1;
+    }
+
+    @Override
+    public int getMaxHeadYRot() {
+        return 1;
+    }
+
+    @Override
+    protected PathNavigation createNavigation(Level level) {
+        return new WaterBoundPathNavigation(this, level);
+    }
+
+    @Override
     public boolean isPushedByFluid() {
-        return !this.isSwimming();
+        return false;
     }
 
     boolean wantsToSwim() {
@@ -149,10 +169,12 @@ public class MurklingEntity extends Monster implements RangedAttackMob
     @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isControlledByLocalInstance() && this.isInWater() && this.wantsToSwim()) {
-            this.moveRelative(0.01F, travelVector);
+            this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
-        } else {
+            if (this.getTarget() == null) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.005, 0.0));
+            }   } else {
             super.travel(travelVector);
         }
     }
@@ -240,11 +262,21 @@ public class MurklingEntity extends Monster implements RangedAttackMob
     }
 
     static class MurklingEntityMoveControl extends MoveControl {
+        private final int maxTurnX;
+        private final int maxTurnY;
+        private final float inWaterSpeedModifier;
+        private final float outsideWaterSpeedModifier;
+        private final boolean applyGravity;
         private final MurklingEntity murkling;
 
         public MurklingEntityMoveControl(MurklingEntity murkling) {
             super(murkling);
             this.murkling = murkling;
+            this.maxTurnX = 85;
+            this.maxTurnY = 10;
+            this.inWaterSpeedModifier = 0.02F;
+            this.outsideWaterSpeedModifier = 0.1F;
+            this.applyGravity = true;
         }
 
         @Override
@@ -252,11 +284,14 @@ public class MurklingEntity extends Monster implements RangedAttackMob
             LivingEntity livingentity = this.murkling.getTarget();
             if (this.murkling.wantsToSwim() && this.murkling.isInWater()) {
                 if (livingentity != null && livingentity.getY() > this.murkling.getY()) {
-                    this.murkling.setDeltaMovement(this.murkling.getDeltaMovement().add(0.0, 0.002, 0.0));
+                    this.murkling.setDeltaMovement(this.murkling.getDeltaMovement().add(0.0, 0.005, 0.0));
                 }
 
                 if (this.operation != MoveControl.Operation.MOVE_TO || this.murkling.getNavigation().isDone()) {
                     this.murkling.setSpeed(0.0F);
+                    this.murkling.setXxa(0.0F);
+                    this.murkling.setYya(0.0F);
+                    this.murkling.setZza(0.0F);
                     return;
                 }
 
@@ -265,13 +300,31 @@ public class MurklingEntity extends Monster implements RangedAttackMob
                 double d2 = this.wantedZ - this.murkling.getZ();
                 double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
                 d1 /= d3;
-                float f = (float)(Mth.atan2(d2, d0) * 180.0F / (float)Math.PI) - 90.0F;
-                this.murkling.setYRot(this.rotlerp(this.murkling.getYRot(), f, 90.0F));
-                this.murkling.yBodyRot = this.murkling.getYRot();
-                float f1 = (float)(this.speedModifier * this.murkling.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                float f2 = Mth.lerp(0.125F, this.murkling.getSpeed(), f1);
-                this.murkling.setSpeed(f2);
-                this.murkling.setDeltaMovement(this.murkling.getDeltaMovement().add((double)f2 * d0 * 0.005, (double)f2 * d1 * 0.1, (double)f2 * d2 * 0.005));
+
+                float f = (float)(Mth.atan2(d2, d0) * (double)180.0F / (double)(float)Math.PI) - 90.0F;
+                this.mob.setYRot(this.rotlerp(this.mob.getYRot(), f, (float)this.maxTurnY));
+                this.mob.yBodyRot = this.mob.getYRot();
+                this.mob.yHeadRot = this.mob.getYRot();
+                float f1 = (float)(this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                if (this.mob.isInWater()) {
+                    this.mob.setSpeed(f1 * this.inWaterSpeedModifier);
+                    double d4 = Math.sqrt(d0 * d0 + d2 * d2);
+                    if (Math.abs(d1) > (double)1.0E-5F || Math.abs(d4) > (double)1.0E-5F) {
+                        float f3 = -((float)(Mth.atan2(d1, d4) * (double)180.0F / (double)(float)Math.PI));
+                        f3 = Mth.clamp(Mth.wrapDegrees(f3), (float)(-this.maxTurnX), (float)this.maxTurnX);
+                        this.mob.setXRot(this.rotlerp(this.mob.getXRot(), f3, 5.0F));
+                    }
+
+                    float f6 = Mth.cos(this.mob.getXRot() * ((float)Math.PI / 180F));
+                    float f4 = Mth.sin(this.mob.getXRot() * ((float)Math.PI / 180F));
+                    this.mob.zza = f6 * f1;
+                    this.mob.yya = -f4 * f1;
+                } else {
+                    float f5 = Math.abs(Mth.wrapDegrees(this.mob.getYRot() - f));
+                    float f2 = getTurningSpeedFactor(f5);
+                    this.mob.setSpeed(f1 * this.outsideWaterSpeedModifier * f2);
+                }
+
             } else {
                 if (!this.murkling.onGround()) {
                     this.murkling.setDeltaMovement(this.murkling.getDeltaMovement().add(0.0, -0.008, 0.0));
@@ -279,6 +332,10 @@ public class MurklingEntity extends Monster implements RangedAttackMob
 
                 super.tick();
             }
+        }
+
+        private static float getTurningSpeedFactor(float p_249853_) {
+            return 1.0F - Mth.clamp((p_249853_ - 10.0F) / 50.0F, 0.0F, 1.0F);
         }
     }
 
@@ -290,7 +347,11 @@ public class MurklingEntity extends Monster implements RangedAttackMob
             this.variant = variant;
         }
     }
-    
+
+    public boolean checkSpawnObstruction(LevelReader level) {
+        return level.isUnobstructed(this);
+    }
+
     @javax.annotation.Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @javax.annotation.Nullable SpawnGroupData spawnGroupData) {
