@@ -6,7 +6,7 @@ import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
 public class WraithAnimations {
-    public static final AnimationDefinition idle = AnimationDefinition.Builder.withLength(2.0F).looping()
+    public static final AnimationDefinition IDLE = AnimationDefinition.Builder.withLength(2.0F).looping()
             .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(15.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                     new Keyframe(0.5F, KeyframeAnimations.degreeVec(17.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -35,7 +35,7 @@ public class WraithAnimations {
             ))
             .build();
 
-    public static final AnimationDefinition floating = AnimationDefinition.Builder.withLength(1.0F).looping()
+    public static final AnimationDefinition FLOATING = AnimationDefinition.Builder.withLength(1.0F).looping()
             .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(22.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                     new Keyframe(0.25F, KeyframeAnimations.degreeVec(22.5F, 0.0F, -7.5F), AnimationChannel.Interpolations.CATMULLROM),
@@ -64,7 +64,7 @@ public class WraithAnimations {
             ))
             .build();
 
-    public static final AnimationDefinition attack = AnimationDefinition.Builder.withLength(2.0F).looping()
+    public static final AnimationDefinition ATTACK = AnimationDefinition.Builder.withLength(2.0F).looping()
             .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0625F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(0.1875F, KeyframeAnimations.degreeVec(-22.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -105,7 +105,7 @@ public class WraithAnimations {
             ))
             .build();
 
-    public static final AnimationDefinition cast = AnimationDefinition.Builder.withLength(2.0F).looping()
+    public static final AnimationDefinition CAST = AnimationDefinition.Builder.withLength(2.0F).looping()
             .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0625F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(0.3125F, KeyframeAnimations.degreeVec(-22.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),

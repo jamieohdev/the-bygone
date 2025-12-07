@@ -8,6 +8,7 @@ import com.jamiedev.bygone.common.entity.WraithEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class WraithRenderer extends MobRenderer<WraithEntity, WraithModel<WraithEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/wraith.png");
@@ -19,7 +20,7 @@ public class WraithRenderer extends MobRenderer<WraithEntity, WraithModel<Wraith
     }
 
     @Override
-    public ResourceLocation getTextureLocation(WraithEntity WraithEntity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull WraithEntity WraithEntity) {
         return TEXTURE;
     }
 }
