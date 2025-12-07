@@ -68,7 +68,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
     @Unique
     private void the_bygone$carapaceLeggingsTick() {
         ItemStack itemstack = this.getItemBySlot(EquipmentSlot.LEGS);
-        if (itemstack.is(BGItems.CARAPACE_GREAVES.get()) && !this.isEyeInFluid(FluidTags.WATER)) {
+        if (itemstack.is(BGItems.CARAPACE_GREAVES.get()) && this.isEyeInFluid(FluidTags.WATER)) {
             this.addEffect(new MobEffectInstance(BGMobEffects.CARAPACE.get(), 200, 0));
         }
     }

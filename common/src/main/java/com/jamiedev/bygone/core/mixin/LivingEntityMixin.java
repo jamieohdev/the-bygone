@@ -32,7 +32,7 @@ public abstract class LivingEntityMixin {
     public void scaleWaterTravelSpeed(LivingEntity instance, float distance, Vec3 direction, Operation<Void> original) {
         MobEffectInstance carapaceEffect = instance.getEffect(BGMobEffects.CARAPACE.get());
         float modifiedDistance = distance;
-        if (carapaceEffect != null && instance.getFluidHeight(FluidTags.WATER) > 0) {
+        if (carapaceEffect != null && (instance.isInWater() && instance.getFluidHeight(FluidTags.WATER) > 0.1F)) {
             modifiedDistance = distance * (1 + 0.2f * (carapaceEffect.getAmplifier() + 1));
         }
         original.call(instance, modifiedDistance, direction);

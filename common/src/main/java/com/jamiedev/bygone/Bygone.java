@@ -1,6 +1,5 @@
 package com.jamiedev.bygone;
 
-import com.jamiedev.bygone.client.models.MurklingModel;
 import com.jamiedev.bygone.common.entity.*;
 import com.jamiedev.bygone.common.util.Consumer4;
 import com.jamiedev.bygone.core.init.JamiesModTag;

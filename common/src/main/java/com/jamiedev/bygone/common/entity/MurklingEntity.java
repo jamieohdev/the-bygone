@@ -1,11 +1,19 @@
 package com.jamiedev.bygone.common.entity;
 
+import com.jamiedev.bygone.core.init.JamiesModTag;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
@@ -17,10 +25,14 @@ import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
+import net.minecraft.world.entity.animal.horse.Markings;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
@@ -30,7 +42,7 @@ import javax.annotation.Nullable;
 
 public class MurklingEntity extends Monster implements RangedAttackMob
 {
-
+    private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT;
     protected final WaterBoundPathNavigation waterNavigation;
     
     public MurklingEntity(EntityType<? extends Monster> entityType, Level level) {
@@ -45,6 +57,7 @@ public class MurklingEntity extends Monster implements RangedAttackMob
                 .add(Attributes.MAX_HEALTH, 30.0)
                 .add(Attributes.FOLLOW_RANGE, 20.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.25)
+                .add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.33)
                 .add(Attributes.ATTACK_DAMAGE, 8.0)
                 .add(Attributes.STEP_HEIGHT, 2.0);
     }
@@ -59,6 +72,21 @@ public class MurklingEntity extends Monster implements RangedAttackMob
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this, Player.class).setAlertOthers(MurklingEntity.class));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::okTarget));
+    }
+
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_ID_TYPE_VARIANT, 0);
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("Variant", this.getTypeVariant());
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setTypeVariant(compound.getInt("Variant"));
     }
 
     protected void handleAirSupply(int airSupply) {
@@ -97,6 +125,25 @@ public class MurklingEntity extends Monster implements RangedAttackMob
     boolean wantsToSwim() {
         LivingEntity livingentity = this.getTarget();
         return livingentity != null && livingentity.isInWater();
+    }
+
+    protected SoundEvent getFlopSound() {
+        return SoundEvents.GUARDIAN_FLOP;
+    }
+
+    @Override
+    public void aiStep() {
+        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+            this.setDeltaMovement(
+                    this.getDeltaMovement()
+                            .add((double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, (double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F))
+            );
+            this.setOnGround(false);
+            this.hasImpulse = true;
+            this.makeSound(this.getFlopSound());
+        }
+
+        super.aiStep();
     }
 
     @Override
@@ -140,6 +187,37 @@ public class MurklingEntity extends Monster implements RangedAttackMob
         }
 
         return false;
+    }
+
+    private static MurklingVariants getRandomVariant(LevelAccessor level, BlockPos pos) {
+        Holder<Biome> holder = level.getBiome(pos);
+        int i = level.getRandom().nextInt(100);
+        return i < 10 ? MurklingVariants.FUSCHIA : i < 15 ? MurklingVariants.TEAL : MurklingVariants.OLIVE;
+    }
+    
+        
+    private int getTypeVariant() {
+        return this.entityData.get(DATA_ID_TYPE_VARIANT);
+    }
+
+    private void setTypeVariant(int typeVariant) {
+        this.entityData.set(DATA_ID_TYPE_VARIANT, typeVariant);
+    }
+
+    private void setVariantAndMarkings(MurklingVariants variant, Markings marking) {
+        this.setTypeVariant(variant.getId() & 255 | marking.getId() << 8 & '\uff00');
+    }
+
+    public MurklingVariants getVariant() {
+        return MurklingVariants.byId(this.getTypeVariant() & 255);
+    }
+
+    public void setVariant(MurklingVariants variant) {
+        this.setTypeVariant(variant.getId() & 255 | this.getTypeVariant() & -256);
+    }
+
+    public Markings getMarkings() {
+        return Markings.byId((this.getTypeVariant() & '\uff00') >> 8);
     }
 
     static class MurklingEntityAttackGoal extends MeleeAttackGoal {
@@ -204,4 +282,33 @@ public class MurklingEntity extends Monster implements RangedAttackMob
         }
     }
 
+    public static class MurklingGroupData extends AgeableMob.AgeableMobGroupData {
+        public final MurklingVariants variant;
+
+        public MurklingGroupData(MurklingVariants variant) {
+            super(true);
+            this.variant = variant;
+        }
+    }
+    
+    @javax.annotation.Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @javax.annotation.Nullable SpawnGroupData spawnGroupData) {
+        RandomSource randomsource = level.getRandom();
+        MurklingVariants murkling$variant = getRandomVariant(level, this.blockPosition());
+        MurklingVariants variant;
+        if (spawnGroupData instanceof MurklingEntity.MurklingGroupData) {
+            murkling$variant = ((MurklingEntity.MurklingGroupData) spawnGroupData).variant;
+        } else {
+            murkling$variant = Util.getRandom(MurklingVariants.values(), randomsource);
+            spawnGroupData = new MurklingEntity.MurklingGroupData(murkling$variant);
+        }
+
+        this.setVariantAndMarkings(murkling$variant, Util.getRandom(Markings.values(), randomsource));
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+    }
+    
+    static {
+        DATA_ID_TYPE_VARIANT = SynchedEntityData.defineId(MurklingEntity.class, EntityDataSerializers.INT);
+    }
 }
