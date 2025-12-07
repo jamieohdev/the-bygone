@@ -6,23 +6,15 @@ import com.jamiedev.bygone.core.network.SyncPlayerHookS2C;
 import com.jamiedev.bygone.core.platform.Services;
 import com.jamiedev.bygone.core.registry.BGItems;
 import com.jamiedev.bygone.core.registry.BGMobEffects;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -73,10 +65,11 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
         }
     }
 
-    private void carapaceHelmTick() {
+    @Unique
+    private void the_bygone$carapaceLeggingsTick() {
         ItemStack itemstack = this.getItemBySlot(EquipmentSlot.LEGS);
-        if (itemstack.is(BGItems.CARAPACE_GREAVES.get()) && this.isEyeInFluid(FluidTags.WATER)) {
-            this.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 200, 0, false, false, false));
+        if (itemstack.is(BGItems.CARAPACE_GREAVES.get()) && !this.isEyeInFluid(FluidTags.WATER)) {
+            this.addEffect(new MobEffectInstance(BGMobEffects.CARAPACE.get(), 200, 0));
         }
     }
 
@@ -108,7 +101,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
 
     @Inject(at = @At("RETURN"), method = "tick()V")
     public void tick(CallbackInfo ci) {
-        this.carapaceHelmTick();
+        this.the_bygone$carapaceLeggingsTick();
     }
 
     /*todo use forge event

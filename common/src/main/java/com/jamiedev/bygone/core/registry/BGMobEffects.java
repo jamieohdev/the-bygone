@@ -9,6 +9,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 
 import java.util.function.Supplier;
 
@@ -25,7 +27,14 @@ public class BGMobEffects {
             () -> new SiphoningEffect(MobEffectCategory.HARMFUL, 0x68b6d3)
     );
 
-    public static Supplier<Holder<MobEffect>> CARAPACE = register("carapace", CarapaceEffect::new);
+    public static Supplier<Holder<MobEffect>> CARAPACE = register(
+            "carapace", () -> new PublicMobEffect(MobEffectCategory.BENEFICIAL, 0x67CEEB).addAttributeModifier(
+                    Attributes.WATER_MOVEMENT_EFFICIENCY,
+                    Bygone.id("effect.carapace"),
+                    1,
+                    AttributeModifier.Operation.ADD_VALUE
+            )
+    );
 
     private static <T extends MobEffect> Supplier<Holder<MobEffect>> register(String name, Supplier<T> supplier) {
         JinxedRegistryHelper.register(BuiltInRegistries.MOB_EFFECT, Bygone.MOD_ID, name, supplier);
