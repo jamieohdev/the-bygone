@@ -72,53 +72,30 @@
   "spawn_costs": {
     "bygone:big_beak": {
       "charge": 0.5,
-      "energy_budget": 0.1
+      "energy_budget": 0.15
     },
     "bygone:nectaur": {
-      "charge": 0.5,
-      "energy_budget": 0.1
+      "charge": 0.55,
+      "energy_budget": 0.15
     },
     "bygone:whiskbill": {
       "charge": 0.5,
-      "energy_budget": 0.1
+      "energy_budget": 0.15
     }
   },
   "spawners": {
     "ambient": [],
     "axolotls": [],
     "creature": [
-      {
-        "type": "bygone:big_beak",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 10
-      },
-      {
-        "type": "bygone:whiskbill",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 11
-      },
-      {
-        "type": "bygone:glare",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 2
-      },
-      {
-        "type": "bygone:nectaur",
-        "maxCount": 4,
-        "minCount": 2,
-        "weight": 12
-      }
+
     ],
     "misc": [],
     "monster": [
       {
         "type": "bygone:big_beak",
-        "maxCount": 4,
+        "maxCount": 1,
         "minCount": 1,
-        "weight": 10
+        "weight": 15
       },
       {
         "type": "bygone:whiskbill",
@@ -128,8 +105,8 @@
       },
       {
         "type": "bygone:nectaur",
-        "maxCount": 4,
-        "minCount": 2,
+        "maxCount": 1,
+        "minCount": 1,
         "weight": 12
       }
     ],

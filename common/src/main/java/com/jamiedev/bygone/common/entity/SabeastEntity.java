@@ -273,6 +273,10 @@ public class SabeastEntity extends Monster {
 
     }
 
+    public int getMaxSpawnClusterSize() {
+        return 1;
+    }
+
     protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter level, BlockPos pos) {
         return level.getRawBrightness(pos, 0) > 1;
     }

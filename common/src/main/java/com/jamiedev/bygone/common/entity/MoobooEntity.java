@@ -12,6 +12,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
@@ -19,9 +20,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class MoobooEntity extends Cow {
@@ -61,6 +64,14 @@ public class MoobooEntity extends Cow {
         return 0.4F;
     }
 
+    public int getMaxSpawnClusterSize() {
+        return 1;
+    }
+
+    protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter level, BlockPos pos) {
+        return level.getRawBrightness(pos, 0) > 1;
+    }
+
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (itemstack.is(Items.BUCKET) && !this.isBaby()) {
@@ -71,6 +82,16 @@ public class MoobooEntity extends Cow {
         } else {
             return super.mobInteract(player, hand);
         }
+    }
+
+    public static boolean canSpawn(
+            EntityType<? extends Mob> type,
+            LevelAccessor serverWorldAccess,
+            MobSpawnType spawnReason,
+            BlockPos blockPos,
+            RandomSource random
+    ) {
+        return true;
     }
 
 }

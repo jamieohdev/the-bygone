@@ -239,13 +239,13 @@ public class Bygone {
                 (EntityType<T>) BGEntityTypes.SABEAST.get(),
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING,
-                LithyEntity::canSpawn
+                MoobooEntity::canSpawn
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.MOOBOO.get(),
                 SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                LithyEntity::canSpawn
+                Heightmap.Types.MOTION_BLOCKING,
+                MoobooEntity::canSpawn
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.FUNGAL_PARENT.get(),

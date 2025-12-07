@@ -2688,7 +2688,7 @@ public class BGBlocks {
                             .randomTicks()
                             .noCollission()
                             .lightLevel((state) -> {
-                                return 1;
+                                return 10;
                             })
                             .instabreak()
                             .sound(SoundType.WEEPING_VINES)
