@@ -29,6 +29,7 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructurePieceAccessor;
 import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
@@ -75,7 +76,11 @@ public class SunkenCityPiece
         }
 
         private static StructurePlaceSettings makeSettings(Rotation rotation) {
-            return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).setKnownShape(false);
+            return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_AND_AIR).setKnownShape(false);
+        }
+
+        private static StructurePlaceSettings createPlacementData(Rotation rotation) {
+            return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_AND_AIR);
         }
 
         protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag tag) {

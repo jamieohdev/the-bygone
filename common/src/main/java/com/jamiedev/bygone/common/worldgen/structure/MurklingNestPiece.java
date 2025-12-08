@@ -28,6 +28,7 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructurePieceAccessor;
 import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.world.level.material.FluidState;
@@ -37,7 +38,8 @@ import org.jetbrains.annotations.NotNull;
 public class MurklingNestPiece
 {
     private static final ResourceLocation[] NEST_NBT = new ResourceLocation[]{
-            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "murkling_nest/small")
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "murkling_nest/small"),
+            ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "murkling_nest/medium")
     };
 
     public MurklingNestPiece() {}
@@ -65,7 +67,7 @@ public class MurklingNestPiece
         }
 
         private static StructurePlaceSettings makeSettings(Rotation rotation) {
-            return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).setKnownShape(false);
+            return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_AND_AIR).setKnownShape(false);
         }
 
         protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag tag) {
