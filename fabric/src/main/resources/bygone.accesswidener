@@ -18,4 +18,6 @@ accessible method net/minecraft/world/entity/LivingEntity lerpHeadRotationStep (
 accessible method net/minecraft/world/entity/LivingEntity increaseAirSupply (I)I
 accessible method net/minecraft/world/level/block/DoublePlantBlock preventDropFromBottomPart (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)V
 accessible field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
+accessible field net/minecraft/world/level/block/BaseFireBlock fireDamage F
+
 transitive-mutable field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
