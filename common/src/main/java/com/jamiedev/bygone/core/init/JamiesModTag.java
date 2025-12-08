@@ -20,6 +20,8 @@ public class JamiesModTag {
     public static final TagKey<Block> BIG_BEAK_SPAWNABLE_ON = Blocks.createTag("big_beak_spawnable_on");
     public static final TagKey<Block> GLARE_SPAWNABLE_ON = Blocks.createTag("glare_spawnable_on");
 
+    public static final TagKey<Block> ICE_BOUQUET_FORBIDDEN = Blocks.createTag("ice_bouquet_forbidden");
+
     public static final TagKey<Block> HEATER_BLOCKS = Blocks.createTag("heater_blocks");
 
     public static final TagKey<Block> MEGALITH_BLOCKS = Blocks.createTag("megalith_blocks");
@@ -64,6 +66,8 @@ public class JamiesModTag {
 
     public static final TagKey<Structure> BYGONE_ITEM_LOCATED = Structures.createTag("bygone_item_located");
     public static final TagKey<Block> COPPERBUGNESTS = Blocks.createTag("copperbug_nests");
+
+    public static final TagKey<EntityType<?>> ICE_BOUQUET_HEALS = Entities.createTag("ice_bouquet_heals");
 
     public static final TagKey<EntityType<?>> COPPERBUGNEST_INHABITORS = Entities.createTag("copperbugnest_inhabitors");
     public static final TagKey<Block> SHELF_FUNGI = Blocks.createTag("shelf_fungi");

@@ -1,174 +1,57 @@
 package com.jamiedev.bygone.common.block;
 
-import com.google.common.collect.ImmutableMap;
-import com.jamiedev.bygone.common.entity.WraithEntity;
-import com.jamiedev.bygone.core.registry.BGBlocks;
-import net.minecraft.Util;
+import com.jamiedev.bygone.core.init.JamiesModTag;
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 public class IceBouquetBlock extends Block {
-    public static final int MAX_AGE = 15;
-    public static final IntegerProperty AGE = BlockStateProperties.AGE_15;
-    public static final BooleanProperty NORTH = PipeBlock.NORTH;
-    public static final BooleanProperty EAST = PipeBlock.EAST;
-    public static final BooleanProperty SOUTH = PipeBlock.SOUTH;
-    public static final BooleanProperty WEST = PipeBlock.WEST;
-    public static final BooleanProperty UP = PipeBlock.UP;
-    protected static final float AABB_OFFSET = 1.0F;
-    protected static final VoxelShape DOWN_AABB = Block.box(0.0, 0.0, 0.0, 16.0, 1.0, 16.0);
-    private static final Map<Direction, BooleanProperty> PROPERTY_BY_DIRECTION = PipeBlock.PROPERTY_BY_DIRECTION
-            .entrySet()
-            .stream()
-            .filter(p_53467_ -> p_53467_.getKey() != Direction.DOWN)
-            .collect(Util.toMap());
-    private static final int SECONDS_ON_FIRE = 8;
-    private static final VoxelShape UP_AABB = Block.box(0.0, 15.0, 0.0, 16.0, 16.0, 16.0);
-    private static final VoxelShape WEST_AABB = Block.box(0.0, 0.0, 0.0, 1.0, 16.0, 16.0);
-    private static final VoxelShape EAST_AABB = Block.box(15.0, 0.0, 0.0, 16.0, 16.0, 16.0);
-    private static final VoxelShape NORTH_AABB = Block.box(0.0, 0.0, 0.0, 16.0, 16.0, 1.0);
-    private static final VoxelShape SOUTH_AABB = Block.box(0.0, 0.0, 15.0, 16.0, 16.0, 16.0);
-    private final float fireDamage;
-    private final Map<BlockState, VoxelShape> shapesCache;
-    FireBlock ref;
-    BaseFireBlock ref1;
+    public static final MapCodec<IceBouquetBlock> CODEC = simpleCodec(IceBouquetBlock::new);
+    protected static final VoxelShape DOWN_AABB = Block.box(0.0F, 0.0F, 0.0F, 16.0F, 1.0F, 16.0F);
+    public final float iceDamage;
 
-    public IceBouquetBlock(BlockBehaviour.Properties properties, float fireDamage) {
+    public IceBouquetBlock(Properties properties) {
+        this(properties, 2.0f);
+    }
+
+    public IceBouquetBlock(Properties properties, float iceDamage) {
         super(properties);
-        this.fireDamage = fireDamage;
-        this.registerDefaultState(
-                this.stateDefinition
-                        .any()
-                        .setValue(AGE, Integer.valueOf(0))
-                        .setValue(NORTH, Boolean.valueOf(false))
-                        .setValue(EAST, Boolean.valueOf(false))
-                        .setValue(SOUTH, Boolean.valueOf(false))
-                        .setValue(WEST, Boolean.valueOf(false))
-                        .setValue(UP, Boolean.valueOf(false))
-        );
-        this.shapesCache = ImmutableMap.copyOf(
-                this.stateDefinition
-                        .getPossibleStates()
-                        .stream()
-                        .filter(p_53497_ -> p_53497_.getValue(AGE) == 0)
-                        .collect(Collectors.toMap(Function.identity(), IceBouquetBlock::calculateShape))
-        );
+        this.iceDamage = iceDamage;
     }
 
-    private static VoxelShape calculateShape(BlockState state) {
-        VoxelShape voxelshape = Shapes.empty();
-        if (state.getValue(UP)) {
-            voxelshape = UP_AABB;
-        }
-
-        if (state.getValue(NORTH)) {
-            voxelshape = Shapes.or(voxelshape, NORTH_AABB);
-        }
-
-        if (state.getValue(SOUTH)) {
-            voxelshape = Shapes.or(voxelshape, SOUTH_AABB);
-        }
-
-        if (state.getValue(EAST)) {
-            voxelshape = Shapes.or(voxelshape, EAST_AABB);
-        }
-
-        if (state.getValue(WEST)) {
-            voxelshape = Shapes.or(voxelshape, WEST_AABB);
-        }
-
-        return voxelshape.isEmpty() ? DOWN_AABB : voxelshape;
-    }
-
-    public static boolean canBePlacedAt(Level level, BlockPos pos, Direction direction) {
-        BlockState blockstate = level.getBlockState(pos);
-        return blockstate.isAir() && getState(level, pos).canSurvive(level, pos);
-    }
-
-    public static BlockState getState(BlockGetter reader, BlockPos pos) {
-        BlockPos blockpos = pos.below();
-        BlockState blockstate = reader.getBlockState(blockpos);
-        return BGBlocks.ICE_BOUQUET.get().defaultBlockState();
-    }
-
-    private static int getFireTickDelay(RandomSource random) {
-        return 30 + random.nextInt(10);
-    }
-
-    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        BlockPos blockpos = pos.below();
-        return level.getBlockState(blockpos).isFaceSturdy(level, blockpos, Direction.UP) || this.isValidFireLocation(level, pos);
+    public static boolean canSurviveOnBlock(BlockState state) {
+        return !state.is(JamiesModTag.ICE_BOUQUET_FORBIDDEN);
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.getStateForPlacement(context.getLevel(), context.getClickedPos());
-    }
-
-    protected BlockState getStateForPlacement(BlockGetter level, BlockPos pos) {
-        BlockPos blockpos = pos.below();
-        BlockState blockstate = level.getBlockState(blockpos);
-        if (!blockstate.isFaceSturdy(level, blockpos, Direction.UP)) {
-            BlockState blockstate1 = this.defaultBlockState();
-
-            for (Direction direction : Direction.values()) {
-                BooleanProperty booleanproperty = PROPERTY_BY_DIRECTION.get(direction);
-            }
-
-            return blockstate1;
-        } else {
-            return this.defaultBlockState();
-        }
+    public @NotNull MapCodec<IceBouquetBlock> codec() {
+        return CODEC;
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(AGE, NORTH, EAST, SOUTH, WEST, UP);
-    }
-
-    @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return this.shapesCache.get(state.setValue(AGE, Integer.valueOf(0)));
-    }
-
-    /**
-     * Called periodically clientside on blocks near the player to show effects (like furnace fire particles).
-     */
-    @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+    public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, RandomSource random) {
         if (random.nextInt(24) == 0) {
             level.playLocalSound(
-                    (double) pos.getX() + 0.5,
-                    (double) pos.getY() + 0.5,
-                    (double) pos.getZ() + 0.5,
-                    SoundEvents.FIRE_AMBIENT,
+                    pos.getX() + 0.5F,
+                    pos.getY() + 0.5F,
+                    pos.getZ() + 0.5F,
+                    BGSoundEvents.WRAITH_FLY_ADDITIONS_EVENT,
                     SoundSource.BLOCKS,
                     1.0F + random.nextFloat(),
                     random.nextFloat() * 0.7F + 0.3F,
@@ -178,116 +61,39 @@ public class IceBouquetBlock extends Block {
     }
 
     @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        level.scheduleTick(pos, this, getFireTickDelay(level.random));
-        if (level.random.nextFloat() < 0.1) {
-            level.removeBlock(pos, false);
-        }
-
-        if (!state.canSurvive(level, pos)) {
-            level.removeBlock(pos, false);
-        }
-
-        BlockState blockstate = level.getBlockState(pos.below());
-        boolean flag = blockstate.is(level.dimensionType().infiniburn());
-        int i = state.getValue(AGE);
-        int j = Math.min(15, i + random.nextInt(3) / 2);
-        if (i != j) {
-            state = state.setValue(AGE, Integer.valueOf(j));
-            level.setBlock(pos, state, 4);
-        }
-
-        if (!flag) {
-            if (!this.isValidFireLocation(level, pos)) {
-                BlockPos blockpos = pos.below();
-                if (!level.getBlockState(blockpos).isFaceSturdy(level, blockpos, Direction.UP) || i > 3) {
-                    level.removeBlock(pos, false);
-                }
-
-                return;
-            }
-        }
-
-        boolean flag1 = level.getBiome(pos).is(BiomeTags.INCREASED_FIRE_BURNOUT);
-        int k = flag1 ? -50 : 0;
-        this.checkBurnOut(level, pos.east(), 300 + k, random, i);
-        this.checkBurnOut(level, pos.west(), 300 + k, random, i);
-        this.checkBurnOut(level, pos.below(), 250 + k, random, i);
-        this.checkBurnOut(level, pos.above(), 250 + k, random, i);
-        this.checkBurnOut(level, pos.north(), 300 + k, random, i);
-        this.checkBurnOut(level, pos.south(), 300 + k, random, i);
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
-    }
-
-    private void checkBurnOut(Level level, BlockPos pos, int chance, RandomSource random, int age) {
-        int i = this.getBurnOdds(level.getBlockState(pos));
-        if (random.nextInt(chance) < i) {
-            BlockState blockstate = level.getBlockState(pos);
-            if (random.nextInt(age + 10) < 5 && !level.isRainingAt(pos)) {
-                int j = Math.min(age + random.nextInt(5) / 4, 15);
-                level.setBlock(pos, this.getStateWithAge(level, pos, j), 3);
-            } else {
-                level.removeBlock(pos, false);
-            }
-        }
-    }
-
-    private BlockState getStateWithAge(LevelAccessor level, BlockPos pos, int age) {
-        BlockState blockstate = getState(level, pos);
-        return blockstate.is(Blocks.FIRE) ? blockstate.setValue(AGE, Integer.valueOf(age)) : blockstate;
-    }
-
-    private boolean isValidFireLocation(BlockGetter level, BlockPos pos) {
-        for (Direction direction : Direction.Plane.HORIZONTAL) {
-            BlockState blockstate1 = level.getBlockState(pos.below());
-            if (blockstate1.isSolid() || !blockstate1.isAir()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private int getBurnOdds(BlockState state) {
-        return 0;
+    public @NotNull BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+        return this.defaultBlockState();
     }
 
     @Override
-    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        //entity.hurt(level.damageSources().inFire(), this.fireDamage);
+    protected @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
+        return this.canSurvive(state, level, currentPos) ? state : Blocks.AIR.defaultBlockState();
+    }
 
-        if (entity instanceof Player) {
-            entity.hurt(level.damageSources().freeze(), this.fireDamage);
-        }
+    @Override
+    protected boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos pos) {
+        BlockPos belowPos = pos.below();
+        BlockState belowState = level.getBlockState(belowPos);
+        return canSurviveOnBlock(belowState) && belowState.isFaceSturdy(level, belowPos, Direction.UP);
+    }
 
-        if (entity instanceof WraithEntity) {
-            ((WraithEntity) entity).heal(0.05F);
+    @Override
+    protected @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        return DOWN_AABB;
+    }
+
+    @Override
+    protected void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+
+        if (entity instanceof LivingEntity livingEntity) {
+            if (livingEntity.getType().is(JamiesModTag.ICE_BOUQUET_HEALS)) {
+                livingEntity.heal(0.10F);
+            } else {
+                livingEntity.hurt(level.damageSources().freeze(), this.iceDamage);
+            }
+
         }
 
         super.entityInside(state, level, pos, entity);
     }
-
-    @Override
-    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
-        if (!oldState.is(state.getBlock())) {
-            if (!state.canSurvive(level, pos)) {
-                level.removeBlock(pos, false);
-            }
-        }
-    }
-
-
-    @Override
-    protected void spawnDestroyParticles(Level level, Player player, BlockPos pos, BlockState state) {
-    }
-
-    @Override
-    public @NotNull BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide()) {
-            level.levelEvent(null, 1009, pos, 0);
-        }
-
-        return super.playerWillDestroy(level, pos, state, player);
-    }
-
 }
