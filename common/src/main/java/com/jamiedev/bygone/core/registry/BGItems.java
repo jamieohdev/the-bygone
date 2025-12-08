@@ -254,6 +254,14 @@ public class BGItems {
                     (new Item.Properties()).stacksTo(1)
             )
     );
+    public static final Supplier<Item> AMOEBA_SPAWN_EGG = registerItem(
+            "amoeba_spawn_egg",
+            () -> new SpawnEggItem(BGEntityTypes.AMOEBA.get(), 0x6C9BB9, 0x8F8763, new Item.Properties())
+    );
+    public static final Supplier<Item> AQUIFAWN_SPAWN_EGG = registerItem(
+            "aquifawn_spawn_egg",
+            () -> new SpawnEggItem(BGEntityTypes.AQUIFAWN.get(), 0x0D2B50, 0x4E6F99, new Item.Properties())
+    );
     public static final Supplier<Item> BIG_BEAK_SPAWN_EGG = registerItem(
             "big_beak_spawn_egg",
             () -> new SpawnEggItem(BGEntityTypes.BIG_BEAK.get(), 0x85c70a, 0xffae00, new Item.Properties())
@@ -278,6 +286,10 @@ public class BGItems {
             "mooboo_spawn_egg",
             () -> new SpawnEggItem(BGEntityTypes.MOOBOO.get(), 0x5be3e8, 0xb2c7c8, new Item.Properties())
     );
+    public static final Supplier<Item> MURKLING_SPAWN_EGG = registerItem(
+            "murkling_spawn_egg",
+            () -> new SpawnEggItem(BGEntityTypes.MURKLING.get(), 0x696D44, 0xD4C39C, new Item.Properties())
+    );
     public static final Supplier<Item> PESKY_SPAWN_EGG = registerItem(
             "pesky_spawn_egg",
             () -> new SpawnEggItem(BGEntityTypes.PESKY.get(), 0x846B3C, 0xC66C11, new Item.Properties())
@@ -289,14 +301,6 @@ public class BGItems {
     public static final Supplier<Item> SABEAST_SPAWN_EGG = registerItem(
             "sabeast_spawn_egg",
             () -> new SpawnEggItem(BGEntityTypes.SABEAST.get(), 0x131110, 0x564E4A, new Item.Properties())
-    );
-    public static final Supplier<Item> AMOEBA_SPAWN_EGG = registerItem(
-            "amoeba_spawn_egg",
-            () -> new SpawnEggItem(BGEntityTypes.AMOEBA.get(), 0x6C9BB9, 0x8F8763, new Item.Properties())
-    );
-    public static final Supplier<Item> AQUIFAWN_SPAWN_EGG = registerItem(
-            "aquifawn_spawn_egg",
-            () -> new SpawnEggItem(BGEntityTypes.AQUIFAWN.get(), 0x0D2B50, 0x4E6F99, new Item.Properties())
     );
     public static final Supplier<Item> SCUTTLE_SPAWN_EGG = registerItem(
             "scuttle_spawn_egg",

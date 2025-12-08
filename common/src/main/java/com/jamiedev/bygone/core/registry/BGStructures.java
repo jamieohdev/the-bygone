@@ -27,6 +27,10 @@ public class BGStructures
     public static StructureType<MegalithRuinsStructure> MEGALITH_RUINS;
     public static StructureType<MinilithStructure> MINILITHS;
 
+    public static StructureType<MurklingNestStructure> MURKLING_NEST;
+    public static StructurePieceType MURKLING_NEST_PIECES = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
+            Bygone.id("murkling_nest"), MurklingNestPiece.Piece::new);
+
     public static StructureType<SunkenCityStructure> SUNKEN_CITY;
     public static StructurePieceType SUNKEN_CITY_PIECES = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
             Bygone.id("sunken_ruins"), SunkenCityPiece.Piece::new);
@@ -92,6 +96,8 @@ public class BGStructures
 
         MEGALITH_RUINS = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "megalith_ruins"), () -> MegalithRuinsStructure.CODEC);
         MINILITHS = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "miniliths"), () -> MinilithStructure.CODEC);
+        MURKLING_NEST = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "murkling_nest"), () -> MurklingNestStructure.CODEC);
+
         SUNKEN_CITY = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_ruins"), () -> SunkenCityStructure.CODEC);
 
     }

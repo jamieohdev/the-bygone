@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/cube_bottom_top",
+    "textures": {
+        "bottom": "bygone:block/murkling_egg_bottom",
+        "side": "bygone:block/murkling_egg_side",
+        "top": "bygone:block/murkling_egg_top"
+    }
+}

@@ -2807,8 +2807,15 @@ public class BGBlocks {
                         return 1;
                     }))
     );
-    Blocks ref;
 
+    public static Supplier<Block> MURKLING_EGG = registerBlock(
+            "murkling_egg",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_RED)
+                    .strength(1.0F)
+                    .sound(SoundType.SHROOMLIGHT)
+                    .lightLevel((p_152663_) -> 1))
+    );
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
         return (p_50763_) -> (Boolean) p_50763_.getValue(BlockStateProperties.LIT) ? lightValue : 0;
     }

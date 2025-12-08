@@ -65,21 +65,23 @@ public class MurklingEntity extends Monster implements RangedAttackMob
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 30.0)
                 .add(Attributes.FOLLOW_RANGE, 20.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.7)
+                .add(Attributes.MOVEMENT_SPEED, 0.10)
                 .add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.33)
-                .add(Attributes.ATTACK_DAMAGE, 8.0)
+                .add(Attributes.ATTACK_DAMAGE, 6.0)
                 .add(Attributes.STEP_HEIGHT, 2.0);
     }
 
 
     protected void registerGoals()  {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new MurklingEntity.MurklingEntityAttackGoal(this, 1.0, false));
+        this.goalSelector.addGoal(1, new MurklingEntity.MurklingEntityAttackGoal(this, 4.55, false));
         this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1.0, 10));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this, Player.class).setAlertOthers(MurklingEntity.class));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this, PrimordialFishEntity.class).setAlertOthers(MurklingEntity.class));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::okTarget));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PrimordialFishEntity.class, 10, true, false, this::okTarget));
     }
 
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
@@ -311,9 +313,7 @@ public class MurklingEntity extends Monster implements RangedAttackMob
 
             LivingEntity livingentity = this.murkling.getTarget();
             if (this.murkling.wantsToSwim() && this.murkling.isInWater()) {
-                if (livingentity != null && livingentity.getY() > this.murkling.getY()) {
-                    this.murkling.setDeltaMovement(this.murkling.getDeltaMovement().add(0.0, 0.005, 0.0));
-                }
+
 
                 if (this.operation != MoveControl.Operation.MOVE_TO || this.murkling.getNavigation().isDone()) {
                     this.murkling.setSpeed(0.0F);

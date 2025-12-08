@@ -106,6 +106,7 @@
   "item.bygone.fungal_parent_spawn_egg": "Fungal Being Spawn Egg",
   "item.bygone.lithy_spawn_egg": "Lithy Spawn Egg",
   "item.bygone.mooboo_spawn_egg": "Mooboo Spawn Egg",
+  "item.bygone.murkling_spawn_egg": "Murkling Spawn Egg",
   "item.bygone.nectaur_spawn_egg": "Nectaur Spawn Egg",
   "item.bygone.pesky_spawn_egg": "Pesky Spawn Egg",
   "item.bygone.pest_spawn_egg": "Pest Spawn Egg",
@@ -331,6 +332,7 @@
   "block.bygone.primordial_urchin": "Primordial Urchin",
   "block.bygone.primordial_ventstone": "Primordial Ventstone",
   "block.bygone.crinoid": "Crinoid",
+  "block.bygone.murkling_egg": "Murkling Egg",
 
   "block.bygone.dead_rugosa_coral": "Dead Rugosa Coral",
   "block.bygone.dead_rugosa_coral_block": "Dead Rugosa Coral Block",
@@ -535,6 +537,7 @@
   "entity.bygone.lithy": "Lithy",
   "entity.bygone.hydropus": "Hydropus",
   "entity.bygone.mooboo": "Mooboo",
+  "entity.bygone.murkling": "Murkling",
   "entity.bygone.nectaur": "Nectaur",
   "entity.bygone.pesky": "Pesky",
   "entity.bygone.pest": "Pest",
