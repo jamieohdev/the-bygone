@@ -86,7 +86,7 @@ public class BGEntityTypes {
     public static final Supplier<EntityType<MurklingEntity>> MURKLING = registerEntityType(
             "murkling", () ->
                     EntityType.Builder.of(MurklingEntity::new, MobCategory.MONSTER)
-                            .sized(1.0F, 2.0F).eyeHeight(2.0F).build("")
+                            .sized(0.85F, 1.0F).eyeHeight(0.9F).build("")
     );
 
     public static final Supplier<EntityType<MoobooEntity>> MOOBOO = registerEntityType(
@@ -126,15 +126,6 @@ public class BGEntityTypes {
 
     public static final Supplier<EntityType<CopperbugEntity>> COPPERBUG = registerEntityType(
             "copperbug",
-            () -> EntityType.Builder.of(CopperbugEntity::new, MobCategory.CREATURE)
-                    .sized(0.4F, 0.3F)
-                    .eyeHeight(.13f)
-                    .clientTrackingRange(8)
-                    .build("")
-    );
-
-    public static final Supplier<EntityType<CopperbugEntity>> COPPERFLY = registerEntityType(
-            "copperfly",
             () -> EntityType.Builder.of(CopperbugEntity::new, MobCategory.CREATURE)
                     .sized(0.4F, 0.3F)
                     .eyeHeight(.13f)

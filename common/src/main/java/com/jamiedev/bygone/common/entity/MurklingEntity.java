@@ -46,6 +46,10 @@ import javax.annotation.Nullable;
 
 public class MurklingEntity extends Monster implements RangedAttackMob
 {
+    public AnimationState swimmingAnimationState = new AnimationState();
+    public AnimationState idleAnimationState = new AnimationState();
+    public AnimationState attackAnimationState = new AnimationState();
+
     private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT;
     protected final WaterBoundPathNavigation waterNavigation;
     
@@ -61,7 +65,7 @@ public class MurklingEntity extends Monster implements RangedAttackMob
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 30.0)
                 .add(Attributes.FOLLOW_RANGE, 20.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.25)
+                .add(Attributes.MOVEMENT_SPEED, 0.7)
                 .add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.33)
                 .add(Attributes.ATTACK_DAMAGE, 8.0)
                 .add(Attributes.STEP_HEIGHT, 2.0);
@@ -71,9 +75,8 @@ public class MurklingEntity extends Monster implements RangedAttackMob
     protected void registerGoals()  {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new MurklingEntity.MurklingEntityAttackGoal(this, 1.0, false));
-        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1.0));
-        this.goalSelector.addGoal(3, new RandomSwimmingGoal(this, 1.0, 10));
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1.0, 10));
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this, Player.class).setAlertOthers(MurklingEntity.class));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::okTarget));
@@ -105,6 +108,15 @@ public class MurklingEntity extends Monster implements RangedAttackMob
             this.setAirSupply(300);
         }
 
+    }
+
+    public void tick()
+    {
+        super.tick();
+
+        if (this.level().isClientSide()) {
+            this.setupAnimationStates();
+        }
     }
 
     public void baseTick() {
@@ -168,7 +180,7 @@ public class MurklingEntity extends Monster implements RangedAttackMob
 
     @Override
     public void travel(@NotNull Vec3 travelVector) {
-        if (this.isControlledByLocalInstance() && this.isInWater() && this.wantsToSwim()) {
+        if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
@@ -242,6 +254,21 @@ public class MurklingEntity extends Monster implements RangedAttackMob
         return Markings.byId((this.getTypeVariant() & '\uff00') >> 8);
     }
 
+    private void setupAnimationStates() {
+        this.idleAnimationState.startIfStopped(this.tickCount);
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F) {
+            this.swimmingAnimationState.startIfStopped(this.tickCount);
+        } else {
+            this.swimmingAnimationState.stop();
+        }
+
+        if (this.attackAnim > 0) {
+            this.attackAnimationState.start(this.tickCount);
+        } else if (this.attackAnim == 0) {
+            this.attackAnimationState.stop();
+        }
+    }
+
     static class MurklingEntityAttackGoal extends MeleeAttackGoal {
         private final MurklingEntity murkling;
 
@@ -281,6 +308,7 @@ public class MurklingEntity extends Monster implements RangedAttackMob
 
         @Override
         public void tick() {
+
             LivingEntity livingentity = this.murkling.getTarget();
             if (this.murkling.wantsToSwim() && this.murkling.isInWater()) {
                 if (livingentity != null && livingentity.getY() > this.murkling.getY()) {
