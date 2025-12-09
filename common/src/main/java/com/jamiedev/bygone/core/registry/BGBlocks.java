@@ -1230,7 +1230,7 @@ public class BGBlocks {
     public static final Supplier<Block> COBBLED_SEAGLASS = registerBlock(
             "cobbled_seaglass", () ->
                     new Block(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT)
-                            .strength(0.3F).sound(SoundType.GLASS))
+                            .strength(0.6F).sound(SoundType.GLASS))
     );
     public static final Supplier<Block> BREATH_POD = registerBlock(
             "breath_pod_plant", () ->

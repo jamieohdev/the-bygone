@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crushed_seaglass",
+  "ingredients": [
+    {
+      "item": "minecraft:charcoal"
+    },
+    {
+      "item": "minecraft:quartz"
+    },
+    {
+      "item": "bygone:seaglass_block"
+    },
+    {
+      "item": "bygone:seaglass_block"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "bygone:crushed_seaglass"
+  }
+}

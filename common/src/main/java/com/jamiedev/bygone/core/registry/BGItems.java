@@ -24,6 +24,11 @@ import static net.minecraft.world.item.Items.BUCKET;
 public class BGItems {
 
 
+    public static final Supplier<Item> CRUSHED_SEAGLASS = registerItem(
+            "crushed_seaglass",
+            () -> new Item(new Item.Properties())
+    );
+
     public static final Supplier<Item> BEAK_POTTERY_SHERD = registerItem(
             "beak_pottery_sherd",
             () -> new Item(new Item.Properties())

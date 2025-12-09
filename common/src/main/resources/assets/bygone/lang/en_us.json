@@ -322,8 +322,10 @@
 
   "block.bygone.raw_seaglass": "Raw Seaglass",
   "block.bygone.cobbled_seaglass": "Cobbled Seaglass",
-  "block.bygone.seaglass": "Seaglass",
+  "block.bygone.seaglass_block": "Seaglass",
   "block.bygone.seaglass_pane": "Seaglass Pane",
+  "item.bygone.crushed_seaglass": "Crushed Seaglass",
+  "block.bygone.smooth_seaglass": "Smooth Seaglass",
   "block.bygone.breath_pod_plant": "Breath Pod",
   "item.bygone.breath_pod": "Breath Pod",
 
