@@ -4,10 +4,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BeaconBeamBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -21,9 +23,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BaseSeaglassBlock extends TransparentBlock {
+public class BaseSeaglassBlock extends TransparentBlock implements BeaconBeamBlock {
     /**
      * Seaglass code was inspired by <a href="https://github.com/Scouter456/Clear_Fluid_Glass">Scouter456's Clear Fluid Glass!</a>
+     * <p>
+     * It has been significantly altered since that point, however.
      */
 
     public static final EnumProperty<NeighborOption> UP = EnumProperty.create("up", NeighborOption.class);
@@ -130,6 +134,11 @@ public class BaseSeaglassBlock extends TransparentBlock {
     @Override
     public @NotNull VoxelShape getOcclusionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         return OCCLUSION_SHAPES_BY_STATE.computeIfAbsent(state, BaseSeaglassBlock::computeShapeFromState);
+    }
+
+    @Override
+    public @NotNull DyeColor getColor() {
+        return DyeColor.CYAN;
     }
 
     public enum NeighborOption implements StringRepresentable {
