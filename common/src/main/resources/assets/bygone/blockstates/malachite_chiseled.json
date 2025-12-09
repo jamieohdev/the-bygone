@@ -1,16 +1,7 @@
 {
   "variants": {
-    "axis=x": {
-      "model": "bygone:block/malachite_chiseled_horizontal",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y": {
+    "": {
       "model": "bygone:block/malachite_chiseled"
-    },
-    "axis=z": {
-      "model": "bygone:block/malachite_chiseled_horizontal",
-      "x": 90
     }
   }
 }

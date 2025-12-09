@@ -1462,7 +1462,7 @@ public class BGBlocks {
     );
     public static final Supplier<Block> MALACHITE_CHISELED = registerBlock(
             "malachite_chiseled", () ->
-                    new RotatedPillarBlock(BlockBehaviour.Properties.of()
+                    new Block(BlockBehaviour.Properties.of()
                             .mapColor(MapColor.TERRACOTTA_GREEN)
                             .sound(SoundType.AMETHYST)
                             .instrument(NoteBlockInstrument.XYLOPHONE)
