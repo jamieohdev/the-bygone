@@ -1,0 +1,109 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "bygone:block/smooth_seaglass_all"
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "up": "other"
+          },
+          {
+            "up": "water"
+          }
+        ]
+      },
+      "apply": {
+        "model": "bygone:block/smooth_seaglass_up",
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "down": "other"
+          },
+          {
+            "down": "water"
+          }
+        ]
+      },
+      "apply": {
+        "model": "bygone:block/smooth_seaglass_down",
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "east": "other"
+          },
+          {
+            "east": "water"
+          }
+        ]
+      },
+      "apply": {
+        "model": "bygone:block/smooth_seaglass_right",
+        "y": 0,
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "west": "other"
+          },
+          {
+            "west": "water"
+          }
+        ]
+      },
+      "apply": {
+        "model": "bygone:block/smooth_seaglass_left",
+        "y": 0,
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "north": "other"
+          },
+          {
+            "north": "water"
+          }
+        ]
+      },
+      "apply": {
+        "model": "bygone:block/smooth_seaglass_left",
+        "y": 90,
+        "uvlock": false
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "south": "other"
+          },
+          {
+            "south": "water"
+          }
+        ]
+      },
+      "apply": {
+        "model": "bygone:block/smooth_seaglass_right",
+        "y": 90,
+        "uvlock": false
+      }
+    }
+  ]
+}

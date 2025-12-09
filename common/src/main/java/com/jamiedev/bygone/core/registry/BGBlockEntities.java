@@ -74,7 +74,7 @@ public class BGBlockEntities {
                         .build(null));
 
         SEAGLASS = register("seaglass", () ->
-                BlockEntityType.Builder.of(SeaglassBlockEntity::new, BGBlocks.SEAGLASS.get())
+                BlockEntityType.Builder.of(SeaglassBlockEntity::new, BGBlocks.SEAGLASS_BLOCK.get())
                         .build(null));
     }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "bygone:block/seaglass"
+    "layer0": "bygone:block/seaglass_block"
   }
 }

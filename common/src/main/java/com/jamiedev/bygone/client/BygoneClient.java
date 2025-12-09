@@ -29,6 +29,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
@@ -40,9 +41,10 @@ public class BygoneClient {
         consumer.accept(BGBlocks.CLOUD.get(), RenderType.translucent());
         consumer.accept(BGBlocks.BYGONE_PORTAL.get(), RenderType.translucent());
 
-        consumer.accept(BGBlocks.SEAGLASS.get(), RenderType.translucent());
+        consumer.accept(BGBlocks.SMOOTH_SEAGLASS.get(), RenderType.cutoutMipped());
+        consumer.accept(BGBlocks.SEAGLASS_BLOCK.get(), RenderType.translucent());
         consumer.accept(BGBlocks.SEAGLASS_PANE.get(), RenderType.translucent());
-        consumer.accept(BGBlocks.COBBLED_SEAGLASS.get(), RenderType.translucent());
+        consumer.accept(BGBlocks.COBBLED_SEAGLASS.get(), RenderType.solid());
         consumer.accept(BGBlocks.BREATH_POD.get(), RenderType.cutout());
 
         consumer.accept(BGBlocks.ANCIENT_LEAVES.get(), RenderType.cutout());
@@ -277,7 +279,8 @@ public class BygoneClient {
                         for (InteractionHand value : InteractionHand.values()) {
                             ItemStack heldStack = livingEntity.getItemInHand(value);
 
-                            if (heldStack == itemStack && (((PlayerWithHook) livingEntity).bygone$getHook() != null && !((PlayerWithHook) livingEntity).bygone$getHook()
+                            if (heldStack == itemStack && (((PlayerWithHook) livingEntity).bygone$getHook() != null && !Objects.requireNonNull(
+                                            ((PlayerWithHook) livingEntity).bygone$getHook())
                                     .isRemoved())) {
                                 return 1;
                             }

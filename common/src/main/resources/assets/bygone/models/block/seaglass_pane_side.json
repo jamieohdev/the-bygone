@@ -2,6 +2,6 @@
   "parent": "minecraft:block/template_glass_pane_side",
   "textures": {
     "edge": "bygone:block/seaglass_pane_top",
-    "pane": "bygone:block/seaglass"
+    "pane": "bygone:block/seaglass_block"
   }
 }

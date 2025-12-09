@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bygone:seaglass"
+          "name": "bygone:smooth_seaglass"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "bygone:blocks/seaglass"
+  "random_sequence": "bygone:blocks/smooth_seaglass"
 }

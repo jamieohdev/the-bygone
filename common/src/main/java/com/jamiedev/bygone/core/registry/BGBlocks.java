@@ -1211,9 +1211,13 @@ public class BGBlocks {
                             .strength(0.25F).sound(SoundType.SUSPICIOUS_SAND).pushReaction(PushReaction.DESTROY)
             )
     );
-    public static final Supplier<Block> SEAGLASS = registerBlock(
-            "seaglass", () ->
-                    new SeaglassBlock(BlockBehaviour.Properties.of().strength(0.6F).sound(SoundType.GLASS))
+    public static final Supplier<Block> SMOOTH_SEAGLASS = registerBlock(
+            "smooth_seaglass", () ->
+                    new BaseSeaglassBlock(BlockBehaviour.Properties.of().strength(0.6F).sound(SoundType.GLASS))
+    );
+    public static final Supplier<Block> SEAGLASS_BLOCK = registerBlock(
+            "seaglass_block", () ->
+                    new BaseSeaglassBlock(BlockBehaviour.Properties.of().strength(0.6F).sound(SoundType.GLASS))
     );
     public static final Supplier<Block> SEAGLASS_PANE = registerBlock(
             "seaglass_pane", () ->

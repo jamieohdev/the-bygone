@@ -193,9 +193,10 @@ public class BGItemGroups {
 
                         output.accept(BGBlocks.SHELLSAND.get());
                         output.accept(BGBlocks.SUSPICIOUS_SHELLSAND.get());
-                        output.accept(BGBlocks.SEAGLASS.get());
-                        output.accept(BGBlocks.SEAGLASS_PANE.get());
                         output.accept(BGBlocks.COBBLED_SEAGLASS.get());
+                        output.accept(BGBlocks.SEAGLASS_BLOCK.get());
+                        output.accept(BGBlocks.SEAGLASS_PANE.get());
+                        output.accept(BGBlocks.SMOOTH_SEAGLASS.get());
                         output.accept(BGBlocks.SHELLSTONE.get());
                         output.accept(BGBlocks.SHELLSTONE_STAIRS.get());
                         output.accept(BGBlocks.SHELLSTONE_SLAB.get());
@@ -209,6 +210,40 @@ public class BGItemGroups {
                         output.accept(BGBlocks.SHELLSTONE_BRICKS_WALL.get());
 
                         output.accept(BGBlocks.GLOW_GRAVEL.get());
+
+                        output.accept(BGBlocks.WHITE_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.LIGHT_GRAY_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.GRAY_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.BLACK_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.BROWN_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.RED_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.ORANGE_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.YELLOW_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.LIME_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.GREEN_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.CYAN_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.LIGHT_BLUE_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.BLUE_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.PURPLE_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.MAGENTA_GLOW_CONCRETE_POWDER.get());
+                        output.accept(BGBlocks.PINK_GLOW_CONCRETE_POWDER.get());
+
+                        output.accept(BGBlocks.WHITE_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.LIGHT_GRAY_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.GRAY_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.BLACK_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.BROWN_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.RED_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.ORANGE_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.YELLOW_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.LIME_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.GREEN_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.CYAN_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.LIGHT_BLUE_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.BLUE_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.PURPLE_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.MAGENTA_GLOW_CONCRETE.get());
+                        output.accept(BGBlocks.PINK_GLOW_CONCRETE.get());
 
                         output.accept(BGBlocks.MALACHITE.get());
                         output.accept(BGBlocks.MALACHITE_CHISELED.get());
