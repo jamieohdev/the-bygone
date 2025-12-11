@@ -9,6 +9,8 @@ import com.jamiedev.bygone.common.block.gourds.GourdDangoWallBlock;
 import com.jamiedev.bygone.common.block.gourds.GourdLanternBlock;
 import com.jamiedev.bygone.common.block.gourds.GourdVineBlock;
 import com.jamiedev.bygone.common.block.shelf.*;
+import com.jamiedev.bygone.common.block.temp.EelgrassBlock;
+import com.jamiedev.bygone.common.block.temp.EelgrassPlantBlock;
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.data.worldgen.features.TreeFeatures;
@@ -580,6 +582,25 @@ public class BGBlocks {
                     .instrument(NoteBlockInstrument.BASEDRUM)
                     .requiresCorrectToolForDrops()
                     .strength(3.0F, 3.0F))
+    );
+    public static final Supplier<Block> BYSTONE_GOLD_ORE = registerBlock(
+            "bystone_gold_ore", () -> new DropExperienceBlock(
+                    ConstantInt.of(0),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .strength(3.0F, 3.0F)
+            )
+    );
+    public static final Supplier<Block> BYSLATE_GOLD_ORE = registerBlock(
+            "byslate_gold_ore", () -> new DropExperienceBlock(
+                    ConstantInt.of(0),
+                    BlockBehaviour.Properties.ofLegacyCopy(BYSTONE_GOLD_ORE.get())
+                            .mapColor(MapColor.DEEPSLATE)
+                            .strength(4.5F, 3.0F)
+                            .sound(SoundType.DEEPSLATE)
+            )
     );
     public static final Supplier<Block> BYSTONE_IRON_ORE = registerBlock(
             "bystone_iron_ore", () -> new DropExperienceBlock(
@@ -1548,6 +1569,24 @@ public class BGBlocks {
                             .instrument(NoteBlockInstrument.XYLOPHONE)
                             .requiresCorrectToolForDrops()
                             .strength(0.8F))
+    );
+    public static final Supplier<Block>  EELGRASS = registerBlock(
+            "eelgrass", () ->
+            new EelgrassBlock(
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.WATER)
+                            .noCollission()
+                            .randomTicks()
+                            .instabreak()
+                            .sound(SoundType.WET_GRASS)
+                            .pushReaction(PushReaction.DESTROY)
+            )
+    );
+    public static final Supplier<Block>  EELGRASS_PLANT = registerBlock(
+            "eelgrass_plant", () ->
+            new EelgrassPlantBlock(
+                    BlockBehaviour.Properties.of().mapColor(MapColor.WATER).noCollission().instabreak().sound(SoundType.WET_GRASS).pushReaction(PushReaction.DESTROY)
+            )
     );
     public static final Supplier<Block> CRINOID = registerBlock(
             "crinoid", () -> new CrinoidBlock(BlockBehaviour.Properties.of()

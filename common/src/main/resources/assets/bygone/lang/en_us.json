@@ -216,6 +216,8 @@
   "block.bygone.cobbled_byslate_slab": "Cobbled Byslate Slab",
   "block.bygone.cobbled_bystone_wall": "Cobbled Bystone Wall",
   "block.bygone.cobbled_byslate_wall": "Cobbled Byslate Wall",
+  "block.bygone.bystone_gold_ore": "Bystone Gold Ore",
+  "block.bygone.byslate_gold_ore": "Byslate Gold Ore",
   "block.bygone.bystone_iron_ore": "Bystone Iron Ore",
   "block.bygone.byslate_iron_ore": "Byslate Iron Ore",
   "block.bygone.bystone_copper_ore": "Bystone Copper Ore",
@@ -361,6 +363,8 @@
   "block.bygone.thamnopora_coral_block": "Thamnopora Coral Block",
   "block.bygone.thamnopora_coral_fan": "Thamnopora Coral Fan",
 
+  "block.bygone.eelgrass": "Eelgrass",
+  "block.bygone.eelgrass_plant": "Eelgrass",
   "block.bygone.glow_gravel": "Glow Gravel",
   "block.bygone.charnia": "Charnia",
   "block.bygone.belladonna": "Belladonna",
