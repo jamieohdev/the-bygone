@@ -10,6 +10,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.GrowingPlantBlock;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -34,10 +35,13 @@ public class AncientSaplingBlock extends SaplingBlock {
         SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 12.0, 14.0);
     }
 
+    GrowingPlantBlock ref;
+
     protected final TreeGrower generator;
 
     public AncientSaplingBlock(TreeGrower generator, BlockBehaviour.Properties settings) {
         super(generator, settings);
+        ref.canAttachTo(this);
         this.generator = generator;
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0));
     }
