@@ -567,7 +567,7 @@ public class BGBlocks {
                             .requiresCorrectToolForDrops()
                             .strength(1000000.8F))
     );
-    public static final Supplier<Block> BYGONE_PORTAL_FRAME_PLACEABLE = registerBlockWithoutBlockItem(
+    public static final Supplier<Block> BYGONE_PORTAL_FRAME_PLACEABLE = registerBlock(
             "bygone_portal_frame_placeable", () ->
                     new BygonePortalFramePlaceableBlock(BlockBehaviour.Properties.of()
                             .mapColor(MapColor.COLOR_GRAY)
