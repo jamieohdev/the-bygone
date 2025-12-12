@@ -27,7 +27,7 @@ public class AncientSaplingBlock extends SaplingBlock {
             return block.generator;
         }), propertiesCodec()).apply(instance, AncientSaplingBlock::new);
     });
-    protected static final float field_31236 = 6.0F;
+
     protected static final VoxelShape SHAPE;
 
     static {
@@ -35,13 +35,10 @@ public class AncientSaplingBlock extends SaplingBlock {
         SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 12.0, 14.0);
     }
 
-    GrowingPlantBlock ref;
-
     protected final TreeGrower generator;
 
     public AncientSaplingBlock(TreeGrower generator, BlockBehaviour.Properties settings) {
         super(generator, settings);
-        ref.canAttachTo(this);
         this.generator = generator;
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0));
     }

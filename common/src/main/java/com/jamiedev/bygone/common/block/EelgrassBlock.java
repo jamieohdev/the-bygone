@@ -1,4 +1,4 @@
-package com.jamiedev.bygone.common.block.temp;
+package com.jamiedev.bygone.common.block;
 
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.mojang.serialization.MapCodec;
