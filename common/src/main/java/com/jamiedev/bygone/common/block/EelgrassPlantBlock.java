@@ -42,7 +42,7 @@ public class EelgrassPlantBlock extends GrowingPlantBodyBlock implements LiquidB
     }
 
     @Override
-    protected boolean canAttachTo(BlockState state) {
+    public boolean canAttachTo(BlockState state) {
         return true;//this.getHeadBlock().canAttachTo(state);
     }
 

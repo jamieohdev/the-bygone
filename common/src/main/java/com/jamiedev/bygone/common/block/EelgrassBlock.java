@@ -47,7 +47,7 @@ public class EelgrassBlock extends GrowingPlantHeadBlock implements LiquidBlockC
     }
 
     @Override
-    protected boolean canAttachTo(BlockState state) {
+    public boolean canAttachTo(BlockState state) {
         return !state.is(Blocks.MAGMA_BLOCK);
     }
 
