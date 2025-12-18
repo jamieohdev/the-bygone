@@ -650,9 +650,9 @@
   },
   "entity.murkling.hurt": {
     "sounds": [
-      "bygone:entity/murkling/hurt1",
-      "bygone:entity/murkling/hurt2",
-      "bygone:entity/murkling/hurt3"
+      "bygone:entity/murkling/hit1",
+      "bygone:entity/murkling/hit2",
+      "bygone:entity/murkling/hit3"
     ],
     "subtitle": "subtitles.entity.murkling.hurt"
   },
