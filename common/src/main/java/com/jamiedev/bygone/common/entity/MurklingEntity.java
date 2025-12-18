@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.core.init.JamiesModTag;
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -13,6 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -162,7 +164,27 @@ public class MurklingEntity extends Monster implements RangedAttackMob
     }
 
     protected SoundEvent getFlopSound() {
-        return SoundEvents.GUARDIAN_FLOP;
+        return BGSoundEvents.MURKLING_FLOP_ADDITIONS_EVENT;
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return BGSoundEvents.MURKLING_AMBIENT_ADDITIONS_EVENT;
+    }
+
+    @Override
+    public void playAttackSound() {
+        this.playSound(BGSoundEvents.MURKLING_ATTACK_ADDITIONS_EVENT, 1.0F, 1.0F);
+    }
+
+    @Override
+    protected @NotNull SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+        return BGSoundEvents.MURKLING_HURT_ADDITIONS_EVENT;
+    }
+
+    @Override
+    protected @NotNull SoundEvent getDeathSound() {
+        return BGSoundEvents.MURKLING_DEATH_ADDITIONS_EVENT;
     }
 
     @Override

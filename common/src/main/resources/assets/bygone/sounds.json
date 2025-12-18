@@ -637,6 +637,50 @@
     "subtitle": "subtitles.entity.sabeast.attack"
   },
 
+  "entity.murkling.ambient": {
+    "sounds": [
+      "bygone:entity/murkling/idle1",
+      "bygone:entity/murkling/idle2",
+      "bygone:entity/murkling/idle3",
+      "bygone:entity/murkling/call1",
+      "bygone:entity/murkling/call2",
+      "bygone:entity/murkling/call3"
+    ],
+    "subtitle": "subtitles.entity.murkling.ambient"
+  },
+  "entity.murkling.hurt": {
+    "sounds": [
+      "bygone:entity/murkling/hurt1",
+      "bygone:entity/murkling/hurt2",
+      "bygone:entity/murkling/hurt3"
+    ],
+    "subtitle": "subtitles.entity.murkling.hurt"
+  },
+  "entity.murkling.death": {
+    "sounds": [
+      "bygone:entity/murkling/death1",
+      "bygone:entity/murkling/death2",
+      "bygone:entity/murkling/death3"
+    ],
+    "subtitle": "subtitles.entity.murkling.death"
+  },
+  "entity.murkling.attack": {
+    "sounds": [
+      "bygone:entity/murkling/attack1",
+      "bygone:entity/murkling/attack2",
+      "bygone:entity/murkling/attack3"
+    ],
+    "subtitle": "subtitles.entity.murkling.attack"
+  },
+  "entity.murkling.flop": {
+    "sounds": [
+      "bygone:entity/murkling/flop1",
+      "bygone:entity/murkling/flop2",
+      "bygone:entity/murkling/flop3"
+    ],
+    "subtitle": "subtitles.entity.murkling.flop"
+  },
+
   "item.war_horn.use": {
     "sounds": [
       {

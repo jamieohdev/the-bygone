@@ -73,6 +73,18 @@ public class BGSoundEvents {
     public static final ResourceLocation ENTITY_LITHY_TRIP = id("entity.lithy.trip");
     public static final ResourceLocation ENTITY_LITHY_HURT = id("entity.lithy.hurt");
     public static final ResourceLocation ENTITY_LITHY_DEATH = id("entity.lithy.death");
+
+
+    public static final ResourceLocation ENTITY_MURKLING_AMBIENT = id("entity.murkling.ambient");
+    public static final ResourceLocation ENTITY_MURKLING_ATTACK = id("entity.murkling.attack");
+    public static final ResourceLocation ENTITY_MURKLING_HURT = id("entity.murkling.hurt");
+    public static final ResourceLocation ENTITY_MURKLING_DEATH = id("entity.murkling.death");
+    public static final ResourceLocation ENTITY_MURKLING_FLOP = id("entity.murkling.flop");
+    public static SoundEvent MURKLING_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MURKLING_AMBIENT);
+    public static SoundEvent MURKLING_ATTACK_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MURKLING_ATTACK);
+    public static SoundEvent MURKLING_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MURKLING_DEATH);
+    public static SoundEvent MURKLING_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MURKLING_HURT);
+    public static SoundEvent MURKLING_FLOP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MURKLING_FLOP);
     
     public static final ResourceLocation ENTITY_SABEAST_AMBIENT = id("entity.sabeast.ambient");
     public static final ResourceLocation ENTITY_SABEAST_ATTACK = id("entity.sabeast.attack");
@@ -273,6 +285,12 @@ public class BGSoundEvents {
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SABEAST_DEATH, BGSoundEvents.SABEAST_DEATH_ADDITIONS_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.BLOCK_MEGALITH_BLOCK_IDLE, BLOCK_MEGALITH_BLOCK_IDLE_ADDITIONS_EVENT);
+
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MURKLING_AMBIENT, BGSoundEvents.MURKLING_AMBIENT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MURKLING_ATTACK, BGSoundEvents.MURKLING_ATTACK_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MURKLING_HURT, BGSoundEvents.MURKLING_HURT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MURKLING_DEATH, BGSoundEvents.MURKLING_DEATH_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MURKLING_FLOP, BGSoundEvents.MURKLING_FLOP_ADDITIONS_EVENT);
 
     }
 }

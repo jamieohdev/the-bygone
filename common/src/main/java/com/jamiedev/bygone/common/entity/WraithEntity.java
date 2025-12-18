@@ -197,10 +197,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         }
     }
 
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return BGSoundEvents.WRAITH_AMBIENT_ADDITIONS_EVENT;
-    }
+
 
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
@@ -237,13 +234,18 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     }
 
     @Override
-    public void playAttackSound() {
-        this.playSound(BGSoundEvents.WRAITH_ATTACK_ADDITIONS_EVENT, 1.0F, 1.0F);
+    public void performRangedAttack(@NotNull LivingEntity livingEntity, float v) {
+
     }
 
     @Override
-    public void performRangedAttack(@NotNull LivingEntity livingEntity, float v) {
+    protected SoundEvent getAmbientSound() {
+        return BGSoundEvents.WRAITH_AMBIENT_ADDITIONS_EVENT;
+    }
 
+    @Override
+    public void playAttackSound() {
+        this.playSound(BGSoundEvents.WRAITH_ATTACK_ADDITIONS_EVENT, 1.0F, 1.0F);
     }
 
     @Override

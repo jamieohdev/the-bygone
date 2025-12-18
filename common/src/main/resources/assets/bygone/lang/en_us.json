@@ -702,6 +702,12 @@
   "subtitles.entity.mooboo.hurt": "Mooboo hurts",
   "subtitles.entity.mooboo.death": "Mooboo dies",
 
+  "subtitles.entity.murkling.ambient": "Murkling growls",
+  "subtitles.entity.murkling.attack": "Murkling attacks",
+  "subtitles.entity.murkling.hurt": "Murkling hurts",
+  "subtitles.entity.murkling.death": "Murkling dies",
+  "subtitles.entity.murkling.flop": "Murkling flops",
+  
   "subtitles.entity.sabeast.ambient": "Sabeast squeaks",
   "subtitles.entity.sabeast.attack": "Sabeast attacks",
   "subtitles.entity.sabeast.hurt": "Sabeast hurts",
