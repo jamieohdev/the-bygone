@@ -74,6 +74,18 @@ public class BGSoundEvents {
     public static final ResourceLocation ENTITY_LITHY_HURT = id("entity.lithy.hurt");
     public static final ResourceLocation ENTITY_LITHY_DEATH = id("entity.lithy.death");
 
+    public static final ResourceLocation ENTITY_AQUIFAWN_AMBIENT = id("entity.aquifawn.ambient");
+    public static final ResourceLocation ENTITY_AQUIFAWN_ANGRY = id("entity.aquifawn.angry");
+    public static final ResourceLocation ENTITY_AQUIFAWN_ATTACK = id("entity.aquifawn.attack");
+    public static final ResourceLocation ENTITY_AQUIFAWN_HURT = id("entity.aquifawn.hurt");
+    public static final ResourceLocation ENTITY_AQUIFAWN_DEATH = id("entity.aquifawn.death");
+    public static final ResourceLocation ENTITY_AQUIFAWN_FLOP = id("entity.aquifawn.flop");
+    public static SoundEvent AQUIFAWN_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AQUIFAWN_AMBIENT);
+    public static SoundEvent AQUIFAWN_ANGRY_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AQUIFAWN_ANGRY);
+    public static SoundEvent AQUIFAWN_ATTACK_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AQUIFAWN_ATTACK);
+    public static SoundEvent AQUIFAWN_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AQUIFAWN_DEATH);
+    public static SoundEvent AQUIFAWN_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AQUIFAWN_HURT);
+    public static SoundEvent AQUIFAWN_FLOP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AQUIFAWN_FLOP);
 
     public static final ResourceLocation ENTITY_MURKLING_AMBIENT = id("entity.murkling.ambient");
     public static final ResourceLocation ENTITY_MURKLING_ATTACK = id("entity.murkling.attack");
@@ -291,6 +303,13 @@ public class BGSoundEvents {
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MURKLING_HURT, BGSoundEvents.MURKLING_HURT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MURKLING_DEATH, BGSoundEvents.MURKLING_DEATH_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MURKLING_FLOP, BGSoundEvents.MURKLING_FLOP_ADDITIONS_EVENT);
+
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_AQUIFAWN_AMBIENT, BGSoundEvents.AQUIFAWN_AMBIENT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_AQUIFAWN_ANGRY, BGSoundEvents.AQUIFAWN_ANGRY_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_AQUIFAWN_ATTACK, BGSoundEvents.AQUIFAWN_ATTACK_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_AQUIFAWN_HURT, BGSoundEvents.AQUIFAWN_HURT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_AQUIFAWN_DEATH, BGSoundEvents.AQUIFAWN_DEATH_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_AQUIFAWN_FLOP, BGSoundEvents.AQUIFAWN_FLOP_ADDITIONS_EVENT);
 
     }
 }

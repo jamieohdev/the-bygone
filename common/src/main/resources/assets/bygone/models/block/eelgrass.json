@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "bygone:block/eelgrass"
+    "cross": "bygone:block/eelgrass_top"
   }
 }

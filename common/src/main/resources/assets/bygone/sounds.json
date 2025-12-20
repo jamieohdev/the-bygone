@@ -681,6 +681,56 @@
     "subtitle": "subtitles.entity.murkling.flop"
   },
 
+
+  "entity.aquifawn.ambient": {
+    "sounds": [
+      "bygone:entity/aquifawn/idle1",
+      "bygone:entity/aquifawn/idle2",
+      "bygone:entity/aquifawn/idle3"
+    ],
+    "subtitle": "subtitles.entity.aquifawn.ambient"
+  },
+  "entity.aquifawn.angry": {
+    "sounds": [
+      "bygone:entity/aquifawn/angry1",
+      "bygone:entity/aquifawn/angry2",
+      "bygone:entity/aquifawn/angry3"
+    ],
+    "subtitle": "subtitles.entity.aquifawn.angry"
+  },
+  "entity.aquifawn.hurt": {
+    "sounds": [
+      "bygone:entity/aquifawn/hit1",
+      "bygone:entity/aquifawn/hit2",
+      "bygone:entity/aquifawn/hit3"
+    ],
+    "subtitle": "subtitles.entity.aquifawn.hurt"
+  },
+  "entity.aquifawn.death": {
+    "sounds": [
+      "bygone:entity/aquifawn/death1",
+      "bygone:entity/aquifawn/death2",
+      "bygone:entity/aquifawn/death3"
+    ],
+    "subtitle": "subtitles.entity.aquifawn.death"
+  },
+  "entity.aquifawn.attack": {
+    "sounds": [
+      "bygone:entity/aquifawn/attack1",
+      "bygone:entity/aquifawn/attack2",
+      "bygone:entity/aquifawn/attack3"
+    ],
+    "subtitle": "subtitles.entity.aquifawn.attack"
+  },
+  "entity.aquifawn.flop": {
+    "sounds": [
+      "bygone:entity/aquifawn/flop1",
+      "bygone:entity/aquifawn/flop2",
+      "bygone:entity/aquifawn/flop3"
+    ],
+    "subtitle": "subtitles.entity.aquifawn.flop"
+  },
+  
   "item.war_horn.use": {
     "sounds": [
       {

@@ -23,7 +23,7 @@
                 "provider": {
                   "type": "minecraft:simple_state_provider",
                   "state": {
-                    "Name": "minecraft:kelp_plant"
+                    "Name": "bygone:eelgrass_plant"
                   }
                 }
               },
@@ -32,7 +32,7 @@
                 "provider": {
                   "type": "minecraft:simple_state_provider",
                   "state": {
-                    "Name": "minecraft:kelp",
+                    "Name": "bygone:eelgrass",
                     "Properties": {
                       "age": "25"
                     }
@@ -66,7 +66,7 @@
   "placement": [
     {
       "type": "minecraft:count_on_every_layer",
-      "count": 1
+      "count": 12
     },
     {
       "type": "minecraft:rarity_filter",

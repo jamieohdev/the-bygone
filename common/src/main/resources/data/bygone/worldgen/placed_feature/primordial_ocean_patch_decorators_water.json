@@ -20,9 +20,15 @@
                 },
                 {
                   "data": {
-                    "Name": "minecraft:seagrass"
+                    "Name": "bygone:eelgrass_plant"
                   },
                   "weight": 40
+                },
+                {
+                  "data": {
+                    "Name": "minecraft:seagrass"
+                  },
+                  "weight": 5
                 },
                 {
                   "data": {

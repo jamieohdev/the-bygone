@@ -4,12 +4,14 @@ import com.jamiedev.bygone.common.entity.ai.goal.FollowAquifawnLeaderGoal;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGItems;
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
@@ -19,6 +21,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -140,6 +143,22 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, ItemSteer
     protected void playStepSound(BlockPos pos, BlockState block) {
     }
 
+    protected SoundEvent getAmbientSound() {
+        return this.isAngry() ? BGSoundEvents.AQUIFAWN_ANGRY_ADDITIONS_EVENT : BGSoundEvents.AQUIFAWN_AMBIENT_ADDITIONS_EVENT;
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return BGSoundEvents.AQUIFAWN_HURT_ADDITIONS_EVENT;
+    }
+
+    protected SoundEvent getDeathSound() {
+        return BGSoundEvents.AQUIFAWN_DEATH_ADDITIONS_EVENT;
+    }
+
+    @Override
+    public void playAttackSound() {
+        this.playSound(BGSoundEvents.AQUIFAWN_ATTACK_ADDITIONS_EVENT, 1.0F, 1.0F);
+    }
 
     public void aiStep() {
 

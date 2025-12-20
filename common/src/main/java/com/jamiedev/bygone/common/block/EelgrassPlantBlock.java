@@ -33,17 +33,11 @@ public class EelgrassPlantBlock extends GrowingPlantBodyBlock implements LiquidB
 
     @Override
     protected GrowingPlantHeadBlock getHeadBlock() {
-        return (GrowingPlantHeadBlock) BGBlocks.EELGRASS;
+        return (GrowingPlantHeadBlock) BGBlocks.EELGRASS.get();
     }
-
     @Override
     protected FluidState getFluidState(BlockState state) {
         return Fluids.WATER.getSource(false);
-    }
-
-    @Override
-    public boolean canAttachTo(BlockState state) {
-        return true;//this.getHeadBlock().canAttachTo(state);
     }
 
     @Override

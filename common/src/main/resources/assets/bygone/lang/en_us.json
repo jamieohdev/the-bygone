@@ -707,6 +707,13 @@
   "subtitles.entity.murkling.hurt": "Murkling hurts",
   "subtitles.entity.murkling.death": "Murkling dies",
   "subtitles.entity.murkling.flop": "Murkling flops",
+
+  "subtitles.entity.aquifawn.ambient": "Aquifawn squeaks",
+  "subtitles.entity.aquifawn.angry": "Aquifawn growls",
+  "subtitles.entity.aquifawn.attack": "Aquifawn attacks",
+  "subtitles.entity.aquifawn.hurt": "Aquifawn hurts",
+  "subtitles.entity.aquifawn.death": "Aquifawn dies",
+  "subtitles.entity.aquifawn.flop": "Aquifawn flops",
   
   "subtitles.entity.sabeast.ambient": "Sabeast squeaks",
   "subtitles.entity.sabeast.attack": "Sabeast attacks",
