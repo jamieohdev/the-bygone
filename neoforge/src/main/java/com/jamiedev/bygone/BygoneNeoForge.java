@@ -65,7 +65,6 @@ public class BygoneNeoForge {
         eventBus.addListener(this::addValidBlocks);
         eventBus.addListener(this::modifyDefaultComponents);
         NeoForge.EVENT_BUS.addListener(this::blockModifications);
-        NeoForge.EVENT_BUS.addListener(this::entityTick);
         NeoForge.EVENT_BUS.addListener(this::damageEvent);
         NeoForge.EVENT_BUS.addListener(this::onLivingDeath);
         NeoForge.EVENT_BUS.addListener(this::onServerTick);
@@ -459,13 +458,6 @@ public class BygoneNeoForge {
                                 .build())
                 )
         );
-    }
-
-    void entityTick(EntityTickEvent.Post event) {
-        Entity entity = event.getEntity();
-        if (entity instanceof Cow cow && !entity.level().isClientSide) {
-            //    Bygone.tickCow(cow);
-        }
     }
 
     void damageEvent(LivingDamageEvent.Pre event) {

@@ -500,7 +500,6 @@ public class BygoneFabric implements ModInitializer {
 
         Bygone.registerStrippables();
         Bygone.addFlammable();
-        Bygone.LOGGER.info("Registering Entities for {}", Bygone.MOD_ID);
 
         PacketHandler.registerPackets();
 

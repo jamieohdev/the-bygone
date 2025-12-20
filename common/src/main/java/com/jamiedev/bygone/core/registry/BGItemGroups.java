@@ -196,7 +196,6 @@ public class BGItemGroups {
                         output.accept(BGItems.EELGRASS.get());
                         output.accept(BGItems.BREATH_POD.get());
                         output.accept(BGBlocks.SHELLSAND.get());
-                        output.accept(BGBlocks.SHELLSAND.get());
                         output.accept(BGBlocks.SUSPICIOUS_SHELLSAND.get());
                         output.accept(BGBlocks.COBBLED_SEAGLASS.get());
                         output.accept(BGBlocks.SEAGLASS_BLOCK.get());
