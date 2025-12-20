@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "bygone:block/eelgrass"
+    "layer0": "bygone:block/eelgrass_top"
   }
 }

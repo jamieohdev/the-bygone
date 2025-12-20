@@ -488,7 +488,7 @@ public class BygoneFabric implements ModInitializer {
                             "Bygone Portal Map",
                             MapDecorationTypes.GREEN_BANNER,
                             12,
-                            10
+                            5
                     ));
                 }
         );

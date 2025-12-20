@@ -1570,7 +1570,7 @@ public class BGBlocks {
                             .requiresCorrectToolForDrops()
                             .strength(0.8F))
     );
-    public static final Supplier<Block>  EELGRASS = registerBlock(
+    public static final Supplier<Block>  EELGRASS = registerBlockWithoutBlockItem(
             "eelgrass", () ->
             new EelgrassBlock(
                     BlockBehaviour.Properties.of()
@@ -1582,7 +1582,7 @@ public class BGBlocks {
                             .pushReaction(PushReaction.DESTROY)
             )
     );
-    public static final Supplier<Block>  EELGRASS_PLANT = registerBlock(
+    public static final Supplier<Block>  EELGRASS_PLANT = registerBlockWithoutBlockItem(
             "eelgrass_plant", () ->
             new EelgrassPlantBlock(
                     BlockBehaviour.Properties.of().mapColor(MapColor.WATER).noCollission().instabreak().sound(SoundType.WET_GRASS).pushReaction(PushReaction.DESTROY)

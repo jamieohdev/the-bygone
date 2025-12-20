@@ -421,6 +421,10 @@ public class BGItems {
             "sable_branch",
             () -> new ItemNameBlockItem(BGBlocks.SABLE_BRANCH.get(), (new Item.Properties()))
     );
+    public static final Supplier<Item> EELGRASS = registerItem(
+            "eelgrass",
+            () -> new ItemNameBlockItem(BGBlocks.EELGRASS.get(), (new Item.Properties()))
+    );
     public static final Supplier<Item> THORNY_SABLE_BRANCH = registerItem(
             "thorny_sable_branch",
             () -> new ItemNameBlockItem(BGBlocks.THORNY_SABLE_BRANCH.get(), (new Item.Properties()))

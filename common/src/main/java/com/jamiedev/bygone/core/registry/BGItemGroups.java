@@ -13,7 +13,7 @@ public class BGItemGroups {
 
     public static final Supplier<CreativeModeTab> EXAMPLE_TAB = registerTab(
             "test", () -> CreativeModeTab.builder(null, -1)
-                    .icon(() -> new ItemStack(BGBlocks.SABLE_LOG.get()))
+                    .icon(() -> new ItemStack(BGBlocks.CHISELED_SHELLSTONE_BRICKS.get()))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(BGItems.ANCIENT_SIGN.get());
                         output.accept(BGItems.ANCIENT_HANGING_SIGN.get());
@@ -193,6 +193,9 @@ public class BGItemGroups {
                         output.accept(BGBlocks.BELLADONNA.get());
                         output.accept(BGBlocks.COLEUS.get());
 
+                        output.accept(BGItems.EELGRASS.get());
+                        output.accept(BGItems.BREATH_POD.get());
+                        output.accept(BGBlocks.SHELLSAND.get());
                         output.accept(BGBlocks.SHELLSAND.get());
                         output.accept(BGBlocks.SUSPICIOUS_SHELLSAND.get());
                         output.accept(BGBlocks.COBBLED_SEAGLASS.get());
