@@ -29,6 +29,12 @@ public class BGItems {
             () -> new Item(new Item.Properties())
     );
 
+    public static final Supplier<Item> SEAGLASS_PRISM = registerItem(
+            "seaglass_prism",
+            () -> new SeaglassPrismItem(new Item.Properties())
+    );
+
+
     public static final Supplier<Item> BEAK_POTTERY_SHERD = registerItem(
             "beak_pottery_sherd",
             () -> new Item(new Item.Properties())

@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "type": "minecraft:archaeology",
   "pools": [
     {

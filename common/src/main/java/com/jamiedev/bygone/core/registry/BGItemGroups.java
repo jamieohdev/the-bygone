@@ -201,6 +201,7 @@ public class BGItemGroups {
                         output.accept(BGBlocks.SEAGLASS_BLOCK.get());
                         output.accept(BGBlocks.SEAGLASS_PANE.get());
                         output.accept(BGItems.CRUSHED_SEAGLASS.get());
+                        output.accept(BGItems.SEAGLASS_PRISM.get());
                         output.accept(BGBlocks.SMOOTH_SEAGLASS.get());
                         output.accept(BGBlocks.SHELLSTONE.get());
                         output.accept(BGBlocks.SHELLSTONE_STAIRS.get());
