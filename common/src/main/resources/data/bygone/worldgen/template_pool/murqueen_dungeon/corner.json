@@ -1,0 +1,15 @@
+{
+  "": "Generated in a spiral",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:murqueen_dungeon/murqueen_dungeon_corner",
+        "projection": "rigid",
+        "processors": "minecraft:empty",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}
