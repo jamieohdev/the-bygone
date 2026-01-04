@@ -13,15 +13,19 @@
           "argument": {
             "type": "minecraft:max",
             "argument1": {
-              "type": "minecraft:add",
+              "type": "minecraft:max",
               "argument1": {
-                "type": "minecraft:min",
-                "argument1": "bygone:terrain/base",
-                "argument2": "bygone:caves/combined"
+                "type": "minecraft:add",
+                "argument1": {
+                  "type": "minecraft:min",
+                  "argument1": "bygone:terrain/base",
+                  "argument2": "bygone:caves/combined"
+                },
+                "argument2": "bygone:caves/oceans"
               },
-              "argument2": "bygone:caves/oceans"
+              "argument2": "bygone:terrain/pillars_limited"
             },
-            "argument2": "bygone:terrain/pillars_limited"
+            "argument2": "bygone:terrain/canopy_floor"
           }
         }
       }

@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:range_choice",
+  "input": "bygone:util/in_canopy_biome",
+  "min_inclusive": 0,
+  "max_exclusive": 1,
+  "when_in_range": -5,
+  "when_out_of_range": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:y_clamped_gradient",
+      "from_y": 105,
+      "to_y": 109,
+      "from_value": 0,
+      "to_value": -1
+    },
+    "argument2": {
+      "type": "minecraft:add",
+      "argument1": {
+        "type": "minecraft:y_clamped_gradient",
+        "from_y": 97,
+        "to_y": 105,
+        "from_value": -0.75,
+        "to_value": 0.25
+      },
+      "argument2": {
+        "type": "minecraft:flat_cache",
+        "argument": {
+          "type": "minecraft:cache_once",
+          "argument": {
+            "type": "minecraft:abs",
+            "argument": {
+              "type": "minecraft:noise",
+              "noise": "minecraft:gravel",
+              "xz_scale": 8,
+              "y_scale": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

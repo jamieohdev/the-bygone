@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:range_choice",
+    "input": "bygone:biome_parameters/ridges",
+    "min_inclusive": -10,
+    "max_exclusive": 0.45,
+    "when_in_range": {
+      "type": "minecraft:range_choice",
+      "input": "bygone:biome_parameters/erosion",
+      "min_inclusive": -0.049,
+      "max_exclusive": 0.05,
+      "when_in_range": 0,
+      "when_out_of_range": {
+        "type": "minecraft:range_choice",
+        "input": "bygone:biome_parameters/temperature",
+        "min_inclusive": 0.05,
+        "max_exclusive": 10,
+        "when_in_range": {
+          "type": "minecraft:range_choice",
+          "input": "bygone:biome_parameters/vegetation",
+          "min_inclusive": 0.05,
+          "max_exclusive": 10,
+          "when_in_range": 1,
+          "when_out_of_range": 0
+        },
+        "when_out_of_range": 0
+      }
+    },
+    "when_out_of_range": 0
+  }
+}
