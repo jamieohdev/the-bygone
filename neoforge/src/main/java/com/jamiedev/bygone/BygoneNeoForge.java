@@ -14,8 +14,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Items;
@@ -35,7 +33,6 @@ import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.registries.RegisterEvent;
@@ -64,6 +61,7 @@ public class BygoneNeoForge {
         eventBus.addListener(this::createAttributes);
         eventBus.addListener(this::addValidBlocks);
         eventBus.addListener(this::modifyDefaultComponents);
+        eventBus.addListener(BGDataComponentsNeoForge::init);
         NeoForge.EVENT_BUS.addListener(this::blockModifications);
         NeoForge.EVENT_BUS.addListener(this::damageEvent);
         NeoForge.EVENT_BUS.addListener(this::onLivingDeath);
@@ -497,7 +495,7 @@ public class BygoneNeoForge {
             validBlocks.addAll(Sets.newHashSet(BGBlocks.SUSPICIOUS_SHELLSAND.get(), BGBlocks.SUSPICIOUS_CLAYSTONE.get()));
             BlockEntityType.BRUSHABLE_BLOCK.validBlocks = ImmutableSet.copyOf(validBlocks);
 
-            BGDataComponentsNeoForge.init();
+            //BGDataComponentsNeoForge.init();
             BGDecoratedPotPatternsNeoForge.expandVanilla();
             Bygone.registerStrippables();
             Bygone.addFlammable();

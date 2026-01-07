@@ -21,7 +21,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
 
     @Override
     public void buildRecipes(@NotNull RecipeOutput exporter) {
-
+/*
         slabRecipe(exporter, BGBlocks.SHELLSTONE.get(), BGBlocks.SHELLSTONE_SLAB.get());
         stairsRecipe(exporter, BGBlocks.SHELLSTONE.get(), BGBlocks.SHELLSTONE_STAIRS.get());
         wallsRecipe(exporter, BGBlocks.SHELLSTONE.get(), BGBlocks.SHELLSTONE_WALL.get());
@@ -51,7 +51,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
         glowConcretePowder(exporter, BGBlocks.PURPLE_GLOW_CONCRETE_POWDER.get(), Items.PURPLE_DYE);
         glowConcretePowder(exporter, BGBlocks.RED_GLOW_CONCRETE_POWDER.get(), Items.RED_DYE);
         glowConcretePowder(exporter, BGBlocks.WHITE_GLOW_CONCRETE_POWDER.get(), Items.WHITE_DYE);
-        glowConcretePowder(exporter, BGBlocks.YELLOW_GLOW_CONCRETE_POWDER.get(), Items.YELLOW_DYE);
+        glowConcretePowder(exporter, BGBlocks.YELLOW_GLOW_CONCRETE_POWDER.get(), Items.YELLOW_DYE);*/
     }
 
 
@@ -166,37 +166,37 @@ public class BygoneRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(recipeCategory, output, 1)
                 .pattern("X X")
                 .pattern("WWW")
-                .pattern("WWW")
-                .define('X', Blocks.CHAIN)
-                .define('W', input.asItem())
-                .unlockedBy(RecipeProvider.getHasName(input), RecipeProvider.has(input))
-                .group(group)
-                .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
-    }
+                    .pattern("WWW")
+                    .define('X', Blocks.CHAIN)
+                    .define('W', input.asItem())
+                    .unlockedBy(RecipeProvider.getHasName(input), RecipeProvider.has(input))
+                    .group(group)
+                    .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
+        }
 
-    void signRecipe(RecipeOutput exporter, Block input, Item output, RecipeCategory recipeCategory, String group) {
-        ShapedRecipeBuilder.shaped(recipeCategory, output, 3)
-                .pattern("WWW")
-                .pattern("WWW")
-                .pattern(" X ")
-                .define('X', Items.STICK)
-                .define('W', input.asItem())
-                .unlockedBy(RecipeProvider.getHasName(input), RecipeProvider.has(input))
-                .group(group)
-                .showNotification(true)
-                .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
-    }
+        void signRecipe(RecipeOutput exporter, Block input, Item output, RecipeCategory recipeCategory, String group) {
+            ShapedRecipeBuilder.shaped(recipeCategory, output, 3)
+                    .pattern("WWW")
+                    .pattern("WWW")
+                    .pattern(" X ")
+                    .define('X', Items.STICK)
+                    .define('W', input.asItem())
+                    .unlockedBy(RecipeProvider.getHasName(input), RecipeProvider.has(input))
+                    .group(group)
+                    .showNotification(true)
+                    .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
+        }
 
-    void trapDoorRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory, String group) {
-        ShapedRecipeBuilder.shaped(recipeCategory, output, 2)
-                .pattern("XXX")
-                .pattern("XXX")
-                .define('X', input.asItem())
-                .unlockedBy(RecipeProvider.getHasName(input.asItem()), RecipeProvider.has(input.asItem()))
-                .group(group)
-                .showNotification(true)
-                .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
-    }
+        void trapDoorRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory, String group) {
+            ShapedRecipeBuilder.shaped(recipeCategory, output, 2)
+                    .pattern("XXX")
+                    .pattern("XXX")
+                    .define('X', input.asItem())
+                    .unlockedBy(RecipeProvider.getHasName(input.asItem()), RecipeProvider.has(input.asItem()))
+                    .group(group)
+                    .showNotification(true)
+                    .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
+        }
 
 
 }

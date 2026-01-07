@@ -14,6 +14,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.RegisterEvent;
 
 import java.util.function.Supplier;
 
@@ -79,18 +80,20 @@ public class BGDataComponentsNeoForge {
                     .build()
     );
 
-    public static void init() {
-        DataComponentType<MaliciousWarHornItem.WarHornData> dataComponentType = WAR_HORN_DATA_SUPPLIER.get();
-        BGDataComponents.WAR_HORN_DATA = (Holder<DataComponentType<MaliciousWarHornItem.WarHornData>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
-                dataComponentType);
+    public static void init(RegisterEvent event) {
+        event.register(Registries.DATA_COMPONENT_TYPE,(helper)-> {
+            DataComponentType<MaliciousWarHornItem.WarHornData> dataComponentType = WAR_HORN_DATA_SUPPLIER.get();
+            BGDataComponents.WAR_HORN_DATA = (Holder<DataComponentType<MaliciousWarHornItem.WarHornData>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
+                    dataComponentType);
 
-        DataComponentType<BGDataComponentTypes.EchoGongData> echoGongDataComponentType = ECHO_GONG_DATA_SUPPLIER.get();
-        BGDataComponents.ECHO_GONG_DATA = (Holder<DataComponentType<BGDataComponentTypes.EchoGongData>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
-                echoGongDataComponentType);
+            DataComponentType<BGDataComponentTypes.EchoGongData> echoGongDataComponentType = ECHO_GONG_DATA_SUPPLIER.get();
+            BGDataComponents.ECHO_GONG_DATA = (Holder<DataComponentType<BGDataComponentTypes.EchoGongData>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
+                    echoGongDataComponentType);
 
-        DataComponentType<GumboPotBlockEntity.GumboIngredientComponent> gumboIngredientDataComponentType = GUMBO_INGREDIENT_DATA_SUPPLIER.get();
+            DataComponentType<GumboPotBlockEntity.GumboIngredientComponent> gumboIngredientDataComponentType = GUMBO_INGREDIENT_DATA_SUPPLIER.get();
 
-        BGDataComponents.GUMBO_INGREDIENT_DATA = (Holder<DataComponentType<GumboPotBlockEntity.GumboIngredientComponent>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
-                gumboIngredientDataComponentType);
+            BGDataComponents.GUMBO_INGREDIENT_DATA = (Holder<DataComponentType<GumboPotBlockEntity.GumboIngredientComponent>>) (Object) BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
+                    gumboIngredientDataComponentType);
+        });
     }
 }
