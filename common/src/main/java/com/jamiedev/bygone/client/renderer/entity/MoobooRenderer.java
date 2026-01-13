@@ -2,8 +2,8 @@ package com.jamiedev.bygone.client.renderer.entity;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.JamiesModModelLayers;
+import com.jamiedev.bygone.client.models.MoobooModel;
 import com.jamiedev.bygone.common.entity.MoobooEntity;
-import net.minecraft.client.model.CowModel;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -14,13 +14,13 @@ import net.minecraft.world.entity.monster.Vex;
 
 import javax.annotation.Nullable;
 
-public class MoobooRenderer extends MobRenderer<MoobooEntity, CowModel<MoobooEntity>> {
-    private static final ResourceLocation COW_LOCATION = Bygone.id("textures/entity/mooboo.png");
+public class MoobooRenderer extends MobRenderer<MoobooEntity, MoobooModel<MoobooEntity>> {
+    private static final ResourceLocation COW_LOCATION = (Bygone.id("textures/entity/mooboo_r.png"));
 
     SlimeRenderer ref;
 
     public MoobooRenderer(EntityRendererProvider.Context context) {
-        super(context, new CowModel(context.bakeLayer(JamiesModModelLayers.MOOBOO)), 0.7F);
+        super(context, new MoobooModel<>(context.bakeLayer(JamiesModModelLayers.MOOBOO)), 0.7F);
 
     }
 
@@ -30,7 +30,7 @@ public class MoobooRenderer extends MobRenderer<MoobooEntity, CowModel<MoobooEnt
     }
 
 
-    protected int getBlockLight(Vex vexEntity, BlockPos blockPos) {
+    protected int getBlockLightLevel(MoobooEntity mooboo, BlockPos blockPos) {
         return 15;
     }
 

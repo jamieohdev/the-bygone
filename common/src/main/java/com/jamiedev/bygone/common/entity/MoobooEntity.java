@@ -11,6 +11,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -29,6 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class MoobooEntity extends Cow {
 
+    public AnimationState idleAnimationState = new AnimationState();
     public MoobooEntity(EntityType<? extends Cow> entityType, Level level) {
         super(entityType, level);
     }
@@ -68,8 +70,26 @@ public class MoobooEntity extends Cow {
         return 1;
     }
 
+    public void tick()
+    {
+        super.tick();
+
+        if (this.level().isClientSide()) {
+            this.setupAnimationStates();
+        }
+    }
+
+    @Override
+    public float getLightLevelDependentMagicValue() {
+        return 1.0F;
+    }
+
     protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter level, BlockPos pos) {
         return level.getRawBrightness(pos, 0) > 1;
+    }
+
+    private void setupAnimationStates() {
+        this.idleAnimationState.startIfStopped(this.tickCount);
     }
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
