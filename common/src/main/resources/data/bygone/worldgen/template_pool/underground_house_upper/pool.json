@@ -1,0 +1,50 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:underground_house_upper/underground_house_byslate_small_1",
+        "processors": "bygone:underground_house",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:underground_house_upper/underground_house_byslate_small_1b",
+        "processors": "bygone:underground_house",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:underground_house_upper/underground_house_byslate_small_2",
+        "processors": "bygone:underground_house",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:underground_house_upper/underground_house_byslate_small_3",
+        "processors": "bygone:underground_house",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:underground_house_upper/underground_house_byslate_large_1",
+        "processors": "bygone:underground_house",
+        "projection": "rigid"
+      },
+      "weight": 1
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

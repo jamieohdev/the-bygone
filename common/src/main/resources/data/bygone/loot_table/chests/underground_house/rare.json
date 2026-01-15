@@ -1,0 +1,173 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:binomial",
+                "n": 4,
+                "p": 0.25
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:verdigris_block",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly",
+              "options": [
+                "bygone:famine_curse",
+                "bygone:leeching",
+                "bygone:siphoning",
+                "bygone:suffocating_curse"
+              ]
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 48,
+                "min": 32
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:exotic_arrow",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:binomial",
+                "n": 16,
+                "p": 0.75
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:lithoplasm",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:binomial",
+                "n": 4,
+                "p": 0.5
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:verdigris_ingot",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:binomial",
+                "n": 36,
+                "p": 0.9
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:iron_ingot",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:binomial",
+                "n": 6,
+                "p": 0.5
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:iron_block",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:ancient_hook",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:verdigris_blade",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:verdigris_bow",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:iron_beak_armor",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:gold_beak_armor",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:diamond_beak_armor",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:music_disc_shuffle",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:whirliweed_bundle",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:malicious_war_horn",
+          "weight": 1
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 2,
+        "min": 1
+      }
+    }
+  ],
+  "random_sequence": "bygone:chests/underground_house/rare"
+}
