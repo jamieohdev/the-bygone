@@ -1,6 +1,6 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#bygone:has_structure/bygone_mineshaft",
+  "biomes": "#bygone:has_structure/underground_house",
   "max_distance_from_center": 16,
   "size": 1,
   "spawn_overrides": {
