@@ -88,7 +88,7 @@ public class BGItems {
             "verdigris_bow",
             () -> new VerdigrisBowItem(new Item.Properties().durability(100).stacksTo(1))
     );
-    public static final Supplier<Item> HOOK = registerItem(
+    public static final Supplier<Item> ANCIENT_HOOK = registerItem(
             "ancient_hook",
             () -> new HookItem(new Item.Properties().stacksTo(1).durability(100))
     );
@@ -192,7 +192,7 @@ public class BGItems {
             "glow_gourd_verdant_seeds",
             () -> new ItemNameBlockItem(BGBlocks.GOURD_LANTERN_VERDANT.get(), new Item.Properties())
     );
-    ;
+
     public static final Supplier<Item> GOURD_SOUP = registerItem(
             "glow_gourd_soup",
             () -> new Item(new Item.Properties().food(Foods.RABBIT_STEW).stacksTo(1))
