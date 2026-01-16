@@ -1,17 +1,21 @@
 package com.jamiedev.bygone.core.datagen;
 
+import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.core.registry.BGBlocks;
+import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class BygoneRecipeProvider extends RecipeProvider {
@@ -21,7 +25,112 @@ public class BygoneRecipeProvider extends RecipeProvider {
 
     @Override
     public void buildRecipes(@NotNull RecipeOutput exporter) {
-/*
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BGItems.AMARANTH_LOAF.get(),1)
+                .pattern("AAA")
+                .define('A', BGItems.AMARANTH_GRAIN.get())
+                .unlockedBy(getHasName(BGItems.AMARANTH_GRAIN.get()), has(BGItems.AMARANTH_GRAIN.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGItems.AMARANTH_LOAF.get())));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.AMBER_SANDSTONE.get(),1)
+                .pattern("SS")
+                .pattern("SS")
+                .define('S', BGBlocks.AMBER_SAND.get())
+                .unlockedBy(getHasName(BGBlocks.AMBER_SAND.get()), has(BGBlocks.AMBER_SAND.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.AMBER_SANDSTONE.get())));
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.AMBER_SANDSTONE_SLAB.get(),BGBlocks.AMBER_SANDSTONE.get());
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.AMBER_SANDSTONE_STAIRS.get(),BGBlocks.AMBER_SANDSTONE.get());
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.AMBER_SANDSTONE_WALL.get(),BGBlocks.AMBER_SANDSTONE.get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.AMBER_SANDSTONE_SLAB.get(),6)
+                .pattern("SSS")
+                .define('S', BGBlocks.AMBER_SANDSTONE.get())
+                .unlockedBy(getHasName(BGBlocks.AMBER_SANDSTONE.get()), has(BGBlocks.AMBER_SANDSTONE.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.AMBER_SANDSTONE_SLAB.get())));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.AMBER_SANDSTONE_STAIRS.get(),4)
+                .pattern("S  ")
+                .pattern("SS ")
+                .pattern("SSS")
+                .define('S', BGBlocks.AMBER_SANDSTONE.get())
+                .unlockedBy(getHasName(BGBlocks.AMBER_SANDSTONE.get()), has(BGBlocks.AMBER_SANDSTONE.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.AMBER_SANDSTONE_STAIRS.get())));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.AMBER_SANDSTONE_WALL.get(),6)
+                .pattern("SSS")
+                .pattern("SSS")
+                .define('S', BGBlocks.AMBER_SANDSTONE.get())
+                .unlockedBy(getHasName(BGBlocks.AMBER_SANDSTONE.get()), has(BGBlocks.AMBER_SANDSTONE.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.AMBER_SANDSTONE_WALL.get())));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC,BGItems.AMOEBA_GEL_ON_A_STICK.get(),1)
+                .pattern("# ")
+                .pattern(" X")
+                .define('#',Items.FISHING_ROD)
+                .define('X',BGItems.AMOEBA_GEL.get())
+                .unlockedBy(getHasName(BGItems.AMOEBA_GEL.get()), has(BGItems.AMOEBA_GEL.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGItems.AMOEBA_GEL_ON_A_STICK.get())));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC,BGBlocks.AMPHORA.get(),1)
+                .pattern("# #")
+                .pattern("# #")
+                .pattern("###")
+                .define('#',BGBlocks.CLAYSTONE.get())
+                .unlockedBy(getHasName(BGBlocks.CLAYSTONE.get()), has(BGBlocks.CLAYSTONE.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.AMPHORA.get())));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE,BGBlocks.ANCIENT_BUTTON.get(),1)
+                .requires(BGBlocks.ANCIENT_PLANKS.get())
+                .unlockedBy(getHasName(BGBlocks.ANCIENT_PLANKS.get()), has(BGBlocks.ANCIENT_PLANKS.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.ANCIENT_BUTTON.get())));
+
+        doorRecipe(exporter, BGBlocks.ANCIENT_PLANKS.get(), BGBlocks.ANCIENT_DOOR.get(), RecipeCategory.REDSTONE, "ancient_door");
+        fenceRecipe(exporter,BGBlocks.ANCIENT_PLANKS.get(),BGBlocks.ANCIENT_FENCE.get(),RecipeCategory.DECORATIONS,"ancient_fence");
+        fenceGateRecipe(exporter,BGBlocks.ANCIENT_PLANKS.get(),BGBlocks.ANCIENT_FENCE_GATE.get(),RecipeCategory.DECORATIONS,"ancient_fence_gate");
+        hangingSignRecipe(exporter, BGBlocks.ANCIENT_PLANKS.get(), BGItems.ANCIENT_HANGING_SIGN.get(), RecipeCategory.DECORATIONS, "ancient_hanging_sign");
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT,BGItems.ANCIENT_HOOK.get(),1)
+                .pattern(" X ")
+                .pattern(" I")
+                .define('X',BGItems.VERDIGRIS_INGOT.get())
+                .define('I', Items.BLAZE_POWDER)
+                .unlockedBy(getHasName(BGItems.VERDIGRIS_INGOT.get()), has(BGItems.VERDIGRIS_INGOT.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGItems.ANCIENT_HOOK.get())));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS,BGBlocks.ANCIENT_PLANKS.get(),4)
+                .requires(BGBlocks.ANCIENT_LOG.get())
+                .unlockedBy(getHasName(BGBlocks.ANCIENT_LOG.get()), has(BGBlocks.ANCIENT_LOG.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.ANCIENT_PLANKS.get())));
+
+        pressurePlateRecipe(exporter, BGBlocks.ANCIENT_PLANKS.get(), BGBlocks.ANCIENT_PRESSURE_PLATE.get(), RecipeCategory.REDSTONE, "ancient_pressure_plate");
+        signRecipe(exporter, BGBlocks.ANCIENT_PLANKS.get(), BGItems.ANCIENT_SIGN.get(), RecipeCategory.DECORATIONS, "ancient_sign");
+        slabRecipe(exporter,BGBlocks.ANCIENT_PLANKS.get(), BGBlocks.ANCIENT_SLAB.get());
+        stairsRecipe(exporter,BGBlocks.ANCIENT_PLANKS.get(), BGBlocks.ANCIENT_STAIRS.get());
+        trapDoorRecipe(exporter, BGBlocks.ANCIENT_PLANKS.get(), BGBlocks.ANCIENT_TRAPDOOR.get(), RecipeCategory.REDSTONE, "ancient_trapdoor");
+        woodRecipe(exporter,BGBlocks.ANCIENT_LOG.get(), BGBlocks.ANCIENT_WOOD.get(), RecipeCategory.BUILDING_BLOCKS);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE,BGBlocks.ANGRY_MEGALITH_LANTERN.get(),1)
+                .requires(BGBlocks.ANGRY_MEGALITH_FACE.get())
+                .requires(BGItems.LITHOPLASM.get())
+                .unlockedBy(getHasName(BGItems.LITHOPLASM.get()), has(BGItems.LITHOPLASM.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.ANGRY_MEGALITH_LANTERN.get())));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
         slabRecipe(exporter, BGBlocks.SHELLSTONE.get(), BGBlocks.SHELLSTONE_SLAB.get());
         stairsRecipe(exporter, BGBlocks.SHELLSTONE.get(), BGBlocks.SHELLSTONE_STAIRS.get());
         wallsRecipe(exporter, BGBlocks.SHELLSTONE.get(), BGBlocks.SHELLSTONE_WALL.get());
@@ -198,5 +307,23 @@ public class BygoneRecipeProvider extends RecipeProvider {
                     .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
         }
 
+    protected static void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
+                                      float pExperience, int pCookingTIme, String pGroup) {
+        oreCooking(recipeOutput, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new, pIngredients, pCategory, pResult,
+                pExperience, pCookingTIme, pGroup, "_from_smelting");
+    }
 
+    protected static void oreBlasting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
+                                      float pExperience, int pCookingTime, String pGroup) {
+        oreCooking(recipeOutput, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, pIngredients, pCategory, pResult,
+                pExperience, pCookingTime, pGroup, "_from_blasting");
+    }
+
+    protected static <T extends AbstractCookingRecipe> void oreCooking(RecipeOutput recipeOutput, RecipeSerializer<T> pCookingSerializer, AbstractCookingRecipe.Factory<T> factory,
+                                                                       List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup, String pRecipeName) {
+        for(ItemLike itemlike : pIngredients) {
+            SimpleCookingRecipeBuilder.generic(Ingredient.of(itemlike), pCategory, pResult, pExperience, pCookingTime, pCookingSerializer, factory).group(pGroup).unlockedBy(getHasName(itemlike), has(itemlike))
+                    .save(recipeOutput, Bygone.MOD_ID + ":" + getItemName(pResult) + pRecipeName + "_" + getItemName(itemlike));
+        }
+    }
 }
