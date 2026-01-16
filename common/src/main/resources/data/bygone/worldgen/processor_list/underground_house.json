@@ -7,7 +7,7 @@
           "input_predicate": {
             "block": "minecraft:cobweb",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.5
+            "probability": 0.35
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -18,15 +18,54 @@
         },
         {
           "input_predicate": {
-            "block": "minecraft:air",
+            "block": "bygone:ancient_planks",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.1
+            "probability": 0.05
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:air"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "bygone:ancient_planks",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.10
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
           },
           "output_state": {
             "Name": "minecraft:cobweb"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "minecraft:air",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.25
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:cobweb"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "minecraft:chiseled_bookshelf",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.25
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:bookshelf"
           }
         },
         {
@@ -40,6 +79,19 @@
           },
           "output_state": {
             "Name": "bygone:byslate"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "bygone:polished_byslate_bricks",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.33333334
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "bygone:cobbled_byslate"
           }
         }
       ]
