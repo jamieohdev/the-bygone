@@ -275,7 +275,7 @@ public class BygoneClient {
 
     public static void registerModelPredicateProviders() {
         ItemProperties.register(
-                BGItems.HOOK.get(), Bygone.id("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
+                BGItems.ANCIENT_HOOK.get(), Bygone.id("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
                     if (livingEntity instanceof Player) {
                         for (InteractionHand value : InteractionHand.values()) {
                             ItemStack heldStack = livingEntity.getItemInHand(value);

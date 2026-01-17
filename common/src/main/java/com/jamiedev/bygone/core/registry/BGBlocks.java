@@ -2459,6 +2459,116 @@ public class BGBlocks {
     public static final Supplier<Block> RAMSHACKLED_VERDIGRIS_COG = registerVerdigrisCog(BaseVerdigrisCogBlock.VerdigrisStage.RAMSHACKLED);
     public static final Supplier<Block> TARNISHED_VERDIGRIS_COG = registerVerdigrisCog(BaseVerdigrisCogBlock.VerdigrisStage.TARNISHED);
     public static final Supplier<Block> PRISTINE_VERDIGRIS_COG = registerVerdigrisCog(BaseVerdigrisCogBlock.VerdigrisStage.PRISTINE);
+
+    public static final Supplier<Block> GLOWING_PLASMIC_BYSLATE_BRICKS = registerBlock(
+            "glowing_plasmic_byslate_bricks", () ->
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .strength(3.0F, 6.0F)
+                            .sound(SoundType.DEEPSLATE_TILES))
+    );
+    public static final Supplier<Block> GLOWING_PLASMIC_BYSLATE_BRICKS_STAIRS = registerBlock(
+            "glowing_plasmic_byslate_bricks_stairs", () ->
+                    new StairBlock(
+                            BGBlocks.GLOWING_PLASMIC_BYSLATE_BRICKS.get().defaultBlockState(),
+                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)
+                    )
+    );
+    public static final Supplier<Block> GLOWING_PLASMIC_BYSLATE_BRICKS_SLAB = registerBlock(
+            "glowing_plasmic_byslate_bricks_slab", () ->
+                    new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.GLOWING_PLASMIC_BYSLATE_BRICKS.get())
+                            .strength(2.0f))
+    );
+    public static final Supplier<Block> GLOWING_PLASMIC_BYSLATE_BRICKS_WALL = registerBlock(
+            "glowing_plasmic_byslate_bricks_wall", () ->
+                    new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.GLOWING_PLASMIC_BYSLATE_BRICKS.get())
+                            .strength(2.0f))
+    );
+
+    public static final Supplier<Block> PLASMIC_BYSLATE= registerBlock(
+            "plasmic_byslate", () ->
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .strength(3.0F, 6.0F)
+                            .sound(SoundType.DEEPSLATE_TILES))
+    );
+    public static final Supplier<Block> PLASMIC_BYSLATE_STAIRS = registerBlock(
+            "plasmic_byslate_stairs", () ->
+                    new StairBlock(
+                            BGBlocks.PLASMIC_BYSLATE.get().defaultBlockState(),
+                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)
+                    )
+    );
+    public static final Supplier<Block> PLASMIC_BYSLATE_SLAB = registerBlock(
+            "plasmic_byslate_slab", () ->
+                    new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.PLASMIC_BYSLATE.get())
+                            .strength(2.0f))
+    );
+    public static final Supplier<Block> PLASMIC_BYSLATE_WALL = registerBlock(
+            "plasmic_byslate_wall", () ->
+                    new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.PLASMIC_BYSLATE.get())
+                            .strength(2.0f))
+    );
+
+    public static final Supplier<Block> PLASMIC_BYSLATE_BRICKS= registerBlock(
+            "plasmic_byslate_bricks", () ->
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .strength(3.0F, 6.0F)
+                            .sound(SoundType.DEEPSLATE_TILES))
+    );
+    public static final Supplier<Block> PLASMIC_BYSLATE_BRICKS_STAIRS = registerBlock(
+            "plasmic_byslate_bricks_stairs", () ->
+                    new StairBlock(
+                            BGBlocks.PLASMIC_BYSLATE_BRICKS.get().defaultBlockState(),
+                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)
+                    )
+    );
+    public static final Supplier<Block> PLASMIC_BYSLATE_BRICKS_SLAB = registerBlock(
+            "plasmic_byslate_bricks_slab", () ->
+                    new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.PLASMIC_BYSLATE_BRICKS.get())
+                            .strength(2.0f))
+    );
+    public static final Supplier<Block> PLASMIC_BYSLATE_BRICKS_WALL = registerBlock(
+            "plasmic_byslate_bricks_wall", () ->
+                    new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.PLASMIC_BYSLATE_BRICKS.get())
+                            .strength(2.0f))
+    );
+    public static final Supplier<Block> CHISELED_PLASMIC_BYSLATE_BRICKS= registerBlock(
+            "chiseled_plasmic_byslate_bricks", () ->
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .strength(3.0F, 6.0F)
+                            .sound(SoundType.DEEPSLATE_TILES))
+    );
+    public static final Supplier<Block> CRACKED_PLASMIC_BYSLATE_BRICKS= registerBlock(
+            "cracked_plasmic_byslate_bricks", () ->
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .strength(3.0F, 6.0F)
+                            .sound(SoundType.DEEPSLATE_TILES))
+    );
+    public static final Supplier<Block> GLOWING_CRACKED_PLASMIC_BYSLATE_BRICKS= registerBlock(
+            "glowing_cracked_plasmic_byslate_bricks", () ->
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .strength(3.0F, 6.0F)
+                            .sound(SoundType.DEEPSLATE_TILES))
+    );
+
+
     public static final Supplier<Block> LITHINE_ORE = registerBlock(
             "lithine_ore", () ->
                     new LithineOreBlock(BlockBehaviour.Properties.of()

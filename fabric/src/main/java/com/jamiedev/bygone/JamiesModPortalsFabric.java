@@ -22,7 +22,7 @@ public class JamiesModPortalsFabric {
                     if (portalIgnitionSource.sourceType == PortalIgnitionSource.SourceType.USEITEM && player != null) {
                         if (player.isCreative())
                             return;
-                        ItemStack heldItem = player.getMainHandItem().getItem() == BGItems.HOOK ?
+                        ItemStack heldItem = player.getMainHandItem().getItem() == BGItems.ANCIENT_HOOK ?
                                 player.getMainHandItem() : player.getOffhandItem();
 
                         heldItem.hurtAndBreak(1, player, player.getEquipmentSlotForItem(player.getUseItem()));
@@ -42,7 +42,7 @@ public class JamiesModPortalsFabric {
                     if (portalIgnitionSource.sourceType == PortalIgnitionSource.SourceType.USEITEM && player != null) {
                         if (player.isCreative())
                             return;
-                        ItemStack heldItem = player.getMainHandItem().getItem() == BGItems.HOOK ?
+                        ItemStack heldItem = player.getMainHandItem().getItem() == BGItems.ANCIENT_HOOK ?
                                 player.getMainHandItem() : player.getOffhandItem();
 
                         heldItem.hurtAndBreak(1, player, player.getEquipmentSlotForItem(player.getUseItem()));
@@ -62,7 +62,7 @@ public class JamiesModPortalsFabric {
                     if (portalIgnitionSource.sourceType == PortalIgnitionSource.SourceType.USEITEM && player != null) {
                         if (player.isCreative())
                             return;
-                        ItemStack heldItem = player.getMainHandItem().getItem() == BGItems.HOOK ?
+                        ItemStack heldItem = player.getMainHandItem().getItem() == BGItems.ANCIENT_HOOK ?
                                 player.getMainHandItem() : player.getOffhandItem();
 
                         heldItem.hurtAndBreak(1, player, player.getEquipmentSlotForItem(player.getUseItem()));

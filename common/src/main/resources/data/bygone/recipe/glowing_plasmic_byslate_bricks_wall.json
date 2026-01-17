@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "X": {
+      "item": "bygone:glowing_plasmic_byslate_bricks"
+    }
+  },
+  "pattern": ["XXX", "XXX"],
+  "result": {
+    "count": 6,
+    "id": "bygone:glowing_plasmic_byslate_bricks_wall"
+  }
+}

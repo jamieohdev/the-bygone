@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "bygone:block/glowing_plasmic_byslate_bricks"
+  }
+}
