@@ -251,7 +251,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
             ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, result, 1)
                     .requires(Ingredient.of(ALL_AMPHORAS))
                     .requires(dye, 1)
-                    .unlockedBy("has_amphora", has(BGBlocks.AMPHORA.get()))
+                    .unlockedBy(getHasName(BGBlocks.AMPHORA.get()), has(BGBlocks.AMPHORA.get()))
                     .save(exporter, ResourceLocation.fromNamespaceAndPath(
                             "bygone",
                             "dye_" + color.getName() + "_amphora"
@@ -369,7 +369,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
     };
 
     protected static void glowConcrete(RecipeOutput recipeOutput, ItemLike glowConcrete, ItemLike dye) {
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, glowConcrete, 8).requires(dye).requires(BGBlocks.SHELLSTONE.get(), 4).requires(BGBlocks.GLOW_GRAVEL.get(), 4).group("glow_concrete").unlockedBy("has_shellstone", has(BGBlocks.SHELLSTONE.get())).unlockedBy("has_glow_gravel", has(BGBlocks.GLOW_GRAVEL.get())).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, glowConcrete, 8).requires(dye).requires(BGBlocks.SHELLSTONE.get(), 4).requires(BGBlocks.GLOW_GRAVEL.get(), 4).group("glow_concrete").unlockedBy(getHasName(BGBlocks.SHELLSTONE.get()), has(BGBlocks.SHELLSTONE.get())).unlockedBy(getHasName(BGBlocks.GLOW_GRAVEL.get()), has(BGBlocks.GLOW_GRAVEL.get())).save(recipeOutput);
     }
 
 
