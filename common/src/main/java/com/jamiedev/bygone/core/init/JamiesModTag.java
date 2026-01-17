@@ -31,6 +31,7 @@ public class JamiesModTag {
 
     public static final TagKey<Item> AQUIFAWN_FOOD = Items.createTag("aquifawn_food");
     public static final TagKey<Block> AMOEBA_REPELLENTS = Blocks.createTag("amoeba_repellents");
+    public static final TagKey<Block> SPECTRAL_BLOCKS = Blocks.createTag("spectral_blocks");
     public static final TagKey<Block> PEST_REPELLENTS = Blocks.createTag("pest_repellents");
     public static final TagKey<Block> SABEAST_REPELLENTS = Blocks.createTag("sabeast_repellents");
 
