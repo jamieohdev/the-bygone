@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "group": "cooked_primordial_fish",
+  "ingredient": {
+    "item": "bygone:primordial_fish"
+  },
+  "result": {
+    "count": 1,
+    "id": "bygone:cooked_primordial_fish"
+  }
+}

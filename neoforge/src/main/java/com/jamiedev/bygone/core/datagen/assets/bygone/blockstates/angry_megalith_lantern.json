@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "bygone:block/angry_megalith_lantern",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "bygone:block/angry_megalith_lantern"
+    },
+    "facing=south": {
+      "model": "bygone:block/angry_megalith_lantern",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "bygone:block/angry_megalith_lantern",
+      "y": 270
+    }
+  }
+}

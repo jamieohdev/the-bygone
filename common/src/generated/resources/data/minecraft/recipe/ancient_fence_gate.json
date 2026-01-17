@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "ancient_fence_gate",
+  "key": {
+    "W": {
+      "item": "bygone:ancient_planks"
+    },
+    "X": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "XWX",
+    "XWX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "bygone:ancient_fence_gate"
+  }
+}

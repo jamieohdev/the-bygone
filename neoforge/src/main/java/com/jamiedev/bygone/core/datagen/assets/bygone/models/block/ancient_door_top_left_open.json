@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_left_open",
+  "textures": {
+    "bottom": "bygone:block/ancient_door_bottom",
+    "top": "bygone:block/ancient_door_top"
+  }
+}

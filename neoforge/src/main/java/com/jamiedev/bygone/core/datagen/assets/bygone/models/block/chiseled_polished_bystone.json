@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "bygone:block/chiseled_polished_bystone_top",
+    "side": "bygone:block/chiseled_polished_bystone_side"
+  }
+}

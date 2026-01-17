@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/coral_wall_fan",
+  "textures": {
+    "fan": "bygone:block/dead_rugosa_coral_fan"
+  }
+}

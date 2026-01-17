@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "glow_concrete",
+  "ingredients": [
+    {
+      "item": "minecraft:purple_dye"
+    },
+    {
+      "item": "bygone:shellstone"
+    },
+    {
+      "item": "bygone:shellstone"
+    },
+    {
+      "item": "bygone:shellstone"
+    },
+    {
+      "item": "bygone:shellstone"
+    },
+    {
+      "item": "bygone:glow_gravel"
+    },
+    {
+      "item": "bygone:glow_gravel"
+    },
+    {
+      "item": "bygone:glow_gravel"
+    },
+    {
+      "item": "bygone:glow_gravel"
+    }
+  ],
+  "result": {
+    "count": 8,
+    "id": "bygone:purple_glow_concrete_powder"
+  }
+}

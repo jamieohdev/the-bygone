@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left",
+  "textures": {
+    "bottom": "bygone:block/malachite_door_bottom",
+    "top": "bygone:block/malachite_door_top"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_amber_sandstone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "bygone:amber_sandstone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:chiseled_amber_sandstone_from_amber_sandstone_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_amber_sandstone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:chiseled_amber_sandstone_from_amber_sandstone_stonecutting"
+    ]
+  }
+}

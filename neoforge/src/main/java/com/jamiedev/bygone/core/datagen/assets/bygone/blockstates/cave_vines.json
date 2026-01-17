@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "berries=false": {
+      "model": "bygone:block/cave_vines"
+    },
+    "berries=true": {
+      "model": "bygone:block/cave_vines_lit"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_bystone_coal_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "bygone:bystone_coal_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "bygone:coal_from_blasting_bystone_coal_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_bystone_coal_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "bygone:coal_from_blasting_bystone_coal_ore"
+    ]
+  }
+}

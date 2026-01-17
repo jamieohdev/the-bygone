@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "C": {
+      "item": "minecraft:gravel"
+    },
+    "S": {
+      "item": "bygone:claystone"
+    }
+  },
+  "pattern": [
+    "SC",
+    "CS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "bygone:coarse_claystone"
+  }
+}

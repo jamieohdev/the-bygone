@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "bygone:block/ancient_slab"
+    },
+    "type=double": {
+      "model": "bygone:block/ancient_planks"
+    },
+    "type=top": {
+      "model": "bygone:block/ancient_slab_top"
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "carvers": {
+    "air": [
+      "bygone:cave_lower",
+      "bygone:cave_upper",
+      "bygone:canyon_lower",
+      "bygone:canyon_upper"
+    ]
+  },
+  "downfall": 0.0,
+  "effects": {
+    "additions_sound": {
+      "sound": "minecraft:ambient.nether_wastes.additions",
+      "tick_chance": 0.0111
+    },
+    "ambient_sound": "minecraft:ambient.nether_wastes.loop",
+    "fog_color": 12634293,
+    "grass_color": 11206458,
+    "foliage_color": 8060727,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.nether_wastes.mood",
+      "tick_delay": 6000
+    },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "bygone:music.bygone.megalith_fields"
+    },
+    "sky_color": 12634293,
+    "water_color": 6724489,
+    "water_fog_color": 6724489
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [
+      "bygone:megalith_field_miniliths",
+      "bygone:megalith_field_miniliths_glowing",
+      "bygone:megalith_field_megaliths"
+    ],
+    [
+      "bygone:common_monster_room",
+      "bygone:common_small_cloud",
+      "bygone:common_ore_coal_upper",
+      "bygone:common_ore_coal_lower",
+      "bygone:common_ore_iron_upper",
+      "bygone:common_ore_iron_middle",
+      "bygone:common_ore_iron_small",
+      "bygone:common_ore_copper",
+      "bygone:common_ore_verdigris",
+      "bygone:megalith_field_vegetation"
+    ],
+    ["bygone:common_glow_lichen"],
+    [],
+    [],
+    [],
+    []
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {
+    "bygone:lithy": {
+      "charge": 0.6,
+      "energy_budget": 0.18
+    },
+    "bygone:wraith": {
+      "charge": 0.5,
+      "energy_budget": 0.1
+    },
+    "bygone:mooboo": {
+      "charge": 0.5,
+      "energy_budget": 0.1
+    },
+    "bygone:sabeast": {
+      "charge": 0.5,
+      "energy_budget": 0.1
+    }
+  },
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [
+      {
+        "type": "bygone:mooboo",
+        "maxCount": 10,
+        "minCount": 5,
+        "weight": 2
+      },
+      {
+        "type": "bygone:sabeast",
+        "maxCount": 10,
+        "minCount": 5,
+        "weight": 1
+      },
+      {
+        "type": "bygone:lithy",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 13
+      },
+      {
+        "type": "bygone:wraith",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 50
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 2.0
+}

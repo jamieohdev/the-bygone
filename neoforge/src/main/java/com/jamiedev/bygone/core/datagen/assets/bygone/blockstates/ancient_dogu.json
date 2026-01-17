@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "bygone:block/ancient_dogu" },
+    "facing=south": { "model": "bygone:block/ancient_dogu", "y": 180 },
+    "facing=west": { "model": "bygone:block/ancient_dogu", "y": 270 },
+    "facing=east": { "model": "bygone:block/ancient_dogu", "y": 90 }
+  }
+}

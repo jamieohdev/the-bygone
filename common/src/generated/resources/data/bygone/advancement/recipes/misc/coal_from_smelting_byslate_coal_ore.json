@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_byslate_coal_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "bygone:byslate_coal_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "bygone:coal_from_smelting_byslate_coal_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_byslate_coal_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "bygone:coal_from_smelting_byslate_coal_ore"
+    ]
+  }
+}

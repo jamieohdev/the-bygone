@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:ancient_hook"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_verdigris_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "bygone:verdigris_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_verdigris_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:ancient_hook"
+    ]
+  }
+}

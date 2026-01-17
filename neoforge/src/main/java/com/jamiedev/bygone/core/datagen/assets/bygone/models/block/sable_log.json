@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "bygone:block/sable_log_top",
+    "side": "bygone:block/sable_log"
+  }
+}

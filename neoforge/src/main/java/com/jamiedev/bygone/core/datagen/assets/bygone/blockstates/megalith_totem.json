@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "bygone:block/megalith_totem" },
+    "facing=south": { "model": "bygone:block/megalith_totem", "y": 180 },
+    "facing=west": { "model": "bygone:block/megalith_totem", "y": 270 },
+    "facing=east": { "model": "bygone:block/megalith_totem", "y": 90 }
+  }
+}

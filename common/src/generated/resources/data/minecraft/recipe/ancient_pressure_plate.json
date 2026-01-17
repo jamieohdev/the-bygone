@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "ancient_pressure_plate",
+  "key": {
+    "X": {
+      "item": "bygone:ancient_planks"
+    }
+  },
+  "pattern": [
+    "XX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "bygone:ancient_pressure_plate"
+  }
+}

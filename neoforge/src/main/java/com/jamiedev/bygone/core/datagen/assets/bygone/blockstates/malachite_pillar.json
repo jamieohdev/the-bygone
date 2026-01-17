@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "bygone:block/malachite_pillar_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "bygone:block/malachite_pillar"
+    },
+    "axis=z": {
+      "model": "bygone:block/malachite_pillar_horizontal",
+      "x": 90
+    }
+  }
+}

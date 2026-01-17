@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "bygone:block/orange_fungal_slab"
+    },
+    "type=double": {
+      "model": "bygone:block/orange_fungal_bricks"
+    },
+    "type=top": {
+      "model": "bygone:block/orange_fungal_slab_top"
+    }
+  }
+}

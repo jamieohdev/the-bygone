@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "bygone:block/smooth_amber_sandstone",
+    "side": "bygone:block/smooth_amber_sandstone",
+    "top": "bygone:block/smooth_amber_sandstone"
+  }
+}

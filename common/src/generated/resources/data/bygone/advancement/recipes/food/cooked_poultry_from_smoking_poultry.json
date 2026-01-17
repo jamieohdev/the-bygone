@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_poultry": {
+      "conditions": {
+        "items": [
+          {
+            "items": "bygone:poultry"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "bygone:cooked_poultry_from_smoking_poultry"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_poultry"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "bygone:cooked_poultry_from_smoking_poultry"
+    ]
+  }
+}

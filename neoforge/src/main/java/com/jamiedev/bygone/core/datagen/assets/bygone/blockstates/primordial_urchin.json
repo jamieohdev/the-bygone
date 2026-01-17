@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "inverted=false": {
+      "model": "bygone:block/primordial_urchin"
+    },
+    "inverted=true": {
+      "model": "bygone:block/primordial_urchin_active"
+    }
+  }
+}

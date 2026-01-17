@@ -1,0 +1,66 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    [
+      {
+        "item": "bygone:amphora"
+      },
+      {
+        "item": "bygone:white_amphora"
+      },
+      {
+        "item": "bygone:orange_amphora"
+      },
+      {
+        "item": "bygone:magenta_amphora"
+      },
+      {
+        "item": "bygone:light_blue_amphora"
+      },
+      {
+        "item": "bygone:yellow_amphora"
+      },
+      {
+        "item": "bygone:lime_amphora"
+      },
+      {
+        "item": "bygone:pink_amphora"
+      },
+      {
+        "item": "bygone:gray_amphora"
+      },
+      {
+        "item": "bygone:light_gray_amphora"
+      },
+      {
+        "item": "bygone:cyan_amphora"
+      },
+      {
+        "item": "bygone:purple_amphora"
+      },
+      {
+        "item": "bygone:blue_amphora"
+      },
+      {
+        "item": "bygone:brown_amphora"
+      },
+      {
+        "item": "bygone:green_amphora"
+      },
+      {
+        "item": "bygone:red_amphora"
+      },
+      {
+        "item": "bygone:black_amphora"
+      }
+    ],
+    {
+      "item": "minecraft:blue_dye"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "bygone:blue_amphora"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "bygone:block/cobbled_byslate_slab"
+    },
+    "type=double": {
+      "model": "bygone:block/cobbled_byslate"
+    },
+    "type=top": {
+      "model": "bygone:block/cobbled_byslate_slab_top"
+    }
+  }
+}

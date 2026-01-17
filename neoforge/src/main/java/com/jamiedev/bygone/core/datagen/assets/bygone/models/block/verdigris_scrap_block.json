@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "bygone:block/verdigris_scrap_block_top",
+    "side": "bygone:block/verdigris_scrap_block"
+  }
+}

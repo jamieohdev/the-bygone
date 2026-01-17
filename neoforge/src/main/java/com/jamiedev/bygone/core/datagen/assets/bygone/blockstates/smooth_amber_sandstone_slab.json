@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "bygone:block/smooth_amber_sandstone_slab"
+    },
+    "type=double": {
+      "model": "bygone:block/smooth_amber_sandstone"
+    },
+    "type=top": {
+      "model": "bygone:block/smooth_amber_sandstone_slab_top"
+    }
+  }
+}

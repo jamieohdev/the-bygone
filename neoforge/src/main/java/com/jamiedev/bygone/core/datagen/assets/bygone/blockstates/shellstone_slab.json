@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "bygone:block/shellstone_slab"
+    },
+    "type=double": {
+      "model": "bygone:block/shellstone"
+    },
+    "type=top": {
+      "model": "bygone:block/shellstone_slab_top"
+    }
+  }
+}

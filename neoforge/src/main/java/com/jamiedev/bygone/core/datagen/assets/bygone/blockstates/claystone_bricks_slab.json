@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "bygone:block/claystone_bricks_slab"
+    },
+    "type=double": {
+      "model": "bygone:block/claystone_bricks"
+    },
+    "type=top": {
+      "model": "bygone:block/claystone_bricks_slab_top"
+    }
+  }
+}

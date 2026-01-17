@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "group": "cooked_poultry",
+  "ingredient": {
+    "item": "bygone:poultry"
+  },
+  "result": {
+    "count": 1,
+    "id": "bygone:cooked_poultry"
+  }
+}

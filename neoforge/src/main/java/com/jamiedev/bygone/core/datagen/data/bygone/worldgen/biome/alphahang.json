@@ -1,0 +1,87 @@
+{
+  "carvers": {
+    "air": [
+      "bygone:cave_lower",
+      "bygone:cave_upper",
+      "bygone:canyon_lower",
+      "bygone:canyon_upper"
+    ]
+  },
+  "downfall": 0.5,
+  "effects": {
+    "additions_sound": {
+      "sound": "bygone:ambient.underhang.additions",
+      "tick_chance": 0.00035
+    },
+    "fog_color": 12638207,
+    "grass_color": 11206458,
+    "foliage_color": 8060727,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000
+    },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "bygone:music.bygone.alphahang"
+    },
+    "particle": {
+      "options": {
+        "type": "minecraft:spore_blossom_air"
+      },
+      "probability": 0.005
+    },
+    "sky_color": 12638207,
+    "water_color": 3094952,
+    "water_fog_color": 3094952
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "bygone:common_monster_room",
+      "bygone:common_small_cloud",
+      "bygone:common_ore_coal_upper",
+      "bygone:common_ore_coal_lower",
+      "bygone:common_ore_iron_upper",
+      "bygone:common_ore_iron_middle",
+      "bygone:common_ore_iron_small",
+      "bygone:common_ore_copper",
+      "bygone:common_ore_verdigris",
+      "bygone:underhang_forest_rock",
+      "bygone:underhang_patch_undergrass",
+      "bygone:alphahang_trees_small",
+      "bygone:alphahang_patch_decorators"
+    ],
+    ["bygone:common_glow_lichen", "bygone:underhang_ancient_vines"],
+    [],
+    [],
+    [],
+    []
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "bygone:glare",
+        "maxCount": 5,
+        "minCount": 2,
+        "weight": 4
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_creature": []
+  },
+  "temperature": 0.5
+}

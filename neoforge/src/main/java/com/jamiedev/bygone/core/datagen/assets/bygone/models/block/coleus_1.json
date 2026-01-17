@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/flowerbed_1",
+  "textures": {
+    "flowerbed": "bygone:block/coleus",
+    "stem": "bygone:block/coleus_stem"
+  }
+}

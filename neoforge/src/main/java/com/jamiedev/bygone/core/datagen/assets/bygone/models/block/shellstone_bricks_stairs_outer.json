@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "bygone:block/shellstone_bricks",
+    "side": "bygone:block/shellstone_bricks",
+    "top": "bygone:block/shellstone_bricks"
+  }
+}

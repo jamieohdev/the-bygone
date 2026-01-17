@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "bygone:block/blue_algae"
+      },
+      {
+        "model": "bygone:block/blue_algae",
+        "y": 90
+      },
+      {
+        "model": "bygone:block/blue_algae",
+        "y": 180
+      },
+      {
+        "model": "bygone:block/blue_algae",
+        "y": 270
+      }
+    ]
+  }
+}

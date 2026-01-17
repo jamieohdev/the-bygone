@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "bygone:block/coarse_claystone"
+      },
+      {
+        "model": "bygone:block/coarse_claystone",
+        "y": 90
+      },
+      {
+        "model": "bygone:block/coarse_claystone",
+        "y": 180
+      },
+      {
+        "model": "bygone:block/coarse_claystone",
+        "y": 270
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "bygone:block/primordial_urchin",
+  "textures": {
+    "particle": "bygone:block/primordial_urchin"
+  }
+}

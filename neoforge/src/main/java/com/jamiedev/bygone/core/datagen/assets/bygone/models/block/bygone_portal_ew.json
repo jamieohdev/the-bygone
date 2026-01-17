@@ -1,0 +1,16 @@
+{
+  "textures": {
+    "particle": "bygone:block/bygone_portal",
+    "portal": "bygone:block/bygone_portal"
+  },
+  "elements": [
+    {
+      "from": [4, 0, 0],
+      "to": [12, 16, 16],
+      "faces": {
+        "east": { "uv": [0, 0, 16, 16], "texture": "#portal" },
+        "west": { "uv": [0, 0, 16, 16], "texture": "#portal" }
+      }
+    }
+  ]
+}

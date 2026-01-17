@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bygone:block/ramshackled_verdigris_cog"
+  }
+}

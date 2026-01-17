@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_claystone_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "bygone:claystone_bricks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:claystone_bricks_stairs_from_claystone_bricks_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_claystone_bricks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:claystone_bricks_stairs_from_claystone_bricks_stonecutting"
+    ]
+  }
+}

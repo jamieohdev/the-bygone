@@ -1,0 +1,6 @@
+{
+  "parent": "bygone:block/pointed_amber",
+  "textures": {
+    "cross": "bygone:block/pointed_amber_down_tip"
+  }
+}

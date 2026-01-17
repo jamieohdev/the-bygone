@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "level=0": {
+      "model": "bygone:block/gumbo_pot_empty"
+    },
+    "level=1": {
+      "model": "bygone:block/gumbo_pot_level1"
+    },
+    "level=2": {
+      "model": "bygone:block/gumbo_pot_level2"
+    },
+    "level=3": {
+      "model": "bygone:block/gumbo_pot_level3"
+    },
+    "level=4": {
+      "model": "bygone:block/gumbo_pot_level4"
+    },
+    "level=5": {
+      "model": "bygone:block/gumbo_pot_level5"
+    },
+    "level=6": {
+      "model": "bygone:block/gumbo_pot_level6"
+    },
+    "level=7": {
+      "model": "bygone:block/gumbo_pot_level7"
+    },
+    "level=8": {
+      "model": "bygone:block/gumbo_pot_full"
+    }
+  }
+}

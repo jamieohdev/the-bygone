@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "cookingtime": 100,
+  "experience": 0.35,
+  "group": "cooked_coelecanth",
+  "ingredient": {
+    "item": "bygone:coelacanth"
+  },
+  "result": {
+    "count": 1,
+    "id": "bygone:cooked_coelacanth"
+  }
+}

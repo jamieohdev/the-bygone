@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "bygone:block/dead_rugosa_coral_block"
+  }
+}

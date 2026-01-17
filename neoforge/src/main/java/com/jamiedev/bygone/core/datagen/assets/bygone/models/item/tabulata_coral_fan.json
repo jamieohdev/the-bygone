@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bygone:block/tabulata_coral_fan"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "bygone:block/hollow_megalith_face",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "bygone:block/hollow_megalith_face"
+    },
+    "facing=south": {
+      "model": "bygone:block/hollow_megalith_face",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "bygone:block/hollow_megalith_face",
+      "y": 270
+    }
+  }
+}

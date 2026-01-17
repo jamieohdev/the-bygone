@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "bygone:block/glow_gourd_dango_wall"
+    },
+    "facing=north": {
+      "model": "bygone:block/glow_gourd_dango_wall",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "bygone:block/glow_gourd_dango_wall",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "bygone:block/glow_gourd_dango_wall",
+      "y": 180
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_amoeba_gel": {
+      "conditions": {
+        "items": [
+          {
+            "items": "bygone:amoeba_gel"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:amoeba_gel_on_a_stick"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_amoeba_gel"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:amoeba_gel_on_a_stick"
+    ]
+  }
+}

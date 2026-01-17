@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "bygone:block/bygone_portal_frame_placeable",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "bygone:block/bygone_portal_frame_placeable",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "bygone:block/bygone_portal_frame_placeable"
+    },
+    "facing=west": {
+      "model": "bygone:block/bygone_portal_frame_placeable",
+      "y": 90
+    }
+  }
+}

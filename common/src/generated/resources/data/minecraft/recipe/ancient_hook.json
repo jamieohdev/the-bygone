@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": {
+      "item": "minecraft:blaze_powder"
+    },
+    "X": {
+      "item": "bygone:verdigris_ingot"
+    }
+  },
+  "pattern": [
+    " X ",
+    " I "
+  ],
+  "result": {
+    "count": 1,
+    "id": "bygone:ancient_hook"
+  }
+}

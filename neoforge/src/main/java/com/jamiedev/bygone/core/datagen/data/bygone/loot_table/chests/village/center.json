@@ -1,0 +1,291 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:binomial",
+                "n": 4,
+                "p": 0.333
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:verdigris_ingot",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:binomial",
+                "n": 8,
+                "p": 0.666
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:verdigris_scrap",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:binomial",
+                "n": 27,
+                "p": 0.8
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:iron_ingot",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:binomial",
+                "n": 3,
+                "p": 0.75
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:iron_block",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6,
+                "min": 2
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:bale_block",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 21,
+                "min": 7
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:amaranth_loaf",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3,
+                "min": 2
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:glow_gourd_dango",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3,
+                "min": 2
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:glow_gourd_soup",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 27,
+                "min": 9
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:glow_gourd_beige_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 27,
+                "min": 9
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:glow_gourd_muave_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 27,
+                "min": 9
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:glow_gourd_verdant_slice",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 32,
+                "min": 16
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:ancient_log",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 24,
+                "min": 8
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:claystone_bricks",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 32,
+                "min": 16
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bygone:claystone",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:ancient_hook",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:verdigris_blade",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:verdigris_bow",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:music_disc_shuffle",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:gumbo_pot",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:whirliweed_bundle",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:malicious_war_horn",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly",
+              "options": [
+                "bygone:famine_curse",
+                "bygone:leeching",
+                "bygone:siphoning",
+                "bygone:suffocating_curse"
+              ]
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 2
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 4,
+        "min": 2
+      }
+    }
+  ],
+  "random_sequence": "bygone:chests/village/center"
+}
