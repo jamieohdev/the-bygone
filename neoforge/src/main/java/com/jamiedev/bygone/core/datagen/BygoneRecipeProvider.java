@@ -7,6 +7,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
@@ -16,7 +18,10 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
+
 @SuppressWarnings("all")
 public class BygoneRecipeProvider extends RecipeProvider {
     public BygoneRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
@@ -237,6 +242,47 @@ public class BygoneRecipeProvider extends RecipeProvider {
 
         stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CUT_AMBER_SANDSTONE_SLAB.get(),BGBlocks.CUT_AMBER_SANDSTONE.get(),1);
 
+        for (var entry : COLOR_TO_AMPHORA.entrySet()) {
+            DyeColor color = entry.getKey();
+            Block result = entry.getValue().get();
+
+            Item dye = DyeItem.byColor(color);
+
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, result, 1)
+                    .requires(Ingredient.of(ALL_AMPHORAS))
+                    .requires(dye, 1)
+                    .unlockedBy("has_amphora", has(BGBlocks.AMPHORA.get()))
+                    .save(exporter, ResourceLocation.fromNamespaceAndPath(
+                            "bygone",
+                            "dye_" + color.getName() + "_amphora"
+                    ));
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         glowConcrete(exporter, BGBlocks.BROWN_GLOW_CONCRETE_POWDER.get(), Items.BROWN_DYE);
         glowConcrete(exporter, BGBlocks.CYAN_GLOW_CONCRETE_POWDER.get(), Items.CYAN_DYE);
         glowConcrete(exporter, BGBlocks.GRAY_GLOW_CONCRETE_POWDER.get(), Items.GRAY_DYE);
@@ -281,6 +327,46 @@ public class BygoneRecipeProvider extends RecipeProvider {
         */
     }
 
+    private static final Map<DyeColor, Supplier<Block>> COLOR_TO_AMPHORA =
+            Map.ofEntries(
+                    Map.entry(DyeColor.WHITE, BGBlocks.WHITE_AMPHORA),
+                    Map.entry(DyeColor.ORANGE, BGBlocks.ORANGE_AMPHORA),
+                    Map.entry(DyeColor.MAGENTA, BGBlocks.MAGENTA_AMPHORA),
+                    Map.entry(DyeColor.LIGHT_BLUE, BGBlocks.LIGHT_BLUE_AMPHORA),
+                    Map.entry(DyeColor.YELLOW, BGBlocks.YELLOW_AMPHORA),
+                    Map.entry(DyeColor.LIME, BGBlocks.LIME_AMPHORA),
+                    Map.entry(DyeColor.PINK, BGBlocks.PINK_AMPHORA),
+                    Map.entry(DyeColor.GRAY, BGBlocks.GRAY_AMPHORA),
+                    Map.entry(DyeColor.LIGHT_GRAY, BGBlocks.LIGHT_GRAY_AMPHORA),
+                    Map.entry(DyeColor.CYAN, BGBlocks.CYAN_AMPHORA),
+                    Map.entry(DyeColor.PURPLE, BGBlocks.PURPLE_AMPHORA),
+                    Map.entry(DyeColor.BLUE, BGBlocks.BLUE_AMPHORA),
+                    Map.entry(DyeColor.BROWN, BGBlocks.BROWN_AMPHORA),
+                    Map.entry(DyeColor.GREEN, BGBlocks.GREEN_AMPHORA),
+                    Map.entry(DyeColor.RED, BGBlocks.RED_AMPHORA),
+                    Map.entry(DyeColor.BLACK, BGBlocks.BLACK_AMPHORA)
+            );
+
+
+    private static final Block[] ALL_AMPHORAS = new Block[] {
+            BGBlocks.AMPHORA.get(),
+            BGBlocks.WHITE_AMPHORA.get(),
+            BGBlocks.ORANGE_AMPHORA.get(),
+            BGBlocks.MAGENTA_AMPHORA.get(),
+            BGBlocks.LIGHT_BLUE_AMPHORA.get(),
+            BGBlocks.YELLOW_AMPHORA.get(),
+            BGBlocks.LIME_AMPHORA.get(),
+            BGBlocks.PINK_AMPHORA.get(),
+            BGBlocks.GRAY_AMPHORA.get(),
+            BGBlocks.LIGHT_GRAY_AMPHORA.get(),
+            BGBlocks.CYAN_AMPHORA.get(),
+            BGBlocks.PURPLE_AMPHORA.get(),
+            BGBlocks.BLUE_AMPHORA.get(),
+            BGBlocks.BROWN_AMPHORA.get(),
+            BGBlocks.GREEN_AMPHORA.get(),
+            BGBlocks.RED_AMPHORA.get(),
+            BGBlocks.BLACK_AMPHORA.get()
+    };
 
     protected static void glowConcrete(RecipeOutput recipeOutput, ItemLike glowConcrete, ItemLike dye) {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, glowConcrete, 8).requires(dye).requires(BGBlocks.SHELLSTONE.get(), 4).requires(BGBlocks.GLOW_GRAVEL.get(), 4).group("glow_concrete").unlockedBy("has_shellstone", has(BGBlocks.SHELLSTONE.get())).unlockedBy("has_glow_gravel", has(BGBlocks.GLOW_GRAVEL.get())).save(recipeOutput);
