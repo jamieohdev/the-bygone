@@ -41,7 +41,7 @@ public class HookEntity extends AbstractArrow {
 
     @Override
     protected ItemStack getDefaultPickupItem() {
-        return BGItems.HOOK.get().getDefaultInstance();
+        return BGItems.ANCIENT_HOOK.get().getDefaultInstance();
     }
 
     @Override
@@ -74,7 +74,7 @@ public class HookEntity extends AbstractArrow {
     }
 
     private boolean shouldRetract(Player player) {
-        return player.isRemoved() || !player.isAlive() || !player.isHolding(BGItems.HOOK.get()) || this.distanceTo(player) > 64F;
+        return player.isRemoved() || !player.isAlive() || !player.isHolding(BGItems.ANCIENT_HOOK.get()) || this.distanceTo(player) > 64F;
     }
 
     @Override

@@ -2042,7 +2042,7 @@ public class BGBlocks {
             "potted_chantrelle",
             () -> createFlowerPotBlock(CHANTRELLE.get())
     );
-    public static final Supplier<Block> AMARANTH_BLOCK = registerBlock(
+    public static final Supplier<Block> AMARANTH_BALE_BLOCK = registerBlock(
             "bale_block",
             () -> new HayBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_PURPLE)

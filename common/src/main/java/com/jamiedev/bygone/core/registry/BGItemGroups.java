@@ -41,7 +41,7 @@ public class BGItemGroups {
                         output.accept(BGItems.AMARANTH_SEEDS.get());
                         output.accept(BGItems.AMARANTH_GRAIN.get());
                         output.accept(BGItems.AMARANTH_LOAF.get());
-                        output.accept(BGBlocks.AMARANTH_BLOCK.get());
+                        output.accept(BGBlocks.AMARANTH_BALE_BLOCK.get());
                         output.accept(BGItems.CHANTRELLE_SEEDS.get());
                         output.accept(BGItems.CHANTRELLE.get());
                         output.accept(BGItems.PLAGA_SEEDS.get());
@@ -72,7 +72,7 @@ public class BGItemGroups {
                         output.accept(BGItems.WHISKBILL_SPAWN_EGG.get());
                         output.accept(BGItems.WRAITH_SPAWN_EGG.get());
                         output.accept(BGItems.ARCANE_CORE.get());
-                        output.accept(BGItems.HOOK.get());
+                        output.accept(BGItems.ANCIENT_HOOK.get());
                         output.accept(BGItems.MALICIOUS_WAR_HORN.get());
                         output.accept(BGItems.ECHO_GONG.get());
                         output.accept(BGItems.GOLD_BIG_BEAK_ARMOR.get());

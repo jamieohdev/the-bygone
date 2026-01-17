@@ -72,7 +72,7 @@ public class HookRenderer extends EntityRenderer<HookEntity> {
             matrixStack.popPose();
             float handSwingProgress = playerOwner.getAttackAnim(tickDelta);
             float handBob = Mth.sin(Mth.sqrt(handSwingProgress) * Mth.PI);
-            Vec3 handPos = this.getHandPos(playerOwner, handBob, tickDelta, BGItems.HOOK.get());
+            Vec3 handPos = this.getHandPos(playerOwner, handBob, tickDelta, BGItems.ANCIENT_HOOK.get());
             Vec3 lerpedPos = hook.getPosition(tickDelta).add(0.0, 0.25, 0.0);
             float xDiff = (float) (handPos.x - lerpedPos.x);
             float yDiff = (float) (handPos.y - lerpedPos.y);
