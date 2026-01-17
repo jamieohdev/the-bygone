@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
+@SuppressWarnings("all")
 public class BygoneRecipeProvider extends RecipeProvider {
     public BygoneRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
@@ -92,7 +92,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT,BGItems.ANCIENT_HOOK.get(),1)
                 .pattern(" X ")
-                .pattern(" I")
+                .pattern(" I ")
                 .define('X',BGItems.VERDIGRIS_INGOT.get())
                 .define('I', Items.BLAZE_POWDER)
                 .unlockedBy(getHasName(BGItems.VERDIGRIS_INGOT.get()), has(BGItems.VERDIGRIS_INGOT.get()))
@@ -116,7 +116,141 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(BGItems.LITHOPLASM.get()), has(BGItems.LITHOPLASM.get()))
                 .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.ANGRY_MEGALITH_LANTERN.get())));
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS,BGBlocks.AMARANTH_BALE_BLOCK.get(),1)
+                .requires(BGItems.AMARANTH_GRAIN.get(),9)
+                .unlockedBy(getHasName(BGBlocks.AMARANTH_CROP.get()), has(BGBlocks.AMARANTH_CROP.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.AMARANTH_BALE_BLOCK.get())));
 
+        oreSmelting(exporter, List.of(BGBlocks.COBBLED_BYSLATE.get()),RecipeCategory.BUILDING_BLOCKS,BGBlocks.BYSLATE.get(),0.1f,200,"byslate");
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSLATE.get(),BGBlocks.BYSLATE.get(),1);
+
+        oreSmelting(exporter, List.of(BGBlocks.COBBLED_BYSTONE.get()),RecipeCategory.BUILDING_BLOCKS,BGBlocks.BYSTONE.get(),0.1f,200,"bystone");
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE.get(),BGBlocks.BYSTONE.get(),1);
+
+        chiseledRecipe(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.AMBER_SANDSTONE_SLAB.get(),BGBlocks.CHISELED_AMBER_SANDSTONE.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CHISELED_AMBER_SANDSTONE.get(),BGBlocks.AMBER_SANDSTONE.get(),1);
+
+        chiseledRecipe(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSLATE_BRICK_SLAB.get(),BGBlocks.CHISELED_POLISHED_BYSLATE.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CHISELED_POLISHED_BYSLATE.get(),BGBlocks.POLISHED_BYSLATE.get(),1);
+
+        chiseledRecipe(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.get(),BGBlocks.CHISELED_POLISHED_BYSTONE.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CHISELED_POLISHED_BYSTONE.get(),BGBlocks.POLISHED_BYSTONE.get(),1);
+
+        chiseledRecipe(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE_BRICKS_SLAB.get(),BGBlocks.CHISELED_SHELLSTONE_BRICKS.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CHISELED_SHELLSTONE_BRICKS.get(),BGBlocks.SHELLSTONE_BRICKS.get(),1);
+
+        bricksRecipe(exporter,BGBlocks.CLAYSTONE.get(),BGBlocks.CLAYSTONE_BRICKS.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CLAYSTONE_BRICKS_SLAB.get(),BGBlocks.CLAYSTONE_BRICKS.get(),2);
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CLAYSTONE_BRICKS_STAIRS.get(),BGBlocks.CLAYSTONE_BRICKS.get(),1);
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CLAYSTONE_BRICKS_WALL.get(),BGBlocks.CLAYSTONE_BRICKS.get(),1);
+
+        slabRecipe(exporter,BGBlocks.CLAYSTONE_BRICKS.get(),BGBlocks.CLAYSTONE_BRICKS_SLAB.get());
+
+        stairsRecipe(exporter,BGBlocks.CLAYSTONE_BRICKS.get(),BGBlocks.CLAYSTONE_BRICKS_STAIRS.get());
+
+        wallsRecipe(exporter,BGBlocks.CLAYSTONE_BRICKS.get(),BGBlocks.CLAYSTONE_BRICKS_WALL.get());
+
+        oreBlasting(exporter,List.of(BGBlocks.BYSTONE_COAL_ORE.get(), BGBlocks.BYSLATE_COAL_ORE.get()),RecipeCategory.MISC,Items.COAL,0.1f,100,"coal_from_bygone_ores");
+        oreSmelting(exporter,List.of(BGBlocks.BYSTONE_COAL_ORE.get(), BGBlocks.BYSLATE_COAL_ORE.get()),RecipeCategory.MISC,Items.COAL,0.1f,200,"coal_from_bygone_ores");
+
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.COARSE_CLAYSTONE.get(),1)
+                .pattern("SC")
+                .pattern("CS")
+                .define('S', BGBlocks.CLAYSTONE.get())
+                .define('C', Items.GRAVEL)
+                .unlockedBy(getHasName(BGBlocks.CLAYSTONE.get()), has(BGBlocks.CLAYSTONE.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.COARSE_CLAYSTONE.get())));
+
+        slabRecipe(exporter,BGBlocks.COBBLED_BYSLATE.get(),BGBlocks.COBBLED_BYSLATE_SLAB.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.COBBLED_BYSLATE_SLAB.get(),BGBlocks.COBBLED_BYSLATE.get(),1);
+
+        stairsRecipe(exporter,BGBlocks.COBBLED_BYSLATE.get(),BGBlocks.COBBLED_BYSLATE_STAIRS.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.COBBLED_BYSLATE_STAIRS.get(),BGBlocks.COBBLED_BYSLATE.get(),1);
+
+        wallsRecipe(exporter,BGBlocks.COBBLED_BYSLATE.get(),BGBlocks.COBBLED_BYSLATE_WALL.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.COBBLED_BYSLATE_WALL.get(),BGBlocks.COBBLED_BYSLATE.get(),1);
+
+        slabRecipe(exporter,BGBlocks.COBBLED_BYSTONE.get(),BGBlocks.COBBLED_BYSTONE_SLAB.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.COBBLED_BYSTONE_SLAB.get(),BGBlocks.COBBLED_BYSTONE.get(),1);
+
+        stairsRecipe(exporter,BGBlocks.COBBLED_BYSTONE.get(),BGBlocks.COBBLED_BYSTONE_STAIRS.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.COBBLED_BYSTONE_STAIRS.get(),BGBlocks.COBBLED_BYSTONE.get(),1);
+
+        wallsRecipe(exporter,BGBlocks.COBBLED_BYSTONE.get(),BGBlocks.COBBLED_BYSTONE_WALL.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.COBBLED_BYSTONE_WALL.get(),BGBlocks.COBBLED_BYSTONE.get(),1);
+
+        oreSmelting(exporter,List.of(BGItems.COELECANTH.get()),RecipeCategory.FOOD,BGItems.COELECANTH_COOKED.get(),0.35f,200,"cooked_coelecanth");
+
+        itemCampfire(exporter,List.of(BGItems.COELECANTH.get()),RecipeCategory.FOOD,BGItems.COELECANTH_COOKED.get(),0.35f,600,"cooked_coelecanth");
+
+        itemSmoking(exporter,List.of(BGItems.COELECANTH.get()),RecipeCategory.FOOD,BGItems.COELECANTH_COOKED.get(),0.35f,100,"cooked_coelecanth");
+
+        oreSmelting(exporter,List.of(BGItems.POULTRY.get()),RecipeCategory.FOOD,BGItems.COOKED_POULTRY.get(),0.35f,200,"cooked_poultry");
+
+        itemCampfire(exporter,List.of(BGItems.POULTRY.get()),RecipeCategory.FOOD,BGItems.COOKED_POULTRY.get(),0.35f,600,"cooked_poultry");
+
+        itemSmoking(exporter,List.of(BGItems.POULTRY.get()),RecipeCategory.FOOD,BGItems.COOKED_POULTRY.get(),0.35f,100,"cooked_poultry");
+
+        oreSmelting(exporter,List.of(BGItems.PRIMORDIAL_FISH.get()),RecipeCategory.FOOD,BGItems.COOKED_PRIMORDIAL_FISH.get(),0.35f,200,"cooked_primordial_fish");
+
+        itemCampfire(exporter,List.of(BGItems.PRIMORDIAL_FISH.get()),RecipeCategory.FOOD,BGItems.COOKED_PRIMORDIAL_FISH.get(),0.35f,600,"cooked_primordial_fish");
+
+        itemSmoking(exporter,List.of(BGItems.PRIMORDIAL_FISH.get()),RecipeCategory.FOOD,BGItems.COOKED_PRIMORDIAL_FISH.get(),0.35f,100,"cooked_primordial_fish");
+
+        oreBlasting(exporter,List.of(BGBlocks.BYSLATE_COPPER_ORE.get(), BGBlocks.BYSTONE_COPPER_ORE.get()),RecipeCategory.MISC,Items.COPPER_INGOT,0.1f,100,"copper_ingot_from_bygone_stones");
+        oreSmelting(exporter,List.of(BGBlocks.BYSLATE_COPPER_ORE.get(), BGBlocks.BYSTONE_COPPER_ORE.get()),RecipeCategory.MISC,Items.COPPER_INGOT,0.1f,200,"copper_ingot_from_bygone_stones");
+
+        oreSmelting(exporter,List.of(BGBlocks.SHELLSTONE_BRICKS.get()),RecipeCategory.BUILDING_BLOCKS,BGBlocks.CRACKED_SHELLSTONE_BRICKS.get(),0.1f,200,"cracked_shellstone_bricks_from_shelstone_bricks");
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CRACKED_SHELLSTONE_BRICKS.get(),BGBlocks.SHELLSTONE_BRICKS.get(),1);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS,BGBlocks.CRYPTIC_MEGALITH_LANTERN.get(),1)
+                .requires(BGBlocks.CRYPTIC_MEGALITH_FACE.get())
+                .requires(BGItems.LITHOPLASM.get())
+                .unlockedBy(getHasName(BGItems.LITHOPLASM.get()), has(BGItems.LITHOPLASM.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.CRYPTIC_MEGALITH_LANTERN.get())));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.CUT_AMBER_SANDSTONE.get(),1)
+                .pattern("SS")
+                .pattern("SS")
+                .define('S', BGBlocks.AMBER_SANDSTONE.get())
+                .unlockedBy(getHasName(BGBlocks.AMBER_SANDSTONE.get()), has(BGBlocks.AMBER_SANDSTONE.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.CUT_AMBER_SANDSTONE.get())));
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CUT_AMBER_SANDSTONE.get(),BGBlocks.AMBER_SANDSTONE.get(),1);
+        slabRecipe(exporter,BGBlocks.CUT_AMBER_SANDSTONE.get(),BGBlocks.CUT_AMBER_SANDSTONE_SLAB.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CUT_AMBER_SANDSTONE_SLAB.get(),BGBlocks.CUT_AMBER_SANDSTONE.get(),1);
+
+        glowConcrete(exporter, BGBlocks.BROWN_GLOW_CONCRETE_POWDER.get(), Items.BROWN_DYE);
+        glowConcrete(exporter, BGBlocks.CYAN_GLOW_CONCRETE_POWDER.get(), Items.CYAN_DYE);
+        glowConcrete(exporter, BGBlocks.GRAY_GLOW_CONCRETE_POWDER.get(), Items.GRAY_DYE);
+        glowConcrete(exporter, BGBlocks.GREEN_GLOW_CONCRETE_POWDER.get(), Items.GREEN_DYE);
+        glowConcrete(exporter, BGBlocks.LIGHT_BLUE_GLOW_CONCRETE_POWDER.get(), Items.LIGHT_BLUE_DYE);
+        glowConcrete(exporter, BGBlocks.LIGHT_GRAY_GLOW_CONCRETE_POWDER.get(), Items.LIGHT_GRAY_DYE);
+        glowConcrete(exporter, BGBlocks.LIME_GLOW_CONCRETE_POWDER.get(), Items.LIME_DYE);
+        glowConcrete(exporter, BGBlocks.MAGENTA_GLOW_CONCRETE_POWDER.get(), Items.MAGENTA_DYE);
+        glowConcrete(exporter, BGBlocks.ORANGE_GLOW_CONCRETE_POWDER.get(), Items.ORANGE_DYE);
+        glowConcrete(exporter, BGBlocks.PINK_GLOW_CONCRETE_POWDER.get(), Items.PINK_DYE);
+        glowConcrete(exporter, BGBlocks.PURPLE_GLOW_CONCRETE_POWDER.get(), Items.PURPLE_DYE);
+        glowConcrete(exporter, BGBlocks.RED_GLOW_CONCRETE_POWDER.get(), Items.RED_DYE);
+        glowConcrete(exporter, BGBlocks.WHITE_GLOW_CONCRETE_POWDER.get(), Items.WHITE_DYE);
+        glowConcrete(exporter, BGBlocks.YELLOW_GLOW_CONCRETE_POWDER.get(), Items.YELLOW_DYE);
 
 
 
@@ -144,30 +278,14 @@ public class BygoneRecipeProvider extends RecipeProvider {
         slabRecipe(exporter, BGBlocks.SHELLSTONE_BRICKS.get(), BGBlocks.SHELLSTONE_BRICKS_SLAB.get());
         stairsRecipe(exporter, BGBlocks.SHELLSTONE_BRICKS.get(), BGBlocks.SHELLSTONE_BRICKS_STAIRS.get());
         wallsRecipe(exporter, BGBlocks.SHELLSTONE_BRICKS.get(), BGBlocks.SHELLSTONE_BRICKS_WALL.get());
-
-        glowConcretePowder(exporter, BGBlocks.BLACK_GLOW_CONCRETE_POWDER.get(), Items.BLACK_DYE);
-        glowConcretePowder(exporter, BGBlocks.BLUE_GLOW_CONCRETE_POWDER.get(), Items.BLUE_DYE);
-        glowConcretePowder(exporter, BGBlocks.BROWN_GLOW_CONCRETE_POWDER.get(), Items.BROWN_DYE);
-        glowConcretePowder(exporter, BGBlocks.CYAN_GLOW_CONCRETE_POWDER.get(), Items.CYAN_DYE);
-        glowConcretePowder(exporter, BGBlocks.GRAY_GLOW_CONCRETE_POWDER.get(), Items.GRAY_DYE);
-        glowConcretePowder(exporter, BGBlocks.GREEN_GLOW_CONCRETE_POWDER.get(), Items.GREEN_DYE);
-        glowConcretePowder(exporter, BGBlocks.LIGHT_BLUE_GLOW_CONCRETE_POWDER.get(), Items.LIGHT_BLUE_DYE);
-        glowConcretePowder(exporter, BGBlocks.LIGHT_GRAY_GLOW_CONCRETE_POWDER.get(), Items.LIGHT_GRAY_DYE);
-        glowConcretePowder(exporter, BGBlocks.LIME_GLOW_CONCRETE_POWDER.get(), Items.LIME_DYE);
-        glowConcretePowder(exporter, BGBlocks.MAGENTA_GLOW_CONCRETE_POWDER.get(), Items.MAGENTA_DYE);
-        glowConcretePowder(exporter, BGBlocks.ORANGE_GLOW_CONCRETE_POWDER.get(), Items.ORANGE_DYE);
-        glowConcretePowder(exporter, BGBlocks.PINK_GLOW_CONCRETE_POWDER.get(), Items.PINK_DYE);
-        glowConcretePowder(exporter, BGBlocks.PURPLE_GLOW_CONCRETE_POWDER.get(), Items.PURPLE_DYE);
-        glowConcretePowder(exporter, BGBlocks.RED_GLOW_CONCRETE_POWDER.get(), Items.RED_DYE);
-        glowConcretePowder(exporter, BGBlocks.WHITE_GLOW_CONCRETE_POWDER.get(), Items.WHITE_DYE);
-        glowConcretePowder(exporter, BGBlocks.YELLOW_GLOW_CONCRETE_POWDER.get(), Items.YELLOW_DYE);*/
+        */
     }
 
 
-
-    protected static void glowConcretePowder(RecipeOutput recipeOutput, ItemLike glowConcretePowder, ItemLike dye) {
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, glowConcretePowder, 8).requires(dye).requires(BGBlocks.SHELLSAND.get(), 4).requires(BGBlocks.GLOW_GRAVEL.get(), 4).group("glow_concrete_powder").unlockedBy("has_shellsand", has(BGBlocks.SHELLSAND.get())).unlockedBy("has_glow_gravel", has(BGBlocks.GLOW_GRAVEL.get())).save(recipeOutput);
+    protected static void glowConcrete(RecipeOutput recipeOutput, ItemLike glowConcrete, ItemLike dye) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, glowConcrete, 8).requires(dye).requires(BGBlocks.SHELLSTONE.get(), 4).requires(BGBlocks.GLOW_GRAVEL.get(), 4).group("glow_concrete").unlockedBy("has_shellstone", has(BGBlocks.SHELLSTONE.get())).unlockedBy("has_glow_gravel", has(BGBlocks.GLOW_GRAVEL.get())).save(recipeOutput);
     }
+
 
     void bricksRecipe(RecipeOutput exporter, Block input, Block output) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 4)
@@ -218,7 +336,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .save(exporter, ResourceLocation.parse(RecipeProvider.getSimpleRecipeName(output.asItem())));
     }
 
-    void chiseledRecipe(RecipeOutput exporter, Block input, Block output, RecipeCategory recipeCategory) {
+    void chiseledRecipe(RecipeOutput exporter, RecipeCategory recipeCategory ,Block input, Block output) {
         ShapedRecipeBuilder.shaped(recipeCategory, output, 1)
                 .pattern("X")
                 .pattern("X")
@@ -317,6 +435,20 @@ public class BygoneRecipeProvider extends RecipeProvider {
                                       float pExperience, int pCookingTime, String pGroup) {
         oreCooking(recipeOutput, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, pIngredients, pCategory, pResult,
                 pExperience, pCookingTime, pGroup, "_from_blasting");
+    }
+
+
+    protected static void itemCampfire(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
+                                      float pExperience, int pCookingTime, String pGroup) {
+        oreCooking(recipeOutput, RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, pIngredients, pCategory, pResult,
+                pExperience, pCookingTime, pGroup, "_from_campfire_cooking");
+    }
+
+
+    protected static void itemSmoking(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
+                                      float pExperience, int pCookingTime, String pGroup) {
+        oreCooking(recipeOutput, RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, pIngredients, pCategory, pResult,
+                pExperience, pCookingTime, pGroup, "_from_smoking");
     }
 
     protected static <T extends AbstractCookingRecipe> void oreCooking(RecipeOutput recipeOutput, RecipeSerializer<T> pCookingSerializer, AbstractCookingRecipe.Factory<T> factory,
