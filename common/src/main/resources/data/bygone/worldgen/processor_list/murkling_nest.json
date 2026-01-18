@@ -2,13 +2,12 @@
   "processors": [
     {
       "processor_type": "minecraft:rule",
-
       "rules": [
         {
           "input_predicate": {
             "block": "bygone:shellstone",
-            "probability": 0.25,
-            "predicate_type": "minecraft:random_block_match"
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.25
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -20,8 +19,8 @@
         {
           "input_predicate": {
             "block": "bygone:murkling_egg",
-            "probability": 1.0,
-            "predicate_type": "minecraft:random_block_match"
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.25
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -31,6 +30,10 @@
           }
         }
       ]
+    },
+    {
+      "processor_type": "minecraft:protected_blocks",
+      "value": "#minecraft:features_cannot_replace"
     }
   ]
 }

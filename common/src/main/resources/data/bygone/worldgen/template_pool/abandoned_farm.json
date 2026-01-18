@@ -27,6 +27,33 @@
         "processors": "bygone:randomize_farm",
         "element_type": "minecraft:single_pool_element"
       }
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:underground_house_upper/underground_house_ruins_1",
+        "processors": "bygone:underground_house",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:underground_house_upper/underground_house_ruins_2",
+        "processors": "bygone:underground_house",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:underground_house_upper/underground_house_ruins_3",
+        "processors": "bygone:underground_house",
+        "projection": "rigid"
+      },
+      "weight": 1
     }
   ]
 }

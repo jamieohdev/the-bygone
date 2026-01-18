@@ -77,10 +77,6 @@
     "bygone:mooboo": {
       "charge": 0.5,
       "energy_budget": 0.1
-    },
-    "bygone:sabeast": {
-      "charge": 0.5,
-      "energy_budget": 0.1
     }
   },
   "spawners": {
@@ -94,12 +90,6 @@
         "maxCount": 10,
         "minCount": 5,
         "weight": 2
-      },
-      {
-        "type": "bygone:sabeast",
-        "maxCount": 10,
-        "minCount": 5,
-        "weight": 1
       },
       {
         "type": "bygone:lithy",

@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.entity;
 
+import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGItems;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 public class MoobooEntity extends Cow {
 
@@ -68,6 +70,14 @@ public class MoobooEntity extends Cow {
 
     public int getMaxSpawnClusterSize() {
         return 1;
+    }
+
+    private boolean collidingSpectralBlocks() {
+        AABB aabb = this.getBoundingBox().inflate(1.0F, 1.0F, 1.0F);
+        return BlockPos.betweenClosedStream(aabb).anyMatch((collisionShape) -> {
+            BlockState blockstate = this.level().getBlockState(collisionShape);
+            return blockstate.is(JamiesModTag.SPECTRAL_BLOCKS);
+        });
     }
 
     public void tick()
