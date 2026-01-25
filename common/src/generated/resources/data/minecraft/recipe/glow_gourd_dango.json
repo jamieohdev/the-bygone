@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bygone:glow_gourd_beige_seeds"
+    },
+    {
+      "item": "bygone:glow_gourd_muave_seeds"
+    },
+    {
+      "item": "bygone:glow_gourd_verdant_seeds"
+    }
+  ],
+  "result": {
+    "count": 3,
+    "id": "bygone:glow_gourd_dango"
+  }
+}

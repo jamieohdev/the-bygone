@@ -7,6 +7,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
@@ -260,45 +261,170 @@ public class BygoneRecipeProvider extends RecipeProvider {
 
 
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS,BGItems.ECHO_GONG.get(),1)
+                .pattern(" S ")
+                .pattern("SXS")
+                .pattern(" S ")
+                .define('S', Items.ECHO_SHARD)
+                .define('X', BGItems.VERDIGRIS_INGOT.get())
+                .unlockedBy(getHasName(BGItems.VERDIGRIS_INGOT.get()), has(BGItems.VERDIGRIS_INGOT.get()));
+
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT,BGItems.EXOTIC_ARROW.get(),4)
+                .pattern(" X ")
+                .pattern(" # ")
+                .pattern(" Y ")
+                .define('X', Items.STICK)
+                .define('#', Items.FLINT)
+                .define('Y', BGItems.EXOTIC_PLUMAGE.get())
+                .unlockedBy(getHasName(BGItems.EXOTIC_PLUMAGE.get()), has(BGItems.EXOTIC_PLUMAGE.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGItems.EXOTIC_ARROW.get())));
+
+        oreSmelting(exporter,List.of(BGBlocks.AMBER_SAND.get()),RecipeCategory.BUILDING_BLOCKS,Blocks.GLASS,0.1f,200,"glass_from_amber_sand");
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD,BGItems.GOURD_DANGO.get(),3)
+                        .requires(BGItems.BEIGE_GOURD_SEEDS.get(),1)
+                                .requires(BGItems.MUAVE_GOURD_SEEDS.get(),1)
+                                        .requires(BGItems.VERDANT_GOURD_SEEDS.get(),1)
+                                                .unlockedBy(getHasName(BGItems.BEIGE_GOURD_SEEDS.get()), has(BGItems.BEIGE_GOURD_SEEDS.get()))
+                                                        .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGItems.GOURD_DANGO.get())));
+
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD,BGItems.GOURD_SOUP.get(),1)
+                        .requires(BGItems.BEIGE_SLICE.get(),1)
+                                .requires(BGItems.MUAVE_SLICE.get(),1)
+                                        .requires(BGItems.VERDANT_SLICE.get(),1)
+                                                .requires(Items.BOWL,1)
+                                                        .unlockedBy(getHasName(BGItems.BEIGE_SLICE.get()), has(BGItems.BEIGE_SLICE.get()))
+                                                                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGItems.GOURD_SOUP.get())));
+
+
+        oreSmelting(exporter,List.of(BGItems.GOLD_BIG_BEAK_ARMOR.get()),RecipeCategory.MISC,Items.GOLD_NUGGET,0.1f,200,"gold_nugget_from_gold_big_beak_armor");
+        oreBlasting(exporter,List.of(BGItems.GOLD_BIG_BEAK_ARMOR.get()),RecipeCategory.MISC,Items.GOLD_NUGGET,0.1f,100,"gold_nugget_from_gold_big_beak_armor");
+
+        for (var entry : COLOR_TO_GLOW_CONCRETE.entrySet()) {
+            DyeColor color = entry.getKey();
+            ItemLike result = entry.getValue().get();
+
+            Item dye = DyeItem.byColor(color);
+
+            glowConcrete(exporter, result, dye);
+        }
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS,BGBlocks.HOLLOW_MEGALITH_LANTERN.get(),1)
+                .requires(BGBlocks.HOLLOW_MEGALITH_FACE.get())
+                .requires(BGItems.LITHOPLASM.get())
+                .unlockedBy(getHasName(BGItems.LITHOPLASM.get()), has(BGItems.LITHOPLASM.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.HOLLOW_MEGALITH_LANTERN.get())));
+
+        oreSmelting(exporter,List.of(BGBlocks.BYSLATE_IRON_ORE.get(),BGBlocks.BYSTONE_IRON_ORE.get()),RecipeCategory.MISC,Items.IRON_INGOT,0.1f,200,"iron_ingot_from_bygone_stones");
+        oreBlasting(exporter,List.of(BGBlocks.BYSLATE_IRON_ORE.get(),BGBlocks.BYSTONE_IRON_ORE.get()),RecipeCategory.MISC,Items.IRON_INGOT,0.1f,100,"iron_ingot_from_bygone_stones");
+
+        oreSmelting(exporter,List.of(BGItems.IRON_BIG_BEAK_ARMOR.get()),RecipeCategory.MISC,Items.IRON_NUGGET,0.1f,200,"iron_nugget_from_iron_big_beak_armor");
+        oreBlasting(exporter,List.of(BGItems.IRON_BIG_BEAK_ARMOR.get()),RecipeCategory.MISC,Items.IRON_NUGGET,0.1f,100,"iron_nugget_from_iron_big_beak_armor");
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE,Blocks.LEVER,1)
+                .pattern("X")
+                .pattern("#")
+                .define('X', Ingredient.of(ItemTags.STONE_CRAFTING_MATERIALS))
+                .define('#', Items.STICK)
+                .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(Blocks.LEVER.asItem())));
 
 
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,Items.WHITE_DYE,1)
+                .requires(BGBlocks.MONTSECHIA.get(),1)
+                .unlockedBy(getHasName(BGBlocks.MONTSECHIA.get()), has(BGBlocks.MONTSECHIA.get()))
+                .save(exporter, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "white_dye_from_montsechia"));
 
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,Items.LIGHT_GRAY_DYE,1)
+                .requires(BGBlocks.MOON_BLOSSOM.get(),1)
+                .unlockedBy(getHasName(BGBlocks.MOON_BLOSSOM.get()), has(BGBlocks.MOON_BLOSSOM.get()))
+                .save(exporter, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "light_gray_dye_from_moon_blossom"));
 
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS,BGBlocks.LIT_CRACKED_MEGALITH_BLOCK.get(),1)
+                .requires(BGBlocks.CRACKED_MEGALITH_BLOCK.get(),1)
+                .requires(BGItems.LITHOPLASM.get(),1)
+                .unlockedBy(getHasName(BGBlocks.CRACKED_MEGALITH_BLOCK.get()), has(BGBlocks.CRACKED_MEGALITH_BLOCK.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.LIT_CRACKED_MEGALITH_BLOCK.get())));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE,BGBlocks.LITHINE_LAMP.get(),1)
+                .pattern(" R ")
+                .pattern("RGR")
+                .pattern(" R ")
+                .define('G', Items.GLOWSTONE_DUST)
+                .define('R', BGItems.LITHOPLASM.get())
+                .unlockedBy(getHasName(BGItems.LITHOPLASM.get()), has(BGItems.LITHOPLASM.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.LITHINE_LAMP.get())));
 
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.MALACHITE_CHISELED.get(),1)
+                .pattern("X")
+                .pattern("X")
+                .define('X', BGBlocks.MALACHITE_SLAB.get())
+                .unlockedBy(getHasName(BGBlocks.MALACHITE_SLAB.get()), has(BGBlocks.MALACHITE_SLAB.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.MALACHITE_CHISELED.get())));
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS, BGBlocks.MALACHITE_CHISELED.get(), BGBlocks.MALACHITE.get(),2);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE,BGBlocks.MALACHITE_DOOR.get(),1)
+                .pattern("XX")
+                .pattern("XX")
+                .pattern("XX")
+                .define('X', BGBlocks.MALACHITE.get())
+                .unlockedBy(getHasName(BGBlocks.MALACHITE.get()), has(BGBlocks.MALACHITE.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.MALACHITE_DOOR.get())));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.MALACHITE_PILLAR.get(),2)
+                .pattern("X")
+                .pattern("X")
+                .define('X', BGBlocks.MALACHITE.get())
+                .unlockedBy(getHasName(BGBlocks.MALACHITE.get()), has(BGBlocks.MALACHITE.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.MALACHITE_PILLAR.get())));
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.MALACHITE_PILLAR.get(),BGBlocks.MALACHITE.get(),1);
+        slabRecipe(exporter,BGBlocks.MALACHITE.get(),BGBlocks.MALACHITE_SLAB.get());
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.MALACHITE_SLAB.get(),BGBlocks.MALACHITE.get(),1);
 
 
+        stairsRecipe(exporter,BGBlocks.MALACHITE.get(),BGBlocks.MALACHITE_STAIRS.get());
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.MALACHITE_STAIRS.get(),BGBlocks.MALACHITE.get(),1);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.MALACHITE_TILE.get(),4)
+                        .pattern("XX")
+                                .pattern("XX")
+                                        .define('X', BGBlocks.MALACHITE.get())
+                                                .unlockedBy(getHasName(BGBlocks.MALACHITE.get()), has(BGBlocks.MALACHITE.get()))
+                                                        .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.MALACHITE_TILE.get())));
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.MALACHITE_TILE.get(),BGBlocks.MALACHITE.get(),1);
+
+        slabRecipe(exporter,BGBlocks.MALACHITE_TILE.get(),BGBlocks.MALACHITE_TILE_SLAB.get());
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.MALACHITE_TILE_SLAB.get(),BGBlocks.MALACHITE_TILE.get(),1);
+
+        stairsRecipe(exporter,BGBlocks.MALACHITE_TILE.get(),BGBlocks.MALACHITE_TILE_STAIRS.get());
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.MALACHITE_TILE_STAIRS.get(),BGBlocks.MALACHITE_TILE.get(),1);
+
+        wallsRecipe(exporter,BGBlocks.MALACHITE.get(),BGBlocks.MALACHITE_WALL.get());
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.MALACHITE_WALL.get(),BGBlocks.MALACHITE.get(),1);
 
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS,BGBlocks.MEGALITH_LANTERN.get(),1)
+                .requires(BGBlocks.MEGALITH_FACE.get())
+                .requires(BGItems.LITHOPLASM.get())
+                .unlockedBy(getHasName(BGItems.LITHOPLASM.get()), has(BGItems.LITHOPLASM.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.MEGALITH_LANTERN.get())));
 
-
-
-
-
-
-
-
-
-
-        glowConcrete(exporter, BGBlocks.BROWN_GLOW_CONCRETE_POWDER.get(), Items.BROWN_DYE);
-        glowConcrete(exporter, BGBlocks.CYAN_GLOW_CONCRETE_POWDER.get(), Items.CYAN_DYE);
-        glowConcrete(exporter, BGBlocks.GRAY_GLOW_CONCRETE_POWDER.get(), Items.GRAY_DYE);
-        glowConcrete(exporter, BGBlocks.GREEN_GLOW_CONCRETE_POWDER.get(), Items.GREEN_DYE);
-        glowConcrete(exporter, BGBlocks.LIGHT_BLUE_GLOW_CONCRETE_POWDER.get(), Items.LIGHT_BLUE_DYE);
-        glowConcrete(exporter, BGBlocks.LIGHT_GRAY_GLOW_CONCRETE_POWDER.get(), Items.LIGHT_GRAY_DYE);
-        glowConcrete(exporter, BGBlocks.LIME_GLOW_CONCRETE_POWDER.get(), Items.LIME_DYE);
-        glowConcrete(exporter, BGBlocks.MAGENTA_GLOW_CONCRETE_POWDER.get(), Items.MAGENTA_DYE);
-        glowConcrete(exporter, BGBlocks.ORANGE_GLOW_CONCRETE_POWDER.get(), Items.ORANGE_DYE);
-        glowConcrete(exporter, BGBlocks.PINK_GLOW_CONCRETE_POWDER.get(), Items.PINK_DYE);
-        glowConcrete(exporter, BGBlocks.PURPLE_GLOW_CONCRETE_POWDER.get(), Items.PURPLE_DYE);
-        glowConcrete(exporter, BGBlocks.RED_GLOW_CONCRETE_POWDER.get(), Items.RED_DYE);
-        glowConcrete(exporter, BGBlocks.WHITE_GLOW_CONCRETE_POWDER.get(), Items.WHITE_DYE);
-        glowConcrete(exporter, BGBlocks.YELLOW_GLOW_CONCRETE_POWDER.get(), Items.YELLOW_DYE);
-
-
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC,BGBlocks.MEGALITH_LANTERN.get(),1)
+                .pattern(" L ")
+                .pattern("LBL")
+                .pattern(" L ")
+                .define('L', BGBlocks.MEGALITH_BLOCK.get())
+                .define('B', BGItems.LITHOPLASM.get())
+                .unlockedBy(getHasName(BGItems.LITHOPLASM.get()), has(BGItems.LITHOPLASM.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.MEGALITH_LANTERN.get()) + "_alt"));
 
 
 
@@ -367,6 +493,26 @@ public class BygoneRecipeProvider extends RecipeProvider {
             BGBlocks.RED_AMPHORA.get(),
             BGBlocks.BLACK_AMPHORA.get()
     };
+
+    private static final Map<DyeColor, Supplier<Block>> COLOR_TO_GLOW_CONCRETE =
+            Map.ofEntries(
+                    Map.entry(DyeColor.BROWN, BGBlocks.BROWN_GLOW_CONCRETE_POWDER),
+                    Map.entry(DyeColor.CYAN, BGBlocks.CYAN_GLOW_CONCRETE_POWDER),
+                    Map.entry(DyeColor.GRAY, BGBlocks.GRAY_GLOW_CONCRETE_POWDER),
+                    Map.entry(DyeColor.GREEN, BGBlocks.GREEN_GLOW_CONCRETE_POWDER),
+                    Map.entry(DyeColor.LIGHT_BLUE, BGBlocks.LIGHT_BLUE_GLOW_CONCRETE_POWDER),
+                    Map.entry(DyeColor.LIGHT_GRAY, BGBlocks.LIGHT_GRAY_GLOW_CONCRETE_POWDER),
+                    Map.entry(DyeColor.LIME, BGBlocks.LIME_GLOW_CONCRETE_POWDER),
+                    Map.entry(DyeColor.MAGENTA, BGBlocks.MAGENTA_GLOW_CONCRETE_POWDER),
+                    Map.entry(DyeColor.ORANGE, BGBlocks.ORANGE_GLOW_CONCRETE_POWDER),
+                    Map.entry(DyeColor.PINK, BGBlocks.PINK_GLOW_CONCRETE_POWDER),
+                    Map.entry(DyeColor.PURPLE, BGBlocks.PURPLE_GLOW_CONCRETE_POWDER),
+                    Map.entry(DyeColor.RED, BGBlocks.RED_GLOW_CONCRETE_POWDER),
+                    Map.entry(DyeColor.WHITE, BGBlocks.WHITE_GLOW_CONCRETE_POWDER),
+                    Map.entry(DyeColor.YELLOW, BGBlocks.YELLOW_GLOW_CONCRETE_POWDER)
+            );
+
+
 
     protected static void glowConcrete(RecipeOutput recipeOutput, ItemLike glowConcrete, ItemLike dye) {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, glowConcrete, 8).requires(dye).requires(BGBlocks.SHELLSTONE.get(), 4).requires(BGBlocks.GLOW_GRAVEL.get(), 4).group("glow_concrete").unlockedBy(getHasName(BGBlocks.SHELLSTONE.get()), has(BGBlocks.SHELLSTONE.get())).unlockedBy(getHasName(BGBlocks.GLOW_GRAVEL.get()), has(BGBlocks.GLOW_GRAVEL.get())).save(recipeOutput);

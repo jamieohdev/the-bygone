@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "glass_from_amber_sand",
+  "ingredient": {
+    "item": "bygone:amber_sand"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:glass"
+  }
+}
