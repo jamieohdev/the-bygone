@@ -36,11 +36,6 @@ public class BGArmorMaterials {
         map.put(ArmorItem.Type.BODY, 5);
     }), 1, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, 0.0F, () -> Ingredient.of(BGItems.GLOW_CHITIN.get()));
 
-    public static Holder<ArmorMaterial> BIG_BEAK = register("big_beak", Util.make(new EnumMap(AnimalArmorItem.BodyType.class), map -> {
-        map.put(AnimalArmorItem.BodyType.EQUESTRIAN, 1);
-    }), 9, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, 0.3F, () -> Ingredient.of(BGItems.SCALE.get()));
-
-
     private static Holder<ArmorMaterial> register(
             String id,
             EnumMap<ArmorItem.Type, Integer> defense,
