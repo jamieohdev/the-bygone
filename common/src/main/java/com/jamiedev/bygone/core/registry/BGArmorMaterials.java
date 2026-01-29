@@ -15,6 +15,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public class BGArmorMaterials {
@@ -49,7 +50,7 @@ public class BGArmorMaterials {
             float knockbackResistance,
             Supplier<Ingredient> repairIngredient
     ) {
-        List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(ResourceLocation.tryParse(Bygone.MOD_ID + ":" + id)));
+        List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(Objects.requireNonNull(ResourceLocation.tryParse(Bygone.MOD_ID + ":" + id))));
         return register(id, defense, enchantability, equipSound, toughness, knockbackResistance, repairIngredient, list);
     }
 
@@ -71,7 +72,7 @@ public class BGArmorMaterials {
 
         return Registry.registerForHolder(
                 BuiltInRegistries.ARMOR_MATERIAL,
-                ResourceLocation.tryParse(Bygone.MOD_ID + ":" + id),
+                Objects.requireNonNull(ResourceLocation.tryParse(Bygone.MOD_ID + ":" + id)),
                 new ArmorMaterial(enumMap, enchantability, equipSound, repairIngredient, layers, toughness, knockbackResistance)
         );
     }
