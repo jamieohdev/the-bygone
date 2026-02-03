@@ -2594,7 +2594,7 @@ public class BGBlocks {
                                     .forceSolidOn()
                     )
     );
-    public static final Supplier<Block> SABLENUT = registerBlock(
+    public static final Supplier<Block> SABLE_NUT = registerBlock(
             "sable_nut", () -> new SablenutBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.PLANT)
                     .randomTicks()

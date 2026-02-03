@@ -89,7 +89,7 @@ public class BygoneClient {
         consumer.accept(BGBlocks.SABLOSSOM.get(), RenderType.cutout());
         consumer.accept(BGBlocks.SABLE_GRASS.get(), RenderType.cutout());
         consumer.accept(BGBlocks.SABLE_GRASS_PLANT.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.SABLENUT.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SABLE_NUT.get(), RenderType.cutout());
 
         consumer.accept(BGBlocks.UMBRAL_GRASS.get(), RenderType.cutout());
         consumer.accept(BGBlocks.TALL_UMBRAL_GRASS.get(), RenderType.cutout());

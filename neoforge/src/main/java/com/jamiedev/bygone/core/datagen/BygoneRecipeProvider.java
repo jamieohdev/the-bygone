@@ -141,11 +141,7 @@ public class BygoneRecipeProvider extends RecipeProvider {
 
         chiseledRecipe(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSLATE_BRICK_SLAB.get(),BGBlocks.CHISELED_POLISHED_BYSLATE.get());
 
-        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CHISELED_POLISHED_BYSLATE.get(),BGBlocks.POLISHED_BYSLATE.get(),1);
-
         chiseledRecipe(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.get(),BGBlocks.CHISELED_POLISHED_BYSTONE.get());
-
-        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CHISELED_POLISHED_BYSTONE.get(),BGBlocks.POLISHED_BYSTONE.get(),1);
 
         chiseledRecipe(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE_BRICKS_SLAB.get(),BGBlocks.CHISELED_SHELLSTONE_BRICKS.get());
 
@@ -473,10 +469,11 @@ public class BygoneRecipeProvider extends RecipeProvider {
         bricksRecipe(exporter,BGBlocks.POLISHED_BYSTONE.get(),BGBlocks.POLISHED_BYSTONE_BRICK.get());
 
         stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.get(),BGBlocks.POLISHED_BYSTONE_BRICK.get(),2);
-
-
-
-
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE_BRICK_STAIRS.get(),BGBlocks.POLISHED_BYSTONE_BRICK.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE_WALL.get(),BGBlocks.POLISHED_BYSTONE_BRICK.get(),1);
+        slabRecipe(exporter,BGBlocks.POLISHED_BYSTONE_BRICK.get(),BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.get());
+        stairsRecipe(exporter,BGBlocks.POLISHED_BYSTONE_BRICK.get(),BGBlocks.POLISHED_BYSTONE_BRICK_STAIRS.get());
+        wallsRecipe(exporter,BGBlocks.POLISHED_BYSTONE_BRICK.get(),BGBlocks.POLISHED_BYSTONE_BRICK_WALL.get());
 
         stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CHISELED_POLISHED_BYSTONE.get(),BGBlocks.POLISHED_BYSTONE.get(),1);
         stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE_BRICK.get(),BGBlocks.POLISHED_BYSTONE.get(),1);
@@ -486,6 +483,49 @@ public class BygoneRecipeProvider extends RecipeProvider {
         stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE_WALL.get(),BGBlocks.POLISHED_BYSTONE.get(),1);
 
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,Items.PURPLE_DYE,1)
+                        .requires(BGBlocks.SAGARIA.get())
+                                .unlockedBy(getHasName(BGBlocks.SAGARIA.get()), has(BGBlocks.SAGARIA.get()))
+                                        .save(exporter, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "purple_dye_from_sagaria"));
+
+        bricksRecipe(exporter,BGBlocks.PURPLE_MUSHROOM_BLOCK.get(),BGBlocks.PURPLE_FUNGAL_BRICKS.get());
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.PURPLE_FUNGAL_SLAB.get(),BGBlocks.PURPLE_FUNGAL_BRICKS.get(),2);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.PURPLE_FUNGAL_STAIRS.get(),BGBlocks.PURPLE_FUNGAL_BRICKS.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.PURPLE_FUNGAL_WALL.get(),BGBlocks.PURPLE_FUNGAL_BRICKS.get(),1);
+        slabRecipe(exporter,BGBlocks.PURPLE_FUNGAL_BRICKS.get(),BGBlocks.PURPLE_FUNGAL_SLAB.get());
+        stairsRecipe(exporter,BGBlocks.PURPLE_FUNGAL_BRICKS.get(),BGBlocks.PURPLE_FUNGAL_STAIRS.get());
+        wallsRecipe(exporter,BGBlocks.PURPLE_FUNGAL_BRICKS.get(),BGBlocks.PURPLE_FUNGAL_WALL.get());
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,Items.RED_DYE,1)
+                .requires(BGBlocks.ROSE.get(),1)
+                .unlockedBy(getHasName(BGBlocks.ROSE.get()), has(BGBlocks.ROSE.get()))
+                .save(exporter, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "red_dye_from_rose"));
+
+
+        oreSmelting(exporter,List.of(BGBlocks.SABLE_NUT.get()),RecipeCategory.FOOD,BGItems.ROASTED_SABLE_NUT.get(),0.35f,200,"roasted_sable_nut");
+        itemCampfire(exporter,List.of(BGBlocks.SABLE_NUT.get()),RecipeCategory.FOOD,BGItems.ROASTED_SABLE_NUT.get(),0.35f,600,"roasted_sable_nut");
+        itemSmoking(exporter,List.of(BGBlocks.SABLE_NUT.get()),RecipeCategory.FOOD,BGItems.ROASTED_SABLE_NUT.get(),0.35f,100,"roasted_sable_nut");
+
+
+        woodSetRecipes(
+                exporter,
+                BGBlocks.SABLE_LOG.get(),
+                BGBlocks.STRIPPED_SABLE_LOG.get(),
+                BGBlocks.SABLE_WOOD.get(),
+                BGBlocks.STRIPPED_SABLE_WOOD.get(),
+                BGBlocks.SABLE_PLANKS.get(),
+                BGBlocks.SABLE_SLAB.get(),
+                BGBlocks.SABLE_STAIRS.get(),
+                BGBlocks.SABLE_FENCE.get(),
+                BGBlocks.SABLE_FENCE_GATE.get(),
+                BGBlocks.SABLE_BUTTON.get(),
+                BGBlocks.SABLE_PRESSURE_PLATE.get(),
+                BGBlocks.SABLE_DOOR.get(),
+                BGBlocks.SABLE_TRAPDOOR.get(),
+                BGItems.SABLE_SIGN.get(),
+                BGItems.SABLE_HANGING_SIGN.get(),
+                "sable"
+        );
 
 
 
@@ -742,5 +782,57 @@ public class BygoneRecipeProvider extends RecipeProvider {
             SimpleCookingRecipeBuilder.generic(Ingredient.of(itemlike), pCategory, pResult, pExperience, pCookingTime, pCookingSerializer, factory).group(pGroup).unlockedBy(getHasName(itemlike), has(itemlike))
                     .save(recipeOutput, Bygone.MOD_ID + ":" + getItemName(pResult) + pRecipeName + "_" + getItemName(itemlike));
         }
+    }
+
+    public void woodSetRecipes(
+            RecipeOutput exporter,
+            Block log, Block strippedLog,
+            Block wood, Block strippedWood,
+            Block planks, Block slab, Block stairs,
+            Block fence, Block fenceGate, Block button,
+            Block pressurePlate, Block door, Block trapdoor,
+            Item sign, Item hangingSign,
+            String groupPrefix
+    ) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, planks, 4)
+                .requires(log)
+                .unlockedBy(getHasName(log), has(log))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(planks)));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, planks, 4)
+                .requires(strippedLog)
+                .unlockedBy(getHasName(strippedLog), has(strippedLog))
+                .save(exporter, ResourceLocation.parse(getItemName(planks) + "_from_stripped_" + getItemName(log)));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, planks, 4)
+                .requires(wood)
+                .unlockedBy(getHasName(wood), has(wood))
+                .save(exporter, ResourceLocation.parse(getItemName(planks) + "_from_" + getItemName(wood)));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, planks, 4)
+                .requires(strippedWood)
+                .unlockedBy(getHasName(strippedWood), has(strippedWood))
+                .save(exporter, ResourceLocation.parse(getItemName(planks) + "_from_stripped_" + getItemName(wood)));
+
+        slabRecipe(exporter, planks, slab);
+        stairsRecipe(exporter, planks, stairs);
+
+        fenceRecipe(exporter, planks, fence, RecipeCategory.DECORATIONS, groupPrefix + "_fence");
+        fenceGateRecipe(exporter, planks, fenceGate, RecipeCategory.DECORATIONS, groupPrefix + "_fence_gate");
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, button, 1)
+                .requires(planks)
+                .unlockedBy(getHasName(planks), has(planks))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(button)));
+
+        pressurePlateRecipe(exporter, planks, pressurePlate, RecipeCategory.REDSTONE, groupPrefix + "_pressure_plate");
+        doorRecipe(exporter, planks, door, RecipeCategory.REDSTONE, groupPrefix + "_door");
+        trapDoorRecipe(exporter, planks, trapdoor, RecipeCategory.REDSTONE, groupPrefix + "_trapdoor");
+
+        signRecipe(exporter, planks, sign, RecipeCategory.DECORATIONS, groupPrefix + "_sign");
+        hangingSignRecipe(exporter, planks, hangingSign, RecipeCategory.DECORATIONS, groupPrefix + "_hanging_sign");
+
+        woodRecipe(exporter, log, wood, RecipeCategory.BUILDING_BLOCKS);
+        woodRecipe(exporter, strippedLog, strippedWood, RecipeCategory.BUILDING_BLOCKS);
     }
 }

@@ -77,7 +77,7 @@ public class SablenutBlock extends Block implements BonemealableBlock, Fallable 
     }
 
     public static BlockState createNewHangingNut(int age) {
-        return BGBlocks.SABLENUT.get().defaultBlockState().setValue(FACING, Direction.UP).setValue(AGE, age);
+        return BGBlocks.SABLE_NUT.get().defaultBlockState().setValue(FACING, Direction.UP).setValue(AGE, age);
     }
 
     protected boolean isRandomlyTicking(BlockState state) {
