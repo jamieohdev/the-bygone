@@ -26,12 +26,15 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
 import static net.minecraft.world.level.block.Blocks.DIRT;
 
 public class BGBlocks {
+    public static final List<Supplier<Block>> ALL_BLOCKS = new ArrayList<>();
 
     public static final Supplier<Block> WHITE_GLOW_CONCRETE = registerBlock(
             "white_glow_concrete",
@@ -2882,8 +2885,11 @@ public class BGBlocks {
     }
 
     private static Supplier<Block> registerBlock(String name, Supplier<Block> block) {
-        return JinxedRegistryHelper.registerBlock(Bygone.MOD_ID, name, true, block);
+        Supplier<Block> reg = JinxedRegistryHelper.registerBlock(Bygone.MOD_ID, name, true, block);
+        ALL_BLOCKS.add(reg);
+        return reg;
     }
+
 
     private static Supplier<Block> registerAmphora(String name, MapColor mapColor) {
         return registerBlock(
@@ -2895,7 +2901,9 @@ public class BGBlocks {
 
 
     private static Supplier<Block> registerBlockWithoutBlockItem(String name, Supplier<Block> block) {
-        return JinxedRegistryHelper.registerBlock(Bygone.MOD_ID, name, false, block);
+        Supplier<Block> reg = JinxedRegistryHelper.registerBlock(Bygone.MOD_ID, name, false, block);
+        ALL_BLOCKS.add(reg);
+        return reg;
     }
 
 
