@@ -527,23 +527,174 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 "sable"
         );
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC,BGBlocks.SABLENUT_BLOCK.get(),1)
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .define('#', BGBlocks.SABLE_NUT.get())
+                .unlockedBy(getHasName(BGBlocks.SABLE_NUT.get()), has(BGBlocks.SABLE_NUT.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.SABLENUT_BLOCK.get())));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC,BGBlocks.SABLE_MOSS_CARPET.get(),3)
+                .pattern("##")
+                .define('#', BGBlocks.SABLE_MOSS_BLOCK.get())
+                .unlockedBy(getHasName(BGBlocks.SABLE_MOSS_BLOCK.get()), has(BGBlocks.SABLE_MOSS_BLOCK.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.SABLE_MOSS_CARPET.get())));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS,BGBlocks.SABLE_MOSS_CARPET.get(),1)
+                .requires(BGBlocks.SABLE_MOSS_BLOCK.get(),1)
+                .requires(BGBlocks.BYSLATE.get(),1)
+                .unlockedBy(getHasName(BGBlocks.SABLE_MOSS_BLOCK.get()), has(BGBlocks.SABLE_MOSS_BLOCK.get()))
+                .save(exporter, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sable_moss_carpet_from_sable_moss_block_and_byslate"));
+
+        slabRecipe(exporter,BGBlocks.SABLE_MOSSY_BYSLATE.get(),BGBlocks.SABLE_MOSSY_BYSLATE_SLAB.get());
+        stairsRecipe(exporter,BGBlocks.SABLE_MOSSY_BYSLATE.get(),BGBlocks.SABLE_MOSSY_BYSLATE_STAIRS.get());
+        wallsRecipe(exporter,BGBlocks.SABLE_MOSSY_BYSLATE.get(),BGBlocks.SABLE_MOSSY_BYSLATE_WALL.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SABLE_MOSSY_BYSLATE_SLAB.get(),BGBlocks.SABLE_MOSSY_BYSLATE.get(),2);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SABLE_MOSSY_BYSLATE_STAIRS.get(),BGBlocks.SABLE_MOSSY_BYSLATE.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SABLE_MOSSY_BYSLATE_WALL.get(),BGBlocks.SABLE_MOSSY_BYSLATE.get(),1);
+
+        armorSetRecipes(
+                exporter,
+                BGItems.SCALE.get(),   // material
+                BGItems.SCALE_HELMET.get(),  // helmet
+                BGItems.SCALE_CHESTPLATE.get(), // chestplate
+                BGItems.SCALE_LEGGINGS.get(),   // leggings
+                BGItems.SCALE_BOOTS.get(),      // boots
+                "sable"
+        );
+
+        oreSmelting(exporter,List.of(BGBlocks.SHELLSAND.get()),RecipeCategory.BUILDING_BLOCKS,BGBlocks.SEAGLASS_BLOCK.get(),0.1f,200,"shellstone_from_shellsand");
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC,BGBlocks.SEAGLASS_PANE.get(),16)
+                .pattern("GGG")
+                .pattern("GGG")
+                .define('G', BGBlocks.SEAGLASS_BLOCK.get())
+                .unlockedBy(getHasName(BGBlocks.SEAGLASS_BLOCK.get()), has(BGBlocks.SEAGLASS_BLOCK.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.SEAGLASS_PANE.get())));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE.get(),4)
+                .pattern("SS")
+                .pattern("SS")
+                .define('S', BGBlocks.SHELLSAND.get())
+                .unlockedBy(getHasName(BGBlocks.SHELLSAND.get()), has(BGBlocks.SHELLSAND.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.SHELLSTONE.get())));
+
+        bricksRecipe(exporter,BGBlocks.SHELLSTONE.get(),BGBlocks.SHELLSTONE_BRICKS.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE_BRICKS_SLAB.get(),BGBlocks.SHELLSTONE_BRICKS.get(),2);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE_BRICKS_STAIRS.get(),BGBlocks.SHELLSTONE_BRICKS.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE_BRICKS_WALL.get(),BGBlocks.SHELLSTONE_BRICKS.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CHISELED_SHELLSTONE_BRICKS.get(),BGBlocks.SHELLSTONE_BRICKS.get(),1);
+
+        slabRecipe(exporter,BGBlocks.SHELLSTONE_BRICKS.get(),BGBlocks.SHELLSTONE_BRICKS_SLAB.get());
+        stairsRecipe(exporter,BGBlocks.SHELLSTONE_BRICKS.get(),BGBlocks.SHELLSTONE_BRICKS_STAIRS.get());
+        wallsRecipe(exporter,BGBlocks.SHELLSTONE_BRICKS.get(),BGBlocks.SHELLSTONE_BRICKS_WALL.get());
 
 
-        /*
-        slabRecipe(exporter, BGBlocks.SHELLSTONE.get(), BGBlocks.SHELLSTONE_SLAB.get());
-        stairsRecipe(exporter, BGBlocks.SHELLSTONE.get(), BGBlocks.SHELLSTONE_STAIRS.get());
-        wallsRecipe(exporter, BGBlocks.SHELLSTONE.get(), BGBlocks.SHELLSTONE_WALL.get());
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE_SLAB.get(),BGBlocks.SHELLSTONE.get(),2);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE_STAIRS.get(),BGBlocks.SHELLSTONE.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE_WALL.get(),BGBlocks.SHELLSTONE.get(),1);
 
-        bricksRecipe(exporter, BGBlocks.SHELLSAND.get(), BGBlocks.SHELLSTONE.get());
-        bricksRecipe(exporter, BGBlocks.SHELLSTONE.get(), BGBlocks.SHELLSTONE_BRICKS.get());
-        chiseledRecipe(exporter, BGBlocks.SHELLSTONE_BRICKS_SLAB.get(), BGBlocks.CHISELED_SHELLSTONE_BRICKS.get(), RecipeCategory.DECORATIONS);
-        chiseledRecipe(exporter, BGBlocks.SHELLSTONE_BRICKS.get(), BGBlocks.SHELLSTONE_PILLAR.get(), RecipeCategory.DECORATIONS);
-        chiseledRecipe(exporter, BGBlocks.SHELLSTONE.get(), BGBlocks.SHELLSTONE_PILLAR.get(), RecipeCategory.DECORATIONS);
 
-        slabRecipe(exporter, BGBlocks.SHELLSTONE_BRICKS.get(), BGBlocks.SHELLSTONE_BRICKS_SLAB.get());
-        stairsRecipe(exporter, BGBlocks.SHELLSTONE_BRICKS.get(), BGBlocks.SHELLSTONE_BRICKS_STAIRS.get());
-        wallsRecipe(exporter, BGBlocks.SHELLSTONE_BRICKS.get(), BGBlocks.SHELLSTONE_BRICKS_WALL.get());
-        */
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE_PILLAR.get(),2)
+                .pattern("S")
+                .pattern("S")
+                .define('S', BGBlocks.SHELLSTONE.get())
+                .unlockedBy(getHasName(BGBlocks.SHELLSTONE.get()), has(BGBlocks.SHELLSTONE.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.SHELLSTONE_PILLAR.get())));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE_PILLAR.get(),2)
+                .pattern("S")
+                .pattern("S")
+                .define('S', BGBlocks.SHELLSTONE_BRICKS.get())
+                .unlockedBy(getHasName(BGBlocks.SHELLSTONE_BRICKS.get()), has(BGBlocks.SHELLSTONE_BRICKS.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.SHELLSTONE_PILLAR.get()) + "_from_bricks"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE_BRICKS.get(),2)
+                .pattern("SS")
+                .pattern("SS")
+                .define('S', BGBlocks.SHELLSTONE_BRICKS.get())
+                .unlockedBy(getHasName(BGBlocks.SHELLSTONE_BRICKS.get()), has(BGBlocks.SHELLSTONE_BRICKS.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.SHELLSTONE_PILLAR.get()) + "_to_bricks"));
+
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE_PILLAR.get(),BGBlocks.SHELLSTONE_BRICKS.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE_PILLAR.get(),BGBlocks.SHELLSTONE.get(),1);
+
+
+        oreSmelting(exporter,List.of(BGBlocks.AMBER_SANDSTONE.get()),RecipeCategory.BUILDING_BLOCKS,BGBlocks.SMOOTH_AMBER_SANDSTONE.get(),0.1f,200,"amber_sandstone");
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SMOOTH_AMBER_SANDSTONE_SLAB.get(),BGBlocks.SMOOTH_AMBER_SANDSTONE.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SMOOTH_AMBER_SANDSTONE_STAIRS.get(),BGBlocks.SMOOTH_AMBER_SANDSTONE.get(),1);
+
+
+        slabRecipe(exporter,BGBlocks.SMOOTH_AMBER_SANDSTONE.get(),BGBlocks.SMOOTH_AMBER_SANDSTONE_SLAB.get());
+        stairsRecipe(exporter,BGBlocks.SMOOTH_AMBER_SANDSTONE.get(),BGBlocks.SMOOTH_AMBER_SANDSTONE_STAIRS.get());
+
+
+
+        slabRecipe(exporter,BGBlocks.SHELLSTONE.get(),BGBlocks.SHELLSTONE_SLAB.get());
+        stairsRecipe(exporter,BGBlocks.SHELLSTONE.get(),BGBlocks.SHELLSTONE_STAIRS.get());
+        wallsRecipe(exporter,BGBlocks.SHELLSTONE.get(),BGBlocks.SHELLSTONE_WALL.get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.STRIPPED_ANCIENT_WOOD.get(),3)
+                .pattern("##")
+                .pattern("##")
+                .define('#', BGBlocks.STRIPPED_SABLE_WOOD.get())
+                .unlockedBy(getHasName(BGBlocks.STRIPPED_SABLE_WOOD.get()), has(BGBlocks.STRIPPED_SABLE_WOOD.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.STRIPPED_ANCIENT_WOOD.get())));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.VERDIGRIS_BLOCK.get(),1)
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .define('#', BGItems.VERDIGRIS_INGOT.get())
+                .unlockedBy(getHasName(BGItems.VERDIGRIS_INGOT.get()), has(BGItems.VERDIGRIS_INGOT.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.VERDIGRIS_BLOCK.get())));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE,BGBlocks.PRISTINE_VERDIGRIS_COG.get())
+                .requires(Items.REDSTONE)
+                .requires(BGItems.VERDIGRIS_SCRAP.get())
+                .unlockedBy(getHasName(BGItems.VERDIGRIS_SCRAP.get()), has(BGItems.VERDIGRIS_SCRAP.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.PRISTINE_VERDIGRIS_COG.get())));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BGItems.VERDIGRIS_INGOT.get())
+                .requires(BGItems.VERDIGRIS_SCRAP.get(), 4)
+                .requires(Items.COPPER_INGOT, 4)
+                .unlockedBy(getHasName(BGItems.VERDIGRIS_SCRAP.get()), has(BGItems.VERDIGRIS_SCRAP.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGItems.VERDIGRIS_INGOT.get())));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BGItems.VERDIGRIS_INGOT.get(), 9)
+                .requires(BGBlocks.VERDIGRIS_BLOCK.get())
+                .unlockedBy(getHasName(BGBlocks.VERDIGRIS_BLOCK.get()), has(BGBlocks.VERDIGRIS_BLOCK.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGItems.VERDIGRIS_INGOT.get())));
+
+
+        oreSmelting(exporter,List.of(BGBlocks.VERDIGRIS_SCRAP_BLOCK.get()),RecipeCategory.MISC,BGItems.VERDIGRIS_SCRAP.get(),1f,200,"verdigris_scrap");
+        oreBlasting(exporter,List.of(BGBlocks.VERDIGRIS_SCRAP_BLOCK.get()),RecipeCategory.MISC,BGItems.VERDIGRIS_SCRAP.get(),2f,100,"verdigris_scrap");
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BGItems.WHIRLIWEED_BUNDLE.get(), 4)
+                .pattern("X")
+                .pattern("#")
+                .pattern("I")
+                .define('X', ItemTags.create(ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "whirliweeds")))
+                .define('#', Items.STRING)
+                .define('I', BGItems.VERDIGRIS_SCRAP.get())
+                .unlockedBy(getHasName(BGItems.VERDIGRIS_SCRAP.get()), has(BGItems.VERDIGRIS_SCRAP.get()))
+                .save(exporter,  ResourceLocation.parse(getSimpleRecipeName(BGItems.WHIRLIWEED_BUNDLE.get())));
+
+
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.WRITABLE_BOOK)
+                .requires(Items.BOOK)
+                .requires(Items.INK_SAC)
+                .requires(BGItems.EXOTIC_PLUMAGE.get())
+                .unlockedBy(getHasName(BGItems.EXOTIC_PLUMAGE.get()), has(BGItems.EXOTIC_PLUMAGE.get()))
+                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(Items.WRITABLE_BOOK)));
+
+
     }
 
     private static final Map<DyeColor, Supplier<Block>> COLOR_TO_AMPHORA =
@@ -834,5 +985,49 @@ public class BygoneRecipeProvider extends RecipeProvider {
 
         woodRecipe(exporter, log, wood, RecipeCategory.BUILDING_BLOCKS);
         woodRecipe(exporter, strippedLog, strippedWood, RecipeCategory.BUILDING_BLOCKS);
+    }
+
+    public static void armorSetRecipes(
+            RecipeOutput exporter,
+            ItemLike material,
+            ItemLike helmet,
+            ItemLike chestplate,
+            ItemLike leggings,
+            ItemLike boots,
+            String prefix
+    ) {
+        // Helmet
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, helmet)
+                .pattern("XXX")
+                .pattern("X X")
+                .define('X', material)
+                .unlockedBy("has_" + prefix + "_material", RecipeProvider.has(material))
+                .save(exporter, ResourceLocation.parse(prefix + "_helmet"));
+
+        // Chestplate
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, chestplate)
+                .pattern("X X")
+                .pattern("XXX")
+                .pattern("XXX")
+                .define('X', material)
+                .unlockedBy("has_" + prefix + "_material", RecipeProvider.has(material))
+                .save(exporter, ResourceLocation.parse(prefix + "_chestplate"));
+
+        // Leggings
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, leggings)
+                .pattern("XXX")
+                .pattern("X X")
+                .pattern("X X")
+                .define('X', material)
+                .unlockedBy("has_" + prefix + "_material", RecipeProvider.has(material))
+                .save(exporter, ResourceLocation.parse(prefix + "_leggings"));
+
+        // Boots
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, boots)
+                .pattern("X X")
+                .pattern("X X")
+                .define('X', material)
+                .unlockedBy("has_" + prefix + "_material", RecipeProvider.has(material))
+                .save(exporter, ResourceLocation.parse(prefix + "_boots"));
     }
 }
