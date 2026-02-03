@@ -145,7 +145,6 @@ public class BygoneRecipeProvider extends RecipeProvider {
 
         chiseledRecipe(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.SHELLSTONE_BRICKS_SLAB.get(),BGBlocks.CHISELED_SHELLSTONE_BRICKS.get());
 
-        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CHISELED_SHELLSTONE_BRICKS.get(),BGBlocks.SHELLSTONE_BRICKS.get(),1);
 
         bricksRecipe(exporter,BGBlocks.CLAYSTONE.get(),BGBlocks.CLAYSTONE_BRICKS.get());
 
@@ -646,14 +645,6 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(BGBlocks.STRIPPED_SABLE_WOOD.get()), has(BGBlocks.STRIPPED_SABLE_WOOD.get()))
                 .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.STRIPPED_ANCIENT_WOOD.get())));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BGBlocks.VERDIGRIS_BLOCK.get(),1)
-                .pattern("###")
-                .pattern("###")
-                .pattern("###")
-                .define('#', BGItems.VERDIGRIS_INGOT.get())
-                .unlockedBy(getHasName(BGItems.VERDIGRIS_INGOT.get()), has(BGItems.VERDIGRIS_INGOT.get()))
-                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.VERDIGRIS_BLOCK.get())));
-
         ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE,BGBlocks.PRISTINE_VERDIGRIS_COG.get())
                 .requires(Items.REDSTONE)
                 .requires(BGItems.VERDIGRIS_SCRAP.get())
@@ -666,10 +657,18 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(BGItems.VERDIGRIS_SCRAP.get()), has(BGItems.VERDIGRIS_SCRAP.get()))
                 .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGItems.VERDIGRIS_INGOT.get())));
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BGBlocks.VERDIGRIS_BLOCK.get())
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .define('#', BGItems.VERDIGRIS_INGOT.get())
+                .unlockedBy(getHasName(BGItems.VERDIGRIS_INGOT.get()), has(BGItems.VERDIGRIS_INGOT.get()))
+                .save(exporter, ResourceLocation.parse("verdigris_block_from_ingots"));
+
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BGItems.VERDIGRIS_INGOT.get(), 9)
                 .requires(BGBlocks.VERDIGRIS_BLOCK.get())
                 .unlockedBy(getHasName(BGBlocks.VERDIGRIS_BLOCK.get()), has(BGBlocks.VERDIGRIS_BLOCK.get()))
-                .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGItems.VERDIGRIS_INGOT.get())));
+                .save(exporter, ResourceLocation.parse("verdigris_ingot_from_block"));
 
 
         oreSmelting(exporter,List.of(BGBlocks.VERDIGRIS_SCRAP_BLOCK.get()),RecipeCategory.MISC,BGItems.VERDIGRIS_SCRAP.get(),1f,200,"verdigris_scrap");
