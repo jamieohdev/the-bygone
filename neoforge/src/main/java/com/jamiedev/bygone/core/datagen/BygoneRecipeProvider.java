@@ -426,11 +426,64 @@ public class BygoneRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(BGItems.LITHOPLASM.get()), has(BGItems.LITHOPLASM.get()))
                 .save(exporter, ResourceLocation.parse(getSimpleRecipeName(BGBlocks.MEGALITH_LANTERN.get()) + "_alt"));
 
+        bricksRecipe(exporter,BGBlocks.ORANGE_MUSHROOM_BLOCK.get(),BGBlocks.ORANGE_FUNGAL_BRICKS.get());
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.ORANGE_FUNGAL_SLAB.get(),BGBlocks.ORANGE_FUNGAL_BRICKS.get(),2);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.ORANGE_FUNGAL_STAIRS.get(),BGBlocks.ORANGE_FUNGAL_BRICKS.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.ORANGE_FUNGAL_WALL.get(),BGBlocks.ORANGE_FUNGAL_BRICKS.get(),1);
+
+        slabRecipe(exporter,BGBlocks.ORANGE_FUNGAL_BRICKS.get(),BGBlocks.ORANGE_FUNGAL_SLAB.get());
+        stairsRecipe(exporter,BGBlocks.ORANGE_FUNGAL_BRICKS.get(),BGBlocks.ORANGE_FUNGAL_STAIRS.get());
+        wallsRecipe(exporter,BGBlocks.ORANGE_FUNGAL_BRICKS.get(),BGBlocks.ORANGE_FUNGAL_WALL.get());
+
+        bricksRecipe(exporter,BGBlocks.PINK_MUSHROOM_BLOCK.get(),BGBlocks.PINK_FUNGAL_BRICKS.get());
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.PINK_FUNGAL_SLAB.get(),BGBlocks.PINK_FUNGAL_BRICKS.get(),2);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.PINK_FUNGAL_STAIRS.get(),BGBlocks.PINK_FUNGAL_BRICKS.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.PINK_FUNGAL_WALL.get(),BGBlocks.PINK_FUNGAL_BRICKS.get(),1);
+
+        slabRecipe(exporter,BGBlocks.PINK_FUNGAL_BRICKS.get(),BGBlocks.PINK_FUNGAL_SLAB.get());
+        stairsRecipe(exporter,BGBlocks.PINK_FUNGAL_BRICKS.get(),BGBlocks.PINK_FUNGAL_STAIRS.get());
+        wallsRecipe(exporter,BGBlocks.PINK_FUNGAL_BRICKS.get(),BGBlocks.PINK_FUNGAL_WALL.get());
+
+        polished(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.BYSLATE.get(),BGBlocks.POLISHED_BYSLATE.get());
+
+        bricksRecipe(exporter,BGBlocks.BYSLATE.get(),BGBlocks.POLISHED_BYSLATE_BRICK.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSLATE_BRICK_SLAB.get(),BGBlocks.POLISHED_BYSLATE_BRICK.get(),2);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSLATE_BRICK_STAIRS.get(),BGBlocks.POLISHED_BYSLATE_BRICK.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSLATE_BRICK_WALL.get(),BGBlocks.POLISHED_BYSLATE_BRICK.get(),1);
+
+        slabRecipe(exporter,BGBlocks.POLISHED_BYSLATE_BRICK.get(),BGBlocks.POLISHED_BYSLATE_BRICK_SLAB.get());
+        stairsRecipe(exporter,BGBlocks.POLISHED_BYSLATE_BRICK.get(),BGBlocks.POLISHED_BYSLATE_BRICK_STAIRS.get());
+        wallsRecipe(exporter,BGBlocks.POLISHED_BYSLATE_BRICK.get(),BGBlocks.POLISHED_BYSLATE_BRICK_WALL.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CHISELED_POLISHED_BYSLATE.get(),BGBlocks.POLISHED_BYSLATE.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSLATE_BRICK.get(),BGBlocks.POLISHED_BYSLATE.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSLATE_SHINGLES.get(),BGBlocks.POLISHED_BYSLATE.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSLATE_SLAB.get(),BGBlocks.POLISHED_BYSLATE.get(),2);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSLATE_STAIRS.get(),BGBlocks.POLISHED_BYSLATE.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSLATE_WALL.get(),BGBlocks.POLISHED_BYSLATE.get(),1);
+        polished(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.BYSTONE.get(),BGBlocks.POLISHED_BYSTONE.get());
+        bricksRecipe(exporter,BGBlocks.POLISHED_BYSLATE_BRICK.get(),BGBlocks.POLISHED_BYSLATE.get());
+
+        slabRecipe(exporter, BGBlocks.POLISHED_BYSLATE.get(), BGBlocks.POLISHED_BYSLATE_SLAB.get());
+        stairsRecipe(exporter, BGBlocks.POLISHED_BYSLATE.get(), BGBlocks.POLISHED_BYSLATE_STAIRS.get());
+        wallsRecipe(exporter, BGBlocks.POLISHED_BYSLATE.get(), BGBlocks.POLISHED_BYSLATE_WALL.get());
+
+        polished(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE.get(),BGBlocks.BYSTONE.get());
+        bricksRecipe(exporter,BGBlocks.POLISHED_BYSTONE.get(),BGBlocks.POLISHED_BYSTONE_BRICK.get());
+
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE_BRICK_SLAB.get(),BGBlocks.POLISHED_BYSTONE_BRICK.get(),2);
 
 
 
 
 
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.CHISELED_POLISHED_BYSTONE.get(),BGBlocks.POLISHED_BYSTONE.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE_BRICK.get(),BGBlocks.POLISHED_BYSTONE.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE_SHINGLES.get(),BGBlocks.POLISHED_BYSTONE.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE_SLAB.get(),BGBlocks.POLISHED_BYSTONE.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE_STAIRS.get(),BGBlocks.POLISHED_BYSTONE.get(),1);
+        stonecutterResultFromBase(exporter,RecipeCategory.BUILDING_BLOCKS,BGBlocks.POLISHED_BYSTONE_WALL.get(),BGBlocks.POLISHED_BYSTONE.get(),1);
 
 
 
