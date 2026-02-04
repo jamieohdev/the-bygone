@@ -50,6 +50,13 @@ public class BygoneFossilStructure extends Structure {
         y--;
 
         while (y > yMin) {
+            // Skip the canopy leaf range [97, 111]
+            if (y >= 97 && y <= 111) {
+                y = 96;
+                currBlockAir = columnOfBlocks.getBlock(97).isAir();
+                continue;
+            }
+
             BlockState belowState = columnOfBlocks.getBlock(y);
             boolean belowBlockAir = belowState.isAir();
             boolean belowBlockSolid = !belowBlockAir &&
