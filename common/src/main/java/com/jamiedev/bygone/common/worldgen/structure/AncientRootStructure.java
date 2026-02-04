@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.worldgen.structure;
 
+import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGStructures;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -91,7 +92,9 @@ public class AncientRootStructure extends Structure {
         while (y > yMin) {
             BlockState belowState = columnOfBlocks.getBlock(y);
             boolean belowBlockAir = belowState.isAir();
-            boolean belowBlockSolid = !belowBlockAir && !belowState.is(Blocks.WATER);
+            boolean belowBlockSolid = !belowBlockAir &&
+                    !belowState.is(Blocks.WATER) &&
+                    !belowState.is(BGBlocks.ANCIENT_LEAVES.get()); // To avoid canopy leaves
 
             if (currBlockAir && belowBlockSolid) {
                 return JigsawPlacement.addPieces(

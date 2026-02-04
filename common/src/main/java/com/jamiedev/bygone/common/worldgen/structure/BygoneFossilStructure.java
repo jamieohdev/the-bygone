@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.worldgen.structure;
 
+import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGStructures;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -51,7 +52,9 @@ public class BygoneFossilStructure extends Structure {
         while (y > yMin) {
             BlockState belowState = columnOfBlocks.getBlock(y);
             boolean belowBlockAir = belowState.isAir();
-            boolean belowBlockSolid = !belowBlockAir && !belowState.is(Blocks.WATER);
+            boolean belowBlockSolid = !belowBlockAir &&
+                    !belowState.is(Blocks.WATER) &&
+                    !belowState.is(BGBlocks.ANCIENT_LEAVES.get()); // To avoid canopy leaves
 
             if (currBlockAir && belowBlockSolid) {
                 BlockPos blockPos = new BlockPos(x, y, z);
