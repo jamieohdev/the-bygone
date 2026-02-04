@@ -194,8 +194,8 @@ public class BygoneClient {
         consumer.accept(BGBlocks.PAINTED_DOGU.get(), RenderType.cutout());
         consumer.accept(BGBlocks.SHELLSTONE_DOGU.get(), RenderType.cutout());
 
-        ClientHelper.registerRenderType(ModFluids.LUMISENE_BLOCK.get(), RenderType.cutout());
-        ClientHelper.registerFluidRenderType(ModFluids.LUMISENE_FLUID.get(), RenderType.translucent());
+//        ClientHelper.registerRenderType(ModFluids.LUMISENE_BLOCK.get(), RenderType.cutout());
+//        ClientHelper.registerFluidRenderType(ModFluids.LUMISENE_FLUID.get(), RenderType.translucent());
     }
 
     public static void createEntityRenderers() {
