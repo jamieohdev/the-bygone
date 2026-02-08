@@ -452,11 +452,7 @@ public class BygoneFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
-
-        Set<Block> validBlocks = Sets.newHashSet(BlockEntityType.BRUSHABLE_BLOCK.validBlocks);
-        validBlocks.addAll(Sets.newHashSet(BGBlocks.SUSPICIOUS_CLAYSTONE.get(), BGBlocks.SUSPICIOUS_SHELLSAND.get()));
-        BlockEntityType.BRUSHABLE_BLOCK.validBlocks = ImmutableSet.copyOf(validBlocks);
-
+        BGBlockEntitiesFabric.register();
         initEvents();
         BGDataComponentsFabric.init();
         Bygone.init();
