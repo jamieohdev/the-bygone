@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/flowerbed_3",
-  "textures": {
-    "flowerbed": "bygone:block/belladonna",
-    "stem": "bygone:block/belladonna_stem"
-  }
-}

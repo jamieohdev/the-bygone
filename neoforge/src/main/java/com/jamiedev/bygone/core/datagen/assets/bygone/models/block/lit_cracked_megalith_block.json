@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "bygone:block/megalith_block_bottom",
-    "side": "bygone:block/lit_cracked_megalith_block_side"
-  }
-}

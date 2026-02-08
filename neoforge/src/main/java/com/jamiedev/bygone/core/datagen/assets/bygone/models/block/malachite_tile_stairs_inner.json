@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "bygone:block/malachite_tile",
-    "side": "bygone:block/malachite_tile",
-    "top": "bygone:block/malachite_tile"
-  }
-}

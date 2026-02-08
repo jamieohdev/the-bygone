@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/wall_inventory",
-  "textures": {
-    "wall": "bygone:block/sable_mossy_byslate"
-  }
-}

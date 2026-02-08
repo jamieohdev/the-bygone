@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "bygone:block/pink_fungi_vines_plant"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "bygone:block/purple_fungal_bricks",
-    "side": "bygone:block/purple_fungal_bricks",
-    "top": "bygone:block/purple_fungal_bricks"
-  }
-}

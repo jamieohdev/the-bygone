@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "bygone:block/pink_fungal_bricks",
-    "side": "bygone:block/pink_fungal_bricks",
-    "top": "bygone:block/pink_fungal_bricks"
-  }
-}

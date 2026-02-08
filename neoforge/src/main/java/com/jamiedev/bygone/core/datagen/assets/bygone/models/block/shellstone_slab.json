@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "bygone:block/shellstone",
-    "side": "bygone:block/shellstone",
-    "top": "bygone:block/shellstone"
-  }
-}
