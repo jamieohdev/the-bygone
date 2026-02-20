@@ -18,10 +18,28 @@ import java.util.List;
 import java.util.Set;
 import com.jamiedev.bygone.Bygone;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.village.WandererTradesEvent;
 
 @EventBusSubscriber(modid = Bygone.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class BGEvents
 {
+    private static final VillagerTrades.ItemListing bygoneMapTrade = new VillagerTrades.TreasureMapForEmeralds(
+            10,
+            JamiesModTag.ON_BYGONE_PORTAL_MAPS,
+            "Bygone Portal Map",
+            MapDecorationTypes.GREEN_BANNER,
+            12,
+            5
+    );
+
+    @SubscribeEvent
+    public static void addWanderingTraderTrades(WandererTradesEvent event)
+    {
+        List<VillagerTrades.ItemListing> rareList = event.getRareTrades();
+        List<VillagerTrades.ItemListing> commonList = event.getGenericTrades();
+        rareList.add(bygoneMapTrade);
+    }
+
     @SubscribeEvent
     public static void addCustomTrades(VillagerTradesEvent event) {
         if(event.getType() == VillagerProfession.CARTOGRAPHER) {
@@ -36,5 +54,6 @@ public class BGEvents
                     5
             ));
         }
+
     }
 }
