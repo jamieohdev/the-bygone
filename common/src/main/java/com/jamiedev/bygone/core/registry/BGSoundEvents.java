@@ -11,6 +11,13 @@ import java.util.function.Supplier;
 import static com.jamiedev.bygone.Bygone.id;
 
 public class BGSoundEvents {
+
+
+    public static final ResourceLocation ENTITY_WALLOW_CRY = id("entity.wallow.cry");
+    public static SoundEvent WALLOW_CRY_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WALLOW_CRY);
+
+
+
     public static final ResourceLocation AMBIENT_ANCIENTFOREST_ADDITIONS = id("ambient.underhang.additions");
     public static final ResourceLocation AMBIENT_AMBERDESERT_ADDITIONS = id("ambient.amber_desert.additions");
     public static final ResourceLocation AMBIENT_PRIMORDIALOCEAN_ADDITIONS = id("ambient.primordial_ocean.additions");
@@ -209,6 +216,9 @@ public class BGSoundEvents {
 
 
     public static void init() {
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WALLOW_CRY, BGSoundEvents.WALLOW_CRY_ADDITIONS_EVENT);
+
+
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.BLOCK_PORTAL_AMBIENT_ID, BLOCK_PORTAL_AMBIENT_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.AMBIENT_ANCIENTFOREST_ADDITIONS, BGSoundEvents.AMBIENT_ANCIENTFOREST_ADDITIONS_EVENT);

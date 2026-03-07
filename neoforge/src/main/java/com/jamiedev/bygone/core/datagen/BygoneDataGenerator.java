@@ -18,11 +18,10 @@ public class BygoneDataGenerator {
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
         PackOutput output = generator.getPackOutput();
         BlockTagsProvider blockTagsProvider = new BygoneBlockTagProvider(output, lookupProvider, existingFileHelper);
-        //generator.addProvider(true,blockTagsProvider);
-        //generator.addProvider(true,new BygoneItemTagProvider(output,lookupProvider,blockTagsProvider.contentsGetter(),existingFileHelper));
+        generator.addProvider(true,blockTagsProvider);
+        generator.addProvider(true,new BygoneItemTagProvider(output,lookupProvider,blockTagsProvider.contentsGetter(),existingFileHelper));
         generator.addProvider(true,BygoneLootTableProvider.create(output,lookupProvider));
         generator.addProvider(true, new BygoneRecipeProvider(output, lookupProvider));
-
         //generator.addProvider(true,new BygoneDataPackProvider(output,buildRegistry(),lookupProvider));
         generator.addProvider(event.includeServer(), new BygoneAdvancementProvider(output, lookupProvider, existingFileHelper));
     }
