@@ -113,6 +113,11 @@ modrinth {
     }
 }
 
-
+processResources {
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand "version": project.version
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
