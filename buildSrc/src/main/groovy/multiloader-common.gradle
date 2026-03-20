@@ -133,16 +133,18 @@ processResources {
     }
     inputs.properties(expandProps)
 
-
-
     filesMatching("META-INF/neoforge.mods.toml") {
         expand "version": project.version
     }
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version
     }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.named('sourcesJar', Jar) {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
