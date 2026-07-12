@@ -32,6 +32,8 @@ public class JamiesModTag {
 
     public static final TagKey<Block> MEGALITH_BLOCKS = Blocks.createTag("megalith_blocks");
 
+    public static final TagKey<Block> LITHOPLASM_LIGHT_BLOCKS = Blocks.createTag("lithoplasm_light_blocks");
+
     public static final TagKey<Block> SPRINKLERS = Blocks.createTag("sprinklers");
     public static final TagKey<Block> COPPER_BLOCKS_1 = Blocks.createTag("copper_blocks");
 

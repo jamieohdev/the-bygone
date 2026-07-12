@@ -101,6 +101,9 @@ public class Bygone {
         consumer.accept(BGEntityTypes.HAUNT.get(), HauntEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.WRAITH.get(), WraithEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.SABEAST.get(), SabeastEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.MOURN.get(), MournEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.WHISPER.get(), WhisperEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.SCARE.get(), ScareEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.AMOEBA.get(), AmoebaEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.PRIMORDIAL_FISH.get(), PrimordialFishEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.AQUIFAWN.get(), AquifawnEntity.createAttributes().build());
@@ -224,6 +227,30 @@ public class Bygone {
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING,
                 MoobooEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.REAVER.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                ReaverEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.MOURN.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                MournEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.WHISPER.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                WhisperEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.SCARE.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                ScareEntity::canSpawn
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.MOOBOO.get(),

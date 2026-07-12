@@ -186,11 +186,15 @@
     "subtitle": "subtitles.ambient.primordial_ocean.additions"
   },
   "ambient.shelfhollow.additions": {
-    "sounds": ["bygone:ambience/shelfhollows"],
+    "sounds": [
+      "bygone:ambience/shelfhollows"
+    ],
     "subtitle": "subtitles.ambient.shelfhollows.additions"
   },
   "ambient.sable_forest.loop": {
-    "sounds": ["bygone:ambience/sable"],
+    "sounds": [
+      "bygone:ambience/sable"
+    ],
     "subtitle": "subtitles.ambient.sable_forest.additions"
   },
   "ambient.sable_forest.additions": {
@@ -392,7 +396,6 @@
       }
     ]
   },
-
   "block.portal.ambient": {
     "replace": true,
     "sounds": [
@@ -405,7 +408,6 @@
     ],
     "subtitle": "subtitles.block.portal.ambient"
   },
-
   "entity.copperbug.ambient": {
     "sounds": [
       "bygone:entity/copperbug/idle1",
@@ -414,18 +416,24 @@
     "subtitle": "subtitles.entity.copperbug.ambient"
   },
   "entity.copperbug.hurt": {
-    "sounds": ["bygone:entity/copperbug/hit1", "bygone:entity/copperbug/hit2"],
+    "sounds": [
+      "bygone:entity/copperbug/hit1",
+      "bygone:entity/copperbug/hit2"
+    ],
     "subtitle": "subtitles.entity.copperbug.hurt"
   },
   "entity.copperbug.death": {
-    "sounds": ["bygone:entity/copperbug/death"],
+    "sounds": [
+      "bygone:entity/copperbug/death"
+    ],
     "subtitle": "subtitles.entity.copperbug.death"
   },
   "entity.copperbug.eat": {
-    "sounds": ["bygone:entity/copperbug/eat"],
+    "sounds": [
+      "bygone:entity/copperbug/eat"
+    ],
     "subtitle": "subtitles.entity.copperbug.eat"
   },
-
   "entity.whiskbill.ambient": {
     "sounds": [
       "bygone:entity/whiskbill/idle1",
@@ -434,39 +442,56 @@
     "subtitle": "subtitles.entity.whiskbill.ambient"
   },
   "entity.whiskbill.hurt": {
-    "sounds": ["bygone:entity/whiskbill/hit1", "bygone:entity/whiskbill/hit2"],
+    "sounds": [
+      "bygone:entity/whiskbill/hit1",
+      "bygone:entity/whiskbill/hit2"
+    ],
     "subtitle": "subtitles.entity.whiskbill.hurt"
   },
   "entity.whiskbill.death": {
-    "sounds": ["bygone:entity/whiskbill/death"],
+    "sounds": [
+      "bygone:entity/whiskbill/death"
+    ],
     "subtitle": "subtitles.entity.whiskbill.death"
   },
   "entity.whiskbill.roar": {
-    "sounds": ["bygone:entity/whiskbill/roar"],
+    "sounds": [
+      "bygone:entity/whiskbill/roar"
+    ],
     "subtitle": "subtitles.entity.whiskbill.roar"
   },
-
   "entity.nectaur.ambient": {
-    "sounds": ["bygone:entity/nectaur/idle1", "bygone:entity/nectaur/idle2"],
+    "sounds": [
+      "bygone:entity/nectaur/idle1",
+      "bygone:entity/nectaur/idle2"
+    ],
     "subtitle": "subtitles.entity.nectaur.ambient"
   },
   "entity.nectaur.hurt": {
-    "sounds": ["bygone:entity/nectaur/hit1", "bygone:entity/nectaur/hit2"],
+    "sounds": [
+      "bygone:entity/nectaur/hit1",
+      "bygone:entity/nectaur/hit2"
+    ],
     "subtitle": "subtitles.entity.nectaur.hurt"
   },
   "entity.nectaur.death": {
-    "sounds": ["bygone:entity/nectaur/death"],
+    "sounds": [
+      "bygone:entity/nectaur/death"
+    ],
     "subtitle": "subtitles.entity.nectaur.death"
   },
   "entity.nectaur.bellow": {
-    "sounds": ["bygone:entity/nectaur/bellow"],
+    "sounds": [
+      "bygone:entity/nectaur/bellow"
+    ],
     "subtitle": "subtitles.entity.nectaur.bellow"
   },
   "entity.nectaur.screech": {
-    "sounds": ["bygone:entity/nectaur/screech"],
+    "sounds": [
+      "bygone:entity/nectaur/screech"
+    ],
     "subtitle": "subtitles.entity.nectaur.screech"
   },
-
   "entity.amoeba.ambient": {
     "sounds": [
       "bygone:entity/amoeba/idle1",
@@ -491,7 +516,6 @@
     ],
     "subtitle": "subtitles.entity.amoeba.death"
   },
-
   "entity.bigbeak.ambient": {
     "sounds": [
       "bygone:entity/bigbeak/ambient1",
@@ -511,15 +535,23 @@
     "subtitle": "subtitles.entity.bigbeak.hurt"
   },
   "entity.bigbeak.death": {
-    "sounds": ["bygone:entity/bigbeak/death1", "bygone:entity/bigbeak/death2"],
+    "sounds": [
+      "bygone:entity/bigbeak/death1",
+      "bygone:entity/bigbeak/death2"
+    ],
     "subtitle": "subtitles.entity.bigbeak.death"
   },
   "entity.bigbeak.jump": {
-    "sounds": ["bygone:entity/bigbeak/jump1", "bygone:entity/bigbeak/jump2"],
+    "sounds": [
+      "bygone:entity/bigbeak/jump1",
+      "bygone:entity/bigbeak/jump2"
+    ],
     "subtitle": "subtitles.entity.bigbeak.jump"
   },
   "entity.bigbeak.step": {
-    "sounds": ["bygone:entity/bigbeak/step1"],
+    "sounds": [
+      "bygone:entity/bigbeak/step1"
+    ],
     "subtitle": "subtitles.entity.bigbeak.step"
   },
   "entity.bigbeak.step_wood": {
@@ -536,7 +568,6 @@
     ],
     "subtitle": "subtitles.entity.bigbeak.gallop"
   },
-
   "entity.mooboo.ambient": {
     "sounds": [
       "bygone:entity/mooboo/idle1",
@@ -547,7 +578,10 @@
     "subtitle": "subtitles.entity.mooboo.ambient"
   },
   "entity.mooboo.hurt": {
-    "sounds": ["bygone:entity/mooboo/hurt1", "bygone:entity/mooboo/hurt2"],
+    "sounds": [
+      "bygone:entity/mooboo/hurt1",
+      "bygone:entity/mooboo/hurt2"
+    ],
     "subtitle": "subtitles.entity.mooboo.hurt"
   },
   "entity.mooboo.milk": {
@@ -559,10 +593,11 @@
     "subtitle": "subtitles.entity.mooboo.milk"
   },
   "entity.mooboo.death": {
-    "sounds": ["bygone:entity/mooboo/death"],
+    "sounds": [
+      "bygone:entity/mooboo/death"
+    ],
     "subtitle": "subtitles.entity.mooboo.death"
   },
-
   "entity.fungus_parent.ambient": {
     "sounds": [
       "bygone:entity/fungus_parent/ambient",
@@ -578,27 +613,35 @@
     "subtitle": "subtitles.entity.fungus_parent.ambient_baby"
   },
   "entity.fungus_parent.hurt": {
-    "sounds": ["bygone:entity/fungus_parent/hurt"],
+    "sounds": [
+      "bygone:entity/fungus_parent/hurt"
+    ],
     "subtitle": "subtitles.entity.fungus_parent.hurt"
   },
   "entity.fungus_parent.death": {
-    "sounds": ["bygone:entity/fungus_parent/death"],
+    "sounds": [
+      "bygone:entity/fungus_parent/death"
+    ],
     "subtitle": "subtitles.entity.fungus_parent.death"
   },
-
   "entity.hook.retrieve": {
-    "sounds": ["bygone:entity/hook/retrieve"],
+    "sounds": [
+      "bygone:entity/hook/retrieve"
+    ],
     "subtitle": "subtitles.entity.hook.retrieve"
   },
   "entity.hook.hit": {
-    "sounds": ["bygone:entity/hook/hit"],
+    "sounds": [
+      "bygone:entity/hook/hit"
+    ],
     "subtitle": "subtitles.entity.hook.hit"
   },
   "entity.hook.throw": {
-    "sounds": ["bygone:entity/hook/retrieve"],
+    "sounds": [
+      "bygone:entity/hook/retrieve"
+    ],
     "subtitle": "subtitles.entity.hook.throw"
   },
-
   "entity.wraith.ambient": {
     "sounds": [
       "bygone:entity/wraith/idle1",
@@ -619,7 +662,10 @@
     "subtitle": "subtitles.entity.wraith.hurt"
   },
   "entity.wraith.death": {
-    "sounds": ["bygone:entity/wraith/death1", "bygone:entity/wraith/death2"],
+    "sounds": [
+      "bygone:entity/wraith/death1",
+      "bygone:entity/wraith/death2"
+    ],
     "subtitle": "subtitles.entity.wraith.death"
   },
   "entity.wraith.teleport": {
@@ -630,14 +676,17 @@
     "subtitle": "subtitles.entity.wraith.teleport"
   },
   "entity.wraith.attack": {
-    "sounds": ["bygone:entity/wraith/attack"],
+    "sounds": [
+      "bygone:entity/wraith/attack"
+    ],
     "subtitle": "subtitles.entity.wraith.attack"
   },
   "entity.wraith.fly": {
-    "sounds": ["bygone:entity/wraith/fly1"],
+    "sounds": [
+      "bygone:entity/wraith/fly1"
+    ],
     "subtitle": "subtitles.entity.wraith.fly"
   },
-
   "entity.geist.ambient": {
     "sounds": [
       "bygone:entity/geist/idle1",
@@ -682,7 +731,6 @@
     ],
     "subtitle": "subtitles.entity.geist.fly"
   },
-
   "entity.lithy.ambient": {
     "sounds": [
       "bygone:entity/lithy/idle1",
@@ -715,7 +763,6 @@
     ],
     "subtitle": "subtitles.entity.lithy.trip"
   },
-
   "entity.sabeast.ambient": {
     "sounds": [
       "bygone:entity/sabeast/idle1",
@@ -748,7 +795,6 @@
     ],
     "subtitle": "subtitles.entity.sabeast.attack"
   },
-
   "entity.murkling.ambient": {
     "sounds": [
       "bygone:entity/murkling/idle1",
@@ -792,8 +838,6 @@
     ],
     "subtitle": "subtitles.entity.murkling.flop"
   },
-
-
   "entity.aquifawn.ambient": {
     "sounds": [
       "bygone:entity/aquifawn/idle1",
@@ -842,7 +886,6 @@
     ],
     "subtitle": "subtitles.entity.aquifawn.flop"
   },
-
   "entity.arcane_mechanism.close": {
     "sounds": [
       "bygone:entity/arcane_mechanism/close1",
@@ -852,7 +895,6 @@
     ],
     "subtitle": "subtitles.entity.arcane_mechanism.close"
   },
-
   "entity.arcane_mechanism.fade": {
     "sounds": [
       "bygone:entity/arcane_mechanism/fade1",
@@ -862,7 +904,6 @@
     ],
     "subtitle": "subtitles.entity.arcane_mechanism.fade"
   },
-
   "entity.arcane_mechanism.loop": {
     "sounds": [
       "bygone:entity/arcane_mechanism/loop1",
@@ -872,7 +913,6 @@
     ],
     "subtitle": "subtitles.entity.arcane_mechanism.loop"
   },
-
   "entity.arcane_mechanism.open": {
     "sounds": [
       "bygone:entity/arcane_mechanism/open1",
@@ -882,7 +922,6 @@
     ],
     "subtitle": "subtitles.entity.arcane_mechanism.open"
   },
-  
   "item.war_horn.use": {
     "sounds": [
       {
@@ -923,7 +962,6 @@
     ],
     "subtitle": "subtitles.bygone.item.whirliweed_bundle.use"
   },
-
   "weather.inverted_rain": {
     "sounds": [
       "bygone:weather/inverted_rain/loop1",
@@ -932,5 +970,135 @@
       "bygone:weather/inverted_rain/loop4"
     ],
     "subtitle": "subtitles.bygone.weather.inverted_rain.loop"
+  },
+  "entity.wallow.ambient": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.ghast.ambient",
+        "type": "event",
+        "volume": 1.0,
+        "pitch": 0.7
+      }
+    ]
+  },
+  "entity.wallow.hurt": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.ghast.hurt",
+        "type": "event",
+        "volume": 1.0,
+        "pitch": 0.8
+      }
+    ]
+  },
+  "entity.wallow.death": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.ghast.death",
+        "type": "event",
+        "volume": 1.0,
+        "pitch": 0.8
+      }
+    ]
+  },
+  "entity.mourn.scream": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.ghast.scream",
+        "type": "event",
+        "volume": 1.5,
+        "pitch": 0.5
+      }
+    ]
+  },
+  "entity.mourn.hurt": {
+    "sounds": [
+      {
+        "name": "bygone:entity.geist.hurt",
+        "type": "event",
+        "volume": 1.0,
+        "pitch": 0.6
+      }
+    ]
+  },
+  "entity.mourn.death": {
+    "sounds": [
+      {
+        "name": "bygone:entity.geist.death",
+        "type": "event",
+        "volume": 1.0,
+        "pitch": 0.6
+      }
+    ]
+  },
+  "entity.whisper.ambient": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.vex.ambient",
+        "type": "event",
+        "volume": 0.8,
+        "pitch": 0.55
+      }
+    ]
+  },
+  "entity.whisper.hurt": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.vex.hurt",
+        "type": "event",
+        "volume": 1.0,
+        "pitch": 0.6
+      }
+    ]
+  },
+  "entity.whisper.death": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.vex.death",
+        "type": "event",
+        "volume": 1.0,
+        "pitch": 0.6
+      }
+    ]
+  },
+  "entity.scare.ambient": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.phantom.ambient",
+        "type": "event",
+        "volume": 1.0,
+        "pitch": 0.8
+      }
+    ]
+  },
+  "entity.scare.shoot": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.shulker.shoot",
+        "type": "event",
+        "volume": 1.0,
+        "pitch": 0.7
+      }
+    ]
+  },
+  "entity.scare.hurt": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.phantom.hurt",
+        "type": "event",
+        "volume": 1.0,
+        "pitch": 0.8
+      }
+    ]
+  },
+  "entity.scare.death": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.phantom.death",
+        "type": "event",
+        "volume": 1.0,
+        "pitch": 0.8
+      }
+    ]
   }
 }

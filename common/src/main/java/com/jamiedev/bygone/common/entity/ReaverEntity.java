@@ -36,6 +36,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
@@ -94,6 +95,7 @@ public class ReaverEntity extends Monster implements RangedAttackMob, FlyingAnim
                 .add(Attributes.FLYING_SPEED, 0.9)
                 .add(Attributes.FOLLOW_RANGE, 18.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.8)
+                .add(Attributes.ATTACK_DAMAGE, 7.0)
                 .add(Attributes.MAX_HEALTH, 32.0);
     }
 
@@ -119,7 +121,7 @@ public class ReaverEntity extends Monster implements RangedAttackMob, FlyingAnim
             BlockState state = this.level().getBlockState(pos);
             return state.is(BGBlocks.LITHOPLASMIC_POWDER.get());
         }));
-        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.1, true));
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.4, true));
         this.goalSelector.addGoal(8, new ReaverEntity.WraithWanderGoal(this, 0.6));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
@@ -128,6 +130,8 @@ public class ReaverEntity extends Monster implements RangedAttackMob, FlyingAnim
                 2,
                 new NearestAttackableTargetGoal<>(this, Player.class, true).setUnseenMemoryTicks(300)
         );
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Animal.class, 10, true, false,
+                (animal) -> !animal.getType().is(JamiesModTag.SPECTRAL)));
     }
 
     @Override
@@ -269,7 +273,7 @@ public class ReaverEntity extends Monster implements RangedAttackMob, FlyingAnim
     }
 
     public int getCurrentSwingDuration() {
-        int base = 24;
+        int base = 14;
         if (MobEffectUtil.hasDigSpeed(this)) {
             base -= 1 + MobEffectUtil.getDigSpeedAmplification(this);
         } else if (this.hasEffect(MobEffects.DIG_SLOWDOWN)) {

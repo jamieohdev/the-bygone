@@ -32,6 +32,8 @@ public class BGMobEffects {
             () -> new SiphoningEffect(MobEffectCategory.HARMFUL, 0x68b6d3)
     );
 
+    public static Supplier<Holder<MobEffect>> PARALYZED = register("paralyzed", ParalyzedEffect::new);
+
     public static Supplier<Holder<MobEffect>> CARAPACE = register(
             "carapace", () -> new PublicMobEffect(MobEffectCategory.BENEFICIAL, 0x67CEEB).addAttributeModifier(
                     Attributes.WATER_MOVEMENT_EFFICIENCY,

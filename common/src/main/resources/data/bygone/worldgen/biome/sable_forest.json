@@ -44,7 +44,9 @@
     [],
     [],
     [],
-    ["bygone:megalith_field_miniliths"],
+    [
+      "bygone:megalith_field_miniliths"
+    ],
     [
       "bygone:common_ore_plasmic_byslate",
       "bygone:common_monster_room",
@@ -70,7 +72,9 @@
       "bygone:sable_forest_sable_branches",
       "bygone:sable_forest_sable_branches_thorny"
     ],
-    ["bygone:common_glow_lichen"],
+    [
+      "bygone:common_glow_lichen"
+    ],
     [],
     [
       "bygone:lithostream_spring_closed",
@@ -95,16 +99,10 @@
     }
   },
   "spawners": {
-    "ambient": [
-
-    ],
+    "ambient": [],
     "axolotls": [],
-    "creature": [
-
-    ],
-    "misc": [
-
-    ],
+    "creature": [],
+    "misc": [],
     "monster": [
       {
         "type": "bygone:wallow",

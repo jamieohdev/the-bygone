@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.client.models;
 
 import com.jamiedev.bygone.client.models.animations.*;
+import com.jamiedev.bygone.client.renderer.SpectralRenderUtil;
 import com.jamiedev.bygone.common.entity.*;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -62,9 +63,12 @@ public class GeistModel<T extends Entity> extends HierarchicalModel<T> {
 		return all;
 	}
 
+	private float spectralAlpha = 1.0F;
+
 	@Override
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.spectralAlpha = SpectralRenderUtil.healthAlpha(entity);
 
 		if (entity instanceof GeistEntity wraith) {
 			this.animate(wraith.idleAnimationState, GeistAnimations.IDLE, ageInTicks, 1.0f);
@@ -76,6 +80,6 @@ public class GeistModel<T extends Entity> extends HierarchicalModel<T> {
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int light, int overlay, int color)
 	{
-		all.render(poseStack, vertexConsumer, light, overlay, color);
+		all.render(poseStack, vertexConsumer, light, overlay, SpectralRenderUtil.applyAlpha(color, this.spectralAlpha));
 	}
 }

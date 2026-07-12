@@ -5,10 +5,12 @@ import com.jamiedev.bygone.client.JamiesModModelLayers;
 import com.jamiedev.bygone.client.models.WraithModel;
 import com.jamiedev.bygone.client.renderer.entity.layers.WraithEyesLayer;
 import com.jamiedev.bygone.common.entity.WraithEntity;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class WraithRenderer extends MobRenderer<WraithEntity, WraithModel<WraithEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/wraith.png");
@@ -22,5 +24,14 @@ public class WraithRenderer extends MobRenderer<WraithEntity, WraithModel<Wraith
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull WraithEntity WraithEntity) {
         return TEXTURE;
+    }
+
+    @Nullable
+    @Override
+    protected RenderType getRenderType(@NotNull WraithEntity entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+        if (bodyVisible || translucent) {
+            return RenderType.entityTranslucent(this.getTextureLocation(entity));
+        }
+        return glowing ? RenderType.outline(this.getTextureLocation(entity)) : null;
     }
 }

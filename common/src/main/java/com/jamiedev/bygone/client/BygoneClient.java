@@ -240,6 +240,10 @@ public class BygoneClient {
         EntityRenderers.register(BGEntityTypes.HAUNT.get(), HauntRenderer::new);
         EntityRenderers.register(BGEntityTypes.WRAITH.get(), WraithRenderer::new);
         EntityRenderers.register(BGEntityTypes.SABEAST.get(), SabeastRenderer::new);
+        EntityRenderers.register(BGEntityTypes.MOURN.get(), MournRenderer::new);
+        EntityRenderers.register(BGEntityTypes.WHISPER.get(), WhisperRenderer::new);
+        EntityRenderers.register(BGEntityTypes.SCARE.get(), ScareRenderer::new);
+        EntityRenderers.register(BGEntityTypes.SCARE_BOLT.get(), ScareBoltRenderer::new);
         EntityRenderers.register(BGEntityTypes.PRIMORDIAL_FISH.get(), PrimordialFishRenderer::new);
         EntityRenderers.register(BGEntityTypes.MURKLING.get(), MurklingRenderer::new);
 
@@ -272,6 +276,9 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.REAVER, ReaverModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WRAITH, WraithModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.SABEAST, SabeastModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.MOURN, MournModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.WHISPER, WhisperModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.SCARE, ScareModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.AMOEBA, AmoebaModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.AMOEBA_OUTER, AmoebaModel::createOuterLayer);
         consumer.accept(JamiesModModelLayers.MURKLING, MurklingModel::createBodyLayer);

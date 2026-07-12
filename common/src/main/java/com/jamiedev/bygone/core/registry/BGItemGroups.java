@@ -73,6 +73,11 @@ public class BGItemGroups {
                         output.accept(BGItems.TRILOBITE_SPAWN_EGG.get());
                         output.accept(BGItems.WHISKBILL_SPAWN_EGG.get());
                         output.accept(BGItems.WRAITH_SPAWN_EGG.get());
+                        output.accept(BGItems.REAVER_SPAWN_EGG.get());
+                        output.accept(BGItems.WALLOW_SPAWN_EGG.get());
+                        output.accept(BGItems.MOURN_SPAWN_EGG.get());
+                        output.accept(BGItems.WHISPER_SPAWN_EGG.get());
+                        output.accept(BGItems.SCARE_SPAWN_EGG.get());
                         output.accept(BGItems.ARCANE_CORE.get());
                         output.accept(BGItems.ARCANE_MECHANISM.get());
                         output.accept(BGItems.ANCIENT_HOOK.get());

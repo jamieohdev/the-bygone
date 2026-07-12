@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.client.models;
 
 import com.jamiedev.bygone.client.models.animations.*;
+import com.jamiedev.bygone.client.renderer.SpectralRenderUtil;
 import com.jamiedev.bygone.common.entity.WallowEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -60,9 +61,11 @@ public class WallowModel<T extends Entity> extends HierarchicalModel<T> {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
+	private float spectralAlpha = 1.0F;
+
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		all.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		all.render(poseStack, vertexConsumer, packedLight, packedOverlay, SpectralRenderUtil.applyAlpha(color, this.spectralAlpha));
 	}
 
 	@Override
@@ -74,6 +77,7 @@ public class WallowModel<T extends Entity> extends HierarchicalModel<T> {
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
 	{
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.spectralAlpha = SpectralRenderUtil.healthAlpha(entity);
 
 		if (entity instanceof WallowEntity wraith) {
 			this.animate(wraith.idleAnimationState, WallowAnimations.IDLE, ageInTicks, 1.0f);
