@@ -4,11 +4,11 @@ package com.jamiedev.bygone;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.jamiedev.bygone.client.BygoneClientNeoForge;
-import com.jamiedev.bygone.client.screen.PortalOverlay;
 import com.jamiedev.bygone.common.block.entity.GumboPotBlockEntity;
 import com.jamiedev.bygone.common.util.ServerTickHandler;
 import com.jamiedev.bygone.common.util.VexDeathTracker;
 import com.jamiedev.bygone.common.weather.BygoneWeather;
+import com.jamiedev.bygone.common.weather.weather_types.HauntingsCategoryHolder;
 import com.jamiedev.bygone.core.datagen.BygoneDataGenerator;
 import com.jamiedev.bygone.core.registry.*;
 import net.minecraft.core.BlockPos;
@@ -31,9 +31,11 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.SoundActions;
@@ -113,7 +115,6 @@ public class BygoneNeoForge {
         eventBus.addListener(this::createAttributes);
         eventBus.addListener(this::addValidBlocks);
         eventBus.addListener(this::modifyDefaultComponents);
-        eventBus.addListener(this::renderGui);
         eventBus.addListener(BGDataComponentsNeoForge::init);
         NeoForge.EVENT_BUS.addListener(this::blockModifications);
         NeoForge.EVENT_BUS.addListener(this::damageEvent);
@@ -217,7 +218,4 @@ public class BygoneNeoForge {
         );
     }
 
-    public void renderGui(RegisterGuiLayersEvent event) {
-        event.registerAboveAll(ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "portal_overlay"), new PortalOverlay());
-    }
 }

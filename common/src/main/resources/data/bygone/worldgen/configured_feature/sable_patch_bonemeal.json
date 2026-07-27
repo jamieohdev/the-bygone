@@ -10,7 +10,7 @@
         "Name": "bygone:sable_moss_block"
       }
     },
-    "replaceable": "#minecraft:moss_replaceable",
+    "replaceable": "#bygone:sable_moss_replaceable",
     "surface": "floor",
     "vegetation_chance": 0.6,
     "vegetation_feature": {

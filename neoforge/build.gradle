@@ -58,9 +58,12 @@ dependencies {
     }
 
     jarJar("curse.maven:jinxedlib-1203401:6269067")
+    jarJar("maven.modrinth:HAVlno45:iSzvhglx")
+    implementation "maven.modrinth:HAVlno45:iSzvhglx"
     implementation "curse.maven:jinxedlib-1203401:6269067"
     implementation "net.kyrptonaught.customportalapi:cpapireforged-neo-1.21.1:1.0.11"
     implementation "curse.maven:lithostitched-936015:6703598"
+
 
 
     //implementation "curse.maven:supermartijn642s-core-lib-454372:6076757" // Needed for formations, despite none of the documentation or pages saying so...

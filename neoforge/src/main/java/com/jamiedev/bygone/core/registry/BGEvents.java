@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.core.registry;
 
+import com.jamiedev.bygone.client.renderer.effect.HauntingsEffectRenderer;
 import com.jamiedev.bygone.common.commands.BygoneWeatherCommand;
 import com.jamiedev.bygone.common.weather.BygoneWeather;
 import com.jamiedev.bygone.core.init.JamiesModTag;
@@ -14,10 +15,12 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RegisterShadersEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -66,8 +69,10 @@ public class BGEvents
 
     @SubscribeEvent
     public static void onEntityJoinLevel(final EntityJoinLevelEvent event) {
-        if (event.getEntity() instanceof ServerPlayer serverPlayer)
-            BygoneWeather.getOrDefault(serverPlayer.serverLevel()).informPlayerOfState(serverPlayer);
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            BygoneWeather weather = BygoneWeather.getOrDefault(serverPlayer.serverLevel());
+            if (weather != null) weather.informPlayerOfState(serverPlayer);
+        }
     }
 
     @SubscribeEvent

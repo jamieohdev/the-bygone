@@ -886,6 +886,59 @@
     ],
     "subtitle": "subtitles.entity.aquifawn.flop"
   },
+
+  "entity.wallow.ambient": {
+    "sounds": [
+      "bygone:entity/wallow/idle1",
+      "bygone:entity/wallow/idle2",
+      "bygone:entity/wallow/idle3"
+    ],
+    "subtitle": "subtitles.entity.wallow.ambient"
+  },
+  "entity.wallow.hurt": {
+    "sounds": [
+      "bygone:entity/wallow/hit1",
+      "bygone:entity/wallow/hit2",
+      "bygone:entity/wallow/hit3"
+    ],
+    "subtitle": "subtitles.entity.wallow.hurt"
+  },
+  "entity.wallow.death": {
+    "sounds": [
+      "bygone:entity/wallow/death1",
+      "bygone:entity/wallow/death2",
+      "bygone:entity/wallow/death3"
+    ],
+    "subtitle": "subtitles.entity.wallow.death"
+  },
+  "entity.wallow.freeze": {
+    "sounds": [
+      "bygone:entity/wallow/freeze1",
+      "bygone:entity/wallow/freeze2",
+      "bygone:entity/wallow/freeze3"
+    ],
+    "subtitle": "subtitles.entity.wallow.freeze"
+  },
+
+  "entity.player.phasing.start": {
+    "sounds": [
+      {
+        "name": "block/beacon/activate",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "subtitles.entity.player.phasing.start"
+  },
+  "entity.player.phasing.stop": {
+    "sounds": [
+      {
+        "name": "block/beacon/deactivate",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "subtitles.entity.player.phasing.stop"
+  },
+
   "entity.arcane_mechanism.close": {
     "sounds": [
       "bygone:entity/arcane_mechanism/close1",
@@ -970,36 +1023,6 @@
       "bygone:weather/inverted_rain/loop4"
     ],
     "subtitle": "subtitles.bygone.weather.inverted_rain.loop"
-  },
-  "entity.wallow.ambient": {
-    "sounds": [
-      {
-        "name": "minecraft:entity.ghast.ambient",
-        "type": "event",
-        "volume": 1.0,
-        "pitch": 0.7
-      }
-    ]
-  },
-  "entity.wallow.hurt": {
-    "sounds": [
-      {
-        "name": "minecraft:entity.ghast.hurt",
-        "type": "event",
-        "volume": 1.0,
-        "pitch": 0.8
-      }
-    ]
-  },
-  "entity.wallow.death": {
-    "sounds": [
-      {
-        "name": "minecraft:entity.ghast.death",
-        "type": "event",
-        "volume": 1.0,
-        "pitch": 0.8
-      }
-    ]
   },
   "entity.mourn.scream": {
     "sounds": [

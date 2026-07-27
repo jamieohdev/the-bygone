@@ -63,6 +63,7 @@ public class BigBeakEntity extends AbstractHorse implements VariantHolder<BigBea
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState walkingAnimationState = new AnimationState();
+    public final AnimationState dancingAnimationState = new AnimationState();
     public final AnimationState flappingAnimationState = new AnimationState();
     private final Container inventory = new ContainerSingleItem() {
         @Override

@@ -90,6 +90,8 @@ public class BGItemGroups {
 
                         output.accept(BGItems.BEAK_POTTERY_SHERD.get());
                         output.accept(BGItems.MURKY_POTTERY_SHERD.get());
+                        output.accept(BGItems.WALLOW_SHAWL_SCRAP.get());
+                        output.accept(BGItems.WALLOW_SHAWL.get());
                         output.accept(BGItems.VERDIGRIS_SCRAP.get());
                         output.accept(BGItems.VERDIGRIS_INGOT.get());
                         output.accept(BGBlocks.VERDIGRIS_SCRAP_BLOCK.get());

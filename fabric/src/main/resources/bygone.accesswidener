@@ -22,7 +22,7 @@ accessible method net/minecraft/world/entity/LivingEntity lerpHeadRotationStep (
 accessible method net/minecraft/world/entity/LivingEntity increaseAirSupply (I)I
 accessible method net/minecraft/world/level/block/DoublePlantBlock preventDropFromBottomPart (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)V
 accessible field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
-accessible field net/minecraft/world/level/block/BaseFireBlock fireDamage F
+
 
 accessible method net/minecraft/world/level/block/IronBarsBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 
@@ -30,3 +30,7 @@ transitive-mutable field net/minecraft/world/level/block/entity/BlockEntityType 
 
 # GeistEntity
 accessible field net/minecraft/world/entity/ai/goal/MeleeAttackGoal ticksUntilNextAttack I
+
+accessible method net/minecraft/world/level/NaturalSpawner$SpawnState canSpawn (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/chunk/ChunkAccess;)Z
+accessible method net/minecraft/world/level/NaturalSpawner$SpawnState canSpawnForCategory (Lnet/minecraft/world/entity/MobCategory;Lnet/minecraft/world/level/ChunkPos;)Z
+accessible method net/minecraft/world/level/NaturalSpawner$SpawnState afterSpawn (Lnet/minecraft/world/entity/Mob;Lnet/minecraft/world/level/chunk/ChunkAccess;)V

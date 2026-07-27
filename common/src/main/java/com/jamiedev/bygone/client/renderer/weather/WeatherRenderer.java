@@ -6,6 +6,7 @@ import net.minecraft.world.level.Level;
 
 public abstract class WeatherRenderer<T extends WeatherType> {
     protected final T instance;
+    public T getWeatherInstance() { return instance; }
     public WeatherRenderer(T instance) {
         this.instance = instance;
     }

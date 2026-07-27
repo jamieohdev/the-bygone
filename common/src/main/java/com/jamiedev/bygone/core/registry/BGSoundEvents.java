@@ -91,8 +91,19 @@ public class BGSoundEvents {
     public static final ResourceLocation ENTITY_GEIST_FLY = id("entity.geist.fly");
 
     public static final ResourceLocation ENTITY_WALLOW_AMBIENT = id("entity.wallow.ambient");
+    public static final ResourceLocation ENTITY_WALLOW_FREEZE = id("entity.wallow.freeze");
     public static final ResourceLocation ENTITY_WALLOW_HURT = id("entity.wallow.hurt");
     public static final ResourceLocation ENTITY_WALLOW_DEATH = id("entity.wallow.death");
+    public static SoundEvent WALLOW_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WALLOW_AMBIENT);
+    public static SoundEvent WALLOW_FREEZE_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WALLOW_FREEZE);
+    public static SoundEvent WALLOW_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WALLOW_DEATH);
+    public static SoundEvent WALLOW_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WALLOW_HURT);
+
+    public static final ResourceLocation ENTITY_PLAYER_PHASING_START = id("entity.player.phasing.start");
+    public static final ResourceLocation ENTITY_PLAYER_PHASING_STOP = id("entity.player.phasing.stop");
+    public static SoundEvent PLAYER_PHASING_START_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_PLAYER_PHASING_START);
+    public static SoundEvent PLAYER_PHASING_STOP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_PLAYER_PHASING_STOP);
+
     public static final ResourceLocation ENTITY_MOURN_SCREAM = id("entity.mourn.scream");
     public static final ResourceLocation ENTITY_MOURN_HURT = id("entity.mourn.hurt");
     public static final ResourceLocation ENTITY_MOURN_DEATH = id("entity.mourn.death");
@@ -354,9 +365,6 @@ public class BGSoundEvents {
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_GEIST_DEATH, BGSoundEvents.GEIST_DEATH_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_GEIST_FLY, BGSoundEvents.GEIST_FLY_EVENT);
 
-        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WALLOW_AMBIENT, BGSoundEvents.WALLOW_AMBIENT_EVENT);
-        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WALLOW_HURT, BGSoundEvents.WALLOW_HURT_EVENT);
-        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WALLOW_DEATH, BGSoundEvents.WALLOW_DEATH_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MOURN_SCREAM, BGSoundEvents.MOURN_SCREAM_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MOURN_HURT, BGSoundEvents.MOURN_HURT_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MOURN_DEATH, BGSoundEvents.MOURN_DEATH_EVENT);
@@ -393,5 +401,10 @@ public class BGSoundEvents {
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_AQUIFAWN_DEATH, BGSoundEvents.AQUIFAWN_DEATH_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_AQUIFAWN_FLOP, BGSoundEvents.AQUIFAWN_FLOP_ADDITIONS_EVENT);
 
+
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WALLOW_AMBIENT, BGSoundEvents.WALLOW_AMBIENT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WALLOW_FREEZE, BGSoundEvents.WALLOW_FREEZE_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WALLOW_HURT, BGSoundEvents.WALLOW_HURT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WALLOW_DEATH, BGSoundEvents.WALLOW_DEATH_ADDITIONS_EVENT);
     }
 }

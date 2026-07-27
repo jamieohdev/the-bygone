@@ -17,6 +17,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -150,7 +151,7 @@ public class BygonePortalEntity extends LivingEntity implements Portal {
                     if (remaining > 0) {
                         teleportCountdown.put(player, remaining - 1);
                         player.setAsInsidePortal(this, this.blockPosition());
-                        if (player instanceof LocalPlayer localPlayer) localPlayer.spinningEffectIntensity = 0.5f;
+                        //if (player instanceof Player localPlayer) localPlayer.spinningEffectIntensity = 0.5f;
 
                     } else {
                         teleportCountdown.remove(player);
@@ -162,9 +163,9 @@ public class BygonePortalEntity extends LivingEntity implements Portal {
             }
         }
 
-        if (!teleportCountdown.entrySet().isEmpty()) {
+        if (!teleportCountdown.isEmpty()) {
             teleportCountdown.forEach((player, integer) -> {
-                if (player.distanceTo(this) > 3 && player instanceof LocalPlayer localPlayer) {
+                if (player.distanceTo(this) > 3 && level().isClientSide && player instanceof Player localPlayer) {
                     if (localPlayer.portalProcess!=null) localPlayer.portalProcess.setAsInsidePortalThisTick(false);
                 }
             });

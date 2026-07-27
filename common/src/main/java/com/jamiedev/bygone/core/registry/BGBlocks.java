@@ -389,9 +389,9 @@ public class BGBlocks {
                                     .noCollission()
                                     .replaceable()
                                     .instabreak()
-                                    .lightLevel(light -> 2)
+                                    .lightLevel(light -> 11)
                                     .sound(SoundType.WOOL)
-                                    .pushReaction(PushReaction.DESTROY)
+                                    .pushReaction(PushReaction.DESTROY), 1
                     )
     );
     public static final Supplier<Block> POLISHED_BYSTONE = registerBlock(
@@ -1220,7 +1220,7 @@ public class BGBlocks {
     );
     public static final Supplier<Block> ALPHA_MOSSY_CLAYSTONE = registerBlock(
             "alpha_mossy_claystone",
-            () -> new GrassBlock(BlockBehaviour.Properties.of()
+            () -> new MossyClaystoneBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.GRASS)
                     .randomTicks()
                     .strength(0.6F)
@@ -2619,7 +2619,6 @@ public class BGBlocks {
                     new Block(BlockBehaviour.Properties.of()
                             .mapColor(MapColor.COLOR_LIGHT_BLUE)
                             .instrument(NoteBlockInstrument.BASEDRUM)
-                            .requiresCorrectToolForDrops()
                             .strength(0.1F, 0.15F)
                             .sound(SoundType.SAND))
     );

@@ -6,8 +6,6 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AxeItemAccess",
-    "BlockPhasingBehaviourMixin",
-    "BlockPhasingPlayerMixin",
     "BundleContentsMixin",
     "BundleContentsMutableMixin",
     "BundleItemMixin",
@@ -21,22 +19,27 @@
     "MapItemMixin",
     "MobBucketItemMixin",
     "MobMixin",
-    "PhasingCollisionContextMixin",
+    "NaturalSpawnerMixin",
     "PlayerMixin",
     "PortalProcessorAccessor",
     "ServerLevelMixin",
-    "VexMixin"
+    "SpawnStateMixin",
+    "VexMixin",
+    "blockPhasing.BlockPhasingBehaviourMixin",
+    "blockPhasing.BlockPhasingPlayerMixin"
   ],
   "client": [
+    "blockPhasing.LevelRendererMixin",
     "client.BipedEntityModelMixin",
     "client.EntityPhaseMeterGuiMixin",
+    "client.GameRendererMixin",
     "client.LevelChunkMixin",
     "client.LevelRendererMixin",
+    "client.LightTextureMixin",
     "client.MixinHeldItemRenderer",
     "client.MixinItemRenderer",
     "client.MixinPlayerEntityRenderer"
   ],
-  "server": [],
   "injectors": {
     "defaultRequire": 1
 	}

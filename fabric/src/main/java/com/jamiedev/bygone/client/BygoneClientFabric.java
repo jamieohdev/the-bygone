@@ -3,6 +3,7 @@ package com.jamiedev.bygone.client;
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.fluids.BGFluidRenderer;
 import com.jamiedev.bygone.client.renderer.entity.BygoneDimensionEffects;
+import com.jamiedev.bygone.client.screen.PortalOverlay;
 import com.jamiedev.bygone.common.block.JamiesModWoodType;
 import com.jamiedev.bygone.common.commands.BygoneWeatherCommand;
 import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
@@ -14,11 +15,11 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
-import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
@@ -38,7 +39,9 @@ public class BygoneClientFabric implements ClientModInitializer {
 
     public static boolean isBlockingOnViaVersion(LivingEntity entity) {
         Item item = entity.getMainHandItem().getItem() instanceof VerdigrisBladeItem ? entity.getMainHandItem().getItem() : entity.getOffhandItem().getItem();
-        return item instanceof VerdigrisBladeItem && item.components() != null && item.components().has(DataComponents.FOOD) && Objects.requireNonNull(item.components().get(DataComponents.FOOD)).eatSeconds() == 3600;
+        if (!(item instanceof VerdigrisBladeItem)) return false;
+        item.components();
+        return item.components().has(DataComponents.FOOD) && Objects.requireNonNull(item.components().get(DataComponents.FOOD)).eatSeconds() == 3600;
     }
 
 
@@ -49,6 +52,14 @@ public class BygoneClientFabric implements ClientModInitializer {
         BygoneClient.createEntityRenderers();
         BygoneClient.createModelLayers((modelLayerLocation, layerDefinitionSupplier) -> EntityModelLayerRegistry.registerModelLayer(modelLayerLocation, layerDefinitionSupplier::get));
         BygoneClient.registerParticleFactories((particleType, spriteParticleRegistration) -> ParticleFactoryRegistry.getInstance().register(particleType, spriteParticleRegistration::create));
+
+        HudRenderCallback.EVENT.register((GuiGraphics guiGraphics, DeltaTracker deltaTracker) -> {
+            Minecraft client = Minecraft.getInstance();
+            if (client.player != null && !client.options.hideGui) {
+                PortalOverlay p = new PortalOverlay();
+                p.render(guiGraphics, deltaTracker);
+            }
+        });
 
         DimensionRenderingRegistry.registerWeatherRenderer(BGDimensions.BYGONE_LEVEL_KEY,
         worldRenderContext -> {

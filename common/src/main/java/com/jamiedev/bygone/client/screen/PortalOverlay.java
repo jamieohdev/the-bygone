@@ -17,6 +17,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.PortalProcessor;
 import net.minecraft.world.entity.player.Player;
 import org.joml.Quaternionf;
+import org.jetbrains.annotations.NotNull;
 
 public class PortalOverlay implements LayeredDraw.Layer {
     private static final ResourceLocation TEXTURE_VIGNETTE = ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "textures/gui/overlay/vignette.png");
@@ -25,7 +26,7 @@ public class PortalOverlay implements LayeredDraw.Layer {
     private boolean invert = false;
 
     @Override
-    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+    public void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
 
         int screenWidth = guiGraphics.guiWidth();
         int screenHeight = guiGraphics.guiHeight();

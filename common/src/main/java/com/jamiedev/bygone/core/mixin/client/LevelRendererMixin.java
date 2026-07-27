@@ -36,7 +36,6 @@ public class LevelRendererMixin {
     private void bygone$tickRenderers(CallbackInfo ci) {
         assert level != null;
         if (!level.dimension().equals(BGDimensions.BYGONE_LEVEL_KEY)) return;
-
         if (!level.tickRateManager().runsNormally()) return;
 
         BygoneWeather.Client clientWeather = BygoneWeather.Client.getInstance();

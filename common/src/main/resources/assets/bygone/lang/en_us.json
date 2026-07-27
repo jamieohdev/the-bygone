@@ -111,6 +111,9 @@
   "item.bygone.whiskbill_spawn_egg": "Whiskbill Spawn Egg",
   "item.bygone.wisp_spawn_egg": "Whisp Spawn Egg",
   "item.bygone.wraith_spawn_egg": "Wraith Spawn Egg",
+  "item.bygone.wallow_spawn_egg": "Wallow Spawn Egg",
+  "item.bygone.wallow_shawl_scrap": "Wallow Shawl Scrap",
+  "item.bygone.wallow_shawl": "Wallow Shawl",
   "item.bygone.arcane_core": "Arcane Core",
   "item.bygone.arcane_mechanism": "Arcane Mechanism",
   "item.bygone.verdigris_ingot": "Verdigris Ingot",
@@ -709,6 +712,15 @@
   "subtitles.entity.haunt.ambient": "Haunt glees",
   "subtitles.entity.haunt.hurt": "Haunt hurts",
   "subtitles.entity.haunt.death": "Haunt dies",
+
+  "subtitles.entity.wallow.ambient": "Wallow sobs",
+  "subtitles.entity.wallow.freeze": "Wallow chills",
+  "subtitles.entity.wallow.hurt": "Wallow hurts",
+  "subtitles.entity.wallow.death": "Wallow dies",
+
+  "subtitles.entity.player.phasing.start": "Player phases int",
+  "subtitles.entity.player.phasing.stop": "Player phases out",
+
   "subtitles.block.portal.ambient": "Portal frazzles",
   "subtitles.ambient.sound": "Eerie noise",
   "subtitles.bygone.weather.inverted_rain.loop": "Rain rises",
@@ -720,6 +732,10 @@
   "commands.bygone.weather.query_property": "Property %s of %s has value of %s",
   "commands.bygone.weather.set_property": "Property %s of %s has been set to %s (previously %s)",
   "commands.bygone.weather.incompatible_cast": "Provided new value is incompatible with type %s",
+  "commands.bygone.weather.dimension_not_loaded": "Weather events can only be accessed from within the Bygone, or once it is loaded.",
+  "commands.bygone.weather.start": "Started Bygone weather %s",
+  "commands.bygone.weather.clear": "Cleared Bygone weather %s"
+  "commands.bygone.weather.incompatible_cast": "Provided new value is incompatible with type %s",
   "effect.bygone.paralyzed": "Paralyzed",
   "entity.bygone.mourn": "Mourn",
   "entity.bygone.whisper": "Whisper",
@@ -728,6 +744,5 @@
   "item.bygone.mourn_spawn_egg": "Mourn Spawn Egg",
   "item.bygone.whisper_spawn_egg": "Whisper Spawn Egg",
   "item.bygone.scare_spawn_egg": "Scare Spawn Egg",
-  "item.bygone.reaver_spawn_egg": "Reaver Spawn Egg",
-  "item.bygone.wallow_spawn_egg": "Wallow Spawn Egg"
+  "item.bygone.reaver_spawn_egg": "Reaver Spawn Egg"
 }

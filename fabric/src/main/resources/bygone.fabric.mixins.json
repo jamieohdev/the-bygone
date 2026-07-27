@@ -5,12 +5,14 @@
   "mixins": [
     "CowEntityMixinFabric",
     "DecoratedPotPatternsMixin",
+    "MobCategoryMixin",
     "ServerLevelMixinFabric"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "HeartTypeMixinFabric"
+    "HeartTypeMixinFabric",
+    "client.EffectInstanceMixinFabric"
   ]
 }

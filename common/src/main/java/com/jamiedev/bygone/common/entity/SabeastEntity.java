@@ -122,7 +122,7 @@ public class SabeastEntity extends Monster  {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new SabeastEntityMeleeAttackGoal());
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, (Predicate) null));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, true, (Predicate) null));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, MoobooEntity.class, 10, true, true, (Predicate) null));
     }
 
@@ -301,13 +301,6 @@ public class SabeastEntity extends Monster  {
         this.entityData.set(DATA_IS_ATTACKING, attacking);
     }
 
-    protected void playWarningSound() {
-        if (this.warningSoundTicks <= 0) {
-            this.makeSound(SoundEvents.POLAR_BEAR_WARNING);
-            this.warningSoundTicks = 40;
-        }
-
-    }
 
     static class SabeastFreezeWhenLookedAt extends Goal {
         private final SabeastEntity sabeast;

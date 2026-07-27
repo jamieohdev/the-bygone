@@ -135,6 +135,7 @@ public class WallowEntity extends PathfinderMob
                 target.setTicksFrozen(fullFreeze);
             }
             if (!wasFullyFrozen) {
+                this.playSound(BGSoundEvents.WALLOW_FREEZE_ADDITIONS_EVENT, 0.7F, 1.2F + this.random.nextFloat() * 0.2F);
                 this.playSound(SoundEvents.PLAYER_HURT_FREEZE, 1.0F, 1.0F);
             }
         }
@@ -189,22 +190,22 @@ public class WallowEntity extends PathfinderMob
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return BGSoundEvents.WALLOW_AMBIENT_EVENT;
+        return BGSoundEvents.WALLOW_AMBIENT_ADDITIONS_EVENT;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return BGSoundEvents.WALLOW_HURT_ADDITIONS_EVENT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return BGSoundEvents.WALLOW_DEATH_ADDITIONS_EVENT;
     }
 
     @Override
     public int getAmbientSoundInterval() {
         return 60;
-    }
-
-    @Override
-    protected @NotNull SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-        return BGSoundEvents.WALLOW_HURT_EVENT;
-    }
-
-    @Override
-    protected @NotNull SoundEvent getDeathSound() {
-        return BGSoundEvents.WALLOW_DEATH_EVENT;
     }
 
     @Override

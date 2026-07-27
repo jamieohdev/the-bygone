@@ -2,10 +2,17 @@ package com.jamiedev.bygone.common.entity;
 
 public interface BlockPhasingEntity {
 
+	boolean isInsideBlock();
+	void setInsideBlock(boolean value);
+
 	boolean isPhasing();
+	void setPhasing(boolean value);
+
 	boolean canStartPhasing();
-	void startPhasing();
-	void stopPhasing();
+
+	void onStartPhasing();
+	void onStopPhasing();
+
 	void tickPhasing();
 	int getPhasingTicks();
 	int getMaxPhasingTicks();

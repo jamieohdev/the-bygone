@@ -54,14 +54,6 @@ public class BygoneFabric implements ModInitializer {
                event.modify(item, builder -> builder.set(BGDataComponents.GUMBO_INGREDIENT_DATA.value(), component)));
         });
 
-        HudRenderCallback.EVENT.register((GuiGraphics guiGraphics, DeltaTracker deltaTracker) -> {
-            Minecraft client = Minecraft.getInstance();
-            if (client.player != null && !client.options.hideGui) {
-                PortalOverlay p = new PortalOverlay();
-                p.render(guiGraphics, deltaTracker);
-            }
-        });
-
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
             BlockPos pos = hitResult.getBlockPos();
             BlockState state = world.getBlockState(pos);

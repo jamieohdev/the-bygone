@@ -42,7 +42,7 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
     protected static final VoxelShape HANGING_SHAPE;
     public static final MapCodec<GourdLanternBlock> CODEC = simpleCodec(GourdLanternBlock::new);
     protected static final VoxelShape[] STANDING_AGING_SHAPE = new VoxelShape[]{
-            Shapes.or(Block.box(5.5, 4.0, 5.5, 9.5, 7.0, 9.5),
+            Shapes.or(Block.box(8, 8, 2, 8, 16, 16),
                     Block.box(6.0, 7.0, 6.0, 9.0, 9.0, 9.0)),
 
             Shapes.or(Block.box(4.5, 4.0, 4.5, 10.5, 7.0, 10.5),
@@ -52,7 +52,7 @@ public class GourdLanternBlock extends GrowingPlantBodyBlock implements Bonemeal
                     Block.box(6.0, 7.0, 6.0, 10.0, 9.0, 10.0))
     };
     protected static final VoxelShape[] HANGING_AGING_SHAPE = new VoxelShape[]{
-            Shapes.or(Block.box(5.5, 4.0, 5.5, 9.5, 7.0, 9.5),
+            Shapes.or(Block.box(8, 8, 2, 8, 16, 16),
                     Block.box(6.0, 7.0, 6.0, 9.0, 9.0, 9.0)),
 
             Shapes.or(Block.box(4.5, 4.0, 4.5, 10.5, 7.0, 10.5),
