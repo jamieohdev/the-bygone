@@ -188,9 +188,6 @@ public class BGSoundEvents {
     public static SoundEvent GEIST_HURT_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_GEIST_HURT);
     public static SoundEvent GEIST_FLY_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_GEIST_FLY);
 
-    public static SoundEvent WALLOW_AMBIENT_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WALLOW_AMBIENT);
-    public static SoundEvent WALLOW_HURT_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WALLOW_HURT);
-    public static SoundEvent WALLOW_DEATH_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WALLOW_DEATH);
     public static SoundEvent MOURN_SCREAM_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MOURN_SCREAM);
     public static SoundEvent MOURN_HURT_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MOURN_HURT);
     public static SoundEvent MOURN_DEATH_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MOURN_DEATH);

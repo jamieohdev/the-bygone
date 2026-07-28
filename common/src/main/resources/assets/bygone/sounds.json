@@ -886,7 +886,6 @@
     ],
     "subtitle": "subtitles.entity.aquifawn.flop"
   },
-
   "entity.wallow.ambient": {
     "sounds": [
       "bygone:entity/wallow/idle1",
@@ -919,7 +918,6 @@
     ],
     "subtitle": "subtitles.entity.wallow.freeze"
   },
-
   "entity.player.phasing.start": {
     "sounds": [
       {
@@ -938,7 +936,6 @@
     ],
     "subtitle": "subtitles.entity.player.phasing.stop"
   },
-
   "entity.arcane_mechanism.close": {
     "sounds": [
       "bygone:entity/arcane_mechanism/close1",
@@ -1032,7 +1029,8 @@
         "volume": 1.5,
         "pitch": 0.5
       }
-    ]
+    ],
+    "subtitle": "subtitles.entity.mourn.scream"
   },
   "entity.mourn.hurt": {
     "sounds": [
@@ -1042,7 +1040,8 @@
         "volume": 1.0,
         "pitch": 0.6
       }
-    ]
+    ],
+    "subtitle": "subtitles.entity.mourn.hurt"
   },
   "entity.mourn.death": {
     "sounds": [
@@ -1052,7 +1051,8 @@
         "volume": 1.0,
         "pitch": 0.6
       }
-    ]
+    ],
+    "subtitle": "subtitles.entity.mourn.death"
   },
   "entity.whisper.ambient": {
     "sounds": [
@@ -1062,7 +1062,8 @@
         "volume": 0.8,
         "pitch": 0.55
       }
-    ]
+    ],
+    "subtitle": "subtitles.entity.whisper.ambient"
   },
   "entity.whisper.hurt": {
     "sounds": [
@@ -1072,7 +1073,8 @@
         "volume": 1.0,
         "pitch": 0.6
       }
-    ]
+    ],
+    "subtitle": "subtitles.entity.whisper.hurt"
   },
   "entity.whisper.death": {
     "sounds": [
@@ -1082,7 +1084,8 @@
         "volume": 1.0,
         "pitch": 0.6
       }
-    ]
+    ],
+    "subtitle": "subtitles.entity.whisper.death"
   },
   "entity.scare.ambient": {
     "sounds": [
@@ -1092,7 +1095,8 @@
         "volume": 1.0,
         "pitch": 0.8
       }
-    ]
+    ],
+    "subtitle": "subtitles.entity.scare.ambient"
   },
   "entity.scare.shoot": {
     "sounds": [
@@ -1102,7 +1106,8 @@
         "volume": 1.0,
         "pitch": 0.7
       }
-    ]
+    ],
+    "subtitle": "subtitles.entity.scare.shoot"
   },
   "entity.scare.hurt": {
     "sounds": [
@@ -1112,7 +1117,8 @@
         "volume": 1.0,
         "pitch": 0.8
       }
-    ]
+    ],
+    "subtitle": "subtitles.entity.scare.hurt"
   },
   "entity.scare.death": {
     "sounds": [
@@ -1122,6 +1128,7 @@
         "volume": 1.0,
         "pitch": 0.8
       }
-    ]
+    ],
+    "subtitle": "subtitles.entity.scare.death"
   }
 }

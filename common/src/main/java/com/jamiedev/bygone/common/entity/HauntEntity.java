@@ -2,23 +2,29 @@ package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.client.particles.LithoParticleOptions;
 import com.jamiedev.bygone.common.entity.ai.AvoidBlockGoal;
+import com.jamiedev.bygone.common.entity.ai.goal.SpectralWanderGoal;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGDamageTypes;
 import com.jamiedev.bygone.core.registry.BGParticleTypes;
+import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -32,12 +38,15 @@ import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.DynamicGameEventListener;
 import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
 public class HauntEntity extends Allay {
@@ -54,17 +63,60 @@ public class HauntEntity extends Allay {
 
     public HauntEntity(EntityType<? extends HauntEntity> entityType, Level level) {
         super(entityType, level);
+        this.setCanPickUpLoot(false);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Allay.createAttributes()
                 .add(Attributes.FOLLOW_RANGE, 24.0);
     }
-    
+
+    @Override
+    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+        return this.brainProvider().makeBrain(dynamic);
+    }
+
+    @Override
+    protected void customServerAiStep() {
+    }
+
+    @Override
+    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    public void setJukeboxPlaying(BlockPos pos, boolean playing) {
+    }
+
+    @Override
+    public void updateDynamicGameEventListener(BiConsumer<DynamicGameEventListener<?>, ServerLevel> listenerConsumer) {
+    }
+
+    @Override
+    public boolean wantsToPickUp(ItemStack stack) {
+        return false;
+    }
+
+    @Override
+    public boolean canTakeItem(ItemStack stack) {
+        return false;
+    }
+
+    @Override
+    public boolean canPickUpLoot() {
+        return false;
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double distance) {
+        return true;
+    }
+
     public void registerGoals()
     {
         super.registerGoals();
-        this.randomStrollGoal = new RandomStrollGoal(this, (double)1.0F, 80);
+        this.randomStrollGoal = new SpectralWanderGoal(this, 1.0);
         this.goalSelector.addGoal(3, new AvoidBlockGoal(this, 16, 1.4, 1.6, (pos) -> {
             BlockState state = this.level().getBlockState(pos);
             return state.is(JamiesModTag.HURT_SPECTRAL_BLOCKS);
@@ -75,6 +127,7 @@ public class HauntEntity extends Allay {
         }));
         this.goalSelector.addGoal(4, new HauntEntityAttackGoal(this));
         this.goalSelector.addGoal(5, new HauntGotoTotemGoal(this, 1.0, 16));
+        this.goalSelector.addGoal(7, this.randomStrollGoal);
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, false, new HauntEntityAttackSelector(this)));
         this.randomStrollGoal.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }

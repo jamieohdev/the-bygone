@@ -180,7 +180,7 @@ public class BGEntityTypes {
 
     public static final Supplier<EntityType<ReaverEntity>> REAVER = registerEntityType(
             "reaver",
-            () -> EntityType.Builder.of(ReaverEntity::new, MobCategory.CREATURE)
+            () -> EntityType.Builder.of(ReaverEntity::new, HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY)
                     .sized(1.0F, 0.85F)
                     .eyeHeight(0.36F)
                     .ridingOffset(0.04F)
@@ -192,8 +192,8 @@ public class BGEntityTypes {
     public static final Supplier<EntityType<WallowEntity>> WALLOW = registerEntityType(
             "wallow",
             () -> EntityType.Builder.of(WallowEntity::new, HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY)
-                    .sized(0.35F, 0.35F)
-                    .eyeHeight(0.36F)
+                    .sized(0.9F, 1.4F)
+                    .eyeHeight(1.15F)
                     .ridingOffset(0.04F)
                     .clientTrackingRange(8)
                     .updateInterval(2)
@@ -243,10 +243,10 @@ public class BGEntityTypes {
 
     public static final Supplier<EntityType<MournEntity>> MOURN = registerEntityType(
             "mourn",
-            () -> EntityType.Builder.of(MournEntity::new, MobCategory.CREATURE)
+            () -> EntityType.Builder.of(MournEntity::new, HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY)
                     .immuneTo(BGBlocks.ICE_BOUQUET.get())
                     .fireImmune()
-                    .sized(0.7F, 2.3F)
+                    .sized(1.2F, 2.6F)
                     .eyeHeight(2.0F)
                     .clientTrackingRange(8)
                     .build("")
@@ -254,7 +254,7 @@ public class BGEntityTypes {
 
     public static final Supplier<EntityType<WhisperEntity>> WHISPER = registerEntityType(
             "whisper",
-            () -> EntityType.Builder.of(WhisperEntity::new, MobCategory.CREATURE)
+            () -> EntityType.Builder.of(WhisperEntity::new, HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY)
                     .immuneTo(BGBlocks.ICE_BOUQUET.get())
                     .fireImmune()
                     .sized(0.6F, 1.4F)
@@ -265,7 +265,7 @@ public class BGEntityTypes {
 
     public static final Supplier<EntityType<ScareEntity>> SCARE = registerEntityType(
             "scare",
-            () -> EntityType.Builder.of(ScareEntity::new, MobCategory.CREATURE)
+            () -> EntityType.Builder.of(ScareEntity::new, HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY)
                     .immuneTo(BGBlocks.ICE_BOUQUET.get())
                     .fireImmune()
                     .sized(0.8F, 1.7F)

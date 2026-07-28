@@ -23,6 +23,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
@@ -60,6 +61,7 @@ public class WallowEntity extends PathfinderMob
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new AvoidEntityGoal<>(this, HauntEntity.class, 16, 1, 1.5F));
+        this.goalSelector.addGoal(1, new WallowEntity.WallowChaseTargetGoal(this));
         this.goalSelector.addGoal(1, new WallowEntity.RandomFloatAroundGoal(this));
         this.goalSelector.addGoal(2, new WallowEntity.WallowEntityLookGoal(this));
         this.goalSelector.addGoal(3, new FollowMobGoal(this, 1.0, 3.0F, 7.0F));
@@ -70,6 +72,7 @@ public class WallowEntity extends PathfinderMob
         }));
 
         this.goalSelector.addGoal(6, new WallowFollowPlayerGoal(this, 1.4F, 3.0F, 10.0F));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers(WallowEntity.class));
   }
 
     protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
@@ -136,7 +139,6 @@ public class WallowEntity extends PathfinderMob
             }
             if (!wasFullyFrozen) {
                 this.playSound(BGSoundEvents.WALLOW_FREEZE_ADDITIONS_EVENT, 0.7F, 1.2F + this.random.nextFloat() * 0.2F);
-                this.playSound(SoundEvents.PLAYER_HURT_FREEZE, 1.0F, 1.0F);
             }
         }
     }
@@ -288,6 +290,41 @@ public class WallowEntity extends PathfinderMob
             }
 
             return true;
+        }
+    }
+
+    static class WallowChaseTargetGoal extends Goal {
+        private static final double CHASE_SPEED = 1.6;
+        private final WallowEntity wallow;
+
+        public WallowChaseTargetGoal(WallowEntity wallow) {
+            this.wallow = wallow;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+        }
+
+        @Override
+        public boolean canUse() {
+            LivingEntity target = this.wallow.getTarget();
+            return target != null && target.isAlive() && !target.getType().is(JamiesModTag.SPECTRAL);
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.canUse();
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = this.wallow.getTarget();
+            if (target == null) {
+                return;
+            }
+            this.wallow.getMoveControl().setWantedPosition(target.getX(), target.getY(0.5), target.getZ(), CHASE_SPEED);
         }
     }
 

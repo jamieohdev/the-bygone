@@ -57,8 +57,9 @@ public class WhisperModel<T extends Entity> extends HierarchicalModel<T> {
 		this.tail.zRot = Mth.sin(ageInTicks * 0.16F) * 0.25F;
 		this.tail.xRot = Mth.cos(ageInTicks * 0.16F) * 0.15F;
 
-		if (entity instanceof WhisperEntity) {
+		if (entity instanceof WhisperEntity whisper) {
 			this.body.yRot = Mth.sin(ageInTicks * 0.05F) * 0.1F;
+			this.spectralAlpha *= whisper.getRevealProgress(Mth.frac(ageInTicks));
 		}
 	}
 

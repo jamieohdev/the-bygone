@@ -11,6 +11,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -26,6 +27,7 @@ import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -46,7 +48,8 @@ public class WhisperEntity extends Monster implements FlyingAnimal {
     private static final EntityDataAccessor<Boolean> DATA_REVEALED =
             SynchedEntityData.defineId(WhisperEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public static final int REVEAL_CHECK_INTERVAL = 10;
+    public static final int REVEAL_CHECK_INTERVAL = 5;
+    public static final float REVEAL_FADE_SPEED = 0.06F;
     public static final int DRAIN_INTERVAL = 30;
     public static final double DRAIN_RANGE = 5.0;
     public static final float DRAIN_AMOUNT = 1.0F;
@@ -58,6 +61,8 @@ public class WhisperEntity extends Monster implements FlyingAnimal {
     private final TargetingConditions drainTargeting = TargetingConditions.forCombat().range(DRAIN_RANGE);
     private int revealCheckTicks;
     private int drainCooldown = DRAIN_INTERVAL;
+    private float revealProgress;
+    private float revealProgressO;
 
     public WhisperEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -90,6 +95,7 @@ public class WhisperEntity extends Monster implements FlyingAnimal {
         this.goalSelector.addGoal(4, new WhisperDriftToPlayerGoal(this, 0.9));
         this.goalSelector.addGoal(8, new SpectralWanderGoal(this, 0.5));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers(WhisperEntity.class));
     }
 
     @Override
@@ -120,9 +126,23 @@ public class WhisperEntity extends Monster implements FlyingAnimal {
         this.entityData.set(DATA_REVEALED, revealed);
     }
 
+    public float getRevealProgress(float partialTick) {
+        return Mth.lerp(partialTick, this.revealProgressO, this.revealProgress);
+    }
+
+    private void tickRevealProgress() {
+        this.revealProgressO = this.revealProgress;
+        float target = this.isRevealed() ? 1.0F : 0.0F;
+        if (this.revealProgress < target) {
+            this.revealProgress = Math.min(target, this.revealProgress + REVEAL_FADE_SPEED);
+        } else if (this.revealProgress > target) {
+            this.revealProgress = Math.max(target, this.revealProgress - REVEAL_FADE_SPEED);
+        }
+    }
+
     @Override
     public boolean isInvisible() {
-        return !this.isRevealed() || super.isInvisible();
+        return super.isInvisible() || this.revealProgress <= 0.0F;
     }
 
     @Override
@@ -225,6 +245,8 @@ public class WhisperEntity extends Monster implements FlyingAnimal {
         this.setNoGravity(true);
         super.tick();
 
+        this.tickRevealProgress();
+
         if (this.level().isClientSide()) {
             this.setupAnimationStates();
         }
@@ -254,15 +276,26 @@ public class WhisperEntity extends Monster implements FlyingAnimal {
 
         @Override
         public boolean canUse() {
-            this.followed = this.whisper.level().getNearestPlayer(this.targeting, this.whisper);
+            this.followed = this.findFollowTarget();
             return this.followed != null && this.whisper.distanceTo(this.followed) > DRAIN_RANGE - 1;
         }
 
         @Override
         public boolean canContinueToUse() {
-            return this.followed != null && this.followed.isAlive()
-                    && this.whisper.distanceTo(this.followed) > DRAIN_RANGE - 1
-                    && this.whisper.distanceTo(this.followed) < 16;
+            if (this.followed == null || !this.followed.isAlive()) {
+                return false;
+            }
+            float maxDistance = this.followed == this.whisper.getTarget() ? 32.0F : 16.0F;
+            float distance = this.whisper.distanceTo(this.followed);
+            return distance > DRAIN_RANGE - 1 && distance < maxDistance;
+        }
+
+        @Nullable
+        private Player findFollowTarget() {
+            if (this.whisper.getTarget() instanceof Player player && player.isAlive() && !player.isCreative() && !player.isSpectator()) {
+                return player;
+            }
+            return this.whisper.level().getNearestPlayer(this.targeting, this.whisper);
         }
 
         @Override

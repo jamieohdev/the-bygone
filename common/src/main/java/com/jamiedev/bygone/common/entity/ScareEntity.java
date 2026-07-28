@@ -45,7 +45,7 @@ public class ScareEntity extends Monster implements RangedAttackMob, FlyingAnima
 
     public static final int VOLLEY_SIZE = 5;
     public static final float VOLLEY_SPREAD = 0.12F;
-    public static final float BOLT_SPEED = 0.35F;
+    public static final float BOLT_SPEED = 0.42F;
     public static final int ZIGZAG_INTERVAL = 10;
     public static final double ZIGZAG_STRENGTH = 0.45;
 

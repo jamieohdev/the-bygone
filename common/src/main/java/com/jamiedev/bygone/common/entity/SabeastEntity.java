@@ -100,11 +100,13 @@ public class SabeastEntity extends Monster  {
 
     @Override
     protected void customServerAiStep() {
+        this.dropInvalidTarget();
         this.level().getProfiler().push("sabeastBrain");
         this.getBrain().tick((ServerLevel) this.level(), this);
         this.level().getProfiler().pop();
         SabeastAI.updateActivity(this);
         super.customServerAiStep();
+        this.dropInvalidTarget();
     }
 
     protected void registerGoals() {
@@ -264,13 +266,29 @@ public class SabeastEntity extends Monster  {
             }
 
             if (this.meleeAttackInterval == 10) {
-                if (this.getTarget() != null) {
-                    this.doHurtTarget(this.getTarget());
+                LivingEntity target = this.getTarget();
+                if (target != null && this.isWithinMeleeAttackRange(target) && this.hasLineOfSight(target)) {
+                    this.doHurtTarget(target);
                 }
             }
 
         }
 
+    }
+
+    private void dropInvalidTarget() {
+        LivingEntity target = this.getTarget();
+        if (target == null) {
+            return;
+        }
+        if (!target.isAlive() || (target instanceof Player player && (player.isCreative() || player.isSpectator()))) {
+            this.setTarget(null);
+            this.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
+            this.getBrain().eraseMemory(MemoryModuleType.ANGRY_AT);
+            this.setDataIsAttacking(false);
+            this.meleeAttackInterval = 0;
+            this.setAggressive(false);
+        }
     }
 
     public int getMaxSpawnClusterSize() {
@@ -314,21 +332,21 @@ public class SabeastEntity extends Monster  {
 
         public boolean canUse() {
             this.target = this.sabeast.getTarget();
-            if (!(this.target instanceof Player)) {
+            if (!(this.target instanceof Player player)) {
+                return false;
+            } else if (player.isCreative() || player.isSpectator()) {
                 return false;
             } else {
                 double d0 = this.target.distanceToSqr(this.sabeast);
-
-                if (this.target instanceof Player) {
-                    this.target.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200, 0, true, true), this.sabeast);
-                }
-
-                return !(d0 > (double) 256.0F) && this.sabeast.isLookingAtMe((Player) this.target);
+                return !(d0 > (double) 256.0F) && this.sabeast.isLookingAtMe(player);
             }
         }
 
         public void start() {
             this.sabeast.getNavigation().stop();
+            if (this.target instanceof Player player) {
+                player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200, 0, true, true), this.sabeast);
+            }
         }
 
         public void tick() {

@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ScareBoltEntity extends Projectile {
 
-    public static final int MAX_LIFETIME = 200;
+    public static final int MAX_LIFETIME = 90;
     public static final float DAMAGE = 4.0F;
 
     private int life;

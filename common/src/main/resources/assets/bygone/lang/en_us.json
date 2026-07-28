@@ -712,15 +712,12 @@
   "subtitles.entity.haunt.ambient": "Haunt glees",
   "subtitles.entity.haunt.hurt": "Haunt hurts",
   "subtitles.entity.haunt.death": "Haunt dies",
-
   "subtitles.entity.wallow.ambient": "Wallow sobs",
   "subtitles.entity.wallow.freeze": "Wallow chills",
   "subtitles.entity.wallow.hurt": "Wallow hurts",
   "subtitles.entity.wallow.death": "Wallow dies",
-
   "subtitles.entity.player.phasing.start": "Player phases int",
   "subtitles.entity.player.phasing.stop": "Player phases out",
-
   "subtitles.block.portal.ambient": "Portal frazzles",
   "subtitles.ambient.sound": "Eerie noise",
   "subtitles.bygone.weather.inverted_rain.loop": "Rain rises",
@@ -734,8 +731,7 @@
   "commands.bygone.weather.incompatible_cast": "Provided new value is incompatible with type %s",
   "commands.bygone.weather.dimension_not_loaded": "Weather events can only be accessed from within the Bygone, or once it is loaded.",
   "commands.bygone.weather.start": "Started Bygone weather %s",
-  "commands.bygone.weather.clear": "Cleared Bygone weather %s"
-  "commands.bygone.weather.incompatible_cast": "Provided new value is incompatible with type %s",
+  "commands.bygone.weather.clear": "Cleared Bygone weather %s",
   "effect.bygone.paralyzed": "Paralyzed",
   "entity.bygone.mourn": "Mourn",
   "entity.bygone.whisper": "Whisper",
@@ -744,5 +740,15 @@
   "item.bygone.mourn_spawn_egg": "Mourn Spawn Egg",
   "item.bygone.whisper_spawn_egg": "Whisper Spawn Egg",
   "item.bygone.scare_spawn_egg": "Scare Spawn Egg",
-  "item.bygone.reaver_spawn_egg": "Reaver Spawn Egg"
+  "item.bygone.reaver_spawn_egg": "Reaver Spawn Egg",
+  "subtitles.entity.mourn.scream": "Mourn screams",
+  "subtitles.entity.mourn.hurt": "Mourn hurts",
+  "subtitles.entity.mourn.death": "Mourn dies",
+  "subtitles.entity.whisper.ambient": "Whisper whispers",
+  "subtitles.entity.whisper.hurt": "Whisper hurts",
+  "subtitles.entity.whisper.death": "Whisper dies",
+  "subtitles.entity.scare.ambient": "Scare wails",
+  "subtitles.entity.scare.shoot": "Scare fires",
+  "subtitles.entity.scare.hurt": "Scare hurts",
+  "subtitles.entity.scare.death": "Scare dies"
 }

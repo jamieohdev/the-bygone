@@ -7,28 +7,28 @@ import com.jamiedev.bygone.core.registry.BGDamageTypes;
 import com.jamiedev.bygone.core.registry.BGMobEffects;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -48,21 +48,30 @@ import java.util.EnumSet;
 
 public class MournEntity extends Monster {
 
-    private static final EntityDataAccessor<Boolean> DATA_HIDING =
-            SynchedEntityData.defineId(MournEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> DATA_SCREAMING =
-            SynchedEntityData.defineId(MournEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final byte STATE_HIDDEN = 0;
+    public static final byte STATE_RISING = 1;
+    public static final byte STATE_EXTENDED = 2;
+    public static final byte STATE_SINKING = 3;
 
-    public static final int SCREAM_DURATION = 30;
+    private static final EntityDataAccessor<Byte> DATA_STATE =
+            SynchedEntityData.defineId(MournEntity.class, EntityDataSerializers.BYTE);
+
+    public static final int RISE_TICKS = 18;
+    public static final int SINK_TICKS = 14;
+    public static final int STRIKE_COOLDOWN = 24;
+    public static final int PATIENCE_TICKS = 60;
     public static final int PARALYSIS_DURATION = 70;
-    public static final double AMBUSH_RANGE = 16.0;
-    public static final double POUNCE_RANGE = 2.5;
+    public static final double AMBUSH_RANGE = 20.0;
+    public static final double EMERGE_RANGE = 2.5;
+    public static final double STRIKE_RANGE = 3.0;
 
-    public AnimationState idleAnimationState = new AnimationState();
+    private static final EntityDimensions HIDDEN_DIMENSIONS = EntityDimensions.scalable(1.2F, 0.3F);
 
-    private float stretchProgress = 1.0F;
-    private float stretchProgressO = 1.0F;
-    private int screamTicks;
+    private int stateTicks;
+    private int strikeCooldown;
+    private int patience;
+    private float emergeProgress;
+    private float emergeProgressO;
 
     public MournEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -73,16 +82,17 @@ public class MournEntity extends Monster {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 24.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
-                .add(Attributes.ATTACK_DAMAGE, 5.0)
+                .add(Attributes.ATTACK_DAMAGE, 6.0)
                 .add(Attributes.FOLLOW_RANGE, 24.0)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.6);
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0);
     }
 
     @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, HauntEntity.class, 16, 1, 1.5F));
+        this.goalSelector.addGoal(1, new MournStrikeGoal(this));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, HauntEntity.class, 16, 1, 1.5F));
         this.goalSelector.addGoal(3, new AvoidBlockGoal(this, 16, 1.4, 1.6, (pos) -> {
             BlockState state = this.level().getBlockState(pos);
             return state.is(JamiesModTag.HURT_SPECTRAL_BLOCKS);
@@ -91,72 +101,200 @@ public class MournEntity extends Monster {
             BlockState state = this.level().getBlockState(pos);
             return state.is(BGBlocks.LITHOPLASMIC_POWDER.get());
         }));
-        this.goalSelector.addGoal(4, new MournAmbushGoal(this, 1.0));
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.25, true));
+        this.goalSelector.addGoal(4, new MournStalkGoal(this, 1.0));
         this.goalSelector.addGoal(7, new MournGotoDarkGoal(this, 0.8, 10));
-        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.6));
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.6) {
+            @Override
+            public boolean canUse() {
+                return MournEntity.this.isHidden() && super.canUse();
+            }
+        });
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
     }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(DATA_HIDING, true);
-        builder.define(DATA_SCREAMING, false);
+        builder.define(DATA_STATE, STATE_HIDDEN);
     }
 
-    public boolean isHiding() {
-        return this.entityData.get(DATA_HIDING);
+    public byte getMournState() {
+        return this.entityData.get(DATA_STATE);
     }
 
-    public void setHiding(boolean hiding) {
-        this.entityData.set(DATA_HIDING, hiding);
+    private void setMournState(byte state) {
+        if (this.getMournState() == state) {
+            return;
+        }
+        this.entityData.set(DATA_STATE, state);
+        this.refreshDimensions();
     }
 
-    public boolean isScreaming() {
-        return this.entityData.get(DATA_SCREAMING);
+    public boolean isHidden() {
+        return this.getMournState() == STATE_HIDDEN;
     }
 
-    public void setScreaming(boolean screaming) {
-        this.entityData.set(DATA_SCREAMING, screaming);
+    public boolean isExtended() {
+        return this.getMournState() == STATE_EXTENDED;
     }
 
-    public float getStretchProgress(float partialTick) {
-        return Mth.lerp(partialTick, this.stretchProgressO, this.stretchProgress);
+    public boolean isRooted() {
+        return !this.isHidden();
+    }
+
+    public float getEmergeProgress(float partialTick) {
+        return Mth.lerp(partialTick, this.emergeProgressO, this.emergeProgress);
+    }
+
+    public float getStrikeProgress(float partialTick) {
+        return this.getAttackAnim(partialTick);
+    }
+
+    @Override
+    protected @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
+        return this.isHidden() ? HIDDEN_DIMENSIONS : super.getDefaultDimensions(pose);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (DATA_STATE.equals(key)) {
+            this.refreshDimensions();
+        }
+        super.onSyncedDataUpdated(key);
+    }
+
+    @Override
+    public void travel(@NotNull Vec3 travelVector) {
+        if (this.isRooted()) {
+            super.travel(Vec3.ZERO);
+            this.setDeltaMovement(this.getDeltaMovement().multiply(0.0, 1.0, 0.0));
+        } else {
+            super.travel(travelVector);
+        }
+    }
+
+    @Override
+    public void knockback(double strength, double x, double z) {
+        if (this.isRooted()) {
+            return;
+        }
+        super.knockback(strength, x, z);
+    }
+
+    @Override
+    public boolean hurt(@NotNull DamageSource source, float amount) {
+        boolean hurt = super.hurt(source, amount);
+        if (hurt && !this.level().isClientSide() && this.isHidden() && source.getEntity() instanceof LivingEntity) {
+            this.beginRising();
+        }
+        return hurt;
+    }
+
+    public void beginRising() {
+        if (!this.isHidden()) {
+            return;
+        }
+        this.setMournState(STATE_RISING);
+        this.stateTicks = RISE_TICKS;
+        this.patience = PATIENCE_TICKS;
+        this.getNavigation().stop();
+        this.playSound(BGSoundEvents.MOURN_SCREAM_EVENT, 2.0F, 1.0F);
     }
 
     public void ambush(Player player) {
-        this.setHiding(false);
-        this.setScreaming(true);
-        this.screamTicks = SCREAM_DURATION;
-        this.playSound(BGSoundEvents.MOURN_SCREAM_EVENT, 2.0F, 1.0F);
+        this.beginRising();
         player.addEffect(new MobEffectInstance(BGMobEffects.PARALYZED.get(), PARALYSIS_DURATION, 0), this);
         this.setTarget(player);
+    }
+
+    private void beginSinking() {
+        if (this.getMournState() != STATE_EXTENDED) {
+            return;
+        }
+        this.setMournState(STATE_SINKING);
+        this.stateTicks = SINK_TICKS;
     }
 
     @Override
     protected void customServerAiStep() {
         super.customServerAiStep();
-        if (this.screamTicks > 0) {
-            this.screamTicks--;
-            if (this.screamTicks == 0) {
-                this.setScreaming(false);
+        this.dropInvalidTarget();
+
+        if (this.strikeCooldown > 0) {
+            this.strikeCooldown--;
+        }
+
+        switch (this.getMournState()) {
+            case STATE_RISING -> {
+                this.getNavigation().stop();
+                if (--this.stateTicks <= 0) {
+                    this.setMournState(STATE_EXTENDED);
+                    this.patience = PATIENCE_TICKS;
+                }
+            }
+            case STATE_EXTENDED -> {
+                this.getNavigation().stop();
+                LivingEntity target = this.getTarget();
+                if (target != null && this.distanceTo(target) <= STRIKE_RANGE) {
+                    this.patience = PATIENCE_TICKS;
+                } else if (--this.patience <= 0) {
+                    this.beginSinking();
+                }
+            }
+            case STATE_SINKING -> {
+                this.getNavigation().stop();
+                if (--this.stateTicks <= 0) {
+                    this.setMournState(STATE_HIDDEN);
+                }
+            }
+            default -> {
             }
         }
-        this.setHiding(this.getTarget() == null && this.screamTicks <= 0);
+    }
+
+    private void dropInvalidTarget() {
+        LivingEntity target = this.getTarget();
+        if (target == null) {
+            return;
+        }
+        if (!target.isAlive() || target.isRemoved()
+                || (target instanceof Player player && (player.isCreative() || player.isSpectator()))) {
+            this.setTarget(null);
+            this.setLastHurtByMob(null);
+        }
     }
 
     @Override
     public void aiStep() {
         super.aiStep();
-        this.stretchProgressO = this.stretchProgress;
-        float targetStretch = this.isHiding() ? 0.0F : 1.0F;
-        if (this.stretchProgress < targetStretch) {
-            this.stretchProgress = Math.min(targetStretch, this.stretchProgress + 0.25F);
-        } else if (this.stretchProgress > targetStretch) {
-            this.stretchProgress = Math.max(targetStretch, this.stretchProgress - 0.15F);
+        this.emergeProgressO = this.emergeProgress;
+        float target = switch (this.getMournState()) {
+            case STATE_RISING, STATE_EXTENDED -> 1.0F;
+            default -> 0.0F;
+        };
+        float speed = this.getMournState() == STATE_SINKING ? 1.0F / SINK_TICKS : 1.0F / RISE_TICKS;
+        if (this.emergeProgress < target) {
+            this.emergeProgress = Math.min(target, this.emergeProgress + speed);
+        } else if (this.emergeProgress > target) {
+            this.emergeProgress = Math.max(target, this.emergeProgress - speed);
         }
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putByte("MournState", this.getMournState());
+        compound.putInt("MournStateTicks", this.stateTicks);
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.entityData.set(DATA_STATE, compound.getByte("MournState"));
+        this.stateTicks = compound.getInt("MournStateTicks");
+        this.emergeProgress = this.isHidden() || this.getMournState() == STATE_SINKING ? 0.0F : 1.0F;
+        this.emergeProgressO = this.emergeProgress;
+        this.refreshDimensions();
     }
 
     @Override
@@ -193,6 +331,11 @@ public class MournEntity extends Monster {
         return false;
     }
 
+    @Override
+    public boolean isInWall() {
+        return !this.isRooted() && super.isInWall();
+    }
+
     private boolean collidingHurtSpectralBlocks() {
         AABB aabb = this.getBoundingBox().inflate(1.0F, 1.0F, 1.0F);
         return BlockPos.betweenClosedStream(aabb).anyMatch((collisionShape) -> {
@@ -205,10 +348,6 @@ public class MournEntity extends Monster {
     public void tick() {
         super.tick();
 
-        if (this.level().isClientSide()) {
-            this.idleAnimationState.startIfStopped(this.tickCount);
-        }
-
         if (collidingHurtSpectralBlocks()) {
             this.hurt(BGDamageTypes.source(this.level(), BGDamageTypes.HAUNTED, this, this.getLastAttacker()), 1);
         }
@@ -218,14 +357,49 @@ public class MournEntity extends Monster {
         return level.getBlockState(blockPos.below()).is(JamiesModTag.WRAITH_SPAWNABLE_ON);
     }
 
-    static class MournAmbushGoal extends Goal {
+    static class MournStrikeGoal extends Goal {
+        private final MournEntity mourn;
+
+        public MournStrikeGoal(MournEntity mourn) {
+            this.mourn = mourn;
+            this.setFlags(EnumSet.of(Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            return this.mourn.isExtended() && this.mourn.getTarget() != null;
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = this.mourn.getTarget();
+            if (target == null) {
+                return;
+            }
+            this.mourn.getLookControl().setLookAt(target, 30.0F, 30.0F);
+            if (this.mourn.strikeCooldown <= 0
+                    && this.mourn.distanceTo(target) <= STRIKE_RANGE
+                    && this.mourn.hasLineOfSight(target)) {
+                this.mourn.strikeCooldown = STRIKE_COOLDOWN;
+                this.mourn.swing(InteractionHand.MAIN_HAND);
+                this.mourn.doHurtTarget(target);
+            }
+        }
+    }
+
+    static class MournStalkGoal extends Goal {
         private final MournEntity mourn;
         private final double speedModifier;
         private final TargetingConditions targeting = TargetingConditions.forCombat().range(AMBUSH_RANGE);
         @Nullable
         private Player prey;
 
-        public MournAmbushGoal(MournEntity mourn, double speedModifier) {
+        public MournStalkGoal(MournEntity mourn, double speedModifier) {
             this.mourn = mourn;
             this.speedModifier = speedModifier;
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
@@ -233,8 +407,12 @@ public class MournEntity extends Monster {
 
         @Override
         public boolean canUse() {
-            if (!this.mourn.isHiding() || this.mourn.getTarget() != null) {
+            if (!this.mourn.isHidden()) {
                 return false;
+            }
+            if (this.mourn.getTarget() instanceof Player player && player.isAlive()) {
+                this.prey = player;
+                return true;
             }
             this.prey = this.mourn.level().getNearestPlayer(this.targeting, this.mourn);
             return this.prey != null;
@@ -242,9 +420,8 @@ public class MournEntity extends Monster {
 
         @Override
         public boolean canContinueToUse() {
-            return this.prey != null && this.prey.isAlive() && this.mourn.isHiding()
-                    && this.mourn.getTarget() == null
-                    && this.mourn.distanceTo(this.prey) < AMBUSH_RANGE + 4;
+            return this.prey != null && this.prey.isAlive() && this.mourn.isHidden()
+                    && this.mourn.distanceTo(this.prey) < AMBUSH_RANGE + 6;
         }
 
         @Override
@@ -263,29 +440,11 @@ public class MournEntity extends Monster {
             if (this.prey == null) {
                 return;
             }
-            double distance = this.mourn.distanceTo(this.prey);
-            if (distance <= POUNCE_RANGE) {
+            if (this.mourn.distanceTo(this.prey) <= EMERGE_RANGE) {
                 this.mourn.ambush(this.prey);
                 return;
             }
-            if (distance < 8 && this.isPlayerLookingAtMourn(this.prey)) {
-                this.mourn.setTarget(this.prey);
-                return;
-            }
             this.mourn.getNavigation().moveTo(this.prey, this.speedModifier);
-        }
-
-        private boolean isPlayerLookingAtMourn(Player player) {
-            Vec3 viewVector = player.getViewVector(1.0F).normalize();
-            Vec3 toMourn = new Vec3(
-                    this.mourn.getX() - player.getX(),
-                    this.mourn.getY(0.5) - player.getEyeY(),
-                    this.mourn.getZ() - player.getZ()
-            );
-            double length = toMourn.length();
-            toMourn = toMourn.normalize();
-            double dot = viewVector.dot(toMourn);
-            return dot > 1.0 - 0.025 / length && player.hasLineOfSight(this.mourn);
         }
     }
 
@@ -299,7 +458,12 @@ public class MournEntity extends Monster {
 
         @Override
         public boolean canUse() {
-            return this.mourn.isHiding() && this.mourn.getTarget() == null && super.canUse();
+            return this.mourn.isHidden() && this.mourn.getTarget() == null && super.canUse();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.mourn.isHidden() && super.canContinueToUse();
         }
 
         @Override

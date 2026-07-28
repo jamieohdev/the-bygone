@@ -91,6 +91,15 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityEx
 		cir.setReturnValue(false);
 	}
 
+	@Inject(method = "hurt", at = @At("HEAD"))
+	private void bygone$spectralNoticeAttacker(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+		LivingEntity self = (LivingEntity) (Object) this;
+		if (self.level().isClientSide() || !self.getType().is(JamiesModTag.SPECTRAL)) return;
+		if (!(source.getEntity() instanceof LivingEntity attacker) || attacker == self) return;
+		if (attacker.getType().is(JamiesModTag.SPECTRAL)) return;
+		self.setLastHurtByMob(attacker);
+	}
+
 	@WrapMethod(method = "isInvulnerableTo")
 	private boolean wrapIsInvulnerableTo(DamageSource source, Operation<Boolean> original) {
 
