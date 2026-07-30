@@ -1319,7 +1319,6 @@ public class BGBlocks {
                             .mapColor(MapColor.GRASS)
                             .sound(SoundType.SAND)
                             .instrument(NoteBlockInstrument.XYLOPHONE)
-                            .requiresCorrectToolForDrops()
                             .strength(0.1F))
     );
     public static final Supplier<Block> SUSPICIOUS_SHELLSAND = registerBlock(
@@ -1923,7 +1922,7 @@ public class BGBlocks {
     public static final Supplier<Block> AMBER_SANDSTONE = registerBlock(
             "amber_sandstone", () ->
                     new Block(BlockBehaviour.Properties.of().mapColor(MapColor.RAW_IRON).strength(0.99F)
-                            .sound(SoundType.STONE))
+                            .sound(SoundType.STONE).requiresCorrectToolForDrops())
     );
     public static final Supplier<Block> CHISELED_AMBER_SANDSTONE = registerBlock(
             "chiseled_amber_sandstone", () ->

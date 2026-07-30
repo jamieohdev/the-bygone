@@ -10,6 +10,7 @@ import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -36,8 +37,10 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.FlyingAnimal;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.monster.breeze.Breeze;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
@@ -66,6 +69,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     public static final double TELEPORT_TARGET_AWAY_RANGE = 6.0;
     public static final double FIRE_SQUARE_MIN_RANGE = 4.0;
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID;
+
 
     static {
         DATA_SPELL_CASTING_ID = SynchedEntityData.defineId(WraithEntity.class, EntityDataSerializers.BYTE);
@@ -373,6 +377,10 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     @Override
     public boolean hurt(DamageSource source, float amount) {
 
+        if (source.is(DamageTypeTags.IS_PROJECTILE)) {
+            return false;
+        }
+
         if (source.is(DamageTypeTags.IS_FREEZING)) {
             return super.hurt(source, 0);
         }
@@ -639,6 +647,14 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                             belowTeleportDestination,
                             Direction.UP
                     ) && teleportDestinationState.isAir() && aboveTeleportDestinationState.isAir()) {
+
+                        WraithEntity.this.level().addParticle(ParticleTypes.PORTAL,
+                                teleportDestination.getX() + 0.5,
+                                teleportDestination.getY() + 1.0,
+                                teleportDestination.getZ() + 0.5,
+                                (WraithEntity.this.random.nextDouble() - 0.5) * 2.0,
+                                -WraithEntity.this.random.nextDouble(),
+                                (WraithEntity.this.random.nextDouble() - 0.5) * 2.0);
 
                         target.teleportTo(
                                 teleportDestination.getX() + 0.5,

@@ -48,16 +48,16 @@
     "bygone:rafflesia": {
       "chance": 0.8
     },
-    "bygone:sagaria_lime": {
+    "bygone:lime_sagaria": {
       "chance": 0.2
     },
-    "bygone:sagaria_pink": {
+    "bygone:pink_sagaria": {
       "chance": 0.2
     },
-    "bygone:sagaria_purple": {
+    "bygone:purple_sagaria": {
       "chance": 0.2
     },
-    "bygone:sagaria_yellow": {
+    "bygone:yellow_sagaria": {
       "chance": 0.2
     },
     "bygone:shelf_fungus": {
@@ -78,8 +78,11 @@
     "bygone:whirliweed": {
       "chance": 0.3
     },
-    "minecraft:air": {
-      "chance": 0.4
+    "bygone:amaranth_grain": {
+      "chance": 0.3
+    },
+    "bygone:amaranth_seeds": {
+      "chance": 0.1
     }
   }
 }

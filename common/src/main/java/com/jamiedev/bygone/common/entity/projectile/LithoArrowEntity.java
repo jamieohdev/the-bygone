@@ -1,11 +1,18 @@
 package com.jamiedev.bygone.common.entity.projectile;
 
-import com.jamiedev.bygone.core.registry.BGDamageTypes;
-import com.jamiedev.bygone.core.registry.BGEntityTypes;
-import com.jamiedev.bygone.core.registry.BGItems;
-import com.jamiedev.bygone.core.registry.BGMobEffects;
+import com.jamiedev.bygone.core.registry.*;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.ScalableParticleOptionsBase;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -14,12 +21,15 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.SpectralArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.function.Supplier;
 
@@ -83,7 +93,44 @@ public class LithoArrowEntity extends AbstractArrow
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        if (this.level().isClientSide && !this.inGround) {
+            this.level().addParticle(DustParticleOptions1.REDSTONE, this.getX(), this.getY(), this.getZ(), 0.0, 0.0, 0.0);
+        }
+    }
+
+    @Override
     protected @NotNull ItemStack getDefaultPickupItem() {
         return new ItemStack(BGItems.LITHOPLASM_ARROW.get());
     }
 }
+
+class DustParticleOptions1 extends ScalableParticleOptionsBase {
+    public static final Vector3f PLASM_PARTICLE_COLOR = Vec3.fromRGB24(14151396).toVector3f();
+    public static final net.minecraft.core.particles.DustParticleOptions REDSTONE;
+    public static final MapCodec<DustParticleOptions> CODEC;
+    public static final StreamCodec<RegistryFriendlyByteBuf, DustParticleOptions> STREAM_CODEC;
+
+    static {
+        REDSTONE = new net.minecraft.core.particles.DustParticleOptions(PLASM_PARTICLE_COLOR, 1.0F);
+        CODEC = RecordCodecBuilder.mapCodec((p_341566_) -> p_341566_.group(ExtraCodecs.VECTOR3F.fieldOf("color").forGetter(DustParticleOptions::getColor), SCALE.fieldOf("scale").forGetter(ScalableParticleOptionsBase::getScale)).apply(p_341566_, net.minecraft.core.particles.DustParticleOptions::new));
+        STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.VECTOR3F, DustParticleOptions::getColor, ByteBufCodecs.FLOAT, ScalableParticleOptionsBase::getScale, net.minecraft.core.particles.DustParticleOptions::new);
+    }
+
+    private final Vector3f color;
+
+    public DustParticleOptions1(Vector3f color, float scale) {
+        super(scale);
+        this.color = color;
+    }
+
+    public ParticleType<DustParticleOptions> getType() {
+        return ParticleTypes.DUST;
+    }
+
+    public Vector3f getColor() {
+        return this.color;
+    }
+}
+

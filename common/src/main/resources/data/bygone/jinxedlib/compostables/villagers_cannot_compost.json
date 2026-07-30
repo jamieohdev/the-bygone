@@ -25,7 +25,8 @@
     "bygone:belladonna": 0.1,
     "bygone:coleus": 0.1,
     "bygone:whirliweed": 0.3,
-    "bygone:big_whirliweed": 0.4
+    "bygone:big_whirliweed": 0.4,
+    "bygone:amaranth_grain": 0.4
   },
   "can_villager_compost": false
 }
