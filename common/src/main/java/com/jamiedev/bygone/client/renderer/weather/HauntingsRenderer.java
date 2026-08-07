@@ -3,6 +3,7 @@ package com.jamiedev.bygone.client.renderer.weather;
 import com.jamiedev.bygone.common.weather.InvertedHeightmap;
 import com.jamiedev.bygone.common.weather.weather_types.HauntingsEvent;
 import com.jamiedev.bygone.core.extension.LevelChunkExtension;
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
@@ -10,6 +11,7 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -43,6 +45,9 @@ public class HauntingsRenderer extends WeatherRenderer<HauntingsEvent> {
         RandomSource randomsource = RandomSource.create((long) this.time * 312987231L);
 
         BlockPos blockPos = BlockPos.containing(camera.getPosition());
+
+        level.playLocalSound(blockPos, BGSoundEvents.WEATHER_HAUNTING_EVENT, SoundSource.WEATHER, 0.2F, 1.0F, false);
+
         int particleAmount = Minecraft.useFancyGraphics() ? 12 : 8;
         if (particleStatus == ParticleStatus.DECREASED) particleAmount /= 2;
         if (particleStatus == ParticleStatus.MINIMAL) return;

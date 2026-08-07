@@ -104,12 +104,15 @@ public class BGSoundEvents {
     public static SoundEvent PLAYER_PHASING_START_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_PLAYER_PHASING_START);
     public static SoundEvent PLAYER_PHASING_STOP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_PLAYER_PHASING_STOP);
 
+    public static final ResourceLocation ENTITY_MOURN_AMBIENT = id("entity.mourn.ambient");
     public static final ResourceLocation ENTITY_MOURN_SCREAM = id("entity.mourn.scream");
     public static final ResourceLocation ENTITY_MOURN_HURT = id("entity.mourn.hurt");
     public static final ResourceLocation ENTITY_MOURN_DEATH = id("entity.mourn.death");
     public static final ResourceLocation ENTITY_WHISPER_AMBIENT = id("entity.whisper.ambient");
     public static final ResourceLocation ENTITY_WHISPER_HURT = id("entity.whisper.hurt");
     public static final ResourceLocation ENTITY_WHISPER_DEATH = id("entity.whisper.death");
+    public static final ResourceLocation ENTITY_WHISPER_SPOOKED = id("entity.whisper.spooked");
+    public static final ResourceLocation ENTITY_WHISPER_DRAIN = id("entity.whisper.drain");
     public static final ResourceLocation ENTITY_SCARE_AMBIENT = id("entity.scare.ambient");
     public static final ResourceLocation ENTITY_SCARE_SHOOT = id("entity.scare.shoot");
     public static final ResourceLocation ENTITY_SCARE_HURT = id("entity.scare.hurt");
@@ -117,6 +120,9 @@ public class BGSoundEvents {
 
     public static final ResourceLocation WEATHER_INVERTED_RAIN = id("weather.inverted_rain");
     public static SoundEvent WEATHER_INVERTED_RAIN_EVENT = SoundEvent.createVariableRangeEvent(WEATHER_INVERTED_RAIN);
+
+    public static final ResourceLocation WEATHER_HAUNTING = id("weather.haunting");
+    public static SoundEvent WEATHER_HAUNTING_EVENT = SoundEvent.createVariableRangeEvent(WEATHER_HAUNTING);
 
     public static final ResourceLocation ENTITY_AQUIFAWN_AMBIENT = id("entity.aquifawn.ambient");
     public static final ResourceLocation ENTITY_AQUIFAWN_ANGRY = id("entity.aquifawn.angry");
@@ -188,12 +194,15 @@ public class BGSoundEvents {
     public static SoundEvent GEIST_HURT_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_GEIST_HURT);
     public static SoundEvent GEIST_FLY_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_GEIST_FLY);
 
+    public static SoundEvent MOURN_AMBIENT_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MOURN_AMBIENT);
     public static SoundEvent MOURN_SCREAM_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MOURN_SCREAM);
     public static SoundEvent MOURN_HURT_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MOURN_HURT);
     public static SoundEvent MOURN_DEATH_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_MOURN_DEATH);
     public static SoundEvent WHISPER_AMBIENT_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISPER_AMBIENT);
     public static SoundEvent WHISPER_HURT_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISPER_HURT);
     public static SoundEvent WHISPER_DEATH_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISPER_DEATH);
+    public static SoundEvent WHISPER_DRAIN_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISPER_DRAIN);
+    public static SoundEvent WHISPER_SPOOKED_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_WHISPER_SPOOKED);
     public static SoundEvent SCARE_AMBIENT_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SCARE_AMBIENT);
     public static SoundEvent SCARE_SHOOT_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SCARE_SHOOT);
     public static SoundEvent SCARE_HURT_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SCARE_HURT);
@@ -276,6 +285,7 @@ public class BGSoundEvents {
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_ARCANE_MECHANISM_IDLE, BGSoundEvents.ENTITY_ARCANE_MECHANISM_IDLE_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_ARCANE_MECHANISM_FADE, BGSoundEvents.ENTITY_ARCANE_MECHANISM_FADE_EVENT);
 
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.WEATHER_HAUNTING, BGSoundEvents.WEATHER_HAUNTING_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.WEATHER_INVERTED_RAIN, BGSoundEvents.WEATHER_INVERTED_RAIN_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.BLOCK_PORTAL_AMBIENT_ID, BLOCK_PORTAL_AMBIENT_EVENT);
@@ -362,12 +372,15 @@ public class BGSoundEvents {
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_GEIST_DEATH, BGSoundEvents.GEIST_DEATH_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_GEIST_FLY, BGSoundEvents.GEIST_FLY_EVENT);
 
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MOURN_AMBIENT, BGSoundEvents.MOURN_AMBIENT_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MOURN_SCREAM, BGSoundEvents.MOURN_SCREAM_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MOURN_HURT, BGSoundEvents.MOURN_HURT_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_MOURN_DEATH, BGSoundEvents.MOURN_DEATH_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WHISPER_AMBIENT, BGSoundEvents.WHISPER_AMBIENT_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WHISPER_HURT, BGSoundEvents.WHISPER_HURT_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WHISPER_DEATH, BGSoundEvents.WHISPER_DEATH_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WHISPER_SPOOKED, BGSoundEvents.WHISPER_SPOOKED_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_WHISPER_DRAIN, BGSoundEvents.WHISPER_DRAIN_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SCARE_AMBIENT, BGSoundEvents.SCARE_AMBIENT_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SCARE_SHOOT, BGSoundEvents.SCARE_SHOOT_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SCARE_HURT, BGSoundEvents.SCARE_HURT_EVENT);

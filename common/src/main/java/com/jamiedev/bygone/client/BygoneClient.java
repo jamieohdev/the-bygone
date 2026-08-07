@@ -278,7 +278,7 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.SABEAST, SabeastModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.MOURN, MournModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WHISPER, WhisperModel::getTexturedModelData);
-        consumer.accept(JamiesModModelLayers.SCARE, ScareModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.SCARE, ScareModel2::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.AMOEBA, AmoebaModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.AMOEBA_OUTER, AmoebaModel::createOuterLayer);
         consumer.accept(JamiesModModelLayers.MURKLING, MurklingModel::createBodyLayer);

@@ -1012,6 +1012,12 @@
     ],
     "subtitle": "subtitles.bygone.item.whirliweed_bundle.use"
   },
+  "weather.haunting": {
+    "sounds": [
+      "bygone:weather/haunting/toll"
+    ],
+    "subtitle": "subtitles.bygone.weather.haunting.toll"
+  },
   "weather.inverted_rain": {
     "sounds": [
       "bygone:weather/inverted_rain/loop1",
@@ -1021,71 +1027,77 @@
     ],
     "subtitle": "subtitles.bygone.weather.inverted_rain.loop"
   },
+  "entity.mourn.ambient": {
+    "sounds": [
+      "bygone:entity/mourn/idle1",
+      "bygone:entity/mourn/idle2",
+      "bygone:entity/mourn/idle3"
+    ],
+    "subtitle": "subtitles.entity.mourn.ambient"
+  },
   "entity.mourn.scream": {
     "sounds": [
-      {
-        "name": "minecraft:entity.ghast.scream",
-        "type": "event",
-        "volume": 1.5,
-        "pitch": 0.5
-      }
+      "bygone:entity/mourn/attack1",
+      "bygone:entity/mourn/attack2",
+      "bygone:entity/mourn/attack3"
     ],
     "subtitle": "subtitles.entity.mourn.scream"
   },
   "entity.mourn.hurt": {
     "sounds": [
-      {
-        "name": "bygone:entity.geist.hurt",
-        "type": "event",
-        "volume": 1.0,
-        "pitch": 0.6
-      }
+      "bygone:entity/mourn/hurt1",
+      "bygone:entity/mourn/hurt2",
+      "bygone:entity/mourn/hurt3"
     ],
     "subtitle": "subtitles.entity.mourn.hurt"
   },
   "entity.mourn.death": {
     "sounds": [
-      {
-        "name": "bygone:entity.geist.death",
-        "type": "event",
-        "volume": 1.0,
-        "pitch": 0.6
-      }
+      "bygone:entity/mourn/death1",
+      "bygone:entity/mourn/death2",
+      "bygone:entity/mourn/death3"
     ],
     "subtitle": "subtitles.entity.mourn.death"
   },
   "entity.whisper.ambient": {
     "sounds": [
-      {
-        "name": "minecraft:entity.vex.ambient",
-        "type": "event",
-        "volume": 0.8,
-        "pitch": 0.55
-      }
+      "bygone:entity/whisper/idle1",
+      "bygone:entity/whisper/idle2",
+      "bygone:entity/whisper/idle3"
     ],
     "subtitle": "subtitles.entity.whisper.ambient"
   },
   "entity.whisper.hurt": {
     "sounds": [
-      {
-        "name": "minecraft:entity.vex.hurt",
-        "type": "event",
-        "volume": 1.0,
-        "pitch": 0.6
-      }
+      "bygone:entity/whisper/hurt1",
+      "bygone:entity/whisper/hurt2",
+      "bygone:entity/whisper/hurt3"
     ],
     "subtitle": "subtitles.entity.whisper.hurt"
   },
   "entity.whisper.death": {
     "sounds": [
-      {
-        "name": "minecraft:entity.vex.death",
-        "type": "event",
-        "volume": 1.0,
-        "pitch": 0.6
-      }
+      "bygone:entity/whisper/death1",
+      "bygone:entity/whisper/death2",
+      "bygone:entity/whisper/death3"
     ],
     "subtitle": "subtitles.entity.whisper.death"
+  },
+  "entity.whisper.spooked": {
+    "sounds": [
+      "bygone:entity/whisper/spooked1",
+      "bygone:entity/whisper/spooked2",
+      "bygone:entity/whisper/spooked3"
+    ],
+    "subtitle": "subtitles.entity.whisper.spooked"
+  },
+  "entity.whisper.drain": {
+    "sounds": [
+      "bygone:entity/whisper/drain1",
+      "bygone:entity/whisper/drain2",
+      "bygone:entity/whisper/drain3"
+    ],
+    "subtitle": "subtitles.entity.whisper.drain"
   },
   "entity.scare.ambient": {
     "sounds": [
