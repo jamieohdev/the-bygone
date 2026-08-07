@@ -14,7 +14,7 @@ public interface BlockPhasingEntity {
 	void onStopPhasing();
 
 	void tickPhasing();
-	int getPhasingTicks();
+	int getPhasingTime();
 	int getMaxPhasingTicks();
 
 }

@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "end": "bygone:block/bale_block_top",
-    "side": "bygone:block/bale_block"
+    "end": "bygone:block/amaranth_bale_top",
+    "side": "bygone:block/amaranth_bale_side"
   }
 }

@@ -30,10 +30,13 @@ public abstract class BlockPhasingPlayerMixin extends LivingEntity implements Bl
 
 	@Shadow @Final private Abilities abilities;
 
+	@Shadow public abstract void onUpdateAbilities();
+
+	@Unique int MAX_PHASING_REGENERATION_COOLDOWN = 40;
 	@Unique boolean phasing = false;
 	@Unique boolean insideBlock = false;
-	@Unique int phasingTicks = 0;
-	@Unique int phasingTicksRegenCooldown = 40;
+	@Unique int phasingTime = 0;
+	@Unique int phasingRegenerationCooldown = 0;
 
 	@WrapMethod(method = "createAttributes")
 	private static AttributeSupplier.Builder addPhasingAttribute(Operation<AttributeSupplier.Builder> original) {
@@ -43,19 +46,19 @@ public abstract class BlockPhasingPlayerMixin extends LivingEntity implements Bl
 	@WrapMethod(method = "readAdditionalSaveData")
 	private void readPhasingData(CompoundTag compound, Operation<Void> original) {
 		original.call(compound);
-		this.phasingTicks = compound.getInt("phasing_ticks");
+		this.phasingTime = compound.getInt("phasing_time");
 	}
 
 	@WrapMethod(method = "addAdditionalSaveData")
 	private void addPhasingData(CompoundTag compound, Operation<Void> original) {
 		original.call(compound);
-		compound.putInt("phasing_ticks", this.phasingTicks);
+		compound.putInt("phasing_time", this.phasingTime);
 	}
 
 	@WrapMethod(method = "tick")
 	private void tick(Operation<Void> original) {
 		original.call();
-		this.setPhasing(this.insideBlock && this.phasingTicks >= 0);
+		this.setPhasing(this.insideBlock && this.phasingTime >= 0);
 
 		if (this.isPhasing()) this.tickPhasing();
 		else if (!this.isInsideBlock()) this.tickPhasingRegen();
@@ -63,17 +66,19 @@ public abstract class BlockPhasingPlayerMixin extends LivingEntity implements Bl
 
 	@Override
 	public void tickPhasing() {
-		this.phasingTicks--;
+		this.phasingTime--;
 		if (this.onGround()) this.setDeltaMovement(this.getDeltaMovement().multiply(0.2F, 1, 0.2F));
-		if (this.phasingTicks <= 0) this.setPhasing(false);
+		if (this.phasingTime <= 0) this.setPhasing(false);
 	}
 
 	@Unique
 	private void tickPhasingRegen() {
-		if (this.phasingTicksRegenCooldown > 0) {
-			this.phasingTicksRegenCooldown--;
+		if (this.phasingRegenerationCooldown <= MAX_PHASING_REGENERATION_COOLDOWN) {
+			this.phasingRegenerationCooldown++;
+		} if (this.phasingRegenerationCooldown == MAX_PHASING_REGENERATION_COOLDOWN) {
+			this.phasingTime = Math.min(MAX_PHASING_REGENERATION_COOLDOWN, this.getMaxPhasingTicks());
 		} else {
-			this.phasingTicks = Math.min(this.phasingTicks + 1, this.getMaxPhasingTicks());
+			this.phasingTime = Math.min(this.phasingTime + 1, this.getMaxPhasingTicks());
 		}
 	}
 
@@ -105,13 +110,21 @@ public abstract class BlockPhasingPlayerMixin extends LivingEntity implements Bl
 
 	@Override
 	public void onStartPhasing() {
+		this.abilities.mayfly = true;
+		this.abilities.flying = true;
+		this.onUpdateAbilities();
+		this.setPos(this.position().add(0, 0.1F, 0));
+		this.setDeltaMovement(this.getDeltaMovement().add(0, 0.1F, 0));
 		this.level().playSound(null, this.blockPosition(), BGSoundEvents.PLAYER_PHASING_START_ADDITIONS_EVENT, SoundSource.PLAYERS);
 	}
 
 	@Override
 	public void onStopPhasing() {
+		this.abilities.mayfly = false;
+		this.abilities.flying = false;
+		this.onUpdateAbilities();
 		this.level().playSound(null, this.blockPosition(), BGSoundEvents.PLAYER_PHASING_STOP_ADDITIONS_EVENT, SoundSource.PLAYERS);
-		this.phasingTicksRegenCooldown = 40;
+		this.phasingRegenerationCooldown = 0;
 	}
 
 	@Override
@@ -121,15 +134,15 @@ public abstract class BlockPhasingPlayerMixin extends LivingEntity implements Bl
 
 	@Override
 	public boolean canStartPhasing() {
-		if (this.phasingTicks <= 0) return false;
+		if (this.phasingTime <= 0) return false;
 
 		ItemStack stack = this.getItemBySlot(EquipmentSlot.CHEST);
 		return stack.is(BGItems.WALLOW_SHAWL.get());
 	}
 
 	@Override
-	public int getPhasingTicks() {
-		return this.phasingTicks;
+	public int getPhasingTime() {
+		return this.phasingTime;
 	}
 
 	@Override

@@ -87,7 +87,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     public WraithEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.dimensions = entityType.getDimensions();
-        this.xpReward = 15;
+        this.xpReward = 25;
         this.moveControl = new FlyingMoveControl(this, 35, false);
         this.setNoGravity(true);
         this.setPathfindingMalus(PathType.DANGER_FIRE, -1.0F);
@@ -102,9 +102,9 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         return Monster.createMonsterAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.2)
                 .add(Attributes.FLYING_SPEED, 0.9)
-                .add(Attributes.FOLLOW_RANGE, 18.0)
+                .add(Attributes.FOLLOW_RANGE, 10.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.8)
-                .add(Attributes.MAX_HEALTH, 32.0);
+                .add(Attributes.MAX_HEALTH, 20.0);
     }
 
     @Override
@@ -690,12 +690,12 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
         @Override
         protected int getCastingTime() {
-            return 60;
+            return 120;
         }
 
         @Override
         protected int getCastingInterval() {
-            return 120;
+            return 240;
         }
 
         @Override

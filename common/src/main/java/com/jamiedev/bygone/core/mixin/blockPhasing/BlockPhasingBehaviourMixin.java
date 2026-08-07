@@ -4,9 +4,11 @@ import com.jamiedev.bygone.common.entity.BlockPhasingEntity;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
@@ -14,6 +16,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(BlockBehaviour.BlockStateBase.class)
 public abstract class BlockPhasingBehaviourMixin {
@@ -31,7 +34,18 @@ public abstract class BlockPhasingBehaviourMixin {
 		Entity entity = entityCollision.getEntity();
 		if (!(entity instanceof BlockPhasingEntity phasing)) return result;
 		if (!phasing.canStartPhasing()) return result;
-		if (context.isAbove(result, pos, true)) return result;
+
+		return this.getPhasingShape(level, pos, context, result);
+	}
+
+	@Unique
+	private VoxelShape getPhasingShape(BlockGetter level, BlockPos pos, CollisionContext context, VoxelShape original) {
+		if (context.isAbove(original, pos, true)) {
+			VoxelShape aboveShape = level.getBlockState(pos.above()).getCollisionShape(level, pos.above());
+			if (!Block.isFaceFull(aboveShape, Direction.DOWN)) {
+				return original;
+			}
+		}
 
 		return Shapes.empty();
 	}

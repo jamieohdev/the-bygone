@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "bygone:block/chantrelle_stage3"
+    "cross": "bygone:block/chantrelle_crop_stage_3"
   }
 }
