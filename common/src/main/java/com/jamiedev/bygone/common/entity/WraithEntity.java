@@ -121,13 +121,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                         Double.POSITIVE_INFINITY
                 )))
         );
-        this.goalSelector.addGoal(
-                2,
-                new WraithEntity.WraithTeleportSpellGoal(ImmutableRangeSet.of(Range.closed(
-                        0.0,
-                        TELEPORT_TARGET_AWAY_RANGE
-                )))
-        );
+
         this.goalSelector.addGoal(
                 2,
                 new WraithEntity.WraithFleeSpellGoal(ImmutableRangeSet.of(Range.closed(
@@ -147,6 +141,15 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         this.goalSelector.addGoal(8, new WraithEntity.WraithWanderGoal(this, 0.6));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
+
+        this.goalSelector.addGoal(
+                20,
+                new WraithEntity.WraithTeleportSpellGoal(ImmutableRangeSet.of(Range.closed(
+                        0.0,
+                        TELEPORT_TARGET_AWAY_RANGE
+                )))
+        );
+
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this, WraithEntity.class).setAlertOthers());
         this.targetSelector.addGoal(
                 2,
@@ -641,6 +644,14 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                     BlockState belowTeleportDestinationState = level.getBlockState(belowTeleportDestination);
                     BlockState aboveTeleportDestinationState = level.getBlockState(aboveTeleportDestination);
 
+                    WraithEntity.this.level().addParticle(ParticleTypes.CRIT,
+                            target.getX(),
+                            target.getY(),
+                            target.getZ(),
+                            (WraithEntity.this.random.nextDouble() - 0.5) * 2.0,
+                            -WraithEntity.this.random.nextDouble(),
+                            (WraithEntity.this.random.nextDouble() - 0.5) * 2.0);
+
                     // Note; maybe change the isAir to something less stringent, so it can teleport into grass and whatnot? Not sure what the best alternative is.
                     if (belowTeleportDestinationState.isFaceSturdy(
                             level,
@@ -648,10 +659,10 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                             Direction.UP
                     ) && teleportDestinationState.isAir() && aboveTeleportDestinationState.isAir()) {
 
-                        WraithEntity.this.level().addParticle(ParticleTypes.PORTAL,
-                                teleportDestination.getX() + 0.5,
-                                teleportDestination.getY() + 1.0,
-                                teleportDestination.getZ() + 0.5,
+                        WraithEntity.this.level().addParticle(ParticleTypes.REVERSE_PORTAL,
+                                target.getX(),
+                                target.getY(),
+                                target.getZ(),
                                 (WraithEntity.this.random.nextDouble() - 0.5) * 2.0,
                                 -WraithEntity.this.random.nextDouble(),
                                 (WraithEntity.this.random.nextDouble() - 0.5) * 2.0);

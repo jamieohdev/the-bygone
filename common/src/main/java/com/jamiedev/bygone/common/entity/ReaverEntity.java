@@ -390,7 +390,6 @@ public class ReaverEntity extends Monster implements RangedAttackMob, FlyingAnim
 
     public enum WraithSpell {
         NONE(0, 0.0F, 0.0F, 0.0F),
-        TELEPORT(1, 0.7, 0.7, 0.8),
         FIRE(2, 0.4, 0.3, 0.35),
         NOVELTY(3, 0.7, 0.5F, 0.2),
         DISAPPEAR(4, 0.3, 0.3, 0.8),
@@ -552,110 +551,6 @@ public class ReaverEntity extends Monster implements RangedAttackMob, FlyingAnim
         protected abstract SoundEvent getSpellPrepareSound();
 
         protected abstract ReaverEntity.WraithSpell getSpell();
-    }
-
-    public class WraithTeleportSpellGoal extends SpellcasterUseSpellGoal {
-
-        protected WraithTeleportSpellGoal(RangeSet<Double> validTargetRanges) {
-            super(validTargetRanges);
-        }
-
-        public boolean canUse() {
-            return super.canUse();
-        }
-
-        @Override
-        public void start() {
-            super.start();
-        }
-
-        @Override
-        protected void performSpellCasting() {
-
-            LivingEntity target = Objects.requireNonNull(ReaverEntity.this.getTarget());
-
-            RandomSource random = ReaverEntity.this.random;
-            Level level = ReaverEntity.this.level();
-            BlockPos wraithPos = ReaverEntity.this.getOnPos();
-
-            boolean hasTeleported = false;
-
-            for (int check = 0; !hasTeleported && (check < 10); check++) {
-                int xOffset = random.nextIntBetweenInclusive(7, 11) * ((random.nextIntBetweenInclusive(0, 1) * 2) - 1);
-                int zOffset = random.nextIntBetweenInclusive(7, 11) * ((random.nextIntBetweenInclusive(0, 1) * 2) - 1);
-                BlockPos horizontallyOffsetDestination = wraithPos.offset(xOffset, 0, zOffset);
-
-                for (int checkY = -4; checkY <= 4; checkY++) {
-                    BlockPos teleportDestination = horizontallyOffsetDestination.above(checkY);
-                    BlockPos belowTeleportDestination = teleportDestination.below();
-                    BlockPos aboveTeleportDestination = teleportDestination.above();
-                    BlockState teleportDestinationState = level.getBlockState(teleportDestination);
-                    BlockState belowTeleportDestinationState = level.getBlockState(belowTeleportDestination);
-                    BlockState aboveTeleportDestinationState = level.getBlockState(aboveTeleportDestination);
-
-                    // Note; maybe change the isAir to something less stringent, so it can teleport into grass and whatnot? Not sure what the best alternative is.
-                    if (belowTeleportDestinationState.isFaceSturdy(
-                            level,
-                            belowTeleportDestination,
-                            Direction.UP
-                    ) && teleportDestinationState.isAir() && aboveTeleportDestinationState.isAir()) {
-
-                        target.teleportTo(
-                                teleportDestination.getX() + 0.5,
-                                teleportDestination.getY(),
-                                teleportDestination.getZ() + 0.5
-                        );
-
-                        hasTeleported = true;
-
-                        level.playSound(
-                                null,
-                                ReaverEntity.this.xo,
-                                ReaverEntity.this.yo,
-                                ReaverEntity.this.zo,
-                                BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT,
-                                ReaverEntity.this.getSoundSource(),
-                                1.0F,
-                                0.8F + random.nextFloat() * 0.4F
-                        );
-
-                        ReaverEntity.this.playSound(
-                                BGSoundEvents.WRAITH_TELEPORT_ADDITIONS_EVENT,
-                                1.0F,
-                                0.8F + random.nextFloat() * 0.4F
-                        );
-
-                        break;
-                    }
-                }
-            }
-
-        }
-
-        @Override
-        protected int getCastingTime() {
-            return 60;
-        }
-
-        @Override
-        protected int getCastingInterval() {
-            return 120;
-        }
-
-        @Override
-        protected SoundEvent getSpellPrepareSound() {
-            return null;
-        }
-
-        @Override
-        protected WraithSpell getSpell() {
-            return WraithSpell.TELEPORT;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-        }
     }
 
     public class WraithFleeSpellGoal extends SpellcasterUseSpellGoal {

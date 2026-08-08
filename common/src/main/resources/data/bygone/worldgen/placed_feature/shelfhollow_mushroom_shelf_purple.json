@@ -13,7 +13,7 @@
         "fallback": {
           "type": "minecraft:simple_state_provider",
           "state": {
-            "Name": "bygone:orange_mushroom_block"
+            "Name": "bygone:purple_mushroom_block"
           }
         },
         "rules": []
