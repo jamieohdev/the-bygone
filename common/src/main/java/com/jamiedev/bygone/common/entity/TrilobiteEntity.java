@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.entity;
 
+import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -66,8 +67,8 @@ public class TrilobiteEntity extends AbstractFish {
     }
 
     @Override
-    public ItemStack getBucketItemStack() {
-        return Items.WATER_BUCKET.getDefaultInstance();
+    public @NotNull ItemStack getBucketItemStack() {
+        return BGItems.TRILOBITE_BUCKET.get().getDefaultInstance();
     }
 
     public int getDarkTicksRemaining() {

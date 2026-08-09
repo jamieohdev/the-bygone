@@ -387,6 +387,16 @@ public class BGItems {
             "scare_spawn_egg",
             () -> new SpawnEggItem(BGEntityTypes.SCARE.get(), 0x4a3a5e, 0x8a6fae, new Item.Properties())
     );
+    public static final Supplier<Item> TRILOBITE_BUCKET = registerItem(
+            (String) "bucket_o_trilobite", () ->
+                    new MobBucketItem(
+                            BGEntityTypes.TRILOBITE.get(),
+                            Fluids.WATER,
+                            SoundEvents.BUCKET_EMPTY_AXOLOTL,
+                            (new Item.Properties())
+                                    .stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)
+                    )
+    );
     public static final Supplier<Item> AMOEBA_BUCKET = registerItem(
             (String) "bucket_o_amoeba", () ->
                     new MobBucketItem(
