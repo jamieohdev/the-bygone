@@ -63,7 +63,7 @@ public class LithoFluidBlock extends LiquidBlock
      */
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (random.nextInt(2) == 1)
+        if (random.nextInt(10) == 1)
         {
             double d0 = (double)pos.getX() + 0.5 + (0.5 - random.nextDouble());
             double d1 = (double)pos.getY() + 1.0;

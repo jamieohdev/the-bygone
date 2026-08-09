@@ -103,7 +103,7 @@ public abstract class LithoFluid extends FlowingFluid {
 
     @Override
     public int getTickDelay(LevelReader levelReader) {
-        return 0;
+        return 5;
     }
 
     @Override
