@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.client.models;
 
 import com.jamiedev.bygone.client.renderer.SpectralRenderUtil;
-import com.jamiedev.bygone.common.entity.ScareEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
@@ -23,6 +22,7 @@ public class ScareModel<T extends Entity> extends HierarchicalModel<T> {
 	private final ModelPart head;
 	private final ModelPart armLeft;
 	private final ModelPart armRight;
+
 	private float spectralAlpha = 1.0F;
 
 	public ScareModel(ModelPart root) {
@@ -39,20 +39,24 @@ public class ScareModel<T extends Entity> extends HierarchicalModel<T> {
 
 		PartDefinition all = partdefinition.addOrReplaceChild("all", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -14.0F, -3.0F, 8.0F, 14.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0)
+				.addBox(-2.0F, -9.0F, -1.0F, 7.0F, 9.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 0.0F, -2.0F));
 
-		PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(28, 0).addBox(-3.0F, -6.0F, -3.0F, 6.0F, 6.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -14.0F, 0.0F));
+		body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 16)
+				.addBox(-2.0F, -4.0F, -1.0F, 5.0F, 3.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(1.0F, -8.0F, 1.0F));
 
-		PartDefinition armLeft = body.addOrReplaceChild("armLeft", CubeListBuilder.create().texOffs(0, 26).addBox(0.0F, -1.0F, -1.0F, 9.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, -12.0F, 0.0F));
+		body.addOrReplaceChild("armLeft", CubeListBuilder.create().texOffs(20, 16)
+				.addBox(0.0F, -2.0F, -1.0F, 8.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, -6.0F, 2.0F));
 
-		PartDefinition armRight = body.addOrReplaceChild("armRight", CubeListBuilder.create().texOffs(0, 32).mirror().addBox(-9.0F, -1.0F, -1.0F, 9.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-4.0F, -12.0F, 0.0F));
+		body.addOrReplaceChild("armRight", CubeListBuilder.create().texOffs(20, 20)
+				.addBox(-11.0F, -2.0F, -1.0F, 8.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(1.0F, -6.0F, 2.0F));
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
 	@Override
 	public @NotNull ModelPart root() {
-		return all;
+		return this.all;
 	}
 
 	@Override
@@ -61,20 +65,23 @@ public class ScareModel<T extends Entity> extends HierarchicalModel<T> {
 		this.spectralAlpha = SpectralRenderUtil.healthAlpha(entity);
 
 		this.all.y += Mth.sin(ageInTicks * 0.1F) * 0.8F;
+
 		this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
 		this.head.xRot = headPitch * ((float) Math.PI / 180F);
 
-		float flap = Mth.sin(ageInTicks * 0.2F) * 0.25F;
-		this.armLeft.zRot = -0.3F + flap;
-		this.armRight.zRot = 0.3F - flap;
+		float flap = Mth.sin(ageInTicks * 0.15F) * 0.18F;
+		this.armLeft.zRot = -flap;
+		this.armRight.zRot = flap;
 
-		if (entity instanceof ScareEntity) {
-			this.body.zRot = Mth.sin(ageInTicks * 0.07F) * 0.05F;
-		}
+		float drift = Mth.cos(ageInTicks * 0.09F) * 0.06F;
+		this.armLeft.yRot = drift;
+		this.armRight.yRot = -drift;
+
+		this.body.zRot = Mth.sin(ageInTicks * 0.07F) * 0.05F;
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		all.render(poseStack, vertexConsumer, packedLight, packedOverlay, SpectralRenderUtil.applyAlpha(color, this.spectralAlpha));
+		this.all.render(poseStack, vertexConsumer, packedLight, packedOverlay, SpectralRenderUtil.applyAlpha(color, this.spectralAlpha));
 	}
 }

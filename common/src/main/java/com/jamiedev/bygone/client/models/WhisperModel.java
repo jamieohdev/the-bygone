@@ -20,13 +20,14 @@ public class WhisperModel<T extends Entity> extends HierarchicalModel<T> {
 
 	private final ModelPart all;
 	private final ModelPart body;
-	private final ModelPart tail;
+	private final ModelPart head;
+
 	private float spectralAlpha = 1.0F;
 
 	public WhisperModel(ModelPart root) {
 		this.all = root.getChild("all");
 		this.body = this.all.getChild("body");
-		this.tail = this.all.getChild("tail");
+		this.head = this.body.getChild("head");
 	}
 
 	public static LayerDefinition getTexturedModelData() {
@@ -35,16 +36,18 @@ public class WhisperModel<T extends Entity> extends HierarchicalModel<T> {
 
 		PartDefinition all = partdefinition.addOrReplaceChild("all", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -11.0F, -3.0F, 6.0F, 8.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0)
+				.addBox(-3.0F, -9.0F, -3.0F, 6.0F, 8.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition tail = all.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 14).addBox(-2.0F, -3.0F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 14)
+				.addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.0F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 
 	@Override
 	public @NotNull ModelPart root() {
-		return all;
+		return this.all;
 	}
 
 	@Override
@@ -54,17 +57,19 @@ public class WhisperModel<T extends Entity> extends HierarchicalModel<T> {
 
 		this.all.y += Mth.sin(ageInTicks * 0.12F) * 0.6F;
 		this.body.zRot = Mth.sin(ageInTicks * 0.08F) * 0.06F;
-		this.tail.zRot = Mth.sin(ageInTicks * 0.16F) * 0.25F;
-		this.tail.xRot = Mth.cos(ageInTicks * 0.16F) * 0.15F;
+		this.body.yRot = Mth.sin(ageInTicks * 0.05F) * 0.1F;
+
+		this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
+		this.head.xRot = headPitch * ((float) Math.PI / 180F);
+		this.head.zRot = Mth.cos(ageInTicks * 0.11F) * 0.08F;
 
 		if (entity instanceof WhisperEntity whisper) {
-			this.body.yRot = Mth.sin(ageInTicks * 0.05F) * 0.1F;
 			this.spectralAlpha *= whisper.getRevealProgress(Mth.frac(ageInTicks));
 		}
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		all.render(poseStack, vertexConsumer, packedLight, packedOverlay, SpectralRenderUtil.applyAlpha(color, this.spectralAlpha));
+		this.all.render(poseStack, vertexConsumer, packedLight, packedOverlay, SpectralRenderUtil.applyAlpha(color, this.spectralAlpha));
 	}
 }
