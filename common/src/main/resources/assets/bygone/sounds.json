@@ -1142,5 +1142,13 @@
       }
     ],
     "subtitle": "subtitles.entity.scare.death"
+  },
+
+  "item.arcane_core.use": {
+    "sounds": [
+      "entity/endereye/endereye_launch1",
+      "entity/endereye/endereye_launch2"
+    ],
+    "subtitle": "subtitles.bygone.item.arcane_core.use"
   }
 }
