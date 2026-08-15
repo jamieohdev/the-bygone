@@ -5,6 +5,7 @@ import com.jamiedev.bygone.common.entity.ai.goal.SpectralWanderGoal;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGDamageTypes;
+import com.jamiedev.bygone.core.registry.BGMobEffects;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -16,10 +17,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -165,6 +163,17 @@ public class WhisperEntity extends Monster implements FlyingAnimal {
                 this.playSound(BGSoundEvents.WHISPER_DRAIN_EVENT, 0.5F, 1.2F);
             }
         }
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity entity) {
+        boolean flag = super.doHurtTarget(entity);
+        if (flag && this.getMainHandItem().isEmpty() && entity instanceof LivingEntity) {
+            float f = this.level().getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
+            ((LivingEntity)entity).addEffect(new MobEffectInstance(BGMobEffects.HAUNTED.get(), 60 * (int)f), this);
+        }
+
+        return flag;
     }
 
     @Override

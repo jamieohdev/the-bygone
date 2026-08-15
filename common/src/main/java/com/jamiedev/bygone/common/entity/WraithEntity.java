@@ -444,8 +444,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         TELEPORT(1, 0.7, 0.7, 0.8),
         FIRE(2, 0.4, 0.3, 0.35),
         NOVELTY(3, 0.7, 0.5F, 0.2),
-        DISAPPEAR(4, 0.3, 0.3, 0.8),
-        PUKE(5, 0.1, 0.1, 0.2);
+        DISAPPEAR(4, 0.3, 0.3, 0.8);
 
         private static final IntFunction<WraithEntity.WraithSpell> BY_ID = ByIdMap.continuous(
                 (spell) -> spell.id,

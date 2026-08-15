@@ -105,7 +105,14 @@ public class ReaverEntity extends Monster implements RangedAttackMob, FlyingAnim
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, HauntEntity.class, 16.0F, (double)1.0F,
                 1.5));
-
+        this.goalSelector.addGoal(1, new ReaverEntity.SpellcasterCastingSpellGoal());
+        this.goalSelector.addGoal(
+                2,
+                new ReaverEntity.WraithFireSquareSpellGoal(ImmutableRangeSet.of(Range.open(
+                        FIRE_SQUARE_MIN_RANGE,
+                        Double.POSITIVE_INFINITY
+                )))
+        );
         this.goalSelector.addGoal(
                 2,
                 new ReaverEntity.WraithFleeSpellGoal(ImmutableRangeSet.of(Range.closed(
@@ -390,10 +397,9 @@ public class ReaverEntity extends Monster implements RangedAttackMob, FlyingAnim
 
     public enum WraithSpell {
         NONE(0, 0.0F, 0.0F, 0.0F),
-        FIRE(2, 0.4, 0.3, 0.35),
-        NOVELTY(3, 0.7, 0.5F, 0.2),
-        DISAPPEAR(4, 0.3, 0.3, 0.8),
-        PUKE(5, 0.1, 0.1, 0.2);
+        FIRE(1, 0.4, 0.3, 0.35),
+        NOVELTY(2, 0.7, 0.5F, 0.2),
+        DISAPPEAR(3, 0.3, 0.3, 0.8);
 
         private static final IntFunction<ReaverEntity.WraithSpell> BY_ID = ByIdMap.continuous(
                 (spell) -> spell.id,

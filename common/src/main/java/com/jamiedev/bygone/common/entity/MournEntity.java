@@ -18,12 +18,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -161,6 +156,17 @@ public class MournEntity extends Monster {
             this.refreshDimensions();
         }
         super.onSyncedDataUpdated(key);
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity entity) {
+        boolean flag = super.doHurtTarget(entity);
+        if (flag && this.getMainHandItem().isEmpty() && entity instanceof LivingEntity) {
+            float f = this.level().getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
+            ((LivingEntity)entity).addEffect(new MobEffectInstance(BGMobEffects.HAUNTED.get(), 60 * (int)f), this);
+        }
+
+        return flag;
     }
 
     @Override
