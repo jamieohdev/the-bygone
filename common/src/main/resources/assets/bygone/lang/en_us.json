@@ -38,6 +38,7 @@
   "item.bygone.malicious_war_horn.return_time": "Returning in %s seconds",
   "item.bygone.malicious_war_horn.cooldown_remaining": "Cooldown: %s seconds",
   "item.bygone.malicious_war_horn.ready": "Ready to use",
+  "subtitles.bygone.item.arcane_core.use": "Arcane Core used",
   "subtitles.bygone.item.war_horn.use": "War Horn sounds",
   "item.bygone.echo_gong": "Echo Gong",
   "item.bygone.echo_gong.desc1": "Builds charge over time and releases shockwaves",

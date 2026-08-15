@@ -104,7 +104,6 @@ public class BGItemGroups {
                         output.accept(BGBlocks.PRISTINE_VERDIGRIS_COG.get());
 
 
-                        output.accept(BGBlocks.BYGONE_PORTAL_FRAME_BLOCK.get());
                         output.accept(BGBlocks.BYSTONE_GOLD_ORE.get());
                         output.accept(BGBlocks.BYSLATE_GOLD_ORE.get());
                         output.accept(BGBlocks.BYSTONE_IRON_ORE.get());

@@ -2,6 +2,7 @@ package com.jamiedev.bygone.client;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.BygoneNeoForge;
+import com.jamiedev.bygone.client.particles.ArcaneSymbolParticle;
 import com.jamiedev.bygone.client.particles.BlemishParticle;
 import com.jamiedev.bygone.client.particles.UpsidedownDropParticle;
 import com.jamiedev.bygone.client.screen.PortalOverlay;
@@ -10,10 +11,7 @@ import com.jamiedev.bygone.core.registry.BGParticleTypes;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
@@ -59,6 +57,7 @@ public class BygoneClientNeoForge {
     static void registerParticleFactories(RegisterParticleProvidersEvent event) {
         BygoneClient.registerParticleFactories(event::registerSpriteSet);
         event.registerSpriteSet(BGParticleTypes.BLEMISH, BlemishParticle.BlemishBlockProvider::new);
+        event.registerSpriteSet(BGParticleTypes.ARCANE_SYMBOL, ArcaneSymbolParticle.Provider::new);
         event.registerSpriteSet(BGParticleTypes.UPSIDEDOWN, UpsidedownDropParticle.Provider::new);
 
     }

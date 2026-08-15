@@ -156,14 +156,16 @@ public class BGSoundEvents {
     public static SoundEvent SABEAST_ATTACK_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SABEAST_ATTACK);
     public static SoundEvent SABEAST_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SABEAST_DEATH);
     public static SoundEvent SABEAST_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SABEAST_HURT);
-    
+
+    public static final ResourceLocation ITEM_WAR_HORN_USE_ID = id("item.war_horn.use");
     public static final ResourceLocation HOOK_RETRIEVE = id("entity.hook.retrieve");
     public static final ResourceLocation HOOK_HIT = id("entity.hook.hit");
     public static final ResourceLocation HOOK_THROW = id("entity.hook.throw");
     public static final SoundEvent HOOK_RETRIEVE_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_RETRIEVE);
     public static final SoundEvent HOOK_HIT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_HIT);
     public static final SoundEvent HOOK_THROW_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_THROW);
-    public static final ResourceLocation ITEM_WAR_HORN_USE_ID = id("item.war_horn.use");
+    public static final ResourceLocation ITEM_ARCANE_CORE_USE_ID = id("item.arcane_core.use");
+    public static final SoundEvent ITEM_ARCANE_CORE_USE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_ARCANE_CORE_USE_ID);
     public static final SoundEvent WAR_HORN_USE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_WAR_HORN_USE_ID);
     public static final Supplier<SoundEvent> WAR_HORN_USE = () -> WAR_HORN_USE_EVENT;
     public static final ResourceLocation ITEM_WHIRLIWEED_BUNDLE_USE_ID = id("item.whirliweed_bundle.use");

@@ -25,9 +25,7 @@
     "PortalProcessorAccessor",
     "ServerLevelMixin",
     "SpawnStateMixin",
-    "VexMixin",
-    "blockPhasing.BlockPhasingBehaviourMixin",
-    "blockPhasing.BlockPhasingPlayerMixin"
+    "VexMixin"
   ],
   "client": [
     "blockPhasing.LevelRendererMixin",

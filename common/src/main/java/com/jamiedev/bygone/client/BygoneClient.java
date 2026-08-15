@@ -11,9 +11,7 @@ import com.jamiedev.bygone.core.registry.*;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.particle.ParticleEngine;
-import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.SoulParticle;
+import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -355,6 +353,10 @@ public class BygoneClient {
         consumer.accept(
                 (ParticleType<T>) BGParticleTypes.BLEMISH,
                 p_107611_ -> (ParticleProvider<T>) new BlemishParticle.BlemishBlockProvider(p_107611_)
+        );
+        consumer.accept(
+                (ParticleType<T>) BGParticleTypes.ARCANE_SYMBOL,
+                sprite -> (ParticleProvider<T>) new ArcaneSymbolParticle.Provider(sprite)
         );
         consumer.accept(
                 (ParticleType<T>) BGParticleTypes.RAFFLESIA_SPORES,

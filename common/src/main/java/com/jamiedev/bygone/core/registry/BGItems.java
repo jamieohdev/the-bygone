@@ -431,7 +431,7 @@ public class BGItems {
     );
     public static final Supplier<Item> ARCANE_CORE = registerItem(
             "arcane_core",
-            () -> new Item(new Item.Properties().fireResistant())
+            () -> new ArcaneCoreItem(new Item.Properties().fireResistant())
     );
     public static final Supplier<Item> ARCANE_MECHANISM = registerItem(
             "arcane_mechanism",

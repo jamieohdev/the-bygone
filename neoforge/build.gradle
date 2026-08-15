@@ -61,7 +61,6 @@ dependencies {
     jarJar("maven.modrinth:HAVlno45:iSzvhglx")
     implementation "maven.modrinth:HAVlno45:iSzvhglx"
     implementation "curse.maven:jinxedlib-1203401:6269067"
-    implementation "net.kyrptonaught.customportalapi:cpapireforged-neo-1.21.1:1.0.11"
     implementation "curse.maven:lithostitched-936015:6703598"
 
 
