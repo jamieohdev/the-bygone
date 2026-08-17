@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class WhisperRenderer extends MobRenderer<WhisperEntity, WhisperModel<WhisperEntity>> {
+public class WhisperRenderer extends HauntingsMobRenderer<WhisperEntity, WhisperModel<WhisperEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/whisper.png");
 
     public WhisperRenderer(EntityRendererProvider.Context context) {

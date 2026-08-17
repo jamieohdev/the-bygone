@@ -16,7 +16,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class MournModel<T extends Entity> extends HierarchicalModel<T> {
+public class MournModel<T extends Entity> extends HauntingsMobModel<T> {
 
 	public static final float SUBMERGE_DEPTH = 54.0F;
 
@@ -139,6 +139,6 @@ public class MournModel<T extends Entity> extends HierarchicalModel<T> {
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, SpectralRenderUtil.applyAlpha(color, this.spectralAlpha));
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay,  this.modifyColor(color));
 	}
 }

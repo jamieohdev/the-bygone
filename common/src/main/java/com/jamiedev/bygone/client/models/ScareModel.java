@@ -15,7 +15,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class ScareModel<T extends Entity> extends HierarchicalModel<T> {
+public class ScareModel<T extends Entity> extends HauntingsMobModel<T> {
 
 	private final ModelPart all;
 	private final ModelPart body;

@@ -13,8 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
-
 public class WraithRenderer extends HauntingsMobRenderer<WraithEntity, WraithModel<WraithEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/wraith.png");
 

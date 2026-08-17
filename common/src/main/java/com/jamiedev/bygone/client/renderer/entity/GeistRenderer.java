@@ -25,4 +25,13 @@ public class GeistRenderer extends HauntingsMobRenderer<GeistEntity, GeistModel<
     @Override public @NotNull ResourceLocation getTextureLocation(@NotNull GeistEntity GeistEntity) {
         return TEXTURE;
     }
+
+    @Nullable
+    @Override
+    protected RenderType getRenderType(@NotNull GeistEntity entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+        if (bodyVisible || translucent) {
+            return RenderType.entityTranslucent(this.getTextureLocation(entity));
+        }
+        return glowing ? RenderType.outline(this.getTextureLocation(entity)) : null;
+    }
 }

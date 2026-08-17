@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ScareRenderer extends MobRenderer<ScareEntity, ScareModel<ScareEntity>> {
+public class ScareRenderer extends HauntingsMobRenderer<ScareEntity, ScareModel<ScareEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/scare.png");
 
     public ScareRenderer(EntityRendererProvider.Context context) {
