@@ -104,6 +104,8 @@ public class BygoneNeoForge {
         fluidRegister.register(eventBus);
         FLUID_TYPES.register(eventBus);
 
+        BGPotionsNeoForge.register(eventBus);
+
         eventBus.addListener(PacketHandlerNeoForge::register);
         if (dist.isClient()) {
             BygoneClientNeoForge.init(eventBus);

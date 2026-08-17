@@ -145,6 +145,8 @@ public class BygoneFabric implements ModInitializer {
                 )
         );
 
+        BGPotionsFabric.init();
+
         Bygone.registerSpawnPlacements(SpawnPlacements::register);
         //JamiesModPortalsFabric.init();
 

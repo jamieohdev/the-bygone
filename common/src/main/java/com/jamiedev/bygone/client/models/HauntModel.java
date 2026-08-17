@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.client.models;
 
 import com.jamiedev.bygone.client.models.animations.HauntAnimations;
-import com.jamiedev.bygone.client.renderer.SpectralRenderUtil;
 import com.jamiedev.bygone.common.entity.HauntEntity;
 import com.jamiedev.bygone.common.entity.MoobooEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -14,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
 
-public class HauntModel<T extends Entity> extends HierarchicalModel<T> {
+public class HauntModel<T extends Entity> extends HauntingsMobModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	private final ModelPart haunt;
 	private final ModelPart head;
@@ -63,12 +62,9 @@ public class HauntModel<T extends Entity> extends HierarchicalModel<T> {
 		return haunt;
 	}
 
-	private float spectralAlpha = 1.0F;
-
 	@Override
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.spectralAlpha = SpectralRenderUtil.healthAlpha(entity);
 
 		if (entity instanceof HauntEntity haunt)
 		{
@@ -79,6 +75,6 @@ public class HauntModel<T extends Entity> extends HierarchicalModel<T> {
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		haunt.render(poseStack, vertexConsumer, packedLight, packedOverlay, SpectralRenderUtil.applyAlpha(color, this.spectralAlpha));
+		haunt.render(poseStack, vertexConsumer, packedLight, packedOverlay, this.modifyColor(color));
 	}
 }

@@ -12,7 +12,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class WraithModel<T extends Entity> extends HierarchicalModel<T> {
+public class WraithModel<T extends Entity> extends HauntingsMobModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
     private final ModelPart root;
     private final ModelPart body;

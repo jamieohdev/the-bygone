@@ -2,6 +2,7 @@ package com.jamiedev.bygone.core.mixin;
 
 import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
 import com.jamiedev.bygone.common.weather.weather_types.HauntingsCategoryHolder;
+import com.jamiedev.bygone.common.weather.weather_types.HauntingsEvent;
 import com.jamiedev.bygone.core.extension.LivingEntityExtension;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
@@ -12,7 +13,13 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SyncedDataHolder;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -29,6 +36,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -134,23 +142,46 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityEx
 	}
 
     @Unique private static final String BYGONE_HAUNTINGS_RISE_TICKS_TAG = "BygoneHauntingsMobRiseTicks";
+    @Unique private static final String BYGONE_HAUNTINGS_DESPAWN_TICKS_TAG = "BygoneHauntingsMobDespawnTicks";
+
+    @Unique private static final EntityDataAccessor<Integer> HAUNTINGS_DESPAWN_TICKS =
+        SynchedEntityData.defineId(LivingEntityMixin.class, EntityDataSerializers.INT);
+
+    @Inject(method = "defineSynchedData", at = @At("HEAD"))
+    private void bygone$defineSyncedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(HAUNTINGS_DESPAWN_TICKS, -1);
+    }
+
     @Unique private static final int BYGONE_HAUNTINGS_RISE_DURATION = 20;
+
+    @Unique private void bygone$setHauntingsFadeTicks(int newTicks) {
+        this.getEntityData().set(HAUNTINGS_DESPAWN_TICKS, newTicks);
+    }
+    @Override public int bygone$getHauntingsFadeTicks() {
+        return this.getEntityData().get(HAUNTINGS_DESPAWN_TICKS);
+    }
     @Unique private int bygone$hauntingsRiseTicks = 0;
 
     @Override public void bygone$startHauntingsRise() {
-        if (bygone$isHauntingsMob()) this.bygone$hauntingsRiseTicks = BYGONE_HAUNTINGS_RISE_DURATION;
+        if (bygone$isHauntingsMob()) {
+            this.bygone$hauntingsRiseTicks = BYGONE_HAUNTINGS_RISE_DURATION;
+            bygone$setHauntingsFadeTicks(HauntingsEvent.DESPAWN_TICKS);
+        }
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void bygone$saveHauntingsMob(CompoundTag compound, CallbackInfo ci) {
-        if (bygone$isHauntingsMob() && this.bygone$hauntingsRiseTicks > 0)
-            compound.putInt(BYGONE_HAUNTINGS_RISE_TICKS_TAG, this.bygone$hauntingsRiseTicks);
+        if (bygone$isHauntingsMob()) {
+            if (this.bygone$hauntingsRiseTicks > 0) compound.putInt(BYGONE_HAUNTINGS_RISE_TICKS_TAG, this.bygone$hauntingsRiseTicks);
+            if (this.bygone$getHauntingsFadeTicks() > 0) compound.putInt(BYGONE_HAUNTINGS_DESPAWN_TICKS_TAG, this.bygone$getHauntingsFadeTicks());
+        }
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void bygone$readHauntingsMob(CompoundTag compound, CallbackInfo ci) {
         this.bygone$hauntingsRiseTicks = bygone$isHauntingsMob()
             ? compound.getInt(BYGONE_HAUNTINGS_RISE_TICKS_TAG) : 0;
+        bygone$setHauntingsFadeTicks(bygone$isHauntingsMob() ? compound.getInt(BYGONE_HAUNTINGS_DESPAWN_TICKS_TAG) : -1);
     }
 
     // since they sometimes get stuck i might just change it to the behavior in here idk why
@@ -162,9 +193,31 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityEx
         cir.setReturnValue(false);
     }
 
+    @Override public boolean bygone$discardOnHauntingEnd() {
+        return this.bygone$getHauntingsFadeTicks() != -1 && !this.hasCustomName();
+    }
+
     @Inject(method = "tick", at = @At("HEAD"))
     private void bygone$hauntingsPhaseTick(CallbackInfo ci) {
         if (!bygone$isHauntingsMob()) return;
+
+        if (this.level() instanceof ServerLevel serverLevel
+            && bygone$discardOnHauntingEnd()
+            && this.bygone$getHauntingsFadeTicks() > -1
+        ) {
+            if (!HauntingsCategoryHolder.checkHauntingsActive(this.level())) {
+                this.bygone$setHauntingsFadeTicks(this.bygone$getHauntingsFadeTicks() - 1);
+                if (this.bygone$getHauntingsFadeTicks() <= 0) {
+                    this.discard();
+                    serverLevel.sendParticles(
+                        ParticleTypes.SOUL, this.getX(), this.getY() + (this.getBbHeight() / 2f),
+                        this.getZ(), random.nextIntBetweenInclusive(4, 8),
+                        0, 0, 0, 0.075D
+                    );
+                }
+            } else this.bygone$setHauntingsFadeTicks(HauntingsEvent.DESPAWN_TICKS);
+        }
+
         if (this.bygone$hauntingsRiseTicks <= 0) return;
 
         this.fallDistance = 0.0F;
@@ -176,5 +229,4 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityEx
     @Unique private boolean bygone$isHauntingsMob() {
         return this.getType().getCategory() == HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY;
     }
-
 }

@@ -32,6 +32,7 @@ public class HauntingsEffectRenderer {
     }
 
     public float progress = 0.0f;
+
     // forgot to write this earlier but thank u  cappin
     public float modifyAmbientLightFactor(float ambientLight) {
         float darkeningAmount = 1 - this.progress;
@@ -88,8 +89,7 @@ public class HauntingsEffectRenderer {
         HauntingsEvent hauntingsEvent = renderer.get().getWeatherInstance();
         boolean enabled = hauntingsEvent.isActive();
 
-        float tickDivide = 100f;
-        float progressAmount = (((enabled ? 1 : -1) * partialTicks) / tickDivide);
+        float progressAmount = (((enabled ? 1 : -1) * partialTicks) / HauntingsEvent.DESPAWN_TICKS);
         progress = Mth.clamp(progress + progressAmount, 0, 1);
 
         if (progress <= 0.0f) return;

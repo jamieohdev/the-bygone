@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.client.models;
 
 import com.jamiedev.bygone.client.models.animations.*;
-import com.jamiedev.bygone.client.renderer.SpectralRenderUtil;
 import com.jamiedev.bygone.common.entity.*;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -13,7 +12,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class GeistModel<T extends Entity> extends HierarchicalModel<T> {
+public class GeistModel<T extends Entity> extends HauntingsMobModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	private final ModelPart all;
 	private final ModelPart body;
@@ -63,12 +62,9 @@ public class GeistModel<T extends Entity> extends HierarchicalModel<T> {
 		return all;
 	}
 
-	private float spectralAlpha = 1.0F;
-
 	@Override
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.spectralAlpha = SpectralRenderUtil.healthAlpha(entity);
 
 		if (entity instanceof GeistEntity wraith) {
 			this.animate(wraith.idleAnimationState, GeistAnimations.IDLE, ageInTicks, 1.0f);
@@ -80,6 +76,6 @@ public class GeistModel<T extends Entity> extends HierarchicalModel<T> {
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int light, int overlay, int color)
 	{
-		all.render(poseStack, vertexConsumer, light, overlay, SpectralRenderUtil.applyAlpha(color, this.spectralAlpha));
+		all.render(poseStack, vertexConsumer, light, overlay, this.modifyColor(color));
 	}
 }

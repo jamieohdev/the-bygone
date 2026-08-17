@@ -17,6 +17,8 @@ public class HauntingsEvent extends WeatherType {
     private static final int HAUNTING_DURATION = 12000; // like 10 or so minutes
     private static final int HAUNTING_CYCLE = (HAUNTING_DURATION * 5); // every 50 minutes, for now
 
+    public static final int DESPAWN_TICKS = 100;
+
     @Override public void tick() {
         assert level != null;
 

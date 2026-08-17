@@ -10,6 +10,8 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
@@ -17,6 +19,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterShadersEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
@@ -49,6 +52,14 @@ public class BGEvents
         List<VillagerTrades.ItemListing> rareList = event.getRareTrades();
         List<VillagerTrades.ItemListing> commonList = event.getGenericTrades();
         rareList.add(bygoneMapTrade);
+    }
+
+    @SubscribeEvent
+    public static void onBrewingRecipeRegister(RegisterBrewingRecipesEvent event) {
+        PotionBrewing.Builder builder = event.getBuilder();
+
+        builder.addMix(Potions.AWKWARD, BGItems.LITHOPLASM.get(), BGPotionsNeoForge.HAUNTED_POTION);
+        builder.addMix(BGPotionsNeoForge.HAUNTED_POTION, Items.REDSTONE, BGPotionsNeoForge.LONG_HAUNTED_POTION);
     }
 
     @SubscribeEvent
