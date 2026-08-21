@@ -17,6 +17,7 @@ public class PacketHandler {
         Services.PLATFORM.registerClientPlayPacket(SyncPlayerHookS2C.PACkET_ID, SyncPlayerHookS2C.CODEC);
         Services.PLATFORM.registerClientPlayPacket(UpdraftMovementS2C.PACKET_ID, UpdraftMovementS2C.CODEC);
         Services.PLATFORM.registerClientPlayPacket(SyncWeatherS2C.PACkET_ID, SyncWeatherS2C.CODEC);
+        Services.PLATFORM.registerClientPlayPacket(HauntingsTollS2C.PACkET_ID, HauntingsTollS2C.CODEC);
     }
 
     public static void sendToServer(C2SModPacket<?> packet) {

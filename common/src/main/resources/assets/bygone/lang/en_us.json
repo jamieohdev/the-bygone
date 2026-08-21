@@ -624,12 +624,15 @@
   "item.bygone.whisper_spawn_egg": "Whisper Spawn Egg",
   "item.bygone.scare_spawn_egg": "Scare Spawn Egg",
   "item.bygone.reaver_spawn_egg": "Reaver Spawn Egg",
+  "subtitles.entity.mourn.ambient": "Mourn chatters",
   "subtitles.entity.mourn.scream": "Mourn screams",
   "subtitles.entity.mourn.hurt": "Mourn hurts",
   "subtitles.entity.mourn.death": "Mourn dies",
   "subtitles.entity.whisper.ambient": "Whisper whispers",
   "subtitles.entity.whisper.hurt": "Whisper hurts",
   "subtitles.entity.whisper.death": "Whisper dies",
+  "subtitles.entity.whisper.drain": "Whisper drains",
+  "subtitles.entity.whisper.spooked": "Whisper spooked",
   "subtitles.entity.scare.ambient": "Scare wails",
   "subtitles.entity.scare.shoot": "Scare fires",
   "subtitles.entity.scare.hurt": "Scare hurts",
@@ -809,6 +812,7 @@
   "subtitles.entity.geist.ambient.angry": "Geist shrieks",
   "subtitles.entity.geist.hurt": "Geist hurts",
   "subtitles.entity.geist.death": "Geist dies",
+  "subtitles.entity.geist.fly": "Geist zips",
 
   "subtitles.entity.haunt.attack": "Haunt attacks",
   "subtitles.entity.haunt.ambient": "Haunt glees",
@@ -828,6 +832,7 @@
   "subtitles.ambient.sound": "Eerie noise",
 
   "subtitles.bygone.weather.inverted_rain.loop": "Rain rises",
+  "subtitles.bygone.weather.hauntings.toll": "Ominous bell tolls",
 
   "item.bygone.music_disc_shuffle": "Music Disc",
   "item.bygone.shuffle_music_disc.desc": "Ludo Crypt - Shuffle",

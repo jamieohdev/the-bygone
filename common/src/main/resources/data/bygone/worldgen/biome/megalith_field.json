@@ -67,7 +67,7 @@
     [],
     []
   ],
-  "has_precipitation": false,
+  "has_precipitation": true,
   "spawn_costs": {
     "bygone:lithy": {
       "charge": 0.6,

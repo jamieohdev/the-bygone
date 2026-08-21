@@ -73,7 +73,7 @@
     [],
     []
   ],
-  "has_precipitation": false,
+  "has_precipitation": true,
   "spawn_costs": {
     "bygone:big_beak": {
       "charge": 0.5,

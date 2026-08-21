@@ -1,13 +1,11 @@
 package com.jamiedev.bygone.common.weather;
 
 import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.client.renderer.weather.FogWeatherRenderer;
 import com.jamiedev.bygone.client.renderer.weather.HauntingsRenderer;
 import com.jamiedev.bygone.client.renderer.weather.InvertedRainRenderer;
 import com.jamiedev.bygone.client.renderer.weather.WeatherRenderer;
-import com.jamiedev.bygone.common.weather.weather_types.HauntingsEvent;
-import com.jamiedev.bygone.common.weather.weather_types.InvertedRain;
-import com.jamiedev.bygone.common.weather.weather_types.WeatherProperties;
-import com.jamiedev.bygone.common.weather.weather_types.WeatherType;
+import com.jamiedev.bygone.common.weather.weather_types.*;
 import com.jamiedev.bygone.core.network.PacketHandler;
 import com.jamiedev.bygone.core.network.SyncWeatherS2C;
 import com.jamiedev.bygone.core.registry.BGDimensions;
@@ -19,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.datafix.DataFixTypes;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -40,6 +39,7 @@ public class BygoneWeather extends SavedData {
     public static void bootstrap(Consumer<WeatherType.Factory> consumer) {
         consumer.accept(new WeatherType.Factory<InvertedRain>("inverted_rain", InvertedRain::new, () -> InvertedRainRenderer::new));
         consumer.accept(new WeatherType.Factory<HauntingsEvent>("hauntings", HauntingsEvent::new, () -> HauntingsRenderer::new));
+        consumer.accept(new WeatherType.Factory<FogWeatherEvent>("fog", FogWeatherEvent::new, () -> FogWeatherRenderer::new));
     }
 
     @Nullable private final ServerLevel level;

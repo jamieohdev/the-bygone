@@ -121,8 +121,8 @@ public class BGSoundEvents {
     public static final ResourceLocation WEATHER_INVERTED_RAIN = id("weather.inverted_rain");
     public static SoundEvent WEATHER_INVERTED_RAIN_EVENT = SoundEvent.createVariableRangeEvent(WEATHER_INVERTED_RAIN);
 
-    public static final ResourceLocation WEATHER_HAUNTING = id("weather.haunting");
-    public static SoundEvent WEATHER_HAUNTING_EVENT = SoundEvent.createVariableRangeEvent(WEATHER_HAUNTING);
+    public static final ResourceLocation WEATHER_HAUNTINGS_TOLL = id("weather.hauntings.toll");
+    public static SoundEvent WEATHER_HAUNTINGS_TOLL_EVENT = SoundEvent.createVariableRangeEvent(WEATHER_HAUNTINGS_TOLL);
 
     public static final ResourceLocation ENTITY_AQUIFAWN_AMBIENT = id("entity.aquifawn.ambient");
     public static final ResourceLocation ENTITY_AQUIFAWN_ANGRY = id("entity.aquifawn.angry");
@@ -210,6 +210,7 @@ public class BGSoundEvents {
     public static SoundEvent SCARE_HURT_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SCARE_HURT);
     public static SoundEvent SCARE_DEATH_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SCARE_DEATH);
 
+
     public static SoundEvent AMOEBA_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AMOEBA_AMBIENT);
     public static SoundEvent AMOEBA_FLOP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AMOEBA_FLOP);
     public static SoundEvent AMOEBA_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AMOEBA_DEATH);
@@ -287,8 +288,8 @@ public class BGSoundEvents {
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_ARCANE_MECHANISM_IDLE, BGSoundEvents.ENTITY_ARCANE_MECHANISM_IDLE_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_ARCANE_MECHANISM_FADE, BGSoundEvents.ENTITY_ARCANE_MECHANISM_FADE_EVENT);
 
-        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.WEATHER_HAUNTING, BGSoundEvents.WEATHER_HAUNTING_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.WEATHER_INVERTED_RAIN, BGSoundEvents.WEATHER_INVERTED_RAIN_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.WEATHER_HAUNTINGS_TOLL, BGSoundEvents.WEATHER_HAUNTINGS_TOLL_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.BLOCK_PORTAL_AMBIENT_ID, BLOCK_PORTAL_AMBIENT_EVENT);
 
@@ -387,6 +388,7 @@ public class BGSoundEvents {
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SCARE_SHOOT, BGSoundEvents.SCARE_SHOOT_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SCARE_HURT, BGSoundEvents.SCARE_HURT_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SCARE_DEATH, BGSoundEvents.SCARE_DEATH_EVENT);
+
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_AMBIENT, BGSoundEvents.LITHY_AMBIENT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_TRIP, BGSoundEvents.LITHY_TRIP_ADDITIONS_EVENT);

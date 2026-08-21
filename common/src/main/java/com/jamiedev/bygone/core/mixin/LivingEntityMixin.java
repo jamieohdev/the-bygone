@@ -13,12 +13,10 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SyncedDataHolder;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
@@ -36,7 +34,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -136,9 +133,10 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityEx
 			BlockState state = level.getBlockState(pos);
 			if (!(state.isAir() || state.canBeReplaced())) continue;
 			if (!groundState.canSurvive(level, pos)) continue;
+
+			level.setBlock(pos, groundState, Block.UPDATE_CLIENTS);
 			break;
 		}
-		level.setBlock(pos, groundState, Block.UPDATE_CLIENTS);
 	}
 
     @Unique private static final String BYGONE_HAUNTINGS_RISE_TICKS_TAG = "BygoneHauntingsMobRiseTicks";
@@ -210,7 +208,8 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityEx
                 if (this.bygone$getHauntingsFadeTicks() <= 0) {
                     this.discard();
                     serverLevel.sendParticles(
-                        ParticleTypes.SOUL, this.getX(), this.getY() + (this.getBbHeight() / 2f),
+                        ParticleTypes.SOUL, this.getX(),
+                        this.getY() + (this.getBbHeight() / 2f),
                         this.getZ(), random.nextIntBetweenInclusive(4, 8),
                         0, 0, 0, 0.075D
                     );

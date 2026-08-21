@@ -80,7 +80,7 @@
     [],
     []
   ],
-  "has_precipitation": false,
+  "has_precipitation": true,
   "spawn_costs": {
     "bygone:mooboo": {
       "charge": 0.6,

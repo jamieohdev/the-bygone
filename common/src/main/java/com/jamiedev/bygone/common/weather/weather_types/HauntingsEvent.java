@@ -1,5 +1,7 @@
 package com.jamiedev.bygone.common.weather.weather_types;
 
+import com.jamiedev.bygone.core.network.HauntingsTollS2C;
+import com.jamiedev.bygone.core.network.PacketHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import org.jetbrains.annotations.Nullable;
@@ -24,7 +26,15 @@ public class HauntingsEvent extends WeatherType {
 
         WeatherProperties.WeatherProperty<Integer> time = this.getProperty(TIME);
         time.setValue((time.getValue() + 1) % (HAUNTING_CYCLE + HAUNTING_DURATION));
+
+        boolean previousEnabled = (boolean) this.getProperty(ENABLED).getValue();
         this.getProperty(ENABLED).setValue(time.getValue() > HAUNTING_CYCLE);
+        boolean currentlyEnabled = (boolean) this.getProperty(ENABLED).getValue();
+        if (!previousEnabled && currentlyEnabled) {
+            PacketHandler.sendPacketToAllInLevel(
+                this.level, new HauntingsTollS2C()
+            );
+        }
 
         super.tick();
     }

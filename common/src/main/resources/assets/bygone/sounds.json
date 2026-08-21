@@ -186,15 +186,11 @@
     "subtitle": "subtitles.ambient.primordial_ocean.additions"
   },
   "ambient.shelfhollow.additions": {
-    "sounds": [
-      "bygone:ambience/shelfhollows"
-    ],
+    "sounds": ["bygone:ambience/shelfhollows"],
     "subtitle": "subtitles.ambient.shelfhollows.additions"
   },
   "ambient.sable_forest.loop": {
-    "sounds": [
-      "bygone:ambience/sable"
-    ],
+    "sounds": ["bygone:ambience/sable"],
     "subtitle": "subtitles.ambient.sable_forest.additions"
   },
   "ambient.sable_forest.additions": {
@@ -396,6 +392,7 @@
       }
     ]
   },
+
   "block.portal.ambient": {
     "replace": true,
     "sounds": [
@@ -408,6 +405,7 @@
     ],
     "subtitle": "subtitles.block.portal.ambient"
   },
+
   "entity.copperbug.ambient": {
     "sounds": [
       "bygone:entity/copperbug/idle1",
@@ -687,6 +685,7 @@
     ],
     "subtitle": "subtitles.entity.wraith.fly"
   },
+
   "entity.geist.ambient": {
     "sounds": [
       "bygone:entity/geist/idle1",
@@ -731,6 +730,7 @@
     ],
     "subtitle": "subtitles.entity.geist.fly"
   },
+
   "entity.lithy.ambient": {
     "sounds": [
       "bygone:entity/lithy/idle1",
@@ -763,6 +763,7 @@
     ],
     "subtitle": "subtitles.entity.lithy.trip"
   },
+
   "entity.sabeast.ambient": {
     "sounds": [
       "bygone:entity/sabeast/idle1",
@@ -795,6 +796,7 @@
     ],
     "subtitle": "subtitles.entity.sabeast.attack"
   },
+
   "entity.murkling.ambient": {
     "sounds": [
       "bygone:entity/murkling/idle1",
@@ -838,6 +840,8 @@
     ],
     "subtitle": "subtitles.entity.murkling.flop"
   },
+
+
   "entity.aquifawn.ambient": {
     "sounds": [
       "bygone:entity/aquifawn/idle1",
@@ -886,6 +890,7 @@
     ],
     "subtitle": "subtitles.entity.aquifawn.flop"
   },
+
   "entity.wallow.ambient": {
     "sounds": [
       "bygone:entity/wallow/idle1",
@@ -918,6 +923,7 @@
     ],
     "subtitle": "subtitles.entity.wallow.freeze"
   },
+
   "entity.player.phasing.start": {
     "sounds": [
       {
@@ -936,6 +942,7 @@
     ],
     "subtitle": "subtitles.entity.player.phasing.stop"
   },
+
   "entity.arcane_mechanism.close": {
     "sounds": [
       "bygone:entity/arcane_mechanism/close1",
@@ -945,6 +952,7 @@
     ],
     "subtitle": "subtitles.entity.arcane_mechanism.close"
   },
+
   "entity.arcane_mechanism.fade": {
     "sounds": [
       "bygone:entity/arcane_mechanism/fade1",
@@ -954,6 +962,7 @@
     ],
     "subtitle": "subtitles.entity.arcane_mechanism.fade"
   },
+
   "entity.arcane_mechanism.loop": {
     "sounds": [
       "bygone:entity/arcane_mechanism/loop1",
@@ -963,6 +972,7 @@
     ],
     "subtitle": "subtitles.entity.arcane_mechanism.loop"
   },
+
   "entity.arcane_mechanism.open": {
     "sounds": [
       "bygone:entity/arcane_mechanism/open1",
@@ -972,6 +982,7 @@
     ],
     "subtitle": "subtitles.entity.arcane_mechanism.open"
   },
+
   "item.war_horn.use": {
     "sounds": [
       {
@@ -1012,12 +1023,7 @@
     ],
     "subtitle": "subtitles.bygone.item.whirliweed_bundle.use"
   },
-  "weather.haunting": {
-    "sounds": [
-      "bygone:weather/haunting/toll"
-    ],
-    "subtitle": "subtitles.bygone.weather.haunting.toll"
-  },
+
   "weather.inverted_rain": {
     "sounds": [
       "bygone:weather/inverted_rain/loop1",
@@ -1150,5 +1156,11 @@
       "entity/endereye/endereye_launch2"
     ],
     "subtitle": "subtitles.bygone.item.arcane_core.use"
+  },
+  "weather.hauntings.toll": {
+    "sounds": [
+      "bygone:weather/hauntings/toll"
+    ],
+    "subtitle": "subtitles.bygone.weather.hauntings.toll"
   }
 }

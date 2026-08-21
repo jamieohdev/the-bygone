@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.client.renderer.weather;
 
+import com.jamiedev.bygone.common.weather.BygoneWeather;
 import com.jamiedev.bygone.common.weather.InvertedHeightmap;
 import com.jamiedev.bygone.common.weather.weather_types.InvertedRain;
 import com.jamiedev.bygone.core.extension.LevelChunkExtension;
@@ -12,6 +13,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -99,6 +101,9 @@ public class InvertedRainRenderer extends WeatherRenderer<InvertedRain> {
                     invertedHeightmap.getHeight(offsetBlockPos.getX(), offsetBlockPos.getZ()) + 1,
                     offsetBlockPos.getZ()
                 );
+
+                if (!level.getBiome(mutableBlockPos).value().hasPrecipitation())
+                    continue;
 
                 if (mutableBlockPos.getY() < level.getMaxBuildHeight()
                 && (mutableBlockPos.getY() <= blockpos.getY() + 30
@@ -211,6 +216,9 @@ public class InvertedRainRenderer extends WeatherRenderer<InvertedRain> {
                 double d0 = this.rainSizeX[l1] * 0.5D;
                 double d1 = this.rainSizeZ[l1] * 0.5D;
                 mutableBlockPos.set(k1, camY, j1);
+
+                Biome biome = level.getBiome(mutableBlockPos).value();
+                if (!biome.hasPrecipitation()) continue;
 
                 LevelChunk levelChunk = level.getChunkAt(mutableBlockPos);
                 InvertedHeightmap invertedHeightMap = ((LevelChunkExtension) levelChunk).bygone$getInvertedHeightmap();
