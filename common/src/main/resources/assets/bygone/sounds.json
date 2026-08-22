@@ -1152,8 +1152,10 @@
 
   "item.arcane_core.use": {
     "sounds": [
-      "entity/endereye/endereye_launch1",
-      "entity/endereye/endereye_launch2"
+      "bygone:entity/arcane_mechanism/loop1",
+      "bygone:entity/arcane_mechanism/loop2",
+      "bygone:entity/arcane_mechanism/loop3",
+      "bygone:entity/arcane_mechanism/loop4"
     ],
     "subtitle": "subtitles.bygone.item.arcane_core.use"
   },

@@ -134,9 +134,10 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityEx
 			if (!(state.isAir() || state.canBeReplaced())) continue;
 			if (!groundState.canSurvive(level, pos)) continue;
 
-			level.setBlock(pos, groundState, Block.UPDATE_CLIENTS);
+			//level.setBlock(pos, groundState, Block.UPDATE_CLIENTS);
 			break;
 		}
+        level.setBlock(pos, groundState, Block.UPDATE_CLIENTS);
 	}
 
     @Unique private static final String BYGONE_HAUNTINGS_RISE_TICKS_TAG = "BygoneHauntingsMobRiseTicks";
