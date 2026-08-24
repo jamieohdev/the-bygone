@@ -35,14 +35,26 @@ public class HauntingsEffectRenderer {
 
     // forgot to write this earlier but thank u  cappin
     public float modifyAmbientLightFactor(float ambientLight) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.level == null || !minecraft.level.dimension()
+            .equals(BGDimensions.BYGONE_LEVEL_KEY)) return ambientLight;
+
         float darkeningAmount = 1 - this.progress;
         return ambientLight * darkeningAmount;
     }
     public void modifySkyLightColor(Vector3f color, int skyLightLevel) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.level == null || !minecraft.level.dimension()
+            .equals(BGDimensions.BYGONE_LEVEL_KEY)) return;
+
         color.mul(1 - this.progress);
     }
     private static final int LIGHT_LEVEL = 12;
     public void modifyBlockLightColor(Vector3f color, int blockLightLevel) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.level == null || !minecraft.level.dimension()
+            .equals(BGDimensions.BYGONE_LEVEL_KEY)) return;
+
         if (this.progress <= 0) return;
         if (blockLightLevel < LIGHT_LEVEL) {
             float factor = Mth.map(blockLightLevel, 0, LIGHT_LEVEL, 0, 1);

@@ -2,6 +2,7 @@ package com.jamiedev.bygone.client;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.fluids.BGFluidRenderer;
+import com.jamiedev.bygone.client.renderer.effect.FogEffectRenderer;
 import com.jamiedev.bygone.client.renderer.entity.BygoneDimensionEffects;
 import com.jamiedev.bygone.client.screen.PortalOverlay;
 import com.jamiedev.bygone.common.block.JamiesModWoodType;
@@ -10,6 +11,8 @@ import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
 import com.jamiedev.bygone.common.weather.BygoneWeather;
 import com.jamiedev.bygone.core.registry.BGDimensions;
 import com.jamiedev.bygone.core.registry.BGFluids;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -22,6 +25,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.core.component.DataComponents;
@@ -32,6 +36,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.intellij.lang.annotations.Identifier;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class BygoneClientFabric implements ClientModInitializer {
@@ -76,8 +81,32 @@ public class BygoneClientFabric implements ClientModInitializer {
                 )
             );
         });
+
+        CoreShaderRegistrationCallback.EVENT.register(context ->
+            context.register(
+                FogEffectRenderer.FOG_SHADER,
+                DefaultVertexFormat.POSITION,
+                FogEffectRenderer.getInstance()::accept
+            )
+        );
+
+        WorldRenderEvents.AFTER_TRANSLUCENT.register(context -> {
+            // TODO store context for fabric. ough that feels like it should be in a library
+            Minecraft minecraft = Minecraft.getInstance();
+            if (minecraft.level == null || !minecraft.level.dimension()
+                .equals(BGDimensions.BYGONE_LEVEL_KEY)) return;
+
+            FogEffectRenderer fogRenderer = FogEffectRenderer.getInstance();
+            fogRenderer.render(
+                minecraft, context.projectionMatrix(), context.camera(),
+                context.tickCounter().getGameTimeDeltaPartialTick(false)
+            );
+            minecraft.getMainRenderTarget().bindWrite(true);
+//            }
+        });
+
         DimensionRenderingRegistry.registerDimensionEffects(BYGONE, BygoneDimensionEffects.INSTANCE);
-        DimensionRenderingRegistry.registerSkyRenderer(BGDimensions.BYGONE_LEVEL_KEY, BygoneSkyRenderer.INSTANCE);
+//        DimensionRenderingRegistry.registerSkyRenderer(BGDimensions.BYGONE_LEVEL_KEY, BygoneSkyRenderer.INSTANCE);
 
         BygoneClient.registerModelPredicateProviders();
 

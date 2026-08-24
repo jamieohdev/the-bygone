@@ -13,6 +13,7 @@
   },
   "client": [
     "HeartTypeMixinFabric",
-    "client.EffectInstanceMixinFabric"
+    "client.EffectInstanceMixinFabric",
+    "client.FogRendererMixin"
   ]
 }

@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.common.weather;
 
 import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.client.renderer.effect.FogEffectRenderer;
 import com.jamiedev.bygone.client.renderer.weather.FogWeatherRenderer;
 import com.jamiedev.bygone.client.renderer.weather.HauntingsRenderer;
 import com.jamiedev.bygone.client.renderer.weather.InvertedRainRenderer;
@@ -22,16 +23,13 @@ import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SuppressWarnings("rawtypes")
-public class BygoneWeather extends SavedData {
+public class BygoneWeather extends SavedData implements Iterable<WeatherType> {
     public static final ResourceKey<Registry<WeatherType.Factory>> WEATHER_TYPE_REGISTRY_KEY
         = ResourceKey.createRegistryKey(Bygone.id("weather_types"));
     public static Registry<WeatherType.Factory> WEATHER_TYPES;
@@ -56,6 +54,11 @@ public class BygoneWeather extends SavedData {
     public Optional<WeatherType> getWeatherType(ResourceLocation weatherLocation) {
         return instancedWeatherTypes.stream().filter((weatherType)
             -> weatherType.getId().equals(weatherLocation)).findFirst();
+    }
+
+    @Override
+    public @NotNull Iterator<WeatherType> iterator() {
+        return instancedWeatherTypes.stream().iterator();
     }
 
     public static BygoneWeather getOrDefault(ServerLevel level) {
@@ -127,6 +130,14 @@ public class BygoneWeather extends SavedData {
         private final BygoneWeather weatherContext;
         public void updateContext(CompoundTag compoundTag) {
             weatherContext.load(compoundTag, null);
+
+            float innateFog = 0.05f; // a little bit of fog as a treat
+            float calculatedFogCoefficient = 0.0f;
+            for (WeatherType weatherType : weatherContext)
+                calculatedFogCoefficient += weatherType.fogModifier();
+            FogEffectRenderer.getInstance().updateFogIntensity(
+                (calculatedFogCoefficient + innateFog), false
+            );
         }
         private final Collection<WeatherRenderer> instancedWeatherRenderers;
 

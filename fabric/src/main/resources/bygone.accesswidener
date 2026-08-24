@@ -34,3 +34,5 @@ accessible field net/minecraft/world/entity/ai/goal/MeleeAttackGoal ticksUntilNe
 accessible method net/minecraft/world/level/NaturalSpawner$SpawnState canSpawn (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/chunk/ChunkAccess;)Z
 accessible method net/minecraft/world/level/NaturalSpawner$SpawnState canSpawnForCategory (Lnet/minecraft/world/entity/MobCategory;Lnet/minecraft/world/level/ChunkPos;)Z
 accessible method net/minecraft/world/level/NaturalSpawner$SpawnState afterSpawn (Lnet/minecraft/world/entity/Mob;Lnet/minecraft/world/level/chunk/ChunkAccess;)V
+
+accessible class net/minecraft/client/renderer/FogRenderer$FogData

@@ -22,14 +22,14 @@ public class BygoneDimensionEffects extends DimensionSpecialEffects {
         super(192.0F, true, SkyType.NORMAL, false, false);
     }
 
+    // these are all unused anyways
+    /*
     public static boolean fogThicknessAdjustments(
-            LocalPlayer player,
-            float renderDistance,
-            boolean thickFog,
-            FogRenderer.FogMode fogType,
-            Consumer<Float> setFogStart,
-            Consumer<Float> setFogEnd,
-            Consumer<FogShape> setFogShape) {
+        LocalPlayer player, float renderDistance,
+        boolean thickFog, FogRenderer.FogMode fogType,
+        Consumer<Float> setFogStart, Consumer<Float> setFogEnd,
+        Consumer<FogShape> setFogShape
+    ) {
         if (
                 fogType == FogRenderer.FogMode.FOG_TERRAIN &&
                         thickFog &&
@@ -63,6 +63,7 @@ public class BygoneDimensionEffects extends DimensionSpecialEffects {
                 ((int) (Math.min(Math.max(Math.min(0.3f * colorFactor, 0.87f) - 0 * 0.6f, 0) * 255, 255))),
                 (0));
     }
+    */
 
     @Override
     public @NotNull Vec3 getBrightnessDependentFogColor(@NotNull Vec3 color, float sunHeight) {

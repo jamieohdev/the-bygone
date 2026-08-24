@@ -48,6 +48,7 @@ public abstract class WeatherType {
     public abstract void startWeather();
     public abstract void clearWeather();
     public abstract boolean isActive();
+    public float fogModifier() { return 0.0f; }
 
     public void tick() {}
 

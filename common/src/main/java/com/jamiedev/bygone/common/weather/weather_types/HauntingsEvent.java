@@ -21,6 +21,9 @@ public class HauntingsEvent extends WeatherType {
 
     public static final int DESPAWN_TICKS = 100;
 
+    @Override
+    public float fogModifier() { return (boolean) this.getProperty(ENABLED).getValue() ? 2f : 0f; }
+
     @Override public void tick() {
         assert level != null;
 
