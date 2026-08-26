@@ -15,7 +15,7 @@ public class BGItemGroups {
 
     public static final Supplier<CreativeModeTab> EXAMPLE_TAB = registerTab(
             "test", () -> CreativeModeTab.builder(null, -1)
-                    .icon(() -> new ItemStack(BGBlocks.CHISELED_SHELLSTONE_BRICKS.get()))
+                    .icon(() -> new ItemStack(BGBlocks.PLASMIC_LITHINE_ORE.get()))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(BGItems.ANCIENT_SIGN.get());
                         output.accept(BGItems.ANCIENT_HANGING_SIGN.get());
