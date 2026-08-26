@@ -19,20 +19,56 @@ public class FogWeatherEvent extends WeatherType {
     }
 
     @Override
+    public void tick() {
+        assert level != null;
+        WeatherProperties.WeatherProperty<Integer> time = this.getProperty(TIME);
+        WeatherProperties.WeatherProperty<Boolean> isRaining = this.getProperty(IS_INTENSE);
+        WeatherProperties.WeatherProperty<Float> rain = this.getProperty(FOG_AMOUNT);
+
+        if (time.getValue() > 0) {
+            time.setValue(time.getValue() - 1);
+            if (time.getValue() == 0) isRaining.setValue(!isRaining.getValue());
+        } else {
+            if (isRaining.getValue()) time.setValue(ServerLevel.RAIN_DURATION.sample(level.random));
+            else time.setValue(ServerLevel.RAIN_DELAY.sample(level.random));
+        }
+
+        if (isRaining.getValue()) {
+            if ((float) this.getProperty(FOG_AMOUNT).getValue() <= 0f)
+                this.getProperty(FOG_AMOUNT).setValue((float) Math.clamp(level.random.nextFloat() * 1.5f, 0.5, 1.5f));
+        } else if ((float) this.getProperty(FOG_AMOUNT).getValue() > 0f)
+            this.getProperty(FOG_AMOUNT).setValue(0f);
+
+        super.tick();
+    }
+
+    @Override
     public float fogModifier() { return (float) this.getProperty(FOG_AMOUNT).getValue(); }
 
     @Override
     public void startWeather() {
+        assert level != null;
+        WeatherProperties.WeatherProperty<Boolean> isRaining = this.getProperty(IS_INTENSE);
+        WeatherProperties.WeatherProperty<Integer> time = this.getProperty(TIME);
+        if (isRaining.getValue()) return;
 
+        isRaining.setValue(true);
+        time.setValue(ServerLevel.RAIN_DURATION.sample(level.random));
     }
 
     @Override
     public void clearWeather() {
+        assert level != null;
+        WeatherProperties.WeatherProperty<Boolean> isRaining = this.getProperty(IS_INTENSE);
+        WeatherProperties.WeatherProperty<Integer> time = this.getProperty(TIME);
+        if (!isRaining.getValue()) return;
 
+        isRaining.setValue(false);
+        time.setValue(ServerLevel.RAIN_DELAY.sample(level.random));
     }
 
-    @Override
-    public boolean isActive() {
-        return false;
+    @Override public boolean isActive() {
+        return (boolean) this.getProperty(IS_INTENSE).getValue();
     }
+
 }

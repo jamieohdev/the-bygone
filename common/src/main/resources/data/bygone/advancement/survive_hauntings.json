@@ -1,0 +1,21 @@
+{
+  "parent": "bygone:enter_bygone",
+  "display": {
+    "description": {
+      "translate": "advancements.bygone.survive_hauntings.desc"
+    },
+    "icon": {
+      "id": "bygone:lithine_lamp",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.bygone.survive_hauntings.title"
+    },
+    "frame": "goal"
+  },
+  "criteria": {
+    "survive_hauntings": {
+      "trigger": "bygone:survive_hauntings"
+    }
+  }
+}

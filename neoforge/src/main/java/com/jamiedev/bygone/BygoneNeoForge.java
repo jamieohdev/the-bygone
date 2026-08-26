@@ -201,6 +201,9 @@ public class BygoneNeoForge {
     void registerEvent(RegisterEvent event) {
         Registry<?> registry = event.getRegistry();
 
+        if (registry == BuiltInRegistries.TRIGGER_TYPES)
+            BGCriteria.init();
+
         if (registry == BuiltInRegistries.BLOCK) {
             AttachmentTypesNeoForge.init();
             Bygone.registerBuiltIn();

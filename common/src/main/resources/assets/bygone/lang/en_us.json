@@ -35,8 +35,14 @@
   "advancements.bygone.find_village_underhang.desc": "Enter a forgotten Village",
   "advancements.bygone.find_village_underhang.title": "Is this Bugging you?",
 
+  "advancements.bygone.kill_spectral_mob.desc": "Kill a Spectral mob with an iron tool.",
+  "advancements.bygone.kill_spectral_mob.title": "Spectre Hunter",
+
   "advancements.bygone.ride_big_beak.desc": "Ride a Big Beak for the first time",
   "advancements.bygone.ride_big_beak.title": "Found the Snipe!",
+
+  "advancements.bygone.survive_hauntings.desc": "Survive the Hauntings...",
+  "advancements.bygone.survive_hauntings.title": "Breaking All Illusions",
 
   "item.bygone.ancient_hook": "Ancient Hook",
   "item.bygone.whirliweed_bundle": "Whirliweed Bundle",

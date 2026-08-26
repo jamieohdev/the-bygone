@@ -2,9 +2,14 @@ package com.jamiedev.bygone.common.weather.weather_types;
 
 import com.jamiedev.bygone.core.network.HauntingsTollS2C;
 import com.jamiedev.bygone.core.network.PacketHandler;
+import com.jamiedev.bygone.core.registry.BGCriteria;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HauntingsEvent extends WeatherType {
     private static final String TIME = "time";
@@ -24,6 +29,8 @@ public class HauntingsEvent extends WeatherType {
     @Override
     public float fogModifier() { return (boolean) this.getProperty(ENABLED).getValue() ? 2f : 0f; }
 
+    private final List<ServerPlayer> playerList = new ArrayList<>();
+
     @Override public void tick() {
         assert level != null;
 
@@ -33,12 +40,19 @@ public class HauntingsEvent extends WeatherType {
         boolean previousEnabled = (boolean) this.getProperty(ENABLED).getValue();
         this.getProperty(ENABLED).setValue(time.getValue() > HAUNTING_CYCLE);
         boolean currentlyEnabled = (boolean) this.getProperty(ENABLED).getValue();
+        // hauntings starting
         if (!previousEnabled && currentlyEnabled) {
+            playerList.clear();
+            playerList.addAll(level.players());
+            //
             PacketHandler.sendPacketToAllInLevel(
                 this.level, new HauntingsTollS2C()
             );
+        } else if (!currentlyEnabled && previousEnabled) {
+            // hauntings ended
+            for (ServerPlayer player : playerList)
+                BGCriteria.SURVIVE_HAUNTINGS_CRITERION.trigger(player);
         }
-
         super.tick();
     }
 
