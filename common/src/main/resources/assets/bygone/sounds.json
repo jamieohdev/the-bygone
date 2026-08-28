@@ -181,7 +181,11 @@
   },
   "ambient.primordial_ocean.additions": {
     "sounds": [
-      "bygone:ambience/primordial_ocean"
+      {
+        "name": "bygone:ambience/primordial_ocean",
+        "volume": 0.25,
+        "stream": false
+      }
     ],
     "subtitle": "subtitles.ambient.primordial_ocean.additions"
   },
@@ -1152,10 +1156,7 @@
 
   "item.arcane_core.use": {
     "sounds": [
-      "bygone:entity/arcane_mechanism/loop1",
-      "bygone:entity/arcane_mechanism/loop2",
-      "bygone:entity/arcane_mechanism/loop3",
-      "bygone:entity/arcane_mechanism/loop4"
+      "bygone:item/arcane_core/use"
     ],
     "subtitle": "subtitles.bygone.item.arcane_core.use"
   },
