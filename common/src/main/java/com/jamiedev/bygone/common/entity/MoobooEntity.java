@@ -90,7 +90,7 @@ public class MoobooEntity extends Cow {
     }
 
     protected float getSoundVolume() {
-        return 0.4F;
+        return 0.35F;
     }
 
     public int getMaxSpawnClusterSize() {
@@ -105,7 +105,6 @@ public class MoobooEntity extends Cow {
         });
     }
 
-
     @Nullable
     public MoobooEntity getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
         return BGEntityTypes.MOOBOO.get().create(level);
@@ -117,9 +116,6 @@ public class MoobooEntity extends Cow {
             return blockstate.is(JamiesModTag.HURT_SPECTRAL_BLOCKS);
         });
     }
-
-
-
 
     public void tick()
     {

@@ -136,6 +136,10 @@ public class SabeastEntity extends Monster  {
         builder.define(DATA_REPEL_RUN, false);
     }
 
+    protected float getSoundVolume() {
+        return 0.55F;
+    }
+
     @Override
     protected SoundEvent getAmbientSound() {
         return BGSoundEvents.SABEAST_AMBIENT_ADDITIONS_EVENT;
