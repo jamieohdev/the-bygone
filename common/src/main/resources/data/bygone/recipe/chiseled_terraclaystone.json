@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "bygone:terraclaystone_slab"
+    }
+  },
+  "pattern": ["#", "#"],
+  "result": {
+    "count": 1,
+    "id": "bygone:chiseled_terraclaystone"
+  }
+}
