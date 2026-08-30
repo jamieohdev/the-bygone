@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "bygone:block/terraclaystone_slab"
+    },
+    "type=double": {
+      "model": "bygone:block/terraclaystone"
+    },
+    "type=top": {
+      "model": "bygone:block/terraclaystone_slab_top"
+    }
+  }
+}

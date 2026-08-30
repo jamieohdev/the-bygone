@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "bygone:block/terraclaystone_bricks",
+    "side": "bygone:block/terraclaystone_bricks",
+    "top": "bygone:block/terraclaystone_bricks"
+  }
+}

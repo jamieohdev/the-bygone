@@ -175,6 +175,12 @@
     "bygone:embedded_terraclaystone_bricks",
     "bygone:embedded_terraclaystone",
     "bygone:terraclaystone",
-    "bygone:terraclaystone_bricks"
+    "bygone:terraclaystone_slab",
+    "bygone:terraclaystone_stairs",
+    "bygone:terraclaystone_wall",
+    "bygone:terraclaystone_bricks",
+    "bygone:terraclaystone_bricks_slab",
+    "bygone:terraclaystone_bricks_stairs",
+    "bygone:terraclaystone_bricks_wall"
   ]
 }

@@ -19,6 +19,8 @@
     "bygone:shellstone_bricks_wall",
     "bygone:glowing_plasmic_byslate_bricks_wall",
     "bygone:plasmic_byslate_bricks_wall",
-    "bygone:plasmic_byslate_wall"
+    "bygone:plasmic_byslate_wall",
+    "bygone:terraclaystone_bricks_wall",
+    "bygone:terraclaystone_wall"
   ]
 }

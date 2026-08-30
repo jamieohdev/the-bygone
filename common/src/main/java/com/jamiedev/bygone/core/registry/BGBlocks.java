@@ -1033,16 +1033,48 @@ public class BGBlocks {
             () -> new Block(BlockBehaviour.Properties.ofLegacyCopy(DIRT)
                     .strength(1.0F, 3.0F)
                     .sound(SoundType.PACKED_MUD)));
+
     public static final Supplier<Block> TERRACLAYSTONE = registerBlock(
             "terraclaystone",
             () -> new Block(BlockBehaviour.Properties.ofLegacyCopy(DIRT)
                     .strength(1.0F, 3.0F)
                     .sound(SoundType.PACKED_MUD)));
+    public static final Supplier<Block> TERRACLAYSTONE_STAIRS = registerBlock(
+            "terraclaystone_stairs", () ->
+                    new StairBlock(
+                            BGBlocks.TERRACLAYSTONE.get().defaultBlockState(),
+                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)
+                    )
+    );
+    public static final Supplier<Block> TERRACLAYSTONE_SLAB = registerBlock(
+            "terraclaystone_slab", () ->
+                    new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.TERRACLAYSTONE.get()).strength(2.0f))
+    );
+    public static final Supplier<Block> TERRACLAYSTONE_WALL = registerBlock(
+            "terraclaystone_wall", () ->
+                    new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.TERRACLAYSTONE.get()).strength(2.0f))
+    );
+
     public static final Supplier<Block> TERRACLAYSTONE_BRICKS = registerBlock(
             "terraclaystone_bricks",
             () -> new Block(BlockBehaviour.Properties.ofLegacyCopy(DIRT)
                     .strength(1.0F, 3.0F)
                     .sound(SoundType.PACKED_MUD)));
+    public static final Supplier<Block> TERRACLAYSTONE_BRICKS_STAIRS = registerBlock(
+            "terraclaystone_bricks_stairs", () ->
+                    new StairBlock(
+                            BGBlocks.TERRACLAYSTONE_BRICKS.get().defaultBlockState(),
+                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)
+                    )
+    );
+    public static final Supplier<Block> TERRACLAYSTONE_BRICKS_SLAB = registerBlock(
+            "terraclaystone_bricks_slab", () ->
+                    new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.TERRACLAYSTONE_BRICKS.get()).strength(2.0f))
+    );
+    public static final Supplier<Block> TERRACLAYSTONE_BRICKS_WALL = registerBlock(
+            "terraclaystone_bricks_wall", () ->
+                    new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.TERRACLAYSTONE_BRICKS.get()).strength(2.0f))
+    );
 
     public static final Supplier<Block> MOSSY_CLAYSTONE_PATH = registerBlock(
             "mossy_claystone_path",
@@ -1051,6 +1083,7 @@ public class BGBlocks {
                     .randomTicks()
                     .strength(0.6F)
                     .sound(SoundType.MUD)));
+
     public static final Supplier<Block> ALPHA_MOSSY_CLAYSTONE_PATH = registerBlock(
             "alpha_mossy_claystone_path",
             () -> new ClaystonePathBlock(BlockBehaviour.Properties.of()

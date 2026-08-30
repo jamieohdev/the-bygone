@@ -8,6 +8,7 @@ import com.jamiedev.bygone.core.registry.BGDamageTypes;
 import com.jamiedev.bygone.core.registry.BGMobEffects;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -72,7 +73,7 @@ public class WhisperEntity extends Monster implements FlyingAnimal {
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.16)
+                .add(Attributes.MOVEMENT_SPEED, 0.10)
                 .add(Attributes.FLYING_SPEED, 0.3)
                 .add(Attributes.FOLLOW_RANGE, 20.0);
     }
@@ -159,6 +160,12 @@ public class WhisperEntity extends Monster implements FlyingAnimal {
             this.drainCooldown = DRAIN_INTERVAL;
             Player victim = this.level().getNearestPlayer(this.drainTargeting, this);
             if (victim != null && victim.getHealth() > DRAIN_MINIMUM_HEALTH) {
+                for (int i = 0; i < 2; ++i) {
+                    this.level().addParticle(ParticleTypes.SNOWFLAKE,
+                            this.getRandomX(0.5) - victim.getX() * 1.5,
+                            this.getRandomY() - victim.getY() * 1.5,
+                            this.getRandomZ(0.5) - victim.getZ() * 1.5, 0.0, 0.0, 0.0);
+                }
                 victim.setHealth(Math.max(DRAIN_MINIMUM_HEALTH, victim.getHealth() - DRAIN_AMOUNT));
                 this.playSound(BGSoundEvents.WHISPER_DRAIN_EVENT, 0.5F, 1.2F);
             }
@@ -328,6 +335,7 @@ public class WhisperEntity extends Monster implements FlyingAnimal {
             if (--this.recalcTicks <= 0) {
                 this.recalcTicks = this.adjustedTickDelay(10);
                 this.whisper.getNavigation().moveTo(this.followed.getX(), this.followed.getEyeY(), this.followed.getZ(), this.speedModifier);
+                //this.whisper.playSound(BGSoundEvents.WHISPER_DRAIN_EVENT, 0.5F, 1.2F);
             }
         }
     }
