@@ -10,6 +10,7 @@ import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.material.Fluid;
 
@@ -159,4 +160,14 @@ public class JamiesModTag {
             return TagKey.create(Registries.POINT_OF_INTEREST_TYPE, Bygone.id(id));
         }
     }
+
+    public static class DimensionTypes {
+
+        public static final TagKey<DimensionType> MAPS_IGNORE_CEILING = of("maps_ignore_ceiling");
+
+        private static TagKey<DimensionType> of(String id) {
+            return TagKey.create(Registries.DIMENSION_TYPE, Bygone.id(id));
+        }
+    }
+
 }
