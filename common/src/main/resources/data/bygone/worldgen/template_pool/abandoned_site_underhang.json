@@ -1,0 +1,32 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:abandoned_site_underhang/1a",
+        "projection": "rigid",
+        "processors": "bygone:randomize_site",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:abandoned_site_underhang/2a",
+        "projection": "rigid",
+        "processors": "bygone:randomize_site",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:abandoned_site_underhang/3a",
+        "projection": "rigid",
+        "processors": "bygone:randomize_site",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}
