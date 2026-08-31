@@ -27,6 +27,33 @@
         "processors": "bygone:randomize_site",
         "element_type": "minecraft:single_pool_element"
       }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:abandoned_site_underhang/3b",
+        "projection": "rigid",
+        "processors": "bygone:randomize_site",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:abandoned_site_underhang/4a",
+        "projection": "rigid",
+        "processors": "bygone:randomize_site",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:abandoned_site_underhang/4b",
+        "projection": "rigid",
+        "processors": "bygone:randomize_site",
+        "element_type": "minecraft:single_pool_element"
+      }
     }
   ]
 }
