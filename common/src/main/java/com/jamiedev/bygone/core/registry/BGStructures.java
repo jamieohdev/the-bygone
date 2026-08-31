@@ -5,6 +5,8 @@ import com.jamiedev.bygone.Bygone;
 import java.util.Locale;
 
 import com.jamiedev.bygone.common.worldgen.structure.*;
+import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.GreatPathPiece;
+import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.GreatTrailRuinsStructure;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -67,6 +69,9 @@ public class BGStructures
     public static StructurePieceType PORTAL_PIECE = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
             Bygone.id("bygone_portal"), BygonePortalGenerator.Piece::new);
 
+    public static StructureType<GreatTrailRuinsStructure> GREAT_TRAIL_RUINS;
+    public static StructurePieceType TRAIL_PATH = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
+        Bygone.id("great_trail_path"), GreatPathPiece::new);
 
     private static StructurePieceType register(StructurePieceType type, String id) {
         return Registry.register(BuiltInRegistries.STRUCTURE_PIECE, id.toLowerCase(Locale.ROOT), type);
@@ -99,6 +104,6 @@ public class BGStructures
         MURKLING_NEST = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "murkling_nest"), () -> MurklingNestStructure.CODEC);
 
         SUNKEN_CITY = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_ruins"), () -> SunkenCityStructure.CODEC);
-
+        GREAT_TRAIL_RUINS = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, Bygone.id("great_trail_ruins"), () -> GreatTrailRuinsStructure.CODEC);
     }
 }

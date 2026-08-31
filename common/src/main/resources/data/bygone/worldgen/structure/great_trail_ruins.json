@@ -1,0 +1,24 @@
+{
+  "type": "bygone:great_trail_ruins",
+  "biomes": ["bygone:alphahang"],
+  "step": "raw_generation",
+  "spawn_overrides": {},
+  "start_height": {
+    "type": "minecraft:uniform",
+    "min_inclusive": { "absolute": 64 },
+    "max_inclusive": { "absolute": 192 }
+  },
+  "terrain_adaptation": "none",
+  "start_pool": "bygone:great_trail_ruins/buildings",
+  "top_pool": "bygone:great_trail_ruins/top_buildings",
+  "trail_settings": {
+    "chunk_radius": 5,
+    "path_width": 6,
+    
+    "node_count": 10,
+    "node_spacing_min": 16,
+    "node_spacing_max": 32,
+
+    "bridging_difference": 64
+  }
+}
