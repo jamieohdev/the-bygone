@@ -19,6 +19,32 @@
         },
         {
           "input_predicate": {
+            "block": "bygone:mossy_claystone_path",
+            "probability": 0.2,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:moss_block"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "bygone:mossy_claystone_path",
+            "probability": 0.2,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "bygone:claystone"
+          }
+        },
+        {
+          "input_predicate": {
             "block": "bygone:claystone",
             "probability": 0.5,
             "predicate_type": "minecraft:random_block_match"
@@ -32,8 +58,8 @@
         },
         {
           "input_predicate": {
-            "block": "bygone:claystone_farmland",
-            "probability": 0.1,
+            "block": "bygone:claystone_bricks",
+            "probability": 0.2,
             "predicate_type": "minecraft:random_block_match"
           },
           "location_predicate": {
@@ -41,6 +67,19 @@
           },
           "output_state": {
             "Name": "bygone:claystone"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "bygone:terraclaystone",
+            "probability": 0.5,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "bygone:embedded_terraclaystone"
           }
         },
         {

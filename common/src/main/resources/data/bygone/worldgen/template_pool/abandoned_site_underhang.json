@@ -54,6 +54,24 @@
         "processors": "bygone:randomize_site",
         "element_type": "minecraft:single_pool_element"
       }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:abandoned_site_underhang/4d",
+        "projection": "rigid",
+        "processors": "bygone:randomize_site",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:abandoned_site_underhang/4e",
+        "projection": "rigid",
+        "processors": "bygone:randomize_site",
+        "element_type": "minecraft:single_pool_element"
+      }
     }
   ]
 }
