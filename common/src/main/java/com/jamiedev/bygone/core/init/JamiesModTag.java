@@ -166,6 +166,7 @@ public class JamiesModTag {
     public static class DimensionTypes {
 
         public static final TagKey<DimensionType> MAPS_IGNORE_CEILING = of("maps_ignore_ceiling");
+        public static final TagKey<DimensionType> HAS_HAUNTINGS = of("has_hauntings");
 
         private static TagKey<DimensionType> of(String id) {
             return TagKey.create(Registries.DIMENSION_TYPE, Bygone.id(id));

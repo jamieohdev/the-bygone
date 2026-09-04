@@ -8,11 +8,14 @@ import com.jamiedev.bygone.client.particles.UpsidedownDropParticle;
 import com.jamiedev.bygone.client.renderer.effect.FogEffectRenderer;
 import com.jamiedev.bygone.client.screen.PortalOverlay;
 import com.jamiedev.bygone.common.block.JamiesModWoodType;
+import com.jamiedev.bygone.common.item.HauntingTimeProperty;
+import com.jamiedev.bygone.core.registry.BGItems;
 import com.jamiedev.bygone.core.registry.BGParticleTypes;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -48,6 +51,7 @@ public class BygoneClientNeoForge {
             BygoneClient.registerRenderLayers(ItemBlockRenderTypes::setRenderLayer);
             BygoneClient.registerModelPredicateProviders();
             Sheets.addWoodType(JamiesModWoodType.ANCIENT);
+            ItemProperties.register(BGItems.HAUNTING_CLOCK.get(), Bygone.id("haunting_time"), new HauntingTimeProperty());
         });
     }
 

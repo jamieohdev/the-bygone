@@ -7,10 +7,12 @@ import com.jamiedev.bygone.client.renderer.entity.BygoneDimensionEffects;
 import com.jamiedev.bygone.client.screen.PortalOverlay;
 import com.jamiedev.bygone.common.block.JamiesModWoodType;
 import com.jamiedev.bygone.common.commands.BygoneWeatherCommand;
+import com.jamiedev.bygone.common.item.HauntingTimeProperty;
 import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
 import com.jamiedev.bygone.common.weather.BygoneWeather;
 import com.jamiedev.bygone.core.registry.BGDimensions;
 import com.jamiedev.bygone.core.registry.BGFluids;
+import com.jamiedev.bygone.core.registry.BGItems;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.fabricmc.api.ClientModInitializer;
@@ -20,6 +22,7 @@ import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -28,6 +31,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -112,6 +116,12 @@ public class BygoneClientFabric implements ClientModInitializer {
 
         Sheets.SIGN_MATERIALS.put(JamiesModWoodType.ANCIENT, Sheets.getSignMaterial(JamiesModWoodType.ANCIENT));
         Sheets.HANGING_SIGN_MATERIALS.put(JamiesModWoodType.ANCIENT, Sheets.getHangingSignMaterial(JamiesModWoodType.ANCIENT));
+
+        ItemProperties.register(
+            BGItems.HAUNTING_CLOCK.get(),
+            Bygone.id("haunting_time"),
+            new HauntingTimeProperty()
+        );
 
         //   BlockEntityRendererFactories.register(JamiesModBlockEntities.BRUSHABLE_BLOCK, BygoneBrushableBlockEntityRenderer::new);
     }

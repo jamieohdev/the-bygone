@@ -654,6 +654,11 @@ public class BGItems {
             () -> new WallowShawlItem(new Item.Properties().attributes(WALLOW_SHAWL_ATTRIBUTES))
     );
 
+    public static final Supplier<Item> HAUNTING_CLOCK = registerItem(
+            "haunting_clock",
+            () -> new Item(new Item.Properties())
+    );
+
     Items item;
     ParticleTypes ref;
     ArmorMaterials ma;
