@@ -5,14 +5,13 @@ import com.jamiedev.bygone.Bygone;
 import java.util.Locale;
 
 import com.jamiedev.bygone.common.worldgen.structure.*;
-import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.GreatPathPiece;
+import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.path.GreatPathPiece;
 import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.GreatTrailRuinsStructure;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
-import net.minecraft.world.level.storage.loot.predicates.WeatherCheck;
 
 public class BGStructures
 {

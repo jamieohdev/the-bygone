@@ -15,10 +15,13 @@
     "chunk_radius": 5,
     "path_width": 6,
     
-    "node_count": 10,
+    "node_count": 12,
     "node_spacing_min": 16,
     "node_spacing_max": 32,
+    "max_turn_angle": 120.0,
 
-    "bridging_difference": 64
+    "bridging_difference": 12,
+    "sample_rate": 32,
+    "curve_tension": 0.35
   }
 }

@@ -1,30 +1,41 @@
 package com.jamiedev.bygone.common.worldgen.structure.trail_ruins;
 
+import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.buildings.BuildingGenerator;
+import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.buildings.BuildingStack;
+import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.path.GreatPathGenerator;
+import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.path.GreatPathPiece;
+import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.path.PathResolver;
 import com.jamiedev.bygone.core.registry.BGStructures;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.LevelHeightAccessor;
+import net.minecraft.world.level.StructureManager;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.WorldGenerationContext;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.levelgen.structure.pieces.PiecesContainer;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class GreatTrailRuinsStructure extends Structure {
     public static final MapCodec<GreatTrailRuinsStructure> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
         settingsCodec(instance),
         StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
-        StructureTemplatePool.CODEC.fieldOf("top_pool").forGetter(structure -> structure.startPool),
+        StructureTemplatePool.CODEC.fieldOf("top_pool").forGetter(structure -> structure.topPool),
         GreatTrailSettings.CODEC.fieldOf("trail_settings").forGetter(structure -> structure.trailSettings),
         HeightProvider.CODEC.fieldOf("start_height").forGetter(structure -> structure.startHeight)
     ).apply(instance, GreatTrailRuinsStructure::new));
@@ -55,11 +66,41 @@ public class GreatTrailRuinsStructure extends Structure {
         ));
         BlockPos startPosition = generationContext.chunkPos().getMiddleBlockPosition(startY);
         GreatPathGenerator generator = new GreatPathGenerator(generationContext, this.trailSettings);
-        List<GreatPathGenerator.PathNode> generatedNodes = generator.generateNodes(startPosition);
-        if (generatedNodes.isEmpty() || generatedNodes.size() < 2) return Optional.empty();
+        List<BlockPos> generatedNodes = generator.generateNodes(startPosition);
+        if (generatedNodes.size() < 2) return Optional.empty();
 
-        GreatPathGenerator.ResolvedPath resolvedPath = generator.resolvePath(generatedNodes);
-        return Optional.of(new GenerationStub(resolvedPath.nodes().getFirst().groundPos(), resolvedPath::rasterize));
+        PathResolver.ResolvedPath resolvedPath = new PathResolver(generator)
+            .resolve(generatedNodes);
+        BuildingGenerator buildingGenerator = new BuildingGenerator(
+            generationContext
+        );
+        List<BuildingStack> buildingStacks = buildingGenerator.resolve(resolvedPath);
+        return Optional.of(new GenerationStub(resolvedPath.startPosition(), (pieces) -> {
+            resolvedPath.rasterize(pieces);
+
+        }));
+    }
+
+    // debug white concrete placement
+    @Override public void afterPlace(
+        @NotNull WorldGenLevel level, @NotNull StructureManager structureManager,
+        @NotNull ChunkGenerator chunkGenerator, @NotNull RandomSource random,
+        @NotNull BoundingBox chunkBounds, @NotNull ChunkPos chunkPos, @NotNull PiecesContainer pieces
+    ) {
+        super.afterPlace(level, structureManager, chunkGenerator, random, chunkBounds, chunkPos, pieces);
+
+        Set<BlockPos> pathPositions = new LinkedHashSet<>();
+        for (StructurePiece piece : pieces.pieces()) {
+            if (!(piece instanceof GreatPathPiece pathPiece)) continue;
+
+            for (BlockPos sample : pathPiece.debugSamples())
+                pathPositions.add(sample.above(6));
+        }
+
+        for (BlockPos position : pathPositions) {
+            if (chunkBounds.isInside(position))
+                level.setBlock(position, Blocks.WHITE_CONCRETE.defaultBlockState(), 2);
+        }
     }
 
     @Override public StructureType<?> type() { return BGStructures.GREAT_TRAIL_RUINS; }
