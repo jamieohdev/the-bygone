@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.common.worldgen.structure.trail_ruins;
 
 import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.buildings.BuildingGenerator;
-import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.buildings.BuildingStack;
 import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.path.GreatPathGenerator;
 import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.path.GreatPathPiece;
 import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.path.PathResolver;
@@ -71,37 +70,38 @@ public class GreatTrailRuinsStructure extends Structure {
 
         PathResolver.ResolvedPath resolvedPath = new PathResolver(generator)
             .resolve(generatedNodes);
-        BuildingGenerator buildingGenerator = new BuildingGenerator(
-            generationContext
-        );
-        List<BuildingStack> buildingStacks = buildingGenerator.resolve(resolvedPath);
         return Optional.of(new GenerationStub(resolvedPath.startPosition(), (pieces) -> {
-            resolvedPath.rasterize(pieces);
+            resolvedPath.addTo(pieces, this.trailSettings);
 
+            BuildingGenerator buildingGenerator = new BuildingGenerator(
+                generationContext, generator, this.trailSettings,
+                this.startPool, this.topPool
+            );
+            buildingGenerator.place(resolvedPath, pieces);
         }));
     }
 
     // debug white concrete placement
-    @Override public void afterPlace(
-        @NotNull WorldGenLevel level, @NotNull StructureManager structureManager,
-        @NotNull ChunkGenerator chunkGenerator, @NotNull RandomSource random,
-        @NotNull BoundingBox chunkBounds, @NotNull ChunkPos chunkPos, @NotNull PiecesContainer pieces
-    ) {
-        super.afterPlace(level, structureManager, chunkGenerator, random, chunkBounds, chunkPos, pieces);
-
-        Set<BlockPos> pathPositions = new LinkedHashSet<>();
-        for (StructurePiece piece : pieces.pieces()) {
-            if (!(piece instanceof GreatPathPiece pathPiece)) continue;
-
-            for (BlockPos sample : pathPiece.debugSamples())
-                pathPositions.add(sample.above(6));
-        }
-
-        for (BlockPos position : pathPositions) {
-            if (chunkBounds.isInside(position))
-                level.setBlock(position, Blocks.WHITE_CONCRETE.defaultBlockState(), 2);
-        }
-    }
+//    @Override public void afterPlace(
+//        @NotNull WorldGenLevel level, @NotNull StructureManager structureManager,
+//        @NotNull ChunkGenerator chunkGenerator, @NotNull RandomSource random,
+//        @NotNull BoundingBox chunkBounds, @NotNull ChunkPos chunkPos, @NotNull PiecesContainer pieces
+//    ) {
+//        super.afterPlace(level, structureManager, chunkGenerator, random, chunkBounds, chunkPos, pieces);
+//
+//        Set<BlockPos> pathPositions = new LinkedHashSet<>();
+//        for (StructurePiece piece : pieces.pieces()) {
+//            if (!(piece instanceof GreatPathPiece pathPiece)) continue;
+//
+//            for (BlockPos sample : pathPiece.debugSamples())
+//                pathPositions.add(sample.above(6));
+//        }
+//
+//        for (BlockPos position : pathPositions) {
+//            if (chunkBounds.isInside(position))
+//                level.setBlock(position, Blocks.WHITE_CONCRETE.defaultBlockState(), 2);
+//        }
+//    }
 
     @Override public StructureType<?> type() { return BGStructures.GREAT_TRAIL_RUINS; }
 }

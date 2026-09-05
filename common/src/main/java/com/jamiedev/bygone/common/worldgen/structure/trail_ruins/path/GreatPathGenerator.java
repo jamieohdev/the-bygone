@@ -25,10 +25,15 @@ public class GreatPathGenerator {
 
     private final Structure.GenerationContext context;
     private final GreatTrailSettings settings;
-    private final Map<Long, HackyShittyBlockGetter> groundColumns = new HashMap<>();
+
+    // cache lookups
+    private final Map<BlockPos, HackyShittyBlockGetter> groundColumns = new HashMap<>();
     private final Map<GroundQuery, GroundResult> groundResults = new HashMap<>();
 
-    public record GroundResult(BlockPos position, SegmentState state) {}
+    public record GroundResult(
+        BlockPos pathPosition, SegmentState state,
+        Optional<BlockPos> supportBelow
+    ) {}
 
     public GreatPathGenerator(
         Structure.GenerationContext context,
@@ -41,13 +46,7 @@ public class GreatPathGenerator {
     GreatTrailSettings getSettings() { return this.settings; }
 
     public List<BlockPos> generateNodes(BlockPos startPosition) {
-        ChunkPos chunk = this.context.chunkPos();
-        LevelHeightAccessor heights = this.context.heightAccessor();
-        int radius = this.settings.chunkRadius();
-        BoundingBox allowedArea = BoundingBox.fromCorners(
-            chunk.getBlockAt(-radius * 16, heights.getMinBuildHeight(), -radius * 16),
-            chunk.getBlockAt((radius + 1) * 16 - 1, heights.getMaxBuildHeight() - 1, (radius + 1) * 16 - 1)
-        );
+        BoundingBox allowedArea = this.allowedArea();
         RandomSource random = this.context.random();
         PathResolver resolver = new PathResolver(this);
 
@@ -89,10 +88,24 @@ public class GreatPathGenerator {
     }
 
     private BlockPos groundNode(BlockPos position) {
+        return this.findExtendedGround(position).pathPosition();
+    }
+
+    public GroundResult findExtendedGround(BlockPos position) {
         return this.findGround(
             position, OptionalInt.empty(),
             position.getY(), position.getY()
-        ).position();
+        );
+    }
+
+    public BoundingBox allowedArea() {
+        ChunkPos chunk = this.context.chunkPos();
+        LevelHeightAccessor heights = this.context.heightAccessor();
+        int radius = this.settings.chunkRadius();
+        return BoundingBox.fromCorners(
+            chunk.getBlockAt(-radius * 16, heights.getMinBuildHeight(), -radius * 16),
+            chunk.getBlockAt((radius + 1) * 16 - 1, heights.getMaxBuildHeight() - 1, (radius + 1) * 16 - 1)
+        );
     }
 
     private double randomNodeRotation(List<BlockPos> nodes, RandomSource random) {
@@ -108,7 +121,7 @@ public class GreatPathGenerator {
         return previousRotation + ((random.nextDouble() * 2.0D) - 1.0D) * maximumTurn;
     }
 
-    GroundResult findGround(
+    public GroundResult findGround(
         BlockPos position, int bridgingDifference,
         int differenceReferenceY, int segmentEndY
     ) {
@@ -118,7 +131,7 @@ public class GreatPathGenerator {
         );
     }
 
-    private GroundResult findGround(
+    public GroundResult findGround(
         BlockPos position, OptionalInt bridgingDifference,
         int differenceReferenceY, int segmentEndY
     ) {
@@ -128,16 +141,16 @@ public class GreatPathGenerator {
         );
         return this.groundResults.computeIfAbsent(query,
             ignored -> groundResultRaycast(
-            this.groundColumns.computeIfAbsent(ChunkPos.asLong(
-                position.getX(), position.getZ()), column ->
-                // patemted technology
-                new HackyShittyBlockGetter(this.context,
-                    this.context.chunkGenerator().getBaseColumn(
-                        position.getX(), position.getZ(),
-                        this.context.heightAccessor(),
-                        this.context.randomState()
+            this.groundColumns.computeIfAbsent(
+                position.atY(0), column ->
+                    // patemted technology
+                    new HackyShittyBlockGetter(this.context,
+                        this.context.chunkGenerator().getBaseColumn(
+                            position.getX(), position.getZ(),
+                            this.context.heightAccessor(),
+                            this.context.randomState()
+                        )
                     )
-                )
             ),
             position, bridgingDifference,
             differenceReferenceY, segmentEndY
@@ -171,7 +184,8 @@ public class GreatPathGenerator {
         GroundResult result = groundResultRaycast(
             level, idealPosition, OptionalInt.of(bridgingDifference), startY, startY
         );
-        return result.state().inlineTerrain() ? Optional.of(result.position()) : Optional.empty();
+        return result.state().inlineTerrain()
+            ? Optional.of(result.pathPosition()) : Optional.empty();
     }
 
     static GroundResult groundResultRaycast(
@@ -185,9 +199,11 @@ public class GreatPathGenerator {
         BlockPos.MutableBlockPos mutableBlockPos = idealPosition.mutable();
         mutableBlockPos.setY(startY);
 
-        boolean inAir = level.getBlockState(mutableBlockPos).isAir();
-        int direction = inAir ? -1 : 1;
-        int endY = inAir ? minY : maxY;
+        boolean searchingDown = !isValidGround(level.getBlockState(mutableBlockPos), mutableBlockPos);
+        Optional<BlockPos> supportBelow = searchingDown
+            ? Optional.empty() : Optional.of(mutableBlockPos.immutable());
+        int direction = searchingDown ? -1 : 1;
+        int endY = searchingDown ? minY : maxY;
         int searchDistance = Math.abs(endY - startY);
 
         for (int offset = 0; offset <= searchDistance; offset++) {
@@ -195,21 +211,39 @@ public class GreatPathGenerator {
             if (bridgingDifference.isPresent() && Math.abs(scanY - referenceY) > bridgingDifference.getAsInt()) {
                 SegmentState state = Math.signum(scanY - segmentEndY) > 0
                     ? SegmentState.TUNNEL : SegmentState.BRIDGE;
-                return new GroundResult(idealPosition, state);
+                return new GroundResult(idealPosition, state, supportBelow);
             }
 
             mutableBlockPos.setY(scanY);
             BlockState state = level.getBlockState(mutableBlockPos);
-            if (state.isAir()) continue;
+            if (!isValidGround(state, mutableBlockPos)) continue;
 
-            boolean hasSpace = hasRequiredSpace(level, mutableBlockPos.getX(), mutableBlockPos.getY() + 1, mutableBlockPos.getZ());
-            if (state.isFaceSturdy(EmptyBlockGetter.INSTANCE, mutableBlockPos, Direction.UP)
-                && state.getFluidState().isEmpty() && hasSpace) return new GroundResult(mutableBlockPos.immutable(), SegmentState.NORMAL);
-            if (inAir) return new GroundResult(idealPosition, hasSpace ? SegmentState.BRIDGE : SegmentState.TUNNEL);
+            if (searchingDown) supportBelow = Optional.of(mutableBlockPos.immutable());
+            boolean hasSpace = hasRequiredSpace(
+                level, mutableBlockPos.getX(),
+                mutableBlockPos.getY() + 1,
+                mutableBlockPos.getZ()
+            );
+            if (hasSpace) return new GroundResult(
+                mutableBlockPos.immutable(),
+                SegmentState.NORMAL, supportBelow
+            );
+            if (searchingDown) return new GroundResult(
+                idealPosition, SegmentState.TUNNEL,
+                supportBelow
+            );
         }
 
-        return new GroundResult(idealPosition, inAir
-            ? SegmentState.BRIDGE : SegmentState.TUNNEL);
+        return new GroundResult(
+            idealPosition, searchingDown
+            ? SegmentState.BRIDGE : SegmentState.TUNNEL,
+            supportBelow
+        );
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public static boolean isValidGround(BlockState state, BlockPos position) {
+        return state.isFaceSturdy(EmptyBlockGetter.INSTANCE, position, Direction.UP);
     }
 
     static boolean hasRequiredSpace(BlockGetter level, int x, int surfaceY, int z) {
@@ -222,8 +256,5 @@ public class GreatPathGenerator {
     }
 
     public record PathSample(BlockPos position, SegmentState state) {}
-
-    public record PathSegment(
-        BlockPos from, BlockPos to, SegmentState state
-    ) {}
+    public record PathSegment(BlockPos from, BlockPos to, SegmentState state) {}
 }

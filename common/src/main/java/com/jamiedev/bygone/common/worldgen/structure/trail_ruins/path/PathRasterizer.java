@@ -50,7 +50,7 @@ public record PathRasterizer(GreatPathGenerator generator) {
         List<BlockPos> result = new ArrayList<>();
         BlockPos previous = null;
         for (int sample = 0; sample <= sampleRate; sample++) {
-            double progress = (double) sample / (double) sampleRate;
+            float progress = (float) sample / sampleRate;
             BlockPos current = catmullRom(points, progress);
             if (previous == null) result.add(current);
             else this.appendIdeal(result, previous, current);

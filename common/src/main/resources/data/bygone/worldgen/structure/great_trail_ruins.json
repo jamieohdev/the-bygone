@@ -12,8 +12,8 @@
   "start_pool": "bygone:great_trail_ruins/buildings",
   "top_pool": "bygone:great_trail_ruins/top_buildings",
   "trail_settings": {
-    "chunk_radius": 5,
-    "path_width": 6,
+    "chunk_radius": 6,
+    "path_width": 5,
     
     "node_count": 12,
     "node_spacing_min": 16,
@@ -22,6 +22,7 @@
 
     "bridging_difference": 12,
     "sample_rate": 32,
-    "curve_tension": 0.35
+
+    "building_placement_retries": 4
   }
 }
