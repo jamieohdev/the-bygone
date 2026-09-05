@@ -21,14 +21,11 @@ public record PathResolver(GreatPathGenerator generator) {
 
     public record ResolvedPath(
         BlockPos startPosition,
-        List<PathSegment> segments,
-        PathRasterizer rasterizer
+        List<PathRasterizer.RasterizedSegment> segments
     ) {
-        public void rasterize(StructurePiecesBuilder pieces) {
-            GreatTrailSettings settings = this.rasterizer.getSettings();
-            List<PathRasterizer.RasterizedSegment> rasterizedSegments = this.rasterizer.rasterize(this.segments);
+        public void addTo(StructurePiecesBuilder pieces, GreatTrailSettings settings) {
             HashMap<SegmentState, List<GreatPathPiece.PlacementPass>> placementPasses = new HashMap<>();
-            for (PathRasterizer.RasterizedSegment segment : rasterizedSegments)
+            for (PathRasterizer.RasterizedSegment segment : this.segments)
                 GreatPathPiece.PlacementPass.addSegment(placementPasses, segment.samples());
 
             for (SegmentState state : SegmentState.values()) {
@@ -57,7 +54,8 @@ public record PathResolver(GreatPathGenerator generator) {
         }
 
         return new ResolvedPath(
-            nodes.getFirst(), segments, new PathRasterizer(this.generator)
+            nodes.getFirst(), new PathRasterizer(
+                this.generator).rasterize(segments)
         );
     }
 

@@ -27,28 +27,31 @@ public record PathRasterizer(GreatPathGenerator generator) {
         PathSegment segment = segments.get(index);
         List<BlockPos> idealCenterLine = this.rasterizeSpline(
             ControlPoints.fromSegments(segments, index),
-            this.getSettings().sampleRate(),
-            this.getSettings().curveTension()
+            this.getSettings().sampleRate()
         );
         List<PathSample> rasterized = new ArrayList<>(idealCenterLine.size());
         for (BlockPos idealPosition : idealCenterLine) {
-            GroundResult result = segment.state().inlineTerrain() ? this.generator.findGround(
+            if (!segment.state().inlineTerrain()) {
+                rasterized.add(new PathSample(idealPosition, segment.state()));
+                continue;
+            }
+            GroundResult result = this.generator.findGround(
                 idealPosition, this.getSettings().bridgingDifference(),
                 idealPosition.getY(), segment.to().getY()
-            ) : new GroundResult(idealPosition, segment.state());
-            rasterized.add(new PathSample(result.position(), result.state()));
+            );
+            rasterized.add(new PathSample(result.pathPosition(), result.state()));
         }
         return new RasterizedSegment(rasterized);
     }
 
     private List<BlockPos> rasterizeSpline(
-        ControlPoints points, int sampleRate, double tension
+        ControlPoints points, int sampleRate
     ) {
         List<BlockPos> result = new ArrayList<>();
         BlockPos previous = null;
         for (int sample = 0; sample <= sampleRate; sample++) {
             double progress = (double) sample / (double) sampleRate;
-            BlockPos current = catmullRom(points, progress, tension);
+            BlockPos current = catmullRom(points, progress);
             if (previous == null) result.add(current);
             else this.appendIdeal(result, previous, current);
             previous = current;
@@ -81,41 +84,24 @@ public record PathRasterizer(GreatPathGenerator generator) {
         }
     }
 
+    // pissed off I didnt know minecraft just had this function in its math library
     private static BlockPos catmullRom(
-        ControlPoints points, double progress, double tension
+        ControlPoints points, float progress
     ) {
         return new BlockPos(
-            (int) Math.round(catmullRom(
-                points.previous.getX(), points.from.getX(),
-                points.to.getX(), points.next.getX(),
-                progress, tension
+            Math.round(Mth.catmullrom(
+                progress, points.previous.getX(), points.from.getX(),
+                points.to.getX(), points.next.getX()
             )),
-            (int) Math.round(catmullRom(
-                points.previous.getY(), points.from.getY(),
-                points.to.getY(), points.next.getY(),
-                progress, tension
+            Math.round(Mth.catmullrom(
+                progress, points.previous.getY(), points.from.getY(),
+                points.to.getY(), points.next.getY()
             )),
-            (int) Math.round(catmullRom(
-                points.previous.getZ(), points.from.getZ(),
-                points.to.getZ(), points.next.getZ(),
-                progress, tension
+            Math.round(Mth.catmullrom(
+                progress, points.previous.getZ(), points.from.getZ(),
+                points.to.getZ(), points.next.getZ()
             ))
         );
-    }
-
-    private static double catmullRom(
-        double p0, double p1,
-        double p2, double p3,
-        double progress, double tension
-    ) {
-        double squared = progress * progress;
-        double cubed = squared * progress;
-        double startTangent = tension * (p2 - p0);
-        double endTangent = tension * (p3 - p1);
-        return (2.0D * cubed - 3.0D * squared + 1.0D) * p1
-            + (cubed - 2.0D * squared + progress) * startTangent
-            + (-2.0D * cubed + 3.0D * squared) * p2
-            + (cubed - squared) * endTangent;
     }
 
     private record ControlPoints(

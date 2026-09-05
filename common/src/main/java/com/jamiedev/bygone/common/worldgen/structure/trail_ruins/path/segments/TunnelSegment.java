@@ -9,13 +9,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-record TunnelSegment() implements SegmentState.PlacementMode {
+class TunnelSegment extends SegmentState.PlacementMode {
     private static final int PADDING = 8;
+
+    private final BlockPos.MutableBlockPos target = new BlockPos.MutableBlockPos();
+    private final Set<BlockPos> changedPositions = new HashSet<>();
+
+    @Override public boolean canPlaceBuildings() { return true; }
 
     @Override
     public BoundingBox createBoundingBox(List<BlockPos> samples, int width, int bridgingDifference) {
         BoundingBox centerLineBounds = this.fromSamples(samples);
-        int radius = width + PADDING;
+        int radius = this.radius(width);
         return this.boundingBox(
             centerLineBounds, radius,
             centerLineBounds.minY(),
@@ -23,30 +28,18 @@ record TunnelSegment() implements SegmentState.PlacementMode {
         );
     }
 
-    @Override
-    public void place(WorldGenLevel level, BoundingBox chunkBounds, List<BlockPos> samples, int width, int bridgingDifference) {
-        int radius = width + PADDING;
-        int radiusSquared = radius * radius;
-        BlockPos.MutableBlockPos target = new BlockPos.MutableBlockPos();
-        Set<Long> changedPositions = new HashSet<>();
-        for (BlockPos center : samples) {
-            for (int offsetX = -radius; offsetX <= radius; offsetX++) {
-                for (int offsetZ = -radius; offsetZ <= radius; offsetZ++) {
-                    int horizontalDistanceSquared = offsetX * offsetX + offsetZ * offsetZ;
-                    if (horizontalDistanceSquared >= radiusSquared) continue;
-
-                    int x = center.getX() + offsetX;
-                    int z = center.getZ() + offsetZ;
-                    if (!chunkBounds.intersects(x, z, x, z)) continue;
-
-                    int height = (int) Math.sqrt(radiusSquared - horizontalDistanceSquared);
-                    for (int offsetY = 1; offsetY <= height; offsetY++) {
-                        target.set(x, center.getY() + offsetY, z);
-                        if (chunkBounds.isInside(target) && changedPositions.add(target.asLong()))
-                            level.setBlock(target, Blocks.AIR.defaultBlockState(), 2);
-                    }
-                }
-            }
+    @Override protected void innerPlace(
+        WorldGenLevel level, BlockPos center,
+        int sampleIndex, int x, int z,
+        int distanceSquared, int radiusSquared, int bridgingDifference
+    ) {
+        int height = (int) Math.sqrt(radiusSquared - distanceSquared);
+        for (int offsetY = 1; offsetY <= height; offsetY++) {
+            this.target.set(x, center.getY() + offsetY, z);
+            if (this.changedPositions.add(this.target.immutable()))
+                level.setBlock(this.target, Blocks.AIR.defaultBlockState(), 2);
         }
     }
+
+    @Override protected int radius(int width) { return width + PADDING; }
 }
