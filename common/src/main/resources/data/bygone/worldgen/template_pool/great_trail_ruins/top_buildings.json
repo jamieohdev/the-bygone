@@ -23,6 +23,15 @@
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "bygone:great_trail_ruins/trail_ruins_8x8_top_a",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "bygone:great_trail_ruins/trail_ruins_9x9_top_a",
         "processors": "minecraft:empty",
         "projection": "rigid"
