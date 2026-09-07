@@ -14,6 +14,24 @@
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "bygone:great_trail_ruins/trail_ruins_3x3_b",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:great_trail_ruins/trail_ruins_3x3_c",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "bygone:great_trail_ruins/trail_ruins_4x4_a",
         "processors": "minecraft:empty",
         "projection": "rigid"
@@ -24,6 +42,24 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "bygone:great_trail_ruins/trail_ruins_4x4_b",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:great_trail_ruins/trail_ruins_4x4_c",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:great_trail_ruins/trail_ruins_4x4_d",
         "processors": "minecraft:empty",
         "projection": "rigid"
       }
@@ -104,6 +140,15 @@
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "bygone:great_trail_ruins/trail_ruins_9x9_b",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "bygone:great_trail_ruins/trail_ruins_10x10_a",
         "processors": "minecraft:empty",
         "projection": "rigid"
@@ -114,6 +159,24 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "bygone:great_trail_ruins/trail_ruins_10x10_b",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:great_trail_ruins/trail_ruins_10x10_c",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "bygone:great_trail_ruins/trail_ruins_10x10_d",
         "processors": "minecraft:empty",
         "projection": "rigid"
       }

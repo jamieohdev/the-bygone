@@ -2622,7 +2622,7 @@ public class BGBlocks {
                             .lightLevel(state -> 3))
     );
 
-    public static final Supplier<Block>  LITHO = registerBlock(
+    public static final Supplier<Block>  LITHO = registerBlockWithoutBlockItem(
             "litho", () ->
             new LithoFluidBlock(
                     (FlowingFluid) BGFluids.LITHO_STILL.get(),

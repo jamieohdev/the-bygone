@@ -20,7 +20,7 @@ public enum SegmentState implements StringRepresentable {
             consumer.accept(NORMAL);
         }
     },
-    NORMAL("normal", () -> new GroundSegment(BGBlocks.ALPHA_MOSSY_CLAYSTONE_PATH)),
+    NORMAL("normal", () -> new GroundSegment(BGBlocks.MOSSY_CLAYSTONE_PATH)),
     BRIDGE("bridge", BridgeSegment::new);
 
     public static final Codec<SegmentState> CODEC = StringRepresentable.fromEnum(SegmentState::values);

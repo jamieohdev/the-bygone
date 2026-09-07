@@ -1,6 +1,6 @@
 {
   "type": "bygone:great_trail_ruins",
-  "biomes": ["bygone:alphahang"],
+  "biomes": ["bygone:underhang"],
   "step": "raw_generation",
   "spawn_overrides": {},
   "start_height": {
