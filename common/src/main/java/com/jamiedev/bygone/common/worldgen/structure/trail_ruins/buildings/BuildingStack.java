@@ -9,7 +9,6 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
-import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 
 import java.util.*;
@@ -28,7 +27,9 @@ public class BuildingStack {
     private final double normalZ;
 
     private final List<PoolElementStructurePiece> buildings;
-    public List<PoolElementStructurePiece> getBuildings() { return this.buildings; }
+    public List<PoolElementStructurePiece> getBuildings() {
+        return this.buildings.reversed();
+    }
 
     private final PoolElementStructurePiece base;
     private final PoolElementStructurePiece top;
@@ -46,11 +47,11 @@ public class BuildingStack {
         this.rotation = orientation.rotation;
         this.buildings = new ArrayList<>();
         this.base = this.createPiece(baseElement, anchor);
-        this.buildings.add(this.base);
 
         this.top = this.createPiece(topElement, this.base.getBoundingBox().getCenter());
         this.moveAbove(this.top, this.base);
         this.buildings.add(this.top);
+        this.buildings.add(this.base);
 
         this.updateBoundingBox();
         this.placeBeside(anchor, pathWidth);
@@ -187,7 +188,6 @@ public class BuildingStack {
     ) {
         PoolElementStructurePiece highest = this.base;
         boolean placementRequired = groundY < pathY;
-        int insertionIndex = 1;
         int candidateIndex = candidates.indexOf(this.baseElement) + 1;
         while (placementRequired || highest.getBoundingBox().maxY() < pathY) {
             placementRequired = false;
@@ -213,9 +213,9 @@ public class BuildingStack {
                     preplacementBounds.minY() - 1 - foundationBounds.maxY(),
                     preplacementCenter.getZ() - foundationCenter.getZ()
                 );
-                this.buildings.add(insertionIndex++, foundation);
+                this.buildings.add(1, foundation);
             }
-            this.buildings.add(insertionIndex++, preplacement);
+            this.buildings.add(1, preplacement);
             highest = preplacement;
         }
         this.moveAbove(this.top, highest);
@@ -271,9 +271,8 @@ public class BuildingStack {
         StructurePoolElement element, BlockPos position
     ) {
         BoundingBox box = element.getBoundingBox(this.templates, position, this.rotation);
-        return new PoolElementStructurePiece(
-            this.templates, element, position, element.getGroundLevelDelta(),
-            this.rotation, box, LiquidSettings.APPLY_WATERLOGGING
+        return new GreatTrailBuildingPiece(
+            this.templates, element, position, this.rotation, box
         );
     }
 

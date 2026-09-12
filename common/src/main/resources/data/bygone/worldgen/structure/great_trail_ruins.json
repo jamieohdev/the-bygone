@@ -1,7 +1,7 @@
 {
   "type": "bygone:great_trail_ruins",
   "biomes": ["bygone:underhang"],
-  "step": "raw_generation",
+  "step": "underground_structures",
   "spawn_overrides": {},
   "start_height": {
     "type": "minecraft:uniform",
@@ -21,7 +21,7 @@
     "max_turn_angle": 120.0,
 
     "bridging_difference": 12,
-    "sample_rate": 32,
+    "sample_rate": 16,
 
     "building_placement_retries": 4
   }

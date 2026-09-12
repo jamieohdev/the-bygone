@@ -5,6 +5,7 @@ import com.jamiedev.bygone.Bygone;
 import java.util.Locale;
 
 import com.jamiedev.bygone.common.worldgen.structure.*;
+import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.buildings.GreatTrailBuildingPiece;
 import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.path.GreatPathPiece;
 import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.GreatTrailRuinsStructure;
 import net.minecraft.core.Registry;
@@ -71,6 +72,8 @@ public class BGStructures
     public static StructureType<GreatTrailRuinsStructure> GREAT_TRAIL_RUINS;
     public static StructurePieceType TRAIL_PATH = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
         Bygone.id("great_trail_path"), GreatPathPiece::new);
+    public static StructurePieceType TRAIL_BUILDING = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
+        Bygone.id("great_trail_building"), GreatTrailBuildingPiece::new);
 
     private static StructurePieceType register(StructurePieceType type, String id) {
         return Registry.register(BuiltInRegistries.STRUCTURE_PIECE, id.toLowerCase(Locale.ROOT), type);
