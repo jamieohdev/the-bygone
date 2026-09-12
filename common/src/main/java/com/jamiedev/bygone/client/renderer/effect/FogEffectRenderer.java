@@ -88,7 +88,6 @@ public class FogEffectRenderer implements AutoCloseable {
 
             fullscreenQuad.bind();
             fullscreenQuad.upload(builder.buildOrThrow());
-            VertexBuffer.unbind();
         } else fullscreenQuad.bind();
     }
 
