@@ -4,6 +4,7 @@ import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.GreatTrailSetti
 import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.path.segments.SegmentState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.*;
@@ -250,7 +251,8 @@ public class GreatPathGenerator {
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(x, surfaceY, z);
         for (int offset = 0; offset < REQUIRED_SPACE; offset++) {
             mutableBlockPos.setY(surfaceY + offset);
-            if (!level.getBlockState(mutableBlockPos).isAir()) return false;
+            BlockState state = level.getBlockState(mutableBlockPos);
+            if (!state.isAir() && !state.getFluidState().is(FluidTags.WATER)) return false;
         }
         return true;
     }

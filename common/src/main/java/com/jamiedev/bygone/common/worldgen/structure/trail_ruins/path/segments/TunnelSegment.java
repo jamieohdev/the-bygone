@@ -3,7 +3,9 @@ package com.jamiedev.bygone.common.worldgen.structure.trail_ruins.path.segments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.material.FluidState;
 
 import java.util.HashSet;
 import java.util.List;
@@ -36,8 +38,13 @@ class TunnelSegment extends SegmentState.PlacementMode {
         int height = (int) Math.sqrt(radiusSquared - distanceSquared);
         for (int offsetY = 1; offsetY <= height; offsetY++) {
             this.target.set(x, center.getY() + offsetY, z);
-            if (this.changedPositions.add(this.target.immutable()))
-                level.setBlock(this.target, Blocks.AIR.defaultBlockState(), 2);
+            if (!this.changedPositions.add(this.target.immutable())) continue;
+
+            BlockState currentState = level.getBlockState(this.target);
+            FluidState fluidState = currentState.getFluidState();
+            BlockState replacement = fluidState.isEmpty() ? Blocks.AIR.defaultBlockState()
+                : fluidState.createLegacyBlock();
+            if (!currentState.equals(replacement)) level.setBlock(this.target, replacement, 2);
         }
     }
 
