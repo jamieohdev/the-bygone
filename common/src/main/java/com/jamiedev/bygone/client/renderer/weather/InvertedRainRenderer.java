@@ -161,38 +161,6 @@ public class InvertedRainRenderer extends WeatherRenderer<InvertedRain> {
         lightTexture.turnOffLightLayer();
     }
 
-    public static void debugLineRender(Vec3 start, Vec3 end) {
-        Minecraft mc = Minecraft.getInstance();
-        Camera camera = mc.gameRenderer.getMainCamera();
-
-        PoseStack pose = new PoseStack();
-        Vec3 cam = camera.getPosition();
-
-        pose.pushPose();
-        pose.translate(-cam.x, -cam.y, -cam.z);
-
-        Matrix4f tempPose = pose.last().pose();
-
-        VertexConsumer vertexConsumer = mc.renderBuffers().bufferSource()
-            .getBuffer(RenderType.lines());
-
-        vertexConsumer.addVertex(tempPose,
-                (float)(start.x),
-                (float)(start.y),
-                (float)(start.z))
-            .setColor(255, 0, 0, 255)
-            .setNormal(0, 1, 0);
-
-        vertexConsumer.addVertex(tempPose,
-                (float)(end.x),
-                (float)(end.y),
-                (float)(end.z))
-            .setColor(255, 0, 0, 255)
-            .setNormal(0, 1, 0);
-
-        pose.popPose();
-    }
-
     private void iterateAndRender(
         Level level, int i, int j, int k,
         double camX, double camY, double camZ,
@@ -243,7 +211,7 @@ public class InvertedRainRenderer extends WeatherRenderer<InvertedRain> {
                     int i3 = (time & 131071);
                     int j3 = k1 * k1 * 3121 + k1 * 45238971 + j1 * j1 * 418711 + j1 * 13761 & 255;
                     float f2 = 3.0F + randomsource.nextFloat();
-                    float f3 = ((float)(i3 + j3) + partialTick) / 32.0F * f2;
+                    float f3 = -((float)(i3 + j3) + partialTick) / 32.0F * f2;
                     float f4 = f3 % 32.0F;
                     double d2 = (double) k1 + (double) 0.5F - camX;
                     double d3 = (double) j1 + (double) 0.5F - camZ;
@@ -258,13 +226,13 @@ public class InvertedRainRenderer extends WeatherRenderer<InvertedRain> {
                     }
 
                     bufferBuilder.addVertex((float)(k1 - camX - d0 + 0.5D), (float)(k2 - camY), (float)(j1 - camZ - d1 + 0.5D))
-                        .setUv(0.0F, j2 * 0.25F + f4).setColor(1.0F, 1.0F, 1.0F, f7).setLight(k3);
-                    bufferBuilder.addVertex((float)(k1 - camX + d0 + 0.5D), (float)(k2 - camY), (float)(j1 - camZ + d1 + 0.5D))
-                        .setUv(1.0F, j2 * 0.25F + f4).setColor(1.0F, 1.0F, 1.0F, f7).setLight(k3);
-                    bufferBuilder.addVertex((float)(k1 - camX + d0 + 0.5D), (float)(j2 - camY), (float)(j1 - camZ + d1 + 0.5D))
-                        .setUv(1.0F, k2 * 0.25F + f4).setColor(1.0F, 1.0F, 1.0F, f7).setLight(k3);
-                    bufferBuilder.addVertex((float)(k1 - camX - d0 + 0.5D), (float)(j2 - camY), (float)(j1 - camZ - d1 + 0.5D))
                         .setUv(0.0F, k2 * 0.25F + f4).setColor(1.0F, 1.0F, 1.0F, f7).setLight(k3);
+                    bufferBuilder.addVertex((float)(k1 - camX + d0 + 0.5D), (float)(k2 - camY), (float)(j1 - camZ + d1 + 0.5D))
+                        .setUv(1.0F, k2 * 0.25F + f4).setColor(1.0F, 1.0F, 1.0F, f7).setLight(k3);
+                    bufferBuilder.addVertex((float)(k1 - camX + d0 + 0.5D), (float)(j2 - camY), (float)(j1 - camZ + d1 + 0.5D))
+                        .setUv(1.0F, j2 * 0.25F + f4).setColor(1.0F, 1.0F, 1.0F, f7).setLight(k3);
+                    bufferBuilder.addVertex((float)(k1 - camX - d0 + 0.5D), (float)(j2 - camY), (float)(j1 - camZ - d1 + 0.5D))
+                        .setUv(0.0F, j2 * 0.25F + f4).setColor(1.0F, 1.0F, 1.0F, f7).setLight(k3);
                     render = true;
                 }
             }
