@@ -112,6 +112,10 @@ public class BGFeatures {
             new SableGrassFeature(SableBranchConfig.CODEC)
     );
 
+    public static final Feature<CenteredTreeConfig> CENTERED_TREE = register(
+        "centered_tree_feature", new CenteredTreeFeature(CenteredTreeConfig.CODEC)
+    );
+
     private static <C extends FeatureConfiguration, F extends Feature<C>> F register(String name, F feature) {
         return Registry.register(BuiltInRegistries.FEATURE, Bygone.id(name), feature);
     }

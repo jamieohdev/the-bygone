@@ -1,0 +1,13 @@
+{
+  "type": "bygone:centered_tree_feature",
+  "config": {
+    "templates": [
+      "bygone:sable_tree_1",
+      "bygone:sable_tree_2",
+      "bygone:sable_tree_3",
+      "bygone:sable_tree_4",
+      "bygone:sable_tree_5",
+      "bygone:sable_tree_6"
+    ]
+  }
+}
