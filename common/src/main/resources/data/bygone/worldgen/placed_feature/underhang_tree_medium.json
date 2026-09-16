@@ -1,56 +1,5 @@
 {
-  "feature": {
-    "type": "minecraft:simple_random_selector",
-    "config": {
-      "features": [
-        {
-          "feature": "bygone:underhang/medium_underhang_tree_1",
-          "placement": [
-            {
-              "type": "minecraft:count",
-              "count": 16
-            }
-          ]
-        },
-        {
-          "feature": "bygone:underhang/medium_underhang_tree_2",
-          "placement": [
-            {
-              "type": "minecraft:count",
-              "count": 16
-            }
-          ]
-        },
-        {
-          "feature": "bygone:underhang/medium_underhang_tree_3",
-          "placement": [
-            {
-              "type": "minecraft:count",
-              "count": 16
-            }
-          ]
-        },
-        {
-          "feature": "bygone:underhang/medium_underhang_tree_4",
-          "placement": [
-            {
-              "type": "minecraft:count",
-              "count": 16
-            }
-          ]
-        },
-        {
-          "feature": "bygone:underhang/medium_underhang_tree_5",
-          "placement": [
-            {
-              "type": "minecraft:count",
-              "count": 16
-            }
-          ]
-        }
-      ]
-    }
-  },
+  "feature": "bygone:trees/ancient_tree",
   "placement": [
     {
       "type": "minecraft:count",
