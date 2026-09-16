@@ -2,6 +2,7 @@ package com.jamiedev.bygone.client.renderer.effect;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.renderer.weather.HauntingsRenderer;
+import com.jamiedev.bygone.client.renderer.weather.WeatherRenderer;
 import com.jamiedev.bygone.common.weather.BygoneWeather;
 import com.jamiedev.bygone.common.weather.weather_types.HauntingsEvent;
 import com.jamiedev.bygone.core.registry.BGDimensions;
@@ -13,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.joml.Vector3f;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -91,16 +93,10 @@ public class HauntingsEffectRenderer {
     }
 
     public void render(Minecraft minecraft, float partialTicks) {
-        // oops lmao
-        if (minecraft.level == null || !minecraft.level.dimension().equals(BGDimensions.BYGONE_LEVEL_KEY)) return;
-        BygoneWeather.Client clientWeather = BygoneWeather.Client.getInstance();
-        // ough lmao
-        Optional<HauntingsRenderer> renderer = clientWeather.stream().filter(HauntingsRenderer.class::isInstance)
-            .map(HauntingsRenderer.class::cast).findFirst();
-        if (renderer.isEmpty()) return;
-        HauntingsEvent hauntingsEvent = renderer.get().getWeatherInstance();
-        boolean enabled = hauntingsEvent.isActive();
+        HauntingsEvent hauntingsEvent = HauntingsRenderer.getClientHauntings();
+        if (hauntingsEvent == null) return;
 
+        boolean enabled = hauntingsEvent.isActive();
         float progressAmount = (((enabled ? 1 : -1) * partialTicks) / HauntingsEvent.DESPAWN_TICKS);
         progress = Mth.clamp(progress + progressAmount, 0, 1);
 

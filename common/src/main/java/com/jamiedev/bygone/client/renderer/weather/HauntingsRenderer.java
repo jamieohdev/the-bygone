@@ -1,8 +1,10 @@
 package com.jamiedev.bygone.client.renderer.weather;
 
+import com.jamiedev.bygone.common.weather.BygoneWeather;
 import com.jamiedev.bygone.common.weather.InvertedHeightmap;
 import com.jamiedev.bygone.common.weather.weather_types.HauntingsEvent;
 import com.jamiedev.bygone.core.extension.LevelChunkExtension;
+import com.jamiedev.bygone.core.registry.BGDimensions;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -19,12 +21,24 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class HauntingsRenderer extends WeatherRenderer<HauntingsEvent> {
     private static final int PARTICLE_INTERVAL = 2;
     private static final int PARTICLE_HORIZONTAL_RANGE = 24;
     private static final int PARTICLE_VERTICAL_RANGE = 18;
+
+    public static @Nullable HauntingsEvent getClientHauntings() {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.level == null || !minecraft.level.dimension().equals(BGDimensions.BYGONE_LEVEL_KEY)) return null;
+        BygoneWeather.Client clientWeather = BygoneWeather.Client.getInstance();
+        // ough lmao
+        Optional<HauntingsRenderer> renderer = clientWeather.stream().filter(HauntingsRenderer.class::isInstance)
+            .map(HauntingsRenderer.class::cast).findFirst();
+        return renderer.map(WeatherRenderer::getWeatherInstance).orElse(null);
+    }
+
 
     public HauntingsRenderer(HauntingsEvent instance) { super(instance); }
 
@@ -45,8 +59,6 @@ public class HauntingsRenderer extends WeatherRenderer<HauntingsEvent> {
         RandomSource randomsource = RandomSource.create((long) this.time * 312987231L);
 
         BlockPos blockPos = BlockPos.containing(camera.getPosition());
-
-
 
         int particleAmount = Minecraft.useFancyGraphics() ? 12 : 8;
         if (particleStatus == ParticleStatus.DECREASED) particleAmount /= 2;

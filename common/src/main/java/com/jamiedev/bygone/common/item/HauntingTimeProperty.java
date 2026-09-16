@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.item;
 
+import com.jamiedev.bygone.client.renderer.weather.HauntingsRenderer;
 import com.jamiedev.bygone.common.weather.weather_types.HauntingsEvent;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -15,11 +16,9 @@ import net.minecraft.world.level.dimension.DimensionType;
 
 import javax.annotation.Nullable;
 
-public class HauntingTimeProperty implements ClampedItemPropertyFunction {
+import static com.jamiedev.bygone.common.weather.weather_types.HauntingsEvent.*;
 
-	public static final long HAUNTING_DURATION = HauntingsEvent.HAUNTING_DURATION;
-	public static final long HAUNTING_CYCLE = HauntingsEvent.HAUNTING_CYCLE;
-	public static final long TOTAL_CYCLE = HauntingsEvent.HAUNTING_CYCLE + HauntingsEvent.HAUNTING_DURATION;
+public class HauntingTimeProperty implements ClampedItemPropertyFunction {
 
 	protected double rotation;
 	protected double rota;
@@ -27,26 +26,29 @@ public class HauntingTimeProperty implements ClampedItemPropertyFunction {
 
 	@Override
 	public float unclampedCall(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed) {
-		if (level == null && entity.level() instanceof ClientLevel) {
-			level = (ClientLevel)entity.level();
-		}
-
+        if ((level == null && entity != null) && entity.level() instanceof ClientLevel clientLevel) level = clientLevel;
 		if (level == null) return 0;
 
-		double rotation;
-		if (this.dimensionHasHauntings(level)) {
-			long cycleTime = level.getGameTime() % TOTAL_CYCLE;
-			if (cycleTime < HAUNTING_CYCLE) {
-				rotation = 0.5F * ((double) cycleTime / HAUNTING_CYCLE);
-			} else {
-				rotation = 0.5F + 0.5F * ((double) (cycleTime - HAUNTING_CYCLE) / HAUNTING_DURATION);
-			}
-		} else {
-			rotation = Math.random();
-		}
+		double rotation = Math.random();
+        HauntingsEvent hauntingsEvent = HauntingsRenderer.getClientHauntings();
 
+        // the clock ends at the right time but starts a bit late so i think its just skewed
+        float remainingCycle = 0.595f;
+		if (hauntingsEvent != null) {
+			int cycleTime = hauntingsEvent.<Integer>getProperty(TIME).getValue();
+			if (cycleTime < HAUNTING_CYCLE) rotation = (1.0f - remainingCycle) * ((double) cycleTime / HAUNTING_CYCLE);
+			else rotation = (1.0f - remainingCycle) + (remainingCycle * ((double) (cycleTime - HAUNTING_CYCLE) / HAUNTING_DURATION));
+		}
 		return (float) this.wobble(level, rotation);
 	}
+
+    /* going to comment this out for two reasons:
+
+    - the tag doesn't actually contain a "source of truth" right now. hauntings and other weather events are
+    inherently tied to the bygone and so the tag is kind of just redundant. if there needs to be a tag that
+    dictates what dimensions contain hauntings, then I'd rather it actually control that
+
+    - since we have to access the event itself, that already tells us if the event exists in the dimension
 
 	public boolean dimensionHasHauntings(Level level) {
 		Registry<DimensionType> registry = level.registryAccess().registry(Registries.DIMENSION_TYPE).orElseThrow();
@@ -55,6 +57,7 @@ public class HauntingTimeProperty implements ClampedItemPropertyFunction {
 
 		return registry.getHolder(location).orElseThrow().is(JamiesModTag.DimensionTypes.HAS_HAUNTINGS);
 	}
+     */
 
 	protected double wobble(Level level, double rotation) {
 		if (level.getGameTime() == this.lastUpdateTick) return this.rotation;

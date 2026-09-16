@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HauntingsEvent extends WeatherType {
-    private static final String TIME = "time";
+    public static final String TIME = "time";
     private static final String ENABLED = "enabled"; // bandage but works for now
     public HauntingsEvent(ResourceLocation id, @Nullable ServerLevel level) {
         super(id, level);
@@ -23,6 +23,7 @@ public class HauntingsEvent extends WeatherType {
 
     public static final int HAUNTING_DURATION = 12000; // like 10 or so minutes
     public static final int HAUNTING_CYCLE = (HAUNTING_DURATION * 5); // every 50 minutes, for now
+    public static final int TOTAL_CYCLE = HAUNTING_CYCLE + HAUNTING_DURATION;
 
     public static final int DESPAWN_TICKS = 100;
 
@@ -35,7 +36,7 @@ public class HauntingsEvent extends WeatherType {
         assert level != null;
 
         WeatherProperties.WeatherProperty<Integer> time = this.getProperty(TIME);
-        time.setValue((time.getValue() + 1) % (HAUNTING_CYCLE + HAUNTING_DURATION));
+        time.setValue((time.getValue() + 1) % TOTAL_CYCLE);
 
         boolean previousEnabled = (boolean) this.getProperty(ENABLED).getValue();
         this.getProperty(ENABLED).setValue(time.getValue() > HAUNTING_CYCLE);
