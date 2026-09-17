@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
@@ -388,9 +389,9 @@ public class BGBlocks {
                                     .noCollission()
                                     .replaceable()
                                     .instabreak()
-                                    .lightLevel(light -> 2)
+                                    .lightLevel(light -> 11)
                                     .sound(SoundType.WOOL)
-                                    .pushReaction(PushReaction.DESTROY)
+                                    .pushReaction(PushReaction.DESTROY), 1
                     )
     );
     public static final Supplier<Block> POLISHED_BYSTONE = registerBlock(
@@ -559,7 +560,7 @@ public class BGBlocks {
                             .requiresCorrectToolForDrops()
                             .strength(1000000.8F))
     );
-    public static final Supplier<Block> BYGONE_PORTAL_FRAME_BLOCK = registerBlock(
+    public static final Supplier<Block> BYGONE_PORTAL_FRAME_BLOCK = registerBlockWithoutBlockItem(
             "bygone_portal_frame_block", () ->
                     new Block(BlockBehaviour.Properties.of()
                             .mapColor(MapColor.COLOR_GRAY)
@@ -567,7 +568,7 @@ public class BGBlocks {
                             .requiresCorrectToolForDrops()
                             .strength(1000000.8F))
     );
-    public static final Supplier<Block> BYGONE_PORTAL_FRAME_PLACEABLE = registerBlock(
+    public static final Supplier<Block> BYGONE_PORTAL_FRAME_PLACEABLE = registerBlockWithoutBlockItem(
             "bygone_portal_frame_placeable", () ->
                     new BygonePortalFramePlaceableBlock(BlockBehaviour.Properties.of()
                             .mapColor(MapColor.COLOR_GRAY)
@@ -730,10 +731,9 @@ public class BGBlocks {
     );
     public static final Supplier<Block> CLOUD = registerBlock(
             "cloud", () ->
-                    new HalfTransparentBlock(BlockBehaviour.Properties.of()
+                    new CloudBlock(BlockBehaviour.Properties.of()
                             .mapColor(MapColor.QUARTZ)
                             .strength(0.001F)
-                            .friction(0.989F)
                             .sound(SoundType.WOOL)
                             .noOcclusion()
                             .isValidSpawn(Blocks::never)
@@ -783,7 +783,7 @@ public class BGBlocks {
             "montsechia", () -> new FlowerBlock(
                     MobEffects.UNLUCK, 12.0F, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.PLANT)
-                    .lightLevel((state) -> 14)
+                    .lightLevel((state) -> 5)
                     .noCollission()
                     .instabreak()
                     .sound(SoundType.GRASS)
@@ -795,23 +795,77 @@ public class BGBlocks {
             "potted_montsechia",
             () -> createFlowerPotBlock(MONTSECHIA.get())
     );
-    public static final Supplier<Block> SAGARIA = registerBlock(
-            "sagaria", () -> new FlowerBlock(
+    public static final Supplier<Block> LIME_SAGARIA = registerBlock(
+            "lime_sagaria", () -> new FlowerBlock(
                     MobEffects.LUCK,
                     12.0F,
                     BlockBehaviour.Properties.of()
                             .mapColor(MapColor.PLANT)
                             .noCollission()
-                            .lightLevel((state) -> 14)
+                            .lightLevel((state) -> 2)
                             .instabreak()
                             .sound(SoundType.GRASS)
                             .offsetType(BlockBehaviour.OffsetType.XZ)
                             .pushReaction(PushReaction.DESTROY)
             )
     );
-    public static final Supplier<Block> POTTED_SAGARIA = registerBlockWithoutBlockItem(
-            "potted_sagaria",
-            () -> createFlowerPotBlock(SAGARIA.get())
+    public static final Supplier<Block> POTTED_LIME_SAGARIA = registerBlockWithoutBlockItem(
+            "potted_lime_sagaria",
+            () -> createFlowerPotBlock(LIME_SAGARIA.get())
+    );
+    public static final Supplier<Block> PINK_SAGARIA = registerBlock(
+            "pink_sagaria", () -> new FlowerBlock(
+                    MobEffects.LUCK,
+                    12.0F,
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.PLANT)
+                            .noCollission()
+                            .lightLevel((state) -> 2)
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+                            .offsetType(BlockBehaviour.OffsetType.XZ)
+                            .pushReaction(PushReaction.DESTROY)
+            )
+    );
+    public static final Supplier<Block> POTTED_PINK_SAGARIA = registerBlockWithoutBlockItem(
+            "potted_pink_sagaria",
+            () -> createFlowerPotBlock(PINK_SAGARIA.get())
+    );
+    public static final Supplier<Block> PURPLE_SAGARIA = registerBlock(
+            "purple_sagaria", () -> new FlowerBlock(
+                    MobEffects.LUCK,
+                    12.0F,
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.PLANT)
+                            .noCollission()
+                            .lightLevel((state) -> 2)
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+                            .offsetType(BlockBehaviour.OffsetType.XZ)
+                            .pushReaction(PushReaction.DESTROY)
+            )
+    );
+    public static final Supplier<Block> POTTED_PURPLE_SAGARIA = registerBlockWithoutBlockItem(
+            "potted_purple_sagaria",
+            () -> createFlowerPotBlock(PURPLE_SAGARIA.get())
+    );
+    public static final Supplier<Block> YELLOW_SAGARIA = registerBlock(
+            "yellow_sagaria", () -> new FlowerBlock(
+                    MobEffects.LUCK,
+                    12.0F,
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.PLANT)
+                            .noCollission()
+                            .lightLevel((state) -> 2)
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+                            .offsetType(BlockBehaviour.OffsetType.XZ)
+                            .pushReaction(PushReaction.DESTROY)
+            )
+    );
+    public static final Supplier<Block> POTTED_YELLOW_SAGARIA = registerBlockWithoutBlockItem(
+            "potted_yellow_sagaria",
+            () -> createFlowerPotBlock(YELLOW_SAGARIA.get())
     );
     public static final Supplier<Block> ROSE = registerBlock(
             "rose", () -> new FlowerBlock(
@@ -874,7 +928,7 @@ public class BGBlocks {
                     .pushReaction(PushReaction.DESTROY))
     );
     public static final Supplier<Block> GOURD_LANTERN_MUAVE = registerBlock(
-            "glow_gourd_muave", () -> new GourdLanternBlock(BlockBehaviour.Properties.of()
+            "glow_gourd_mauve", () -> new GourdLanternBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.ICE)
                     .forceSolidOn()
                     .instabreak()
@@ -958,6 +1012,86 @@ public class BGBlocks {
                     .strength(0.6F)
                     .sound(SoundType.GRASS))
     );
+
+    public static final Supplier<Block> CHISELED_TERRACLAYSTONE = registerBlock(
+            "chiseled_terraclaystone",
+            () -> new Block(BlockBehaviour.Properties.ofLegacyCopy(DIRT)
+                    .strength(1.0F, 3.0F)
+                    .sound(SoundType.PACKED_MUD)));
+    public static final Supplier<Block> EMBEDDED_CHISELED_TERRACLAYSTONE = registerBlock(
+            "embedded_chiseled_terraclaystone",
+            () -> new Block(BlockBehaviour.Properties.ofLegacyCopy(DIRT)
+                    .strength(1.0F, 3.0F)
+                    .sound(SoundType.PACKED_MUD)));
+    public static final Supplier<Block> EMBEDDED_TERRACLAYSTONE = registerBlock(
+            "embedded_terraclaystone",
+            () -> new Block(BlockBehaviour.Properties.ofLegacyCopy(DIRT)
+                    .strength(1.0F, 3.0F)
+                    .sound(SoundType.PACKED_MUD)));
+    public static final Supplier<Block> EMBEDDED_TERRACLAYSTONE_BRICKS = registerBlock(
+            "embedded_terraclaystone_bricks",
+            () -> new Block(BlockBehaviour.Properties.ofLegacyCopy(DIRT)
+                    .strength(1.0F, 3.0F)
+                    .sound(SoundType.PACKED_MUD)));
+
+    public static final Supplier<Block> TERRACLAYSTONE = registerBlock(
+            "terraclaystone",
+            () -> new Block(BlockBehaviour.Properties.ofLegacyCopy(DIRT)
+                    .strength(1.0F, 3.0F)
+                    .sound(SoundType.PACKED_MUD)));
+    public static final Supplier<Block> TERRACLAYSTONE_STAIRS = registerBlock(
+            "terraclaystone_stairs", () ->
+                    new StairBlock(
+                            BGBlocks.TERRACLAYSTONE.get().defaultBlockState(),
+                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)
+                    )
+    );
+    public static final Supplier<Block> TERRACLAYSTONE_SLAB = registerBlock(
+            "terraclaystone_slab", () ->
+                    new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.TERRACLAYSTONE.get()).strength(2.0f))
+    );
+    public static final Supplier<Block> TERRACLAYSTONE_WALL = registerBlock(
+            "terraclaystone_wall", () ->
+                    new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.TERRACLAYSTONE.get()).strength(2.0f))
+    );
+
+    public static final Supplier<Block> TERRACLAYSTONE_BRICKS = registerBlock(
+            "terraclaystone_bricks",
+            () -> new Block(BlockBehaviour.Properties.ofLegacyCopy(DIRT)
+                    .strength(1.0F, 3.0F)
+                    .sound(SoundType.PACKED_MUD)));
+    public static final Supplier<Block> TERRACLAYSTONE_BRICKS_STAIRS = registerBlock(
+            "terraclaystone_bricks_stairs", () ->
+                    new StairBlock(
+                            BGBlocks.TERRACLAYSTONE_BRICKS.get().defaultBlockState(),
+                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)
+                    )
+    );
+    public static final Supplier<Block> TERRACLAYSTONE_BRICKS_SLAB = registerBlock(
+            "terraclaystone_bricks_slab", () ->
+                    new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.TERRACLAYSTONE_BRICKS.get()).strength(2.0f))
+    );
+    public static final Supplier<Block> TERRACLAYSTONE_BRICKS_WALL = registerBlock(
+            "terraclaystone_bricks_wall", () ->
+                    new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.TERRACLAYSTONE_BRICKS.get()).strength(2.0f))
+    );
+
+    public static final Supplier<Block> MOSSY_CLAYSTONE_PATH = registerBlock(
+            "mossy_claystone_path",
+            () -> new ClaystonePathBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.GRASS)
+                    .randomTicks()
+                    .strength(0.6F)
+                    .sound(SoundType.MUD)));
+
+    public static final Supplier<Block> ALPHA_MOSSY_CLAYSTONE_PATH = registerBlock(
+            "alpha_mossy_claystone_path",
+            () -> new ClaystonePathBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.GRASS)
+                    .randomTicks()
+                    .strength(0.6F)
+                    .sound(SoundType.MUD)));
+
     public static final Supplier<Block> ANCIENT_ROOTS = registerBlock(
             "ancient_roots", () ->
                     new AncientRootBlock(BlockBehaviour.Properties.of()
@@ -1119,7 +1253,7 @@ public class BGBlocks {
     );
     public static final Supplier<Block> ALPHA_MOSSY_CLAYSTONE = registerBlock(
             "alpha_mossy_claystone",
-            () -> new GrassBlock(BlockBehaviour.Properties.of()
+            () -> new MossyClaystoneBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.GRASS)
                     .randomTicks()
                     .strength(0.6F)
@@ -1130,14 +1264,12 @@ public class BGBlocks {
                     (SimpleParticleType) BGParticleTypes.ALGAE_BLOOM,
                     BlockBehaviour.Properties.of()
                             .mapColor(MapColor.GLOW_LICHEN)
-                            .replaceable()
                             .noCollission()
-                            .strength(0.2F)
+                            .instabreak()
                             .sound(SoundType.GLOW_LICHEN)
                             .lightLevel((state) -> {
                                 return 15;
                             })
-                            .ignitedByLava()
                             .pushReaction(PushReaction.DESTROY)
             )
     );
@@ -1220,7 +1352,6 @@ public class BGBlocks {
                             .mapColor(MapColor.GRASS)
                             .sound(SoundType.SAND)
                             .instrument(NoteBlockInstrument.XYLOPHONE)
-                            .requiresCorrectToolForDrops()
                             .strength(0.1F))
     );
     public static final Supplier<Block> SUSPICIOUS_SHELLSAND = registerBlock(
@@ -1824,7 +1955,7 @@ public class BGBlocks {
     public static final Supplier<Block> AMBER_SANDSTONE = registerBlock(
             "amber_sandstone", () ->
                     new Block(BlockBehaviour.Properties.of().mapColor(MapColor.RAW_IRON).strength(0.99F)
-                            .sound(SoundType.STONE))
+                            .sound(SoundType.STONE).requiresCorrectToolForDrops())
     );
     public static final Supplier<Block> CHISELED_AMBER_SANDSTONE = registerBlock(
             "chiseled_amber_sandstone", () ->
@@ -2459,8 +2590,166 @@ public class BGBlocks {
     public static final Supplier<Block> RAMSHACKLED_VERDIGRIS_COG = registerVerdigrisCog(BaseVerdigrisCogBlock.VerdigrisStage.RAMSHACKLED);
     public static final Supplier<Block> TARNISHED_VERDIGRIS_COG = registerVerdigrisCog(BaseVerdigrisCogBlock.VerdigrisStage.TARNISHED);
     public static final Supplier<Block> PRISTINE_VERDIGRIS_COG = registerVerdigrisCog(BaseVerdigrisCogBlock.VerdigrisStage.PRISTINE);
+
+    public static final Supplier<Block> GLOWING_PLASMIC_BYSLATE_BRICKS = registerBlock(
+            "glowing_plasmic_byslate_bricks", () ->
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .strength(3.0F, 6.0F)
+                            .lightLevel(state -> 3)
+                            .sound(SoundType.DEEPSLATE_TILES))
+    );
+    public static final Supplier<Block> GLOWING_PLASMIC_BYSLATE_BRICKS_STAIRS = registerBlock(
+            "glowing_plasmic_byslate_bricks_stairs", () ->
+                    new StairBlock(
+                            BGBlocks.GLOWING_PLASMIC_BYSLATE_BRICKS.get().defaultBlockState(),
+                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)
+                                    .lightLevel(state -> 3)
+                    )
+    );
+    public static final Supplier<Block> GLOWING_PLASMIC_BYSLATE_BRICKS_SLAB = registerBlock(
+            "glowing_plasmic_byslate_bricks_slab", () ->
+                    new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.GLOWING_PLASMIC_BYSLATE_BRICKS.get())
+                            .strength(2.0f)
+                            .lightLevel(state -> 3))
+    );
+    public static final Supplier<Block> GLOWING_PLASMIC_BYSLATE_BRICKS_WALL = registerBlock(
+            "glowing_plasmic_byslate_bricks_wall", () ->
+                    new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.GLOWING_PLASMIC_BYSLATE_BRICKS.get())
+                            .strength(2.0f)
+                            .lightLevel(state -> 3))
+    );
+
+    public static final Supplier<Block>  LITHO = registerBlockWithoutBlockItem(
+            "litho", () ->
+            new LithoFluidBlock(
+                    (FlowingFluid) BGFluids.LITHO_STILL.get(),
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.WATER)
+                            .replaceable()
+                            .noCollission()
+                            .lightLevel(LithoFluidBlock.LIGHT_EMISSION)
+                            .strength(100.0F)
+                            .pushReaction(PushReaction.DESTROY)
+                            .noLootTable()
+                            .liquid()
+                            .emissiveRendering(Blocks::always)
+                            .sound(SoundType.EMPTY)
+            )
+    );
+	public static final Supplier<Block> LITHOPLASMIC_POWDER = registerBlockWithoutBlockItem(
+			"lithoplasmic_powder", () ->
+					new LithoplasmicPowderBlock(BlockBehaviour.Properties.of()
+							.noCollission()
+							.instabreak()
+							.pushReaction(PushReaction.DESTROY))
+	);
+    public static final Supplier<Block> LITHOPLASMIC_POWDER_BLOCK = registerBlock(
+            "lithoplasmic_powder_block", () ->
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .strength(0.1F, 0.15F)
+                            .sound(SoundType.SAND))
+    );
+
+    public static final Supplier<Block> PLASMIC_BYSLATE= registerBlock(
+            "plasmic_byslate", () ->
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .strength(3.0F, 6.0F)
+                            .sound(SoundType.DEEPSLATE_TILES))
+    );
+    public static final Supplier<Block> PLASMIC_BYSLATE_STAIRS = registerBlock(
+            "plasmic_byslate_stairs", () ->
+                    new StairBlock(
+                            BGBlocks.PLASMIC_BYSLATE.get().defaultBlockState(),
+                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)
+                    )
+    );
+    public static final Supplier<Block> PLASMIC_BYSLATE_SLAB = registerBlock(
+            "plasmic_byslate_slab", () ->
+                    new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.PLASMIC_BYSLATE.get())
+                            .strength(2.0f))
+    );
+    public static final Supplier<Block> PLASMIC_BYSLATE_WALL = registerBlock(
+            "plasmic_byslate_wall", () ->
+                    new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.PLASMIC_BYSLATE.get())
+                            .strength(2.0f))
+    );
+
+    public static final Supplier<Block> PLASMIC_BYSLATE_BRICKS= registerBlock(
+            "plasmic_byslate_bricks", () ->
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .strength(3.0F, 6.0F)
+                            .sound(SoundType.DEEPSLATE_TILES))
+    );
+    public static final Supplier<Block> PLASMIC_BYSLATE_BRICKS_STAIRS = registerBlock(
+            "plasmic_byslate_bricks_stairs", () ->
+                    new StairBlock(
+                            BGBlocks.PLASMIC_BYSLATE_BRICKS.get().defaultBlockState(),
+                            BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_STAIRS).strength(2.0f)
+                    )
+    );
+    public static final Supplier<Block> PLASMIC_BYSLATE_BRICKS_SLAB = registerBlock(
+            "plasmic_byslate_bricks_slab", () ->
+                    new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.PLASMIC_BYSLATE_BRICKS.get())
+                            .strength(2.0f))
+    );
+    public static final Supplier<Block> PLASMIC_BYSLATE_BRICKS_WALL = registerBlock(
+            "plasmic_byslate_bricks_wall", () ->
+                    new WallBlock(BlockBehaviour.Properties.ofFullCopy(BGBlocks.PLASMIC_BYSLATE_BRICKS.get())
+                            .strength(2.0f))
+    );
+    public static final Supplier<Block> CHISELED_PLASMIC_BYSLATE_BRICKS= registerBlock(
+            "chiseled_plasmic_byslate_bricks", () ->
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .strength(3.0F, 6.0F)
+                            .sound(SoundType.DEEPSLATE_TILES))
+    );
+    public static final Supplier<Block> CRACKED_PLASMIC_BYSLATE_BRICKS= registerBlock(
+            "cracked_plasmic_byslate_bricks", () ->
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .strength(3.0F, 6.0F)
+                            .sound(SoundType.DEEPSLATE_TILES))
+    );
+    public static final Supplier<Block> GLOWING_CRACKED_PLASMIC_BYSLATE_BRICKS= registerBlock(
+            "glowing_cracked_plasmic_byslate_bricks", () ->
+                    new Block(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .lightLevel(state -> 2)
+                            .strength(3.0F, 6.0F)
+                            .sound(SoundType.DEEPSLATE_TILES))
+    );
+
+
     public static final Supplier<Block> LITHINE_ORE = registerBlock(
             "lithine_ore", () ->
+                    new LithineOreBlock(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .randomTicks()
+                            .lightLevel(litBlockEmission(9))
+                            .strength(3.0F, 3.0F))
+    );
+    public static final Supplier<Block> PLASMIC_LITHINE_ORE = registerBlock(
+            "plasmic_lithine_ore", () ->
                     new LithineOreBlock(BlockBehaviour.Properties.of()
                             .mapColor(MapColor.STONE)
                             .instrument(NoteBlockInstrument.BASEDRUM)
@@ -2472,10 +2761,10 @@ public class BGBlocks {
     public static final Supplier<Block> LITHINE_LAMP = registerBlock(
             "lithine_lamp", () ->
                     new LithineLampBlock(BlockBehaviour.Properties.of()
-                            .lightLevel(litBlockEmission(15))
-                            .strength(0.3F)
-                            .sound(SoundType.GLASS)
-                            .isValidSpawn(Blocks::always))
+                        .lightLevel(LithineLampBlock.lithineLampValue())
+                        .strength(0.3F)
+                        .sound(SoundType.GLASS)
+                        .isValidSpawn(Blocks::always))
     );
     public static final Supplier<Block> SABLE_SAPLING = registerBlock(
             "sable_sapling",
@@ -2849,6 +3138,16 @@ public class BGBlocks {
                     .lightLevel((state) -> {
                         return 1;
                     }))
+    );
+    public static Supplier<Block> HAUNTED_GROUND = registerBlock(
+            "haunted_ground",
+            () -> new HauntedGroundBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_CYAN)
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.SLIME_BLOCK)
+                    .pushReaction(PushReaction.DESTROY)
+                    .lightLevel(state -> 1))
     );
 
     public static Supplier<Block> MURKLING_EGG = registerBlock(

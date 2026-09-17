@@ -43,7 +43,7 @@ import java.util.EnumSet;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class SabeastEntity extends Monster {
+public class SabeastEntity extends Monster  {
 
     protected static final ImmutableList<SensorType<? extends Sensor<? super SabeastEntity>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY
@@ -100,11 +100,13 @@ public class SabeastEntity extends Monster {
 
     @Override
     protected void customServerAiStep() {
+        this.dropInvalidTarget();
         this.level().getProfiler().push("sabeastBrain");
         this.getBrain().tick((ServerLevel) this.level(), this);
         this.level().getProfiler().pop();
         SabeastAI.updateActivity(this);
         super.customServerAiStep();
+        this.dropInvalidTarget();
     }
 
     protected void registerGoals() {
@@ -122,7 +124,7 @@ public class SabeastEntity extends Monster {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new SabeastEntityMeleeAttackGoal());
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, (Predicate) null));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, true, (Predicate) null));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, MoobooEntity.class, 10, true, true, (Predicate) null));
     }
 
@@ -132,6 +134,10 @@ public class SabeastEntity extends Monster {
         builder.define(DATA_STANDING_ID, false);
         builder.define(DATA_IS_ATTACKING, false);
         builder.define(DATA_REPEL_RUN, false);
+    }
+
+    protected float getSoundVolume() {
+        return 0.55F;
     }
 
     @Override
@@ -264,13 +270,29 @@ public class SabeastEntity extends Monster {
             }
 
             if (this.meleeAttackInterval == 10) {
-                if (this.getTarget() != null) {
-                    this.doHurtTarget(this.getTarget());
+                LivingEntity target = this.getTarget();
+                if (target != null && this.isWithinMeleeAttackRange(target) && this.hasLineOfSight(target)) {
+                    this.doHurtTarget(target);
                 }
             }
 
         }
 
+    }
+
+    private void dropInvalidTarget() {
+        LivingEntity target = this.getTarget();
+        if (target == null) {
+            return;
+        }
+        if (!target.isAlive() || (target instanceof Player player && (player.isCreative() || player.isSpectator()))) {
+            this.setTarget(null);
+            this.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
+            this.getBrain().eraseMemory(MemoryModuleType.ANGRY_AT);
+            this.setDataIsAttacking(false);
+            this.meleeAttackInterval = 0;
+            this.setAggressive(false);
+        }
     }
 
     public int getMaxSpawnClusterSize() {
@@ -301,13 +323,6 @@ public class SabeastEntity extends Monster {
         this.entityData.set(DATA_IS_ATTACKING, attacking);
     }
 
-    protected void playWarningSound() {
-        if (this.warningSoundTicks <= 0) {
-            this.makeSound(SoundEvents.POLAR_BEAR_WARNING);
-            this.warningSoundTicks = 40;
-        }
-
-    }
 
     static class SabeastFreezeWhenLookedAt extends Goal {
         private final SabeastEntity sabeast;
@@ -321,21 +336,21 @@ public class SabeastEntity extends Monster {
 
         public boolean canUse() {
             this.target = this.sabeast.getTarget();
-            if (!(this.target instanceof Player)) {
+            if (!(this.target instanceof Player player)) {
+                return false;
+            } else if (player.isCreative() || player.isSpectator()) {
                 return false;
             } else {
                 double d0 = this.target.distanceToSqr(this.sabeast);
-
-                if (this.target instanceof Player) {
-                    this.target.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200, 0, true, true), this.sabeast);
-                }
-
-                return !(d0 > (double) 256.0F) && this.sabeast.isLookingAtMe((Player) this.target);
+                return !(d0 > (double) 256.0F) && this.sabeast.isLookingAtMe(player);
             }
         }
 
         public void start() {
             this.sabeast.getNavigation().stop();
+            if (this.target instanceof Player player) {
+                player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200, 0, true, true), this.sabeast);
+            }
         }
 
         public void tick() {

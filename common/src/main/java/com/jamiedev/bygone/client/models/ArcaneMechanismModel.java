@@ -1,14 +1,22 @@
 package com.jamiedev.bygone.client.models;
+import com.jamiedev.bygone.client.models.animations.ArcaneMechanismAnimations;
+import com.jamiedev.bygone.common.entity.BygonePortalEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.animation.definitions.WardenAnimation;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 
-public class ArcaneMechanismModel<T extends Entity> extends EntityModel<T> {
+public class ArcaneMechanismModel<T extends BygonePortalEntity> extends HierarchicalModel<T> {
 
+    private final ModelPart root;
     private final ModelPart arcane_mechanism;
     private final ModelPart arcane_core;
     private final ModelPart corepiece1;
@@ -38,6 +46,8 @@ public class ArcaneMechanismModel<T extends Entity> extends EntityModel<T> {
     private final ModelPart middle_ring2;
 
     public ArcaneMechanismModel(ModelPart root) {
+        super(RenderType::armorCutoutNoCull);
+        this.root = root;
         this.arcane_mechanism = root.getChild("arcane_mechanism");
         this.arcane_core = this.arcane_mechanism.getChild("arcane_core");
         this.corepiece1 = this.arcane_core.getChild("corepiece1");
@@ -129,12 +139,41 @@ public class ArcaneMechanismModel<T extends Entity> extends EntityModel<T> {
     }
 
     @Override
-    public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(BygonePortalEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.root().getAllParts().forEach(ModelPart::resetPose);
+        float f = ageInTicks - (float)entity.tickCount;
 
+        this.animate(entity.idleAnimationState, ArcaneMechanismAnimations.IDLE, ageInTicks);
+        this.animate(entity.triggerAnimationState, ArcaneMechanismAnimations.TRIGGERED, ageInTicks);
+        this.animate(entity.activeAnimationState, ArcaneMechanismAnimations.ACTIVE, ageInTicks);
+
+        //Minecraft.getInstance().getCameraEntity()
+        if (Minecraft.getInstance().getCameraEntity() != null) {
+            Entity player = Minecraft.getInstance().getCameraEntity();
+            double dx = entity.getX() - player.getX();
+            double dz = entity.getZ() - player.getZ() - 1;
+            double dy = entity.getY() - player.getY();
+
+            float yaw = (float) Math.toDegrees(Math.atan2(dz, dx)) + 90;
+            float pitch = (float) Math.toDegrees(Math.atan2(dy, Math.sqrt(dx * dx + dz * dz)));
+
+            this.cogs.yRot = yaw * ((float)Math.PI / 180F);
+            this.cogs.xRot = pitch * ((float)Math.PI / 180F);
+
+            this.portal.yRot = yaw * ((float)Math.PI / -180F);
+            this.portal.xRot = pitch * ((float)Math.PI / -180F);
+
+            this.arcane_core.yRot = ageInTicks/50f;
+        }
     }
 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
         arcane_mechanism.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+    }
+
+    @Override
+    public ModelPart root() {
+        return this.root;
     }
 }

@@ -34,6 +34,8 @@
       "bygone:sable_geode",
       "bygone:mycelium_geode",
       "bygone:common_small_cloud",
+      "bygone:common_ore_terraclaystone",
+      "bygone:common_ore_terraclaystone2",
       "bygone:common_ore_bystone",
       "bygone:rare_ore_bystone",
       "bygone:common_ore_claystone",
@@ -56,7 +58,7 @@
     [],
     []
   ],
-  "has_precipitation": false,
+  "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
     "ambient": [],

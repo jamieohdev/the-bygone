@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "bygone:byslate"
+    },
+    {
+      "item": "bygone:lithoplasm"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "bygone:plasmic_byslate"
+  }
+}

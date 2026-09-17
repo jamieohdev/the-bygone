@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.entity;
 
+import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -38,12 +39,8 @@ public class TrilobiteEntity extends AbstractFish {
                 .add(Attributes.MOVEMENT_SPEED, 0.35);
     }
 
-    public static boolean checkSurfaceWaterAnimalSpawnRule(EntityType<? extends WaterAnimal> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, @NotNull RandomSource random) {
-        int i = world.getSeaLevel();
-        int j = i - 13;
-
-        return world.getBlockState(pos).getFluidState().is(FluidTags.WATER)
-                && world.getBlockState(pos.above()).is(Blocks.WATER);
+    public static boolean checkSurfaceWaterAnimalSpawnRule(EntityType<? extends Mob> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, @NotNull RandomSource random) {
+        return world.getBlockState(pos).getFluidState().is(FluidTags.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER);
     }
 
     @Override
@@ -70,8 +67,8 @@ public class TrilobiteEntity extends AbstractFish {
     }
 
     @Override
-    public ItemStack getBucketItemStack() {
-        return Items.WATER_BUCKET.getDefaultInstance();
+    public @NotNull ItemStack getBucketItemStack() {
+        return BGItems.TRILOBITE_BUCKET.get().getDefaultInstance();
     }
 
     public int getDarkTicksRemaining() {

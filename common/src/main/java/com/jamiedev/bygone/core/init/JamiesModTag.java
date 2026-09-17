@@ -3,22 +3,29 @@ package com.jamiedev.bygone.core.init;
 import com.jamiedev.bygone.Bygone;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.material.Fluid;
 
 public class JamiesModTag {
 
     public static final TagKey<MobEffect> AIRLESS_BREATHING = MobEffects.createTag("airless_breathing");
+	public static final TagKey<MobEffect> IGNORES_PLASMILK = MobEffects.createTag("ignores_plasmilk");
 
     public static final TagKey<Block> SABLE_LOGS = Blocks.createTag("sable_logs");
     public static final TagKey<Block> BIG_BEAK_SPAWNABLE_ON = Blocks.createTag("big_beak_spawnable_on");
     public static final TagKey<Block> GLARE_SPAWNABLE_ON = Blocks.createTag("glare_spawnable_on");
+    public static final TagKey<Block> LITHY_SPAWNABLE_ON = Blocks.createTag("lithy_spawnable_on");
+    public static final TagKey<Block> HAUNT_SPAWNABLE_ON = Blocks.createTag("haunt_spawnable_on");
+    public static final TagKey<Block> WISP_SPAWNABLE_ON = Blocks.createTag("wisp_spawnable_on");
+    public static final TagKey<Block> WRAITH_SPAWNABLE_ON = Blocks.createTag("wraith_spawnable_on");
 
     public static final TagKey<Block> ICE_BOUQUET_FORBIDDEN = Blocks.createTag("ice_bouquet_forbidden");
 
@@ -26,11 +33,15 @@ public class JamiesModTag {
 
     public static final TagKey<Block> MEGALITH_BLOCKS = Blocks.createTag("megalith_blocks");
 
+    public static final TagKey<Block> LITHOPLASM_LIGHT_BLOCKS = Blocks.createTag("lithoplasm_light_blocks");
+
     public static final TagKey<Block> SPRINKLERS = Blocks.createTag("sprinklers");
     public static final TagKey<Block> COPPER_BLOCKS_1 = Blocks.createTag("copper_blocks");
 
     public static final TagKey<Item> AQUIFAWN_FOOD = Items.createTag("aquifawn_food");
     public static final TagKey<Block> AMOEBA_REPELLENTS = Blocks.createTag("amoeba_repellents");
+    public static final TagKey<Block> SPECTRAL_BLOCKS = Blocks.createTag("spectral_blocks");
+    public static final TagKey<Block> HURT_SPECTRAL_BLOCKS = Blocks.createTag("hurt_spectral_blocks");
     public static final TagKey<Block> PEST_REPELLENTS = Blocks.createTag("pest_repellents");
     public static final TagKey<Block> SABEAST_REPELLENTS = Blocks.createTag("sabeast_repellents");
 
@@ -43,6 +54,8 @@ public class JamiesModTag {
     public static final TagKey<Block> WHIRLIWEEDS = Blocks.createTag("whirliweeds");
     public static final TagKey<Item> WHIRLIWEEDS_ITEM = Items.createTag("whirliweeds");
 
+    public static final TagKey<Fluid> LITHO = Fluids.create("litho");
+    public static final TagKey<Fluid> SABLE_MOSS_REPLACEABLE = Fluids.create("sable_moss_replaceable");
 
     public static final TagKey<Block> CORAL_PLANTS = Blocks.createTag("coral_plants");
     public static final TagKey<Block> CORAL_BLOCK_REPLACEABLE = Blocks.createTag("coral_block_replaceable");
@@ -62,10 +75,17 @@ public class JamiesModTag {
 
     public static final TagKey<Item> SABEAST_AFRAID_PLAYER_HOLD = Items.createTag("sabeast_afraid_player_hold");
 
-    public static final TagKey<Structure> ON_BYGONE_PORTAL_MAPS = Structures.createTag("on_bygone_portal_maps");
+    public static final TagKey<EntityType<?>> SPECTRAL_VULNERABLE_TO_ENTITY = Entities.createTag("spectral_vulnerable_to");
+    public static final TagKey<DamageType> SPECTRAL_VULNERABLE_TO_DAMAGE = DamageTypes.createTag("spectral_vulnerable_to");
+    public static final TagKey<Item> SPECTRAL_VULNERABLE_TO_ITEM = Items.createTag("spectral_vulnerable_to");
+
+	public static final TagKey<Structure> ON_BYGONE_PORTAL_MAPS = Structures.createTag("on_bygone_portal_maps");
 
     public static final TagKey<Structure> BYGONE_ITEM_LOCATED = Structures.createTag("bygone_item_located");
     public static final TagKey<Block> COPPERBUGNESTS = Blocks.createTag("copperbug_nests");
+
+    public static final TagKey<EntityType<?>> SPECTRAL = Entities.createTag("spectral");
+    public static final TagKey<EntityType<?>> NOT_FREEZE_WALLOW = Entities.createTag("not_freeze_wallow");
 
     public static final TagKey<EntityType<?>> ICE_BOUQUET_HEALS = Entities.createTag("ice_bouquet_heals");
 
@@ -82,6 +102,13 @@ public class JamiesModTag {
 
         private static TagKey<MobEffect> createTag(String name) {
             return TagKey.create(Registries.MOB_EFFECT, Bygone.id(name));
+        }
+    }
+
+    public static class DamageTypes {
+
+        private static TagKey<DamageType> createTag(String name) {
+            return TagKey.create(Registries.DAMAGE_TYPE, Bygone.id(name));
         }
     }
 
@@ -135,4 +162,15 @@ public class JamiesModTag {
             return TagKey.create(Registries.POINT_OF_INTEREST_TYPE, Bygone.id(id));
         }
     }
+
+    public static class DimensionTypes {
+
+        public static final TagKey<DimensionType> MAPS_IGNORE_CEILING = of("maps_ignore_ceiling");
+        public static final TagKey<DimensionType> HAS_HAUNTINGS = of("has_hauntings");
+
+        private static TagKey<DimensionType> of(String id) {
+            return TagKey.create(Registries.DIMENSION_TYPE, Bygone.id(id));
+        }
+    }
+
 }

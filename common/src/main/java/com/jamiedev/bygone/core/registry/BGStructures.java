@@ -5,12 +5,14 @@ import com.jamiedev.bygone.Bygone;
 import java.util.Locale;
 
 import com.jamiedev.bygone.common.worldgen.structure.*;
+import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.buildings.GreatTrailBuildingPiece;
+import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.path.GreatPathPiece;
+import com.jamiedev.bygone.common.worldgen.structure.trail_ruins.GreatTrailRuinsStructure;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
-import net.minecraft.world.level.storage.loot.predicates.WeatherCheck;
 
 public class BGStructures
 {
@@ -67,6 +69,11 @@ public class BGStructures
     public static StructurePieceType PORTAL_PIECE = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
             Bygone.id("bygone_portal"), BygonePortalGenerator.Piece::new);
 
+    public static StructureType<GreatTrailRuinsStructure> GREAT_TRAIL_RUINS;
+    public static StructurePieceType TRAIL_PATH = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
+        Bygone.id("great_trail_path"), GreatPathPiece::new);
+    public static StructurePieceType TRAIL_BUILDING = Registry.register(BuiltInRegistries.STRUCTURE_PIECE,
+        Bygone.id("great_trail_building"), GreatTrailBuildingPiece::new);
 
     private static StructurePieceType register(StructurePieceType type, String id) {
         return Registry.register(BuiltInRegistries.STRUCTURE_PIECE, id.toLowerCase(Locale.ROOT), type);
@@ -99,6 +106,6 @@ public class BGStructures
         MURKLING_NEST = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "murkling_nest"), () -> MurklingNestStructure.CODEC);
 
         SUNKEN_CITY = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "sunken_ruins"), () -> SunkenCityStructure.CODEC);
-
+        GREAT_TRAIL_RUINS = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, Bygone.id("great_trail_ruins"), () -> GreatTrailRuinsStructure.CODEC);
     }
 }

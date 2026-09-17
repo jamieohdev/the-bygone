@@ -1,0 +1,14 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:underroot/underroot_trunk",
+        "projection": "rigid",
+        "processors": "minecraft:empty",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

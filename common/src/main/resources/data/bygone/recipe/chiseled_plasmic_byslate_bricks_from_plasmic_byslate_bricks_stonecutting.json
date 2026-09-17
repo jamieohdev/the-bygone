@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "bygone:plasmic_byslate_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "bygone:chiseled_plasmic_byslate_bricks"
+  }
+}

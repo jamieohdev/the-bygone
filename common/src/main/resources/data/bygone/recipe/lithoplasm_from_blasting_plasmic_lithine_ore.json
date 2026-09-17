@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "group": "lithoplasm",
+  "ingredient": {
+    "item": "bygone:plasmic_lithine_ore"
+  },
+  "result": {
+    "id": "bygone:lithoplasm"
+  }
+}

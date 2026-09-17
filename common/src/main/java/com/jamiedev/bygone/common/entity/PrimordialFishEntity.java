@@ -20,10 +20,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.VariantHolder;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.DyeColor;
@@ -150,10 +147,10 @@ public class PrimordialFishEntity extends AbstractSchoolingFish implements Varia
         return PrimordialFishEntity.Pattern.byId(variantId & '\uffff');
     }
 
-    public static boolean checkPrimordialFishEntitySpawnRules(EntityType<PrimordialFishEntity> primordialFishType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+    public static boolean checkPrimordialFishEntitySpawnRules(EntityType<? extends Mob> primordialFishType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getFluidState(pos.below()).is(FluidTags.WATER) && level.getBlockState(pos.above())
                 .is(Blocks.WATER) && (level.getBiome(pos)
-                .is(JamiesModTag.ALLOWS_PRIMORDIAL_FISH_SPAWNS_AT_ANY_HEIGHT) || WaterAnimal.checkSurfaceWaterAnimalSpawnRules(
+                .is(JamiesModTag.ALLOWS_PRIMORDIAL_FISH_SPAWNS_AT_ANY_HEIGHT) || TrilobiteEntity.checkSurfaceWaterAnimalSpawnRule(
                 primordialFishType,
                 level,
                 spawnType,

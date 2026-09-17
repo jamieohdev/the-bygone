@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1142026,
+    "separation": 15,
+    "spacing": 30
+  },
+  "structures": [
+    {
+      "structure": "bygone:underground_house_upper",
+      "weight": 1
+    }
+  ]
+}

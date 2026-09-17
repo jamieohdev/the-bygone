@@ -154,11 +154,8 @@ public class BaseVerdigrisCogBlock extends PoweredBlock {
     }
 
     @Override
-    protected int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
-        if (blockState.getValue(POWERED) && (side == Direction.UP || side == Direction.DOWN))
-            return super.getSignal(blockState, blockAccess, pos, side);
-        else
-            return 0;
+    protected int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction side) {
+        return state.getValue(POWERED) ? 15 : 0;
     }
 
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {

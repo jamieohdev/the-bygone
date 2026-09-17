@@ -126,14 +126,6 @@
         },
         "placement": [
           {
-            "type": "minecraft:block_predicate_filter",
-            "predicate": {
-              "type": "minecraft:matching_blocks",
-              "offset": [0, -8, 0],
-              "blocks": "bygone:ancient_log"
-            }
-          },
-          {
             "type": "minecraft:count",
             "count": 4
           }

@@ -184,8 +184,7 @@ public class BGRemoveBlockGoal extends MoveToBlockGoal {
             level.playSound(this.removerMob, blockpos, SoundEvents.SNIFFER_DEATH, SoundSource.HOSTILE, 0.9F, 1.5F);
             level.playSound(this.removerMob, blockpos, SoundEvents.WARDEN_SONIC_BOOM, SoundSource.HOSTILE, 0.05F, 1.0F);
             BlockState gourdState = level.getBlockState(blockpos1);
-            FallingBlockEntity fallingGourd = FallingBlockEntity.fall(level, blockpos1, gourdState);
-            level.addFreshEntity(fallingGourd);
+            FallingBlockEntity.fall(level, blockpos1, gourdState);
             this.nextStartTick = reducedTickDelay(60);
             this.stop();
         }

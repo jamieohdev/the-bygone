@@ -1,0 +1,19 @@
+{
+  "vertex": "minecraft:blit_screen",
+  "fragment": "bygone:void_fog",
+  "samplers": [
+    { "name": "DepthSampler" }
+  ],
+  "uniforms": [
+    { "name": "ScreenToView", "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
+    { "name": "ViewToWorld", "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
+    { "name": "NoiseStart", "type": "float", "count": 2, "values": [ 0.0, 0.0 ] },
+    { "name": "RenderDistance", "type": "float", "count": 1, "values": [ 256.0 ] },
+    { "name": "CameraPosition", "type": "float", "count": 1, "values": [ 64.0 ] },
+    { "name": "VoidPosition", "type": "float", "count": 1, "values": [ -64.0 ] },
+    { "name": "Intensity", "type": "float", "count": 1, "values": [ 0.65 ] },
+    { "name": "Anisotropy", "type": "float", "count": 1, "values": [ 0.6 ] },
+    { "name": "FadeHeight", "type": "float", "count": 1, "values": [ 256.0 ] },
+    { "name": "FadeFactor", "type": "float", "count": 1, "values": [ 0.018 ] }
+  ]
+}

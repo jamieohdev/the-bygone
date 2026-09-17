@@ -44,8 +44,11 @@
     [],
     [],
     [],
-    ["bygone:megalith_field_miniliths"],
     [
+      "bygone:megalith_field_miniliths"
+    ],
+    [
+      "bygone:common_ore_plasmic_byslate",
       "bygone:common_monster_room",
       "bygone:common_small_cloud",
       "bygone:rare_ore_bystone",
@@ -54,9 +57,6 @@
       "bygone:common_ore_iron_upper",
       "bygone:common_ore_iron_middle",
       "bygone:common_ore_iron_small",
-      "bygone:common_ore_gold_upper",
-      "bygone:common_ore_gold_middle",
-      "bygone:common_ore_gold_small",
       "bygone:common_ore_copper",
       "bygone:common_ore_verdigris",
       "bygone:sable_forest_ore_wriggling_soil",
@@ -69,16 +69,25 @@
       "bygone:sable_forest_sable_branches",
       "bygone:sable_forest_sable_branches_thorny"
     ],
-    ["bygone:common_glow_lichen"],
+    [
+      "bygone:common_glow_lichen"
+    ],
     [],
-    [],
+    [
+      "bygone:lithostream_spring_closed",
+      "bygone:lithostream_spring_open"
+    ],
     [],
     []
   ],
-  "has_precipitation": false,
+  "has_precipitation": true,
   "spawn_costs": {
     "bygone:mooboo": {
       "charge": 0.6,
+      "energy_budget": 0.1
+    },
+    "bygone:wallow": {
+      "charge": 0.65,
       "energy_budget": 0.1
     },
     "bygone:sabeast": {
@@ -87,17 +96,17 @@
     }
   },
   "spawners": {
-    "ambient": [
-
-    ],
+    "ambient": [],
     "axolotls": [],
-    "creature": [
-
-    ],
-    "misc": [
-
-    ],
+    "creature": [],
+    "misc": [],
     "monster": [
+      {
+        "type": "bygone:wallow",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 9
+      },
       {
         "type": "bygone:mooboo",
         "maxCount": 1,

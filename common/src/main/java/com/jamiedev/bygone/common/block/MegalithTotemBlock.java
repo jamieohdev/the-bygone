@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +34,11 @@ public class MegalithTotemBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.Plane.HORIZONTAL);
 
     static {
-        SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 24.0, 12.0);
+        SHAPE = Shapes.or(
+            Block.box(4.0, 0.0, 4.0, 12.0, 24.0, 12.0),
+            Block.box(2.0, 0.0, 2.0, 14.0, 4.0, 14.0),
+            Block.box(0.0, 0.0, 0.0, 16.0, 2.0, 16.0)
+        );
     }
 
     public MegalithTotemBlock(Properties properties) {

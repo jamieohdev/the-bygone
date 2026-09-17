@@ -12,21 +12,15 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.animal.Cow;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,8 +42,10 @@ public class Bygone {
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static void init() {
+        BGFluids.init();
         BGBlocks.init();
         BGBlockEntities.init();
+        BGAttributes.init();
         BGItems.init();
         BGMobEffects.init();
         BGEntityTypes.postInit();
@@ -99,12 +95,21 @@ public class Bygone {
         consumer.accept(BGEntityTypes.NECTAUR.get(), NectaurEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.LITHY.get(), LithyEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.WISP.get(), WispEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.GEIST.get(), GeistEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.REAVER.get(), ReaverEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.WALLOW.get(), WallowEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.HAUNT.get(), HauntEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.WRAITH.get(), WraithEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.SABEAST.get(), SabeastEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.MOURN.get(), MournEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.WHISPER.get(), WhisperEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.SCARE.get(), ScareEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.AMOEBA.get(), AmoebaEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.PRIMORDIAL_FISH.get(), PrimordialFishEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.AQUIFAWN.get(), AquifawnEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.MURKLING.get(), MurklingEntity.createAttributes().build());
+
+        consumer.accept(BGEntityTypes.BYGONE_PORTAL.get(), BygonePortalEntity.createAttributes().build());
     }
 
     @SuppressWarnings("unchecked")
@@ -113,25 +118,13 @@ public class Bygone {
                 (EntityType<T>) BGEntityTypes.SCUTTLE.get(),
                 SpawnPlacementTypes.IN_WATER,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                (entityType, iServerWorld, reason1, pos1, random1) -> ScuttleEntity.checkSurfaceWaterAnimalSpawnRule(
-                        (EntityType<? extends WaterAnimal>) entityType,
-                        iServerWorld,
-                        reason1,
-                        pos1,
-                        random1
-                )
+				ScuttleEntity::checkSurfaceWaterAnimalSpawnRule
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.AQUIFAWN.get(), 
                 SpawnPlacementTypes.IN_WATER, 
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, 
-                (entityType, iServerWorld, reason1, pos1, random1) -> ScuttleEntity.checkSurfaceWaterAnimalSpawnRule(
-                        (EntityType<? extends WaterAnimal>) entityType, 
-                        iServerWorld,
-                        reason1,
-                        pos1,
-                        random1
-                )
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				ScuttleEntity::checkSurfaceWaterAnimalSpawnRule
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.GLARE.get(),
@@ -149,49 +142,31 @@ public class Bygone {
                 (EntityType<T>) BGEntityTypes.TRILOBITE.get(),
                 SpawnPlacementTypes.IN_WATER,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                (type1, world1, reason1, pos1, random1) -> TrilobiteEntity.checkSurfaceWaterAnimalSpawnRule(
-                        (EntityType<? extends WaterAnimal>) type1,
-                        world1,
-                        reason1,
-                        pos1,
-                        random1
-                )
+				TrilobiteEntity::checkSurfaceWaterAnimalSpawnRule
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.AMOEBA.get(),
                 SpawnPlacementTypes.IN_WATER,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                (type1, world1, reason1, pos1, random1) -> TrilobiteEntity.checkSurfaceWaterAnimalSpawnRule(
-                        (EntityType<? extends WaterAnimal>) type1,
-                        world1,
-                        reason1,
-                        pos1,
-                        random1
-                )
+				TrilobiteEntity::checkSurfaceWaterAnimalSpawnRule
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.COPPERBUG.get(),
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING,
-                (type1, world1, spawnReason, pos1, random1) -> CopperbugEntity.canSpawn(
-                        (EntityType<CopperbugEntity>) type1,
-                        world1,
-                        spawnReason,
-                        pos1,
-                        random1
-                )
+				CopperbugEntity::canSpawn
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.COELACANTH.get(),
                 SpawnPlacementTypes.IN_WATER,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                (type, world, reason, pos, random) -> CoelacanthEntity.checkSurfaceWaterAnimalSpawnRule(
-                        (EntityType<CoelacanthEntity>) type,
-                        world,
-                        reason,
-                        pos,
-                        random
-                )
+				CoelacanthEntity::checkSurfaceWaterAnimalSpawnRule
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.HAUNT.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                HauntEntity::canSpawn
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.PESKY.get(),
@@ -227,19 +202,55 @@ public class Bygone {
                 (EntityType<T>) BGEntityTypes.WISP.get(),
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING,
-                LithyEntity::canSpawn
+                WispEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.GEIST.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                GeistEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.WALLOW.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                WraithEntity::canSpawn
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.WRAITH.get(),
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING,
-                LithyEntity::canSpawn
+                WraithEntity::canSpawn
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.SABEAST.get(),
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING,
                 MoobooEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.REAVER.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                ReaverEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.MOURN.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                MournEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.WHISPER.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                WhisperEntity::canSpawn
+        );
+        consumer.accept(
+                (EntityType<T>) BGEntityTypes.SCARE.get(),
+                SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING,
+                ScareEntity::canSpawn
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.MOOBOO.get(),
@@ -257,13 +268,7 @@ public class Bygone {
                 (EntityType<T>) BGEntityTypes.PRIMORDIAL_FISH.get(),
                 SpawnPlacementTypes.IN_WATER,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                (type1, world1, reason1, pos1, random1) -> PrimordialFishEntity.checkPrimordialFishEntitySpawnRules(
-                        (EntityType<PrimordialFishEntity>) type1,
-                        world1,
-                        reason1,
-                        pos1,
-                        random1
-                )
+				PrimordialFishEntity::checkPrimordialFishEntitySpawnRules
         );
     }
 

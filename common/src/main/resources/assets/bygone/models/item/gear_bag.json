@@ -1,0 +1,9 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "bygone:item/gear_bag_open"
+    },
+    "overrides": [
+        { "predicate": { "filled": 0.0000001 }, "model": "bygone:item/gear_bag_filled" }
+    ]
+}

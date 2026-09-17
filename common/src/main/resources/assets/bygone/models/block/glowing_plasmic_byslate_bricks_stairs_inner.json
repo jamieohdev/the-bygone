@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "bygone:block/glowing_plasmic_byslate_bricks",
+    "side": "bygone:block/glowing_plasmic_byslate_bricks",
+    "top": "bygone:block/glowing_plasmic_byslate_bricks"
+  }
+}

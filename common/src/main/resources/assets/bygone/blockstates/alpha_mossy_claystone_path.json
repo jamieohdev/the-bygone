@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "bygone:block/alpha_mossy_claystone_path"
+      },
+      {
+        "model": "bygone:block/alpha_mossy_claystone_path",
+        "y": 90
+      },
+      {
+        "model": "bygone:block/alpha_mossy_claystone_path",
+        "y": 180
+      },
+      {
+        "model": "bygone:block/alpha_mossy_claystone_path",
+        "y": 270
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "": "Note: starts from the top-right (tr) and forms a spiral",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:village_sable/base_plates/tr",
+        "projection": "rigid",
+        "processors": "bygone:village_sable",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

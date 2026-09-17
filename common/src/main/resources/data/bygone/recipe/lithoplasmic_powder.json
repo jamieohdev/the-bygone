@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "lithoplasmic_powder",
+  "ingredients": [
+    {
+      "item": "bygone:lithoplasmic_powder_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "bygone:lithoplasmic_powder"
+  }
+}

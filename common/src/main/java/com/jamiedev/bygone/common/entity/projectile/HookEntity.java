@@ -1,12 +1,14 @@
 package com.jamiedev.bygone.common.entity.projectile;
 
-import com.jamiedev.bygone.common.item.HookItem;
-import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGItems;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
@@ -23,6 +25,16 @@ import org.jetbrains.annotations.Nullable;
 
 public class HookEntity extends AbstractArrow {
 
+    private static final EntityDataAccessor<Boolean> DATA_RETRACTING =
+            SynchedEntityData.defineId(HookEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Float> DATA_CHAIN_PROGRESS =
+            SynchedEntityData.defineId(HookEntity.class, EntityDataSerializers.FLOAT);
+
+    private static final float CHAIN_SPEED = 0.1F;
+    private static final float REVERSE_SPEED = 0.055F;
+
+    public float prevChainProgress = 0F;
+
     private final SoundEvent soundEvent;
     FishingHook ref;
     @javax.annotation.Nullable
@@ -38,12 +50,44 @@ public class HookEntity extends AbstractArrow {
         super(BGEntityTypes.HOOK.get(), level);
         setOwner(player);
         setPosRaw(player.getX(), player.getEyeY() - 0.1, player.getZ());
+        this.setOldPosAndRot();
         this.soundEvent = this.getDefaultHitGroundSoundEvent();
     }
 
     @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_RETRACTING, false);
+        builder.define(DATA_CHAIN_PROGRESS, 0F);
+    }
+
+    public boolean isRetracting() {
+        return this.entityData.get(DATA_RETRACTING);
+    }
+
+    public void startRetracting() {
+        this.entityData.set(DATA_RETRACTING, true);
+    }
+
+    public float getChainProgressFloat() {
+        return this.entityData.get(DATA_CHAIN_PROGRESS);
+    }
+
+    public void setChainProgressFloat(float value) {
+        this.entityData.set(DATA_CHAIN_PROGRESS, value);
+    }
+
+    public float getChainProgress(float partialTick) {
+        return Mth.lerp(partialTick, prevChainProgress, getChainProgressFloat());
+    }
+
+    public void bygone$syncOldPos() {
+        this.setOldPosAndRot();
+    }
+
+    @Override
     protected ItemStack getDefaultPickupItem() {
-        return BGItems.HOOK.get().getDefaultInstance();
+        return BGItems.ANCIENT_HOOK.get().getDefaultInstance();
     }
 
     @Override
@@ -61,42 +105,36 @@ public class HookEntity extends AbstractArrow {
     @Override
     public void tick() {
         super.tick();
+
+        prevChainProgress = getChainProgressFloat();
+
+        if (this.isRetracting()) {
+            float current = getChainProgressFloat();
+            setChainProgressFloat(Math.max(0F, current - REVERSE_SPEED));
+
+            if (!this.level().isClientSide && getChainProgressFloat() <= 0F) {
+                this.discard();
+            }
+            return;
+        }
+
+        if (getChainProgressFloat() < 1F) {
+            setChainProgressFloat(Math.min(1F, getChainProgressFloat() + CHAIN_SPEED));
+        }
+
         Player player = this.getPlayerOwner();
         if (!this.level().isClientSide) {
-            if (player == null) {
-                this.discard();
-                return;
-            }
-            if (this.shouldRetract(player)) {
-                this.retract(player);
-                return;
-            }
-            if (!this.level().getFluidState(new BlockPos(this.getBlockX(), this.getBlockY(), this.getBlockZ())).isEmpty()) {
-                this.retract(player);
-                return;
-            }
-            if (player.isShiftKeyDown()) {
-                if (this.isInWall() && this.distanceTo(player) > 2.0F) {
-                    HookItem.grapple(this, player);
-                    return;
-                } else {
-                    this.retract(player);
-                    return;
-                }
-            }
-            if (this.distanceTo(player) > 64F) {
-                this.retract(player);
+            boolean inFluid = !this.level().getFluidState(
+                    new BlockPos(this.getBlockX(), this.getBlockY(), this.getBlockZ())).isEmpty();
+
+            if (player == null || this.shouldRetract(player) || inFluid || player.isShiftKeyDown()) {
+                this.startRetracting();
             }
         }
     }
 
-    private void retract(Player player) {
-        this.discard();
-        ((PlayerWithHook) player).bygone$setHook(null);
-    }
-
     private boolean shouldRetract(Player player) {
-        return player.isRemoved() || !player.isAlive() || !player.isHolding(BGItems.HOOK.get()) || this.distanceTo(player) > 64F;
+        return player.isRemoved() || !player.isAlive() || !player.isHolding(BGItems.ANCIENT_HOOK.get()) || this.distanceTo(player) > 64F;
     }
 
     @Override

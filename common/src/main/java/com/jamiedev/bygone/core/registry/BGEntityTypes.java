@@ -2,10 +2,8 @@ package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.entity.*;
-import com.jamiedev.bygone.common.entity.projectile.ExoticArrowEntity;
-import com.jamiedev.bygone.common.entity.projectile.HookEntity;
-import com.jamiedev.bygone.common.entity.projectile.NectaurPetalEntity;
-import com.jamiedev.bygone.common.entity.projectile.ScuttleSpikeEntity;
+import com.jamiedev.bygone.common.entity.projectile.*;
+import com.jamiedev.bygone.common.weather.weather_types.HauntingsCategoryHolder;
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
@@ -16,6 +14,13 @@ import java.util.function.Supplier;
 
 public class BGEntityTypes {
 
+    public static final Supplier<EntityType<BygonePortalEntity>> BYGONE_PORTAL = registerEntityType(
+            "bygone_portal", () ->
+                    EntityType.Builder.<BygonePortalEntity>of(BygonePortalEntity::new, MobCategory.MISC)
+                            .sized(1.5F, 1.5F)
+                            .clientTrackingRange(5)
+                            .build("")
+    );
 
     public static final Supplier<EntityType<HookEntity>> HOOK = registerEntityType(
             "hook", () ->
@@ -58,6 +63,15 @@ public class BGEntityTypes {
                     .build("")
     );
 
+    public static final Supplier<EntityType<LithoArrowEntity>> LITHOPLASM_ARROW = registerEntityType(
+            "lithoplasm_arrow",
+            () -> EntityType.Builder.<LithoArrowEntity>of(LithoArrowEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4)
+                    .updateInterval(20)
+                    .build("")
+    );
+
     public static final Supplier<EntityType<NectaurPetalEntity>> NECTAUR_PETAL = registerEntityType(
             "nectaur_petal",
             () -> EntityType.Builder.<NectaurPetalEntity>of(NectaurPetalEntity::new, MobCategory.MISC)
@@ -94,6 +108,7 @@ public class BGEntityTypes {
                     EntityType.Builder.of(MoobooEntity::new, MobCategory.CREATURE)
                             .sized(0.9F, 1.4F)
                             .eyeHeight(1.3f)
+                            .fireImmune()
                             .build("")
     );
 
@@ -163,6 +178,28 @@ public class BGEntityTypes {
             () -> EntityType.Builder.of(LithyEntity::new, MobCategory.CREATURE).sized(1.0F, 2.0F).build("")
     );
 
+    public static final Supplier<EntityType<ReaverEntity>> REAVER = registerEntityType(
+            "reaver",
+            () -> EntityType.Builder.of(ReaverEntity::new, HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY)
+                    .sized(1.0F, 0.85F)
+                    .eyeHeight(0.36F)
+                    .ridingOffset(0.04F)
+                    .clientTrackingRange(8)
+                    .updateInterval(2)
+                    .build("")
+    );
+
+    public static final Supplier<EntityType<WallowEntity>> WALLOW = registerEntityType(
+            "wallow",
+            () -> EntityType.Builder.of(WallowEntity::new, HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY)
+                    .sized(0.9F, 1.4F)
+                    .eyeHeight(1.15F)
+                    .ridingOffset(0.04F)
+                    .clientTrackingRange(8)
+                    .updateInterval(2)
+                    .build("")
+    );
+
     public static final Supplier<EntityType<WispEntity>> WISP = registerEntityType(
             "wisp",
             () -> EntityType.Builder.of(WispEntity::new, MobCategory.CREATURE)
@@ -174,11 +211,75 @@ public class BGEntityTypes {
                     .build("")
     );
 
+    public static final Supplier<EntityType<HauntEntity>> HAUNT = registerEntityType(
+            "haunt",
+            () -> EntityType.Builder.of(HauntEntity::new, HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY)
+                    .sized(0.35F, 0.35F)
+                    .eyeHeight(0.36F)
+                    .ridingOffset(0.04F)
+                    .fireImmune()
+                    .clientTrackingRange(8)
+                    .updateInterval(2)
+                    .build("")
+    );
+
+    public static final Supplier<EntityType<GeistEntity>> GEIST = registerEntityType(
+            "geist",
+            () -> EntityType.Builder.of(GeistEntity::new, HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY)
+                    .immuneTo(BGBlocks.ICE_BOUQUET.get())
+                    .fireImmune()
+                    .sized(1.0F, 2.0F)
+                    .build("")
+    );
+
     public static final Supplier<EntityType<WraithEntity>> WRAITH = registerEntityType(
             "wraith",
-            () -> EntityType.Builder.of(WraithEntity::new, MobCategory.CREATURE)
+            () -> EntityType.Builder.of(WraithEntity::new, HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY)
                     .immuneTo(BGBlocks.ICE_BOUQUET.get())
+                    .fireImmune()
                     .sized(1.0F, 2.0F)
+                    .build("")
+    );
+
+    public static final Supplier<EntityType<MournEntity>> MOURN = registerEntityType(
+            "mourn",
+            () -> EntityType.Builder.of(MournEntity::new, HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY)
+                    .immuneTo(BGBlocks.ICE_BOUQUET.get())
+                    .fireImmune()
+                    .sized(1.2F, 2.6F)
+                    .eyeHeight(2.0F)
+                    .clientTrackingRange(8)
+                    .build("")
+    );
+
+    public static final Supplier<EntityType<WhisperEntity>> WHISPER = registerEntityType(
+            "whisper",
+            () -> EntityType.Builder.of(WhisperEntity::new, HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY)
+                    .immuneTo(BGBlocks.ICE_BOUQUET.get())
+                    .fireImmune()
+                    .sized(0.5F, 0.75F)
+                    .eyeHeight(0.55F)
+                    .clientTrackingRange(8)
+                    .build("")
+    );
+
+    public static final Supplier<EntityType<ScareEntity>> SCARE = registerEntityType(
+            "scare",
+            () -> EntityType.Builder.of(ScareEntity::new, HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY)
+                    .immuneTo(BGBlocks.ICE_BOUQUET.get())
+                    .fireImmune()
+                    .sized(0.9F, 0.8F)
+                    .eyeHeight(0.65F)
+                    .clientTrackingRange(8)
+                    .build("")
+    );
+
+    public static final Supplier<EntityType<ScareBoltEntity>> SCARE_BOLT = registerEntityType(
+            "scare_bolt",
+            () -> EntityType.Builder.<ScareBoltEntity>of(ScareBoltEntity::new, MobCategory.MISC)
+                    .sized(0.4F, 0.4F)
+                    .clientTrackingRange(6)
+                    .updateInterval(10)
                     .build("")
     );
 

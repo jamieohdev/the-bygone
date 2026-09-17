@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "X": {
+      "item": "bygone:plasmic_byslate"
+    }
+  },
+  "pattern": ["XXX"],
+  "result": {
+    "count": 6,
+    "id": "bygone:plasmic_byslate_slab"
+  }
+}

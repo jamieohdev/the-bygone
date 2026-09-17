@@ -16,16 +16,23 @@ import java.util.function.Supplier;
 
 public class BGMobEffects {
 
+    public static Supplier<Holder<MobEffect>> HAUNTED = register("haunted", HauntedEffect::new);
     public static Supplier<Holder<MobEffect>> UPDRAFT = register("updraft", UpdraftEffect::new);
     public static Supplier<Holder<MobEffect>> SATIETY = register("satiety", () -> new SatietyEffect(0x9a5500));
     public static Supplier<Holder<MobEffect>> ASPHYXIATING = register(
             "asphyxiating",
             () -> new AsphyxiatingEffect(MobEffectCategory.HARMFUL, 0x5aafcf)
     );
+	public static Supplier<Holder<MobEffect>> PLASMILK = register(
+			"plasmilk",
+			() -> new PlasmilkEffect(MobEffectCategory.NEUTRAL, 0x83ffe0)
+	);
     public static Supplier<Holder<MobEffect>> SIPHONING = register(
             "siphoning",
             () -> new SiphoningEffect(MobEffectCategory.HARMFUL, 0x68b6d3)
     );
+
+    public static Supplier<Holder<MobEffect>> PARALYZED = register("paralyzed", ParalyzedEffect::new);
 
     public static Supplier<Holder<MobEffect>> CARAPACE = register(
             "carapace", () -> new PublicMobEffect(MobEffectCategory.BENEFICIAL, 0x67CEEB).addAttributeModifier(
@@ -43,6 +50,8 @@ public class BGMobEffects {
                 name
         )).orElseThrow());
     }
+
+
 
     public static void init() {
     }

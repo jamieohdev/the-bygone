@@ -492,12 +492,675 @@
           "type": "minecraft:sequence",
           "sequence": [
             {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 5
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 7
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 17
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 19
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 31
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 37
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 47
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 53
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 67
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 71
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 83
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 89
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 103
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 107
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 127
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 131
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 149
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 151
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 167
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 173
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 191
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 193
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 211
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 223
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 233
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 239
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
               "type": "minecraft:block",
               "result_state": {
                 "Name": "bygone:byslate"
               }
             }
-					]
+          ]
         }
       },
       {
@@ -867,6 +1530,78 @@
             {
               "type": "minecraft:condition",
               "if_true": {
+                "type": "minecraft:y_above",
+                "anchor": {
+                  "absolute": 97
+                },
+                "surface_depth_multiplier": 0,
+                "add_stone_depth": false
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "anchor": {
+                      "absolute": 112
+                    },
+                    "surface_depth_multiplier": 0,
+                    "add_stone_depth": false
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:stone_depth",
+                        "offset": 0,
+                        "surface_type": "ceiling",
+                        "add_surface_depth": true,
+                        "secondary_depth_range": 5
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "bygone:ancient_leaves",
+                          "Properties": {
+                            "distance": "7",
+                            "persistent": "true",
+                            "waterlogged": "false"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:stone_depth",
+                        "offset": 0,
+                        "surface_type": "floor",
+                        "add_surface_depth": true,
+                        "secondary_depth_range": 5
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "bygone:ancient_leaves",
+                          "Properties": {
+                            "distance": "7",
+                            "persistent": "true",
+                            "waterlogged": "false"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
                 "type": "minecraft:stone_depth",
                 "offset": 0,
                 "surface_type": "ceiling",
@@ -939,6 +1674,669 @@
                     }
                   }
                 ]
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 5
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 7
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 17
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 19
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 31
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 37
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 47
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 53
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 67
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 71
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 83
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 89
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 103
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 107
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 127
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 131
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 149
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 151
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 167
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 173
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 191
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 193
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 211
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 223
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:y_above",
+                "add_stone_depth": false,
+                "anchor": {
+                  "absolute": 233
+                },
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:not",
+                  "invert": {
+                    "type": "minecraft:y_above",
+                    "add_stone_depth": false,
+                    "anchor": {
+                      "absolute": 239
+                    },
+                    "surface_depth_multiplier": 0
+                  }
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:noise_threshold",
+                        "min_threshold": -10000,
+                        "max_threshold": -0.1,
+                        "noise": "minecraft:calcite"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "minecraft:terracotta"
+                        }
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "bygone:terraclaystone"
+                      }
+                    }
+                  ]
+                }
               }
             },
             {

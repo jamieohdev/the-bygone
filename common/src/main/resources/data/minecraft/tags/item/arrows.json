@@ -1,4 +1,5 @@
 {
   "replace": false,
-  "values": ["bygone:exotic_arrow"]
+  "values": ["bygone:exotic_arrow",
+    "bygone:lithoplasm_arrow"]
 }

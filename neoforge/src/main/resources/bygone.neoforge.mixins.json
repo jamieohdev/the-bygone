@@ -4,9 +4,10 @@
   "package": "com.jamiedev.bygone.core.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-
+    "FlowingFluidMixin"
   ],
   "client": [
+    "client.NeoForgeLevelRendererMixin"
   ],
   "server": [],
   "injectors": {

@@ -3,11 +3,14 @@ package com.jamiedev.bygone.common.entity;
 import com.google.common.collect.ImmutableRangeSet;
 import com.google.common.collect.Range;
 import com.google.common.collect.RangeSet;
+import com.jamiedev.bygone.common.entity.ai.AvoidBlockGoal;
+import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -22,6 +25,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -33,13 +37,24 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.FlyingAnimal;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.monster.breeze.Breeze;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.Shapes;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -55,6 +70,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     public static final double FIRE_SQUARE_MIN_RANGE = 4.0;
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID;
 
+
     static {
         DATA_SPELL_CASTING_ID = SynchedEntityData.defineId(WraithEntity.class, EntityDataSerializers.BYTE);
     }
@@ -66,10 +82,12 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     protected int spellCastingTickCount;
     protected BlockPos targetSavedPos = BlockPos.ZERO;
     private WraithEntity.WraithSpell currentSpell;
+    EntityDimensions dimensions;
 
     public WraithEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
-        this.xpReward = 5;
+        this.dimensions = entityType.getDimensions();
+        this.xpReward = 25;
         this.moveControl = new FlyingMoveControl(this, 35, false);
         this.setNoGravity(true);
         this.setPathfindingMalus(PathType.DANGER_FIRE, -1.0F);
@@ -84,15 +102,17 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         return Monster.createMonsterAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.2)
                 .add(Attributes.FLYING_SPEED, 0.9)
-                .add(Attributes.FOLLOW_RANGE, 18.0)
+                .add(Attributes.FOLLOW_RANGE, 10.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.8)
-                .add(Attributes.MAX_HEALTH, 32.0);
+                .add(Attributes.MAX_HEALTH, 20.0);
     }
 
     @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, HauntEntity.class, 16.0F, (double)1.0F,
+                1.5));
         this.goalSelector.addGoal(1, new SpellcasterCastingSpellGoal());
         this.goalSelector.addGoal(
                 2,
@@ -101,13 +121,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                         Double.POSITIVE_INFINITY
                 )))
         );
-        this.goalSelector.addGoal(
-                2,
-                new WraithEntity.WraithTeleportSpellGoal(ImmutableRangeSet.of(Range.closed(
-                        0.0,
-                        TELEPORT_TARGET_AWAY_RANGE
-                )))
-        );
+
         this.goalSelector.addGoal(
                 2,
                 new WraithEntity.WraithFleeSpellGoal(ImmutableRangeSet.of(Range.closed(
@@ -115,11 +129,27 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                         FLEE_RANGE
                 )))
         );
+        this.goalSelector.addGoal(3, new AvoidBlockGoal(this, 16, 1.4, 1.6, (pos) -> {
+            BlockState state = this.level().getBlockState(pos);
+            return state.is(BGBlocks.LITHOPLASMIC_POWDER.get());
+        }));
+        this.goalSelector.addGoal(3, new AvoidBlockGoal(this, 16, 1.4, 1.6, (pos) -> {
+            BlockState state = this.level().getBlockState(pos);
+            return state.is(JamiesModTag.HURT_SPECTRAL_BLOCKS);
+        }));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.1, true));
-
         this.goalSelector.addGoal(8, new WraithEntity.WraithWanderGoal(this, 0.6));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
+
+        this.goalSelector.addGoal(
+                20,
+                new WraithEntity.WraithTeleportSpellGoal(ImmutableRangeSet.of(Range.closed(
+                        0.0,
+                        TELEPORT_TARGET_AWAY_RANGE
+                )))
+        );
+
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this, WraithEntity.class).setAlertOthers());
         this.targetSelector.addGoal(
                 2,
@@ -146,6 +176,10 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         return flyingpathnavigation;
     }
 
+    public static boolean canSpawn(EntityType<? extends Mob> type, LevelAccessor level, MobSpawnType reason, BlockPos blockPos, RandomSource random) {
+        return level.getBlockState(blockPos.below()).is(JamiesModTag.WRAITH_SPAWNABLE_ON);
+    }
+
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_SPELL_CASTING_ID, (byte) 0);
@@ -158,6 +192,8 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         if (this.level().isClientSide()) {
             this.setupAnimationStates();
         }
+
+        noPhysics = !collidingSpectralBlocks();
 
         // Creates the particles for casting the spell.
         if (this.level().isClientSide && this.isCastingSpell()) {
@@ -197,7 +233,10 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         }
     }
 
-
+    @Override
+    public boolean canBeAffected(MobEffectInstance potioneffect) {
+        return !(potioneffect.is(MobEffects.POISON) || potioneffect.is(MobEffects.HARM)|| potioneffect.is(MobEffects.WITHER)) && super.canBeAffected(potioneffect);
+    }
 
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
@@ -283,13 +322,34 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
         if (this.isCastingSpell()) {
             this.spellAnimationState.startIfStopped(this.tickCount);
-        } else {
-            if (this.attackAnim > 0) {
-                this.meleeAnimationState.start(this.tickCount);
-            } else if (this.attackAnim == 0) {
-                this.meleeAnimationState.stop();
-            }
         }
+        this.meleeAnimationState.animateWhen(this.attackAnim > 0, this.tickCount);
+    }
+
+    public int getCurrentSwingDuration() {
+        int base = 24;
+        if (MobEffectUtil.hasDigSpeed(this)) {
+            base -= 1 + MobEffectUtil.getDigSpeedAmplification(this);
+        } else if (this.hasEffect(MobEffects.DIG_SLOWDOWN)) {
+            base += (1 + this.getEffect(MobEffects.DIG_SLOWDOWN).getAmplifier()) * 2;
+        }
+        return base;
+    }
+
+    @Override
+    protected void updateSwingTime() {
+        int i = this.getCurrentSwingDuration();
+        if (this.swinging) {
+            ++this.swingTime;
+            if (this.swingTime >= i) {
+                this.swingTime = 0;
+                this.swinging = false;
+            }
+        } else {
+            this.swingTime = 0;
+        }
+
+        this.attackAnim = (float)this.swingTime / (float)i;
     }
 
     @Override
@@ -316,8 +376,13 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     protected void checkFallDamage(double y, boolean onGround, @NotNull BlockState state, @NotNull BlockPos pos) {
     }
 
+
     @Override
     public boolean hurt(DamageSource source, float amount) {
+
+        if (source.is(DamageTypeTags.IS_PROJECTILE)) {
+            return false;
+        }
 
         if (source.is(DamageTypeTags.IS_FREEZING)) {
             return super.hurt(source, 0);
@@ -351,6 +416,15 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         }
     }
 
+    private boolean collidingSpectralBlocks() {
+        AABB aabb = this.getBoundingBox().inflate(1.0F, 1.0F, 1.0F);
+        return BlockPos.betweenClosedStream(aabb).anyMatch((collisionShape) -> {
+            BlockState blockstate = this.level().getBlockState(collisionShape);
+            return blockstate.is(JamiesModTag.SPECTRAL_BLOCKS);
+        });
+    }
+
+
     @Override
     public boolean canFreeze() {
         return false;
@@ -370,8 +444,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         TELEPORT(1, 0.7, 0.7, 0.8),
         FIRE(2, 0.4, 0.3, 0.35),
         NOVELTY(3, 0.7, 0.5F, 0.2),
-        DISAPPEAR(4, 0.3, 0.3, 0.8),
-        PUKE(5, 0.1, 0.1, 0.2);
+        DISAPPEAR(4, 0.3, 0.3, 0.8);
 
         private static final IntFunction<WraithEntity.WraithSpell> BY_ID = ByIdMap.continuous(
                 (spell) -> spell.id,
@@ -570,12 +643,28 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                     BlockState belowTeleportDestinationState = level.getBlockState(belowTeleportDestination);
                     BlockState aboveTeleportDestinationState = level.getBlockState(aboveTeleportDestination);
 
+                    WraithEntity.this.level().addParticle(ParticleTypes.CRIT,
+                            target.getX(),
+                            target.getY(),
+                            target.getZ(),
+                            (WraithEntity.this.random.nextDouble() - 0.5) * 2.0,
+                            -WraithEntity.this.random.nextDouble(),
+                            (WraithEntity.this.random.nextDouble() - 0.5) * 2.0);
+
                     // Note; maybe change the isAir to something less stringent, so it can teleport into grass and whatnot? Not sure what the best alternative is.
                     if (belowTeleportDestinationState.isFaceSturdy(
                             level,
                             belowTeleportDestination,
                             Direction.UP
                     ) && teleportDestinationState.isAir() && aboveTeleportDestinationState.isAir()) {
+
+                        WraithEntity.this.level().addParticle(ParticleTypes.REVERSE_PORTAL,
+                                target.getX(),
+                                target.getY(),
+                                target.getZ(),
+                                (WraithEntity.this.random.nextDouble() - 0.5) * 2.0,
+                                -WraithEntity.this.random.nextDouble(),
+                                (WraithEntity.this.random.nextDouble() - 0.5) * 2.0);
 
                         target.teleportTo(
                                 teleportDestination.getX() + 0.5,
@@ -611,12 +700,12 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
 
         @Override
         protected int getCastingTime() {
-            return 60;
+            return 120;
         }
 
         @Override
         protected int getCastingInterval() {
-            return 120;
+            return 240;
         }
 
         @Override

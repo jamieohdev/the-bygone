@@ -1,0 +1,22 @@
+{
+  "values": [
+    "minecraft:iron_block",
+    "minecraft:raw_iron_block",
+    "minecraft:iron_ore",
+    "minecraft:deepslate_iron_ore",
+    "minecraft:iron_door",
+    "minecraft:iron_trapdoor",
+    "minecraft:iron_bars",
+    "minecraft:chain",
+    "bygone:bystone_iron_ore",
+    "bygone:byslate_iron_ore",
+    "#minecraft:anvil",
+    "#minecraft:cauldrons",
+    "#minecraft:rails",
+    "minecraft:lantern",
+    "minecraft:soul_lantern",
+    "minecraft:blast_furnace",
+    "minecraft:tripwire_hook",
+    "minecraft:stonecutter"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "comparator_output": 1,
+  "description": {
+    "translate": "item.bygone.under_music_disc.desc"
+  },
+  "length_in_seconds": 192.0,
+  "sound_event": "bygone:music_disc.under"
+}

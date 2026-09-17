@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "D": {
+      "item": "bygone:claystone"
+    },
+    "G": {
+      "tag": "minecraft:terracotta"
+    }
+  },
+  "pattern": ["DG", "GD"],
+  "result": {
+    "count": 4,
+    "id": "bygone:terraclaystone"
+  }
+}

@@ -19,6 +19,7 @@ import java.util.function.Supplier;
 
 public class BGJukeboxSongs {
     static ResourceKey<JukeboxSong> SHUFFLE = create("shuffle");
+    static ResourceKey<JukeboxSong> UNDER = create("under");
     SoundEvents ref;
 
     public static <T extends BlockEntity> Supplier<BlockEntityType<T>> register(String name, Supplier<BlockEntityType<T>> type) {
@@ -39,5 +40,6 @@ public class BGJukeboxSongs {
 
     static void bootstrap(BootstrapContext<JukeboxSong> context) {
         register(context, SHUFFLE, BGSoundEvents.MUSIC_DISC_SHUFFLE, 178, 1);
+        register(context, UNDER, BGSoundEvents.MUSIC_DISC_UNDER, 192, 2);
     }
 }

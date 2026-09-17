@@ -9,33 +9,52 @@
             "to_place": {
               "type": "minecraft:weighted_state_provider",
               "entries": [
+
                 {
                   "data": {
-                    "Name": "bygone:rafflesia"
+                    "Name": "bygone:lime_sagaria"
                   },
                   "weight": 1
                 },
                 {
                   "data": {
-                    "Name": "bygone:sagaria"
+                    "Name": "bygone:pink_sagaria"
                   },
-                  "weight": 2
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:purple_sagaria"
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:yellow_sagaria"
+                  },
+                  "weight": 1
                 },
                 {
                   "data": {
                     "Name": "bygone:montsechia"
                   },
-                  "weight": 3
+                  "weight": 2
                 },
                 {
                   "data": {
                     "Name": "bygone:whirliweed"
                   },
-                  "weight": 2
+                  "weight": 5
                 },
                 {
                   "data": {
                     "Name": "bygone:big_whirliweed"
+                  },
+                  "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:rafflesia"
                   },
                   "weight": 1
                 },

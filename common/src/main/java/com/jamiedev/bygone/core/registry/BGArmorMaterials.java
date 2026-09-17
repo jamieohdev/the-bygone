@@ -15,6 +15,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public class BGArmorMaterials {
@@ -35,11 +36,6 @@ public class BGArmorMaterials {
         map.put(ArmorItem.Type.BODY, 5);
     }), 1, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, 0.0F, () -> Ingredient.of(BGItems.GLOW_CHITIN.get()));
 
-    public static Holder<ArmorMaterial> BIG_BEAK = register("big_beak", Util.make(new EnumMap(AnimalArmorItem.BodyType.class), map -> {
-        map.put(AnimalArmorItem.BodyType.EQUESTRIAN, 1);
-    }), 9, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, 0.3F, () -> Ingredient.of(BGItems.SCALE.get()));
-
-
     private static Holder<ArmorMaterial> register(
             String id,
             EnumMap<ArmorItem.Type, Integer> defense,
@@ -49,7 +45,7 @@ public class BGArmorMaterials {
             float knockbackResistance,
             Supplier<Ingredient> repairIngredient
     ) {
-        List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(ResourceLocation.tryParse(Bygone.MOD_ID + ":" + id)));
+        List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(Objects.requireNonNull(ResourceLocation.tryParse(Bygone.MOD_ID + ":" + id))));
         return register(id, defense, enchantability, equipSound, toughness, knockbackResistance, repairIngredient, list);
     }
 
@@ -71,7 +67,7 @@ public class BGArmorMaterials {
 
         return Registry.registerForHolder(
                 BuiltInRegistries.ARMOR_MATERIAL,
-                ResourceLocation.tryParse(Bygone.MOD_ID + ":" + id),
+                Objects.requireNonNull(ResourceLocation.tryParse(Bygone.MOD_ID + ":" + id)),
                 new ArmorMaterial(enumMap, enchantability, equipSound, repairIngredient, layers, toughness, knockbackResistance)
         );
     }

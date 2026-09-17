@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:jigsaw",
+  "biomes": "bygone:primordial_ocean",
+  "max_distance_from_center": 80,
+  "size": 20,
+  "spawn_overrides": {},
+  "start_pool": "bygone:murqueen_dungeon/corner",
+  "step": "surface_structures",
+  "start_height": {
+    "type": "minecraft:uniform",
+    "max_inclusive": {
+      "absolute": 210
+    },
+    "min_inclusive": {
+      "absolute": 160
+    }
+  },
+  "liquid_settings": "ignore_waterlogging",
+  "terrain_adaptation": "beard_box",
+  "use_expansion_hack": false
+}

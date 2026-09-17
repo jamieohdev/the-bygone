@@ -82,7 +82,7 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock {
     }
 
     protected static boolean hasSufficientLight(LevelReader level, BlockPos pos) {
-        return level.getRawBrightness(pos, 0) <= 11;
+        return level.getRawBrightness(pos, 0) >= 5;
     }
 
     public MapCodec<? extends AmaranthCropBlock> codec() {
@@ -122,7 +122,7 @@ public class AmaranthCropBlock extends BushBlock implements BonemealableBlock {
     }
 
     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (level.getRawBrightness(pos, 0) <= 12) {
+        if (level.getRawBrightness(pos, 0) >= 6) {
             int i = this.getAge(state);
             if (i < this.getMaxAge()) {
                 float f = getGrowthSpeed(this, level, pos);

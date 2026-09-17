@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:jigsaw",
+  "biomes": "#bygone:has_structure/temple",
+  "max_distance_from_center": 16,
+  "size": 1,
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "piece",
+      "spawns": [
+        {
+          "type": "bygone:wraith",
+          "maxCount": 3,
+          "minCount": 1,
+          "weight": 10
+        }
+      ]
+    }
+  },
+  "start_height": {
+    "type": "minecraft:uniform",
+    "max_inclusive": {
+      "absolute": 310
+    },
+    "min_inclusive": {
+      "absolute": -60
+    }
+  },
+  "liquid_settings": "ignore_waterlogging",
+  "start_pool": "bygone:temple",
+  "step": "underground_decoration",
+  "terrain_adaptation": "bury",
+  "use_expansion_hack": false,
+  "pool_aliases": []
+}

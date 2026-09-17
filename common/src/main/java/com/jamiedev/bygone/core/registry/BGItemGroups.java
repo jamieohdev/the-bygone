@@ -5,7 +5,9 @@ import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.PotionContents;
 
 import java.util.function.Supplier;
 
@@ -13,7 +15,7 @@ public class BGItemGroups {
 
     public static final Supplier<CreativeModeTab> EXAMPLE_TAB = registerTab(
             "test", () -> CreativeModeTab.builder(null, -1)
-                    .icon(() -> new ItemStack(BGBlocks.CHISELED_SHELLSTONE_BRICKS.get()))
+                    .icon(() -> new ItemStack(BGBlocks.PLASMIC_LITHINE_ORE.get()))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(BGItems.ANCIENT_SIGN.get());
                         output.accept(BGItems.ANCIENT_HANGING_SIGN.get());
@@ -48,7 +50,7 @@ public class BGItemGroups {
                         output.accept(BGItems.PLAGA.get());
                         output.accept(BGItems.SPEED_WHEAT.get());
                         output.accept(BGBlocks.ANCIENT_SPRINKLER.get());
-                        output.accept(BGItems.ECTOPLASM_BUCKET.get());
+                        output.accept(BGItems.PLASMILK_BUCKET.get());
                         output.accept(BGBlocks.ANCIENT_DOGU.get());
                         output.accept(BGBlocks.PAINTED_DOGU.get());
                         output.accept(BGBlocks.SHELLSTONE_DOGU.get());
@@ -59,6 +61,8 @@ public class BGItemGroups {
                         output.accept(BGItems.COELACANTH_SPAWN_EGG.get());
                         output.accept(BGItems.COPPERBUG_SPAWN_EGG.get());
                         output.accept(BGItems.FUNGALPARENT_SPAWN_EGG.get());
+                        output.accept(BGItems.GEIST_SPAWN_EGG.get());
+                        output.accept(BGItems.HAUNT_SPAWN_EGG.get());
                         output.accept(BGItems.LITHY_SPAWN_EGG.get());
                         output.accept(BGItems.MOOBOO_SPAWN_EGG.get());
                         output.accept(BGItems.MURKLING_SPAWN_EGG.get());
@@ -71,16 +75,25 @@ public class BGItemGroups {
                         output.accept(BGItems.TRILOBITE_SPAWN_EGG.get());
                         output.accept(BGItems.WHISKBILL_SPAWN_EGG.get());
                         output.accept(BGItems.WRAITH_SPAWN_EGG.get());
+                        output.accept(BGItems.REAVER_SPAWN_EGG.get());
+                        output.accept(BGItems.WALLOW_SPAWN_EGG.get());
+                        output.accept(BGItems.MOURN_SPAWN_EGG.get());
+                        output.accept(BGItems.WHISPER_SPAWN_EGG.get());
+                        output.accept(BGItems.SCARE_SPAWN_EGG.get());
                         output.accept(BGItems.ARCANE_CORE.get());
-                        output.accept(BGItems.HOOK.get());
+                        output.accept(BGItems.ARCANE_MECHANISM.get());
+                        output.accept(BGItems.ANCIENT_HOOK.get());
                         output.accept(BGItems.MALICIOUS_WAR_HORN.get());
                         output.accept(BGItems.ECHO_GONG.get());
+                        output.accept(BGItems.GEAR_BAG.get());
                         output.accept(BGItems.GOLD_BIG_BEAK_ARMOR.get());
                         output.accept(BGItems.IRON_BIG_BEAK_ARMOR.get());
                         output.accept(BGItems.DIAMOND_BIG_BEAK_ARMOR.get());
 
                         output.accept(BGItems.BEAK_POTTERY_SHERD.get());
                         output.accept(BGItems.MURKY_POTTERY_SHERD.get());
+                        output.accept(BGItems.WALLOW_SHAWL_SCRAP.get());
+                        output.accept(BGItems.WALLOW_SHAWL.get());
                         output.accept(BGItems.VERDIGRIS_SCRAP.get());
                         output.accept(BGItems.VERDIGRIS_INGOT.get());
                         output.accept(BGBlocks.VERDIGRIS_SCRAP_BLOCK.get());
@@ -93,7 +106,6 @@ public class BGItemGroups {
                         output.accept(BGBlocks.PRISTINE_VERDIGRIS_COG.get());
 
 
-                        output.accept(BGBlocks.BYGONE_PORTAL_FRAME_BLOCK.get());
                         output.accept(BGBlocks.BYSTONE_GOLD_ORE.get());
                         output.accept(BGBlocks.BYSLATE_GOLD_ORE.get());
                         output.accept(BGBlocks.BYSTONE_IRON_ORE.get());
@@ -143,7 +155,10 @@ public class BGItemGroups {
                         output.accept(BGBlocks.SHORT_GRASS.get());
 
                         output.accept(BGBlocks.MONTSECHIA.get());
-                        output.accept(BGBlocks.SAGARIA.get());
+                        output.accept(BGBlocks.LIME_SAGARIA.get());
+                        output.accept(BGBlocks.PINK_SAGARIA.get());
+                        output.accept(BGBlocks.PURPLE_SAGARIA.get());
+                        output.accept(BGBlocks.YELLOW_SAGARIA.get());
                         output.accept(BGBlocks.RAFFLESIA.get());
                         output.accept(BGBlocks.GOURD_VINE.get());
                         output.accept(BGBlocks.GOURD_LANTERN_VERDANT.get());
@@ -157,11 +172,24 @@ public class BGItemGroups {
                         output.accept(BGBlocks.CLAYSTONE_FARMLAND.get());
                         output.accept(BGBlocks.COARSE_CLAYSTONE.get());
                         output.accept(BGBlocks.CLAYSTONE_BRICKS.get());
-
                         output.accept(BGBlocks.CLAYSTONE_BRICKS_STAIRS.get());
-
                         output.accept(BGBlocks.CLAYSTONE_BRICKS_SLAB.get());
                         output.accept(BGBlocks.CLAYSTONE_BRICKS_WALL.get());
+
+                        output.accept(BGItems.COPPER_NUGGET.get());
+                        output.accept(BGBlocks.TERRACLAYSTONE.get());
+                        output.accept(BGBlocks.TERRACLAYSTONE_STAIRS.get());
+                        output.accept(BGBlocks.TERRACLAYSTONE_SLAB.get());
+                        output.accept(BGBlocks.TERRACLAYSTONE_WALL.get());
+                        output.accept(BGBlocks.EMBEDDED_TERRACLAYSTONE.get());
+                        output.accept(BGBlocks.TERRACLAYSTONE_BRICKS.get());
+                        output.accept(BGBlocks.TERRACLAYSTONE_BRICKS_STAIRS.get());
+                        output.accept(BGBlocks.TERRACLAYSTONE_BRICKS_SLAB.get());
+                        output.accept(BGBlocks.TERRACLAYSTONE_BRICKS_WALL.get());
+                        output.accept(BGBlocks.EMBEDDED_TERRACLAYSTONE_BRICKS.get());
+                        output.accept(BGBlocks.CHISELED_TERRACLAYSTONE.get());
+                        output.accept(BGBlocks.EMBEDDED_CHISELED_TERRACLAYSTONE.get());
+
                         output.accept(BGBlocks.MOSSY_CLAYSTONE.get());
                         output.accept(BGBlocks.ANCIENT_ROOTS.get());
                         output.accept(BGBlocks.ANCIENT_VINE.get());
@@ -201,6 +229,7 @@ public class BGItemGroups {
                         output.accept(BGBlocks.SEAGLASS_BLOCK.get());
                         output.accept(BGBlocks.SEAGLASS_PANE.get());
                         output.accept(BGItems.CRUSHED_SEAGLASS.get());
+                        output.accept(BGItems.SEAGLASS_PRISM.get());
                         output.accept(BGBlocks.SMOOTH_SEAGLASS.get());
                         output.accept(BGBlocks.SHELLSTONE.get());
                         output.accept(BGBlocks.SHELLSTONE_STAIRS.get());
@@ -354,6 +383,10 @@ public class BGItemGroups {
 
                         output.accept(BGBlocks.ICE_BOUQUET.get());
                         output.accept(BGItems.LITHOPLASM.get());
+                        output.accept(BGItems.LITHOPLASM_ARROW.get());
+                        output.accept(BGItems.LITHOPLASMIC_POWDER.get());
+                        output.accept(BGBlocks.LITHOPLASMIC_POWDER_BLOCK.get());
+                        output.accept(BGItems.LITHO_BUCKET.get());
                         output.accept(BGBlocks.MEGALITH_BLOCK.get());
                         output.accept(BGBlocks.CRACKED_MEGALITH_BLOCK.get());
                         output.accept(BGBlocks.LIT_CRACKED_MEGALITH_BLOCK.get());
@@ -368,6 +401,7 @@ public class BGItemGroups {
                         output.accept(BGBlocks.LITHINE_LAMP.get());
                         output.accept(BGBlocks.MEGALITH_TOTEM.get());
                         output.accept(BGBlocks.LITHINE_ORE.get());
+                        output.accept(BGBlocks.PLASMIC_LITHINE_ORE.get());
 
                         output.accept(BGBlocks.SABLE_SAPLING.get());
                         output.accept(BGBlocks.SABLE_LOG.get());
@@ -405,6 +439,22 @@ public class BGItemGroups {
                         output.accept(BGBlocks.SABLE_MOSSY_BYSLATE_SLAB.get());
                         output.accept(BGBlocks.SABLE_MOSSY_BYSLATE_WALL.get());
 
+                        output.accept(BGBlocks.PLASMIC_BYSLATE.get());
+                        output.accept(BGBlocks.PLASMIC_BYSLATE_STAIRS.get());
+                        output.accept(BGBlocks.PLASMIC_BYSLATE_SLAB.get());
+                        output.accept(BGBlocks.PLASMIC_BYSLATE_WALL.get());
+                        output.accept(BGBlocks.PLASMIC_BYSLATE_BRICKS.get());
+                        output.accept(BGBlocks.CRACKED_PLASMIC_BYSLATE_BRICKS.get());
+                        output.accept(BGBlocks.CHISELED_PLASMIC_BYSLATE_BRICKS.get());
+                        output.accept(BGBlocks.PLASMIC_BYSLATE_BRICKS_STAIRS.get());
+                        output.accept(BGBlocks.PLASMIC_BYSLATE_BRICKS_SLAB.get());
+                        output.accept(BGBlocks.PLASMIC_BYSLATE_BRICKS_WALL.get());
+                        output.accept(BGBlocks.GLOWING_PLASMIC_BYSLATE_BRICKS.get());
+                        output.accept(BGBlocks.GLOWING_PLASMIC_BYSLATE_BRICKS_STAIRS.get());
+                        output.accept(BGBlocks.GLOWING_PLASMIC_BYSLATE_BRICKS_SLAB.get());
+                        output.accept(BGBlocks.GLOWING_PLASMIC_BYSLATE_BRICKS_WALL.get());
+                        output.accept(BGBlocks.GLOWING_CRACKED_PLASMIC_BYSLATE_BRICKS.get());
+
                         output.accept(BGBlocks.AMPHORA.get());
                         output.accept(BGBlocks.GILDED_AMPHORA.get());
                         output.accept(BGBlocks.WHITE_AMPHORA.get());
@@ -425,6 +475,7 @@ public class BGItemGroups {
                         output.accept(BGBlocks.PINK_AMPHORA.get());
 
                         output.accept(BGItems.MUSIC_DISC_SHUFFLE.get());
+                        output.accept(BGItems.MUSIC_DISC_UNDER.get());
                     })
                     .title(Component.translatable("itemGroup.test"))
                     .build()

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "item": "bygone:arcane_core"
+    },
+    "S": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "pattern": [" S ", "SCS", " S "],
+  "result": {
+    "count": 1,
+    "id": "bygone:arcane_mechanism"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/client/gui/Gui$HeartType",
+      "name": "BYGONE_HEART_HAUNTED",
+      "constructor": "(Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;)V",
+      "parameters": {
+        "class": "com/jamiedev/bygone/client/BGEnumClientExtensionsNeoForge",
+        "field": "BYGONE_HEART_HAUNTED"
+      }
+    },
+    {
+      "enum": "net/minecraft/world/entity/MobCategory",
+      "name": "BYGONE_HAUNTINGS_MOB",
+      "constructor": "(Ljava/lang/String;IZZI)V",
+      "parameters": [ "bygone:hauntings_mobs", 70, false, false, 64 ]
+    }
+  ]
+}

@@ -45,10 +45,10 @@ public class BGConfiguredFeatures {
     public static List<ResourceKey<ConfiguredFeature<?, ?>>> features = new ArrayList<>();
     public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_MOSS_PATCH_BONEMEAL = of("sable_patch_bonemeal");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ALPHA_MOSS_PATCH_BONEMEAL = of("alpha_moss_patch_bonemeal");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE = of("underhang/small_underhang_trees");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE_MEDIUM = of("underhang/medium_underhang_trees");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_TREE = of("small_sable_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_TREE_MEDIUM = of("sable_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE = of("trees/small_ancient_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE_MEDIUM = of("trees/ancient_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_TREE = of("trees/small_sable_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SABLE_TREE_MEDIUM = of("trees/sable_tree");
 
     public static ResourceKey<ConfiguredFeature<?, ?>> of(String id) {
         ResourceKey<ConfiguredFeature<?, ?>> registryKey = ResourceKey.create(Registries.CONFIGURED_FEATURE, Bygone.id(id));

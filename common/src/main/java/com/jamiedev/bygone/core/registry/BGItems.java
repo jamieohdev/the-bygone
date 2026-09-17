@@ -10,10 +10,14 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.material.Fluids;
 
 import java.util.function.Supplier;
@@ -23,11 +27,28 @@ import static net.minecraft.world.item.Items.BUCKET;
 
 public class BGItems {
 
+    public static final Supplier<Item> LITHOPLASMIC_POWDER = registerItem(
+            "lithoplasmic_powder",
+            () -> new ItemNameBlockItem(BGBlocks.LITHOPLASMIC_POWDER.get(), new Item.Properties())
+    );
+
+    public static final Supplier<Item> LITHOPLASM_ARROW = registerItem(
+            "lithoplasm_arrow",
+            () -> new LithoplasmArrowItem(new Item.Properties().fireResistant())
+    );
+    public static final Supplier<Item> LITHO_BUCKET = registerItem((String)"litho_bucket",
+            () -> new BucketItem(BGFluids.LITHO_STILL.get(), (new Item.Properties()).craftRemainder(BUCKET).stacksTo(1)));
 
     public static final Supplier<Item> CRUSHED_SEAGLASS = registerItem(
             "crushed_seaglass",
             () -> new Item(new Item.Properties())
     );
+
+    public static final Supplier<Item> SEAGLASS_PRISM = registerItem(
+            "seaglass_prism",
+            () -> new SeaglassPrismItem(new Item.Properties())
+    );
+
 
     public static final Supplier<Item> BEAK_POTTERY_SHERD = registerItem(
             "beak_pottery_sherd",
@@ -82,7 +103,7 @@ public class BGItems {
             "verdigris_bow",
             () -> new VerdigrisBowItem(new Item.Properties().durability(100).stacksTo(1))
     );
-    public static final Supplier<Item> HOOK = registerItem(
+    public static final Supplier<Item> ANCIENT_HOOK = registerItem(
             "ancient_hook",
             () -> new HookItem(new Item.Properties().stacksTo(1).durability(100))
     );
@@ -98,6 +119,7 @@ public class BGItems {
             "echo_gong",
             () -> new EchoGongItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE))
     );
+
     public static final Supplier<Item> ANCIENT_SIGN = registerItem(
             "ancient_sign", () ->
                     new SignItem(
@@ -162,6 +184,10 @@ public class BGItems {
             "scuttle_spike",
             () -> new Item(new Item.Properties().fireResistant())
     );
+    public static final Supplier<Item> COPPER_NUGGET = registerItem(
+            "copper_nugget",
+            () -> new Item(new Item.Properties().fireResistant())
+    );
     public static final Supplier<Item> BEIGE_SLICE = registerItem(
             "glow_gourd_beige_slice",
             () -> new Item(new Item.Properties().food(Foods.CARROT))
@@ -171,11 +197,11 @@ public class BGItems {
             () -> new ItemNameBlockItem(BGBlocks.GOURD_LANTERN_BEIGE.get(), new Item.Properties())
     );
     public static final Supplier<Item> MUAVE_SLICE = registerItem(
-            "glow_gourd_muave_slice",
+            "glow_gourd_mauve_slice",
             () -> new Item(new Item.Properties().food(Foods.CARROT))
     );
     public static final Supplier<Item> MUAVE_GOURD_SEEDS = registerItem(
-            "glow_gourd_muave_seeds",
+            "glow_gourd_mauve_seeds",
             () -> new ItemNameBlockItem(BGBlocks.GOURD_LANTERN_MUAVE.get(), new Item.Properties())
     );
     public static final Supplier<Item> VERDANT_SLICE = registerItem(
@@ -186,7 +212,7 @@ public class BGItems {
             "glow_gourd_verdant_seeds",
             () -> new ItemNameBlockItem(BGBlocks.GOURD_LANTERN_VERDANT.get(), new Item.Properties())
     );
-    ;
+
     public static final Supplier<Item> GOURD_SOUP = registerItem(
             "glow_gourd_soup",
             () -> new Item(new Item.Properties().food(Foods.RABBIT_STEW).stacksTo(1))
@@ -259,6 +285,12 @@ public class BGItems {
                     (new Item.Properties()).stacksTo(1)
             )
     );
+	public static final Supplier<Item> GEAR_BAG = registerItem(
+			"gear_bag",
+			() -> new SingleStackBundleItem(
+					new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY)
+			)
+	);
     public static final Supplier<Item> AMOEBA_SPAWN_EGG = registerItem(
             "amoeba_spawn_egg",
             () -> new SpawnEggItem(BGEntityTypes.AMOEBA.get(), 0x6C9BB9, 0x8F8763, new Item.Properties())
@@ -283,13 +315,21 @@ public class BGItems {
             "fungal_parent_spawn_egg",
             () -> new SpawnEggItem(BGEntityTypes.FUNGAL_PARENT.get(), 0xf5f7e3, 0x3ed8fe, new Item.Properties())
     );
+    public static final Supplier<Item> GEIST_SPAWN_EGG = registerItem(
+            "geist_spawn_egg",
+            () -> new SpawnEggItem(BGEntityTypes.GEIST.get(), 0x254e6e, 0x3b9cde, new Item.Properties())
+    );
+    public static final Supplier<Item> HAUNT_SPAWN_EGG = registerItem(
+            "haunt_spawn_egg",
+            () -> new SpawnEggItem(BGEntityTypes.HAUNT.get(), 0x9AE4BC, 0xb2c7c8, new Item.Properties())
+    );
     public static final Supplier<Item> LITHY_SPAWN_EGG = registerItem(
             "lithy_spawn_egg",
             () -> new SpawnEggItem(BGEntityTypes.LITHY.get(), 0x5C5B5A, 0x323232, new Item.Properties())
     );
     public static final Supplier<Item> MOOBOO_SPAWN_EGG = registerItem(
             "mooboo_spawn_egg",
-            () -> new SpawnEggItem(BGEntityTypes.MOOBOO.get(), 0x5be3e8, 0xb2c7c8, new Item.Properties())
+            () -> new SpawnEggItem(BGEntityTypes.MOOBOO.get(), 0x5be3e8, 0x9AE4BC, new Item.Properties())
     );
     public static final Supplier<Item> MURKLING_SPAWN_EGG = registerItem(
             "murkling_spawn_egg",
@@ -327,6 +367,36 @@ public class BGItems {
             "wraith_spawn_egg",
             () -> new SpawnEggItem(BGEntityTypes.WRAITH.get(), 0x3c3c3c, 0x9de8c0, new Item.Properties())
     );
+    public static final Supplier<Item> REAVER_SPAWN_EGG = registerItem(
+            "reaver_spawn_egg",
+            () -> new SpawnEggItem(BGEntityTypes.REAVER.get(), 0x2e4a5c, 0x8fd4c4, new Item.Properties())
+    );
+    public static final Supplier<Item> WALLOW_SPAWN_EGG = registerItem(
+            "wallow_spawn_egg",
+            () -> new SpawnEggItem(BGEntityTypes.WALLOW.get(), 0x9fc7d9, 0xdff2f5, new Item.Properties())
+    );
+    public static final Supplier<Item> MOURN_SPAWN_EGG = registerItem(
+            "mourn_spawn_egg",
+            () -> new SpawnEggItem(BGEntityTypes.MOURN.get(), 0x101018, 0x3d3d55, new Item.Properties())
+    );
+    public static final Supplier<Item> WHISPER_SPAWN_EGG = registerItem(
+            "whisper_spawn_egg",
+            () -> new SpawnEggItem(BGEntityTypes.WHISPER.get(), 0xcfe8e6, 0x9fc4c9, new Item.Properties())
+    );
+    public static final Supplier<Item> SCARE_SPAWN_EGG = registerItem(
+            "scare_spawn_egg",
+            () -> new SpawnEggItem(BGEntityTypes.SCARE.get(), 0x4a3a5e, 0x8a6fae, new Item.Properties())
+    );
+    public static final Supplier<Item> TRILOBITE_BUCKET = registerItem(
+            (String) "bucket_o_trilobite", () ->
+                    new MobBucketItem(
+                            BGEntityTypes.TRILOBITE.get(),
+                            Fluids.WATER,
+                            SoundEvents.BUCKET_EMPTY_AXOLOTL,
+                            (new Item.Properties())
+                                    .stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)
+                    )
+    );
     public static final Supplier<Item> AMOEBA_BUCKET = registerItem(
             (String) "bucket_o_amoeba", () ->
                     new MobBucketItem(
@@ -361,7 +431,11 @@ public class BGItems {
     );
     public static final Supplier<Item> ARCANE_CORE = registerItem(
             "arcane_core",
-            () -> new Item(new Item.Properties().fireResistant())
+            () -> new ArcaneCoreItem(new Item.Properties().fireResistant())
+    );
+    public static final Supplier<Item> ARCANE_MECHANISM = registerItem(
+            "arcane_mechanism",
+            () -> new PortablePortalItem(new Item.Properties().rarity(Rarity.RARE).durability(5))
     );
     public static final Supplier<Item> VERDIGRIS_SCRAP = registerItem(
             "verdigris_scrap",
@@ -445,8 +519,8 @@ public class BGItems {
             "roasted_sable_nut",
             () -> new Item(new Item.Properties().food(Foods.BAKED_POTATO))
     );
-    public static final Supplier<Item> ECTOPLASM_BUCKET = registerItem(
-            (String) "ectoplasm_bucket",
+    public static final Supplier<Item> PLASMILK_BUCKET = registerItem(
+            (String) "plasmilk_bucket",
             () -> new EctoplasmBucketItem((new Item.Properties()).craftRemainder(BUCKET).stacksTo(1))
     );
     public static final Supplier<Item> BREATH_POD = registerItem(
@@ -454,7 +528,12 @@ public class BGItems {
                     new BreathPodItem(new Item.Properties().fireResistant())
     );
 
-    //public static final Supplier<Item> BRONZE_BUCKET = registerItem((String)"bronze_bucket", () -> new BucketItem(BGFluids.BRONZE_STILL.get(), (new Item.Properties()).craftRemainder(BUCKET).stacksTo(1)));
+    public static final Supplier<Item> MUSIC_DISC_UNDER = registerItem(
+            "music_disc_under",
+            () -> new Item((new Item.Properties()).stacksTo(1)
+                    .rarity(Rarity.RARE)
+                    .jukeboxPlayable(BGJukeboxSongs.UNDER))
+    );
     public static final Supplier<Item> MUSIC_DISC_SHUFFLE = registerItem(
             "music_disc_shuffle",
             () -> new Item((new Item.Properties()).stacksTo(1)
@@ -560,6 +639,26 @@ public class BGItems {
                     new Item.Properties().food(SPEED_WHEAT_COMP)
             )
     );
+
+    public static final Supplier<Item> WALLOW_SHAWL_SCRAP = registerItem("wallow_shawl_scrap",
+            () -> new Item(new Item.Properties())
+    );
+
+    public static final ItemAttributeModifiers WALLOW_SHAWL_ATTRIBUTES = ItemAttributeModifiers.builder().add(
+            BGAttributes.PHASING_DURATION.get(),
+            new AttributeModifier(Bygone.id("wallow_shawl.phase_duration"), 8, AttributeModifier.Operation.ADD_VALUE),
+            EquipmentSlotGroup.CHEST
+    ).build();
+
+    public static final Supplier<Item> WALLOW_SHAWL = registerItem("wallow_shawl",
+            () -> new WallowShawlItem(new Item.Properties().attributes(WALLOW_SHAWL_ATTRIBUTES))
+    );
+
+    public static final Supplier<Item> HAUNTING_CLOCK = registerItem(
+            "haunting_clock",
+            () -> new Item(new Item.Properties())
+    );
+
     Items item;
     ParticleTypes ref;
     ArmorMaterials ma;

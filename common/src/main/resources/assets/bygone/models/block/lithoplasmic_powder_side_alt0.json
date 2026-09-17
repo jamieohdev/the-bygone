@@ -1,0 +1,6 @@
+{
+	"parent": "bygone:block/lithoplasmic_powder_side_alt",
+	"textures": {
+		"line": "bygone:block/lithoplasmic_powder_line0"
+	}
+}

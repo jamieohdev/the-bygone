@@ -1,0 +1,33 @@
+{
+  "": "Generated from the tr (top-right) in a spiral",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:village_sable/base_plates/tl",
+        "projection": "rigid",
+        "processors": "bygone:village_sable",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:village_sable/base_plates/br",
+        "projection": "rigid",
+        "processors": "bygone:village_sable",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "bygone:village_sable/base_plates/bl",
+        "projection": "rigid",
+        "processors": "bygone:village_sable",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

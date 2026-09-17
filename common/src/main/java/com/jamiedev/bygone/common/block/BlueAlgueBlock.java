@@ -9,10 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.IceBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
@@ -20,8 +17,10 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class BlueAlgueBlock extends BushBlock {
-    public static final MapCodec<BlueAlgueBlock> CODEC = simpleCodec(BlueAlgueBlock::new);
+public class BlueAlgueBlock extends WaterlilyBlock
+{
+
+    //public static final MapCodec<BlueAlgueBlock> CODEC = simpleCodec(BlueAlgueBlock::new);
     protected static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 1.5, 15.0);
 
     protected SimpleParticleType particle;
@@ -37,10 +36,6 @@ public class BlueAlgueBlock extends BushBlock {
         super(settings);
     }
 
-    @Override
-    public MapCodec<BlueAlgueBlock> codec() {
-        return CODEC;
-    }
 
     @Override
     protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
@@ -61,10 +56,5 @@ public class BlueAlgueBlock extends BushBlock {
         return SHAPE;
     }
 
-    @Override
-    protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
-        FluidState fluidState = world.getFluidState(pos);
-        FluidState fluidState2 = world.getFluidState(pos.above());
-        return (fluidState.getType() == Fluids.WATER || floor.getBlock() instanceof IceBlock) && fluidState2.getType() == Fluids.EMPTY;
-    }
+
 }

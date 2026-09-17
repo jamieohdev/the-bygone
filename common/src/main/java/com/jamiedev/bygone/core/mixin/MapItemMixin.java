@@ -1,10 +1,17 @@
 package com.jamiedev.bygone.core.mixin;
 
+import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGDimensions;
 import com.jamiedev.bygone.core.util.HeightGetter;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -18,6 +25,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Optional;
 
 import static com.jamiedev.bygone.Bygone.MAP_HEIGHT;
 
@@ -36,11 +45,24 @@ public class MapItemMixin {
         return mapItem;
     }
 
-    @Redirect(method = "update", at = @At(
+    @WrapOperation(
+        method = "update",
+        at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/level/dimension/DimensionType;hasCeiling()Z"))
-    private boolean hasCeiling(DimensionType type) {
-        return false;
+            target = "Lnet/minecraft/world/level/dimension/DimensionType;hasCeiling()Z"
+        )
+    )
+    private boolean hasCeiling(DimensionType type, Operation<Boolean> original, @Local(argsOnly = true) Level level) {
+        Optional<Registry<DimensionType>> registry = level.registryAccess().registry(Registries.DIMENSION_TYPE);
+        if (registry.isPresent()) {
+            ResourceLocation location = registry.orElseThrow().getKey(type);
+            if (location != null) {
+                if (registry.orElseThrow().getHolder(location).orElseThrow().is(JamiesModTag.DimensionTypes.MAPS_IGNORE_CEILING)) {
+                    return false;
+                }
+            }
+        }
+        return original.call(type);
     }
 
     @Inject(method = "update", at = @At(

@@ -1,0 +1,25 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "bygone:item/haunting_clock/0"
+	},
+	"overrides": [
+		{ "predicate": { "bygone:haunting_time": 0.00000 }, "model": "bygone:item/haunting_clock" },
+		{ "predicate": { "bygone:haunting_time": 0.03125 }, "model": "bygone:item/haunting_clock/1" },
+		{ "predicate": { "bygone:haunting_time": 0.09375 }, "model": "bygone:item/haunting_clock/2" },
+		{ "predicate": { "bygone:haunting_time": 0.15625 }, "model": "bygone:item/haunting_clock/3" },
+		{ "predicate": { "bygone:haunting_time": 0.21875 }, "model": "bygone:item/haunting_clock/4" },
+		{ "predicate": { "bygone:haunting_time": 0.28125 }, "model": "bygone:item/haunting_clock/5" },
+		{ "predicate": { "bygone:haunting_time": 0.34375 }, "model": "bygone:item/haunting_clock/6" },
+		{ "predicate": { "bygone:haunting_time": 0.40625 }, "model": "bygone:item/haunting_clock/7" },
+		{ "predicate": { "bygone:haunting_time": 0.46875 }, "model": "bygone:item/haunting_clock/8" },
+		{ "predicate": { "bygone:haunting_time": 0.53125 }, "model": "bygone:item/haunting_clock/9" },
+		{ "predicate": { "bygone:haunting_time": 0.59375 }, "model": "bygone:item/haunting_clock/10" },
+		{ "predicate": { "bygone:haunting_time": 0.65625 }, "model": "bygone:item/haunting_clock/11" },
+		{ "predicate": { "bygone:haunting_time": 0.71875 }, "model": "bygone:item/haunting_clock/12" },
+		{ "predicate": { "bygone:haunting_time": 0.78125 }, "model": "bygone:item/haunting_clock/13" },
+		{ "predicate": { "bygone:haunting_time": 0.84375 }, "model": "bygone:item/haunting_clock/14" },
+		{ "predicate": { "bygone:haunting_time": 0.90625 }, "model": "bygone:item/haunting_clock/15" },
+		{ "predicate": { "bygone:haunting_time": 0.96875 }, "model": "bygone:item/haunting_clock" }
+	]
+}

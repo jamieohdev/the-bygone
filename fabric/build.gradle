@@ -25,14 +25,13 @@ dependencies {
     }
 
     // Mod Dependencies
-    modImplementation "net.kyrptonaught:customportalapi:${portal_api_version}" // can't use `project.minecraft_version` because 1.21.1 and not 1.21
-    include "net.kyrptonaught:customportalapi:${portal_api_version}"
+
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     modImplementation "curse.maven:lithostitched-936015:6703597"
     modImplementation "curse.maven:jinxedlib-1203401:6268910"
     include "curse.maven:jinxedlib-1203401:6268910"
-
-
+    modImplementation "maven.modrinth:HAVlno45:ZtCCIg0D"
+    include "maven.modrinth:HAVlno45:ZtCCIg0D"
 
     //modImplementation "curse.maven:supermartijn642s-core-lib-454372:6076743" // Needed for formations, despite none of the documentation or pages saying so...
     //modImplementation "curse.maven:formations-915115:5550394"
@@ -74,5 +73,12 @@ modrinth {
         // The type can either be `project` or `version`
         required.project "fabric-api" // Creates a new required dependency on Fabric API
         //   optional.version "sodium", "mc1.19.3-0.4.8" // Creates a new optional dependency on this specific version of Sodium
+    }
+}
+afterEvaluate {
+    loom.runs.configureEach {
+        vmArgs "-XX:+IgnoreUnrecognizedVMOptions",
+                "-XX:+AllowEnhancedClassRedefinition",
+                "-javaagent:${configurations.compileClasspath.find { it.name.contains("sponge-mixin") }}"
     }
 }

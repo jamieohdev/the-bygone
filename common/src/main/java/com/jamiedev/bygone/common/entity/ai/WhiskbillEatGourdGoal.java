@@ -189,8 +189,7 @@ public class WhiskbillEatGourdGoal extends MoveToBlockGoal {
                 level.playSound(this.removerMob, blockpos, BGSoundEvents.WHISKBILL_ROAR_ADDITIONS_EVENT, SoundSource.HOSTILE, 0.9F, 1.5F);
                 level.playSound(this.removerMob, blockpos, BGSoundEvents.WHISKBILL_ROAR_ADDITIONS_EVENT, SoundSource.HOSTILE, 0.05F, 1.0F);
                 BlockState gourdState = level.getBlockState(blockpos1);
-                FallingBlockEntity fallingGourd = FallingBlockEntity.fall(level, blockpos1, gourdState);
-                level.addFreshEntity(fallingGourd);
+                FallingBlockEntity.fall(level, blockpos1, gourdState);
                 this.nextStartTick = reducedTickDelay(60);
                 this.stop();
             }

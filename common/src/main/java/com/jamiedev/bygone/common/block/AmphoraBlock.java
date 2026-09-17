@@ -57,20 +57,11 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     public static final BooleanProperty CRACKED;
     public static final IntegerProperty WATER_LEVEL = IntegerProperty.create("water_level", 0, 8);
     public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.Plane.HORIZONTAL);
-    protected static final VoxelShape[] BOUNDING_BOX1 = new VoxelShape[]{
-            Shapes.or(Block.box(5.0, 0.0, 5.0, 11.0, 27.0, 11.0),
-                    Block.box(5.0, 0.0, 5.0, 11.0, 27.0, 11.0)),
 
-            Shapes.or(Block.box(3.0, 2.0, 3.0, 13.0, 12.0, 13.0),
-                    Block.box(3.0, 2.0, 3.0, 13.0, 12.0, 13.0)),
-
-            Shapes.or(Block.box(0.0, 2.0, 8.0, 3.0, 12.0, 8.0),
-                    Block.box(0.0, 2.0, 8.0, 3.0, 12.0, 8.0)),
-
-            Shapes.or(Block.box(12.0, 2.0, 8.0, 16.0, 12.0, 8.0),
-                    Block.box(12.0, 2.0, 8.0, 16.0, 12.0, 8.0))
-    };
-    private static final VoxelShape BOUNDING_BOX = Block.box(5.0, 0.0, 5.0, 11.0, 27.0, 11.0);
+    private static final VoxelShape BOUNDING_BOX = Shapes.or(
+        Block.box(5.0, 0.0, 5.0, 11.0, 27.0, 11.0),
+        Block.box(3.0, 2.0, 3.0, 13.0, 12.0, 13.0)
+    );
     private static final BooleanProperty WATERLOGGED;
     public static final MapCodec<AmphoraBlock> CODEC = simpleCodec(AmphoraBlock::new);
 
@@ -179,7 +170,6 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     }
 
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        int i = state.getValue(WATER_LEVEL);
         return BOUNDING_BOX;
     }
 

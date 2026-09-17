@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "X": {
+      "item": "bygone:terraclaystone_bricks"
+    }
+  },
+  "pattern": ["XXX", "XXX"],
+  "result": {
+    "count": 6,
+    "id": "bygone:terraclaystone_bricks_wall"
+  }
+}

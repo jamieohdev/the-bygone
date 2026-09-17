@@ -151,6 +151,10 @@
         },
         {
           "type": "minecraft:item",
+          "name": "bygone:gear_bag"
+        },
+        {
+          "type": "minecraft:item",
           "name": "bygone:verdigris_scrap"
         },
         {

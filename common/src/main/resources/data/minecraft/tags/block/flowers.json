@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
+    "bygone:lime_sagaria",
+    "bygone:pink_sagaria",
+    "bygone:purple_sagaria",
+    "bygone:yellow_sagaria",
     "bygone:belladonna",
     "bygone:coleus",
     "bygone:big_whirliweed",

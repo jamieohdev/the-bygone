@@ -47,6 +47,8 @@
     [
       "bygone:common_monster_room",
       "bygone:common_small_cloud",
+      "bygone:common_ore_terraclaystone",
+      "bygone:common_ore_terraclaystone2",
       "bygone:common_ore_coal_upper",
       "bygone:common_ore_coal_lower",
       "bygone:common_ore_iron_upper",
@@ -71,7 +73,7 @@
     [],
     []
   ],
-  "has_precipitation": false,
+  "has_precipitation": true,
   "spawn_costs": {
     "bygone:big_beak": {
       "charge": 0.5,

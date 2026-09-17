@@ -4,11 +4,16 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "CowEntityMixinFabric",
-    "DecoratedPotPatternsMixin"
+    "DecoratedPotPatternsMixin",
+    "MobCategoryMixin",
+    "ServerLevelMixinFabric"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
+    "HeartTypeMixinFabric",
+    "client.EffectInstanceMixinFabric",
+    "client.FogRendererMixin"
   ]
 }

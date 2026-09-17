@@ -1,23 +1,23 @@
 {
-  "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 1,
       "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "bygone:murkling_nest/small",
-        "projection": "rigid",
         "processors": "bygone:murkling_nest",
-        "element_type": "minecraft:single_pool_element"
-      }
+        "projection": "rigid"
+      },
+      "weight": 1
     },
     {
-      "weight": 1,
       "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "bygone:murkling_nest/medium",
-        "projection": "rigid",
         "processors": "bygone:murkling_nest",
-        "element_type": "minecraft:single_pool_element"
-      }
+        "projection": "rigid"
+      },
+      "weight": 1
     }
-  ]
+  ],
+  "fallback": "minecraft:empty"
 }

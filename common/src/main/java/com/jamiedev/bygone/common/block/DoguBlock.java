@@ -29,12 +29,15 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.function.IntFunction;
 
 public class DoguBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
@@ -43,14 +46,62 @@ public class DoguBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 
     public static final EnumProperty<DoguBlock.Pose> POSE = BGBlockProperties.DOGU_POSE;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
     private static final VoxelShape SHAPE;
+    public static final VoxelShape[] VOXEL_SHAPE_MAP;
+
+    // https://github.com/Alchemists-Of-Yore/No-Mans-Land/blob/1.21.1/src/main/java/com/farcr/nomansland/common/block/moonlight/MoonlightBasinBlock.java
+    public static VoxelShape rotateBoundingBox(VoxelShape baseShape, int times) {
+        List<AABB> boxes = baseShape.toAabbs();
+        VoxelShape rotatedShape = Shapes.empty();
+
+        for (AABB box : boxes) {
+            double minX = box.minX;
+            double minY = box.minY;
+            double minZ = box.minZ;
+            double maxX = box.maxX;
+            double maxY = box.maxY;
+            double maxZ = box.maxZ;
+
+            for (int i = 0; i < times; i++) {
+                double rMinX = 1.0 - maxZ;
+                double rMinZ = minX;
+                double rMaxX = 1.0 - minZ;
+                double rMaxZ = maxX;
+
+                minX = Math.min(rMinX, rMaxX);
+                maxX = Math.max(rMinX, rMaxX);
+                minZ = Math.min(rMinZ, rMaxZ);
+                maxZ = Math.max(rMinZ, rMaxZ);
+            }
+
+            if (minX >= maxX || minZ >= maxZ || minY >= maxY)
+                continue;
+
+            rotatedShape = Shapes.or(rotatedShape, Shapes.box(minX, minY, minZ, maxX, maxY, maxZ));
+        }
+        return rotatedShape;
+    }
 
     static {
-        SHAPE = Block.box(7.0, 0.0, 7.0, 9.0, 16.0, 9.0);
+        SHAPE = Shapes.or(
+            Block.box(6, 16, 6, 10, 18, 10),
+            Block.box(4, 11, 3, 12, 16, 13),
+            Block.box(7, 11, 2, 9, 14, 3),
+            Block.box(4.5, 5, 5, 11.5, 11, 11),
+            Block.box(1.5, 3, 6, 4.5, 11, 10),
+            Block.box(11.5, 3, 6, 14.5, 11, 10),
+            Block.box(5.5, 0, 5.5, 10.5, 5, 10.5)
+        );
+
+        VOXEL_SHAPE_MAP = new VoxelShape[]{
+            SHAPE, rotateBoundingBox(SHAPE, 1),
+            rotateBoundingBox(SHAPE, 2),
+            rotateBoundingBox(SHAPE, 3),
+        };
     }
 
     public final MapCodec<DoguBlock> CODEC = simpleCodec(DoguBlock::new);
-
 
     public DoguBlock(Properties properties) {
         super(properties);
@@ -71,7 +122,7 @@ public class DoguBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return VOXEL_SHAPE_MAP[state.getOptionalValue(FACING).orElse(Direction.DOWN).getOpposite().get2DDataValue()];
     }
 
     @Override

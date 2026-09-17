@@ -24,6 +24,7 @@ public class BGBlockEntities {
     public static Supplier<BlockEntityType<DoguEntity>> DOGU;
 
     public static Supplier<BlockEntityType<MegalithTotemEntity>> MEGALITH_TOTEM;
+    public static Supplier<BlockEntityType<LithineLampBlockEntity>> LITHINE_LAMP;
 
     public static Supplier<BlockEntityType<GumboPotBlockEntity>> GUMBO_POT;
     public static Supplier<BlockEntityType<SeaglassBlockEntity>> SEAGLASS;
@@ -63,13 +64,16 @@ public class BGBlockEntities {
         MEGALITH_TOTEM = register("megalith_totem", () ->
                 BlockEntityType.Builder.of(MegalithTotemEntity::new, BGBlocks.MEGALITH_TOTEM.get()).build(null));
 
+        LITHINE_LAMP = register("lithine_lamp", () ->
+            BlockEntityType.Builder.of(LithineLampBlockEntity::new, BGBlocks.LITHINE_LAMP.get()).build(null));
+
         GUMBO_POT = register("gumbo_pot", () ->
                 BlockEntityType.Builder.of(GumboPotBlockEntity::new, BGBlocks.GUMBO_POT.get()).build(null));
 
         DOGU = register("dogu", () ->
                 BlockEntityType.Builder.of(DoguEntity::new,
-                                BGBlocks.ANCIENT_DOGU.get(),
                                 BGBlocks.PAINTED_DOGU.get(),
+                                BGBlocks.ANCIENT_DOGU.get(),
                                 BGBlocks.SHELLSTONE_DOGU.get())
                         .build(null));
 

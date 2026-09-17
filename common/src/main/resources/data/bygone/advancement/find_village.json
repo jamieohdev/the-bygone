@@ -9,7 +9,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "structures": "bygone:village"
+                "structures": "bygone:village_underhang"
               }
             }
           }
@@ -20,14 +20,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.bygone.find_village.desc"
+      "translate": "advancements.bygone.find_village_underhang.desc"
     },
     "icon": {
       "count": 1,
       "id": "bygone:claystone_bricks"
     },
     "title": {
-      "translate": "advancements.bygone.find_village.title"
+      "translate": "advancements.bygone.find_village_underhang.title"
     }
   },
   "requirements": [["village"]],

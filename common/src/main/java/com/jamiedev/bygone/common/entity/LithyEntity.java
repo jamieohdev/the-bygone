@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.core.init.JamiesModLootTables;
+import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -97,22 +98,8 @@ public class LithyEntity extends PathfinderMob {
         return level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && flag;
     }
 
-    public static boolean canSpawn(
-            EntityType<? extends Mob> moobloomEntityType,
-            LevelAccessor serverWorldAccess,
-            MobSpawnType spawnReason,
-            BlockPos blockPos,
-            RandomSource random
-    ) {
-        return serverWorldAccess.getBlockState(blockPos).is(BGBlocks.MEGALITH_LANTERN.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYSLATE.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SABLE_MOSS_BLOCK.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SABLE_MOSS_CARPET.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.UMBRAL_SOIL.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYSLATE_COAL_ORE.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYSLATE_COPPER_ORE.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.BYSLATE_IRON_ORE.get())
-                || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.ALPHA_MOSS_BLOCK.get());
+    public static boolean canSpawn(EntityType<? extends Mob> type, LevelAccessor level, MobSpawnType reason, BlockPos blockPos, RandomSource random) {
+        return level.getBlockState(blockPos.below()).is(JamiesModTag.LITHY_SPAWNABLE_ON);
     }
 
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
@@ -657,7 +644,7 @@ public class LithyEntity extends PathfinderMob {
 
         public LithyFollowPlayerGoal(LithyEntity mob, double speedModifier, float stopDistance, float areaSize) {
             this.mob = mob;
-            this.followPredicate = Objects::nonNull;//&& mob.getClass() != p_25278_.getClass();
+            this.followPredicate = Objects::nonNull;
             this.speedModifier = speedModifier;
             this.navigation = mob.getNavigation();
             this.stopDistance = stopDistance;

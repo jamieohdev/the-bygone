@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "bygone:block/plaga_crop_stage1"
+    "cross": "bygone:block/plaga_crop_stage_1"
   }
 }

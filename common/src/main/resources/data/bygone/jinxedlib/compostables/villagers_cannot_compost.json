@@ -4,7 +4,10 @@
     "bygone:charnia": 0.2,
     "bygone:montsechia": 0.2,
     "bygone:rafflesia": 0.8,
-    "bygone:sagaria": 0.2,
+    "bygone:lime_sagaria": 0.2,
+    "bygone:pink_sagaria": 0.2,
+    "bygone:purple_sagaria": 0.2,
+    "bygone:yellow_sagaria": 0.2,
     "bygone:under_grass": 0.2,
     "bygone:ancient_roots": 0.3,
     "bygone:ancient_vines": 0.5,
@@ -22,7 +25,8 @@
     "bygone:belladonna": 0.1,
     "bygone:coleus": 0.1,
     "bygone:whirliweed": 0.3,
-    "bygone:big_whirliweed": 0.4
+    "bygone:big_whirliweed": 0.4,
+    "bygone:amaranth_grain": 0.4
   },
   "can_villager_compost": false
 }

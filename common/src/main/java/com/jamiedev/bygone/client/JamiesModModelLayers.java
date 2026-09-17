@@ -51,6 +51,12 @@ public class JamiesModModelLayers {
     public static final ModelLayerLocation BIG_BEAK_SADDLE = new ModelLayerLocation(Bygone.id("big_beak"), "saddle");
     public static final ModelLayerLocation BIG_BEAK_ARMOR = new ModelLayerLocation(Bygone.id("big_beak"), "armor");
 
+    public static final ModelLayerLocation GEIST =
+            new ModelLayerLocation(Bygone.id("geist"), "main");
+
+    public static final ModelLayerLocation HAUNT =
+            new ModelLayerLocation(Bygone.id("haunt"), "main");
+
     public static final ModelLayerLocation WHISKBILL =
             new ModelLayerLocation(Bygone.id("whiskbill"), "main");
 
@@ -66,6 +72,9 @@ public class JamiesModModelLayers {
     public static final ModelLayerLocation LITHY =
             new ModelLayerLocation(Bygone.id("lithy"), "main");
 
+    public static final ModelLayerLocation REAVER =
+            new ModelLayerLocation(Bygone.id("reaver"), "main");
+
     public static final ModelLayerLocation WISP =
             new ModelLayerLocation(Bygone.id("wisp"), "main");
 
@@ -74,6 +83,9 @@ public class JamiesModModelLayers {
 
     public static final ModelLayerLocation SABEAST =
             new ModelLayerLocation(Bygone.id("sabeast"), "main");
+
+    public static final ModelLayerLocation BYGONE_PORTAL =
+            new ModelLayerLocation(Bygone.id("bygone_portal"), "main");
 
     public static final ModelLayerLocation PRIMORDIAL_FISH_SMALL = new ModelLayerLocation(
             Bygone.id("primordial_fish_small"),
@@ -94,4 +106,17 @@ public class JamiesModModelLayers {
             Bygone.id("primordial_fish_large"),
             "pattern"
     );
+
+
+    public static final ModelLayerLocation WALLOW =
+            new ModelLayerLocation(Bygone.id("wallow"), "main");
+
+    public static final ModelLayerLocation MOURN =
+            new ModelLayerLocation(Bygone.id("mourn"), "main");
+
+    public static final ModelLayerLocation WHISPER =
+            new ModelLayerLocation(Bygone.id("whisper"), "main");
+
+    public static final ModelLayerLocation SCARE =
+            new ModelLayerLocation(Bygone.id("scare"), "main");
 }

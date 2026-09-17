@@ -28,8 +28,8 @@ public class HookItem extends Item {
 
     public static void retrieve(Level level, Player player, HookEntity hook) {
         level.playSound(null, player.getX(), player.getY(), player.getZ(), BGSoundEvents.HOOK_RETRIEVE_ADDITIONS_EVENT, SoundSource.NEUTRAL, 1.0F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
+        hook.startRetracting();
         if (!level.isClientSide()) {
-            hook.discard();
             ((PlayerWithHook) player).bygone$setHook(null);
             isGrappling = false;
         }
@@ -141,6 +141,7 @@ public class HookItem extends Item {
                     stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(user.getUsedItemHand()));
                     HookEntity hook = new HookEntity(world, player);
                     this.shoot(user, hook, powerForTime * 15.0F);
+                    hook.bygone$syncOldPos();
                     if (world.addFreshEntity(hook)) {
                         ((PlayerWithHook) player).bygone$setHook(hook);
                     }

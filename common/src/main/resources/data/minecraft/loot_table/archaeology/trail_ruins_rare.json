@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "type": "minecraft:archaeology",
   "pools": [
     {
@@ -51,6 +52,10 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:music_disc_relic"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bygone:gear_bag"
         },
         {
           "type": "minecraft:item",

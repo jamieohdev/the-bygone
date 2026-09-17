@@ -25,9 +25,6 @@ public class RafflesiaBlock extends Block {
     public static final MapCodec<SporeBlossomBlock> CODEC = simpleCodec(SporeBlossomBlock::new);
     private static final VoxelShape SHAPE = Block.box(2.0D, 1.0D, 2.0D,
             14.0D, 4.0D, 14.0D);
-    private static final int field_31252 = 14;
-    private static final int field_31253 = 10;
-    private static final int field_31254 = 10;
 
     public RafflesiaBlock(BlockBehaviour.Properties settings) {
         super(settings);

@@ -30,8 +30,8 @@
   "advancements.bygone.cowabummer.desc": "Серьёзно?",
   "advancements.bygone.cowabummer.title": "Кава-облом!",
 
-  "advancements.bygone.find_village.desc": "Найдите забытую деревню",
-  "advancements.bygone.find_village.title": "Вас это не жужжит?",
+  "advancements.bygone.find_village_underhang.desc": "Найдите забытую деревню",
+  "advancements.bygone.find_village_underhang.title": "Вас это не жужжит?",
 
   "advancements.bygone.ride_big_beak.desc": "Прокатитесь на большеклюве впервые",
   "advancements.bygone.ride_big_beak.title": "Найден бекас!",
@@ -90,10 +90,10 @@
   "item.bygone.glow_chitin": "Светящийся хитин",
   "item.bygone.scuttle_spike": "Шип скаттла",
   "item.bygone.glow_gourd_beige_slice": "Долька бежевой светотыквы",
-  "item.bygone.glow_gourd_muave_slice": "Долька лиловой светотыквы",
+  "item.bygone.glow_gourd_mauve_slice": "Долька лиловой светотыквы",
   "item.bygone.glow_gourd_verdant_slice": "Долька зелёной светотыквы",
   "item.bygone.glow_gourd_beige_seeds": "Семена бежевой светотыквы",
-  "item.bygone.glow_gourd_muave_seeds": "Семена лиловой светотыквы",
+  "item.bygone.glow_gourd_mauve_seeds": "Семена лиловой светотыквы",
   "item.bygone.glow_gourd_verdant_seeds": "Семена зелёной светотыквы",
   "item.bygone.gold_beak_armor": "Золотая броня для большеклюва",
   "item.bygone.iron_beak_armor": "Железная броня для большеклюва",
@@ -245,7 +245,7 @@
   "block.bygone.whirliweed": "Вихревей",
   "block.bygone.gourd_vine": "Лоза горлянки",
   "block.bygone.glow_gourd_beige": "Бежевая светотыква",
-  "block.bygone.glow_gourd_muave": "Лиловая светотыква",
+  "block.bygone.glow_gourd_mauve": "Лиловая светотыква",
   "block.bygone.glow_gourd_verdant": "Зелёная светотыква",
   "block.bygone.glow_gourd_dango": "Данго из светотыквы",
   "block.bygone.cave_vines": "Пещерная лоза",
@@ -604,7 +604,7 @@
   "structure.bygone.ancient_roots": "Древние корни",
   "structure.bygone.ruin": "Руины Изъяна",
   "structure.bygone.sewer": "Коллектор",
-  "structure.bygone.village": "Деревня",
+  "structure.bygone.village_underhang": "Деревня",
 
   "dimension.bygone.bygone": "Былое",
 

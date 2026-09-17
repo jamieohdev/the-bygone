@@ -13,7 +13,7 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "minecraft:sunflower",
+              "block": "bygone:big_whirliweed",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "half": "lower"

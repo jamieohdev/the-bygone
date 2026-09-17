@@ -1,10 +1,52 @@
 {
   "variants": {
-    "lit=false": {
+    "power=0": {
       "model": "bygone:block/lithine_lamp"
     },
-    "lit=true": {
-      "model": "bygone:block/lithine_lamp_on"
+    "power=1": {
+      "model": "bygone:block/lithine_lamp"
+    },
+    "power=2": {
+      "model": "bygone:block/lithine_lamp_1"
+    },
+    "power=3": {
+      "model": "bygone:block/lithine_lamp_1"
+    },
+    "power=4": {
+      "model": "bygone:block/lithine_lamp_2"
+    },
+    "power=5": {
+      "model": "bygone:block/lithine_lamp_2"
+    },
+    "power=6": {
+      "model": "bygone:block/lithine_lamp_3"
+    },
+    "power=7": {
+      "model": "bygone:block/lithine_lamp_3"
+    },
+    "power=8": {
+      "model": "bygone:block/lithine_lamp_4"
+    },
+    "power=9": {
+      "model": "bygone:block/lithine_lamp_4"
+    },
+    "power=10": {
+      "model": "bygone:block/lithine_lamp_5"
+    },
+    "power=11": {
+      "model": "bygone:block/lithine_lamp_5"
+    },
+    "power=12": {
+      "model": "bygone:block/lithine_lamp_6"
+    },
+    "power=13": {
+      "model": "bygone:block/lithine_lamp_6"
+    },
+    "power=14": {
+      "model": "bygone:block/lithine_lamp_7"
+    },
+    "power=15": {
+      "model": "bygone:block/lithine_lamp_7"
     }
   }
 }

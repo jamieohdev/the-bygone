@@ -102,7 +102,7 @@ public class MegalithTotemEntity extends BlockEntity implements Clearable {
     }
 
     private static boolean isLithoplasm(ItemStack stack) {
-        return stack.is(BGItems.LITHOPLASM.get());
+        return stack.is(BGItems.LITHOPLASMIC_POWDER.get()) || stack.is(BGItems.LITHOPLASM.get());
     }
 
     @Override

@@ -73,7 +73,7 @@ public class ScuttleEntity extends WaterAnimal implements RangedAttackMob {
                 .add(Attributes.MOVEMENT_SPEED, 1.0D);
     }
 
-    public static boolean checkSurfaceWaterAnimalSpawnRule(EntityType<? extends WaterAnimal> entityType,
+    public static boolean checkSurfaceWaterAnimalSpawnRule(EntityType<? extends Mob> entityType,
                                                            LevelAccessor iServerWorld,
                                                            MobSpawnType reason,
                                                            BlockPos pos,

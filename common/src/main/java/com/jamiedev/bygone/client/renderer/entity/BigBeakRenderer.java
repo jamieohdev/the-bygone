@@ -31,6 +31,10 @@ public class BigBeakRenderer extends MobRenderer<BigBeakEntity, BigBeakModel<Big
         p_349902_.put(BigBeakVariants.TRANS, Bygone.id("textures/entity/big_beak/trans.png"));
         p_349902_.put(BigBeakVariants.LESBIAN, Bygone.id("textures/entity/big_beak/lesbian.png"));
         p_349902_.put(BigBeakVariants.MLM, Bygone.id("textures/entity/big_beak/mlm.png"));
+        p_349902_.put(BigBeakVariants.BI, Bygone.id("textures/entity/big_beak/bi.png"));
+        p_349902_.put(BigBeakVariants.FABLEGENDER, Bygone.id("textures/entity/big_beak/fablegender.png"));
+        p_349902_.put(BigBeakVariants.NB, Bygone.id("textures/entity/big_beak/nb.png"));
+        p_349902_.put(BigBeakVariants.PRIDE, Bygone.id("textures/entity/big_beak/pride.png"));
     });
 
     public BigBeakRenderer(EntityRendererProvider.Context context) {

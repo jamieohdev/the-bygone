@@ -30,8 +30,8 @@
   "advancements.bygone.cowabummer.desc": "Серйозно?",
   "advancements.bygone.cowabummer.title": "Кава-облом!",
 
-  "advancements.bygone.find_village.desc": "Знайдіть забуте село",
-  "advancements.bygone.find_village.title": "Вас це не жужжить?",
+  "advancements.bygone.find_village_underhang_underhang.desc": "Знайдіть забуте село",
+  "advancements.bygone.find_village_underhang.title": "Вас це не жужжить?",
 
   "advancements.bygone.ride_big_beak.desc": "Прокатайтеся на великодзьобі вперше",
   "advancements.bygone.ride_big_beak.title": "Знайдено баранця!",
@@ -90,10 +90,10 @@
   "item.bygone.glow_chitin": "Сяйний хітин",
   "item.bygone.scuttle_spike": "Шип скаттла",
   "item.bygone.glow_gourd_beige_slice": "Скибка бежевої сяйнотикви",
-  "item.bygone.glow_gourd_muave_slice": "Скибка лілової сяйнотикви",
+  "item.bygone.glow_gourd_mauve_slice": "Скибка лілової сяйнотикви",
   "item.bygone.glow_gourd_verdant_slice": "Скибка зеленої сяйнотикви",
   "item.bygone.glow_gourd_beige_seeds": "Насіння бежевої сяйнотикви",
-  "item.bygone.glow_gourd_muave_seeds": "Насіння лілової сяйнотикви",
+  "item.bygone.glow_gourd_mauve_seeds": "Насіння лілової сяйнотикви",
   "item.bygone.glow_gourd_verdant_seeds": "Насіння зеленої сяйнотикви",
   "item.bygone.gold_beak_armor": "Золоті обладунки для великодзьоба",
   "item.bygone.iron_beak_armor": "Залізні обладунки для великодзьоба",
@@ -245,7 +245,7 @@
   "block.bygone.whirliweed": "Вихрозілля",
   "block.bygone.gourd_vine": "Лоза горлянки",
   "block.bygone.glow_gourd_beige": "Бежева сяйнотиква",
-  "block.bygone.glow_gourd_muave": "Лілова сяйнотиква",
+  "block.bygone.glow_gourd_mauve": "Лілова сяйнотиква",
   "block.bygone.glow_gourd_verdant": "Зелена сяйнотиква",
   "block.bygone.glow_gourd_dango": "Данго зі світотикви",
   "block.bygone.cave_vines": "Печерна лоза",
@@ -606,7 +606,7 @@
   "structure.bygone.ancient_roots": "Стародавнє коріння",
   "structure.bygone.ruin": "Руїни Вади",
   "structure.bygone.sewer": "Колектор",
-  "structure.bygone.village": "Село",
+  "structure.bygone.village_underhang": "Село",
 
   "dimension.bygone.bygone": "Минуле",
 

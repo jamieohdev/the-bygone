@@ -21,7 +21,11 @@
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "bygone:ancient_leaves",
-        "Properties": {}
+        "Properties": {
+          "distance": "7",
+          "persistent": "true",
+          "waterlogged": "false"
+        }
       }
     },
     "foliage_provider": {

@@ -8,15 +8,13 @@ import com.jamiedev.bygone.client.renderer.entity.*;
 import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
 import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.core.registry.*;
-import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.particle.ParticleEngine;
-import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.SoulParticle;
+import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleOptions;
@@ -35,6 +33,8 @@ import java.util.function.Supplier;
 
 public class BygoneClient {
     public static final CubeDeformation FISH_PATTERN_DEFORMATION = new CubeDeformation(0.008F);
+    public static float portalOverlay = 0;
+    public static float portalTimeout = 0;
 
     public static void registerRenderLayers(BiConsumer<Block, RenderType> consumer) {
         consumer.accept(BGBlocks.AMBER.get(), RenderType.translucent());
@@ -42,6 +42,7 @@ public class BygoneClient {
         consumer.accept(BGBlocks.BYGONE_PORTAL.get(), RenderType.translucent());
 
         consumer.accept(BGBlocks.SMOOTH_SEAGLASS.get(), RenderType.cutoutMipped());
+        consumer.accept(BGBlocks.HAUNTED_GROUND.get(), RenderType.translucent());
         consumer.accept(BGBlocks.SEAGLASS_BLOCK.get(), RenderType.translucent());
         consumer.accept(BGBlocks.SEAGLASS_PANE.get(), RenderType.translucent());
         consumer.accept(BGBlocks.COBBLED_SEAGLASS.get(), RenderType.solid());
@@ -67,11 +68,17 @@ public class BygoneClient {
         consumer.accept(BGBlocks.CAVE_VINES.get(), RenderType.cutout());
         consumer.accept(BGBlocks.CAVE_VINES_PLANT.get(), RenderType.cutout());
         consumer.accept(BGBlocks.MONTSECHIA.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.SAGARIA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.LIME_SAGARIA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PINK_SAGARIA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PURPLE_SAGARIA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.YELLOW_SAGARIA.get(), RenderType.cutout());
         consumer.accept(BGBlocks.ANCIENT_DOOR.get(), RenderType.cutout());
         consumer.accept(BGBlocks.ANCIENT_TRAPDOOR.get(), RenderType.cutout());
         consumer.accept(BGBlocks.POTTED_MONTSECHIA.get(), RenderType.cutout());
-        consumer.accept(BGBlocks.POTTED_SAGARIA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.POTTED_LIME_SAGARIA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.POTTED_PINK_SAGARIA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.POTTED_PURPLE_SAGARIA.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.POTTED_YELLOW_SAGARIA.get(), RenderType.cutout());
         consumer.accept(BGBlocks.SHORT_GRASS.get(), RenderType.cutout());
         consumer.accept(BGBlocks.TALL_GRASS.get(), RenderType.cutout());
         consumer.accept(BGBlocks.BLUE_ALGAE.get(), RenderType.cutout());
@@ -185,8 +192,9 @@ public class BygoneClient {
         consumer.accept(BGBlocks.YELLOW_AMPHORA.get(), RenderType.cutout());
 
         consumer.accept(BGBlocks.MEGALITH_TOTEM.get(), RenderType.cutout());
+		consumer.accept(BGBlocks.LITHOPLASMIC_POWDER.get(), RenderType.cutout());
 
-        consumer.accept(BGBlocks.PRISTINE_VERDIGRIS_COG.get(), RenderType.cutout());
+		consumer.accept(BGBlocks.PRISTINE_VERDIGRIS_COG.get(), RenderType.cutout());
         consumer.accept(BGBlocks.TARNISHED_VERDIGRIS_COG.get(), RenderType.cutout());
         consumer.accept(BGBlocks.BROKEN_VERDIGRIS_COG.get(), RenderType.cutout());
         consumer.accept(BGBlocks.RAMSHACKLED_VERDIGRIS_COG.get(), RenderType.cutout());
@@ -194,7 +202,8 @@ public class BygoneClient {
         consumer.accept(BGBlocks.ANCIENT_DOGU.get(), RenderType.cutout());
         consumer.accept(BGBlocks.PAINTED_DOGU.get(), RenderType.cutout());
         consumer.accept(BGBlocks.SHELLSTONE_DOGU.get(), RenderType.cutout());
-    }
+
+   }
 
     public static void createEntityRenderers() {
         //BlockEntityRenderers.register(BGBlockEntities.CASTER.get(), CasterBlockEntityRenderer::new);
@@ -211,6 +220,7 @@ public class BygoneClient {
         EntityRenderers.register(BGEntityTypes.COPPERBUG.get(), CopperbugRenderer::new);
         EntityRenderers.register(BGEntityTypes.HOOK.get(), HookRenderer::new);
         EntityRenderers.register(BGEntityTypes.EXOTIC_ARROW.get(), ExoticArrowRenderer::new);
+        EntityRenderers.register(BGEntityTypes.LITHOPLASM_ARROW.get(), LithoplasmArrowRenderer::new);
         EntityRenderers.register(BGEntityTypes.NECTAUR_PETAL.get(), NectaurPetalRenderer::new);
         EntityRenderers.register(BGEntityTypes.SCUTTLE_SPIKE.get(), ScuttleSpikeRenderer::new);
         EntityRenderers.register(BGEntityTypes.TRILOBITE.get(), TrilobiteRenderer::new);
@@ -222,11 +232,21 @@ public class BygoneClient {
         EntityRenderers.register(BGEntityTypes.WHISKBILL.get(), WhiskbillRenderer::new);
         EntityRenderers.register(BGEntityTypes.NECTAUR.get(), NectaurRenderer::new);
         EntityRenderers.register(BGEntityTypes.LITHY.get(), LithyRenderer::new);
+        EntityRenderers.register(BGEntityTypes.REAVER.get(), ReaverRenderer::new);
+        EntityRenderers.register(BGEntityTypes.WALLOW.get(), WallowRenderer::new);
         EntityRenderers.register(BGEntityTypes.WISP.get(), WispRenderer::new);
+        EntityRenderers.register(BGEntityTypes.GEIST.get(), GeistRenderer::new);
+        EntityRenderers.register(BGEntityTypes.HAUNT.get(), HauntRenderer::new);
         EntityRenderers.register(BGEntityTypes.WRAITH.get(), WraithRenderer::new);
         EntityRenderers.register(BGEntityTypes.SABEAST.get(), SabeastRenderer::new);
+        EntityRenderers.register(BGEntityTypes.MOURN.get(), MournRenderer::new);
+        EntityRenderers.register(BGEntityTypes.WHISPER.get(), WhisperRenderer::new);
+        EntityRenderers.register(BGEntityTypes.SCARE.get(), ScareRenderer::new);
+        EntityRenderers.register(BGEntityTypes.SCARE_BOLT.get(), ScareBoltRenderer::new);
         EntityRenderers.register(BGEntityTypes.PRIMORDIAL_FISH.get(), PrimordialFishRenderer::new);
         EntityRenderers.register(BGEntityTypes.MURKLING.get(), MurklingRenderer::new);
+
+        EntityRenderers.register(BGEntityTypes.BYGONE_PORTAL.get(), com.jamiedev.bygone.client.renderer.entity.BygonePortalRenderer::new);
     }
 
     public static void createModelLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> consumer) {
@@ -237,8 +257,8 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.SCUTTLE, ScuttleModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.COPPERBUG, CopperbugModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.TRILOBITE, TrilobiteModel::getTexturedModelData);
-        consumer.accept(JamiesModModelLayers.MOOBOO, CowModel::createBodyLayer);
-        consumer.accept(JamiesModModelLayers.MOOBOO_TRANS, CowModel::createBodyLayer);
+        consumer.accept(JamiesModModelLayers.MOOBOO, MoobooModel::createBodyLayer);
+        consumer.accept(JamiesModModelLayers.MOOBOO_TRANS, MoobooModel::createBodyLayer);
         consumer.accept(JamiesModModelLayers.FUNGALPARENT, FungalParentModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.BIG_BEAK, BigBeakModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.BIG_BEAK_SADDLE, BigBeakModel::getTexturedModelData);
@@ -248,12 +268,20 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.WHISKBILL, WhiskbillModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.NECTAUR, NectaurModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.LITHY, LithyModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.WALLOW, WallowModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WISP, WispModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.GEIST, GeistModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.HAUNT, HauntModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.REAVER, ReaverModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.WRAITH, WraithModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.SABEAST, SabeastModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.MOURN, MournModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.WHISPER, WhisperModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.SCARE, ScareModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.AMOEBA, AmoebaModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.AMOEBA_OUTER, AmoebaModel::createOuterLayer);
         consumer.accept(JamiesModModelLayers.MURKLING, MurklingModel::createBodyLayer);
+        consumer.accept(JamiesModModelLayers.BYGONE_PORTAL, ArcaneMechanismModel::createBodyLayer);
         consumer.accept(
                 JamiesModModelLayers.PRIMORDIAL_FISH_SMALL,
                 () -> PrimordialFishModelA.createBodyLayer(CubeDeformation.NONE)
@@ -276,7 +304,7 @@ public class BygoneClient {
 
     public static void registerModelPredicateProviders() {
         ItemProperties.register(
-                BGItems.HOOK.get(), Bygone.id("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
+                BGItems.ANCIENT_HOOK.get(), Bygone.id("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
                     if (livingEntity instanceof Player) {
                         for (InteractionHand value : InteractionHand.values()) {
                             ItemStack heldStack = livingEntity.getItemInHand(value);
@@ -326,6 +354,10 @@ public class BygoneClient {
         consumer.accept(
                 (ParticleType<T>) BGParticleTypes.BLEMISH,
                 p_107611_ -> (ParticleProvider<T>) new BlemishParticle.BlemishBlockProvider(p_107611_)
+        );
+        consumer.accept(
+                (ParticleType<T>) BGParticleTypes.ARCANE_SYMBOL,
+                sprite -> (ParticleProvider<T>) new ArcaneSymbolParticle.Provider(sprite)
         );
         consumer.accept(
                 (ParticleType<T>) BGParticleTypes.RAFFLESIA_SPORES,

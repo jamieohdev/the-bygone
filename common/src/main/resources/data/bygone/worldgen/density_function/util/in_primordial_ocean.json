@@ -1,11 +1,43 @@
 {
   "type": "minecraft:flat_cache",
   "argument": {
-    "type": "minecraft:range_choice",
-    "input": "bygone:biome_parameters/continents",
-    "min_inclusive": -10,
-    "max_exclusive": -0.54,
-    "when_in_range": 1,
-    "when_out_of_range": 0
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "minecraft:range_choice",
+      "input": "bygone:biome_parameters/erosion",
+      "min_inclusive": -2,
+      "max_exclusive": -1.5,
+      "when_in_range": {
+        "type": "minecraft:range_choice",
+        "input": {
+          "type": "moredfs:worley_noise",
+          "size_x": 256,
+          "size_y": 0,
+          "size_z": 256,
+          "jitter_sampler": {
+            "x": { "type": "uniform", "min": -25, "max": 25 },
+            "y": { "type": "uniform", "min": 0, "max": 1 },
+            "z": { "type": "uniform", "min": -25, "max": 25 }
+          },
+          "distance_metric": {
+            "type": "euclidean"
+          },
+          "distance_type": "f1",
+          "invert": false,
+          "exact": false,
+          "extra_octaves": {
+            "octaves": 0,
+            "amplitude": 0.5,
+            "frequency": 2.0
+          },
+          "salt": 1837
+        },
+        "min_inclusive": -1,
+        "max_exclusive": 0.6,
+        "when_in_range": 1,
+        "when_out_of_range": 0
+      },
+      "when_out_of_range": 0
+    }
   }
 }

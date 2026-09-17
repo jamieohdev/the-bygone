@@ -44,6 +44,7 @@
       "bygone:megalith_field_megaliths"
     ],
     [
+      "bygone:common_ore_plasmic_byslate",
       "bygone:common_monster_room",
       "bygone:common_small_cloud",
       "bygone:common_ore_coal_upper",
@@ -51,20 +52,22 @@
       "bygone:common_ore_iron_upper",
       "bygone:common_ore_iron_middle",
       "bygone:common_ore_iron_small",
-      "bygone:common_ore_gold_upper",
-      "bygone:common_ore_gold_middle",
-      "bygone:common_ore_gold_small",
       "bygone:common_ore_copper",
       "bygone:common_ore_verdigris",
       "bygone:megalith_field_vegetation"
     ],
-    ["bygone:common_glow_lichen"],
+    [
+      "bygone:common_glow_lichen"
+    ],
     [],
-    [],
+    [
+      "bygone:lithostream_spring_closed",
+      "bygone:lithostream_spring_open"
+    ],
     [],
     []
   ],
-  "has_precipitation": false,
+  "has_precipitation": true,
   "spawn_costs": {
     "bygone:lithy": {
       "charge": 0.6,
@@ -74,11 +77,11 @@
       "charge": 0.5,
       "energy_budget": 0.1
     },
-    "bygone:mooboo": {
+    "bygone:geist": {
       "charge": 0.5,
       "energy_budget": 0.1
     },
-    "bygone:sabeast": {
+    "bygone:mooboo": {
       "charge": 0.5,
       "energy_budget": 0.1
     }
@@ -96,12 +99,6 @@
         "weight": 2
       },
       {
-        "type": "bygone:sabeast",
-        "maxCount": 10,
-        "minCount": 5,
-        "weight": 1
-      },
-      {
         "type": "bygone:lithy",
         "maxCount": 1,
         "minCount": 1,
@@ -109,9 +106,15 @@
       },
       {
         "type": "bygone:wraith",
-        "maxCount": 2,
+        "maxCount": 1,
         "minCount": 1,
         "weight": 50
+      },
+      {
+        "type": "bygone:geist",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 75
       }
     ],
     "underground_water_creature": [],

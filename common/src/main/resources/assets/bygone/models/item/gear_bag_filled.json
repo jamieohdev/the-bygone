@@ -1,0 +1,6 @@
+{
+    "parent": "bygone:item/gear_bag",
+    "textures": {
+        "layer0": "bygone:item/gear_bag_closed"
+    }
+}

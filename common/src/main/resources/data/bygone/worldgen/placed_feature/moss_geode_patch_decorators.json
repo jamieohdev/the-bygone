@@ -14,7 +14,25 @@
               "entries": [
                 {
                   "data": {
-                    "Name": "bygone:sagaria"
+                    "Name": "bygone:lime_sagaria"
+                  },
+                  "weight": 2
+                },
+                {
+                  "data": {
+                    "Name": "bygone:pink_sagaria"
+                  },
+                  "weight": 2
+                },
+                {
+                  "data": {
+                    "Name": "bygone:purple_sagaria"
+                  },
+                  "weight": 2
+                },
+                {
+                  "data": {
+                    "Name": "bygone:yellow_sagaria"
                   },
                   "weight": 2
                 },
