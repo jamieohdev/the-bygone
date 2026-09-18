@@ -10,10 +10,10 @@
   "downfall": 0.0,
   "effects": {
     "additions_sound": {
-      "sound": "minecraft:ambient.nether_wastes.additions",
-      "tick_chance": 0.0111
+      "sound": "bygone:ambient.sable_forest.additions",
+      "tick_chance": 0.0009
     },
-    "ambient_sound": "minecraft:ambient.nether_wastes.loop",
+    "ambient_sound": "bygone:ambient.sable_forest.loop",
     "fog_color": 12634293,
     "grass_color": 11206458,
     "foliage_color": 8060727,
