@@ -14,15 +14,6 @@ import java.util.List;
 
 public class BGBiomes {
     public static List<ResourceKey<Biome>> biomes = new ArrayList<>();
-    /**
-     * ALPHAHANG))))
-     * ANCIENT_FOREST))))
-     * es.AMBER_DESERT))))
-     * Biomes.PRIMORDIAL_OCEAN)
-     * Biomes.PRIMORDIAL_BEACH)
-     * s.SHELFHOLLOW))))
-     * omes.MEGALITH_FIELD)))
-     */
 
     public static final ResourceKey<Biome> ALPHAHANG = createBiomeKey("alphahang");
     public static final ResourceKey<Biome> ANCIENT_FOREST = createBiomeKey("underhang");

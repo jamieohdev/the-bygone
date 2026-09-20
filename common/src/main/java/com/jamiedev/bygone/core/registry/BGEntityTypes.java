@@ -180,7 +180,7 @@ public class BGEntityTypes {
 
     public static final Supplier<EntityType<ReaverEntity>> REAVER = registerEntityType(
             "reaver",
-            () -> EntityType.Builder.of(ReaverEntity::new, HauntingsCategoryHolder.HAUNTING_MOB_CATEGORY)
+            () -> EntityType.Builder.of(ReaverEntity::new, MobCategory.MONSTER)
                     .sized(1.0F, 0.85F)
                     .eyeHeight(0.36F)
                     .ridingOffset(0.04F)
