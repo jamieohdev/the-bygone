@@ -410,6 +410,32 @@
     "subtitle": "subtitles.block.portal.ambient"
   },
 
+  "entity.pest.ambient": {
+    "sounds": [
+      "bygone:entity/copperbug/idle1",
+      "bygone:entity/copperbug/idle2"
+    ],
+    "subtitle": "subtitles.entity.copperbug.ambient"
+  },
+  "entity.pest.hurt": {
+    "sounds": [
+      "bygone:entity/copperbug/hit1",
+      "bygone:entity/copperbug/hit2"
+    ],
+    "subtitle": "subtitles.entity.copperbug.hurt"
+  },
+  "entity.pest.death": {
+    "sounds": [
+      "bygone:entity/copperbug/death"
+    ],
+    "subtitle": "subtitles.entity.copperbug.death"
+  },
+  "entity.pest.eat": {
+    "sounds": [
+      "bygone:entity/copperbug/eat"
+    ],
+    "subtitle": "subtitles.entity.copperbug.eat"
+  },
   "entity.copperbug.ambient": {
     "sounds": [
       "bygone:entity/copperbug/idle1",
@@ -517,6 +543,14 @@
       "bygone:entity/amoeba/death3"
     ],
     "subtitle": "subtitles.entity.amoeba.death"
+  },
+  "entity.amoeba.flop": {
+    "sounds": [
+      "bygone:entity/amoeba/death1",
+      "bygone:entity/amoeba/death2",
+      "bygone:entity/amoeba/death3"
+    ],
+    "subtitle": "subtitles.entity.amoeba.flop"
   },
   "entity.bigbeak.ambient": {
     "sounds": [
@@ -888,9 +922,9 @@
   },
   "entity.aquifawn.flop": {
     "sounds": [
-      "bygone:entity/aquifawn/flop1",
-      "bygone:entity/aquifawn/flop2",
-      "bygone:entity/aquifawn/flop3"
+      "bygone:entity/aquifawn/idle1",
+      "bygone:entity/aquifawn/idle2",
+      "bygone:entity/aquifawn/idle3"
     ],
     "subtitle": "subtitles.entity.aquifawn.flop"
   },

@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import java.util.function.Supplier;
 
 public class BGBlockEntities {
-    public static Supplier<BlockEntityType<BygonePortalBlockEntity>> BYGONE_PORTAL;
+    //public static Supplier<BlockEntityType<BygonePortalBlockEntity>> BYGONE_PORTAL;
     public static Supplier<BlockEntityType<PrimordialVentEntity>> PRIMORDIAL_VENT;
 
     public static Supplier<BlockEntityType<SprinklerEntity>> SPRINKLER;
@@ -57,9 +57,9 @@ public class BGBlockEntities {
                                 BGBlocks.RED_AMPHORA.get(), BGBlocks.WHITE_AMPHORA.get(), BGBlocks.YELLOW_AMPHORA.get())
                         .build(null));
 
-        BYGONE_PORTAL = register(
-                "bygone_portal", () ->
-                        BlockEntityType.Builder.of(BygonePortalBlockEntity::new, BGBlocks.BYGONE_PORTAL.get()).build(null));
+       // BYGONE_PORTAL = register(
+       //         "bygone_portal", () ->
+       //                 BlockEntityType.Builder.of(BygonePortalBlockEntity::new, BGBlocks.BYGONE_PORTAL.get()).build(null));
 
         MEGALITH_TOTEM = register("megalith_totem", () ->
                 BlockEntityType.Builder.of(MegalithTotemEntity::new, BGBlocks.MEGALITH_TOTEM.get()).build(null));

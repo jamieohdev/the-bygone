@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/flower_pot_cross",
   "textures": {
-    "plant": "bygone:block/chantrelle_stage3"
+    "plant": "bygone:block/chantrelle_crop_stage_3"
   }
 }

@@ -544,38 +544,7 @@ public class BGBlocks {
                             .strength(3.0F, 6.0F)
                             .sound(SoundType.DEEPSLATE))
     );
-    public static final Supplier<Block> BYGONE_PORTAL = registerBlockWithoutBlockItem(
-            "bygone_portal", () ->
-                    new BygonePortalBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_PORTAL)
-                            .lightLevel((state) -> 6)
-                            .noLootTable()
-                            .noCollission()
-                            .strength(-1.0f, 3600000.0f))
-    );
-    public static final Supplier<Block> BYGONE_PORTAL_FRAME = registerBlockWithoutBlockItem(
-            "bygone_portal_frame", () ->
-                    new BygonePortalFrameBlock(BlockBehaviour.Properties.of()
-                            .mapColor(MapColor.COLOR_GRAY)
-                            .instrument(NoteBlockInstrument.BASEDRUM)
-                            .requiresCorrectToolForDrops()
-                            .strength(1000000.8F))
-    );
-    public static final Supplier<Block> BYGONE_PORTAL_FRAME_BLOCK = registerBlockWithoutBlockItem(
-            "bygone_portal_frame_block", () ->
-                    new Block(BlockBehaviour.Properties.of()
-                            .mapColor(MapColor.COLOR_GRAY)
-                            .instrument(NoteBlockInstrument.BASEDRUM)
-                            .requiresCorrectToolForDrops()
-                            .strength(1000000.8F))
-    );
-    public static final Supplier<Block> BYGONE_PORTAL_FRAME_PLACEABLE = registerBlockWithoutBlockItem(
-            "bygone_portal_frame_placeable", () ->
-                    new BygonePortalFramePlaceableBlock(BlockBehaviour.Properties.of()
-                            .mapColor(MapColor.COLOR_GRAY)
-                            .instrument(NoteBlockInstrument.BASEDRUM)
-                            .requiresCorrectToolForDrops()
-                            .strength(1000000.8F))
-    );
+
     public static final Supplier<Block> ARCANE_CORE = registerBlockWithoutBlockItem(
             "arcane_core",
             () -> new ArcaneCoreBlock(BlockBehaviour.Properties.of()

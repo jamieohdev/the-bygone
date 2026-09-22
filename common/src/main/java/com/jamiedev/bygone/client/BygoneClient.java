@@ -3,7 +3,6 @@ package com.jamiedev.bygone.client;
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.models.*;
 import com.jamiedev.bygone.client.particles.*;
-import com.jamiedev.bygone.client.renderer.BygonePortalRenderer;
 import com.jamiedev.bygone.client.renderer.entity.*;
 import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
 import com.jamiedev.bygone.common.util.PlayerWithHook;
@@ -39,7 +38,6 @@ public class BygoneClient {
     public static void registerRenderLayers(BiConsumer<Block, RenderType> consumer) {
         consumer.accept(BGBlocks.AMBER.get(), RenderType.translucent());
         consumer.accept(BGBlocks.CLOUD.get(), RenderType.translucent());
-        consumer.accept(BGBlocks.BYGONE_PORTAL.get(), RenderType.translucent());
 
         consumer.accept(BGBlocks.SMOOTH_SEAGLASS.get(), RenderType.cutoutMipped());
         consumer.accept(BGBlocks.HAUNTED_GROUND.get(), RenderType.translucent());
@@ -209,7 +207,7 @@ public class BygoneClient {
         //BlockEntityRenderers.register(BGBlockEntities.CASTER.get(), CasterBlockEntityRenderer::new);
 
         //BlockEntityRenderers.register(BGBlockEntities.AMPHORA.get(), AmphoraBlockEntityRenderer::new);
-        BlockEntityRenderers.register(BGBlockEntities.BYGONE_PORTAL.get(), BygonePortalRenderer::new);
+       // BlockEntityRenderers.register(BGBlockEntities.BYGONE_PORTAL.get(), BygonePortalRenderer::new);
 
         EntityRenderers.register(BGEntityTypes.AMOEBA.get(), AmoebaRenderer::new);
         EntityRenderers.register(BGEntityTypes.AQUIFAWN.get(), AquifawnRenderer::new);

@@ -1,6 +1,6 @@
 {
 	"format_version": "1.9.0",
-	"parent": "plaga_side",
+	"parent": "bygone:block/plaga_side",
 	"ambientocclusion": false,
 	"texture_size": [32, 32],
 	"textures": {
