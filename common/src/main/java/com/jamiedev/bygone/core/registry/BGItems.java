@@ -640,20 +640,6 @@ public class BGItems {
             )
     );
 
-    public static final Supplier<Item> WALLOW_SHAWL_SCRAP = registerItem("wallow_shawl_scrap",
-            () -> new Item(new Item.Properties())
-    );
-
-    public static final ItemAttributeModifiers WALLOW_SHAWL_ATTRIBUTES = ItemAttributeModifiers.builder().add(
-            BGAttributes.PHASING_DURATION.get(),
-            new AttributeModifier(Bygone.id("wallow_shawl.phase_duration"), 8, AttributeModifier.Operation.ADD_VALUE),
-            EquipmentSlotGroup.CHEST
-    ).build();
-
-    public static final Supplier<Item> WALLOW_SHAWL = registerItem("wallow_shawl",
-            () -> new WallowShawlItem(new Item.Properties().attributes(WALLOW_SHAWL_ATTRIBUTES))
-    );
-
     public static final Supplier<Item> HAUNTING_CLOCK = registerItem(
             "haunting_clock",
             () -> new Item(new Item.Properties())

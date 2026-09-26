@@ -29,7 +29,6 @@
     "FogTypeInvoker"
   ],
   "client": [
-    "blockPhasing.LevelRendererMixin",
     "client.BipedEntityModelMixin",
     "client.EntityPhaseMeterGuiMixin",
     "client.GameRendererMixin",
