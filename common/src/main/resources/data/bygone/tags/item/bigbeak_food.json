@@ -1,13 +1,12 @@
 {
   "values": [
     "minecraft:wheat_seeds",
-    "minecraft:melon_seeds",
-    "minecraft:pumpkin_seeds",
-    "minecraft:beetroot_seeds",
+    "bygone:amaranth_seeds",
+    "bygone:plaga_seeds",
     "minecraft:torchflower_seeds",
     "minecraft:pitcher_pod",
-    "bygone:glow_gourd_beige_slice",
-    "bygone:glow_gourd_mauve_slice",
-    "bygone:glow_gourd_verdant_slice"
+    "bygone:glow_gourd_beige_seeds",
+    "bygone:glow_gourd_mauve_seeds",
+    "bygone:glow_gourd_verdant_seeds"
   ]
 }
