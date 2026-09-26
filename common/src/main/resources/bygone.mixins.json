@@ -25,7 +25,8 @@
     "PortalProcessorAccessor",
     "ServerLevelMixin",
     "SpawnStateMixin",
-    "VexMixin"
+    "VexMixin",
+    "FogTypeInvoker"
   ],
   "client": [
     "blockPhasing.LevelRendererMixin",
@@ -37,7 +38,8 @@
     "client.LightTextureMixin",
     "client.MixinHeldItemRenderer",
     "client.MixinItemRenderer",
-    "client.MixinPlayerEntityRenderer"
+    "client.MixinPlayerEntityRenderer",
+    "client.CameraMixin"
   ],
   "injectors": {
     "defaultRequire": 1

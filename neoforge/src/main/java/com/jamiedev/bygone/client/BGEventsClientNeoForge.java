@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.FogType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -63,6 +64,7 @@ public class BGEventsClientNeoForge {
     @SubscribeEvent
     public static void fog(ViewportEvent.RenderFog event) {
         Level level = event.getCamera().getEntity().level();
+        if (event.getCamera().getFluidInCamera() != FogType.NONE) return;
         if (!level.dimension().equals(BGDimensions.BYGONE_LEVEL_KEY)) return;
 
         event.setCanceled(true);
