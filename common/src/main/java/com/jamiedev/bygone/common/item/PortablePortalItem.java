@@ -2,7 +2,9 @@ package com.jamiedev.bygone.common.item;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.entity.BygonePortalEntity;
+import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
+import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -21,6 +23,7 @@ import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -35,8 +38,6 @@ public class PortablePortalItem extends Item {
 
     public BlockPos checkSpace(Level level, BlockPos pos) {
         if (hasSpace(level, pos)) return pos;
-        //if (hasSpace(level, pos.above())) return pos.above();
-        //if (hasSpace(level, pos.below())) return pos.below();
         return null;
     }
 
@@ -52,6 +53,14 @@ public class PortablePortalItem extends Item {
             }
         }
         return true;
+    }
+
+    /**
+     * Return whether this item is repairable in an anvil.
+     */
+    @Override
+    public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
+        return repair.is(BGBlocks.PRISTINE_VERDIGRIS_COG.get().asItem());
     }
 
     @Override

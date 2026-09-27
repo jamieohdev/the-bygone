@@ -645,10 +645,6 @@ public class BGItems {
             () -> new Item(new Item.Properties())
     );
 
-    Items item;
-    ParticleTypes ref;
-    ArmorMaterials ma;
-
     public static Supplier<Item> registerItem(String id, Supplier<Item> item) {
         return JinxedRegistryHelper.registerItem(Bygone.MOD_ID, id, item);
     }
