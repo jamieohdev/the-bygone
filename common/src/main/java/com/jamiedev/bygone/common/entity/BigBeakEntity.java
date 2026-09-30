@@ -1,14 +1,15 @@
 package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.common.item.CustomAnimalArmorItem;
+import com.jamiedev.bygone.common.block.BigBeakEggBlock;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
-import com.jamiedev.bygone.core.registry.BGItems;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -17,7 +18,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
@@ -36,9 +36,10 @@ import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Markings;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
@@ -61,8 +62,8 @@ public class BigBeakEntity extends AbstractHorse implements VariantHolder<BigBea
 
     static {
         DATA_ID_TYPE_VARIANT = SynchedEntityData.defineId(BigBeakEntity.class, EntityDataSerializers.INT);
-        BABY_BASE_DIMENSIONS = BGEntityTypes.BIG_BEAK.get().getDimensions().withAttachments(EntityAttachments.builder().attach(EntityAttachment.PASSENGER, 0.0F,
-                BGEntityTypes.BIG_BEAK.get().getHeight() + 0.125F, 0.0F)).scale(0.5F);
+        BABY_BASE_DIMENSIONS = BGEntityTypes.BIG_BEAK.get().getDimensions().withAttachments(EntityAttachments.builder()
+                .attach(EntityAttachment.PASSENGER, 0.0F, BGEntityTypes.BIG_BEAK.get().getHeight() + 0.125F, 0.0F)).scale(0.5F);
     }
 
     public final AnimationState idleAnimationState = new AnimationState();
@@ -229,9 +230,7 @@ public class BigBeakEntity extends AbstractHorse implements VariantHolder<BigBea
         this.goalSelector.addGoal(1, new RunAroundLikeCrazyGoal(this, 1.2));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0, BigBeakEntity.class));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2, stack -> {
-            return stack.is(JamiesModTag.BIGBEAK_FOOD);
-        }, false));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2, this::isFood, false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.7));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -401,82 +400,79 @@ public class BigBeakEntity extends AbstractHorse implements VariantHolder<BigBea
     }
 
     @Override
-    protected boolean handleEating(Player player, ItemStack stack) {
-        boolean flag = false;
-        float f = 0.0F;
-        int i = 0;
-        int j = 0;
-        if (stack.is(JamiesModTag.BIGBEAK_FOOD)) {
-            f = 2.0F;
-            i = 30;
-            j = 3;
-        } else if (stack.is(Items.GOLDEN_CARROT) || (stack.is(BGItems.BEIGE_SLICE.get())) || (stack.is(BGItems.MUAVE_SLICE.get())) || (stack.is(BGItems.VERDANT_SLICE.get()))) {
-            f = 4.0F;
-            i = 60;
-            j = 5;
-            if (!this.level().isClientSide && this.isTamed() && this.getAge() == 0 && !this.isInLove()) {
-                flag = true;
+    protected boolean handleEating(Player player, ItemStack itemStack) {
+        if (this.level().isClientSide) {
+            return this.isFood(itemStack);
+        }
+
+        boolean ateFood = false;
+        float healAmount = 0.0F;
+        int growthSeconds = 0;
+        int temperIncrease = 0;
+        if (itemStack.is(JamiesModTag.BIGBEAK_BREEDING_FOOD)) {
+            healAmount = 4.0F;
+            growthSeconds = 60;
+            temperIncrease = 5;
+            if (this.isTamed() && this.getAge() == 0 && this.canFallInLove()) {
+                ateFood = true;
                 this.setInLove(player);
             }
-        } else if (stack.is(Items.GOLDEN_APPLE) || stack.is(Items.ENCHANTED_GOLDEN_APPLE)) {
-            f = 10.0F;
-            i = 240;
-            j = 10;
-            if (!this.level().isClientSide && this.isTamed() && this.getAge() == 0 && !this.isInLove()) {
-                flag = true;
-                this.setInLove(player);
+        } else if (itemStack.is(JamiesModTag.BIGBEAK_FOOD)) {
+            healAmount = 2.0F;
+            growthSeconds = 30;
+            temperIncrease = 3;
+        }
+
+        if (this.getHealth() < this.getMaxHealth() && healAmount > 0.0F) {
+            this.heal(healAmount);
+            ateFood = true;
+        }
+
+        if (this.isBaby() && growthSeconds > 0) {
+            if (this.level() instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER,
+                        this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), 1, 0.0, 0.0, 0.0, 0.0);
             }
+            this.ageUp(growthSeconds);
+            ateFood = true;
         }
 
-        if (this.getHealth() < this.getMaxHealth() && f > 0.0F) {
-            this.heal(f);
-            flag = true;
+        if (temperIncrease > 0 && (ateFood || !this.isTamed()) && this.getTemper() < this.getMaxTemper()) {
+            this.modifyTemper(temperIncrease);
+            ateFood = true;
         }
 
-        if (this.isBaby() && i > 0) {
-            this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), 0.0, 0.0, 0.0);
-            if (!this.level().isClientSide) {
-                this.ageUp(i);
-                flag = true;
-            }
-        }
-
-        if (j > 0 && (flag || !this.isTamed()) && this.getTemper() < this.getMaxTemper() && !this.level().isClientSide) {
-            this.modifyTemper(j);
-            flag = true;
-        }
-
-        if (flag) {
+        if (ateFood) {
             this.eating();
             this.gameEvent(GameEvent.EAT);
         }
 
-        return flag;
+        return ateFood;
     }
 
-    public InteractionResult interactBigBeak(Player player, ItemStack stack) {
-        boolean bl = this.handleEating(player, stack);
-        if (bl) {
-            stack.consume(1, player);
-        }
-
+    public InteractionResult interactBigBeak(Player player, ItemStack itemStack) {
         if (this.level().isClientSide) {
             return InteractionResult.CONSUME;
-        } else {
-            return bl ? InteractionResult.SUCCESS : InteractionResult.PASS;
         }
+
+        boolean ateFood = this.handleEating(player, itemStack);
+        if (ateFood) {
+            itemStack.consume(1, player);
+        }
+
+        return ateFood ? InteractionResult.SUCCESS : InteractionResult.PASS;
     }
 
     @Override
-    public boolean isFood(ItemStack stack) {
-        return stack.is(JamiesModTag.BIGBEAK_FOOD);
+    public boolean isFood(ItemStack itemStack) {
+        return itemStack.is(JamiesModTag.BIGBEAK_FOOD) || itemStack.is(JamiesModTag.BIGBEAK_BREEDING_FOOD);
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
-        boolean bl = !this.isBaby() && this.isTamed() && player.isSecondaryUseActive();
-        if (!this.isVehicle() && !bl) {
-            ItemStack itemStack = player.getItemInHand(hand);
+    public @NotNull InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+        boolean canOpenInventory = !this.isBaby() && this.isTamed() && player.isSecondaryUseActive();
+        if (!this.isVehicle() && !canOpenInventory) {
+            ItemStack itemStack = player.getItemInHand(interactionHand);
             if (!itemStack.isEmpty()) {
                 if (this.isFood(itemStack)) {
                     return this.interactBigBeak(player, itemStack);
@@ -492,11 +488,8 @@ public class BigBeakEntity extends AbstractHorse implements VariantHolder<BigBea
                     return InteractionResult.sidedSuccess(this.level().isClientSide);
                 }
             }
-
-            return super.mobInteract(player, hand);
-        } else {
-            return super.mobInteract(player, hand);
         }
+        return super.mobInteract(player, interactionHand);
     }
 
     public void equipBigBeakArmor(Player player, ItemStack stack) {
@@ -508,8 +501,34 @@ public class BigBeakEntity extends AbstractHorse implements VariantHolder<BigBea
     }
 
     @Override
-    public boolean canMate(Animal other) {
-        return true;
+    public boolean canMate(@NotNull Animal otherAnimal) {
+        return otherAnimal != this && otherAnimal instanceof BigBeakEntity bigBeak
+                && this.isTamed() && bigBeak.isTamed()
+                && this.isAlive() && otherAnimal.isAlive()
+                && this.getAge() == 0 && otherAnimal.getAge() == 0
+                && this.isInLove() && otherAnimal.isInLove()
+                && !this.isVehicle() && !otherAnimal.isVehicle()
+                && !this.isPassenger() && !otherAnimal.isPassenger();
+    }
+
+    @Override
+    public void spawnChildFromBreeding(ServerLevel serverLevel, Animal mateAnimal) {
+        if (!this.canMate(mateAnimal)) {
+            return;
+        }
+
+        if (!(this.getBreedOffspring(serverLevel, mateAnimal) instanceof BigBeakEntity bigBeakBaby)) {
+            return;
+        }
+
+        ItemStack bigBeakEgg = new ItemStack(BGBlocks.BIG_BEAK_EGG.get());
+        bigBeakEgg.set(DataComponents.BLOCK_STATE,
+                BlockItemStateProperties.EMPTY.with(BigBeakEggBlock.VARIANT, bigBeakBaby.getVariant()));
+        ItemEntity itemEntity = new ItemEntity(serverLevel, this.getX(), this.getY(), this.getZ(), bigBeakEgg);
+        itemEntity.setDefaultPickUpDelay();
+        this.finalizeSpawnChildFromBreeding(serverLevel, mateAnimal, null);
+        this.playSound(SoundEvents.SNIFFER_EGG_PLOP, 1.0F, 0.9F + this.random.nextFloat() * 0.2F);
+        serverLevel.addFreshEntity(itemEntity);
     }
 
     @Override

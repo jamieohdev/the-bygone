@@ -68,6 +68,7 @@ public class JamiesModTag {
     public static final TagKey<Item> VERDAGRIS_ITEMS = Items.createTag("verdigris_items");
 
     public static final TagKey<Item> BIGBEAK_FOOD = Items.createTag("bigbeak_food");
+    public static final TagKey<Item> BIGBEAK_BREEDING_FOOD = Items.createTag("bigbeak_breeding_food");
     public static final TagKey<Item> WHISKBILL_FOOD = Items.createTag("whiskbill_food");
 
     public static final TagKey<Item> GUMBO_MAKES_SAFE = Items.createTag("gumbo_makes_safe");

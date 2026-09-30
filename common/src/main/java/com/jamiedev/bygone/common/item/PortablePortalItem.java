@@ -13,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -133,18 +132,8 @@ public class PortablePortalItem extends Item {
     }
 
     public boolean canBeUsed(Level level) {
-        ResourceKey<Level> bygone = ResourceKey.create(Registries.DIMENSION, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,"bygone"));
-        ResourceKey<Level> resourcekey = level.dimension() == bygone ? Level.OVERWORLD : bygone;
-        MinecraftServer server = level.getServer();
-        if (server == null) return false;
-
-        ServerLevel serverlevel = server.getLevel(resourcekey);
-
-        if (serverlevel == null) {
-            return false;
-        } else {
-            return serverlevel.dimension() == bygone || serverlevel.dimension() == Level.OVERWORLD;
-        }
+        ResourceKey<Level> bygone = ResourceKey.create(Registries.DIMENSION, Bygone.id("bygone"));
+        return level.dimension().equals(bygone) || level.dimension() == Level.OVERWORLD;
     }
 
     @Override

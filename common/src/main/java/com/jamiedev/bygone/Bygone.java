@@ -108,8 +108,6 @@ public class Bygone {
         consumer.accept(BGEntityTypes.PRIMORDIAL_FISH.get(), PrimordialFishEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.AQUIFAWN.get(), AquifawnEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.MURKLING.get(), MurklingEntity.createAttributes().build());
-
-        consumer.accept(BGEntityTypes.BYGONE_PORTAL.get(), BygonePortalEntity.createAttributes().build());
     }
 
     @SuppressWarnings("unchecked")

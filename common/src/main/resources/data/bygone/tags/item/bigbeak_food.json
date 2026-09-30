@@ -1,6 +1,13 @@
 {
   "values": [
+    {
+      "id": "#c:seeds",
+      "required": false
+    },
     "minecraft:wheat_seeds",
+    "minecraft:pumpkin_seeds",
+    "minecraft:melon_seeds",
+    "minecraft:beetroot_seeds",
     "bygone:amaranth_seeds",
     "bygone:plaga_seeds",
     "minecraft:torchflower_seeds",
