@@ -5,6 +5,7 @@ import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGItems;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
+import it.unimi.dsi.fastutil.longs.Long2ByteOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ParticleTypes;
@@ -27,18 +28,21 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileDeflection;
+import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Portal;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class BygonePortalEntity extends Entity implements Portal {
@@ -49,6 +53,7 @@ public class BygonePortalEntity extends Entity implements Portal {
 
     private AnimationState[] animations = new AnimationState[State.values().length];
     private int soundCooldown = 40;
+    private boolean loaded = false;
 
     public BygonePortalEntity(EntityType<? extends BygonePortalEntity> entityType, Level level) {
         super(entityType, level);
@@ -119,14 +124,19 @@ public class BygonePortalEntity extends Entity implements Portal {
                 if(this.getState() == State.ACTIVE && this.level() instanceof ServerLevel origin){
                     // keep other side loaded while active so we can scan for portal entities!
                     ServerLevel dest = getDestinationDimension(origin);
-                    if(dest != null) dest.getChunkSource().addRegionTicket(BYGONE_TICKET, new ChunkPos(this.blockPosition()), 0, this.blockPosition());
+                    if(dest != null) dest.getChunkSource().addRegionTicket(BYGONE_TICKET, new ChunkPos(this.blockPosition()), 1, this.blockPosition());
+                    loaded = false;
                 }
             }
         }
 
         // called on client too for the portal overlay
         if(this.getState() == State.ACTIVE){
-            this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2F)).forEach(e -> {
+            if(!loaded && this.level() instanceof ServerLevel origin){
+                // ENSURE that the destination is loaded, cause otherwise we get duplicate portals during lag
+                if(this.tickCount % 5 == 0) loaded = this.getDestinationDimension(origin).isLoaded(this.blockPosition());
+            } else this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2F)).forEach(e -> {
+                if(this.isOnPortalCooldown() && !e.isOnPortalCooldown()) e.setPortalCooldown(this.getPortalCooldown() + 1); // idk man. sometimes this gets reset on tp to newly-loaded chunks
                 if(e.portalProcess != null && e.portalProcess.isInsidePortalThisTick()) return; // already claimed!
                 if(e.canUsePortal(false)) e.setAsInsidePortal(this, this.blockPosition());
             });
@@ -149,6 +159,7 @@ public class BygonePortalEntity extends Entity implements Portal {
     @Override public boolean isPushedByFluid(){ return false; }
     @Override public void push(Entity entity){}
     @Override public boolean canBeCollidedWith(){ return true; }
+    @Override public boolean canUsePortal(boolean allowPassengers){ return false; }
     @Override public boolean isPickable(){ return true; }
     @Override public ItemStack getPickResult(){ return new ItemStack(BGItems.ARCANE_MECHANISM.get()); }
     @Override public ProjectileDeflection deflection(Projectile projectile){ return ProjectileDeflection.REVERSE; }
@@ -167,7 +178,6 @@ public class BygonePortalEntity extends Entity implements Portal {
     public DimensionTransition getPortalDestination(ServerLevel origin, Entity entity, BlockPos ignored){
         ServerLevel dest = getDestinationDimension(origin);
         if(dest == null) return null;
-        dest.getChunkAt(this.blockPosition()); // we request a load earlier, but this'll block till load. otherwise we'll find no entities
 
         // check for existing portals, 16 square radius, unlimited vertically (same as when genning below)
         AABB aabb = AABB.ofSize(this.position(), 32.1, 0, 32.1).setMinY((double)dest.getMinBuildHeight()).setMaxY((double)dest.getMaxBuildHeight());
@@ -179,30 +189,43 @@ public class BygonePortalEntity extends Entity implements Portal {
         if(sibling != null) return getDestinationAt(dest, sibling.blockPosition().offset(0, -1, 0), entity, sibling, false);
 
         // try to find a valid spot. you ever watch Martha Speaks? this is just like Martha Speaks.
+        Map<Long,Byte> cache = new Long2ByteOpenHashMap(8192);
         for(BlockPos pos : BlockPos.withinManhattan(this.blockPosition(), 16, 32, 16)){
-            if(isValidDestination(dest, pos)) return getDestinationAt(dest, pos, entity, null, false);
+            if(isValidDestination(dest, pos, cache)) return getDestinationAt(dest, pos, entity, null, false);
         }
         // try to find spots outside of range directly up or down. this one's like Dog With a Blog
         BlockPos.MutableBlockPos pos = this.blockPosition().mutable();
-        for(pos.setY(dest.getMaxBuildHeight() - 2); pos.getY() >= dest.getMinBuildHeight() + 1; pos.move(0, -1, 0)){
+        for(pos.setY(dest.getMaxBuildHeight() - 5); pos.getY() >= dest.getMinBuildHeight() + 1; pos.move(0, -1, 0)){
             if(Math.abs(pos.getY() - this.blockPosition().getY()) <= 32) pos.move(0, -64, 0);
-            else if(isValidDestination(dest, pos)) return getDestinationAt(dest, pos, entity, null, false);
+            else if(isValidDestination(dest, pos, cache)) return getDestinationAt(dest, pos, entity, null, false);
         }
         // give up. Zapped (2014)
         return getDestinationAt(dest, this.blockPosition(), entity, null, true);
     }
 
-    private boolean isValidDestination(ServerLevel dest, BlockPos pos){
-        if(!dest.getBlockState(pos).isAir()) return false;
-        if(!dest.getBlockState(pos.above()).isAir()) return false;
-        if(!dest.getBlockState(pos.below()).isSolid()) return false;
+    private boolean isValidDestination(ServerLevel dest, BlockPos pos, Map<Long,Byte> cache){
+        BlockPos.MutableBlockPos mut = new BlockPos.MutableBlockPos();
+        Function<Long,Byte> check = packed -> { // ;3
+            BlockState state = dest.getBlockState(mut.set(packed));
+            return (byte)((state.isSolid() ? 1 : 0) | (state.getCollisionShape(dest, mut).isEmpty() ? 2 : 0) | (state.liquid() ? 4 : 0));
+        };
+
+        int floors = 0;
+        if(cache.computeIfAbsent(pos.below().asLong(), check) != 1) return false;
+        for(BlockPos b : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, -1, 1))){
+            if(cache.computeIfAbsent(b.asLong(), check) == 1) floors++;
+        }
+        if(floors < 3) return false;
+        for(BlockPos b : BlockPos.betweenClosed(pos.offset(-1, 0, -1), pos.offset(1, 4, 1))){
+            if(cache.computeIfAbsent(b.asLong(), check) != 2) return false;
+        }
         return true;
     }
 
     private DimensionTransition getDestinationAt(ServerLevel dest, BlockPos pos, Entity entity, BygonePortalEntity portal, boolean platform){
         if(platform){
             if(!dest.getBlockState(pos).isAir() || !dest.getBlockState(pos.above()).isAir())
-                for(BlockPos b : BlockPos.betweenClosed(pos.offset(-1, 0, -1), pos.offset(1, 4, 1)))
+                for(BlockPos b : BlockPos.betweenClosed(pos.offset(-2, 0, -2), pos.offset(2, 4, 2)))
                     dest.setBlockAndUpdate(b, Blocks.AIR.defaultBlockState());
             if(!dest.getBlockState(pos.below()).isSolid())
                 for(BlockPos b : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, -1, 1)))
@@ -210,12 +233,21 @@ public class BygonePortalEntity extends Entity implements Portal {
         }
         if(portal == null){
             portal = new BygonePortalEntity(BGEntityTypes.BYGONE_PORTAL.get(), dest);
-            portal.moveTo(pos.getBottomCenter().add(0, 1, 0));
-            portal.setExpiry(this.getExpiry());
+            portal.moveTo(pos.getBottomCenter().add(0, 1.5, 0));
             dest.addFreshEntity(portal);
+            portal.setExpiry(this.getExpiry());
         }
         portal.setState(State.ACTIVE);
-        Vec3 landing = BlockPos.findClosestMatch(pos, 2, 1, b -> !b.equals(pos) && isValidDestination(dest, b)).orElse(pos).getBottomCenter();
+        portal.setPortalCooldown(20); // ig? see the last part of tick()V
+
+        Vec3 landing = null;
+        for(BlockPos b : BlockPos.withinManhattan(pos, 2, 1, 2)){
+            if(b.equals(pos)) continue; // the portal will be blocking that spot!
+            Vec3 candidate = DismountHelper.findSafeDismountLocation(entity.getType(), dest, b, true);
+            if(candidate != null){ landing = candidate; break; } // ideally find a safe spot
+            else landing = DismountHelper.findSafeDismountLocation(entity.getType(), dest, b, false);
+        }
+        if(landing == null) landing = pos.getBottomCenter();
         landing = landing.add(landing.subtract(portal.position()).multiply(1, 0, 1).normalize().scale(0.25)); // portal box obstructs a lil too much
         return new DimensionTransition(dest, landing, Vec3.ZERO, entity.getYRot(), entity.getXRot(), false, DimensionTransition.PLAY_PORTAL_SOUND.then(DimensionTransition.PLACE_PORTAL_TICKET));
     }
