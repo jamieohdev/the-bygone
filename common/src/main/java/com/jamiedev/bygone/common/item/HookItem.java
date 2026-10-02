@@ -3,11 +3,13 @@ package com.jamiedev.bygone.common.item;
 import com.jamiedev.bygone.common.entity.projectile.HookEntity;
 import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
@@ -20,145 +22,69 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
 public class HookItem extends Item {
-    static boolean isGrappling;
-
     public HookItem(Properties settings) {
         super(settings);
     }
 
-    public static void retrieve(Level level, Player player, HookEntity hook) {
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), BGSoundEvents.HOOK_RETRIEVE_ADDITIONS_EVENT, SoundSource.NEUTRAL, 1.0F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
-        hook.startRetracting();
-        if (!level.isClientSide()) {
-            ((PlayerWithHook) player).bygone$setHook(null);
-            isGrappling = false;
-        }
-
-        player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
-    }
-
-    // Based on how TridentItem launches the player when enchanted with Riptide
-    public static void grapple(HookEntity hook, Player player) {
-        float xStep = (float) (hook.getX() - player.getX());
-        float yStep = (float) (hook.getY() - player.getY());
-        float zStep = (float) (hook.getZ() - player.getZ());
-        float distance = Mth.sqrt(xStep * xStep + yStep * yStep + zStep * zStep);
-        int speedLevel = 1;
-        float customScale = 0.1F;
-        float speed = 3.0F * ((1.0F + (float) speedLevel) / 4.0F) * customScale;
-        if (distance <= 0.0F) {
-            return;
-        }
-
-        xStep *= speed / distance;
-        yStep *= speed / distance;
-        zStep *= speed / distance;
-        player.push(xStep, yStep, zStep);
-        isGrappling = true;
-        // Bump the player up by 1.2 blocks if they're on the ground or horizontally colliding with a block
-        if (player.onGround() || player.horizontalCollision) {
-            player.move(MoverType.SELF, new Vec3(0.0D, 0.1F, 0.0D));
-        }
-        Vec3 vec3d = player.getDeltaMovement();
-
-        if (!player.onGround() && vec3d.y < 0.0) {
-            player.setDeltaMovement(vec3d.multiply(1.0, 0.6, 1.0));
-            player.fallDistance--;
-        }
-
-    }
-
-    public static float getPullProgress(int useTicks) {
-        float pullProgress = (float) useTicks / 20.0F;
-        pullProgress = (pullProgress * pullProgress + pullProgress * 2.0F) / 3.0F;
-        if (pullProgress > 1.0F) {
-            pullProgress = 1.0F;
-        }
-
-        return pullProgress;
-    }
-
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
-        PlayerWithHook hookuser = (PlayerWithHook) user;
-        ItemStack itemStack = user.getItemInHand(hand);
-        HookEntity hook = hookuser.bygone$getHook();
-        boolean secondaryUse = user.isSecondaryUseActive();
-        boolean used = false;
-        if (!secondaryUse) {
-            user.startUsingItem(hand);
-            used = true;
-            user.awardStat(Stats.ITEM_USED.get(this));
-            user.gameEvent(GameEvent.ITEM_INTERACT_START);
-        }
-        if (hook != null && secondaryUse) {
-            if (hook.isInWall() && hook.distanceTo(user) > 2.0F) {
-                user.startUsingItem(hand);
-            } else {
-                retrieve(world, user, hook);
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        HookEntity hook = ((PlayerWithHook)player).bygone$getHook();
+        ItemStack stack = player.getItemInHand(hand);
+        if(hook == null || hook.isRetracting()){
+            if(!level.isClientSide){
+                stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+                if(stack.isEmpty()) return InteractionResultHolder.consume(stack);
+                hook = new HookEntity(level, player);
+                hook.shootFromRotation(player, player.getXRot(), player.getYRot(), 0F, 10F, 0F);
+                if(level.addFreshEntity(hook)) ((PlayerWithHook)player).bygone$setHook(hook);
+                level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1F, 1F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + 0.33F);
             }
-            used = true;
-            user.awardStat(Stats.ITEM_USED.get(this));
-            user.gameEvent(GameEvent.ITEM_INTERACT_START);
-        }
-        user.awardStat(Stats.ITEM_USED.get(this));
-        user.gameEvent(GameEvent.ITEM_INTERACT_START);
-        return used ? InteractionResultHolder.consume(itemStack) : InteractionResultHolder.fail(itemStack);
+        } else if(hook.isAttached()){
+            player.startUsingItem(hand);
+            player.gameEvent(GameEvent.ITEM_INTERACT_START);
+        } else return InteractionResultHolder.fail(stack);
+        player.awardStat(Stats.ITEM_USED.get(this));
+        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
     }
 
     @Override
-    public void onUseTick(Level world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
+    public void onUseTick(Level level, LivingEntity user, ItemStack stack, int remainingUseTicks) {
         if (user instanceof Player player) {
             HookEntity hook = ((PlayerWithHook) player).bygone$getHook();
-            if (hook != null) {
-                if (hook.isInWall()) {
-                    if (remainingUseTicks % 5 == 0) {
-                        world.playSound(null, user.getX(), user.getY(), user.getZ(), BGSoundEvents.HOOK_RETRIEVE_ADDITIONS_EVENT, SoundSource.NEUTRAL, 1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-                    }
-
-                    if (!player.isShiftKeyDown() || world.isClientSide()) {
-                        grapple(hook, player);
-                    }
-                }
-
-
+            if (hook != null && hook.isAttached()) {
+                if (remainingUseTicks % 5 == 0) level.playSound(null, user.getX(), user.getY(), user.getZ(), BGSoundEvents.HOOK_RETRIEVE_ADDITIONS_EVENT, SoundSource.NEUTRAL, 1.0F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
+                if (!player.isShiftKeyDown()) hook.pull(0.07F);
             }
         }
     }
 
-    // Similar to a bow
     @Override
-    public void releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
-        if (user instanceof Player player) {
-            if (((PlayerWithHook) player).bygone$getHook() != null) return;
+    public void inventoryTick(ItemStack stack, Level level, Entity user, int slot, boolean selected){
+        if(!selected || !(user instanceof Player player)) return;
+        HookEntity hook = ((PlayerWithHook)player).bygone$getHook();
+        if(hook == null || hook.getEquilibrium() < 0 || hook.isRetracting()) return; // equilibrium set on impact
+        Vec3 vector = hook.position().subtract(player.position());
+        if(vector.lengthSqr() <= Mth.EPSILON) return;
 
-            int useTime = this.getUseDuration(stack, user) - remainingUseTicks;
-            if (useTime < 0) return;
-
-            float powerForTime = getPullProgress(useTime);
-            if (powerForTime >= 0.1D) {
-                if (!world.isClientSide) {
-                    stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(user.getUsedItemHand()));
-                    HookEntity hook = new HookEntity(world, player);
-                    this.shoot(user, hook, powerForTime * 15.0F);
-                    hook.bygone$syncOldPos();
-                    if (world.addFreshEntity(hook)) {
-                        ((PlayerWithHook) player).bygone$setHook(hook);
-                    }
-                    player.awardStat(Stats.ITEM_USED.get(this));
-                }
-                world.playSound(null, user.getX(), user.getY(), user.getZ(), BGSoundEvents.HOOK_THROW_ADDITIONS_EVENT, SoundSource.NEUTRAL, 1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-            }
+        // ... apparently player movement is handled on client. fall damage is server though! so. that's. something.
+        if(level.isClientSide){
+            // XXX: no fucking clue how to stop a player from getting kicked for flying :/
+            double rebound = vector.length() - hook.getEquilibrium();
+            if(rebound <= 0) return;
+            Vec3 direction = vector.normalize();
+            Vec3 tension = direction.scale(-0.5 * player.getDeltaMovement().dot(direction));
+            player.push(vector.normalize().scale(user.getGravity() * rebound).add(tension));
+            if(!player.onGround()) player.push(player.getDeltaMovement().multiply(0.075, 0, 0.075)); // counteract air friction
         }
-    }
-
-    protected void shoot(LivingEntity shooter, Projectile projectile, float speed) {
-        projectile.shootFromRotation(shooter, shooter.getXRot(), shooter.getYRot(), 0.0F, speed, 0.0F);
+        else{
+            player.currentImpulseImpactPos = player.position();
+            player.setIgnoreFallDamageFromCurrentImpulse(true);
+        }
     }
 
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity user) {
-        return 72000;
+        return Integer.MAX_VALUE;
     }
 
     @Override
