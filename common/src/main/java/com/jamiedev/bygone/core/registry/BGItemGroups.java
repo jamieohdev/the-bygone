@@ -58,6 +58,7 @@ public class BGItemGroups {
                         output.accept(BGItems.AMOEBA_SPAWN_EGG.get());
                         output.accept(BGItems.AQUIFAWN_SPAWN_EGG.get());
                         output.accept(BGItems.BIG_BEAK_SPAWN_EGG.get());
+                        output.accept(BGBlocks.BIG_BEAK_EGG.get());
                         output.accept(BGItems.COELACANTH_SPAWN_EGG.get());
                         output.accept(BGItems.COPPERBUG_SPAWN_EGG.get());
                         output.accept(BGItems.FUNGALPARENT_SPAWN_EGG.get());
@@ -92,8 +93,6 @@ public class BGItemGroups {
 
                         output.accept(BGItems.BEAK_POTTERY_SHERD.get());
                         output.accept(BGItems.MURKY_POTTERY_SHERD.get());
-                        output.accept(BGItems.WALLOW_SHAWL_SCRAP.get());
-                        output.accept(BGItems.WALLOW_SHAWL.get());
                         output.accept(BGItems.VERDIGRIS_SCRAP.get());
                         output.accept(BGItems.VERDIGRIS_INGOT.get());
                         output.accept(BGBlocks.VERDIGRIS_SCRAP_BLOCK.get());

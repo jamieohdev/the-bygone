@@ -1,7 +1,7 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "bygone:item/haunting_clock/0"
+		"layer0": "bygone:item/lithometer/0"
 	},
 	"overrides": [
 		{ "predicate": { "bygone:haunting_time": 0.00000 }, "model": "bygone:item/haunting_clock" },

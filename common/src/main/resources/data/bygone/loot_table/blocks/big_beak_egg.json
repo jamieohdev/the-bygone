@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "bygone:big_beak_egg",
+          "functions": [
+            {
+              "function": "minecraft:copy_state",
+              "block": "bygone:big_beak_egg",
+              "properties": [
+                "variant"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

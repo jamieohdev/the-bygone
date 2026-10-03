@@ -2,7 +2,9 @@ package com.jamiedev.bygone.common.item;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.entity.BygonePortalEntity;
+import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
+import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -11,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -35,8 +37,6 @@ public class PortablePortalItem extends Item {
 
     public BlockPos checkSpace(Level level, BlockPos pos) {
         if (hasSpace(level, pos)) return pos;
-        //if (hasSpace(level, pos.above())) return pos.above();
-        //if (hasSpace(level, pos.below())) return pos.below();
         return null;
     }
 
@@ -52,6 +52,14 @@ public class PortablePortalItem extends Item {
             }
         }
         return true;
+    }
+
+    /**
+     * Return whether this item is repairable in an anvil.
+     */
+    @Override
+    public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
+        return repair.is(BGBlocks.PRISTINE_VERDIGRIS_COG.get().asItem());
     }
 
     @Override
@@ -124,18 +132,8 @@ public class PortablePortalItem extends Item {
     }
 
     public boolean canBeUsed(Level level) {
-        ResourceKey<Level> bygone = ResourceKey.create(Registries.DIMENSION, ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID,"bygone"));
-        ResourceKey<Level> resourcekey = level.dimension() == bygone ? Level.OVERWORLD : bygone;
-        MinecraftServer server = level.getServer();
-        if (server == null) return false;
-
-        ServerLevel serverlevel = server.getLevel(resourcekey);
-
-        if (serverlevel == null) {
-            return false;
-        } else {
-            return serverlevel.dimension() == bygone || serverlevel.dimension() == Level.OVERWORLD;
-        }
+        ResourceKey<Level> bygone = ResourceKey.create(Registries.DIMENSION, Bygone.id("bygone"));
+        return level.dimension().equals(bygone) || level.dimension() == Level.OVERWORLD;
     }
 
     @Override

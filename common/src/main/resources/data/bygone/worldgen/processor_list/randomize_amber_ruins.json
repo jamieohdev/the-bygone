@@ -1,0 +1,36 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:rule",
+
+      "rules": [
+        {
+          "input_predicate": {
+            "block": "bygone:amber_sand",
+            "probability": 0.25,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "bygone:amber_sandstone"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "bygone:glowing_amber",
+            "probability": 0.25,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "bygone:amber_sand"
+          }
+        }
+      ]
+    }
+  ]
+}

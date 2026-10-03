@@ -113,6 +113,7 @@
   "item.bygone.amoeba_spawn_egg": "Amoeba Spawn Egg",
   "item.bygone.aquifawn_spawn_egg": "Aquifawn Spawn Egg",
   "item.bygone.big_beak_spawn_egg": "Big Beak Spawn Egg",
+  "block.bygone.big_beak_egg": "Big Beak Egg",
   "item.bygone.coelacanth_spawn_egg": "Coelacanth Spawn Egg",
   "item.bygone.copperbug_spawn_egg": "Copperbug Spawn Egg",
   "item.bygone.fungal_parent_spawn_egg": "Fungal Being Spawn Egg",
@@ -132,8 +133,6 @@
   "item.bygone.wisp_spawn_egg": "Whisp Spawn Egg",
   "item.bygone.wraith_spawn_egg": "Wraith Spawn Egg",
   "item.bygone.wallow_spawn_egg": "Wallow Spawn Egg",
-  "item.bygone.wallow_shawl_scrap": "Wallow Shawl Scrap",
-  "item.bygone.wallow_shawl": "Wallow Shawl",
   "item.bygone.arcane_core": "Arcane Core",
   "item.bygone.arcane_mechanism": "Arcane Mechanism",
   "item.bygone.verdigris_ingot": "Verdigris Ingot",
@@ -603,6 +602,7 @@
   "entity.bygone.ammonite": "Ammonite",
   "entity.bygone.aquifawn": "Aquifawn",
   "entity.bygone.big_beak": "Big Beak",
+  "entity.bygone.bygone_portal": "Arcane Mechanism",
   "entity.bygone.coelacanth": "Coelacanth",
   "entity.bygone.copperbug": "Copperbug",
   "entity.bygone.duck": "Da Duck!",
@@ -611,6 +611,7 @@
   "entity.bygone.glare": "Glare",
   "entity.bygone.lithy": "Lithy",
   "entity.bygone.haunt": "Haunt",
+  "entity.bygone.hook": "Ancient Hook",
   "entity.bygone.hydropus": "Hydropus",
   "entity.bygone.mooboo": "Mooboo",
   "entity.bygone.murkling": "Murkling",
@@ -727,6 +728,9 @@
   "painting.bygone.hanging.author": "Iri Dark",
   "painting.bygone.shelves.title": "Shelves",
   "painting.bygone.shelves.author": "Iri Dark",
+  "painting.bygone.blubs.title": "Blubs",
+  "painting.bygone.blubs.author": "Dislight",
+
 
   "filled_map.bygone_portal": "Bygone Portal Map",
 

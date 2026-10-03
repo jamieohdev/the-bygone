@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.entity.projectile;
 
+import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGItems;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
@@ -18,148 +19,114 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class HookEntity extends AbstractArrow {
-
     private static final EntityDataAccessor<Boolean> DATA_RETRACTING =
             SynchedEntityData.defineId(HookEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Float> DATA_CHAIN_PROGRESS =
+    private static final EntityDataAccessor<Float> DATA_INITIAL_EQUILIBRIUM =
             SynchedEntityData.defineId(HookEntity.class, EntityDataSerializers.FLOAT);
 
     private static final float CHAIN_SPEED = 0.1F;
     private static final float REVERSE_SPEED = 0.055F;
 
-    public float prevChainProgress = 0F;
+    // all of these are only relevant clientside
+    private float chainProgress = 0F;
+    private float prevChainProgress = 0F;
+    private float equilibrium = -1F;
+    private float pullspeed = 0F;
+    private boolean pulledThisTick = false;
 
-    private final SoundEvent soundEvent;
-    FishingHook ref;
-    @javax.annotation.Nullable
-    private BlockState lastState;
-
-    public HookEntity(EntityType<? extends HookEntity> entityType, Level pLevel) {
-        super(entityType, pLevel);
+    public HookEntity(EntityType<? extends HookEntity> entityType, Level level) {
+        super(entityType, level);
         this.noCulling = true;
-        this.soundEvent = this.getDefaultHitGroundSoundEvent();
     }
-
     public HookEntity(Level level, Player player) {
-        super(BGEntityTypes.HOOK.get(), level);
-        setOwner(player);
-        setPosRaw(player.getX(), player.getEyeY() - 0.1, player.getZ());
-        this.setOldPosAndRot();
-        this.soundEvent = this.getDefaultHitGroundSoundEvent();
+        this(BGEntityTypes.HOOK.get(), level);
+        this.setOwner(player);
+        this.setPos(player.getX(), player.getEyeY() - 0.1F, player.getZ());
     }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_RETRACTING, false);
-        builder.define(DATA_CHAIN_PROGRESS, 0F);
+        builder.define(DATA_INITIAL_EQUILIBRIUM, -1F);
     }
 
-    public boolean isRetracting() {
-        return this.entityData.get(DATA_RETRACTING);
-    }
+    public boolean isRetracting(){ return this.entityData.get(DATA_RETRACTING); }
+    public void startRetracting(){ this.entityData.set(DATA_RETRACTING, true); }
+    public float getInitialEquilibrium(){ return this.entityData.get(DATA_INITIAL_EQUILIBRIUM); }
+    public void setInitialEquilibrium(float dist){ this.entityData.set(DATA_INITIAL_EQUILIBRIUM, dist); }
 
-    public void startRetracting() {
-        this.entityData.set(DATA_RETRACTING, true);
-    }
-
-    public float getChainProgressFloat() {
-        return this.entityData.get(DATA_CHAIN_PROGRESS);
-    }
-
-    public void setChainProgressFloat(float value) {
-        this.entityData.set(DATA_CHAIN_PROGRESS, value);
-    }
-
-    public float getChainProgress(float partialTick) {
-        return Mth.lerp(partialTick, prevChainProgress, getChainProgressFloat());
-    }
-
-    public void bygone$syncOldPos() {
-        this.setOldPosAndRot();
-    }
-
-    @Override
-    protected ItemStack getDefaultPickupItem() {
-        return BGItems.ANCIENT_HOOK.get().getDefaultInstance();
-    }
-
-    @Override
-    public void setOwner(@Nullable Entity entity) {
-        super.setOwner(entity);
-        this.pickup = Pickup.DISALLOWED;
-    }
+    public boolean isAttached(){ return this.inGround; }
+    public float getEquilibrium(){ return this.equilibrium < 0F ? this.getInitialEquilibrium() : this.equilibrium; }
+    public float getChainProgress(float partialTick){ return Mth.lerp(partialTick, prevChainProgress, chainProgress); }
 
     @Nullable
     public Player getPlayerOwner() {
         Entity entity = this.getOwner();
         return entity instanceof Player ? (Player) entity : null;
     }
+    public void pull(float accel){
+        if(this.getEquilibrium() < 0F) return;
+        this.equilibrium = Math.max(this.getEquilibrium() - (this.pullspeed += accel), 0F);
+        this.pulledThisTick = true;
+    }
+
+
 
     @Override
     public void tick() {
         super.tick();
 
-        prevChainProgress = getChainProgressFloat();
+        this.prevChainProgress = this.chainProgress;
+        if (this.isRetracting()) this.chainProgress = Math.max(0F, this.chainProgress - REVERSE_SPEED);
+        else this.chainProgress = Math.min(1F, this.chainProgress + CHAIN_SPEED);
 
-        if (this.isRetracting()) {
-            float current = getChainProgressFloat();
-            setChainProgressFloat(Math.max(0F, current - REVERSE_SPEED));
+        if(!this.pulledThisTick) this.pullspeed = 0F;
+        else this.pulledThisTick = false;
 
-            if (!this.level().isClientSide && getChainProgressFloat() <= 0F) {
+        if(!this.level().isClientSide){
+            Player player = this.getPlayerOwner();
+            if(this.chainProgress == 0){
+                PlayerWithHook hooked = (PlayerWithHook)player;
+                if(player != null && hooked.bygone$getHook() == this) hooked.bygone$setHook(null);
                 this.discard();
+                return;
             }
-            return;
-        }
 
-        if (getChainProgressFloat() < 1F) {
-            setChainProgressFloat(Math.min(1F, getChainProgressFloat() + CHAIN_SPEED));
-        }
+            if(player != null && this.isAttached() && this.getInitialEquilibrium() < 0) this.setInitialEquilibrium(this.distanceTo(player));
 
-        Player player = this.getPlayerOwner();
-        if (!this.level().isClientSide) {
-            boolean inFluid = !this.level().getFluidState(
-                    new BlockPos(this.getBlockX(), this.getBlockY(), this.getBlockZ())).isEmpty();
-
-            if (player == null || this.shouldRetract(player) || inFluid || player.isShiftKeyDown()) {
-                this.startRetracting();
+            if(!this.isRetracting()){
+                if(player == null || this.shouldRetract(player) || !this.level().getFluidState(this.blockPosition()).isEmpty()) this.startRetracting();
             }
         }
     }
 
     private boolean shouldRetract(Player player) {
-        return player.isRemoved() || !player.isAlive() || !player.isHolding(BGItems.ANCIENT_HOOK.get()) || this.distanceTo(player) > 64F;
+        return player.isRemoved()
+            || !player.isAlive()
+            || player.isSpectator()
+            || !player.isHolding(BGItems.ANCIENT_HOOK.get())
+            || ((PlayerWithHook)player).bygone$getHook() != this
+            || this.distanceTo(player) > 92F
+            || player.isShiftKeyDown();
     }
 
-    @Override
-    public boolean canUsePortal(boolean allowVehicles) {
-        return false;
-    }
+    @Override public boolean canUsePortal(boolean allowVehicles){ return false; }
+    @Override protected @NotNull SoundEvent getDefaultHitGroundSoundEvent(){ return BGSoundEvents.HOOK_HIT_ADDITIONS_EVENT; }
+    @Override protected ItemStack getDefaultPickupItem(){ return BGItems.ANCIENT_HOOK.get().getDefaultInstance(); }
+    @Override protected void onHitEntity(EntityHitResult result){ this.discard(); }
 
     @Override
-    protected @NotNull SoundEvent getDefaultHitGroundSoundEvent() {
-        return BGSoundEvents.HOOK_HIT_ADDITIONS_EVENT;
-    }
-
-    @Override
-    public boolean isInWall() {
-        if (this.noPhysics) {
-            return false;
-        } else {
-            float f = this.getDimensions(this.getPose()).width() * 0.8F;
-            AABB box = AABB.ofSize(this.getEyePosition(), f, 1.0E-6, f);
-            // this.playSound(BGSoundEvents.HOOK_HIT_ADDITIONS_EVENT, 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
-            return BlockPos.betweenClosedStream(box).anyMatch((pos) -> {
-                BlockState blockState = this.level().getBlockState(pos);
-                return !blockState.isAir() && Shapes.joinIsNotEmpty(blockState.getCollisionShape(this.level(), pos)
-                        .move(pos.getX(), pos.getY(), pos.getZ()), Shapes.create(box), BooleanOp.AND);
-            });
-        }
+    public void setOwner(@Nullable Entity entity) {
+        super.setOwner(entity); // sets pickupability, so we gotta reset it
+        this.pickup = Pickup.DISALLOWED;
     }
 }
