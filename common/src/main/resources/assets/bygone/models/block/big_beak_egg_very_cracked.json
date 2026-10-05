@@ -1,0 +1,11 @@
+{
+  "parent": "bygone:block/big_beak_egg",
+  "textures": {
+    "bottom": "bygone:block/big_beak_egg_very_cracked_bottom",
+    "east": "bygone:block/big_beak_egg_very_cracked_east",
+    "north": "bygone:block/big_beak_egg_very_cracked_north",
+    "south": "bygone:block/big_beak_egg_very_cracked_south",
+    "top": "bygone:block/big_beak_egg_very_cracked_top",
+    "west": "bygone:block/big_beak_egg_very_cracked_west"
+  }
+}

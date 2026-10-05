@@ -1,13 +1,13 @@
 {
   "variants": {
     "hatch=0": {
-      "model": "minecraft:block/sniffer_egg_not_cracked"
+      "model": "bygone:block/big_beak_egg_not_cracked"
     },
     "hatch=1": {
-      "model": "minecraft:block/sniffer_egg_slightly_cracked"
+      "model": "bygone:block/big_beak_egg_slightly_cracked"
     },
     "hatch=2": {
-      "model": "minecraft:block/sniffer_egg_very_cracked"
+      "model": "bygone:block/big_beak_egg_very_cracked"
     }
   }
 }

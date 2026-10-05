@@ -182,6 +182,7 @@ public class BigBeakEntity extends AbstractHorse implements VariantHolder<BigBea
         return serverWorldAccess.getBlockState(blockPos.below()).is(Blocks.MOSS_BLOCK)
                 || serverWorldAccess.getBlockState(blockPos).is(Blocks.MOSS_CARPET)
                 || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.AMBER_SAND.get())
+                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.AMBER_SANDSTONE.get())
                 || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.MOSSY_CLAYSTONE.get());
     }
 

@@ -2030,7 +2030,7 @@ public class BGBlocks {
                                     1.5F,
                                     6.0F
                             )
-                            .lightLevel((state) -> 5))
+                            .lightLevel((state) -> 15))
     );
     public static final Supplier<Block> COBBLED_AMBER = registerBlock(
             "cobbled_amber", () -> new Block(

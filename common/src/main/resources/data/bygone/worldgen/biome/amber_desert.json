@@ -82,12 +82,6 @@
         "maxCount": 4,
         "minCount": 2,
         "weight": 15
-      },
-      {
-        "type": "minecraft:husk",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 80
       }
     ],
     "underground_water_creature": [],

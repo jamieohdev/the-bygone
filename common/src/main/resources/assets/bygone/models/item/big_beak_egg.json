@@ -1,3 +1,6 @@
 {
-  "parent": "minecraft:item/sniffer_egg"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bygone:item/big_beak_egg"
+  }
 }
