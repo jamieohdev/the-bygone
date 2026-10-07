@@ -24,9 +24,7 @@ import java.util.function.Supplier;
 
 import static net.minecraft.world.item.Items.BUCKET;
 
-
 public class BGItems {
-
     public static final Supplier<Item> LITHOPLASMIC_POWDER = registerItem(
             "lithoplasmic_powder",
             () -> new ItemNameBlockItem(BGBlocks.LITHOPLASMIC_POWDER.get(), new Item.Properties())
@@ -48,7 +46,6 @@ public class BGItems {
             "seaglass_prism",
             () -> new SeaglassPrismItem(new Item.Properties())
     );
-
 
     public static final Supplier<Item> BEAK_POTTERY_SHERD = registerItem(
             "beak_pottery_sherd",
@@ -295,6 +292,12 @@ public class BGItems {
             "amoeba_spawn_egg",
             () -> new SpawnEggItem(BGEntityTypes.AMOEBA.get(), 0x6C9BB9, 0x8F8763, new Item.Properties())
     );
+
+    public static final Supplier<Item> SKIPPER_SPAWN_EGG = registerItem(
+            "skipper_spawn_egg",
+            () -> new SpawnEggItem(BGEntityTypes.SKIPPER.get(), 0x246D82, 0x9C482E, new Item.Properties())
+    );
+
     public static final Supplier<Item> AQUIFAWN_SPAWN_EGG = registerItem(
             "aquifawn_spawn_egg",
             () -> new SpawnEggItem(BGEntityTypes.AQUIFAWN.get(), 0x0D2B50, 0x4E6F99, new Item.Properties())
@@ -411,12 +414,10 @@ public class BGItems {
             "amoeba_gel",
             () -> new Item(new Item.Properties().fireResistant())
     );
+
     public static final Supplier<Item> AMOEBA_GEL_ON_A_STICK = registerItem(
-            (String) "amoeba_gel_on_a_stick", () ->
-                    new FoodOnAStickItem(
-                            (
-                                    new Item.Properties()).durability(25), BGEntityTypes.AQUIFAWN.get(), 7
-                    )
+            "amoeba_gel_on_a_stick",
+            () -> new AmoebaGelOnAStickItem(new Item.Properties().durability(25))
     );
 
     public static final Supplier<Item> COELECANTH_BUCKET = registerItem(
@@ -614,7 +615,6 @@ public class BGItems {
                     )
     );
 
-
     public static FoodProperties AMARANTH_LOAF_COMP = (new FoodProperties.Builder()).nutrition(0)
             .saturationModifier(0F)
             .effect(new MobEffectInstance(MobEffects.HEAL, 1, 0), 1.0F)
@@ -669,9 +669,7 @@ public class BGItems {
 
     public static void addItemsToItemGroup() {
 
-
     }
-
 
     public static void init() {
         addItemsToItemGroup();

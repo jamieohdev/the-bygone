@@ -64,7 +64,6 @@ public class Bygone {
         strippables.put(BGBlocks.SABLE_LOG.get(), BGBlocks.STRIPPED_SABLE_LOG.get());
         strippables.put(BGBlocks.SABLE_WOOD.get(), BGBlocks.STRIPPED_SABLE_WOOD.get());
 
-
         AxeItemAccess.setStripables(strippables);
     }
 
@@ -105,6 +104,7 @@ public class Bygone {
         consumer.accept(BGEntityTypes.WHISPER.get(), WhisperEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.SCARE.get(), ScareEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.AMOEBA.get(), AmoebaEntity.createAttributes().build());
+        consumer.accept(BGEntityTypes.SKIPPER.get(), SkipperEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.PRIMORDIAL_FISH.get(), PrimordialFishEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.AQUIFAWN.get(), AquifawnEntity.createAttributes().build());
         consumer.accept(BGEntityTypes.MURKLING.get(), MurklingEntity.createAttributes().build());
@@ -115,14 +115,20 @@ public class Bygone {
     @SuppressWarnings("unchecked")
     public static <T extends Mob> void registerSpawnPlacements(Consumer4<EntityType<T>, SpawnPlacementType, Heightmap.Types, SpawnPlacements.SpawnPredicate<T>> consumer) {
         consumer.accept(
+                (EntityType<T>) BGEntityTypes.SKIPPER.get(),
+                SkipperEntity.ON_WATER_SURFACE,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                SkipperEntity::canSpawn
+        );
+        consumer.accept(
                 (EntityType<T>) BGEntityTypes.SCUTTLE.get(),
                 SpawnPlacementTypes.IN_WATER,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				ScuttleEntity::checkSurfaceWaterAnimalSpawnRule
         );
         consumer.accept(
-                (EntityType<T>) BGEntityTypes.AQUIFAWN.get(), 
-                SpawnPlacementTypes.IN_WATER, 
+                (EntityType<T>) BGEntityTypes.AQUIFAWN.get(),
+                SpawnPlacementTypes.IN_WATER,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				ScuttleEntity::checkSurfaceWaterAnimalSpawnRule
         );
@@ -323,7 +329,6 @@ public class Bygone {
 
         return false;
     }
-
 
     public static Stream<Block> getKnownBlocks() {
         return getKnown(BuiltInRegistries.BLOCK);

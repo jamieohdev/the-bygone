@@ -13,7 +13,6 @@ import net.minecraft.world.phys.Vec3;
 import java.util.function.Supplier;
 
 public class BGEntityTypes {
-
     public static final Supplier<EntityType<BygonePortalEntity>> BYGONE_PORTAL = registerEntityType(
             "bygone_portal", () ->
                     EntityType.Builder.<BygonePortalEntity>of(BygonePortalEntity::new, MobCategory.MISC)
@@ -87,6 +86,15 @@ public class BGEntityTypes {
                             .sized(0.8F, 0.2F).build("")
     );
 
+    public static final Supplier<EntityType<SkipperEntity>> SKIPPER = registerEntityType(
+            "skipper", () ->
+                    EntityType.Builder.of(SkipperEntity::new, MobCategory.CREATURE)
+                            .sized(1.8F, 1.3F)
+                            .eyeHeight(0.85F)
+                            .passengerAttachments(new Vec3(0.0, 11.5 / 16.0 + 0.001, 3.0 / 16.0))
+                            .clientTrackingRange(10)
+                            .build("")
+    );
 
     public static final Supplier<EntityType<AquifawnEntity>> AQUIFAWN = registerEntityType(
             "aquifawn", () ->
@@ -312,7 +320,6 @@ public class BGEntityTypes {
             "glare",
             () -> EntityType.Builder.of(GlareEntity::new, MobCategory.CREATURE).sized(0.6F, 0.8F).build("")
     );
-
 
     public static final Supplier<EntityType<PestEntity>> PEST = registerEntityType(
             "pest",

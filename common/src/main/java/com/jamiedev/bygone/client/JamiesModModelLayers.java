@@ -1,10 +1,15 @@
 package com.jamiedev.bygone.client;
 
-
 import com.jamiedev.bygone.Bygone;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 
 public class JamiesModModelLayers {
+    public static final ModelLayerLocation SKIPPER =
+            new ModelLayerLocation(Bygone.id("skipper"), "main");
+
+    public static final ModelLayerLocation SKIPPER_SADDLE =
+            new ModelLayerLocation(Bygone.id("skipper"), "saddle");
+
     public static final ModelLayerLocation DUCKIE =
             new ModelLayerLocation(Bygone.id("duckie"), "main");
 
@@ -106,7 +111,6 @@ public class JamiesModModelLayers {
             Bygone.id("primordial_fish_large"),
             "pattern"
     );
-
 
     public static final ModelLayerLocation WALLOW =
             new ModelLayerLocation(Bygone.id("wallow"), "main");

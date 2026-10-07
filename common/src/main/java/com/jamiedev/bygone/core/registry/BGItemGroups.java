@@ -12,7 +12,6 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import java.util.function.Supplier;
 
 public class BGItemGroups {
-
     public static final Supplier<CreativeModeTab> EXAMPLE_TAB = registerTab(
             "test", () -> CreativeModeTab.builder(null, -1)
                     .icon(() -> new ItemStack(BGBlocks.PLASMIC_LITHINE_ORE.get()))
@@ -56,6 +55,7 @@ public class BGItemGroups {
                         output.accept(BGBlocks.SHELLSTONE_DOGU.get());
                         output.accept(BGBlocks.GUMBO_POT.get());
                         output.accept(BGItems.AMOEBA_SPAWN_EGG.get());
+                        output.accept(BGItems.SKIPPER_SPAWN_EGG.get());
                         output.accept(BGItems.AQUIFAWN_SPAWN_EGG.get());
                         output.accept(BGItems.BIG_BEAK_SPAWN_EGG.get());
                         output.accept(BGItems.COELACANTH_SPAWN_EGG.get());
@@ -105,7 +105,6 @@ public class BGItemGroups {
                         output.accept(BGBlocks.TARNISHED_VERDIGRIS_COG.get());
                         output.accept(BGBlocks.PRISTINE_VERDIGRIS_COG.get());
 
-
                         output.accept(BGBlocks.BYSTONE_GOLD_ORE.get());
                         output.accept(BGBlocks.BYSLATE_GOLD_ORE.get());
                         output.accept(BGBlocks.BYSTONE_IRON_ORE.get());
@@ -131,7 +130,6 @@ public class BGItemGroups {
                         output.accept(BGBlocks.POLISHED_BYSTONE_SHINGLES.get());
                         output.accept(BGBlocks.CHISELED_POLISHED_BYSTONE.get());
 
-
                         output.accept(BGBlocks.BYSLATE.get());
                         output.accept(BGBlocks.COBBLED_BYSLATE.get());
                         output.accept(BGBlocks.COBBLED_BYSLATE_STAIRS.get());
@@ -149,8 +147,6 @@ public class BGItemGroups {
                         output.accept(BGBlocks.CHISELED_POLISHED_BYSLATE.get());
 
                         output.accept(BGBlocks.CLOUD.get());
-
-                        // Start of the Ancient Forests unique Blocks
 
                         output.accept(BGBlocks.SHORT_GRASS.get());
 
@@ -211,9 +207,6 @@ public class BGItemGroups {
                         output.accept(BGBlocks.ALPHA_MOSS_CARPET.get());
                         output.accept(BGBlocks.ALPHA_MOSS_BLOCK.get());
                         output.accept(BGBlocks.ALPHA_MOSSY_CLAYSTONE.get());
-
-
-                        // Start of the Primordial Ocean blockset
 
                         output.accept(BGBlocks.BLUE_ALGAE.get());
                         output.accept(BGBlocks.CREOSOTE.get());
@@ -320,14 +313,10 @@ public class BGItemGroups {
                         output.accept(BGItems.THAMNOPORA_CORAL_FAN.get());
                         output.accept(BGBlocks.CHARNIA.get());
 
-
-                        // Start of Blemish biome blocksets!
                         output.accept(BGBlocks.BLEMISH.get());
                         output.accept(BGBlocks.BLEMISH_CATALYST.get());
                         output.accept(BGBlocks.BLEMISH_VEIN.get());
 
-
-                        // Start of Amber Desert blocksets!
                         output.accept(BGBlocks.AMBER_SAND.get());
                         output.accept(BGBlocks.AMBER_SANDSTONE.get());
                         output.accept(BGBlocks.AMBER_SANDSTONE_STAIRS.get());
@@ -349,11 +338,6 @@ public class BGItemGroups {
                         output.accept(BGBlocks.AMBERSTONE.get());
                         output.accept(BGBlocks.COBBLED_AMBERSTONE.get());
                         output.accept(BGBlocks.POINTED_AMBER.get());
-
-                        // Farming / Agriculture blocksets
-
-
-                        // Shelf Hollows blocksets
 
                         output.accept(BGBlocks.PROTOTAXITE_STEM.get());
                         output.accept(BGBlocks.SHELF_MYCELIUM.get());

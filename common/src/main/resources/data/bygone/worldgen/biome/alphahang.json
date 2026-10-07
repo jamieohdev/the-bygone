@@ -75,6 +75,12 @@
     "axolotls": [],
     "creature": [
       {
+        "type": "bygone:skipper",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 8
+      },
+      {
         "type": "bygone:glare",
         "maxCount": 5,
         "minCount": 2,

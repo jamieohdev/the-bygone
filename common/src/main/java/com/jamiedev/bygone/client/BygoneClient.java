@@ -210,6 +210,7 @@ public class BygoneClient {
        // BlockEntityRenderers.register(BGBlockEntities.BYGONE_PORTAL.get(), BygonePortalRenderer::new);
 
         EntityRenderers.register(BGEntityTypes.AMOEBA.get(), AmoebaRenderer::new);
+        EntityRenderers.register(BGEntityTypes.SKIPPER.get(), SkipperRenderer::new);
         EntityRenderers.register(BGEntityTypes.AQUIFAWN.get(), AquifawnRenderer::new);
         EntityRenderers.register(BGEntityTypes.GLARE.get(), GlareRenderer::new);
         EntityRenderers.register(BGEntityTypes.COELACANTH.get(), CoelacanthRenderer::new);
@@ -277,6 +278,8 @@ public class BygoneClient {
         consumer.accept(JamiesModModelLayers.WHISPER, WhisperModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.SCARE, ScareModel::getTexturedModelData);
         consumer.accept(JamiesModModelLayers.AMOEBA, AmoebaModel::getTexturedModelData);
+        consumer.accept(JamiesModModelLayers.SKIPPER, SkipperModel::createBodyLayer);
+        consumer.accept(JamiesModModelLayers.SKIPPER_SADDLE, SkipperModel::createSaddleLayer);
         consumer.accept(JamiesModModelLayers.AMOEBA_OUTER, AmoebaModel::createOuterLayer);
         consumer.accept(JamiesModModelLayers.MURKLING, MurklingModel::createBodyLayer);
         consumer.accept(JamiesModModelLayers.BYGONE_PORTAL, ArcaneMechanismModel::createBodyLayer);
