@@ -1,3 +1,4 @@
 {
-  "values": ["bygone:bygone_portal"]
+  "values": ["bygone:bygone_portal",
+    "bygone:bygone_portal_bygone"]
 }

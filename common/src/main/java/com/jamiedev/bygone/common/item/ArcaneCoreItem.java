@@ -43,7 +43,7 @@ public class ArcaneCoreItem extends Item {
         Vec3 start = center.add(forward);
 
         Vec3 dir = Vec3.atCenterOf(pos).subtract(start).normalize();
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 63; i++) {
             Vec3 particlePos = start.add(dir.scale(i * 0.5F));
             serverLevel.sendParticles((ParticleOptions) BGParticleTypes.ARCANE_SYMBOL, particlePos.x, particlePos.y, particlePos.z, 1, 0, 0, 0, 0);
         }

@@ -15,7 +15,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.PortalProcessor;
-import net.minecraft.world.entity.player.Player;
 import org.joml.Quaternionf;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,45 +22,36 @@ public class PortalOverlay implements LayeredDraw.Layer {
     private static final ResourceLocation TEXTURE_VIGNETTE = ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "textures/gui/overlay/vignette.png");
     private static final ResourceLocation TEXTURE_PORTAL = ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "textures/gui/overlay/portal.png");
     private float alpha = 0f;
-    private boolean invert = false;
+    private boolean entering = false;
+    private int tick = 0;
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
-
         int screenWidth = guiGraphics.guiWidth();
         int screenHeight = guiGraphics.guiHeight();
 
         Minecraft mc = Minecraft.getInstance();
-        Player player = mc.player;
+        LocalPlayer player = mc.player;
+        if (mc.level == null || mc.player == null || mc.options.hideGui) return;
 
-        if (player == null) return;
-        boolean flag = false;
-
+        // XXX: bit of a bodge. ideally, we'd be going alongside vanilla's
+        // handling for setAsInsidePortalThisTick on client, but...
+        // that requires we use the nausea effect overlay.
+        // this is the easiest place to shove clearing it, sadly
         PortalProcessor processor = player.portalProcess;
-        if (processor != null && processor.isInsidePortalThisTick()) {
-            if (processor instanceof PortalProcessorAccessor accessor) {
-                if (!(accessor.getPortal() instanceof BygonePortalEntity)) return;
-            }
-            flag = true;
-            if (player instanceof LocalPlayer localPlayer)
-                localPlayer.spinningEffectIntensity = 0.0125F;
+        if(player.tickCount != tick){ // process SCP-2719ness once per tick, cause that's when it's set :p
+            tick = player.tickCount;
+            if (processor instanceof PortalProcessorAccessor portalProcessorAccessor && processor.isInsidePortalThisTick()
+                    && portalProcessorAccessor.getPortal() instanceof BygonePortalEntity) {
+                entering = true;
+                processor.setAsInsidePortalThisTick(false);
+            } else entering = false;
         }
 
-        if (flag) {
-            invert = false;
-        } else {
-            invert = true;
-        }
-
-        if ((!invert || alpha > 0)) {
-            if (mc.level == null || mc.player == null || mc.options.hideGui) return;
-
-            alpha = Mth.lerp(0.03f, alpha, 1);
-            if (invert) alpha = Mth.lerp(0.05f, alpha, 0);
-
-            if (alpha <= 0.37 && invert) alpha = alpha - 0.01f;
-
-            alpha = Math.clamp(alpha, 0, 1);
+        if (entering || alpha > 0) {
+            if(entering) alpha = alpha * 0.97F + 0.03F;
+            else alpha = (alpha - 0.06F) / 0.97F;
+            alpha = Math.clamp(alpha, 0F, 1F);
 
             int portalWidth = 128;
             int portalHeight = 128;
@@ -78,12 +68,12 @@ public class PortalOverlay implements LayeredDraw.Layer {
             int brX = (int) Mth.lerp(alpha, screenWidth + portalWidth, screenWidth);
             int brY = (int) Mth.lerp(alpha, screenHeight + portalHeight, screenHeight);
 
+
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
 
             guiGraphics.setColor(1f, 1f, 1f, alpha);
-            guiGraphics.blit(TEXTURE_VIGNETTE, 0, 0, 0, 0, screenWidth, screenHeight, screenWidth, screenHeight);
-
+            guiGraphics.blit(TEXTURE_VIGNETTE, 0, 0, screenWidth, screenHeight, 0, 0, 256, 256, 256, 256);
             guiGraphics.setColor(1f, 1f, 1f, 1f);
 
             guiGraphics.blit(TEXTURE_PORTAL, tlX, tlY, 0, 0, portalWidth, portalHeight, portalWidth, portalHeight);

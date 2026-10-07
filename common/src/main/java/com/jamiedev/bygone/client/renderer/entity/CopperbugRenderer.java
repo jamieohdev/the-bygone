@@ -4,6 +4,7 @@ import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.JamiesModModelLayers;
 import com.jamiedev.bygone.client.models.CopperbugModel;
 import com.jamiedev.bygone.common.entity.CopperbugEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
@@ -15,6 +16,13 @@ public class CopperbugRenderer extends MobRenderer<CopperbugEntity, CopperbugMod
 
     public CopperbugRenderer(EntityRendererProvider.Context context) {
         super(context, new CopperbugModel<>(context.bakeLayer(JamiesModModelLayers.COPPERBUG)), 0.3F);
+    }
+
+    @Override
+    protected void scale(CopperbugEntity copperbugEntity, PoseStack poseStack, float partialTick) {
+        if (copperbugEntity.isBaby()) {
+            poseStack.scale(0.67F, 0.67F, 0.67F);
+        }
     }
 
     protected float getLyingAngle(Silverfish silverfishEntity) {

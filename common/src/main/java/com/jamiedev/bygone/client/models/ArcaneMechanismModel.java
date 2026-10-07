@@ -1,4 +1,5 @@
 package com.jamiedev.bygone.client.models;
+
 import com.jamiedev.bygone.client.models.animations.ArcaneMechanismAnimations;
 import com.jamiedev.bygone.common.entity.BygonePortalEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -143,25 +144,20 @@ public class ArcaneMechanismModel<T extends BygonePortalEntity> extends Hierarch
         this.root().getAllParts().forEach(ModelPart::resetPose);
         float f = ageInTicks - (float)entity.tickCount;
 
-        this.animate(entity.idleAnimationState, ArcaneMechanismAnimations.IDLE, ageInTicks);
-        this.animate(entity.triggerAnimationState, ArcaneMechanismAnimations.TRIGGERED, ageInTicks);
-        this.animate(entity.activeAnimationState, ArcaneMechanismAnimations.ACTIVE, ageInTicks);
+        this.animate(BygonePortalEntity.State.IDLE.get(entity), ArcaneMechanismAnimations.IDLE, ageInTicks);
+        this.animate(BygonePortalEntity.State.TRIGGERED.get(entity), ArcaneMechanismAnimations.TRIGGERED, ageInTicks);
+        this.animate(BygonePortalEntity.State.ACTIVE.get(entity), ArcaneMechanismAnimations.ACTIVE, ageInTicks);
 
-        //Minecraft.getInstance().getCameraEntity()
         if (Minecraft.getInstance().getCameraEntity() != null) {
             Entity player = Minecraft.getInstance().getCameraEntity();
             double dx = entity.getX() - player.getX();
-            double dz = entity.getZ() - player.getZ() - 1;
-            double dy = entity.getY() - player.getY();
+            double dy = entity.getY() - (player.getY() + 1);
+            double dz = entity.getZ() - player.getZ();
 
-            float yaw = (float) Math.toDegrees(Math.atan2(dz, dx)) + 90;
-            float pitch = (float) Math.toDegrees(Math.atan2(dy, Math.sqrt(dx * dx + dz * dz)));
-
-            this.cogs.yRot = yaw * ((float)Math.PI / 180F);
-            this.cogs.xRot = pitch * ((float)Math.PI / 180F);
-
-            this.portal.yRot = yaw * ((float)Math.PI / -180F);
-            this.portal.xRot = pitch * ((float)Math.PI / -180F);
+            this.cogs.yRot = (float)(Math.atan2(dz, dx) + (Math.PI / 2));
+            this.cogs.xRot = -(float)(Math.atan2(dy, Math.sqrt(dx * dx + dz * dz)));
+            this.portal.yRot = -this.cogs.yRot;
+            this.portal.xRot = -this.cogs.xRot;
 
             this.arcane_core.yRot = ageInTicks/50f;
         }

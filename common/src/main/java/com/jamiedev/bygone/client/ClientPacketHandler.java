@@ -26,7 +26,6 @@ public class ClientPacketHandler {
         HookEntity hook = entity instanceof HookEntity ? (HookEntity) entity : null;
         Player playerByUuid = world.getPlayerByUUID(playerUUID);
         if (playerByUuid != null) {
-            Bygone.LOGGER.info("Syncing {} to {}", hook, playerByUuid);
             ((PlayerWithHook) playerByUuid).bygone$setHook(hook);
         } else {
             Bygone.LOGGER.error("Could not find player with UUID {}, unable to sync their hook", playerUUID);

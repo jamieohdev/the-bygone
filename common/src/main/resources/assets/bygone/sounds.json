@@ -382,7 +382,7 @@
     "category": "record",
     "sounds": [
       {
-        "name": "bygone:music/jukebox/under",
+        "name": "bygone:music/jukebox/under_mono",
         "stream": true
       }
     ]

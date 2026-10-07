@@ -91,6 +91,10 @@
         },
         {
           "type": "minecraft:item",
+          "name": "bygone:pristine_verdigris_cog"
+        },
+        {
+          "type": "minecraft:item",
           "functions": [
             {
               "add": false,

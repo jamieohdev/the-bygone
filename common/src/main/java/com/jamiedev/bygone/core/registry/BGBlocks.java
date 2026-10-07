@@ -34,6 +34,11 @@ import static net.minecraft.world.level.block.Blocks.DIRT;
 
 public class BGBlocks {
 
+    public static final Supplier<Block> BIG_BEAK_EGG = registerBlock(
+            "big_beak_egg",
+            () -> new BigBeakEggBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SNIFFER_EGG))
+    );
+
     public static final Supplier<Block> WHITE_GLOW_CONCRETE = registerBlock(
             "white_glow_concrete",
             () -> new Block(BlockBehaviour.Properties.of()
@@ -2025,7 +2030,7 @@ public class BGBlocks {
                                     1.5F,
                                     6.0F
                             )
-                            .lightLevel((state) -> 5))
+                            .lightLevel((state) -> 15))
     );
     public static final Supplier<Block> COBBLED_AMBER = registerBlock(
             "cobbled_amber", () -> new Block(
