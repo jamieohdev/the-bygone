@@ -2,9 +2,11 @@ package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.entity.ai.navigation.SkipperNavigation;
+import com.jamiedev.bygone.core.registry.BGBiomes;
 import com.jamiedev.bygone.core.registry.BGDimensions;
 import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -44,6 +46,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.chunk.ProtoChunk;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import net.minecraft.world.level.pathfinder.PathType;
@@ -61,6 +64,8 @@ public class SkipperEntity extends PathfinderMob implements Saddleable, ItemStee
     private static final float LAND_SPEED_FACTOR = 0.15F;
     private static final float PADDLE_FORCE = 0.9F;
     private static final float PADDLE_ANIMATION_BLEND_SPEED = 0.2F;
+    private static final float BLOCKED_PADDLE_ANIMATION_AMOUNT = 0.2F;
+    private static final float BLOCKED_WALK_ANIMATION_DISTANCE = 0.02F;
     private static final float SADDLE_BOB_HEIGHT = 0.025F;
     private static final double GLIDE_DRAG = 0.88;
     private static final double VERTICAL_DRAG = 0.98;
@@ -69,17 +74,38 @@ public class SkipperEntity extends PathfinderMob implements Saddleable, ItemStee
     private static final double RESURFACING_FORCE = 0.08;
     private static final int WANDER_ATTEMPTS = 12;
     private static final int WANDER_RADIUS = 8;
+    private static final int MAX_SPAWN_GROUP_SIZE = 3;
     private static final int LOWER_RIVER_MIN_Y = 60;
     private static final int UPPER_RIVER_MIN_Y = 120;
     private static final int RIVER_HEIGHT = 6;
     private static final double SURFACE_TOLERANCE = 1.0 / 1024.0;
+    private static final double RIDDEN_COLLISION_LOOKAHEAD = 1.0 / 16.0;
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(SkipperEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> BOOST_TIME = SynchedEntityData.defineId(SkipperEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Long> STROKE_START_TICK = SynchedEntityData.defineId(SkipperEntity.class, EntityDataSerializers.LONG);
     private static final ResourceKey<NormalNoise.NoiseParameters> LOWER_RIVER = ResourceKey.create(Registries.NOISE, Bygone.id("rivers/lower"));
     private static final ResourceKey<NormalNoise.NoiseParameters> UPPER_RIVER = ResourceKey.create(Registries.NOISE, Bygone.id("rivers/upper"));
-    public static final SpawnPlacementType ON_WATER_SURFACE = (levelReader, blockPos, entityType) ->
-        entityType != null && levelReader.getWorldBorder().isWithinBounds(blockPos) && isWaterSurface(levelReader, blockPos);
+    public static final SpawnPlacementType ON_WATER_SURFACE = new SpawnPlacementType() {
+        @Override
+        public boolean isSpawnPositionOk(LevelReader levelReader, BlockPos blockPos, @Nullable EntityType<?> entityType) {
+            return entityType != null && levelReader.getWorldBorder().isWithinBounds(blockPos) && isWaterSurface(levelReader, blockPos);
+        }
+
+        @Override
+        public BlockPos adjustSpawnPosition(LevelReader levelReader, BlockPos blockPos) {
+            BlockPos.MutableBlockPos candidateBlockPos = new BlockPos.MutableBlockPos(blockPos.getX(),
+                Math.min(blockPos.getY() + 1, UPPER_RIVER_MIN_Y + RIVER_HEIGHT), blockPos.getZ());
+            while (candidateBlockPos.getY() > LOWER_RIVER_MIN_Y) {
+                int spawnY = candidateBlockPos.getY();
+                if ((spawnY > UPPER_RIVER_MIN_Y || spawnY <= LOWER_RIVER_MIN_Y + RIVER_HEIGHT)
+                    && isWaterSurface(levelReader, candidateBlockPos)) {
+                    return candidateBlockPos.immutable();
+                }
+                candidateBlockPos.move(Direction.DOWN);
+            }
+            return blockPos;
+        }
+    };
     private final ItemBasedSteering itemBasedSteering = new ItemBasedSteering(this.entityData, BOOST_TIME, SADDLED);
     private long paddleAnimationStartTick = -1L;
     private float paddleAnimationAmount;
@@ -106,6 +132,10 @@ public class SkipperEntity extends PathfinderMob implements Saddleable, ItemStee
         if (!isWaterSurface(serverLevelAccessor, blockPos) || !serverLevelAccessor.getLevel().dimension().equals(BGDimensions.BYGONE_LEVEL_KEY)) {
             return false;
         }
+        if (serverLevelAccessor.getBiome(blockPos).is(BGBiomes.PRIMORDIAL_OCEAN)
+            || serverLevelAccessor.getBiome(blockPos).is(BGBiomes.PRIMORDIAL_BEACH)) {
+            return false;
+        }
         int waterY = blockPos.getY() - 1;
         ResourceKey<NormalNoise.NoiseParameters> riverNoiseKey;
 
@@ -117,7 +147,23 @@ public class SkipperEntity extends PathfinderMob implements Saddleable, ItemStee
             return false;
         }
         double riverNoiseValue = serverLevelAccessor.getLevel().getChunkSource().randomState().getOrCreateNoise(riverNoiseKey).getValue(blockPos.getX(), 0.0, blockPos.getZ());
-        return Math.abs(riverNoiseValue) <= RIVER_NOISE_LIMIT;
+        if (Math.abs(riverNoiseValue) > RIVER_NOISE_LIMIT) {
+            return false;
+        }
+        if (spawnType == MobSpawnType.CHUNK_GENERATION && serverLevelAccessor.getChunk(blockPos) instanceof ProtoChunk protoChunk) {
+            String entityId = EntityType.getKey(entityType).toString();
+            long skipperCount = protoChunk.getEntities().stream().filter(entityTag -> entityId.equals(entityTag.getString("id")))
+                .limit(MAX_SPAWN_GROUP_SIZE).count();
+            if (skipperCount >= MAX_SPAWN_GROUP_SIZE) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int getMaxSpawnClusterSize() {
+        return MAX_SPAWN_GROUP_SIZE;
     }
 
     @Override
@@ -289,8 +335,10 @@ public class SkipperEntity extends PathfinderMob implements Saddleable, ItemStee
             this.paddleAnimationStartTick = strokeStartTick;
         }
         this.previousPaddleAnimationAmount = this.paddleAnimationAmount;
+        float targetPaddleAnimationAmount = strokeStartTick >= 0L && this.isOverWater()
+            ? (this.isRiddenMovementBlocked() ? BLOCKED_PADDLE_ANIMATION_AMOUNT : 1.0F) : 0.0F;
         this.paddleAnimationAmount = Mth.approach(this.paddleAnimationAmount,
-            strokeStartTick >= 0L && this.isOverWater() ? 1.0F : 0.0F, PADDLE_ANIMATION_BLEND_SPEED);
+            targetPaddleAnimationAmount, PADDLE_ANIMATION_BLEND_SPEED);
         this.itemBasedSteering.tickBoost();
         super.tick();
         if (this.isInWater()) {
@@ -336,16 +384,35 @@ public class SkipperEntity extends PathfinderMob implements Saddleable, ItemStee
             if (supported) {
                 deltaMovement = new Vec3(deltaMovement.x, surfaceY - this.getY(), deltaMovement.z);
             }
+            this.setDeltaMovement(deltaMovement);
             this.move(MoverType.SELF, deltaMovement);
             this.setOnGround(supported || this.onGround());
             if (supported) {
                 this.resetFallDistance();
             }
-            this.setDeltaMovement(this.getDeltaMovement().multiply(GLIDE_DRAG, VERTICAL_DRAG, GLIDE_DRAG).add(0.0, -this.getGravity(), 0.0));
+            Vec3 remainingMovement = this.getDeltaMovement();
+            this.setDeltaMovement(remainingMovement.x * GLIDE_DRAG,
+                supported ? 0.0 : remainingMovement.y * VERTICAL_DRAG - this.getGravity(), remainingMovement.z * GLIDE_DRAG);
             this.calculateEntityAnimation(false);
         } else {
             super.travel(new Vec3(travelVector.x * LAND_SPEED_FACTOR, travelVector.y, travelVector.z * LAND_SPEED_FACTOR));
         }
+    }
+
+    @Override
+    protected void updateWalkAnimation(float horizontalDistance) {
+        super.updateWalkAnimation(this.isRiddenMovementBlocked()
+            ? Math.max(horizontalDistance, BLOCKED_WALK_ANIMATION_DISTANCE) : horizontalDistance);
+    }
+
+    private boolean isRiddenMovementBlocked() {
+        if (this.getControllingPassenger() == null) {
+            return false;
+        }
+        float yawRadians = this.getYRot() * Mth.DEG_TO_RAD;
+        Vec3 forwardMovement = new Vec3(-Mth.sin(yawRadians) * RIDDEN_COLLISION_LOOKAHEAD, 0.0,
+            Mth.cos(yawRadians) * RIDDEN_COLLISION_LOOKAHEAD);
+        return !this.level().noCollision(this, this.getBoundingBox().move(forwardMovement));
     }
 
     private int getStrokeTick() {
