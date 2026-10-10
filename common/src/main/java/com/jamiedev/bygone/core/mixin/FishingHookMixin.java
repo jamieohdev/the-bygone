@@ -66,7 +66,6 @@ public abstract class FishingHookMixin extends Projectile {
             boolean useRareTable = isInBaitwormWater && serverLevel.random.nextFloat() < 0.5F;
 
             ResourceKey<LootTable> customTable = BGFishingTables.getFishingTableForBiome(biomeHolder, useRareTable);
-            System.out.println("Fishing at " + pos + " in biome " + biomeHolder.unwrapKey().orElse(null) + (isInBaitwormWater ? " with Baitworm effect" : "") + ", using table: " + (customTable != null ? customTable.location() : "default"));
             if (customTable != null) {
                 return customTable;
             }

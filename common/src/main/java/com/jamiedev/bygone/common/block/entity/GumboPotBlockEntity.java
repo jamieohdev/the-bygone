@@ -4,6 +4,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
+import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.block.GumboPotBlock;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlockEntities;
@@ -241,8 +242,8 @@ public class GumboPotBlockEntity extends BlockEntity {
         super.saveAdditional(nbt, registryLookup);
 
         DataResult<Tag> contentsResult = CONTENTS_CODEC.encodeStart(NbtOps.INSTANCE, this.potContents);
-        contentsResult.ifError(tagError -> System.out.println(
-                "Warning! Gumbo pot block entity encountered an error while saving: " + tagError.message()));
+        contentsResult.ifError(tagError -> Bygone.LOGGER.warn(
+                "Gumbo pot block entity encountered an error while saving: " + tagError.message()));
 
         contentsResult.ifSuccess(contents -> nbt.put(NBT_KEY_CONTENTS, contents));
 
@@ -257,8 +258,8 @@ public class GumboPotBlockEntity extends BlockEntity {
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider registryLookup) {
         CompoundTag nbtCompound = super.getUpdateTag(registryLookup);
         DataResult<Tag> contentsResult = CONTENTS_CODEC.encodeStart(NbtOps.INSTANCE, this.potContents);
-        contentsResult.ifError(tagError -> System.out.println(
-                "Warning! Gumbo pot block entity encountered an error while constructing an update tag: " + tagError.message()));
+        contentsResult.ifError(tagError -> Bygone.LOGGER.warn(
+                "Gumbo pot block entity encountered an error while constructing an update tag: " + tagError.message()));
         contentsResult.ifSuccess(contents -> nbtCompound.put(NBT_KEY_CONTENTS, contents));
 
         return nbtCompound;
