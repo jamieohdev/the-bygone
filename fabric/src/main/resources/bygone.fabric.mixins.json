@@ -3,7 +3,6 @@
   "package": "com.jamiedev.bygone.core.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "CowEntityMixinFabric",
     "DecoratedPotPatternsMixin",
     "MobCategoryMixin",
     "ServerLevelMixinFabric"

@@ -14,12 +14,10 @@
     "EmptyMapMixin",
     "FarmlandBlockMixin",
     "FishingHookMixin",
-    "LevelMixin",
     "LivingEntityMixin",
     "LivingEntityMixinVex",
     "MapItemMixin",
     "MobBucketItemMixin",
-    "MobMixin",
     "NaturalSpawnerMixin",
     "PlayerMixin",
     "PortalProcessorAccessor",
@@ -42,5 +40,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-	}
+  }
 }
