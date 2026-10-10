@@ -3,16 +3,16 @@
   "package": "com.jamiedev.bygone.core.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "DecoratedPotPatternsMixin",
-    "MobCategoryMixin",
+    "DecoratedPotPatternsMixinFabric",
+    "MobCategoryMixinFabric",
     "ServerLevelMixinFabric"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "HeartTypeMixinFabric",
+    "client.HeartTypeMixinFabric",
     "client.EffectInstanceMixinFabric",
-    "client.FogRendererMixin"
+    "client.FogRendererMixinFabric"
   ]
 }
