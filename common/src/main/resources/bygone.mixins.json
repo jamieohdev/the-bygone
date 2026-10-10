@@ -14,6 +14,7 @@
     "EmptyMapMixin",
     "FarmlandBlockMixin",
     "FishingHookMixin",
+    "FogTypeMixin",
     "LivingEntityMixin",
     "LivingEntityMixinVex",
     "MapItemMixin",
@@ -23,8 +24,7 @@
     "PortalProcessorAccessor",
     "ServerLevelMixin",
     "SpawnStateMixin",
-    "VexMixin",
-    "FogTypeInvoker"
+    "VexMixin"
   ],
   "client": [
     "client.BipedEntityModelMixin",
