@@ -57,7 +57,7 @@ import javax.annotation.Nullable;
 public class SkipperEntity extends PathfinderMob implements Saddleable, ItemSteerable {
     private static final int STROKE_PERIOD_TICKS = 20;
     private static final int POWER_STROKE_TICKS = 5;
-    private static final double MAX_HEALTH = 20.0;
+    private static final double MAX_HEALTH = 10.0;
     private static final double MOVEMENT_SPEED = 0.3;
     private static final double RIVER_NOISE_LIMIT = 0.055;
     private static final float RIDDEN_SPEED_FACTOR = 0.8F;
