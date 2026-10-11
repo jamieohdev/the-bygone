@@ -42,7 +42,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(LivingEntity.class)
+// STOPGAP PRIORITY FIELD. I WILL GET BACK TO THIS LATER
+// injecting EntityDataAccessors is VERY RISKY and should NOT be done
+@Mixin(value = LivingEntity.class, priority = 1418989091)
 public abstract class LivingEntityMixin extends Entity implements LivingEntityExtension {
 
     @Shadow
