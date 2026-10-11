@@ -5,8 +5,13 @@ import com.jamiedev.bygone.common.util.Consumer4;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.mixin.AxeItemAccess;
 import com.jamiedev.bygone.core.registry.*;
-import com.jamiedev.bygone.core.util.HeightGetter;
-import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
+
+import java.util.IdentityHashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
@@ -21,23 +26,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.Heightmap;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.IdentityHashMap;
-import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
-
 public class Bygone {
-    public static final Supplier<DataComponentType<Integer>> MAP_HEIGHT = JinxedRegistryHelper.register(
-            BuiltInRegistries.DATA_COMPONENT_TYPE,
-            "bygone",
-            "map_height",
-            () -> HeightGetter.MAP_HEIGHT
-    );
-
     public static final String MOD_ID = "bygone";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
@@ -47,6 +40,7 @@ public class Bygone {
         BGBlockEntities.init();
         BGAttributes.init();
         BGItems.init();
+        BGDataComponentTypes.init();
         BGMobEffects.init();
         BGEntityTypes.postInit();
         BGBiomes.init();

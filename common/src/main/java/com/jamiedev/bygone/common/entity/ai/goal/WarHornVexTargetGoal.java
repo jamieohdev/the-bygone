@@ -1,7 +1,7 @@
 package com.jamiedev.bygone.common.entity.ai.goal;
 
-import com.jamiedev.bygone.common.item.MaliciousWarHornItem;
-import com.jamiedev.bygone.core.registry.BGDataComponents;
+import com.jamiedev.bygone.common.component.item.WarHornData;
+import com.jamiedev.bygone.core.registry.BGDataComponentTypes;
 import com.jamiedev.bygone.core.registry.BGItems;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -51,7 +51,7 @@ public class WarHornVexTargetGoal extends NearestAttackableTargetGoal<Monster> {
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
                 ItemStack stack = player.getInventory().getItem(i);
                 if (stack.getItem() == BGItems.MALICIOUS_WAR_HORN.get()) {
-                    MaliciousWarHornItem.WarHornData data = stack.getOrDefault(BGDataComponents.WAR_HORN_DATA.value(), MaliciousWarHornItem.WarHornData.EMPTY);
+                    WarHornData data = stack.getOrDefault(BGDataComponentTypes.WAR_HORN.get(), WarHornData.EMPTY);
                     if (data.activeVexes().contains(vex.getUUID())) {
                         warHornVexChecked = true;
                         isWarHornVexCached = true;

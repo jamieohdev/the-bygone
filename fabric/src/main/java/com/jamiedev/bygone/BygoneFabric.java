@@ -51,7 +51,7 @@ public class BygoneFabric implements ModInitializer {
 
         DefaultItemComponentEvents.MODIFY.register(event -> {
             BGDataComponents.gumboBootstrap((item, component) ->
-               event.modify(item, builder -> builder.set(BGDataComponents.GUMBO_INGREDIENT_DATA.value(), component)));
+               event.modify(item, builder -> builder.set(BGDataComponentTypes.GUMBO_INGREDIENT.get(), component)));
         });
 
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
@@ -131,7 +131,6 @@ public class BygoneFabric implements ModInitializer {
     public void onInitialize() {
         BGBlockEntitiesFabric.register();
         initEvents();
-        BGDataComponentsFabric.init();
         BGAttributesFabric.init();
         Bygone.init();
 

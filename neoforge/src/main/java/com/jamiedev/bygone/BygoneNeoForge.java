@@ -96,7 +96,6 @@ public class BygoneNeoForge {
     }
 
     public BygoneNeoForge(IEventBus eventBus, Dist dist) {
-        BGDataComponentsNeoForge.DATA_COMPONENTS.register(eventBus);
         BGDecoratedPotPatternsNeoForge.POT_PATTERNS.register(eventBus);
         BGAttributesNeoForge.init(eventBus);
         Bygone.init();
@@ -117,7 +116,6 @@ public class BygoneNeoForge {
         eventBus.addListener(this::createAttributes);
         eventBus.addListener(this::addValidBlocks);
         eventBus.addListener(this::modifyDefaultComponents);
-        eventBus.addListener(BGDataComponentsNeoForge::init);
         NeoForge.EVENT_BUS.addListener(this::blockModifications);
         NeoForge.EVENT_BUS.addListener(this::damageEvent);
         NeoForge.EVENT_BUS.addListener(this::onLivingDeath);
@@ -143,7 +141,7 @@ public class BygoneNeoForge {
 
     public void modifyDefaultComponents(ModifyDefaultComponentsEvent event) {
         BGDataComponents.gumboBootstrap((item, component) ->
-            event.modify(item, builder -> builder.set(BGDataComponents.GUMBO_INGREDIENT_DATA.value(), component))
+            event.modify(item, builder -> builder.set(BGDataComponentTypes.GUMBO_INGREDIENT.get(), component))
         );
     }
 
@@ -184,7 +182,6 @@ public class BygoneNeoForge {
             validBlocks.addAll(Sets.newHashSet(BGBlocks.SUSPICIOUS_SHELLSAND.get(), BGBlocks.SUSPICIOUS_CLAYSTONE.get()));
             BlockEntityType.BRUSHABLE_BLOCK.validBlocks = ImmutableSet.copyOf(validBlocks);
 
-            //BGDataComponentsNeoForge.init();
             BGDecoratedPotPatternsNeoForge.expandVanilla();
             Bygone.registerStrippables();
             Bygone.addFlammable();

@@ -1,14 +1,16 @@
 package com.jamiedev.bygone.core.mixin;
 
-import com.jamiedev.bygone.common.item.MaliciousWarHornItem;
-import com.jamiedev.bygone.core.registry.BGDataComponents;
+import com.jamiedev.bygone.common.component.item.WarHornData;
+import com.jamiedev.bygone.core.registry.BGDataComponentTypes;
 import com.jamiedev.bygone.core.registry.BGItems;
+
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -43,7 +45,7 @@ public class LivingEntityMixinVex {
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
             if (stack.getItem() == BGItems.MALICIOUS_WAR_HORN.get()) {
-                MaliciousWarHornItem.WarHornData data = stack.getOrDefault(BGDataComponents.WAR_HORN_DATA.value(), MaliciousWarHornItem.WarHornData.EMPTY);
+                WarHornData data = stack.getOrDefault(BGDataComponentTypes.WAR_HORN.get(), WarHornData.EMPTY);
                 if (data.activeVexes().contains(vex.getUUID())) {
                     return true;
                 }

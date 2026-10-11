@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.core.registry;
 
-import com.jamiedev.bygone.common.block.entity.GumboPotBlockEntity;
-import com.jamiedev.bygone.common.item.MaliciousWarHornItem;
+import com.jamiedev.bygone.common.component.item.GumboIngredientData;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -13,21 +12,20 @@ import net.minecraft.world.item.Items;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
+// vestigial class handling data component overrides
+// ideally, this'd be a data map on neoforge but.
+// fabric doesn't really do that
+// ...maybe a custom registry?
 public class BGDataComponents {
 
-    public static Holder<DataComponentType<MaliciousWarHornItem.WarHornData>> WAR_HORN_DATA;
-    public static Holder<DataComponentType<BGDataComponentTypes.EchoGongData>> ECHO_GONG_DATA;
-
-    public static Holder<DataComponentType<GumboPotBlockEntity.GumboIngredientComponent>> GUMBO_INGREDIENT_DATA;
-
-    static GumboPotBlockEntity.GumboIngredientComponent gumboComponent(FoodProperties foodProperties) {
-        return new GumboPotBlockEntity.GumboIngredientComponent(foodProperties);
+    static GumboIngredientData gumboComponent(FoodProperties foodProperties) {
+        return new GumboIngredientData(foodProperties);
     }
 
     /*
     * Should probably be data driven in the future
     */
-    public static void gumboBootstrap(BiConsumer<Item, GumboPotBlockEntity.GumboIngredientComponent> consumer) {
+    public static void gumboBootstrap(BiConsumer<Item,GumboIngredientData> consumer) {
         consumer.accept(
             Items.MOSS_BLOCK,
             gumboComponent(new FoodProperties.Builder().nutrition(2)

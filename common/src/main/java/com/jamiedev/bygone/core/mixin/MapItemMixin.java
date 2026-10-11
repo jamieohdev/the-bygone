@@ -2,13 +2,18 @@ package com.jamiedev.bygone.core.mixin;
 
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGDimensions;
-import com.jamiedev.bygone.core.util.HeightGetter;
+import com.jamiedev.bygone.core.registry.BGDataComponentTypes;
+
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+
+import java.util.Optional;
+import java.util.function.Supplier;
+
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -19,6 +24,7 @@ import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,14 +32,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Optional;
-
-import static com.jamiedev.bygone.Bygone.MAP_HEIGHT;
-
-@Mixin(MapItem.class)
 /*
- *  Partially taken from BetterNetherMap, MIT License, core logic is different though and not interchangeable, HeightGetter is a Functional Interface
+ *  Partially taken from BetterNetherMap, MIT License, core logic is different though and not interchangeable
  */
+@Mixin(MapItem.class)
 public class MapItemMixin {
 
     @Unique
@@ -68,11 +70,11 @@ public class MapItemMixin {
     @Inject(method = "update", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/level/saveddata/maps/MapItemSavedData;getHoldingPlayer(Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/level/saveddata/maps/MapItemSavedData$HoldingPlayer;"))
-    private void provideHeightSelector(Level level, Entity viewer, MapItemSavedData data, CallbackInfo ci, @Share("height_getter") LocalRef<HeightGetter> heightGetter) {
+    private void provideHeightSelector(Level level, Entity viewer, MapItemSavedData data, CallbackInfo ci, @Share("height_getter") LocalRef<Supplier<Integer>> heightGetter) {
         if (viewer.level().dimension() != BGDimensions.BYGONE_LEVEL_KEY)
             heightGetter.set(null);
         else if (viewer instanceof LivingEntity e)
-            heightGetter.set(() -> the_bygone$getMapHandItem(e).get(MAP_HEIGHT.get()));
+            heightGetter.set(() -> the_bygone$getMapHandItem(e).get(BGDataComponentTypes.MAP_HEIGHT.get()));
     }
 
     @ModifyExpressionValue(method = "update", at = @At(
@@ -81,7 +83,7 @@ public class MapItemMixin {
 	/*
 	  Change the height at which the map starts to scan for blocks.
 	 */
-    public int sampleHeightmap(int value, @Share("height_getter") LocalRef<HeightGetter> heightGetter) {
-        return heightGetter.get() == null ? value : heightGetter.get().getHeight();
+    public int sampleHeightmap(int value, @Share("height_getter") LocalRef<Supplier<Integer>> heightGetter) {
+        return heightGetter.get() == null ? value : heightGetter.get().get();
     }
 }

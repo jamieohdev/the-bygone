@@ -4,15 +4,23 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
+
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.block.GumboPotBlock;
+import com.jamiedev.bygone.common.component.item.GumboIngredientData;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlockEntities;
-import com.jamiedev.bygone.core.registry.BGDataComponents;
+import com.jamiedev.bygone.core.registry.BGDataComponentTypes;
+
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
@@ -29,12 +37,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 public class GumboPotBlockEntity extends BlockEntity {
 
@@ -64,17 +69,8 @@ public class GumboPotBlockEntity extends BlockEntity {
 
     public boolean canAddIngredient(ItemStack ingredient) {
         BlockState state = this.getBlockState();
-
-        if (GumboPotBlock.canFitAdditionalIngredients(state) && !ingredient.is(JamiesModTag.CANNOT_ADD_TO_GUMBO)) {
-
-            FoodProperties foodProperties = ingredient.get(DataComponents.FOOD);
-            if (foodProperties != null) {
-                return true;
-            }
-            GumboIngredientComponent gumboIngredientComponent = ingredient.get(BGDataComponents.GUMBO_INGREDIENT_DATA.value());
-            return gumboIngredientComponent != null;
-        }
-        return false;
+        if(!GumboPotBlock.canFitAdditionalIngredients(state) || ingredient.is(JamiesModTag.CANNOT_ADD_TO_GUMBO)) return false;
+        return ingredient.has(DataComponents.FOOD) || ingredient.has(BGDataComponentTypes.GUMBO_INGREDIENT.get());
     }
 
     // Returns the remainder itemstack if the ingredient is accepted, empty itemstack otherwise. Does not modify the stack.
@@ -88,9 +84,9 @@ public class GumboPotBlockEntity extends BlockEntity {
 
             FoodProperties foodProperties = ingredient.get(DataComponents.FOOD);
             if (foodProperties == null) {
-                GumboIngredientComponent gumboIngredientComponent = ingredient.get(BGDataComponents.GUMBO_INGREDIENT_DATA.value());
+                GumboIngredientData gumboIngredientComponent = ingredient.get(BGDataComponentTypes.GUMBO_INGREDIENT.get());
                 if (gumboIngredientComponent != null) {
-                    foodProperties = gumboIngredientComponent.properties;
+                    foodProperties = gumboIngredientComponent.properties();
                 }
             }
 
@@ -281,16 +277,5 @@ public class GumboPotBlockEntity extends BlockEntity {
         public static @Nullable Item setFilled(Item in, Item out) {
             return SCOOPING_MAP.put(in, out);
         }
-    }
-
-    public record GumboIngredientComponent(FoodProperties properties) {
-        public static final Codec<GumboIngredientComponent> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-                        FoodProperties.DIRECT_CODEC.fieldOf("food_properties").forGetter(GumboIngredientComponent::properties))
-                .apply(instance, GumboIngredientComponent::new));
-        public static final StreamCodec<RegistryFriendlyByteBuf, GumboIngredientComponent> STREAM_CODEC = StreamCodec.composite(
-                FoodProperties.DIRECT_STREAM_CODEC,
-                GumboIngredientComponent::properties,
-                GumboIngredientComponent::new
-        );
     }
 }

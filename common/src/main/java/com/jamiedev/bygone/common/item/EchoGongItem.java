@@ -1,8 +1,8 @@
 package com.jamiedev.bygone.common.item;
 
+import com.jamiedev.bygone.common.component.item.EchoGongData;
 import com.jamiedev.bygone.common.util.ShockwaveHandler;
 import com.jamiedev.bygone.core.registry.BGDataComponentTypes;
-import com.jamiedev.bygone.core.registry.BGDataComponents;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -46,12 +46,12 @@ public class EchoGongItem extends Item {
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
         if (!level.isClientSide && entity instanceof Player player) {
-            BGDataComponentTypes.EchoGongData data = stack.getOrDefault(BGDataComponents.ECHO_GONG_DATA.value(), BGDataComponentTypes.EchoGongData.EMPTY);
+            EchoGongData data = stack.getOrDefault(BGDataComponentTypes.ECHO_GONG.get(), EchoGongData.EMPTY);
             int charge = data.charge();
 
             if (charge < MAX_CHARGE && !player.getCooldowns().isOnCooldown(this)) {
                 charge = Math.min(charge + CHARGE_PER_TICK, MAX_CHARGE);
-                stack.set(BGDataComponents.ECHO_GONG_DATA.value(), new BGDataComponentTypes.EchoGongData(charge));
+                stack.set(BGDataComponentTypes.ECHO_GONG.get(), new EchoGongData(charge));
 
                 if (charge % 20 == 0) {
                     level.playSound(null, player.getX(), player.getY(), player.getZ(),
@@ -78,7 +78,7 @@ public class EchoGongItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
-        BGDataComponentTypes.EchoGongData data = itemStack.getOrDefault(BGDataComponents.ECHO_GONG_DATA.value(), BGDataComponentTypes.EchoGongData.EMPTY);
+        EchoGongData data = itemStack.getOrDefault(BGDataComponentTypes.ECHO_GONG.get(), EchoGongData.EMPTY);
         int charge = data.charge();
 
         if (charge >= MAX_CHARGE) {
@@ -101,7 +101,7 @@ public class EchoGongItem extends Item {
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity user) {
         if (!level.isClientSide && user instanceof Player player) {
             releaseShockwave(level, player, stack);
-            stack.set(BGDataComponents.ECHO_GONG_DATA.value(), new BGDataComponentTypes.EchoGongData(0));
+            stack.set(BGDataComponentTypes.ECHO_GONG.get(), EchoGongData.EMPTY);
 
             player.getCooldowns().addCooldown(this, COOLDOWN_TICKS);
             player.awardStat(Stats.ITEM_USED.get(this));
@@ -184,7 +184,7 @@ public class EchoGongItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
 
-        BGDataComponentTypes.EchoGongData data = stack.getOrDefault(BGDataComponents.ECHO_GONG_DATA.value(), BGDataComponentTypes.EchoGongData.EMPTY);
+        EchoGongData data = stack.getOrDefault(BGDataComponentTypes.ECHO_GONG.get(), EchoGongData.EMPTY);
         int charge = data.charge();
 
         tooltipComponents.add(Component.translatable("item.bygone.echo_gong.desc1")
@@ -204,7 +204,7 @@ public class EchoGongItem extends Item {
 
     @Override
     public boolean isFoil(ItemStack stack) {
-        BGDataComponentTypes.EchoGongData data = stack.getOrDefault(BGDataComponents.ECHO_GONG_DATA.value(), BGDataComponentTypes.EchoGongData.EMPTY);
+        EchoGongData data = stack.getOrDefault(BGDataComponentTypes.ECHO_GONG.get(), EchoGongData.EMPTY);
         return data.charge() >= MAX_CHARGE;
     }
 
