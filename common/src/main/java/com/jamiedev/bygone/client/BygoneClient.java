@@ -4,6 +4,7 @@ import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.models.*;
 import com.jamiedev.bygone.client.particles.*;
 import com.jamiedev.bygone.client.renderer.entity.*;
+import com.jamiedev.bygone.common.component.item.GearBagData;
 import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
 import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.core.registry.*;
@@ -334,6 +335,12 @@ public class BygoneClient {
                         return 1;
                     }
                     return 0;
+                }
+        );
+
+        ItemProperties.register(
+                BGItems.GEAR_BAG.get(), Bygone.id("filled"), (stack, world, entity, seed) -> {
+                    return (float)GearBagData.from(stack).weight().doubleValue();
                 }
         );
 

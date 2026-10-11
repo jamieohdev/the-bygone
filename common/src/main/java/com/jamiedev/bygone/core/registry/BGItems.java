@@ -1,9 +1,14 @@
 package com.jamiedev.bygone.core.registry;
 
 import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.common.component.item.GearBagData;
 import com.jamiedev.bygone.common.item.*;
 import com.jamiedev.bygone.core.init.JamiesModToolMaterials;
+
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
+
+import java.util.function.Supplier;
+
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
@@ -20,10 +25,6 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.material.Fluids;
 
-import java.util.function.Supplier;
-
-import static net.minecraft.world.item.Items.BUCKET;
-
 public class BGItems {
     public static final Supplier<Item> LITHOPLASMIC_POWDER = registerItem(
             "lithoplasmic_powder",
@@ -35,7 +36,7 @@ public class BGItems {
             () -> new LithoplasmArrowItem(new Item.Properties().fireResistant())
     );
     public static final Supplier<Item> LITHO_BUCKET = registerItem((String)"litho_bucket",
-            () -> new BucketItem(BGFluids.LITHO_STILL.get(), (new Item.Properties()).craftRemainder(BUCKET).stacksTo(1)));
+            () -> new BucketItem(BGFluids.LITHO_STILL.get(), (new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1)));
 
     public static final Supplier<Item> CRUSHED_SEAGLASS = registerItem(
             "crushed_seaglass",
@@ -284,8 +285,8 @@ public class BGItems {
     );
 	public static final Supplier<Item> GEAR_BAG = registerItem(
 			"gear_bag",
-			() -> new SingleStackBundleItem(
-					new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY)
+			() -> new GearBagItem(
+					new Item.Properties().stacksTo(1).component(BGDataComponentTypes.GEAR_BAG.get(), GearBagData.EMPTY)
 			)
 	);
     public static final Supplier<Item> AMOEBA_SPAWN_EGG = registerItem(
@@ -506,7 +507,7 @@ public class BGItems {
     );
     public static final Supplier<Item> BUCKET_O_BAITWORMS = registerItem(
             "bucket_o_baitworms",
-            () -> new BucketOBaitwormsItem(new Item.Properties().craftRemainder(BUCKET).stacksTo(1))
+            () -> new BucketOBaitwormsItem(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1))
     );
     public static final Supplier<Item> SABLE_GRASS = registerItem(
             "sable_grass",
@@ -522,7 +523,7 @@ public class BGItems {
     );
     public static final Supplier<Item> PLASMILK_BUCKET = registerItem(
             (String) "plasmilk_bucket",
-            () -> new EctoplasmBucketItem((new Item.Properties()).craftRemainder(BUCKET).stacksTo(1))
+            () -> new EctoplasmBucketItem((new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1))
     );
     public static final Supplier<Item> BREATH_POD = registerItem(
             "breath_pod", () ->

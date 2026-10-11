@@ -31,6 +31,11 @@ transitive-mutable field net/minecraft/world/level/block/entity/BlockEntityType 
 # GeistEntity
 accessible field net/minecraft/world/entity/ai/goal/MeleeAttackGoal ticksUntilNextAttack I
 
+# gear bag
+extendable class net/minecraft/world/item/component/BundleContents
+accessible field net/minecraft/world/item/component/BundleContents items Ljava/util/List;
+accessible method net/minecraft/world/item/component/BundleContents <init> (Ljava/util/List;Lorg/apache/commons/lang3/math/Fraction;)V
+
 accessible method net/minecraft/world/level/NaturalSpawner$SpawnState canSpawn (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/chunk/ChunkAccess;)Z
 accessible method net/minecraft/world/level/NaturalSpawner$SpawnState canSpawnForCategory (Lnet/minecraft/world/entity/MobCategory;Lnet/minecraft/world/level/ChunkPos;)Z
 accessible method net/minecraft/world/level/NaturalSpawner$SpawnState afterSpawn (Lnet/minecraft/world/entity/Mob;Lnet/minecraft/world/level/chunk/ChunkAccess;)V

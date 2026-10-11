@@ -7,9 +7,6 @@
   "mixins": [
     "AllayMixin",
     "AxeItemAccess",
-    "BundleContentsMixin",
-    "BundleContentsMutableMixin",
-    "BundleItemMixin",
     "DoorBlockMixin",
     "EmptyMapMixin",
     "FarmlandBlockMixin",

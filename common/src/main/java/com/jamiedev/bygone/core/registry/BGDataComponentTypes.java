@@ -21,6 +21,9 @@ public class BGDataComponentTypes {
     public static final Supplier<DataComponentType<EchoGongData>> ECHO_GONG = register("echo_gong_data",
             b -> b.persistent(EchoGongData.CODEC).networkSynchronized(EchoGongData.STREAM_CODEC));
 
+    public static final Supplier<DataComponentType<GearBagData>> GEAR_BAG = register("gear_bag",
+            b -> b.persistent(GearBagData.CODEC).networkSynchronized(GearBagData.STREAM_CODEC));
+
     public static final Supplier<DataComponentType<GumboIngredientData>> GUMBO_INGREDIENT = register("gumbo_ingredient_data",
             b -> b.persistent(GumboIngredientData.CODEC).networkSynchronized(GumboIngredientData.STREAM_CODEC));
 
