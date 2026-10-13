@@ -90,7 +90,7 @@ public class ScareBoltEntity extends Projectile {
             Entity owner = this.getOwner();
             LivingEntity shooter = owner instanceof LivingEntity living ? living : null;
             target.hurt(this.damageSources().mobProjectile(this, shooter), DAMAGE);
-            ((LivingEntity)target).addEffect(new MobEffectInstance(BGMobEffects.HAUNTED.get(), 140 * (int)f), this);
+            if(shooter != null) shooter.addEffect(new MobEffectInstance(BGMobEffects.HAUNTED.get(), 140 * (int)f), this);
             this.discard();
         }
     }
