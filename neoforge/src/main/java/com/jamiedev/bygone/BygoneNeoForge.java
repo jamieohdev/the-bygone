@@ -9,7 +9,6 @@ import com.jamiedev.bygone.common.util.ServerTickHandler;
 import com.jamiedev.bygone.common.util.VexDeathTracker;
 import com.jamiedev.bygone.common.weather.BygoneWeather;
 import com.jamiedev.bygone.common.weather.weather_types.HauntingsCategoryHolder;
-import com.jamiedev.bygone.core.datagen.BygoneDataGenerator;
 import com.jamiedev.bygone.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -110,7 +109,6 @@ public class BygoneNeoForge {
             BygoneClientNeoForge.init(eventBus);
         }
         eventBus.addListener(this::registerEvent);
-        eventBus.addListener(BygoneDataGenerator::onInitializeDataGenerator);
         eventBus.addListener(this::setup);
         eventBus.addListener(this::spawnPlacements);
         eventBus.addListener(this::createAttributes);

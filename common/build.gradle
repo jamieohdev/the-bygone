@@ -1,49 +1,23 @@
-plugins {
-    id 'multiloader-common'
-    id 'net.neoforged.moddev'
+plugins{ alias libs.neoforge.moddev }
+repositories{ maven{ url = "https://api.modrinth.com/maven" } }
+
+neoForge{
+    neoFormVersion = libs.versions.neoforge.neoform.get()
+    parchment{
+        minecraftVersion = libs.versions.minecraft.get()
+        mappingsVersion = libs.versions.parchment.get()
+    }
+
+    validateAccessTransformers = true
+    interfaceInjectionData.from "interfaces.json"
 }
 
-neoForge {
-    neoFormVersion = neo_form_version
-    parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
-    }
+dependencies{
+    compileOnly libs.mixin
+    compileOnly libs.mixin.extras
+    compileOnly libs.neoforge.jinxedlib
 }
 
-dependencies {
-    compileOnly annotationProcessor("org.ow2.asm:asm-tree:9.6")
-    compileOnly("org.spongepowered:mixin:0.8.5")
-    runtimeOnly("io.github.llamalad7:mixinextras-common:0.5.3")
-    // fabric and neoforge both bundle mixinextras, so it is safe to use it in common
-    compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.5.3'
-    annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.5.3'
-
-    compileOnly "curse.maven:jinxedlib-1203401:6269067"
-
-}
-
-configurations {
-    commonJava {
-        canBeResolved = false
-        canBeConsumed = true
-    }
-    commonResources {
-        canBeResolved = false
-        canBeConsumed = true
-    }
-}
-
-sourceSets.main.resources.srcDir 'src/generated/resources'
-artifacts {
-    commonJava sourceSets.main.java.sourceDirectories.singleFile
-    sourceSets.main.resources.sourceDirectories.forEach {
-        commonResources it
-    }
-
-    tasks.withType(Javadoc).configureEach {
-        failOnError = false
-        options.addStringOption('Xdoclint:none', '-quiet')
-    }
-
+jar{
+    from(project(':').file('CREDITS').absolutePath, project(':').file('LICENSE').absolutePath)
 }

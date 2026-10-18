@@ -1,0 +1,43 @@
+[versions]
+minecraft = "1.21.1"
+neoforge_moddev = "2.0.148" # see https://projects.neoforged.net/neoforged/moddevgradle for new versions
+fabric_loom = "1.18.4" # see https://fabricmc.net/develop/ for new versions
+
+# we always want the earliest possible versions of loaders and other mods, to ensure broad end-user compat
+neoforge_neoform = "1.21.1-20240808.144430"
+parchment = "2024.11.17"
+mixin = "0.15.5+mixin.0.8.7"
+mixin_extras = "0.4.1"
+
+neoforge_neoforge = "21.1.139"
+fabric_loader = "0.16.9"
+
+# since we can't consistently rely on proper maven versioning on multiloader projects, we hardcode dep info in the mod.{json,toml}s
+# REMEMBER TO UPDATE THE MOD METADATA FILES WHENEVER CHANGING THESE!
+neoforge_jinxedlib = "xcKH5vNL" # 1.0.4
+neoforge_lithostitched = "1.8.0-neoforge-21.1"
+neoforge_moredfs = "iSzvhglx" # 2.3.0; this is JiJ'd, so we always want latest
+
+fabric_api = "0.115.6"
+fabric_jinxedlib = "2g3AsqOQ" # 1.0.4
+fabric_lithostitched = "1.8.0-fabric-21.1"
+fabric_moredfs = "ZtCCIg0D" # 2.3.0; this is JiJ'd, so we always want latest
+
+
+[plugins]
+neoforge_moddev = { id = "net.neoforged.moddev", version.ref = "neoforge_moddev" }
+fabric_loom = { id = "fabric-loom", version.ref = "fabric_loom" }
+
+[libraries]
+parchment = { module = "org.parchmentmc.data:parchment-1.21.1", version.ref = "parchment" }
+mixin = { module = "net.fabricmc:sponge-mixin", version.ref = "mixin" }
+mixin_extras = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixinextras" }
+
+neoforge_jinxedlib = { module = "maven.modrinth:jinxedlib", version.ref = "neoforge_jinxedlib" }
+neoforge_lithostitched = { module = "maven.modrinth:lithostitched", version.ref = "neoforge_lithostitched" }
+neoforge_moredfs = { module = "maven.modrinth:more-density-functions", version.ref = "neoforge_moredfs" }
+
+fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }
+fabric_jinxedlib = { module = "maven.modrinth:jinxedlib", version.ref = "fabric_jinxedlib" }
+fabric_lithostitched = { module = "maven.modrinth:lithostitched", version.ref = "fabric_lithostitched" }
+fabric_moredfs = { module = "maven.modrinth:more-density-functions", version.ref = "fabric_moredfs" }

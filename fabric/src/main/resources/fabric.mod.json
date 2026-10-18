@@ -1,41 +1,45 @@
 {
-    "schemaVersion": 1,
-    "id": "${mod_id}",
-    "version": "${version}",
-    "accessWidener": "bygone.accesswidener",
-    "name": "${mod_name}",
-    "description": "${description}",
-    "authors": [
-        "Programmers: Jamie, soumeh, TheLyingCake (BIG BEAK ARMOR), TelepathicGrunt(Generation code!), TheInfamous1 (Hook!), Catalyst (Trees & Features!) & Klinbee (World gen!!)",
-        "Artists: boomsh0t (concept art), patchouli, CrispyTwig, gladosedition (Scuttle concept!) & betwixer (textures)",
-        "Music / Sounds: LudoCrypt, MistaJubb & Quizzly_",
-        "Playtesters: reider, vibrissae, Ethan_4D (The Bug Finder) & DsTheSecond"
-    ],
-    "contact": {
-        "homepage": "https://fabricmc.net/",
-        "sources": "https://github.com/FabricMC/fabric-example-mod"
-    },
-    "license": "${license}",
-    "icon": "${mod_id}.png",
-    "environment": "*",
-    "entrypoints": {
-        "main": [
-          "com.jamiedev.bygone.BygoneFabric"
-        ],
-        "client": ["com.jamiedev.bygone.client.BygoneClientFabric"],
-        "fabric-datagen": [
-            "com.jamiedev.bygone.FabricDatagen"
-        ]
-    },
-    "mixins": [
-        "${mod_id}.mixins.json",
-        "${mod_id}.fabric.mixins.json"
-    ],
-    "depends": {
-        "fabricloader": ">=${fabric_loader_version}",
-        "fabric-api": "*",
-        "minecraft": ">=${minecraft_version}",
-        "java": ">=${java_version}"
-    }
+  "schemaVersion": 1,
+  "id": "${project.modid}",
+  "version": "${project.version}",
+  "entrypoints": {
+    "main": [ "com.jamiedev.bygone.BygoneFabric" ],
+    "client": [ "com.jamiedev.bygone.client.BygoneClientFabric" ]
+  },
+  "mixins": [
+    "${project.modid}.mixins.json",
+    "${project.modid}.fabric.mixins.json"
+  ],
+  "accessWidener": "${project.modid}.accesswidener",
+  "depends": {
+    "minecraft": "${libs.versions.minecraft.get()}",
+    "fabric-api": ">=${libs.versions.fabric.api.get()}",
+
+    "jinxedlib": ">=1.0.4",
+    "lithostitched": ">=1.8.0",
+    "moredensityfunctions": ">=2.3.0"
+  },
+
+  "custom": {
+    "loom:injected_interfaces": ${project(':common').file('interfaces.json').getText()}
+  },
+
+  "name": "${project.name}",
+  "description": "${project.description}",
+  "icon": "icon.png",
+  "authors": [
+    "${project.credits_programmers}",
+    "${project.credits_planning}",
+    "${project.credits_artists}",
+    "${project.credits_sound}",
+    "${project.credits_playtesting}",
+    "${project.credits_trailer}"
+  ],
+  "contributors": [ "${project.credits_other" ],
+  "contact": {
+    "homepage": "${project.contact_modrinth}",
+    "sources": "${project.contact_repo}",
+    "discord": "${project.contact_discord}"
+  },
+  "license": "${project.license}"
 }
-  

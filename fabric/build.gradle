@@ -1,84 +1,46 @@
-plugins {
-    id 'multiloader-loader'
-    id 'fabric-loom'
-    id "com.modrinth.minotaur" version "2.+"
-}
-repositories {
-    maven {
-        url = "https://api.modrinth.com/maven"
+plugins{ alias libs.fabric.loom }
+repositories{ maven{ url = "https://api.modrinth.com/maven" } }
+
+base{ archivesName = "${project.modid}-fabric" }
+version = "${project.version}"
+group = "${project.groupid}"
+
+loom{
+    accessWidenerPath = file("src/main/resources/${project.modid}.accesswidener")
+    mods{ "${project.modid}"{
+        sourceSet sourceSets.main
+    } }
+
+    runs{
+        configureEach{
+            configName = "Fabric ${it.name.capitalize()} (${project.path})"
+            ideConfigGenerated = true
+        }
+        client{ client() }
+        server{ server() }
     }
-    maven {
-        url = "https://cursemaven.com/"
-    }
 }
-dependencies {
-    minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings loom.layered {
+
+dependencies{
+    project(':common')
+
+    minecraft libs.minecraft
+    mappings loom.layered{
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${parchment_minecraft}:${parchment_version}@zip")
-    }
-    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-
-    if (project.use_rei.toBoolean()) {
-        modImplementation "me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version"
+        parchment variantOf(libs.parchment){ artifactType 'zip' }
     }
 
-    // Mod Dependencies
+    modImplementation libs.fabric.loader
+    modImplementation libs.fabric.api
+    modImplementation libs.fabric.jinxedlib
+    modImplementation libs.fabric.lithostitched
+    modImplementation libs.fabric.moredfs
 
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    modImplementation "curse.maven:lithostitched-936015:6703597"
-    modImplementation "curse.maven:jinxedlib-1203401:6268910"
-    include "curse.maven:jinxedlib-1203401:6268910"
-    modImplementation "maven.modrinth:HAVlno45:ZtCCIg0D"
-    include "maven.modrinth:HAVlno45:ZtCCIg0D"
-
-    //modImplementation "curse.maven:supermartijn642s-core-lib-454372:6076743" // Needed for formations, despite none of the documentation or pages saying so...
-    //modImplementation "curse.maven:formations-915115:5550394"
+    include libs.fabric.moredfs
 }
 
-loom {
-    def aw = file("src/main/resources/${mod_id}.accesswidener")
-    if (aw.exists()) {
-        accessWidenerPath.set(aw)
-    }
-    mixin {
-        defaultRefmapName.set("${mod_id}.refmap.json")
-    }
-    runs {
-        client {
-            client()
-            setConfigName('Fabric Client')
-            ideConfigGenerated(true)
-            runDir('runs/client')
-        }
-        server {
-            server()
-            setConfigName('Fabric Server')
-            ideConfigGenerated(true)
-            runDir('runs/server')
-        }
-    }
-}
-modrinth {
-    token = System.getenv("MODRINTH_TOKEN")// Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
-    projectId = modrinth_project_id // This can be the project ID or the slug. Either will work!
-    versionNumber = "fabric-$minecraft_version-$version" // You don't need to set this manually. Will fail if Modrinth has this version already
-    versionType = "release" // This is the default -- can also be `beta` or `alpha`
-    uploadFile = remapJar // With Loom, this MUST be set to `remapJar` instead of `jar`!
-    gameVersions = [minecraft_version] // Must be an array, even with only one version
-    dependencies { // A special DSL for creating dependencies
-        // scope.type
-        // The scope can be `required`, `optional`, `incompatible`, or `embedded`
-        // The type can either be `project` or `version`
-        required.project "fabric-api" // Creates a new required dependency on Fabric API
-        //   optional.version "sodium", "mc1.19.3-0.4.8" // Creates a new optional dependency on this specific version of Sodium
-    }
-}
-afterEvaluate {
-    loom.runs.configureEach {
-        vmArgs "-XX:+IgnoreUnrecognizedVMOptions",
-                "-XX:+AllowEnhancedClassRedefinition",
-                "-javaagent:${configurations.compileClasspath.find { it.name.contains("sponge-mixin") }}"
+processResources{
+    filesMatching(['fabric.mod.json']){
+        expand project: project, libs: libs
     }
 }

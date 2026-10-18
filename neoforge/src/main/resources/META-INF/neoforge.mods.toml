@@ -1,36 +1,48 @@
-modLoader = "javafml" #mandatory
-loaderVersion = "${neoforge_loader_version_range}" #mandatory
-license = "${license}" # Review your options at https://choosealicense.com/.
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
-[[mods]] #mandatory
-modId = "${mod_id}" #mandatory
-version = "${version}" #mandatory
-displayName = "${mod_name}" #mandatory
+modLoader = "javafml"
+loaderVersion = "[1,)"
+issueTrackerURL = "${project.contact_repo}"
+license = "${project.license}"
+
+[[mods]]
+modId = "${project.modid}"
+version = "${project.version}"
+displayName = "${project.name}"
+description = "${project.description}"
+authors = """\
+${project.credits_programmers}
+${project.credits_planning}
+${project.credits_artists}
+${project.credits_sound}
+${project.credits_playtesting}
+${project.credits_trailer}"""
+credits = "${project.credits_other}"
+logoFile = "icon.png"
+modUrl = "${project.contact_modrinth}"
+displayURL = "${project.contact_modrinth}"
 enumExtensions="META-INF/enumextensions.json"
-#updateJSONURL="https://change.me.example.invalid/updates.json" #optional (see https://docs.neoforged.net/docs/misc/updatechecker/)
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional (displayed in the mod UI)
-logoFile="${mod_id}.png" #optional
-credits="${credits}" #optional
-authors = "${mod_author}" #optional
-description = "${description}" #mandatory (Supports multiline text)
+
 [[mixins]]
-config = "${mod_id}.mixins.json"
+config = "${project.modid}.mixins.json"
+
 [[mixins]]
-config = "${mod_id}.neoforge.mixins.json"
-[[dependencies.${mod_id}]] #optional
-modId = "neoforge" #mandatory
-type="required" #mandatory (Can be one of "required", "optional", "incompatible" or "discouraged")
-versionRange = "[${neoforge_version},)" #mandatory
-ordering = "NONE" # The order that this dependency should load in relation to your mod, required to be either 'BEFORE' or 'AFTER' if the dependency is not mandatory
-side = "BOTH" # Side this dependency is applied on - 'BOTH', 'CLIENT' or 'SERVER'
-[[dependencies.${mod_id}]]
+config = "${project.modid}.neoforge.mixins.json"
+
+[[dependencies.${project.modid}]]
 modId = "minecraft"
-type="required" #mandatory (Can be one of "required", "optional", "incompatible" or "discouraged")
-versionRange = "${minecraft_version_range}"
-ordering = "NONE"
-side = "BOTH"
-# Features are specific properties of the game environment, that you may want to declare you require. This example declares
-# that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
-# stop your mod loading on the server for example.
-#[features.${mod_id}]
-#openGLVersion="[3.2,)"
+versionRange = "[${libs.versions.minecraft.get()}]"
+
+[[dependencies.${project.modid}]]
+modId = "neoforge"
+versionRange = "[${libs.versions.neoforge.neoforge.get()},)"
+
+[[dependencies.${project.modid}]]
+modId = "jinxedlib"
+versionRange = "[1.0.4,)"
+
+[[dependencies.${project.modid}]]
+modId = "lithostitched"
+versionRange = "[1.8.0,)"
+
+[[dependencies.${project.modid}]]
+modId = "moredensityfunctions"
+versionRange = "[2.3.0,)"
