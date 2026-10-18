@@ -1,48 +1,40 @@
 modLoader = "javafml"
 loaderVersion = "[1,)"
-issueTrackerURL = "${project.contact_repo}"
-license = "${project.license}"
+issueTrackerURL = "${contact_repo}"
+license = "${license}"
 
 [[mods]]
-modId = "${project.modid}"
-version = "${project.version}"
-displayName = "${project.name}"
-description = "${project.description}"
+modId = "${modid}"
+version = "${version}"
+displayName = "${modname}"
+description = "${description}"
 authors = """\
-${project.credits_programmers}
-${project.credits_planning}
-${project.credits_artists}
-${project.credits_sound}
-${project.credits_playtesting}
-${project.credits_trailer}"""
-credits = "${project.credits_other}"
+${credits_programmers}
+${credits_planning}
+${credits_artists}
+${credits_sound}
+${credits_playtesting}
+${credits_trailer}"""
+credits = "${credits_other}"
 logoFile = "icon.png"
-modUrl = "${project.contact_modrinth}"
-displayURL = "${project.contact_modrinth}"
+modUrl = "${contact_modrinth}"
+displayURL = "${contact_modrinth}"
 enumExtensions="META-INF/enumextensions.json"
 
 [[mixins]]
-config = "${project.modid}.mixins.json"
+config = "${modid}.mixins.json"
 
 [[mixins]]
-config = "${project.modid}.neoforge.mixins.json"
+config = "${modid}.neoforge.mixins.json"
 
-[[dependencies.${project.modid}]]
-modId = "minecraft"
-versionRange = "[${libs.versions.minecraft.get()}]"
-
-[[dependencies.${project.modid}]]
-modId = "neoforge"
-versionRange = "[${libs.versions.neoforge.neoforge.get()},)"
-
-[[dependencies.${project.modid}]]
+[[dependencies.${modid}]]
 modId = "jinxedlib"
-versionRange = "[1.0.4,)"
+versionRange = "[1.0.3,)"
 
-[[dependencies.${project.modid}]]
+[[dependencies.${modid}]]
 modId = "lithostitched"
 versionRange = "[1.8.0,)"
 
-[[dependencies.${project.modid}]]
+[[dependencies.${modid}]]
 modId = "moredensityfunctions"
 versionRange = "[2.3.0,)"

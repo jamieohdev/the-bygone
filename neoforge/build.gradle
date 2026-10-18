@@ -1,10 +1,9 @@
-plugins{ alias libs.neoforge.moddev }
-repositories{ maven{ url = "https://api.modrinth.com/maven" } }
+plugins{ alias libs.plugins.neoforge.moddev }
+repositories{
+    maven{ url = 'https://api.modrinth.com/maven' }
+}
 
-base{ archivesName = "${project.modid}-neoforge" }
-version = "${project.version}"
-group = "${project.groupid}"
-
+base{ archivesName = "${project.modid}-${project.name}" }
 neoForge{
     version = libs.versions.neoforge.neoforge.get()
     parchment{
@@ -29,8 +28,13 @@ neoForge{
     }
 }
 
+configurations{
+    dependencyScope('common')
+    resolvable('commoners'){ extendsFrom(common) }
+    compileOnly.extendsFrom(common)
+}
 dependencies{
-    project(':common')
+    common project(':common')
 
     implementation libs.neoforge.jinxedlib
     implementation libs.neoforge.lithostitched
@@ -39,8 +43,14 @@ dependencies{
     jarJar libs.neoforge.moredfs
 }
 
+def properties = providers.gradlePropertiesPrefixedBy('').get()
 processResources{
     filesMatching(['META-INF/neoforge.mods.toml']){
-        expand project: project, libs: libs
+        expand properties
     }
+}
+
+jar{
+    dependsOn configurations.commoners
+    from{ configurations.commoners.collect{ zipTree(it) } }
 }

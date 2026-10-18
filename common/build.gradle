@@ -1,5 +1,5 @@
-plugins{ alias libs.neoforge.moddev }
-repositories{ maven{ url = "https://api.modrinth.com/maven" } }
+plugins{ alias libs.plugins.neoforge.moddev }
+repositories{ maven{ url = 'https://api.modrinth.com/maven' } }
 
 neoForge{
     neoFormVersion = libs.versions.neoforge.neoform.get()

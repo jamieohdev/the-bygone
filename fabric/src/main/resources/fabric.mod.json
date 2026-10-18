@@ -1,45 +1,38 @@
 {
   "schemaVersion": 1,
-  "id": "${project.modid}",
-  "version": "${project.version}",
+  "id": "${modid}",
+  "version": "${version}",
   "entrypoints": {
     "main": [ "com.jamiedev.bygone.BygoneFabric" ],
     "client": [ "com.jamiedev.bygone.client.BygoneClientFabric" ]
   },
   "mixins": [
-    "${project.modid}.mixins.json",
-    "${project.modid}.fabric.mixins.json"
+    "${modid}.mixins.json",
+    "${modid}.fabric.mixins.json"
   ],
-  "accessWidener": "${project.modid}.accesswidener",
+  "accessWidener": "${modid}.accesswidener",
   "depends": {
-    "minecraft": "${libs.versions.minecraft.get()}",
-    "fabric-api": ">=${libs.versions.fabric.api.get()}",
-
-    "jinxedlib": ">=1.0.4",
+    "jinxedlib": ">=1.0.3",
     "lithostitched": ">=1.8.0",
     "moredensityfunctions": ">=2.3.0"
   },
 
-  "custom": {
-    "loom:injected_interfaces": ${project(':common').file('interfaces.json').getText()}
-  },
-
-  "name": "${project.name}",
-  "description": "${project.description}",
+  "name": "${modname}",
+  "description": "${description}",
   "icon": "icon.png",
   "authors": [
-    "${project.credits_programmers}",
-    "${project.credits_planning}",
-    "${project.credits_artists}",
-    "${project.credits_sound}",
-    "${project.credits_playtesting}",
-    "${project.credits_trailer}"
+    "${credits_programmers}",
+    "${credits_planning}",
+    "${credits_artists}",
+    "${credits_sound}",
+    "${credits_playtesting}",
+    "${credits_trailer}"
   ],
-  "contributors": [ "${project.credits_other" ],
+  "contributors": [ "${credits_other}" ],
   "contact": {
-    "homepage": "${project.contact_modrinth}",
-    "sources": "${project.contact_repo}",
-    "discord": "${project.contact_discord}"
+    "homepage": "${contact_modrinth}",
+    "sources": "${contact_repo}",
+    "discord": "${contact_discord}"
   },
-  "license": "${project.license}"
+  "license": "${license}"
 }
