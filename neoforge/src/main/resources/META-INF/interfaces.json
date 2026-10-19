@@ -1,4 +1,7 @@
 {
-  "net/minecraft/world/level/chunk/LevelChunk": [ "com/jamiedev/bygone/core/extension/LevelChunkExtension" ],
-  "net/minecraft/world/entity/LivingEntity": [ "com/jamiedev/bygone/core/extension/LivingEntityExtension" ]
+  "net/minecraft/world/entity/Entity": [ "com/jamiedev/bygone/core/extension/InterAttachmentExtension" ],
+  "net/minecraft/world/entity/LivingEntity": [ "com/jamiedev/bygone/core/extension/LivingEntityExtension" ],
+  "net/minecraft/world/level/block/entity/BlockEntity": [ "com/jamiedev/bygone/core/extension/InterAttachmentExtension" ],
+  "net/minecraft/world/level/chunk/ChunkAccess": [ "com/jamiedev/bygone/core/extension/InterAttachmentExtension" ],
+  "net/minecraft/world/level/chunk/LevelChunk": [ "com/jamiedev/bygone/core/extension/LevelChunkExtension" ]
 }

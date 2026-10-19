@@ -8,6 +8,7 @@ import com.jamiedev.bygone.common.util.VexDeathTracker;
 import com.jamiedev.bygone.common.weather.BygoneWeather;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.network.PacketHandler;
+import com.jamiedev.bygone.core.platform.InterAttachmentFabric;
 import com.jamiedev.bygone.core.registry.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -133,6 +134,7 @@ public class BygoneFabric implements ModInitializer {
         initEvents();
         BGAttributesFabric.init();
         Bygone.init();
+        InterAttachmentFabric.register(); // must go after bygone init
 
         Bygone.registerBuiltIn();
 

@@ -13,6 +13,11 @@ accessible field net/minecraft/world/entity/ai/goal/MeleeAttackGoal ticksUntilNe
 extend-enum net/minecraft/client/gui/Gui$HeartType BYGONE_HEART_HAUNTED
 extend-enum net/minecraft/world/entity/MobCategory BYGONE_HAUNTINGS_MOB
 
+## InterAttachmentMixin
+inject-interface net/minecraft/world/entity/Entity com/jamiedev/bygone/core/extension/InterAttachmentExtension
+inject-interface net/minecraft/world/level/block/entity/BlockEntity com/jamiedev/bygone/core/extension/InterAttachmentExtension
+inject-interface net/minecraft/world/level/chunk/ChunkAccess com/jamiedev/bygone/core/extension/InterAttachmentExtension
+
 ## LevelChunkMixin
 inject-interface net/minecraft/world/level/chunk/LevelChunk com/jamiedev/bygone/core/extension/LevelChunkExtension
 
