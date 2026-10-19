@@ -74,9 +74,10 @@ public final class InterAttachmentType<T>{
         public Builder<T> withDefault(T t){ this.t = t; return this; }
         public Builder<T> saveWith(Codec<T> codec){ this.codec = codec; return this; }
         public Builder<T> syncWith(StreamCodec<? super RegistryFriendlyByteBuf,T> streamCodec){ this.streamCodec = streamCodec; return this; }
-        /** only relevant when attached to players! **/
+        /** only relevant when attached to players! requires a saving codec! **/
         public Builder<T> copyOnDeath(){ this.copy = true; return this; }
         public InterAttachmentType<T> build(){
+            if(this.copy && this.codec == null) throw new IllegalStateException("attachment copying requires serialization: " + this.id);
             return new InterAttachmentType<T>(this.id, this.t, this.codec, this.streamCodec, this.copy);
         }
     }

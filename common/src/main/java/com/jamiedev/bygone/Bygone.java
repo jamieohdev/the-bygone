@@ -40,6 +40,7 @@ public class Bygone {
         BGBlockEntities.init();
         BGAttributes.init();
         BGDataComponentTypes.init();
+        BGInterAttachmentTypes.init();
         BGItems.init();
         BGMobEffects.init();
         BGEntityTypes.postInit();

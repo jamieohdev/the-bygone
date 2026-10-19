@@ -4,6 +4,7 @@ import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.BygoneClient;
 import com.jamiedev.bygone.common.entity.BygonePortalEntity;
 import com.jamiedev.bygone.core.mixin.PortalProcessorAccessor;
+import com.jamiedev.bygone.core.registry.BGInterAttachmentTypes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -11,7 +12,6 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.PortalProcessor;
@@ -22,8 +22,6 @@ public class PortalOverlay implements LayeredDraw.Layer {
     private static final ResourceLocation TEXTURE_VIGNETTE = ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "textures/gui/overlay/vignette.png");
     private static final ResourceLocation TEXTURE_PORTAL = ResourceLocation.fromNamespaceAndPath(Bygone.MOD_ID, "textures/gui/overlay/portal.png");
     private float alpha = 0f;
-    private boolean entering = false;
-    private int tick = 0;
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
@@ -31,23 +29,9 @@ public class PortalOverlay implements LayeredDraw.Layer {
         int screenHeight = guiGraphics.guiHeight();
 
         Minecraft mc = Minecraft.getInstance();
-        LocalPlayer player = mc.player;
-        if (mc.level == null || mc.player == null || mc.options.hideGui) return;
+        if (mc.player == null || mc.options.hideGui || !mc.player.has(BGInterAttachmentTypes.LAST_TICK_IN_PORTAL)) return;
 
-        // XXX: bit of a bodge. ideally, we'd be going alongside vanilla's
-        // handling for setAsInsidePortalThisTick on client, but...
-        // that requires we use the nausea effect overlay.
-        // this is the easiest place to shove clearing it, sadly
-        PortalProcessor processor = player.portalProcess;
-        if(player.tickCount != tick){ // process SCP-2719ness once per tick, cause that's when it's set :p
-            tick = player.tickCount;
-            if (processor instanceof PortalProcessorAccessor portalProcessorAccessor && processor.isInsidePortalThisTick()
-                    && portalProcessorAccessor.getPortal() instanceof BygonePortalEntity) {
-                entering = true;
-                processor.setAsInsidePortalThisTick(false);
-            } else entering = false;
-        }
-
+        boolean entering = mc.player.get(BGInterAttachmentTypes.LAST_TICK_IN_PORTAL) == mc.player.tickCount;
         if (entering || alpha > 0) {
             if(entering) alpha = alpha * 0.97F + 0.03F;
             else alpha = (alpha - 0.06F) / 0.97F;
