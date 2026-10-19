@@ -12,6 +12,7 @@ neoForge{
     }
 
     validateAccessTransformers = true
+    interfaceInjectionData.from 'src/main/resources/META-INF/interfaces.json'
 
     mods{ "${project.modid}"{
         sourceSet sourceSets.main

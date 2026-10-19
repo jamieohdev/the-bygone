@@ -1,6 +1,6 @@
 classTweaker v2 named
 
-# COMMON TWEAKS (must be kept in sync with accesstransformers.cfg and enumextensions.json)
+# COMMON TWEAKS (must be kept in sync with accesstransformers.cfg, interfaces.json, and enumextensions.json)
 ## GearBagData
 extendable class net/minecraft/world/item/component/BundleContents
 accessible field net/minecraft/world/item/component/BundleContents items Ljava/util/List;
@@ -12,6 +12,12 @@ accessible field net/minecraft/world/entity/ai/goal/MeleeAttackGoal ticksUntilNe
 ## HeartTypeMixinFabric
 extend-enum net/minecraft/client/gui/Gui$HeartType BYGONE_HEART_HAUNTED
 extend-enum net/minecraft/world/entity/MobCategory BYGONE_HAUNTINGS_MOB
+
+## LevelChunkMixin
+inject-interface net/minecraft/world/level/chunk/LevelChunk com/jamiedev/bygone/core/extension/LevelChunkExtension
+
+## LivingEntityMixin
+inject-interface net/minecraft/world/entity/LivingEntity com/jamiedev/bygone/core/extension/LivingEntityExtension
 
 
 

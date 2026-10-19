@@ -3,7 +3,6 @@ package com.jamiedev.bygone.client.renderer.weather;
 import com.jamiedev.bygone.common.weather.BygoneWeather;
 import com.jamiedev.bygone.common.weather.InvertedHeightmap;
 import com.jamiedev.bygone.common.weather.weather_types.InvertedRain;
-import com.jamiedev.bygone.core.extension.LevelChunkExtension;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
@@ -93,7 +92,7 @@ public class InvertedRainRenderer extends WeatherRenderer<InvertedRain> {
             BlockPos offsetBlockPos = blockpos.offset(k, 0, l);
             ChunkAccess chunkAccess = level.getChunk(offsetBlockPos);
             if (chunkAccess instanceof LevelChunk levelChunk) {
-                InvertedHeightmap invertedHeightmap = ((LevelChunkExtension) levelChunk).bygone$getInvertedHeightmap();
+                InvertedHeightmap invertedHeightmap = levelChunk.bygone$getInvertedHeightmap();
                 if (invertedHeightmap == null) return;
 
                 mutableBlockPos.set(
@@ -189,7 +188,7 @@ public class InvertedRainRenderer extends WeatherRenderer<InvertedRain> {
                 if (!biome.hasPrecipitation()) continue;
 
                 LevelChunk levelChunk = level.getChunkAt(mutableBlockPos);
-                InvertedHeightmap invertedHeightMap = ((LevelChunkExtension) levelChunk).bygone$getInvertedHeightmap();
+                InvertedHeightmap invertedHeightMap = levelChunk.bygone$getInvertedHeightmap();
 
 //                debugLineRender(new Vec3(k1, -64, j1), new Vec3(k1, invertedHeightMap.getHeight(k1, j1), j1));
                 if (invertedHeightMap.dirty) invertedHeightMap.primeSelf();

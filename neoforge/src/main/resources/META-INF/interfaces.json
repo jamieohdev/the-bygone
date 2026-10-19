@@ -1,0 +1,4 @@
+{
+  "net/minecraft/world/level/chunk/LevelChunk": [ "com/jamiedev/bygone/core/extension/LevelChunkExtension" ],
+  "net/minecraft/world/entity/LivingEntity": [ "com/jamiedev/bygone/core/extension/LivingEntityExtension" ]
+}

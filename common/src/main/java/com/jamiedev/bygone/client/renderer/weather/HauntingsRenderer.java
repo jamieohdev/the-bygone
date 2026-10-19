@@ -3,7 +3,6 @@ package com.jamiedev.bygone.client.renderer.weather;
 import com.jamiedev.bygone.common.weather.BygoneWeather;
 import com.jamiedev.bygone.common.weather.InvertedHeightmap;
 import com.jamiedev.bygone.common.weather.weather_types.HauntingsEvent;
-import com.jamiedev.bygone.core.extension.LevelChunkExtension;
 import com.jamiedev.bygone.core.registry.BGDimensions;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.client.Camera;
@@ -71,7 +70,7 @@ public class HauntingsRenderer extends WeatherRenderer<HauntingsEvent> {
             BlockPos offsetBlockPos = blockPos.offset(x, 0, z);
             ChunkAccess chunkAccess = level.getChunk(offsetBlockPos);
             if (chunkAccess instanceof LevelChunk levelChunk) {
-                InvertedHeightmap invertedHeightmap = ((LevelChunkExtension) levelChunk).bygone$getInvertedHeightmap();
+                InvertedHeightmap invertedHeightmap = levelChunk.bygone$getInvertedHeightmap();
                 if (invertedHeightmap == null) continue;
                 getParticleGroundPos(level, offsetBlockPos, blockPos.getY(), randomsource)
                     .ifPresent(groundPos -> spawnHauntingParticle(level, groundPos, randomsource));

@@ -1,7 +1,6 @@
 package com.jamiedev.bygone.core.mixin;
 
 import com.jamiedev.bygone.common.weather.weather_types.HauntingsCategoryHolder;
-import com.jamiedev.bygone.core.extension.LivingEntityExtension;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -115,7 +114,7 @@ public class NaturalSpawnerMixin {
         }
 
         mob.moveTo(mob.getX(), pos.getY() + 0.5D - mob.getBbHeight(), mob.getZ());
-        ((LivingEntityExtension) mob).bygone$startHauntingsRise();
+        mob.bygone$startHauntingsRise();
     }
 
     @Unique

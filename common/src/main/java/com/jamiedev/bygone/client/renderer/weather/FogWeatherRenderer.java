@@ -3,7 +3,6 @@ package com.jamiedev.bygone.client.renderer.weather;
 import com.jamiedev.bygone.common.weather.InvertedHeightmap;
 import com.jamiedev.bygone.common.weather.weather_types.FogWeatherEvent;
 import com.jamiedev.bygone.common.weather.weather_types.HauntingsEvent;
-import com.jamiedev.bygone.core.extension.LevelChunkExtension;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
