@@ -48,14 +48,14 @@ public class AvoidBlockGoal extends Goal {
      * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
      * method as well.
      */
+    @Override
     public boolean canUse() {
-        Optional<BlockPos> blockPos = BlockPos.findClosestMatch(this.mob.blockPosition(), 8, 4, posFilter);
-        if (blockPos.isPresent()) {
-            Vec3 posAway = DefaultRandomPos.getPosAway(mob, 16, 7, blockPos.get().getCenter());
-            if (posAway != null && this.mob.distanceToSqr(posAway.x, posAway.y, posAway.z) > this.mob.distanceToSqr(blockPos.get().getCenter())) {
+        if(mob.tickCount % 20 == 0) this.toAvoid = BlockPos.findClosestMatch(this.mob.blockPosition(), 8, 4, posFilter).orElse(null);
+        if (this.toAvoid != null) {
+            Vec3 posAway = DefaultRandomPos.getPosAway(mob, 16, 7, this.toAvoid.getCenter());
+            if (posAway != null && this.mob.distanceToSqr(posAway.x, posAway.y, posAway.z) > this.mob.distanceToSqr(this.toAvoid.getCenter())) {
                 this.path = this.pathNav.createPath(posAway.x, posAway.y, posAway.z, 0);
                 if (this.path != null) {
-                    this.toAvoid = blockPos.get();
                     return true;
                 }
             }
@@ -66,6 +66,7 @@ public class AvoidBlockGoal extends Goal {
     /**
      * Returns whether an in-progress EntityAMIBase should continue executing
      */
+    @Override
     public boolean canContinueToUse() {
         return !this.pathNav.isDone();
     }
@@ -73,6 +74,7 @@ public class AvoidBlockGoal extends Goal {
     /**
      * Execute a one shot task or start executing a continuous task
      */
+    @Override
     public void start() {
         this.pathNav.moveTo(this.path, this.walkSpeedModifier);
     }
@@ -80,6 +82,7 @@ public class AvoidBlockGoal extends Goal {
     /**
      * Reset the task's internal state. Called when this task is interrupted by another one
      */
+    @Override
     public void stop() {
         this.toAvoid = null;
     }
@@ -87,12 +90,8 @@ public class AvoidBlockGoal extends Goal {
     /**
      * Keep ticking a continuous task that has already been started
      */
+    @Override
     public void tick() {
-
-
-        if (this.toAvoid == null) {
-            return;
-        }
         if (this.mob.distanceToSqr(this.toAvoid.getCenter()) < 49.0D) {
             this.mob.getNavigation().setSpeedModifier(this.sprintSpeedModifier);
         } else {
