@@ -2,11 +2,11 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.jamiedev.bygone.core.mixin",
-  "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AllayMixin",
     "AxeItemAccess",
+    "DecoratedPotPatternsMixin",
     "DoorBlockMixin",
     "EmptyMapMixin",
     "FarmlandBlockMixin",
@@ -20,7 +20,6 @@
     "PlayerMixin",
     "PortalProcessorAccessor",
     "ServerLevelMixin",
-    "SpawnStateMixin",
     "VexMixin"
   ],
   "client": [

@@ -1,8 +1,6 @@
 package com.jamiedev.bygone;
 
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 import com.jamiedev.bygone.client.BygoneClientNeoForge;
 import com.jamiedev.bygone.common.block.entity.GumboPotBlockEntity;
 import com.jamiedev.bygone.common.util.ServerTickHandler;
@@ -23,7 +21,6 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
@@ -53,7 +50,6 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Set;
 import java.util.function.Supplier;
 
 @Mod(Bygone.MOD_ID)
@@ -95,7 +91,6 @@ public class BygoneNeoForge {
     }
 
     public BygoneNeoForge(IEventBus eventBus, Dist dist) {
-        BGDecoratedPotPatternsNeoForge.POT_PATTERNS.register(eventBus);
         BGAttributesNeoForge.init(eventBus);
         Bygone.init();
 
@@ -175,13 +170,6 @@ public class BygoneNeoForge {
     void setup(FMLCommonSetupEvent event) {
         // TODO should these be enqueued (Startraveler)
         event.enqueueWork(() -> {
-
-            Set<Block> validBlocks = Sets.newHashSet(BlockEntityType.BRUSHABLE_BLOCK.validBlocks);
-            validBlocks.addAll(Sets.newHashSet(BGBlocks.SUSPICIOUS_SHELLSAND.get(), BGBlocks.SUSPICIOUS_CLAYSTONE.get()));
-            BlockEntityType.BRUSHABLE_BLOCK.validBlocks = ImmutableSet.copyOf(validBlocks);
-
-            BGDecoratedPotPatternsNeoForge.expandVanilla();
-            Bygone.registerStrippables();
             Bygone.addFlammable();
             //JamiesModPortalsNeoForge.init();
             GumboPotBlockEntity.GumboScooping.setFilled(Items.BOWL, BGItems.GUMBO_BOWL.get());

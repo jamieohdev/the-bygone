@@ -3,7 +3,7 @@ repositories{
     maven{ url = 'https://api.modrinth.com/maven' }
 }
 
-base{ archivesName = "${project.modid}-${project.name}" }
+base{ archivesName = "${project.modid}-${project.name}-${libs.versions.minecraft.get()}" }
 neoForge{
     version = libs.versions.neoforge.neoforge.get()
     parchment{
@@ -12,8 +12,6 @@ neoForge{
     }
 
     validateAccessTransformers = true
-    accessTransformers.from(project(':common').file('src/main/resources/META-INF/accesstransformer.cfg').absolutePath)
-    interfaceInjectionData.from(project(':common').file('interfaces.json').absolutePath)
 
     mods{ "${project.modid}"{
         sourceSet sourceSets.main
@@ -30,7 +28,10 @@ neoForge{
 
 configurations{
     dependencyScope('common')
-    resolvable('commoners'){ extendsFrom(common) }
+    resolvable('commoners'){
+        extendsFrom(common)
+        transitive = false
+    }
     compileOnly.extendsFrom(common)
 }
 dependencies{
@@ -48,6 +49,11 @@ processResources{
     filesMatching(['META-INF/neoforge.mods.toml']){
         expand properties
     }
+}
+
+tasks.withType(JavaCompile).configureEach{
+    it.options.encoding = 'UTF-8'
+    it.options.release = 21
 }
 
 jar{

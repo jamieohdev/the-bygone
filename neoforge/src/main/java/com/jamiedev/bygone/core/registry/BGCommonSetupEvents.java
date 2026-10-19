@@ -14,7 +14,7 @@ import net.neoforged.neoforge.registries.NewRegistryEvent;
 
 import java.io.IOException;
 
-@EventBusSubscriber(modid = Bygone.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Bygone.MOD_ID)
 public class BGCommonSetupEvents {
     @SubscribeEvent
     public static void addRegistries(final NewRegistryEvent event) {

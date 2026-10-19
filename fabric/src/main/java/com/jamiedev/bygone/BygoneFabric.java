@@ -20,6 +20,7 @@ import net.fabricmc.fabric.api.event.registry.RegistryAttribute;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -129,7 +130,6 @@ public class BygoneFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        BGBlockEntitiesFabric.register();
         initEvents();
         BGAttributesFabric.init();
         Bygone.init();
@@ -187,8 +187,11 @@ public class BygoneFabric implements ModInitializer {
 
         Bygone.addValidBlocks((type, block) -> type.addSupportedBlock(block));
 
-        Bygone.registerStrippables();
         Bygone.addFlammable();
+        StrippableBlockRegistry.register(BGBlocks.ANCIENT_LOG.get(), BGBlocks.STRIPPED_ANCIENT_LOG.get());
+        StrippableBlockRegistry.register(BGBlocks.ANCIENT_WOOD.get(), BGBlocks.STRIPPED_ANCIENT_WOOD.get());
+        StrippableBlockRegistry.register(BGBlocks.SABLE_LOG.get(), BGBlocks.STRIPPED_SABLE_LOG.get());
+        StrippableBlockRegistry.register(BGBlocks.SABLE_WOOD.get(), BGBlocks.STRIPPED_SABLE_WOOD.get());
 
         PacketHandler.registerPackets();
 

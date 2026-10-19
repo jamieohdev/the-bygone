@@ -47,18 +47,7 @@ public class Bygone {
         BGBlockProperties.init();
         BGItemGroups.register();
         BGFishingTables.init();
-    }
-
-    public static void registerStrippables() {
-        Map<Block, Block> strippables = new IdentityHashMap<>(AxeItemAccess.getStripables());
-
-        strippables.put(BGBlocks.ANCIENT_LOG.get(), BGBlocks.STRIPPED_ANCIENT_LOG.get());
-        strippables.put(BGBlocks.ANCIENT_WOOD.get(), BGBlocks.STRIPPED_ANCIENT_WOOD.get());
-
-        strippables.put(BGBlocks.SABLE_LOG.get(), BGBlocks.STRIPPED_SABLE_LOG.get());
-        strippables.put(BGBlocks.SABLE_WOOD.get(), BGBlocks.STRIPPED_SABLE_WOOD.get());
-
-        AxeItemAccess.setStripables(strippables);
+        BGDecoratedPotPatterns.init();
     }
 
     public static ResourceLocation id(String id) {
@@ -116,13 +105,13 @@ public class Bygone {
                 (EntityType<T>) BGEntityTypes.SCUTTLE.get(),
                 SpawnPlacementTypes.IN_WATER,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				ScuttleEntity::checkSurfaceWaterAnimalSpawnRule
+                ScuttleEntity::checkSurfaceWaterAnimalSpawnRule
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.AQUIFAWN.get(),
                 SpawnPlacementTypes.IN_WATER,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				ScuttleEntity::checkSurfaceWaterAnimalSpawnRule
+                ScuttleEntity::checkSurfaceWaterAnimalSpawnRule
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.GLARE.get(),
@@ -140,25 +129,25 @@ public class Bygone {
                 (EntityType<T>) BGEntityTypes.TRILOBITE.get(),
                 SpawnPlacementTypes.IN_WATER,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				TrilobiteEntity::checkSurfaceWaterAnimalSpawnRule
+                TrilobiteEntity::checkSurfaceWaterAnimalSpawnRule
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.AMOEBA.get(),
                 SpawnPlacementTypes.IN_WATER,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				TrilobiteEntity::checkSurfaceWaterAnimalSpawnRule
+                TrilobiteEntity::checkSurfaceWaterAnimalSpawnRule
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.COPPERBUG.get(),
                 SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING,
-				CopperbugEntity::canSpawn
+                CopperbugEntity::canSpawn
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.COELACANTH.get(),
                 SpawnPlacementTypes.IN_WATER,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				CoelacanthEntity::checkSurfaceWaterAnimalSpawnRule
+                CoelacanthEntity::checkSurfaceWaterAnimalSpawnRule
         );
         consumer.accept(
                 (EntityType<T>) BGEntityTypes.HAUNT.get(),
@@ -266,22 +255,23 @@ public class Bygone {
                 (EntityType<T>) BGEntityTypes.PRIMORDIAL_FISH.get(),
                 SpawnPlacementTypes.IN_WATER,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				PrimordialFishEntity::checkPrimordialFishEntitySpawnRules
+                PrimordialFishEntity::checkPrimordialFishEntitySpawnRules
         );
     }
 
     public static void addValidBlocks(BiConsumer<BlockEntityType<?>, Block> consumer) {
         consumer.accept(BlockEntityType.SIGN, BGBlocks.ANCIENT_SIGN.get());
         consumer.accept(BlockEntityType.SIGN, BGBlocks.ANCIENT_WALL_SIGN.get());
-
-        consumer.accept(BlockEntityType.HANGING_SIGN, BGBlocks.ANCIENT_HANGING_SIGN.get());
-        consumer.accept(BlockEntityType.HANGING_SIGN, BGBlocks.ANCIENT_WALL_HANGING_SIGN.get());
-
         consumer.accept(BlockEntityType.SIGN, BGBlocks.SABLE_SIGN.get());
         consumer.accept(BlockEntityType.SIGN, BGBlocks.SABLE_WALL_SIGN.get());
 
+        consumer.accept(BlockEntityType.HANGING_SIGN, BGBlocks.ANCIENT_HANGING_SIGN.get());
+        consumer.accept(BlockEntityType.HANGING_SIGN, BGBlocks.ANCIENT_WALL_HANGING_SIGN.get());
         consumer.accept(BlockEntityType.HANGING_SIGN, BGBlocks.SABLE_HANGING_SIGN.get());
         consumer.accept(BlockEntityType.HANGING_SIGN, BGBlocks.SABLE_WALL_HANGING_SIGN.get());
+
+        consumer.accept(BlockEntityType.BRUSHABLE_BLOCK, BGBlocks.SUSPICIOUS_SHELLSAND.get());
+        consumer.accept(BlockEntityType.BRUSHABLE_BLOCK, BGBlocks.SUSPICIOUS_CLAYSTONE.get());
     }
 
     public static void addFlammable() {

@@ -1,13 +1,12 @@
 plugins{ alias libs.plugins.fabric.loom }
 repositories{
     maven{ url = 'https://api.modrinth.com/maven' }
-    maven{ url = 'https://maven.fabricmc.net' }
     maven{ url = 'https://maven.parchmentmc.org' }
 }
 
-base{ archivesName = "${project.modid}-${project.name}" }
+base{ archivesName = "${project.modid}-${project.name}-${libs.versions.minecraft.get()}" }
 loom{
-    accessWidenerPath = file("src/main/resources/${project.modid}.accesswidener")
+    accessWidenerPath = file("src/main/resources/${project.modid}.classtweaker")
     mods{ "${project.modid}"{
         sourceSet sourceSets.main
     } }
@@ -24,7 +23,10 @@ loom{
 
 configurations{
     dependencyScope('common')
-    resolvable('commoners'){ extendsFrom(common) }
+    resolvable('commoners'){
+        extendsFrom(common)
+        transitive = false
+    }
     compileOnly.extendsFrom(common)
 }
 dependencies{
@@ -45,11 +47,17 @@ dependencies{
     include libs.fabric.moredfs
 }
 
+
 def properties = providers.gradlePropertiesPrefixedBy('').get()
 processResources{
     filesMatching(['fabric.mod.json']){
         expand properties
     }
+}
+
+tasks.withType(JavaCompile).configureEach{
+    it.options.encoding = 'UTF-8'
+    it.options.release = 21
 }
 
 jar{

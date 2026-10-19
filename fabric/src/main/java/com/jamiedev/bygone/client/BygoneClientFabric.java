@@ -58,7 +58,7 @@ public class BygoneClientFabric implements ClientModInitializer {
     public void onInitializeClient() {
         BGFluidRenderer.initialize();
         BygoneClient.registerRenderLayers(BlockRenderLayerMap.INSTANCE::putBlock);
-        BygoneClient.createEntityRenderers();
+        BygoneClient.createEntityRenderers(EntityRendererRegistry::register);
         BygoneClient.createModelLayers((modelLayerLocation, layerDefinitionSupplier) -> EntityModelLayerRegistry.registerModelLayer(modelLayerLocation, layerDefinitionSupplier::get));
         BygoneClient.registerParticleFactories((particleType, spriteParticleRegistration) -> ParticleFactoryRegistry.getInstance().register(particleType, spriteParticleRegistration::create));
 

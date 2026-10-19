@@ -1,21 +1,32 @@
-plugins{ alias libs.plugins.neoforge.moddev }
-repositories{ maven{ url = 'https://api.modrinth.com/maven' } }
+plugins{ alias libs.plugins.fabric.loom }
+repositories{
+    maven{ url = 'https://api.modrinth.com/maven' }
+    maven{ url = 'https://maven.parchmentmc.org' }
+}
 
-neoForge{
-    neoFormVersion = libs.versions.neoforge.neoform.get()
-    parchment{
-        minecraftVersion = libs.versions.minecraft.get()
-        mappingsVersion = libs.versions.parchment.get()
-    }
-
-    validateAccessTransformers = true
-    interfaceInjectionData.from "interfaces.json"
+loom{
+    accessWidenerPath = project(':fabric').file('src/main/resources/bygone.classtweaker').absolutePath
 }
 
 dependencies{
+    minecraft libs.minecraft
+    mappings loom.layered{
+        officialMojangMappings()
+        parchment variantOf(libs.parchment){ artifactType 'zip' }
+    }
+
     compileOnly libs.mixin
     compileOnly libs.mixin.extras
-    compileOnly libs.neoforge.jinxedlib
+
+    compileOnly libs.fabric.loader // to suppress fucking EnvType errors
+    modImplementation fabricApi.module('fabric-transitive-access-wideners-v1', libs.versions.fabric.api.get())
+    modCompileOnly libs.fabric.jinxedlib
+}
+
+tasks.withType(JavaCompile).configureEach{
+    it.options.encoding = 'UTF-8'
+    it.options.release = 21
+    it.options.compilerArgs.add('-Xlint:-processing')
 }
 
 jar{

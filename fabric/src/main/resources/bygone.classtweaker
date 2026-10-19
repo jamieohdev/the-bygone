@@ -1,0 +1,29 @@
+classTweaker v2 named
+
+# COMMON TWEAKS (must be kept in sync with accesstransformers.cfg and enumextensions.json)
+## GearBagData
+extendable class net/minecraft/world/item/component/BundleContents
+accessible field net/minecraft/world/item/component/BundleContents items Ljava/util/List;
+accessible method net/minecraft/world/item/component/BundleContents <init> (Ljava/util/List;Lorg/apache/commons/lang3/math/Fraction;)V
+
+## GeistSwoopAttackGoal
+accessible field net/minecraft/world/entity/ai/goal/MeleeAttackGoal ticksUntilNextAttack I
+
+## HeartTypeMixinFabric
+extend-enum net/minecraft/client/gui/Gui$HeartType BYGONE_HEART_HAUNTED
+extend-enum net/minecraft/world/entity/MobCategory BYGONE_HAUNTINGS_MOB
+
+
+
+# FABRIC ONLY TWEAKS
+## BygoneClient
+accessible class net/minecraft/client/particle/ParticleEngine$SpriteParticleRegistration
+
+## FogRendererMixinFabric
+accessible class net/minecraft/client/renderer/FogRenderer$FogData
+
+## JamiesModBlockSetType
+accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
+
+## JamiesModWoodType
+accessible method  net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;

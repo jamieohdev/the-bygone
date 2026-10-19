@@ -3,14 +3,12 @@ package com.jamiedev.bygone.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
-import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -44,14 +42,6 @@ public class MalachiteDoorBlock extends DoorBlock implements SimpleWaterloggedBl
         return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
     }
 
-    @Override
-    public @NotNull BlockState playerWillDestroy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
-        if (!level.isClientSide && (player.isCreative() || !player.hasCorrectToolForDrops(state))) {
-            DoublePlantBlock.preventDropFromBottomPart(level, pos, state, player);
-        }
-
-        return super.playerWillDestroy(level, pos, state, player);
-    }
 
 
     // This needs an override, since we need to set the state to waterlogged or not.

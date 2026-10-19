@@ -34,7 +34,7 @@ import net.neoforged.neoforge.event.village.WandererTradesEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
-@EventBusSubscriber(modid = Bygone.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = Bygone.MOD_ID)
 public class BGEvents
 {
     private static final VillagerTrades.ItemListing bygoneMapTrade = new VillagerTrades.TreasureMapForEmeralds(

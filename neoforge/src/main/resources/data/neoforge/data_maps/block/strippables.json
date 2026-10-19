@@ -1,0 +1,6 @@
+{ "values": {
+  "bygone:ancient_log": { "stripped_block": "bygone:stripped_ancient_log" },
+  "bygone:ancient_wood": { "stripped_block": "bygone:stripped_ancient_wood" },
+  "bygone:sable_log": { "stripped_block": "bygone:stripped_sable_log" },
+  "bygone:sable_wood": { "stripped_block": "bygone:stripped_sable_wood" }
+} }

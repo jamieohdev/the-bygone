@@ -10,7 +10,6 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 
 import java.util.List;
 import java.util.function.Supplier;

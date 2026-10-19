@@ -13,14 +13,15 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -33,8 +34,6 @@ import java.util.function.Supplier;
 
 public class BygoneClient {
     public static final CubeDeformation FISH_PATTERN_DEFORMATION = new CubeDeformation(0.008F);
-    public static float portalOverlay = 0;
-    public static float portalTimeout = 0;
 
     public static void registerRenderLayers(BiConsumer<Block, RenderType> consumer) {
         consumer.accept(BGBlocks.AMBER.get(), RenderType.translucent());
@@ -191,9 +190,9 @@ public class BygoneClient {
         consumer.accept(BGBlocks.YELLOW_AMPHORA.get(), RenderType.cutout());
 
         consumer.accept(BGBlocks.MEGALITH_TOTEM.get(), RenderType.cutout());
-		consumer.accept(BGBlocks.LITHOPLASMIC_POWDER.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.LITHOPLASMIC_POWDER.get(), RenderType.cutout());
 
-		consumer.accept(BGBlocks.PRISTINE_VERDIGRIS_COG.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.PRISTINE_VERDIGRIS_COG.get(), RenderType.cutout());
         consumer.accept(BGBlocks.TARNISHED_VERDIGRIS_COG.get(), RenderType.cutout());
         consumer.accept(BGBlocks.BROKEN_VERDIGRIS_COG.get(), RenderType.cutout());
         consumer.accept(BGBlocks.RAMSHACKLED_VERDIGRIS_COG.get(), RenderType.cutout());
@@ -204,49 +203,47 @@ public class BygoneClient {
 
    }
 
-    public static void createEntityRenderers() {
-        //BlockEntityRenderers.register(BGBlockEntities.CASTER.get(), CasterBlockEntityRenderer::new);
+    public static void createEntityRenderers(EntityRendererBiConsumer consumer) {
+        consumer.accept(BGEntityTypes.AMOEBA.get(), AmoebaRenderer::new);
+        consumer.accept(BGEntityTypes.SKIPPER.get(), SkipperRenderer::new);
+        consumer.accept(BGEntityTypes.AQUIFAWN.get(), AquifawnRenderer::new);
+        consumer.accept(BGEntityTypes.GLARE.get(), GlareRenderer::new);
+        consumer.accept(BGEntityTypes.COELACANTH.get(), CoelacanthRenderer::new);
+        consumer.accept(BGEntityTypes.DUCK.get(), DuckieRenderer::new);
+        consumer.accept(BGEntityTypes.SCUTTLE.get(), ScuttleRenderer::new);
+        consumer.accept(BGEntityTypes.COPPERBUG.get(), CopperbugRenderer::new);
+        consumer.accept(BGEntityTypes.HOOK.get(), HookRenderer::new);
+        consumer.accept(BGEntityTypes.EXOTIC_ARROW.get(), ExoticArrowRenderer::new);
+        consumer.accept(BGEntityTypes.LITHOPLASM_ARROW.get(), LithoplasmArrowRenderer::new);
+        consumer.accept(BGEntityTypes.NECTAUR_PETAL.get(), NectaurPetalRenderer::new);
+        consumer.accept(BGEntityTypes.SCUTTLE_SPIKE.get(), ScuttleSpikeRenderer::new);
+        consumer.accept(BGEntityTypes.TRILOBITE.get(), TrilobiteRenderer::new);
+        consumer.accept(BGEntityTypes.MOOBOO.get(), MoobooRenderer::new);
+        consumer.accept(BGEntityTypes.FUNGAL_PARENT.get(), FungalParentRenderer::new);
+        consumer.accept(BGEntityTypes.BIG_BEAK.get(), BigBeakRenderer::new);
+        consumer.accept(BGEntityTypes.PEST.get(), PestRenderer::new);
+        consumer.accept(BGEntityTypes.PESKY.get(), PeskyRenderer::new);
+        consumer.accept(BGEntityTypes.WHISKBILL.get(), WhiskbillRenderer::new);
+        consumer.accept(BGEntityTypes.NECTAUR.get(), NectaurRenderer::new);
+        consumer.accept(BGEntityTypes.LITHY.get(), LithyRenderer::new);
+        consumer.accept(BGEntityTypes.REAVER.get(), ReaverRenderer::new);
+        consumer.accept(BGEntityTypes.WALLOW.get(), WallowRenderer::new);
+        consumer.accept(BGEntityTypes.WISP.get(), WispRenderer::new);
+        consumer.accept(BGEntityTypes.GEIST.get(), GeistRenderer::new);
+        consumer.accept(BGEntityTypes.HAUNT.get(), HauntRenderer::new);
+        consumer.accept(BGEntityTypes.WRAITH.get(), WraithRenderer::new);
+        consumer.accept(BGEntityTypes.SABEAST.get(), SabeastRenderer::new);
+        consumer.accept(BGEntityTypes.MOURN.get(), MournRenderer::new);
+        consumer.accept(BGEntityTypes.WHISPER.get(), WhisperRenderer::new);
+        consumer.accept(BGEntityTypes.SCARE.get(), ScareRenderer::new);
+        consumer.accept(BGEntityTypes.SCARE_BOLT.get(), ScareBoltRenderer::new);
+        consumer.accept(BGEntityTypes.PRIMORDIAL_FISH.get(), PrimordialFishRenderer::new);
+        consumer.accept(BGEntityTypes.MURKLING.get(), MurklingRenderer::new);
 
-        //BlockEntityRenderers.register(BGBlockEntities.AMPHORA.get(), AmphoraBlockEntityRenderer::new);
-       // BlockEntityRenderers.register(BGBlockEntities.BYGONE_PORTAL.get(), BygonePortalRenderer::new);
-
-        EntityRenderers.register(BGEntityTypes.AMOEBA.get(), AmoebaRenderer::new);
-        EntityRenderers.register(BGEntityTypes.SKIPPER.get(), SkipperRenderer::new);
-        EntityRenderers.register(BGEntityTypes.AQUIFAWN.get(), AquifawnRenderer::new);
-        EntityRenderers.register(BGEntityTypes.GLARE.get(), GlareRenderer::new);
-        EntityRenderers.register(BGEntityTypes.COELACANTH.get(), CoelacanthRenderer::new);
-        EntityRenderers.register(BGEntityTypes.DUCK.get(), DuckieRenderer::new);
-        EntityRenderers.register(BGEntityTypes.SCUTTLE.get(), ScuttleRenderer::new);
-        EntityRenderers.register(BGEntityTypes.COPPERBUG.get(), CopperbugRenderer::new);
-        EntityRenderers.register(BGEntityTypes.HOOK.get(), HookRenderer::new);
-        EntityRenderers.register(BGEntityTypes.EXOTIC_ARROW.get(), ExoticArrowRenderer::new);
-        EntityRenderers.register(BGEntityTypes.LITHOPLASM_ARROW.get(), LithoplasmArrowRenderer::new);
-        EntityRenderers.register(BGEntityTypes.NECTAUR_PETAL.get(), NectaurPetalRenderer::new);
-        EntityRenderers.register(BGEntityTypes.SCUTTLE_SPIKE.get(), ScuttleSpikeRenderer::new);
-        EntityRenderers.register(BGEntityTypes.TRILOBITE.get(), TrilobiteRenderer::new);
-        EntityRenderers.register(BGEntityTypes.MOOBOO.get(), MoobooRenderer::new);
-        EntityRenderers.register(BGEntityTypes.FUNGAL_PARENT.get(), FungalParentRenderer::new);
-        EntityRenderers.register(BGEntityTypes.BIG_BEAK.get(), BigBeakRenderer::new);
-        EntityRenderers.register(BGEntityTypes.PEST.get(), PestRenderer::new);
-        EntityRenderers.register(BGEntityTypes.PESKY.get(), PeskyRenderer::new);
-        EntityRenderers.register(BGEntityTypes.WHISKBILL.get(), WhiskbillRenderer::new);
-        EntityRenderers.register(BGEntityTypes.NECTAUR.get(), NectaurRenderer::new);
-        EntityRenderers.register(BGEntityTypes.LITHY.get(), LithyRenderer::new);
-        EntityRenderers.register(BGEntityTypes.REAVER.get(), ReaverRenderer::new);
-        EntityRenderers.register(BGEntityTypes.WALLOW.get(), WallowRenderer::new);
-        EntityRenderers.register(BGEntityTypes.WISP.get(), WispRenderer::new);
-        EntityRenderers.register(BGEntityTypes.GEIST.get(), GeistRenderer::new);
-        EntityRenderers.register(BGEntityTypes.HAUNT.get(), HauntRenderer::new);
-        EntityRenderers.register(BGEntityTypes.WRAITH.get(), WraithRenderer::new);
-        EntityRenderers.register(BGEntityTypes.SABEAST.get(), SabeastRenderer::new);
-        EntityRenderers.register(BGEntityTypes.MOURN.get(), MournRenderer::new);
-        EntityRenderers.register(BGEntityTypes.WHISPER.get(), WhisperRenderer::new);
-        EntityRenderers.register(BGEntityTypes.SCARE.get(), ScareRenderer::new);
-        EntityRenderers.register(BGEntityTypes.SCARE_BOLT.get(), ScareBoltRenderer::new);
-        EntityRenderers.register(BGEntityTypes.PRIMORDIAL_FISH.get(), PrimordialFishRenderer::new);
-        EntityRenderers.register(BGEntityTypes.MURKLING.get(), MurklingRenderer::new);
-
-        EntityRenderers.register(BGEntityTypes.BYGONE_PORTAL.get(), com.jamiedev.bygone.client.renderer.entity.BygonePortalRenderer::new);
+        consumer.accept(BGEntityTypes.BYGONE_PORTAL.get(), BygonePortalRenderer::new);
+    }
+    public static interface EntityRendererBiConsumer{
+        <T extends Entity> void accept(EntityType<? extends T> type, EntityRendererProvider<T> provider);
     }
 
     public static void createModelLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> consumer) {

@@ -70,7 +70,7 @@ public class BygoneClientNeoForge {
     }
 
     static void createRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        BygoneClient.createEntityRenderers();
+        BygoneClient.createEntityRenderers(event::registerEntityRenderer);
     }
 
 
