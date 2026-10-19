@@ -1,6 +1,5 @@
 package com.jamiedev.bygone;
 
-import com.jamiedev.bygone.client.screen.PortalOverlay;
 import com.jamiedev.bygone.common.block.entity.GumboPotBlockEntity;
 import com.jamiedev.bygone.common.commands.BygoneWeatherCommand;
 import com.jamiedev.bygone.common.util.ServerTickHandler;

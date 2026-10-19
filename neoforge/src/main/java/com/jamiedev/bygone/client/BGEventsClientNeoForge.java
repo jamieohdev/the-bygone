@@ -4,7 +4,6 @@ import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.renderer.effect.FogEffectRenderer;
 import com.jamiedev.bygone.client.renderer.weather.FogWeatherRenderer;
 import com.jamiedev.bygone.core.registry.BGDimensions;
-import com.jamiedev.bygone.client.screen.PortalOverlay;
 import com.jamiedev.bygone.core.registry.BGMobEffects;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;

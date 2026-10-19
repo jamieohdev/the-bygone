@@ -62,13 +62,8 @@ public class BygoneClientFabric implements ClientModInitializer {
         BygoneClient.createModelLayers((modelLayerLocation, layerDefinitionSupplier) -> EntityModelLayerRegistry.registerModelLayer(modelLayerLocation, layerDefinitionSupplier::get));
         BygoneClient.registerParticleFactories((particleType, spriteParticleRegistration) -> ParticleFactoryRegistry.getInstance().register(particleType, spriteParticleRegistration::create));
 
-        HudRenderCallback.EVENT.register((GuiGraphics guiGraphics, DeltaTracker deltaTracker) -> {
-            Minecraft client = Minecraft.getInstance();
-            if (client.player != null && !client.options.hideGui) {
-                PortalOverlay p = new PortalOverlay();
-                p.render(guiGraphics, deltaTracker);
-            }
-        });
+        PortalOverlay overlay = new PortalOverlay();
+        HudRenderCallback.EVENT.register(overlay::render);
 
         DimensionRenderingRegistry.registerWeatherRenderer(BGDimensions.BYGONE_LEVEL_KEY,
         worldRenderContext -> {
