@@ -16,6 +16,7 @@ neoForge{
 
     mods{ "${project.modid}"{
         sourceSet sourceSets.main
+        sourceSet project(':common').sourceSets.main
     } }
 
     runs{

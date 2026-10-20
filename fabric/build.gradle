@@ -9,6 +9,7 @@ loom{
     accessWidenerPath = file("src/main/resources/${project.modid}.classtweaker")
     mods{ "${project.modid}"{
         sourceSet sourceSets.main
+        sourceSet project(':common').sourceSets.main
     } }
 
     runs{
