@@ -533,7 +533,7 @@ public class BigBeakEntity extends AbstractHorse implements VariantHolder<BigBea
     }
 
     @Override
-    @javax.annotation.Nullable
+    @org.jetbrains.annotations.Nullable
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob otherParent) {
 
         BigBeakEntity horse = (BigBeakEntity) otherParent;
@@ -592,9 +592,9 @@ public class BigBeakEntity extends AbstractHorse implements VariantHolder<BigBea
         Objects.requireNonNull(child.getAttribute(attribute)).setBaseValue(d);
     }
 
-    @javax.annotation.Nullable
+    @org.jetbrains.annotations.Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @javax.annotation.Nullable SpawnGroupData spawnGroupData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @org.jetbrains.annotations.Nullable SpawnGroupData spawnGroupData) {
         RandomSource randomsource = level.getRandom();
         BigBeakVariants bigbeak$variant = getRandomBigBeakVariant(level, this.blockPosition());
         BigBeakVariants variant;

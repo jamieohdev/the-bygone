@@ -36,7 +36,7 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class PestEntity extends Animal {
     protected static final ImmutableList<SensorType<? extends Sensor<? super PestEntity>>> SENSOR_TYPES;

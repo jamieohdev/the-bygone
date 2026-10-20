@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.world.entity.Mob;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class HauntingsMobRenderer<T extends Mob, M extends HauntingsMobModel<T>> extends MobRenderer<T, M> {
     public HauntingsMobRenderer(EntityRendererProvider.Context context, M model, float shadowRadius) {

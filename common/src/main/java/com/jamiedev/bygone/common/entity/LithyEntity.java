@@ -541,7 +541,7 @@ public class LithyEntity extends PathfinderMob {
         private final PathNavigation navigation;
         private final float stopDistance;
         private final float areaSize;
-        @javax.annotation.Nullable
+        @org.jetbrains.annotations.Nullable
         private Mob followingMob;
         private int timeToRecalcPath;
         private float oldWaterCost;
@@ -637,7 +637,7 @@ public class LithyEntity extends PathfinderMob {
         private final PathNavigation navigation;
         private final float stopDistance;
         private final float areaSize;
-        @javax.annotation.Nullable
+        @org.jetbrains.annotations.Nullable
         private Player followingMob;
         private int timeToRecalcPath;
         private float oldWaterCost;

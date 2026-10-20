@@ -4,7 +4,7 @@ import com.jamiedev.bygone.common.weather.weather_types.WeatherProperties.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class InvertedRain extends WeatherType {
     private static final String TIME = "time";

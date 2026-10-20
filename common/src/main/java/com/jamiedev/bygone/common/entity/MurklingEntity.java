@@ -44,7 +44,7 @@ import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class MurklingEntity extends Monster implements RangedAttackMob
 {
@@ -402,9 +402,9 @@ public class MurklingEntity extends Monster implements RangedAttackMob
         return level.isUnobstructed(this);
     }
 
-    @javax.annotation.Nullable
+    @org.jetbrains.annotations.Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @javax.annotation.Nullable SpawnGroupData spawnGroupData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @org.jetbrains.annotations.Nullable SpawnGroupData spawnGroupData) {
         RandomSource randomsource = level.getRandom();
         MurklingVariants murkling$variant = getRandomVariant(level, this.blockPosition());
         MurklingVariants variant;

@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class GeistRenderer extends HauntingsMobRenderer<GeistEntity, GeistModel<GeistEntity>> {
     private static final ResourceLocation TEXTURE = Bygone.id("textures/entity/geist.png");

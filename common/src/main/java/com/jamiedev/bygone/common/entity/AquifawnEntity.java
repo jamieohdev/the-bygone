@@ -45,7 +45,7 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.UUID;
@@ -69,7 +69,7 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, ItemSteer
 
     private static final UniformInt PERSISTENT_ANGER_TIME;
     private int remainingPersistentAngerTime;
-    @javax.annotation.Nullable
+    @org.jetbrains.annotations.Nullable
     private UUID persistentAngerTarget;
 
     public AquifawnEntity(EntityType<? extends WaterAnimal> entityType, Level level) {
@@ -273,7 +273,7 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, ItemSteer
         }
     }
 
-    @javax.annotation.Nullable
+    @org.jetbrains.annotations.Nullable
     @Override
     public LivingEntity getControllingPassenger() {
         Object var10000;
@@ -425,11 +425,11 @@ public class AquifawnEntity extends WaterAnimal implements NeutralMob, ItemSteer
         return this.remainingPersistentAngerTime;
     }
 
-    public void setPersistentAngerTarget(@javax.annotation.Nullable UUID target) {
+    public void setPersistentAngerTarget(@org.jetbrains.annotations.Nullable UUID target) {
         this.persistentAngerTarget = target;
     }
 
-    @javax.annotation.Nullable
+    @org.jetbrains.annotations.Nullable
     public UUID getPersistentAngerTarget() {
         return this.persistentAngerTarget;
     }

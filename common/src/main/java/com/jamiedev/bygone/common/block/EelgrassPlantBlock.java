@@ -16,7 +16,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.Shapes;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class EelgrassPlantBlock extends GrowingPlantBodyBlock implements LiquidBlockContainer {
     public static final MapCodec<EelgrassPlantBlock> CODEC = simpleCodec(EelgrassPlantBlock::new);
