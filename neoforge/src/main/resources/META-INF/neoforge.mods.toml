@@ -33,7 +33,7 @@ vresionRange = "[1.21.1]"
 
 [[dependencies.${modid}]]
 modId = "neoforge"
-versionRange = "[21.1.255,)"
+versionRange = "[21.1.228,)"
 
 [[dependencies.${modid}]]
 modId = "jinxedlib"
@@ -41,7 +41,7 @@ versionRange = "[1.0.3,)"
 
 [[dependencies.${modid}]]
 modId = "lithostitched"
-versionRange = "[1.8.0,)"
+versionRange = "[1.7.0,)"
 
 [[dependencies.${modid}]]
 modId = "moredensityfunctions"

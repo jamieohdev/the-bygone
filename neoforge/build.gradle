@@ -29,14 +29,11 @@ neoForge{
 
 configurations{
     dependencyScope('common')
-    resolvable('commoners'){
-        extendsFrom(common)
-        transitive = false
-    }
-    compileOnly.extendsFrom(common)
+    resolvable('commoners'){ extendsFrom(common) }
+    implementation.extendsFrom(common)
 }
 dependencies{
-    common project(':common')
+    common(project(':common')){ transitive = false }
 
     implementation libs.neoforge.jinxedlib
     implementation libs.neoforge.lithostitched

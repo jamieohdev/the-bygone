@@ -5,21 +5,21 @@ fabric_loom = "1.17.21" # don't update to newer versions on 1.21.1! they require
 
 # we always want the earliest possible versions of loaders and other mods, to ensure broad end-user compat
 parchment = "2024.11.17"
-mixin = "0.17.1+mixin.0.8.7"
-mixin_extras = "0.5.3"
+mixin = "0.15.5+mixin.0.8.7"
+mixin_extras = "0.4.1"
 
-neoforge_neoforge = "21.1.255" # for the strippables data map
+neoforge_neoforge = "21.1.228" # for the strippables data map
 fabric_loader = "0.19.0" # required for interface injection in classtweakers
 
 # since we can't consistently rely on proper maven versioning on multiloader projects, we hardcode dep info in the mod.{json,toml}s
 # REMEMBER TO UPDATE THE MOD METADATA FILES WHENEVER CHANGING THESE!
 neoforge_jinxedlib = "wFbXdgzT" # 1.0.3
-neoforge_lithostitched = "1.8.0-neoforge-21.1"
+neoforge_lithostitched = "1.7.0-neoforge-21.1"
 neoforge_moredfs = "iSzvhglx" # 2.3.0; this is JiJ'd, so we always want latest
 
 fabric_api = "0.115.6+1.21.1"
 fabric_jinxedlib = "7lUkgdzX" # 1.0.3
-fabric_lithostitched = "1.8.0-fabric-21.1"
+fabric_lithostitched = "1.7.0-fabric-21.1" # can't do later or else runClient complains about JiJ'd apollib
 fabric_moredfs = "ZtCCIg0D" # 2.3.0; this is JiJ'd, so we always want latest
 
 [plugins]
