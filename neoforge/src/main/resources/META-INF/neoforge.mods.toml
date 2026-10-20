@@ -28,6 +28,14 @@ config = "${modid}.mixins.json"
 config = "${modid}.neoforge.mixins.json"
 
 [[dependencies.${modid}]]
+modId = "minecraft"
+vresionRange = "[1.21.1]"
+
+[[dependencies.${modid}]]
+modId = "neoforge"
+versionRange = "[21.1.255,)"
+
+[[dependencies.${modid}]]
 modId = "jinxedlib"
 versionRange = "[1.0.3,)"
 
