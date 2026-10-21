@@ -9,7 +9,7 @@ mixin = "0.15.5+mixin.0.8.7"
 mixin_extras = "0.4.1"
 
 neoforge_neoforge = "21.1.228" # for the strippables data map
-fabric_loader = "0.19.0" # required for interface injection in classtweakers
+fabric_loader = "0.19.3" # required for interface injection in classtweakers and non-busted mixins
 
 # since we can't consistently rely on proper maven versioning on multiloader projects, we hardcode dep info in the mod.{json,toml}s
 # REMEMBER TO UPDATE THE MOD METADATA FILES WHENEVER CHANGING THESE!
