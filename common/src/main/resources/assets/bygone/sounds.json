@@ -562,6 +562,14 @@
     ],
     "subtitle": "subtitles.entity.bigbeak.ambient"
   },
+  "entity.bigbeak.eat": {
+    "sounds": [
+      "bygone:entity/bigbeak/eat1",
+      "bygone:entity/bigbeak/eat2",
+      "bygone:entity/bigbeak/eat3"
+    ],
+    "subtitle": "subtitles.entity.bigbeak.eat"
+  },
   "entity.bigbeak.hurt": {
     "sounds": [
       "bygone:entity/bigbeak/hurt1",
@@ -1019,6 +1027,23 @@
       "bygone:entity/arcane_mechanism/open4"
     ],
     "subtitle": "subtitles.entity.arcane_mechanism.open"
+  },
+
+  "entity.arcane_mechanism.fail": {
+    "sounds": [
+      "bygone:entity/arcane_mechanism/fail1",
+      "bygone:entity/arcane_mechanism/fail2",
+      "bygone:entity/arcane_mechanism/fail3"
+    ],
+    "subtitle": "subtitles.entity.arcane_mechanism.fail"
+  },
+  "entity.arcane_mechanism.success": {
+    "sounds": [
+      "bygone:entity/arcane_mechanism/success1",
+      "bygone:entity/arcane_mechanism/success2",
+      "bygone:entity/arcane_mechanism/success3"
+    ],
+    "subtitle": "subtitles.entity.arcane_mechanism.success"
   },
 
   "item.war_horn.use": {

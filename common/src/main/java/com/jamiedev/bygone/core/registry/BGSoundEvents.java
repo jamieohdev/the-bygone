@@ -37,11 +37,18 @@ public class BGSoundEvents {
     public static final ResourceLocation ENTITY_ARCANE_MECHANISM_FADE = id("entity.arcane_mechanism.fade");
     public static SoundEvent ENTITY_ARCANE_MECHANISM_FADE_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_ARCANE_MECHANISM_FADE);
 
+    public static final ResourceLocation ENTITY_ARCANE_MECHANISM_FAIL = id("entity.arcane_mechanism.fail");
+    public static SoundEvent ENTITY_ARCANE_MECHANISM_FAIL_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_ARCANE_MECHANISM_FAIL);
+    public static final ResourceLocation ENTITY_ARCANE_MECHANISM_SUCCESS = id("entity.arcane_mechanism.success");
+    public static SoundEvent ENTITY_ARCANE_MECHANISM_SUCCESS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_ARCANE_MECHANISM_SUCCESS);
+
+
     public static final ResourceLocation ENTITY_AMOEBA_AMBIENT = id("entity.amoeba.ambient");
     public static final ResourceLocation ENTITY_AMOEBA_FLOP = id("entity.amoeba.flop");
     public static final ResourceLocation ENTITY_AMOEBA_HURT = id("entity.amoeba.hurt");
     public static final ResourceLocation ENTITY_AMOEBA_DEATH = id("entity.amoeba.death");
     public static final ResourceLocation ENTITY_BIGBEAK_AMBIENT = id("entity.bigbeak.ambient");
+    public static final ResourceLocation ENTITY_BIGBEAK_EAT = id("entity.bigbeak.eat");
     public static final ResourceLocation ENTITY_BIGBEAK_HURT = id("entity.bigbeak.hurt");
     public static final ResourceLocation ENTITY_BIGBEAK_DEATH = id("entity.bigbeak.death");
     public static final ResourceLocation ENTITY_BIGBEAK_JUMP = id("entity.bigbeak.jump");
@@ -232,6 +239,7 @@ public class BGSoundEvents {
     public static SoundEvent MUSIC_PRIMORDIALOCEAN_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(MUSIC_PRIMORDIALOCEAN_ADDITIONS);
     public static SoundEvent BIGBEAK_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_BIGBEAK_AMBIENT);
     public static SoundEvent BIGBEAK_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_BIGBEAK_HURT);
+    public static SoundEvent BIGBEAK_EAT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_BIGBEAK_EAT);
     public static SoundEvent BIGBEAK_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_BIGBEAK_DEATH);
     public static SoundEvent BIGBEAK_JUMP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_BIGBEAK_JUMP);
     public static SoundEvent BIGBEAK_STEP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_BIGBEAK_STEP);
@@ -287,6 +295,9 @@ public class BGSoundEvents {
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_ARCANE_MECHANISM_CLOSE, BGSoundEvents.ENTITY_ARCANE_MECHANISM_CLOSE_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_ARCANE_MECHANISM_IDLE, BGSoundEvents.ENTITY_ARCANE_MECHANISM_IDLE_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_ARCANE_MECHANISM_FADE, BGSoundEvents.ENTITY_ARCANE_MECHANISM_FADE_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_ARCANE_MECHANISM_FAIL, BGSoundEvents.ENTITY_ARCANE_MECHANISM_FAIL_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_ARCANE_MECHANISM_SUCCESS, BGSoundEvents.ENTITY_ARCANE_MECHANISM_SUCCESS_EVENT);
+
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.WEATHER_INVERTED_RAIN, BGSoundEvents.WEATHER_INVERTED_RAIN_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.WEATHER_HAUNTINGS_TOLL, BGSoundEvents.WEATHER_HAUNTINGS_TOLL_EVENT);
@@ -322,6 +333,7 @@ public class BGSoundEvents {
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_BIGBEAK_STEP, BGSoundEvents.BIGBEAK_STEP_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_BIGBEAK_STEP_WOOD, BGSoundEvents.BIGBEAK_STEP_WOOD_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_BIGBEAK_GALLOP, BGSoundEvents.BIGBEAK_GALLOP_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_BIGBEAK_EAT, BGSoundEvents.BIGBEAK_EAT_ADDITIONS_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_COPPERBUG_AMBIENT, BGSoundEvents.COPPERBUG_AMBIENT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_COPPERBUG_HURT, BGSoundEvents.COPPERBUG_HURT_ADDITIONS_EVENT);

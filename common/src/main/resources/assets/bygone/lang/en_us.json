@@ -746,13 +746,16 @@
   "subtitles.entity.arcane_mechanism.open": "Arcane Mechanism opens",
   "subtitles.entity.arcane_mechanism.loop": "Arcane Mechanism whirls",
   "subtitles.entity.arcane_mechanism.close": "Arcane Mechanism closes",
+  "subtitles.entity.arcane_mechanism.fail": "Arcane Mechanism fails",
+  "subtitles.entity.arcane_mechanism.success": "Arcane Mechanism succeeds",
 
   "subtitles.entity.amoeba.ambient": "Amoeba squeaks",
   "subtitles.entity.amoeba.bucket": "Amoeba bucketed",
   "subtitles.entity.amoeba.hurt": "Amoeba hurts",
   "subtitles.entity.amoeba.flop": "Amoeba flops",
   "subtitles.entity.amoeba.death": "Amoeba dies",
-  
+
+  "subtitles.entity.bigbeak.eat": "Big Beak eats",
   "subtitles.entity.bigbeak.step": "Footsteps",
   "subtitles.entity.bigbeak.jump": "Big Beak jumps",
   "subtitles.entity.bigbeak.ambient": "Big Beak caws",

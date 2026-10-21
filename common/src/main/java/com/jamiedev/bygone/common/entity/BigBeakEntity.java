@@ -368,7 +368,7 @@ public class BigBeakEntity extends AbstractHorse implements VariantHolder<BigBea
     @Override
     @Nullable
     protected SoundEvent getEatingSound() {
-        return SoundEvents.PARROT_EAT;
+        return BGSoundEvents.BIGBEAK_EAT_ADDITIONS_EVENT;
     }
 
     @Override

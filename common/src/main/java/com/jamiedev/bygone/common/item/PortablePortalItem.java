@@ -5,6 +5,7 @@ import com.jamiedev.bygone.common.entity.BygonePortalEntity;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGItems;
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -81,8 +82,7 @@ public class PortablePortalItem extends Item {
             BlockPos validPos = position.get();
 
             player.displayClientMessage(Component.literal("Valid!"), true);
-            level.playSound(player, validPos, SoundEvents.CONDUIT_ACTIVATE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            level.playSound(player, validPos, SoundEvents.VAULT_ACTIVATE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.playSound(player, validPos, BGSoundEvents.ENTITY_ARCANE_MECHANISM_SUCCESS_EVENT, SoundSource.BLOCKS, 1.0F, 1.0F);
 
             for (int x = -1; x <= 1; x++) {
                 for (int z = -1; z <= 1; z++) {
@@ -115,7 +115,7 @@ public class PortablePortalItem extends Item {
         } else if (player != null) {
             player.displayClientMessage(Component.literal("No space!!"), true);
             level.playSound(player, clickedPos, SoundEvents.ITEM_BREAK, SoundSource.BLOCKS, 1.0F, 0.8F);
-            level.playSound(player, clickedPos, SoundEvents.VAULT_DEACTIVATE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.playSound(player, clickedPos, BGSoundEvents.ENTITY_ARCANE_MECHANISM_FAIL_EVENT, SoundSource.BLOCKS, 1.0F, 1.0F);
 
             for (int i = 0; i < 8; i++) {
                 level.addParticle(ParticleTypes.SMOKE,
