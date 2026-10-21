@@ -370,6 +370,7 @@ public class BGItemGroups {
                         output.accept(BGItems.LITHOPLASMIC_POWDER.get());
                         output.accept(BGBlocks.LITHOPLASMIC_POWDER_BLOCK.get());
                         output.accept(BGItems.LITHO_BUCKET.get());
+                        output.accept(BGItems.HAUNTING_CLOCK.get());
                         output.accept(BGBlocks.MEGALITH_BLOCK.get());
                         output.accept(BGBlocks.CRACKED_MEGALITH_BLOCK.get());
                         output.accept(BGBlocks.LIT_CRACKED_MEGALITH_BLOCK.get());
