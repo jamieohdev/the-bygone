@@ -307,6 +307,13 @@ public class BGDataComponents {
             )
         );
         consumer.accept(
+                BGBlocks.SHELF_MOLD_SPROUTS.get().asItem(),
+                gumboComponent(new FoodProperties.Builder().nutrition(1)
+                        .saturationModifier(0.06f)
+                        .build()
+                )
+        );
+        consumer.accept(
             BGBlocks.ORANGE_FUNGI_VINES.get().asItem(),
             gumboComponent(new FoodProperties.Builder().nutrition(1)
                 .saturationModifier(0.05f)

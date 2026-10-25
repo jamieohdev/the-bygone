@@ -341,6 +341,7 @@ public class BGItemGroups {
                         output.accept(BGBlocks.PROTOTAXITE_STEM.get());
                         output.accept(BGBlocks.SHELF_MYCELIUM.get());
                         output.accept(BGBlocks.SHELF_MOLD_BLOCK.get());
+                        output.accept(BGBlocks.SHELF_MOLD_SPROUTS.get());
                         output.accept(BGBlocks.SHELF_MOLD.get());
                         output.accept(BGBlocks.SHELF_MOLD_MOSS.get());
                         output.accept(BGBlocks.ORANGE_MUSHROOM_BLOCK.get());

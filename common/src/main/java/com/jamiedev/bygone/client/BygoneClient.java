@@ -140,6 +140,7 @@ public class BygoneClient {
         consumer.accept(BGBlocks.SHELF_FUNGUS.get(), RenderType.cutout());
         consumer.accept(BGBlocks.SHELF_ROOTS.get(), RenderType.cutout());
         consumer.accept(BGBlocks.SHELF_SPROUTS.get(), RenderType.cutout());
+        consumer.accept(BGBlocks.SHELF_MOLD_SPROUTS.get(), RenderType.cutout());
         consumer.accept(BGBlocks.SHELF_MOLD.get(), RenderType.cutout());
         consumer.accept(BGBlocks.ORANGE_FUNGI_VINES.get(), RenderType.cutout());
         consumer.accept(BGBlocks.ORANGE_FUNGI_PLANT.get(), RenderType.cutout());

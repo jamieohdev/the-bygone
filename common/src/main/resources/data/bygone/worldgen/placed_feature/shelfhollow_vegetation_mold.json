@@ -29,6 +29,15 @@
                     }
                   },
                   "weight": 1
+                },
+                {
+                  "data": {
+                    "Name": "bygone:shelf_mold_sprouts",
+                    "Properties": {
+                      "half": "lower"
+                    }
+                  },
+                  "weight": 1
                 }
               ]
             }

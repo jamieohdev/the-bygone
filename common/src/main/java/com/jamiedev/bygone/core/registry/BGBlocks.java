@@ -3099,6 +3099,20 @@ public class BGBlocks {
                             .pushReaction(PushReaction.DESTROY)
             )
     );
+    public static Supplier<Block> SHELF_MOLD_SPROUTS = registerBlock(
+            "shelf_mold_sprouts",
+            () -> new CreosoteSproutsBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.WOOD)
+                    .replaceable()
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY)
+                    .lightLevel((state) -> {
+                        return 1;
+                    }))
+    );
     public static Supplier<Block> SHELF_SPROUTS = registerBlock(
             "shelf_sprouts",
             () -> new CreosoteSproutsBlock(BlockBehaviour.Properties.of()
