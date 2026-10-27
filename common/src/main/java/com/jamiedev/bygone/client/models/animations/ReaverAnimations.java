@@ -4,13 +4,15 @@ import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
+
 public class ReaverAnimations {
+	private static final AnimationChannel.Interpolation BREATHING_INTERPOLATION = (target, progress, keyframes, from, to, weight) ->
+			target.set(keyframes[from].target()).lerp(keyframes[to].target(),
+					(float) (0.5 - 0.5 * Math.cos(progress * Math.PI))).mul(weight);
+
 	public static final AnimationDefinition IDLE = AnimationDefinition.Builder.withLength(4.0F).looping()
 		.addAnimation("Body", new AnimationChannel(AnimationChannel.Targets.ROTATION, 
 			new Keyframe(0.0F, KeyframeAnimations.degreeVec(4.4912F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
-		))
-		.addAnimation("Body", new AnimationChannel(AnimationChannel.Targets.POSITION, 
-			new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -0.3296F, 0.0F), AnimationChannel.Interpolations.LINEAR)
 		))
 		.addAnimation("LeftArm", new AnimationChannel(AnimationChannel.Targets.ROTATION, 
 			new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 11.0177F), AnimationChannel.Interpolations.LINEAR)
@@ -24,8 +26,23 @@ public class ReaverAnimations {
 		.addAnimation("LowerRightArm", new AnimationChannel(AnimationChannel.Targets.ROTATION, 
 			new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, -18.7903F, 0.0F), AnimationChannel.Interpolations.LINEAR)
 		))
+		.build();
+
+	public static final AnimationDefinition BREATHING = AnimationDefinition.Builder.withLength(4.0F).looping()
+		.addAnimation("Body", new AnimationChannel(AnimationChannel.Targets.POSITION,
+			new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.6704F, 0.0F), BREATHING_INTERPOLATION),
+			new Keyframe(2.0F, KeyframeAnimations.posVec(0.0F, -1.3296F, 0.0F), BREATHING_INTERPOLATION),
+			new Keyframe(4.0F, KeyframeAnimations.posVec(0.0F, 0.6704F, 0.0F), BREATHING_INTERPOLATION)
+		))
 		.addAnimation("UpperJaw", new AnimationChannel(AnimationChannel.Targets.ROTATION, 
-			new Keyframe(0.0F, KeyframeAnimations.degreeVec(-13.4735F, 0.0F, 1.9381F), AnimationChannel.Interpolations.LINEAR)
+			new Keyframe(0.0F, KeyframeAnimations.degreeVec(-5.4735F, 0.0F, 1.9381F), BREATHING_INTERPOLATION),
+			new Keyframe(2.0F, KeyframeAnimations.degreeVec(10.5265F, 0.0F, 1.9381F), BREATHING_INTERPOLATION),
+			new Keyframe(4.0F, KeyframeAnimations.degreeVec(-5.4735F, 0.0F, 1.9381F), BREATHING_INTERPOLATION)
+		))
+		.addAnimation("LowerJaw", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+			new Keyframe(0.0F, KeyframeAnimations.degreeVec(-4.0F, 0.0F, 0.0F), BREATHING_INTERPOLATION),
+			new Keyframe(2.0F, KeyframeAnimations.degreeVec(-12.0F, 0.0F, 0.0F), BREATHING_INTERPOLATION),
+			new Keyframe(4.0F, KeyframeAnimations.degreeVec(-4.0F, 0.0F, 0.0F), BREATHING_INTERPOLATION)
 		))
 		.build();
 
@@ -108,12 +125,6 @@ public class ReaverAnimations {
 		))
 		.addAnimation("LowerRightArm", new AnimationChannel(AnimationChannel.Targets.ROTATION, 
 			new Keyframe(0.0F, KeyframeAnimations.degreeVec(-4.7845F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
-		))
-		.addAnimation("LowerJaw", new AnimationChannel(AnimationChannel.Targets.ROTATION, 
-			new Keyframe(0.0F, KeyframeAnimations.degreeVec(7.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
-		))
-		.addAnimation("UpperJaw", new AnimationChannel(AnimationChannel.Targets.ROTATION, 
-			new Keyframe(0.0F, KeyframeAnimations.degreeVec(17.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
 		))
 		.build();
 }

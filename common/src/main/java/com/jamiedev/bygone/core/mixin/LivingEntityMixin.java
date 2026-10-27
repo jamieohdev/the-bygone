@@ -15,6 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -162,6 +163,10 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityEx
     }
     @Unique private int bygone$hauntingsRiseTicks = 0;
 
+    @Override public boolean bygone$isHauntingsRising() {
+        return this.bygone$hauntingsRiseTicks > 0;
+    }
+
     @Override public void bygone$startHauntingsRise() {
         if (bygone$isHauntingsMob()) {
             this.bygone$hauntingsRiseTicks = BYGONE_HAUNTINGS_RISE_DURATION;
@@ -173,7 +178,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityEx
     private void bygone$saveHauntingsMob(CompoundTag compound, CallbackInfo ci) {
         if (bygone$isHauntingsMob()) {
             if (this.bygone$hauntingsRiseTicks > 0) compound.putInt(BYGONE_HAUNTINGS_RISE_TICKS_TAG, this.bygone$hauntingsRiseTicks);
-            if (this.bygone$getHauntingsFadeTicks() > 0) compound.putInt(BYGONE_HAUNTINGS_DESPAWN_TICKS_TAG, this.bygone$getHauntingsFadeTicks());
+            compound.putInt(BYGONE_HAUNTINGS_DESPAWN_TICKS_TAG, this.bygone$getHauntingsFadeTicks());
         }
     }
 
@@ -181,7 +186,9 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityEx
     private void bygone$readHauntingsMob(CompoundTag compound, CallbackInfo ci) {
         this.bygone$hauntingsRiseTicks = bygone$isHauntingsMob()
             ? compound.getInt(BYGONE_HAUNTINGS_RISE_TICKS_TAG) : 0;
-        bygone$setHauntingsFadeTicks(bygone$isHauntingsMob() ? compound.getInt(BYGONE_HAUNTINGS_DESPAWN_TICKS_TAG) : -1);
+        bygone$setHauntingsFadeTicks(bygone$isHauntingsMob()
+            && compound.contains(BYGONE_HAUNTINGS_DESPAWN_TICKS_TAG, Tag.TAG_ANY_NUMERIC)
+            ? compound.getInt(BYGONE_HAUNTINGS_DESPAWN_TICKS_TAG) : -1);
     }
 
     // since they sometimes get stuck i might just change it to the behavior in here idk why

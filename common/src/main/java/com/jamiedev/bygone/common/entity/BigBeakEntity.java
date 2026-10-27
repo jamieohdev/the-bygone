@@ -381,6 +381,40 @@ public class BigBeakEntity extends AbstractHorse implements VariantHolder<BigBea
         this.playSound(BGSoundEvents.BIGBEAK_JUMP_ADDITIONS_EVENT, 0.4F, 1.0F);
     }
 
+    @Override
+    public boolean canJump() {
+        return this.onGround() && super.canJump();
+    }
+
+    @Override
+    public void onPlayerJump(int jumpPower) {
+        if (!this.canJump()) {
+            this.playerJumpPendingScale = 0.0F;
+            return;
+        }
+
+        super.onPlayerJump(jumpPower);
+    }
+
+    @Override
+    public void handleStartJump(int jumpPower) {
+        if (!this.canJump()) {
+            return;
+        }
+
+        super.handleStartJump(jumpPower);
+    }
+
+    @Override
+    protected void executeRidersJump(float jumpScale, Vec3 travelVector) {
+        if (!this.onGround() || this.isJumping()) {
+            return;
+        }
+
+        super.executeRidersJump(jumpScale, travelVector);
+        this.setOnGround(false);
+    }
+
     private void eating() {
         if (!this.isSilent()) {
             SoundEvent soundevent = this.getEatingSound();

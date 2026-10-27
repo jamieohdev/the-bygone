@@ -26,6 +26,7 @@ public class JamiesModTag {
     public static final TagKey<Block> HAUNT_SPAWNABLE_ON = Blocks.createTag("haunt_spawnable_on");
     public static final TagKey<Block> WISP_SPAWNABLE_ON = Blocks.createTag("wisp_spawnable_on");
     public static final TagKey<Block> WRAITH_SPAWNABLE_ON = Blocks.createTag("wraith_spawnable_on");
+    public static final TagKey<Block> REAVER_SPAWNABLE_ON = Blocks.createTag("reaver_spawnable_on");
 
     public static final TagKey<Block> ICE_BOUQUET_FORBIDDEN = Blocks.createTag("ice_bouquet_forbidden");
 

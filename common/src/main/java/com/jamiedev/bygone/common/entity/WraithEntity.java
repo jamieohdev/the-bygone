@@ -16,8 +16,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
@@ -320,9 +322,7 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
             this.floatAnimationState.stop();
         }
 
-        if (this.isCastingSpell()) {
-            this.spellAnimationState.startIfStopped(this.tickCount);
-        }
+        this.spellAnimationState.animateWhen(this.isCastingSpell(), this.tickCount);
         this.meleeAnimationState.animateWhen(this.attackAnim > 0, this.tickCount);
     }
 
@@ -605,24 +605,78 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     }
 
     public class WraithTeleportSpellGoal extends SpellcasterUseSpellGoal {
+        @Nullable
+        private LivingEntity teleportTarget;
 
         protected WraithTeleportSpellGoal(RangeSet<Double> validTargetRanges) {
             super(validTargetRanges);
         }
 
         public boolean canUse() {
-            return super.canUse();
+            LivingEntity targetEntity = WraithEntity.this.getTarget();
+            return targetEntity != null && WraithEntity.this.canAttack(targetEntity)
+                    && WraithEntity.this.hasLineOfSight(targetEntity) && super.canUse();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.isTeleportTargetValid() && super.canContinueToUse();
+        }
+
+        private boolean isTeleportTargetValid() {
+            return this.teleportTarget != null && this.teleportTarget.isAlive()
+                    && this.teleportTarget == WraithEntity.this.getTarget() && WraithEntity.this.canAttack(this.teleportTarget)
+                    && this.validTargetRanges.contains((double) WraithEntity.this.distanceTo(this.teleportTarget))
+                    && WraithEntity.this.hasLineOfSight(this.teleportTarget);
         }
 
         @Override
         public void start() {
+            this.teleportTarget = WraithEntity.this.getTarget();
             super.start();
+            if (this.teleportTarget != null && WraithEntity.this.level() instanceof ServerLevel serverLevel) {
+                serverLevel.playSound(null, this.teleportTarget.getX(), this.teleportTarget.getY(), this.teleportTarget.getZ(),
+                        SoundEvents.EVOKER_PREPARE_ATTACK, SoundSource.HOSTILE, 1.0F, 1.2F);
+                this.spawnTeleportWarningParticles(serverLevel);
+            }
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        @Override
+        public void tick() {
+            if (!this.isTeleportTargetValid()) {
+                return;
+            }
+
+            super.tick();
+            if (this.attackWarmupDelay > 0 && this.attackWarmupDelay % 4 == 0
+                    && WraithEntity.this.level() instanceof ServerLevel serverLevel) {
+                this.spawnTeleportWarningParticles(serverLevel);
+            }
+        }
+
+        private void spawnTeleportWarningParticles(ServerLevel serverLevel) {
+            if (this.teleportTarget == null) {
+                return;
+            }
+
+            serverLevel.sendParticles(ParticleTypes.REVERSE_PORTAL, this.teleportTarget.getX(),
+                    this.teleportTarget.getY() + this.teleportTarget.getBbHeight() * 0.5, this.teleportTarget.getZ(),
+                    12, this.teleportTarget.getBbWidth() * 0.5, this.teleportTarget.getBbHeight() * 0.5,
+                    this.teleportTarget.getBbWidth() * 0.5, 0.05);
         }
 
         @Override
         protected void performSpellCasting() {
+            if (!this.isTeleportTargetValid()) {
+                return;
+            }
 
-            LivingEntity target = Objects.requireNonNull(WraithEntity.this.getTarget());
+            LivingEntity target = this.teleportTarget;
 
             RandomSource random = WraithEntity.this.random;
             Level level = WraithEntity.this.level();
@@ -643,14 +697,6 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                     BlockState belowTeleportDestinationState = level.getBlockState(belowTeleportDestination);
                     BlockState aboveTeleportDestinationState = level.getBlockState(aboveTeleportDestination);
 
-                    WraithEntity.this.level().addParticle(ParticleTypes.CRIT,
-                            target.getX(),
-                            target.getY(),
-                            target.getZ(),
-                            (WraithEntity.this.random.nextDouble() - 0.5) * 2.0,
-                            -WraithEntity.this.random.nextDouble(),
-                            (WraithEntity.this.random.nextDouble() - 0.5) * 2.0);
-
                     // Note; maybe change the isAir to something less stringent, so it can teleport into grass and whatnot? Not sure what the best alternative is.
                     if (belowTeleportDestinationState.isFaceSturdy(
                             level,
@@ -658,13 +704,9 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
                             Direction.UP
                     ) && teleportDestinationState.isAir() && aboveTeleportDestinationState.isAir()) {
 
-                        WraithEntity.this.level().addParticle(ParticleTypes.REVERSE_PORTAL,
-                                target.getX(),
-                                target.getY(),
-                                target.getZ(),
-                                (WraithEntity.this.random.nextDouble() - 0.5) * 2.0,
-                                -WraithEntity.this.random.nextDouble(),
-                                (WraithEntity.this.random.nextDouble() - 0.5) * 2.0);
+                        if (level instanceof ServerLevel serverLevel) {
+                            this.spawnTeleportWarningParticles(serverLevel);
+                        }
 
                         target.teleportTo(
                                 teleportDestination.getX() + 0.5,
@@ -721,6 +763,11 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         @Override
         public void stop() {
             super.stop();
+            if (this.attackWarmupDelay > 0) {
+                WraithEntity.this.spellCastingTickCount = 0;
+                WraithEntity.this.setIsCastingSpell(WraithSpell.NONE);
+            }
+            this.teleportTarget = null;
         }
     }
 

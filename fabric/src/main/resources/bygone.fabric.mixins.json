@@ -5,12 +5,14 @@
   "mixins": [
     "InterAttachmentMixinFabric",
     "MobCategoryMixinFabric",
+    "PrimaryLevelDataMixinFabric",
     "ServerLevelMixinFabric"
   ],
   "client": [
     "client.HeartTypeMixinFabric",
     "client.EffectInstanceMixinFabric",
-    "client.FogRendererMixinFabric"
+    "client.FogRendererMixinFabric",
+    "client.WorldOpenFlowsMixinFabric"
   ],
   "injectors": {
     "defaultRequire": 1
