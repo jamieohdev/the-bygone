@@ -1046,6 +1046,31 @@
     "subtitle": "subtitles.entity.arcane_mechanism.success"
   },
 
+  "entity.skipper.ambient": {
+    "sounds": [
+      "bygone:entity/skipper/idle1",
+      "bygone:entity/skipper/idle2",
+      "bygone:entity/skipper/idle3"
+    ],
+    "subtitle": "subtitles.entity.skipper.ambient"
+  },
+  "entity.skipper.hurt": {
+    "sounds": [
+      "bygone:entity/skipper/hit1",
+      "bygone:entity/skipper/hit2",
+      "bygone:entity/skipper/hit3"
+    ],
+    "subtitle": "subtitles.entity.skipper.hurt"
+  },
+  "entity.skipper.death": {
+    "sounds": [
+      "bygone:entity/skipper/death1",
+      "bygone:entity/skipper/death2",
+      "bygone:entity/skipper/death3"
+    ],
+    "subtitle": "subtitles.entity.skipper.death"
+  },
+
   "item.war_horn.use": {
     "sounds": [
       {

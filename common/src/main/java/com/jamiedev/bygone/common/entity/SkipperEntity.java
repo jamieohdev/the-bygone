@@ -5,6 +5,7 @@ import com.jamiedev.bygone.common.entity.ai.navigation.SkipperNavigation;
 import com.jamiedev.bygone.core.registry.BGBiomes;
 import com.jamiedev.bygone.core.registry.BGDimensions;
 import com.jamiedev.bygone.core.registry.BGItems;
+import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -13,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
@@ -20,6 +22,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -435,4 +438,20 @@ public class SkipperEntity extends PathfinderMob implements Saddleable, ItemStee
         }
         return blockPos.getY() + fluidState.getHeight(this.level(), blockPos);
     }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return BGSoundEvents.SKIPPER_AMBIENT_ADDITIONS_EVENT;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return BGSoundEvents.SKIPPER_HURT_ADDITIONS_EVENT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return BGSoundEvents.SKIPPER_DEATH_ADDITIONS_EVENT;
+    }
+
 }

@@ -222,6 +222,14 @@ public class BGSoundEvents {
     public static SoundEvent AMOEBA_FLOP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AMOEBA_FLOP);
     public static SoundEvent AMOEBA_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AMOEBA_DEATH);
     public static SoundEvent AMOEBA_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_AMOEBA_HURT);
+
+
+    public static final ResourceLocation ENTITY_SKIPPER_AMBIENT = id("entity.skipper.ambient");
+    public static final ResourceLocation ENTITY_SKIPPER_HURT = id("entity.skipper.hurt");
+    public static final ResourceLocation ENTITY_SKIPPER_DEATH = id("entity.skipper.death");
+    public static SoundEvent SKIPPER_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SKIPPER_AMBIENT);
+    public static SoundEvent SKIPPER_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SKIPPER_DEATH);
+    public static SoundEvent SKIPPER_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SKIPPER_HURT);
     
     public static SoundEvent LITHY_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_AMBIENT);
     public static SoundEvent LITHY_TRIP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_TRIP);
@@ -400,6 +408,10 @@ public class BGSoundEvents {
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SCARE_SHOOT, BGSoundEvents.SCARE_SHOOT_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SCARE_HURT, BGSoundEvents.SCARE_HURT_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SCARE_DEATH, BGSoundEvents.SCARE_DEATH_EVENT);
+
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SKIPPER_AMBIENT, BGSoundEvents.SKIPPER_AMBIENT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SKIPPER_HURT, BGSoundEvents.SKIPPER_HURT_ADDITIONS_EVENT);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SKIPPER_DEATH, BGSoundEvents.SKIPPER_DEATH_ADDITIONS_EVENT);
 
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_AMBIENT, BGSoundEvents.LITHY_AMBIENT_ADDITIONS_EVENT);
