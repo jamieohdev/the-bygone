@@ -6,6 +6,7 @@
   "mixins": [
     "AllayMixin",
     "AxeItemAccess",
+    "BundleContentsLegacyMixin",
     "DecoratedPotPatternsMixin",
     "DoorBlockMixin",
     "EmptyMapMixin",

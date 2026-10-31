@@ -28,6 +28,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.level.Level;
 
 import org.apache.commons.lang3.math.Fraction;
@@ -38,6 +39,21 @@ public class GearBagItem extends Item{
     public GearBagItem(Item.Properties properties){
         super(properties);
     }
+
+    // XXX: remove this once we stop guaranteeing 3.1 upgrade compat!
+    // this is only here bc gear bags used to use BundleContents
+    @Override
+    public void verifyComponentsAfterLoad(ItemStack stack){
+        if(stack.has(DataComponents.BUNDLE_CONTENTS)){
+            BundleContents old = stack.remove(DataComponents.BUNDLE_CONTENTS);
+            GearBagData.Mutable bag = GearBagData.Mutable.from(stack);
+            for(ItemStack is : old.items()) bag.insert(is);
+            stack.set(BGDataComponentTypes.GEAR_BAG.get(), bag.toImmutable());
+        }
+    }
+
+
+
 
     // we need to reimplement a good amount of bundle methods, since they all hardcode the bundle component.
     // however, it's not the worst. we can simplify the logic a good amount here.
