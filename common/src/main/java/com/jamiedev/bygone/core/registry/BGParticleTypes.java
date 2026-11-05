@@ -8,20 +8,20 @@ import net.minecraft.core.registries.BuiltInRegistries;
 
 public class BGParticleTypes {
 
-    public static final ParticleType<SimpleParticleType> ARCANE_SYMBOL = simple();
-    public static final ParticleType<SimpleParticleType> AMBER_DUST = simple();
-    public static final ParticleType<SimpleParticleType> RAFFLESIA_SPORES = simple();
-    public static final ParticleType<SimpleParticleType> ALGAE_BLOOM = simple();
+    public static final SimpleParticleType ARCANE_SYMBOL = simple();
+    public static final SimpleParticleType AMBER_DUST = simple();
+    public static final SimpleParticleType RAFFLESIA_SPORES = simple();
+    public static final SimpleParticleType ALGAE_BLOOM = simple();
 
-    public static final ParticleType<SimpleParticleType> BLEMISH = simple();
-    public static final ParticleType<SimpleParticleType> SHELF = simple();
-    public static final ParticleType<SimpleParticleType> ANCIENT_LEAVES = simple();
-    public static final ParticleType<SimpleParticleType> SABLE_LEAVES = simple();
-    public static final ParticleType<SimpleParticleType> UPSIDEDOWN = simple();
+    public static final SimpleParticleType BLEMISH = simple();
+    public static final SimpleParticleType SHELF = simple();
+    public static final SimpleParticleType ANCIENT_LEAVES = simple();
+    public static final SimpleParticleType SABLE_LEAVES = simple();
+    public static final SimpleParticleType UPSIDEDOWN = simple();
 
-    public static final ParticleType<SimpleParticleType> WORM = simple();
+    public static final SimpleParticleType WORM = simple();
 
-    public static final ParticleType<SimpleParticleType> SABLOSSOM = simple();
+    public static final SimpleParticleType SABLOSSOM = simple();
 
 
     public static void init() {

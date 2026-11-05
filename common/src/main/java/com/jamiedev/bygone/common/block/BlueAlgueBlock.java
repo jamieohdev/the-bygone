@@ -45,7 +45,7 @@ public class BlueAlgueBlock extends WaterlilyBlock
             double d = (double) pos.getX() + 0.5;
             double e = (double) pos.getY() + 0.7;
             double f = (double) pos.getZ() + 0.5;
-            ((ServerLevel) world).sendParticles((SimpleParticleType) BGParticleTypes.ALGAE_BLOOM, (double) pos.getX() + 0.7, pos.getY(),
+            ((ServerLevel) world).sendParticles(BGParticleTypes.ALGAE_BLOOM, (double) pos.getX() + 0.7, pos.getY(),
                     (double) pos.getZ() + 0.7, 1, 0.5, 0.0, 0.5, 0.0);
         }
 
