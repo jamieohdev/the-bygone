@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "sable_mossy_byslate",
+  "ingredients": [
+    {
+      "item": "bygone:byslate"
+    },
+    {
+      "item": "bygone:sable_moss_block"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "bygone:sable_mossy_byslate"
+  }
+}

@@ -3,34 +3,23 @@ package com.jamiedev.bygone.client;
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.fluids.BGFluidRenderer;
 import com.jamiedev.bygone.client.renderer.effect.FogEffectRenderer;
+import com.jamiedev.bygone.client.renderer.entity.AmphoraBlockEntityRenderer;
 import com.jamiedev.bygone.client.renderer.entity.BygoneDimensionEffects;
 import com.jamiedev.bygone.client.screen.PortalOverlay;
 import com.jamiedev.bygone.common.block.JamiesModWoodType;
-import com.jamiedev.bygone.common.commands.BygoneWeatherCommand;
 import com.jamiedev.bygone.common.item.HauntingTimeProperty;
 import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
 import com.jamiedev.bygone.common.weather.BygoneWeather;
+import com.jamiedev.bygone.core.registry.BGBlockEntities;
 import com.jamiedev.bygone.core.registry.BGDimensions;
-import com.jamiedev.bygone.core.registry.BGFluids;
 import com.jamiedev.bygone.core.registry.BGItems;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
-import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
@@ -38,9 +27,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.intellij.lang.annotations.Identifier;
 
-import java.io.IOException;
 import java.util.Objects;
 
 public class BygoneClientFabric implements ClientModInitializer {
@@ -59,6 +46,7 @@ public class BygoneClientFabric implements ClientModInitializer {
         BGFluidRenderer.initialize();
         BygoneClient.registerRenderLayers(BlockRenderLayerMap.INSTANCE::putBlock);
         BygoneClient.createEntityRenderers(EntityRendererRegistry::register);
+        BlockEntityRendererRegistry.register(BGBlockEntities.AMPHORA.get(), AmphoraBlockEntityRenderer::new);
         BygoneClient.createModelLayers((modelLayerLocation, layerDefinitionSupplier) -> EntityModelLayerRegistry.registerModelLayer(modelLayerLocation, layerDefinitionSupplier::get));
         BygoneClient.registerParticleFactories((particleType, spriteParticleRegistration) -> ParticleFactoryRegistry.getInstance().register(particleType, spriteParticleRegistration::create));
 

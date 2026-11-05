@@ -6,9 +6,11 @@ import com.jamiedev.bygone.client.particles.ArcaneSymbolParticle;
 import com.jamiedev.bygone.client.particles.BlemishParticle;
 import com.jamiedev.bygone.client.particles.UpsidedownDropParticle;
 import com.jamiedev.bygone.client.renderer.effect.FogEffectRenderer;
+import com.jamiedev.bygone.client.renderer.entity.AmphoraBlockEntityRenderer;
 import com.jamiedev.bygone.client.screen.PortalOverlay;
 import com.jamiedev.bygone.common.block.JamiesModWoodType;
 import com.jamiedev.bygone.common.item.HauntingTimeProperty;
+import com.jamiedev.bygone.core.registry.BGBlockEntities;
 import com.jamiedev.bygone.core.registry.BGItems;
 import com.jamiedev.bygone.core.registry.BGParticleTypes;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -18,7 +20,6 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
@@ -28,7 +29,6 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 import java.io.IOException;
-
 
 public class BygoneClientNeoForge {
 
@@ -71,6 +71,7 @@ public class BygoneClientNeoForge {
 
     static void createRenderers(EntityRenderersEvent.RegisterRenderers event) {
         BygoneClient.createEntityRenderers(event::registerEntityRenderer);
+        event.registerBlockEntityRenderer(BGBlockEntities.AMPHORA.get(), AmphoraBlockEntityRenderer::new);
     }
 
 

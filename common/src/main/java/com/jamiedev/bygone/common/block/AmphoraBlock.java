@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -50,7 +51,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.stream.Stream;
-
 
 public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final ResourceLocation SHERDS_DYNAMIC_DROP_ID = ResourceLocation.withDefaultNamespace("sherds");
@@ -121,14 +121,23 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
     @Override
     protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+        return RenderShape.ENTITYBLOCK_ANIMATED;
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (state.getValue(WATER_LEVEL) > 0 && random.nextInt(8) == 0) {
+            level.addParticle(ParticleTypes.SPLASH,
+                    pos.getX() + 0.5, pos.getY() + 1.7, pos.getZ() + 0.5,
+                    0.0, 0.0, 0.0);
+        }
     }
 
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        BlockEntity itemStack1 = level.getBlockEntity(pos);
-        if (itemStack1 instanceof AmphoraBlockEntity AmphoraBlockEntity) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof AmphoraBlockEntity amphoraBlockEntity) {
             if (stack.is(Items.WATER_BUCKET) && state.getValue(WATER_LEVEL) < 8) {
-                AmphoraBlockEntity.wobble(com.jamiedev.bygone.common.block.entity.AmphoraBlockEntity.WobbleStyle.POSITIVE);
+                amphoraBlockEntity.wobble(AmphoraBlockEntity.WobbleStyle.POSITIVE);
                 doWaterParticles(level, pos);
                 level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                 updateWaterLevel(level, state.getValue(WATER_LEVEL) + 1, state, pos);
@@ -137,7 +146,7 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
                     player.setItemInHand(hand, new ItemStack(Items.BUCKET));
                 return ItemInteractionResult.SUCCESS;
             } else if (stack.is(Items.BUCKET) && state.getValue(WATER_LEVEL) > 0) {
-                AmphoraBlockEntity.wobble(com.jamiedev.bygone.common.block.entity.AmphoraBlockEntity.WobbleStyle.POSITIVE);
+                amphoraBlockEntity.wobble(AmphoraBlockEntity.WobbleStyle.POSITIVE);
                 doWaterParticles(level, pos);
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 updateWaterLevel(level, state.getValue(WATER_LEVEL) - 1, state, pos);
@@ -153,10 +162,10 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
     }
 
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        BlockEntity var7 = level.getBlockEntity(pos);
-        if (var7 instanceof AmphoraBlockEntity AmphoraBlockEntity) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof AmphoraBlockEntity amphoraBlockEntity) {
             level.playSound(null, pos, SoundEvents.DECORATED_POT_INSERT_FAIL, SoundSource.BLOCKS, 1.0F, 1.0F);
-            AmphoraBlockEntity.wobble(com.jamiedev.bygone.common.block.entity.AmphoraBlockEntity.WobbleStyle.NEGATIVE);
+            amphoraBlockEntity.wobble(AmphoraBlockEntity.WobbleStyle.NEGATIVE);
             level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
             return InteractionResult.SUCCESS;
         } else {
@@ -189,9 +198,9 @@ public class AmphoraBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
     protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
         BlockEntity blockEntity = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
-        if (blockEntity instanceof AmphoraBlockEntity AmphoraBlockEntity) {
+        if (blockEntity instanceof AmphoraBlockEntity amphoraBlockEntity) {
             params.withDynamicDrop(SHERDS_DYNAMIC_DROP_ID, (consumer) -> {
-                for (Item item : AmphoraBlockEntity.getDecorations().ordered()) {
+                for (Item item : amphoraBlockEntity.getDecorations().ordered()) {
                     consumer.accept(item.getDefaultInstance());
                 }
             });

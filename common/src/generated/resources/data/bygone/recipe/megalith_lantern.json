@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "bygone:megalith_face"
+    },
+    {
+      "item": "bygone:lithoplasm"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "bygone:megalith_lantern"
+  }
+}

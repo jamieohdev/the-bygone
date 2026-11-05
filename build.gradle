@@ -2,3 +2,9 @@ plugins{
     alias(libs.plugins.neoforge.moddev) apply false
     alias(libs.plugins.fabric.loom) apply false
 }
+
+tasks.register('runDatagen'){
+    group = 'datagen'
+    description = 'Generates shared recipes and advancements with both loaders.'
+    dependsOn ':fabric:runDatagen', ':neoforge:runData'
+}

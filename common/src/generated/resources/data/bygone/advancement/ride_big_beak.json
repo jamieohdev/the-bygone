@@ -1,0 +1,39 @@
+{
+  "parent": "bygone:enter_bygone",
+  "criteria": {
+    "ride_big_beak": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "vehicle": {
+                "type": "bygone:big_beak"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:started_riding"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.bygone.ride_big_beak.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "bygone:exotic_plumage"
+    },
+    "title": {
+      "translate": "advancements.bygone.ride_big_beak.title"
+    }
+  },
+  "requirements": [
+    [
+      "ride_big_beak"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

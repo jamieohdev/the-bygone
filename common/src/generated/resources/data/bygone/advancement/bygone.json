@@ -1,0 +1,31 @@
+{
+  "criteria": {
+    "bygone": {
+      "conditions": {
+        "to": "bygone:bygone"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "bygone:textures/block/bystone.png",
+    "description": {
+      "translate": "advancements.bygone.bygone.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "bygone:arcane_core"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.bygone.bygone.title"
+    }
+  },
+  "requirements": [
+    [
+      "bygone"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

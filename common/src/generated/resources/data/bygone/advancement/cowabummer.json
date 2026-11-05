@@ -1,0 +1,39 @@
+{
+  "parent": "bygone:find_sewer",
+  "criteria": {
+    "cowabummer": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "bygone:copperbug"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:entity_killed_player"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.bygone.cowabummer.desc"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "minecraft:oxidized_copper_grate"
+    },
+    "title": {
+      "translate": "advancements.bygone.cowabummer.title"
+    }
+  },
+  "requirements": [
+    [
+      "cowabummer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

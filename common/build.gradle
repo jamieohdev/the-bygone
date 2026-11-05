@@ -8,6 +8,11 @@ loom{
     accessWidenerPath = project(':fabric').file('src/main/resources/bygone.classtweaker').absolutePath
 }
 
+sourceSets.main.resources{
+    srcDir 'src/generated/resources'
+    exclude '.cache/**'
+}
+
 dependencies{
     minecraft libs.minecraft
     mappings loom.layered{

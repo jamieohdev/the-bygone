@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "bygone:verdigris_scrap"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "bygone:pristine_verdigris_cog"
+  }
+}

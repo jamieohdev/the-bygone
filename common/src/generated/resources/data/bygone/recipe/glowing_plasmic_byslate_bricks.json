@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "bygone:plasmic_byslate_bricks"
+    },
+    {
+      "item": "bygone:lithoplasm"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "bygone:glowing_plasmic_byslate_bricks"
+  }
+}

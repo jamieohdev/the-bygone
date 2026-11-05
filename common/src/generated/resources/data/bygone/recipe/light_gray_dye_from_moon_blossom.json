@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "white_dye",
+  "ingredients": [
+    {
+      "item": "bygone:moon_blossom"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:light_gray_dye"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "bygone:bygone",
+  "criteria": {
+    "enter_bygone": {
+      "conditions": {
+        "to": "bygone:bygone"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.bygone.enter_bygone.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "bygone:arcane_core"
+    },
+    "title": {
+      "translate": "advancements.bygone.enter_bygone.title"
+    }
+  },
+  "requirements": [
+    [
+      "enter_bygone"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

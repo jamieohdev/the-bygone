@@ -2,12 +2,13 @@ package com.jamiedev.bygone.common.item;
 
 import com.jamiedev.bygone.common.component.item.WarHornData;
 import com.jamiedev.bygone.core.registry.BGDataComponentTypes;
+import com.jamiedev.bygone.core.registry.BGItems;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -32,28 +33,21 @@ public class MaliciousWarHornItem extends Item {
     private static final int DEATH_PENALTY_SECONDS = 20;
     private static final int USE_DURATION = 10;
 
-    InstrumentItem ref;
-
     public MaliciousWarHornItem(Properties properties) {
         super(properties);
     }
 
-    public static void onVexDeath(Vex vex, ItemStack hornStack) {
-        if (hornStack.getItem() instanceof MaliciousWarHornItem) {
-            WarHornData data = hornStack.getOrDefault(BGDataComponentTypes.WAR_HORN.get(), WarHornData.EMPTY);
-
-            if (data.activeVexes().contains(vex.getUUID())) {
-                List<UUID> newVexes = new ArrayList<>(data.activeVexes());
-                newVexes.remove(vex.getUUID());
-
-                WarHornData newData = new WarHornData(
-                        newVexes,
-                        data.cooldownSeconds() + DEATH_PENALTY_SECONDS,
-                        data.vexTimeLeft()
-                );
-
-                hornStack.set(BGDataComponentTypes.WAR_HORN.get(), newData);
+    private static void syncCooldown(Player player) {
+        int cooldownSeconds = 0;
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            ItemStack stack = player.getInventory().getItem(slot);
+            if (stack.getItem() instanceof MaliciousWarHornItem) {
+                cooldownSeconds = Math.max(cooldownSeconds,
+                        stack.getOrDefault(BGDataComponentTypes.WAR_HORN.get(), WarHornData.EMPTY).cooldownSeconds());
             }
+        }
+        if (cooldownSeconds > 0) {
+            player.getCooldowns().addCooldown(BGItems.MALICIOUS_WAR_HORN.get(), cooldownSeconds * 20);
         }
     }
 
@@ -61,22 +55,18 @@ public class MaliciousWarHornItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
 
-        if (!level.isClientSide) {
-            WarHornData data = itemStack.getOrDefault(BGDataComponentTypes.WAR_HORN.get(), WarHornData.EMPTY);
-
-            if (data.cooldownSeconds() <= 0) {
-                player.startUsingItem(hand);
-                return InteractionResultHolder.consume(itemStack);
-            } else {
+        WarHornData data = itemStack.getOrDefault(BGDataComponentTypes.WAR_HORN.get(), WarHornData.EMPTY);
+        if (data.cooldownSeconds() > 0 || player.getCooldowns().isOnCooldown(this)) {
+            if (!level.isClientSide) {
                 player.displayClientMessage(
                         Component.translatable("item.bygone.malicious_war_horn.cooldown", data.cooldownSeconds())
                                 .withStyle(ChatFormatting.RED),
                         true
                 );
-                return InteractionResultHolder.fail(itemStack);
             }
+            return InteractionResultHolder.fail(itemStack);
         }
-
+        player.startUsingItem(hand);
         return InteractionResultHolder.consume(itemStack);
     }
 
@@ -93,7 +83,7 @@ public class MaliciousWarHornItem extends Item {
             stack.set(BGDataComponentTypes.WAR_HORN.get(), data);
 
             player.awardStat(Stats.ITEM_USED.get(this));
-            player.getCooldowns().addCooldown(this, 20);
+            syncCooldown(player);
         }
 
         return stack;
@@ -127,6 +117,35 @@ public class MaliciousWarHornItem extends Item {
         return new WarHornData(new ArrayList<>(vexIds), RECHARGE_TIME_SECONDS, VEX_LIFETIME_SECONDS);
     }
 
+    public static void onVexDeath(Vex vex, ServerLevel level) {
+        for (ServerPlayer player : level.getServer().getPlayerList().getPlayers()) {
+            for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+                ItemStack hornStack = player.getInventory().getItem(slot);
+                if (!(hornStack.getItem() instanceof MaliciousWarHornItem)) {
+                    continue;
+                }
+
+                WarHornData data = hornStack.getOrDefault(BGDataComponentTypes.WAR_HORN.get(), WarHornData.EMPTY);
+                if (!data.activeVexes().contains(vex.getUUID())) {
+                    continue;
+                }
+
+                List<UUID> newVexes = new ArrayList<>(data.activeVexes());
+                newVexes.remove(vex.getUUID());
+
+                WarHornData newData = new WarHornData(
+                        newVexes,
+                        data.cooldownSeconds() + DEATH_PENALTY_SECONDS,
+                        data.vexTimeLeft()
+                );
+
+                hornStack.set(BGDataComponentTypes.WAR_HORN.get(), newData);
+                syncCooldown(player);
+                return;
+            }
+        }
+    }
+
     private void spawnHornParticles(Level level, Player player) {
         if (!(level instanceof ServerLevel serverLevel)) return;
 
@@ -152,7 +171,7 @@ public class MaliciousWarHornItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-        if (!level.isClientSide && entity instanceof Player && level.getGameTime() % 20 == 0) {
+        if (!level.isClientSide && entity instanceof Player player && level.getGameTime() % 20 == 0) {
             WarHornData data = stack.getOrDefault(BGDataComponentTypes.WAR_HORN.get(), WarHornData.EMPTY);
 
             boolean needsUpdate = false;
@@ -180,6 +199,9 @@ public class MaliciousWarHornItem extends Item {
             if (needsUpdate) {
                 WarHornData newData = new WarHornData(activeVexes, newCooldown, newVexTime);
                 stack.set(BGDataComponentTypes.WAR_HORN.get(), newData);
+            }
+            if (newCooldown > 0 && !player.getCooldowns().isOnCooldown(this)) {
+                syncCooldown(player);
             }
         }
     }

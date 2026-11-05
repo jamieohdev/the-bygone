@@ -5,14 +5,17 @@ import com.jamiedev.bygone.client.renderer.SpectralRenderUtil;
 import com.jamiedev.bygone.common.entity.WraithEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.animation.KeyframeAnimations;
+import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.HumanoidArm;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
-public class WraithModel<T extends Entity> extends HauntingsMobModel<T> {
+public class WraithModel<T extends Entity> extends HauntingsMobModel<T> implements ArmedModel {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
     private final ModelPart root;
     private final ModelPart body;
@@ -62,6 +65,7 @@ public class WraithModel<T extends Entity> extends HauntingsMobModel<T> {
     }
 
     private float spectralAlpha = 1.0F;
+    private final Vector3f animationVector = new Vector3f();
 
     @Override
     public void setupAnim(@NotNull Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
@@ -70,9 +74,25 @@ public class WraithModel<T extends Entity> extends HauntingsMobModel<T> {
 
         if (entity instanceof WraithEntity wraith) {
             this.animate(wraith.idleAnimationState, WraithAnimations.IDLE, ageInTicks, 1.0f);
-            this.animate(wraith.floatAnimationState, WraithAnimations.FLOATING, ageInTicks, 1.0f);
+            wraith.floatAnimationState.updateTime(ageInTicks, 1.0F);
+            wraith.floatAnimationState.ifStarted(state -> KeyframeAnimations.animate(this,
+                    WraithAnimations.FLOATING, state.getAccumulatedTime(),
+                    wraith.getFloatAnimationWeight(ageInTicks - wraith.tickCount), this.animationVector));
             this.animate(wraith.meleeAnimationState, WraithAnimations.ATTACK, ageInTicks, 1.0f);
             this.animate(wraith.spellAnimationState, WraithAnimations.CAST, ageInTicks, 1.0f);
+        }
+    }
+
+    @Override
+    public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
+        if (arm == HumanoidArm.LEFT) {
+            this.left_arm.translateAndRotate(poseStack);
+            this.left_arm2.translateAndRotate(poseStack);
+        } else {
+            this.right_arm.translateAndRotate(poseStack);
+            this.right_arm2.translateAndRotate(poseStack);
         }
     }
 

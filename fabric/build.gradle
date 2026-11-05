@@ -22,6 +22,14 @@ loom{
     }
 }
 
+fabricApi{
+    configureDataGeneration{
+        modId = project.modid
+        outputDirectory = rootProject.file('common/src/generated/resources')
+        addToResources = false
+    }
+}
+
 configurations{
     dependencyScope('common')
     resolvable('commoners'){ extendsFrom(common) }

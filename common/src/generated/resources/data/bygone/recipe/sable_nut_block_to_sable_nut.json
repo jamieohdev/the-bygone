@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bygone:sable_nut_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "bygone:sable_nut"
+  }
+}

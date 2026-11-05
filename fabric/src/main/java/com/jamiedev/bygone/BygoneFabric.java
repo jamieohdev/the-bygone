@@ -2,15 +2,14 @@ package com.jamiedev.bygone;
 
 import com.jamiedev.bygone.common.block.entity.GumboPotBlockEntity;
 import com.jamiedev.bygone.common.commands.BygoneWeatherCommand;
+import com.jamiedev.bygone.common.item.MaliciousWarHornItem;
 import com.jamiedev.bygone.common.util.ServerTickHandler;
-import com.jamiedev.bygone.common.util.VexDeathTracker;
 import com.jamiedev.bygone.common.weather.BygoneWeather;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.network.PacketHandler;
 import com.jamiedev.bygone.core.platform.InterAttachmentFabric;
 import com.jamiedev.bygone.core.registry.*;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -21,9 +20,6 @@ import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
-import net.minecraft.client.DeltaTracker;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
@@ -198,7 +194,7 @@ public class BygoneFabric implements ModInitializer {
 
         ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
             if (entity instanceof Vex vex && entity.level() instanceof ServerLevel serverLevel) {
-                VexDeathTracker.onVexDeath(vex, serverLevel);
+                MaliciousWarHornItem.onVexDeath(vex, serverLevel);
             }
         });
 

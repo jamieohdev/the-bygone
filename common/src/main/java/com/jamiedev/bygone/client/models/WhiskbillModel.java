@@ -4,13 +4,15 @@ import com.jamiedev.bygone.client.models.animations.WhiskbillAnimations;
 import com.jamiedev.bygone.common.entity.WhiskbillEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
+import org.joml.Vector3f;
 
 public class WhiskbillModel<T extends WhiskbillEntity> extends HierarchicalModel<T> {
-    // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
     private final ModelPart root;
     private final ModelPart Body;
     private final ModelPart Tail;
@@ -23,6 +25,7 @@ public class WhiskbillModel<T extends WhiskbillEntity> extends HierarchicalModel
     private final ModelPart leg_BR;
     private final ModelPart Leg_FL;
     private final ModelPart Leg_FR;
+    private final Vector3f animationVector = new Vector3f();
 
     public WhiskbillModel(ModelPart root) {
         this.root = root.getChild("root");
@@ -79,7 +82,6 @@ public class WhiskbillModel<T extends WhiskbillEntity> extends HierarchicalModel
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
         root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-        //Do not render children of "root", root.render() already does that.
     }
 
     @Override
@@ -91,8 +93,33 @@ public class WhiskbillModel<T extends WhiskbillEntity> extends HierarchicalModel
     public void setupAnim(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        this.animate(entity.idleAnimationState, WhiskbillAnimations.WHISKBILL_IDLE, animationProgress, 1f);
-        this.animateWalk(WhiskbillAnimations.WHISKBILL_WALK, limbAngle, limbDistance, 2f, 2.5f);
+        entity.idleAnimationState.updateTime(animationProgress, 1.0F);
+        entity.walkAnimationState.updateTime(animationProgress, 1.0F);
+        float walkWeight = entity.getWalkAnimationWeight(animationProgress - entity.tickCount);
+        float idleWeight = 1.0F - walkWeight;
+        entity.idleAnimationState.ifStarted(state -> KeyframeAnimations.animate(this,
+                WhiskbillAnimations.WHISKBILL_IDLE, state.getAccumulatedTime(), idleWeight, this.animationVector));
+        entity.walkAnimationState.ifStarted(state -> KeyframeAnimations.animate(this,
+                WhiskbillAnimations.WHISKBILL_WALK, state.getAccumulatedTime(), walkWeight, this.animationVector));
+        adjustLegHeight(this.Leg_BL, walkWeight, 13.0F, 9.0F);
+        adjustLegHeight(this.leg_BR, walkWeight, 13.0F, 9.0F);
+        adjustLegHeight(this.Leg_FL, walkWeight, 15.0F, 6.0F);
+        adjustLegHeight(this.Leg_FR, walkWeight, 15.0F, 6.0F);
+        this.setHeadAngles(headYaw, headPitch);
+    }
 
+    private void setHeadAngles(float headYaw, float headPitch) {
+        this.Head.yRot += Mth.clamp(headYaw, -20.0F, 20.0F) * Mth.DEG_TO_RAD;
+        this.Head.xRot += Mth.clamp(headPitch, -10.0F, 10.0F) * Mth.DEG_TO_RAD;
+    }
+
+    private static void adjustLegHeight(ModelPart leg, float weight, float height, float toeLength) {
+        if (weight <= 0.0F) {
+            return;
+        }
+        float fullAngle = leg.xRot / weight;
+        float fullFootHeight = (float) (height * Math.cos(fullAngle) + Math.abs(Math.sin(fullAngle)) * (fullAngle < 0.0F ? toeLength : 4.0F));
+        float footHeight = (float) (height * Math.cos(leg.xRot) + Math.abs(Math.sin(leg.xRot)) * (leg.xRot < 0.0F ? toeLength : 4.0F));
+        leg.y += (1.0F - weight) * height - footHeight + weight * fullFootHeight;
     }
 }

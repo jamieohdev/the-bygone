@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:string"
+    },
+    "I": {
+      "item": "bygone:verdigris_scrap"
+    },
+    "X": {
+      "tag": "bygone:whirliweeds"
+    }
+  },
+  "pattern": [
+    "X",
+    "#",
+    "I"
+  ],
+  "result": {
+    "count": 4,
+    "id": "bygone:whirliweed_bundle"
+  }
+}

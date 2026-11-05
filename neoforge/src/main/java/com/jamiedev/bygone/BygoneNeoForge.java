@@ -1,18 +1,16 @@
 package com.jamiedev.bygone;
 
-
 import com.jamiedev.bygone.client.BygoneClientNeoForge;
 import com.jamiedev.bygone.common.block.entity.GumboPotBlockEntity;
+import com.jamiedev.bygone.common.item.MaliciousWarHornItem;
 import com.jamiedev.bygone.common.util.ServerTickHandler;
-import com.jamiedev.bygone.common.util.VexDeathTracker;
 import com.jamiedev.bygone.common.weather.BygoneWeather;
-import com.jamiedev.bygone.common.weather.weather_types.HauntingsCategoryHolder;
+import com.jamiedev.bygone.core.datagen.DataNeoGenerator;
 import com.jamiedev.bygone.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.monster.Vex;
@@ -20,18 +18,14 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
-import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.SoundActions;
@@ -100,6 +94,7 @@ public class BygoneNeoForge {
         BGPotionsNeoForge.register(eventBus);
 
         eventBus.addListener(PacketHandlerNeoForge::register);
+        eventBus.addListener(DataNeoGenerator::gatherData);
         if (dist.isClient()) {
             BygoneClientNeoForge.init(eventBus);
         }
@@ -144,7 +139,7 @@ public class BygoneNeoForge {
 
     void onLivingDeath(LivingDeathEvent event) {
         if (event.getEntity() instanceof Vex vex && event.getEntity().level() instanceof ServerLevel serverLevel) {
-            VexDeathTracker.onVexDeath(vex, serverLevel);
+            MaliciousWarHornItem.onVexDeath(vex, serverLevel);
         }
     }
 

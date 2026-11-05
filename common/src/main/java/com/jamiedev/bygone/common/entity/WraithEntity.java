@@ -10,7 +10,6 @@ import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ColorParticleOption;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -39,27 +38,18 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.FlyingAnimal;
-import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.monster.breeze.Breeze;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.Shapes;
 import org.jetbrains.annotations.NotNull;
-
 import org.jetbrains.annotations.Nullable;
+
 import java.util.EnumSet;
 import java.util.Objects;
 import java.util.function.IntFunction;
@@ -81,6 +71,9 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     public AnimationState idleAnimationState = new AnimationState();
     public AnimationState meleeAnimationState = new AnimationState();
     public AnimationState spellAnimationState = new AnimationState();
+    private float floatAnimationWeight;
+    private float floatAnimationWeightO;
+    private int lastSpellParticleTick = -1;
     protected int spellCastingTickCount;
     protected BlockPos targetSavedPos = BlockPos.ZERO;
     private WraithEntity.WraithSpell currentSpell;
@@ -196,42 +189,31 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
         }
 
         noPhysics = !collidingSpectralBlocks();
+    }
 
-        // Creates the particles for casting the spell.
-        if (this.level().isClientSide && this.isCastingSpell()) {
-            WraithEntity.WraithSpell spell = this.getCurrentSpell();
-            float r = (float) spell.spellColor[0];
-            float g = (float) spell.spellColor[1];
-            float b = (float) spell.spellColor[2];
-            float swayAngle = this.yBodyRot * ((float) Math.PI / 180F) + Mth.cos((float) this.tickCount * 0.6662F) * 0.25F;
-            float swayX = Mth.cos(swayAngle);
-            float swayZ = Mth.sin(swayAngle);
-            double radius = 0.6 * (double) this.getScale();
-            double height = 1.8 * (double) this.getScale();
+    public boolean canEmitSpellParticles() {
+        return this.level().isClientSide && this.isAlive() && this.isCastingSpell() && this.lastSpellParticleTick != this.tickCount;
+    }
 
-            for (int i = 0; i < SPELL_PARTICLES_PER_HAND_PER_TICK; i++) {
-                this.level().addParticle(
-                        ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, r, g, b),
-                        this.getX() + (double) swayX * radius,
-                        this.getY() + height,
-                        this.getZ() + (double) swayZ * radius,
-                        0.0F,
-                        0.0F,
-                        0.0F
-                );
-            }
-            for (int i = 0; i < SPELL_PARTICLES_PER_HAND_PER_TICK; i++) {
-                this.level().addParticle(
-                        ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, r, g, b),
-                        this.getX() - (double) swayX * radius,
-                        this.getY() + height,
-                        this.getZ() - (double) swayZ * radius,
-                        0.0F,
-                        0.0F,
-                        0.0F
-                );
-            }
+    public void emitSpellParticles(@Nullable Vec3 leftHand, @Nullable Vec3 rightHand) {
+        if (!this.canEmitSpellParticles()) {
+            return;
+        }
+        this.lastSpellParticleTick = this.tickCount;
+        WraithSpell spell = this.getCurrentSpell();
+        ColorParticleOption particle = ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT,
+                (float) spell.spellColor[0], (float) spell.spellColor[1], (float) spell.spellColor[2]);
+        if (leftHand != null) {
+            this.emitSpellParticlesAt(particle, leftHand);
+        }
+        if (rightHand != null) {
+            this.emitSpellParticlesAt(particle, rightHand);
+        }
+    }
 
+    private void emitSpellParticlesAt(ColorParticleOption particle, Vec3 position) {
+        for (int i = 0; i < SPELL_PARTICLES_PER_HAND_PER_TICK; i++) {
+            this.level().addParticle(particle, position.x, position.y, position.z, 0.0F, 0.0F, 0.0F);
         }
     }
 
@@ -314,16 +296,18 @@ public class WraithEntity extends Monster implements RangedAttackMob, FlyingAnim
     }
 
     private void setupAnimationStates() {
-
         this.idleAnimationState.startIfStopped(this.tickCount);
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F) {
-            this.floatAnimationState.startIfStopped(this.tickCount);
-        } else {
-            this.floatAnimationState.stop();
-        }
+        this.floatAnimationState.startIfStopped(this.tickCount);
+        this.floatAnimationWeightO = this.floatAnimationWeight;
+        float movement = Mth.clamp((float) this.getDeltaMovement().length() * 4.0F, 0.0F, 1.0F);
+        this.floatAnimationWeight = Mth.approach(this.floatAnimationWeight, movement, 0.1F);
 
         this.spellAnimationState.animateWhen(this.isCastingSpell(), this.tickCount);
         this.meleeAnimationState.animateWhen(this.attackAnim > 0, this.tickCount);
+    }
+
+    public float getFloatAnimationWeight(float partialTick) {
+        return Mth.lerp(partialTick, this.floatAnimationWeightO, this.floatAnimationWeight);
     }
 
     public int getCurrentSwingDuration() {

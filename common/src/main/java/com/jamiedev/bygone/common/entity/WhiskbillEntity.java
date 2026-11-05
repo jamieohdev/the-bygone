@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -27,9 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
@@ -48,8 +47,10 @@ public class WhiskbillEntity extends Animal {
     }
 
     public AnimationState idleAnimationState = new AnimationState();
+    public AnimationState walkAnimationState = new AnimationState();
+    private float walkAnimationWeight;
+    private float walkAnimationWeightO;
     int moreCarrotTicks;
-    private int idleAnimationTimeout = 0;
 
     public WhiskbillEntity(EntityType<? extends WhiskbillEntity> entityType, Level level) {
         super(entityType, level);
@@ -60,7 +61,7 @@ public class WhiskbillEntity extends Animal {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.20F).add(Attributes.MAX_HEALTH, 10.0F);
+        return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.10F).add(Attributes.MAX_HEALTH, 10.0F);
     }
 
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
@@ -89,13 +90,14 @@ public class WhiskbillEntity extends Animal {
     }
 
     private void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(100) + 100;
-            this.idleAnimationState.start(this.tickCount);
-        } else {
-            --this.idleAnimationTimeout;
-        }
+        this.idleAnimationState.startIfStopped(this.tickCount);
+        this.walkAnimationState.startIfStopped(this.tickCount);
+        this.walkAnimationWeightO = this.walkAnimationWeight;
+        this.walkAnimationWeight = Mth.approach(this.walkAnimationWeight, this.walkAnimation.speed() > 0.01F ? 1.0F : 0.0F, 0.1F);
+    }
 
+    public float getWalkAnimationWeight(float partialTick) {
+        return Mth.lerp(partialTick, this.walkAnimationWeightO, this.walkAnimationWeight);
     }
 
     protected void playStepSound(BlockPos pos, BlockState state) {

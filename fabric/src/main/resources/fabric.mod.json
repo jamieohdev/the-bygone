@@ -4,7 +4,8 @@
   "version": "${version}",
   "entrypoints": {
     "main": [ "com.jamiedev.bygone.BygoneFabric" ],
-    "client": [ "com.jamiedev.bygone.client.BygoneClientFabric" ]
+    "client": [ "com.jamiedev.bygone.client.BygoneClientFabric" ],
+    "fabric-datagen": [ "com.jamiedev.bygone.core.datagen.DataFabricGenerator" ]
   },
   "mixins": [
     "${modid}.mixins.json",

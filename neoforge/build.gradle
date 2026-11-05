@@ -25,6 +25,13 @@ neoForge{
         }
         client{ client() }
         server{ server() }
+        data{
+            data()
+            gameDirectory = file('build/run-data')
+            programArguments.addAll '--mod', project.modid, '--all',
+                    '--output', rootProject.file('common/src/generated/resources').absolutePath,
+                    '--existing', rootProject.file('common/src/main/resources').absolutePath
+        }
     }
 }
 
@@ -32,6 +39,10 @@ configurations{
     dependencyScope('common')
     resolvable('commoners'){ extendsFrom(common) }
     implementation.extendsFrom(common)
+}
+
+tasks.named('runData'){
+    mustRunAfter ':fabric:runDatagen'
 }
 dependencies{
     common(project(':common')){ transitive = false }

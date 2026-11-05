@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "minecraft:arrow"
+    },
+    {
+      "item": "bygone:lithoplasm"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "bygone:lithoplasm_arrow"
+  }
+}

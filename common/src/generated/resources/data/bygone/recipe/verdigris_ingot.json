@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "verdigris_ingot",
+  "ingredients": [
+    {
+      "item": "bygone:verdigris_scrap"
+    },
+    {
+      "item": "bygone:verdigris_scrap"
+    },
+    {
+      "item": "bygone:verdigris_scrap"
+    },
+    {
+      "item": "bygone:verdigris_scrap"
+    },
+    {
+      "item": "minecraft:copper_ingot"
+    },
+    {
+      "item": "minecraft:copper_ingot"
+    },
+    {
+      "item": "minecraft:copper_ingot"
+    },
+    {
+      "item": "minecraft:copper_ingot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "bygone:verdigris_ingot"
+  }
+}
