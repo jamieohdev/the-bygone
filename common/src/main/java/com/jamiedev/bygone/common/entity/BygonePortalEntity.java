@@ -1,6 +1,7 @@
 package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.Bygone;
+import com.jamiedev.bygone.common.util.Animatable;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
 import com.jamiedev.bygone.core.registry.BGInterAttachmentTypes;
@@ -22,7 +23,6 @@ import net.minecraft.server.level.TicketType;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -46,13 +46,13 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class BygonePortalEntity extends Entity implements Portal {
-    private static final EntityDataAccessor<Integer> DATA_STATE = SynchedEntityData.defineId(BygonePortalEntity .class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Long> DATA_EXPIRY = SynchedEntityData.defineId(BygonePortalEntity .class, EntityDataSerializers.LONG);
+public class BygonePortalEntity extends Entity implements Animatable<BygonePortalEntity,BygonePortalEntity.State>, Portal{
+    private static final EntityDataAccessor<Integer> DATA_STATE = SynchedEntityData.defineId(BygonePortalEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Long> DATA_EXPIRY = SynchedEntityData.defineId(BygonePortalEntity.class, EntityDataSerializers.LONG);
 
     private static final TicketType<BlockPos> BYGONE_TICKET = TicketType.create("bygone:bygone_portal", Vec3i::compareTo, 41);
 
-    private AnimationState[] animations = new AnimationState[State.values().length];
+    private final Animatable.Holder<BygonePortalEntity,State> animations = new Animatable.Holder<>(this, State.values());
     private int soundCooldown = 40;
     private boolean loaded = false;
 
@@ -60,10 +60,6 @@ public class BygonePortalEntity extends Entity implements Portal {
         super(entityType, level);
         this.noPhysics = true;
         this.setNoGravity(true);
-        if(level.isClientSide){
-            for(int i = 0; i < State.values().length; i++) this.animations[i] = new AnimationState();
-            State.IDLE.get(this).start(this.tickCount);
-        }
     }
 
 
@@ -79,27 +75,22 @@ public class BygonePortalEntity extends Entity implements Portal {
     }
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
-        // intentionally don't save state. doesn't make sense to!
         compound.putLong("Expiry", getExpiry());
     }
-    public State getState(){ return State.of(this.getEntityData().get(DATA_STATE)); }
-    public void setState(State state){ this.getEntityData().set(DATA_STATE, state.ordinal()); }
     public long getExpiry(){ return this.getEntityData().get(DATA_EXPIRY); }
     public void setExpiry(long expiry){ this.getEntityData().set(DATA_EXPIRY, expiry); }
     public boolean isExpired(){ return this.getExpiry() != 0 && this.getExpiry() < this.level().getGameTime(); }
+
+    @Override public Animatable.Holder<BygonePortalEntity,State> animations(){ return animations; }
+    @Override public EntityDataAccessor<Integer> getStateData(){ return DATA_STATE; }
 
 
 
     @Override
     public void tick(){
         super.tick();
+        this.animations.tick();
         if(this.level().isClientSide){
-            State state = getState();
-            for(State s : State.values()){
-                if(s == state) s.get(this).startIfStopped(this.tickCount);
-                else s.get(this).stop();
-            }
-
             if(soundCooldown-- == 0){
                 this.level().playSound(this, this.blockPosition(), BGSoundEvents.ENTITY_ARCANE_MECHANISM_IDLE_EVENT, SoundSource.BLOCKS, 1.0F, this.random.nextFloat() + 1);
                 soundCooldown = 40 + this.random.nextInt(40);
@@ -270,14 +261,7 @@ public class BygonePortalEntity extends Entity implements Portal {
 
 
 
-    public static enum State{
+    public static enum State implements Animatable.State<BygonePortalEntity>{
         IDLE, TRIGGERED, ACTIVE;
-        public AnimationState get(BygonePortalEntity portal){
-            return portal.animations[this.ordinal()];
-        }
-        public static State of(int i){
-            if(i >= State.values().length) return State.IDLE;
-            return State.values()[i];
-        }
     }
 }
