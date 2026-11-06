@@ -249,7 +249,7 @@ public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity
         public void tick(){
             this.ticks++;
             if(this.completed(State.TRIPPED) && LithyEntity.this.random.nextFloat() < 0.02){
-                this.progress(State.RISING, 40);
+                this.progress(State.RISING, 25);
             }
         }
         @Override
