@@ -68,23 +68,12 @@ public class FungalParentEntity extends Animal implements NeutralMob {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 30.0).add(Attributes.FOLLOW_RANGE, 20.0).add(Attributes.MOVEMENT_SPEED, 0.25).add(Attributes.ATTACK_DAMAGE, 8.0);
     }
 
-    public static boolean canSpawn(EntityType<FungalParentEntity> type,
-                                   LevelAccessor serverWorldAccess,
-                                   MobSpawnType spawnReason,
-                                   BlockPos blockPos,
-                                   RandomSource random
-    ) {
-        return serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_FUNGUS.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_MOSS.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_BLOCK.get())
-                || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_MYCELIUM.get());
-    }
-
-    public static <T extends Mob> boolean canSpawn(EntityType<T> tEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
-        return serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_FUNGUS.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_MOSS.get())
-                || serverWorldAccess.getBlockState(blockPos).is(BGBlocks.SHELF_MOLD_BLOCK.get())
-                || serverWorldAccess.getBlockState(blockPos.below()).is(BGBlocks.SHELF_MYCELIUM.get());
+    public static boolean canSpawn(EntityType<FungalParentEntity> type, LevelAccessor access, MobSpawnType spawn, BlockPos pos, RandomSource random){
+        BlockPos below = pos.below();
+        return access.getBlockState(below).is(BGBlocks.SHELF_FUNGUS.get())
+            || access.getBlockState(below).is(BGBlocks.SHELF_MOLD_MOSS.get())
+            || access.getBlockState(below).is(BGBlocks.SHELF_MOLD_BLOCK.get())
+            || access.getBlockState(below).is(BGBlocks.SHELF_MYCELIUM.get());
     }
 
     @Override

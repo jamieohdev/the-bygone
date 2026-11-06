@@ -8,6 +8,9 @@ import com.jamiedev.bygone.common.util.VexDeathTracker;
 import com.jamiedev.bygone.common.weather.BygoneWeather;
 import com.jamiedev.bygone.common.weather.weather_types.HauntingsCategoryHolder;
 import com.jamiedev.bygone.core.registry.*;
+
+import java.util.function.Supplier;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,6 +18,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.SpawnPlacementType;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
@@ -22,9 +29,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.PathType;
+
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -48,9 +57,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Supplier;
+import org.jetbrains.annotations.NotNull;
 
 @Mod(Bygone.MOD_ID)
 public class BygoneNeoForge {
@@ -110,7 +118,6 @@ public class BygoneNeoForge {
         eventBus.addListener(this::addValidBlocks);
         eventBus.addListener(this::modifyDefaultComponents);
         NeoForge.EVENT_BUS.addListener(this::blockModifications);
-        NeoForge.EVENT_BUS.addListener(this::damageEvent);
         NeoForge.EVENT_BUS.addListener(this::onLivingDeath);
         NeoForge.EVENT_BUS.addListener(this::onServerTick);
     }
@@ -138,10 +145,6 @@ public class BygoneNeoForge {
         );
     }
 
-    void damageEvent(LivingDamageEvent.Pre event) {
-
-    }
-
     void onLivingDeath(LivingDeathEvent event) {
         if (event.getEntity() instanceof Vex vex && event.getEntity().level() instanceof ServerLevel serverLevel) {
             VexDeathTracker.onVexDeath(vex, serverLevel);
@@ -153,18 +156,18 @@ public class BygoneNeoForge {
     }
 
     void createAttributes(EntityAttributeCreationEvent event) {
-        Bygone.initAttributes(event::put);
+        BGEntityTypes.registerAttributes(event::put);
     }
 
 
     void spawnPlacements(RegisterSpawnPlacementsEvent event) {
-        Bygone.registerSpawnPlacements((entityType, spawnPlacementType, types, spawnPredicate) -> event.register(
-                entityType,
-                spawnPlacementType,
-                types,
-                spawnPredicate,
-                RegisterSpawnPlacementsEvent.Operation.REPLACE
-        ));
+        // we can't use a lambda bc of the method being quantified on a type variable
+        BGEntityTypes.registerSpawnPlacements(new BGEntityTypes.PlacementReceiver(){
+            @Override
+            public <T extends Mob> void accept(EntityType<T> type, SpawnPlacementType placement, Heightmap.Types heightmap, SpawnPlacements.SpawnPredicate<T> predicates){
+                event.register(type, placement, heightmap, predicates, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            }
+        });
     }
 
     void setup(FMLCommonSetupEvent event) {

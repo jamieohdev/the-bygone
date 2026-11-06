@@ -147,7 +147,6 @@ public class BygoneFabric implements ModInitializer {
 
         BGPotionsFabric.init();
 
-        Bygone.registerSpawnPlacements(SpawnPlacements::register);
         //JamiesModPortalsFabric.init();
 
         BGCriteria.init();
@@ -184,7 +183,8 @@ public class BygoneFabric implements ModInitializer {
 //            (callback) -> {}
 //        );
 
-        Bygone.initAttributes(FabricDefaultAttributeRegistry::register);
+        BGEntityTypes.registerAttributes(FabricDefaultAttributeRegistry::register);
+        BGEntityTypes.registerSpawnPlacements(SpawnPlacements::register);
 
         Bygone.addValidBlocks((type, block) -> type.addSupportedBlock(block));
 

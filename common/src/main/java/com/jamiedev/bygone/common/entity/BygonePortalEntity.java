@@ -65,16 +65,16 @@ public class BygonePortalEntity extends Entity implements Animatable<BygonePorta
 
 
     @Override
-    public void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
         builder.define(DATA_STATE, 0);
         builder.define(DATA_EXPIRY, 0L);
     }
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    protected void readAdditionalSaveData(CompoundTag compound) {
         if (compound.contains("Expiry")) this.setExpiry(compound.getLong("Expiry"));
     }
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    protected void addAdditionalSaveData(CompoundTag compound) {
         compound.putLong("Expiry", getExpiry());
     }
     public long getExpiry(){ return this.getEntityData().get(DATA_EXPIRY); }
@@ -89,7 +89,6 @@ public class BygonePortalEntity extends Entity implements Animatable<BygonePorta
     @Override
     public void tick(){
         super.tick();
-        this.animations.tick();
         if(this.level().isClientSide){
             if(soundCooldown-- == 0){
                 this.level().playSound(this, this.blockPosition(), BGSoundEvents.ENTITY_ARCANE_MECHANISM_IDLE_EVENT, SoundSource.BLOCKS, 1.0F, this.random.nextFloat() + 1);
@@ -141,11 +140,12 @@ public class BygonePortalEntity extends Entity implements Animatable<BygonePorta
 
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> key){
-        if (key.equals(DATA_STATE) && this.getState() == State.IDLE){
+        super.onSyncedDataUpdated(key);
+        if(this.animations != null) this.animations.onSyncedDataUpdated(key);
+        if (this.level().isClientSide && DATA_STATE.equals(key) && this.getState() == State.IDLE){
             this.level().playSound(this, this.blockPosition(), BGSoundEvents.ENTITY_ARCANE_MECHANISM_CLOSE_EVENT, SoundSource.BLOCKS, 1.0F, 1.0F);
             this.level().addParticle(ParticleTypes.EXPLOSION, this.getX() + 0.5, this.getY() + 0.5, this.getZ() + 0.5, 0, 0.1, 0);
         }
-        super.onSyncedDataUpdated(key);
     }
 
 

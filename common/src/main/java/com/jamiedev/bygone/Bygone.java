@@ -1,15 +1,11 @@
 package com.jamiedev.bygone;
 
 import com.jamiedev.bygone.common.entity.*;
-import com.jamiedev.bygone.common.util.Consumer4;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.mixin.AxeItemAccess;
 import com.jamiedev.bygone.core.registry.*;
 
-import java.util.IdentityHashMap;
-import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import net.minecraft.core.BlockPos;
@@ -17,15 +13,12 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.levelgen.Heightmap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,7 +36,7 @@ public class Bygone {
         BGInterAttachmentTypes.init();
         BGItems.init();
         BGMobEffects.init();
-        BGEntityTypes.postInit();
+        BGEntityTypes.init();
         BGBiomes.init();
         BGBlockProperties.init();
         BGItemGroups.register();
@@ -60,204 +53,6 @@ public class Bygone {
         BGStructures.init();
         BGParticleTypes.init();
         BGSoundEvents.init();
-    }
-
-    public static void initAttributes(BiConsumer<EntityType<? extends LivingEntity>, AttributeSupplier> consumer) {
-        consumer.accept(BGEntityTypes.DUCK.get(), DuckEntity.createDuckAttributes().build());
-        consumer.accept(BGEntityTypes.BIG_BEAK.get(), BigBeakEntity.createBigBeakAttributes().build());
-        consumer.accept(BGEntityTypes.GLARE.get(), GlareEntity.createGlareAttributes().build());
-        consumer.accept(BGEntityTypes.SCUTTLE.get(), ScuttleEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.COELACANTH.get(), CoelacanthEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.TRILOBITE.get(), TrilobiteEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.MOOBOO.get(), MoobooEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.COPPERBUG.get(), CopperbugEntity.createCopperbugAttributes().build());
-        consumer.accept(BGEntityTypes.FUNGAL_PARENT.get(), FungalParentEntity.createFungieAttributes().build());
-        consumer.accept(BGEntityTypes.PESKY.get(), PeskyEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.PEST.get(), PestEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.WHISKBILL.get(), WhiskbillEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.NECTAUR.get(), NectaurEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.LITHY.get(), LithyEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.WISP.get(), WispEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.GEIST.get(), GeistEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.REAVER.get(), ReaverEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.WALLOW.get(), WallowEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.HAUNT.get(), HauntEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.WRAITH.get(), WraithEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.SABEAST.get(), SabeastEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.MOURN.get(), MournEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.WHISPER.get(), WhisperEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.SCARE.get(), ScareEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.AMOEBA.get(), AmoebaEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.SKIPPER.get(), SkipperEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.PRIMORDIAL_FISH.get(), PrimordialFishEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.AQUIFAWN.get(), AquifawnEntity.createAttributes().build());
-        consumer.accept(BGEntityTypes.MURKLING.get(), MurklingEntity.createAttributes().build());
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T extends Mob> void registerSpawnPlacements(Consumer4<EntityType<T>, SpawnPlacementType, Heightmap.Types, SpawnPlacements.SpawnPredicate<T>> consumer) {
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.SKIPPER.get(),
-                SkipperEntity.ON_WATER_SURFACE,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                SkipperEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.SCUTTLE.get(),
-                SpawnPlacementTypes.IN_WATER,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                ScuttleEntity::checkSurfaceWaterAnimalSpawnRule
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.AQUIFAWN.get(),
-                SpawnPlacementTypes.IN_WATER,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                ScuttleEntity::checkSurfaceWaterAnimalSpawnRule
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.GLARE.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                GlareEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.BIG_BEAK.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                BigBeakEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.TRILOBITE.get(),
-                SpawnPlacementTypes.IN_WATER,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                TrilobiteEntity::checkSurfaceWaterAnimalSpawnRule
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.AMOEBA.get(),
-                SpawnPlacementTypes.IN_WATER,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                TrilobiteEntity::checkSurfaceWaterAnimalSpawnRule
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.COPPERBUG.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                CopperbugEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.COELACANTH.get(),
-                SpawnPlacementTypes.IN_WATER,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                CoelacanthEntity::checkSurfaceWaterAnimalSpawnRule
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.HAUNT.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                HauntEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.PESKY.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                GlareEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.PEST.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                GlareEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.NECTAUR.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                BigBeakEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.WHISKBILL.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                BigBeakEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.LITHY.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                LithyEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.WISP.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                WispEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.GEIST.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                GeistEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.WALLOW.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                WraithEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.WRAITH.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                WraithEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.SABEAST.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                MoobooEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.REAVER.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                ReaverEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.MOURN.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                MournEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.WHISPER.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                WhisperEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.SCARE.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                ScareEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.MOOBOO.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                MoobooEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.FUNGAL_PARENT.get(),
-                SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING,
-                FungalParentEntity::canSpawn
-        );
-        consumer.accept(
-                (EntityType<T>) BGEntityTypes.PRIMORDIAL_FISH.get(),
-                SpawnPlacementTypes.IN_WATER,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                PrimordialFishEntity::checkPrimordialFishEntitySpawnRules
-        );
     }
 
     public static void addValidBlocks(BiConsumer<BlockEntityType<?>, Block> consumer) {

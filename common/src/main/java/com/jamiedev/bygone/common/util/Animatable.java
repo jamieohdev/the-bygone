@@ -60,7 +60,9 @@ public interface Animatable<T extends Entity & Animatable<T,S>, S extends Animat
 
     /**
       * this is where the magic happens!
-      * init a final field for this, and call tick() every tick, and you'll be set :)
+      * init a final field for this, and call onSyncedDataUpdated in your
+      * onSyncedDataUpdated (though, make sure your Holder field isn't null!
+      * onSyncedDataUpdated is called early), and you'll be set :)
       **/
     class Holder<T extends Entity & Animatable<T,S>, S extends State<T>>{
         private final T parent;
@@ -76,8 +78,12 @@ public interface Animatable<T extends Entity & Animatable<T,S>, S extends Animat
             if(this.parent.level().isClientSide) this.states[0].start(this.parent.tickCount);
         }
 
-        public void tick(){
+        public void onSyncedDataUpdated(EntityDataAccessor<?> key){
+            if(!parent.getStateData().equals(key)) return;
+            // even though this is for syncing server->client, this method is
+            // called server-side on sets!
             if(!this.parent.level().isClientSide) return;
+
             State<T> current = this.parent.getState();
             for(State state : values){
                 AnimationState animation = state.get(this.parent);

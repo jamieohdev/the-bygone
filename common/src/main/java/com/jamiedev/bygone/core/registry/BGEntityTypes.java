@@ -4,12 +4,22 @@ import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.entity.*;
 import com.jamiedev.bygone.common.entity.projectile.*;
 import com.jamiedev.bygone.common.weather.weather_types.HauntingsCategoryHolder;
+
 import com.kekecreations.jinxedlib.core.util.JinxedRegistryHelper;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.SpawnPlacementType;
+import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 public class BGEntityTypes {
@@ -183,7 +193,7 @@ public class BGEntityTypes {
 
     public static final Supplier<EntityType<LithyEntity>> LITHY = registerEntityType(
             "lithy",
-            () -> EntityType.Builder.of(LithyEntity::new, MobCategory.CREATURE).sized(1.0F, 2.0F).build("")
+            () -> EntityType.Builder.of(LithyEntity::new, MobCategory.CREATURE).sized(0.8F, 2F).build("")
     );
 
     public static final Supplier<EntityType<ReaverEntity>> REAVER = registerEntityType(
@@ -305,17 +315,6 @@ public class BGEntityTypes {
                     .build("")
     );
 
-    public static void postInit() {
-        initSpawnRestrictions();
-    }
-
-    public static void initSpawnRestrictions() {
-    }
-
-    private static <T extends EntityType<?>> Supplier<T> registerEntityType(String name, Supplier<T> entityTypeSupplier) {
-        return JinxedRegistryHelper.register(BuiltInRegistries.ENTITY_TYPE, Bygone.MOD_ID, name, entityTypeSupplier);
-    }
-
     public static final Supplier<EntityType<GlareEntity>> GLARE = registerEntityType(
             "glare",
             () -> EntityType.Builder.of(GlareEntity::new, MobCategory.CREATURE).sized(0.6F, 0.8F).build("")
@@ -331,4 +330,76 @@ public class BGEntityTypes {
                     .build("")
     );
 
+    private static <T extends EntityType<?>> Supplier<T> registerEntityType(String name, Supplier<T> entityTypeSupplier) {
+        return JinxedRegistryHelper.register(BuiltInRegistries.ENTITY_TYPE, Bygone.MOD_ID, name, entityTypeSupplier);
+    }
+
+
+
+    public static void init(){}
+
+    public static void registerAttributes(BiConsumer<EntityType<? extends LivingEntity>,AttributeSupplier> consumer){
+        consumer.accept(AMOEBA.get(), AmoebaEntity.createAttributes().build());
+        consumer.accept(AQUIFAWN.get(), AquifawnEntity.createAttributes().build());
+        consumer.accept(BIG_BEAK.get(), BigBeakEntity.createBigBeakAttributes().build());
+        consumer.accept(COELACANTH.get(), CoelacanthEntity.createAttributes().build());
+        consumer.accept(COPPERBUG.get(), CopperbugEntity.createCopperbugAttributes().build());
+        consumer.accept(DUCK.get(), DuckEntity.createDuckAttributes().build());
+        consumer.accept(FUNGAL_PARENT.get(), FungalParentEntity.createFungieAttributes().build());
+        consumer.accept(GEIST.get(), GeistEntity.createAttributes().build());
+        consumer.accept(GLARE.get(), GlareEntity.createGlareAttributes().build());
+        consumer.accept(HAUNT.get(), HauntEntity.createAttributes().build());
+        consumer.accept(LITHY.get(), LithyEntity.createAttributes().build());
+        consumer.accept(MOOBOO.get(), MoobooEntity.createAttributes().build());
+        consumer.accept(MOURN.get(), MournEntity.createAttributes().build());
+        consumer.accept(MURKLING.get(), MurklingEntity.createAttributes().build());
+        consumer.accept(NECTAUR.get(), NectaurEntity.createAttributes().build());
+        consumer.accept(PESKY.get(), PeskyEntity.createAttributes().build());
+        consumer.accept(PEST.get(), PestEntity.createAttributes().build());
+        consumer.accept(PRIMORDIAL_FISH.get(), PrimordialFishEntity.createAttributes().build());
+        consumer.accept(REAVER.get(), ReaverEntity.createAttributes().build());
+        consumer.accept(SABEAST.get(), SabeastEntity.createAttributes().build());
+        consumer.accept(SCARE.get(), ScareEntity.createAttributes().build());
+        consumer.accept(SCUTTLE.get(), ScuttleEntity.createAttributes().build());
+        consumer.accept(SKIPPER.get(), SkipperEntity.createAttributes().build());
+        consumer.accept(TRILOBITE.get(), TrilobiteEntity.createAttributes().build());
+        consumer.accept(WALLOW.get(), WallowEntity.createAttributes().build());
+        consumer.accept(WHISKBILL.get(), WhiskbillEntity.createAttributes().build());
+        consumer.accept(WHISPER.get(), WhisperEntity.createAttributes().build());
+        consumer.accept(WISP.get(), WispEntity.createAttributes().build());
+        consumer.accept(WRAITH.get(), WraithEntity.createAttributes().build());
+    }
+
+    public static void registerSpawnPlacements(PlacementReceiver receiver){
+        receiver.accept(AMOEBA.get(),          SpawnPlacementTypes.IN_WATER,   Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TrilobiteEntity::checkSurfaceWaterAnimalSpawnRule);
+        receiver.accept(AQUIFAWN.get(),        SpawnPlacementTypes.IN_WATER,   Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScuttleEntity::checkSurfaceWaterAnimalSpawnRule);
+        receiver.accept(BIG_BEAK.get(),        SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           BigBeakEntity::canSpawn);
+        receiver.accept(COELACANTH.get(),      SpawnPlacementTypes.IN_WATER,   Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CoelacanthEntity::checkSurfaceWaterAnimalSpawnRule);
+        receiver.accept(COPPERBUG.get(),       SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           CopperbugEntity::canSpawn);
+        receiver.accept(FUNGAL_PARENT.get(),   SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           FungalParentEntity::canSpawn);
+        receiver.accept(GEIST.get(),           SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           GeistEntity::canSpawn);
+        receiver.accept(GLARE.get(),           SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           GlareEntity::canSpawn);
+        receiver.accept(HAUNT.get(),           SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           HauntEntity::canSpawn);
+        receiver.accept(LITHY.get(),           SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           LithyEntity::canSpawn);
+        receiver.accept(MOOBOO.get(),          SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           MoobooEntity::canSpawn);
+        receiver.accept(MOURN.get(),           SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           MournEntity::canSpawn);
+        receiver.accept(NECTAUR.get(),         SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           BigBeakEntity::canSpawn);
+        receiver.accept(PESKY.get(),           SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           GlareEntity::canSpawn);
+        receiver.accept(PEST.get(),            SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           GlareEntity::canSpawn);
+        receiver.accept(PRIMORDIAL_FISH.get(), SpawnPlacementTypes.IN_WATER,   Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PrimordialFishEntity::checkPrimordialFishEntitySpawnRules);
+        receiver.accept(REAVER.get(),          SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           ReaverEntity::canSpawn);
+        receiver.accept(SABEAST.get(),         SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           MoobooEntity::canSpawn);
+        receiver.accept(SCARE.get(),           SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           ScareEntity::canSpawn);
+        receiver.accept(SCUTTLE.get(),         SpawnPlacementTypes.IN_WATER,   Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScuttleEntity::checkSurfaceWaterAnimalSpawnRule);
+        receiver.accept(SKIPPER.get(),         SkipperEntity.ON_WATER_SURFACE, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SkipperEntity::canSpawn);
+        receiver.accept(TRILOBITE.get(),       SpawnPlacementTypes.IN_WATER,   Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TrilobiteEntity::checkSurfaceWaterAnimalSpawnRule);
+        receiver.accept(WALLOW.get(),          SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           WraithEntity::canSpawn);
+        receiver.accept(WHISKBILL.get(),       SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           BigBeakEntity::canSpawn);
+        receiver.accept(WHISPER.get(),         SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           WhisperEntity::canSpawn);
+        receiver.accept(WISP.get(),            SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           WispEntity::canSpawn);
+        receiver.accept(WRAITH.get(),          SpawnPlacementTypes.ON_GROUND,  Heightmap.Types.MOTION_BLOCKING,           WraithEntity::canSpawn);
+    }
+    public static interface PlacementReceiver{
+        <T extends Mob> void accept(EntityType<T> type, SpawnPlacementType placement, Heightmap.Types heightmap, SpawnPlacements.SpawnPredicate<T> predicates);
+    }
 }
