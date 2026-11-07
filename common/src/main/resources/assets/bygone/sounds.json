@@ -1071,6 +1071,15 @@
     "subtitle": "subtitles.entity.skipper.death"
   },
 
+  "entity.skipper.jump": {
+    "sounds": [
+      "bygone:entity/skipper/jump1",
+      "bygone:entity/skipper/jump2",
+      "bygone:entity/skipper/jump3"
+    ],
+    "subtitle": "subtitles.entity.skipper.jump"
+  },
+
   "item.war_horn.use": {
     "sounds": [
       {

@@ -227,10 +227,12 @@ public class BGSoundEvents {
     public static final ResourceLocation ENTITY_SKIPPER_AMBIENT = id("entity.skipper.ambient");
     public static final ResourceLocation ENTITY_SKIPPER_HURT = id("entity.skipper.hurt");
     public static final ResourceLocation ENTITY_SKIPPER_DEATH = id("entity.skipper.death");
+    public static final ResourceLocation ENTITY_SKIPPER_JUMP = id("entity.skipper.jump");
     public static SoundEvent SKIPPER_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SKIPPER_AMBIENT);
     public static SoundEvent SKIPPER_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SKIPPER_DEATH);
     public static SoundEvent SKIPPER_HURT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SKIPPER_HURT);
-    
+    public static SoundEvent SKIPPER_JUMP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_SKIPPER_JUMP);
+
     public static SoundEvent LITHY_AMBIENT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_AMBIENT);
     public static SoundEvent LITHY_TRIP_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_TRIP);
     public static SoundEvent LITHY_DEATH_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(ENTITY_LITHY_DEATH);
@@ -412,7 +414,7 @@ public class BGSoundEvents {
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SKIPPER_AMBIENT, BGSoundEvents.SKIPPER_AMBIENT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SKIPPER_HURT, BGSoundEvents.SKIPPER_HURT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SKIPPER_DEATH, BGSoundEvents.SKIPPER_DEATH_ADDITIONS_EVENT);
-
+        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_SKIPPER_JUMP, BGSoundEvents.SKIPPER_JUMP_ADDITIONS_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_AMBIENT, BGSoundEvents.LITHY_AMBIENT_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ENTITY_LITHY_TRIP, BGSoundEvents.LITHY_TRIP_ADDITIONS_EVENT);

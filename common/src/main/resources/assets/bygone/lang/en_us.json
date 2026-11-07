@@ -845,6 +845,7 @@
   "subtitles.entity.skipper.ambient": "Skipper chitters",
   "subtitles.entity.skipper.hurt": "Skippers hurts",
   "subtitles.entity.skipper.death": "Skipper dies",
+  "subtitles.entity.skipper.jump": "Skipper boosts",
 
   "subtitles.entity.wallow.ambient": "Wallow sobs",
   "subtitles.entity.wallow.freeze": "Wallow chills",
