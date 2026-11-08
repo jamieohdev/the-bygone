@@ -66,13 +66,7 @@ public class LithyAnimations {
             ))
             .build();
 
-    public static final AnimationDefinition trip = AnimationDefinition.Builder.withLength(0.125F).looping()
-            .addAnimation("root", new AnimationChannel(AnimationChannel.Targets.ROTATION,
-                    new Keyframe(0.0F, KeyframeAnimations.degreeVec(90.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
-            ))
-            .build();
-
-    public static final AnimationDefinition trip_end = AnimationDefinition.Builder.withLength(2.0F)
+    public static final AnimationDefinition trip_end = AnimationDefinition.Builder.withLength(1.25F)
             .addAnimation("root", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(90.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                     new Keyframe(0.125F, KeyframeAnimations.degreeVec(60.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),

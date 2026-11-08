@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:entity",
+  "type": "minecraft:gift",
   "pools": [
     {
       "bonus_rolls": 0.0,

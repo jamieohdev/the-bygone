@@ -50,11 +50,10 @@ public class LithyModel<T extends Entity> extends HierarchicalModel<T> {
     public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
+        this.animateWalk(LithyAnimations.walk, limbSwing, limbSwingAmount, 5F, 1F);
         if (entity instanceof LithyEntity lithy) {
-            this.animate(lithy.walkAnimationState, LithyAnimations.walk, ageInTicks, 1.0f);
-            this.animate(lithy.tripBeginAnimationState, LithyAnimations.trip_begin, ageInTicks, 1.0f);
-            this.animate(lithy.tripAnimationState, LithyAnimations.trip, ageInTicks, 1.0f);
-            this.animate(lithy.tripEndAnimationState, LithyAnimations.trip_end, ageInTicks, 1.0f);
+            this.animate(LithyEntity.State.TRIPPED.get(lithy), LithyAnimations.trip_begin, ageInTicks, 1.0f);
+            this.animate(LithyEntity.State.RISING.get(lithy), LithyAnimations.trip_end, ageInTicks, 1.0f);
         }
     }
 

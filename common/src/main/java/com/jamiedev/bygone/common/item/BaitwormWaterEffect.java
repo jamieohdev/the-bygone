@@ -78,7 +78,7 @@ public class BaitwormWaterEffect {
 
             if (level.getFluidState(surfacePos).is(FluidTags.WATER) && !level.getFluidState(surfacePos.above()).is(FluidTags.WATER)) {
                 level.sendParticles(
-                        (SimpleParticleType) BGParticleTypes.WORM,
+                        BGParticleTypes.WORM,
                         surfacePos.getX() + 0.5,
                         surfacePos.getY() + 0.5,
                         surfacePos.getZ() + 0.5,

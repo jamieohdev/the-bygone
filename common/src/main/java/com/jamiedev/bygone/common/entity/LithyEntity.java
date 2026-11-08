@@ -1,9 +1,11 @@
 package com.jamiedev.bygone.common.entity;
 
+import com.jamiedev.bygone.common.util.Animatable;
 import com.jamiedev.bygone.core.init.JamiesModLootTables;
 import com.jamiedev.bygone.core.init.JamiesModTag;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -13,35 +15,26 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.LookControl;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.TripWireBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.Path;
-import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -51,661 +44,233 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class LithyEntity extends PathfinderMob {
-    protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID;
-    protected static final EntityDataAccessor<Boolean> DATA_TRIPPED;
-    protected static final EntityDataAccessor<Boolean> DATA_JUMP_UP;
-    protected static final EntityDataAccessor<Integer> DATA_TRIPPED_TICK;
-    protected static final EntityDataAccessor<Integer> DATA_TRIP_COOLDOWN;
-    protected static final EntityDataAccessor<Integer> DATA_TRIPWIRE_TRIP_COOLDOWN;
+public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity,LithyEntity.State>{
+    private static final EntityDataAccessor<Integer> DATA_STATE = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> DATA_TARGETING = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.BOOLEAN);
 
-    static {
-        DATA_FLAGS_ID = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.BYTE);
-        DATA_TRIPPED = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.BOOLEAN);
-        DATA_JUMP_UP = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.BOOLEAN);
-        DATA_TRIPPED_TICK = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.INT);
-        DATA_TRIP_COOLDOWN = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.INT);
-        DATA_TRIPWIRE_TRIP_COOLDOWN = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.INT);
-    }
+    private final Animatable.Holder<LithyEntity,State> animations = new Animatable.Holder<>(this, State.values());
+    private int randomTripCooldown = this.random.nextBoolean() ? genRandomTripTime() : 0;
+    private int tripwireTripCooldown = 0;
 
-    public boolean tripwireTrip = false;
-    public AnimationState walkAnimationState = new AnimationState();
-    public AnimationState tripBeginAnimationState = new AnimationState();
-    public AnimationState tripAnimationState = new AnimationState();
-    public AnimationState tripEndAnimationState = new AnimationState();
-    Wolf test;
-    IronGolem ref;
+    private static final EntityDimensions TRIPPED_DIMENSIONS = EntityDimensions.scalable(0.8F, 0.8F).withEyeHeight(0.4F);
 
-    public LithyEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+    public LithyEntity(EntityType<? extends PathfinderMob> entityType, Level level){
         super(entityType, level);
     }
-
-    public static AttributeSupplier.Builder createAttributes() {
+    public static AttributeSupplier.Builder createAttributes(){
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 5.0F)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0F)
-                .add(Attributes.ATTACK_DAMAGE, 15.0F)
+                .add(Attributes.ATTACK_DAMAGE, 4.0F)
                 .add(Attributes.STEP_HEIGHT, 1.0F);
     }
-
-
-    protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter level, BlockPos pos) {
-        return level.getRawBrightness(pos, 0) > 3;
-    }
-
-    public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        boolean flag = MobSpawnType.ignoresLightRequirements(spawnType) || isBrightEnoughToSpawn(level, pos);
-        return level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && flag;
-    }
-
-    public static boolean canSpawn(EntityType<? extends Mob> type, LevelAccessor level, MobSpawnType reason, BlockPos blockPos, RandomSource random) {
-        return level.getBlockState(blockPos.below()).is(JamiesModTag.LITHY_SPAWNABLE_ON);
-    }
-
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(DATA_FLAGS_ID, (byte) 0);
-        builder.define(DATA_TRIPPED, false);
-        builder.define(DATA_JUMP_UP, false);
-        builder.define(DATA_TRIPPED_TICK, 0);
-        builder.define(DATA_TRIP_COOLDOWN, 1200 + this.random.nextInt(0, 200));
-        builder.define(DATA_TRIPWIRE_TRIP_COOLDOWN, 0);
+    public static boolean canSpawn(EntityType<LithyEntity> type, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random){
+        return level.getBlockState(pos.below()).is(JamiesModTag.LITHY_SPAWNABLE_ON);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        this.entityData.set(DATA_TRIPPED, compound.getBoolean("DataTripped"));
-        this.entityData.set(DATA_JUMP_UP, compound.getBoolean("DataJumpUp"));
-        this.entityData.set(DATA_TRIPPED_TICK, compound.getInt("DataTrippedTick"));
-        this.entityData.set(DATA_TRIP_COOLDOWN, compound.getInt("DataTripCooldown"));
-        this.entityData.set(DATA_TRIPWIRE_TRIP_COOLDOWN, compound.getInt("DataTripwireTripCooldown"));
-
-        super.readAdditionalSaveData(compound);
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        compound.putBoolean("DataTripped", this.entityData.get(DATA_TRIPPED));
-        compound.putBoolean("DataJumpUp", this.entityData.get(DATA_JUMP_UP));
-        compound.putInt("DataTrippedTick", this.entityData.get(DATA_TRIPPED_TICK));
-        compound.putInt("DataTripCooldown", this.entityData.get(DATA_TRIP_COOLDOWN));
-        compound.putInt("DataTripwireTripCooldown", this.entityData.get(DATA_TRIPWIRE_TRIP_COOLDOWN));
-
-        super.addAdditionalSaveData(compound);
-    }
-
-    protected void registerGoals() {
-        this.goalSelector.addGoal(1, new FloatGoal(this));
+    protected void registerGoals(){
+        this.goalSelector.addGoal(1, new LithyTripGoal());
+        this.goalSelector.addGoal(2, new FloatGoal(this));
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, WraithEntity.class, 6.0F, 1.0F, 1.2));
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
-        this.goalSelector.addGoal(5, new LithyEntity.LithyMeleeAttackGoal(this, 1.0F, true));
-        this.goalSelector.addGoal(6, new LithyEntity.LithyFollowMobGoal(this, 1.4F, 3.0F, 10.0F));
-        this.goalSelector.addGoal(6, new LithyEntity.LithyFollowPlayerGoal(this, 1.4F, 3.0F, 10.0F));
+        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0F, true));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(6, new FollowMobGoal(this, 0.5F, 3.0F, 10.0F));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.5));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
 
-        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, false));
+        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
     }
 
-    private void setupAnimationStates() {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F &&
-                !this.getTripped() &&
-                !this.entityData.get(DATA_JUMP_UP)) {
-            this.walkAnimationState.startIfStopped(this.tickCount);
-        } else {
-            this.walkAnimationState.stop();
-        }
 
-        if (this.getTripped()) {
-            if (this.getTrippedTick() == 0) {
-                this.tripBeginAnimationState.start(this.tickCount);
-                this.tripAnimationState.stop();
-                this.tripEndAnimationState.stop();
-            } else if (this.getTrippedTick() >= 125 && this.getTrippedTick() < 250) {
-                this.tripBeginAnimationState.stop();
-                this.tripAnimationState.startIfStopped(this.tickCount);
-                this.tripEndAnimationState.stop();
-            }
-        } else if (this.entityData.get(DATA_JUMP_UP)) {
-            this.tripBeginAnimationState.stop();
-            this.tripAnimationState.stop();
-            this.tripEndAnimationState.start(40);
-        } else {
-            this.tripBeginAnimationState.stop();
-            this.tripAnimationState.stop();
-            this.tripEndAnimationState.stop();
-            if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F) {
-                this.walkAnimationState.startIfStopped(this.tickCount);
-            } else {
-                this.walkAnimationState.stop();
-            }
-        }
-    }
 
     @Override
-    public void tick() {
-        if (this.level().isClientSide()) {
-            this.setupAnimationStates();
-        }
+    protected void defineSynchedData(SynchedEntityData.Builder builder){
+        super.defineSynchedData(builder);
+        builder.define(DATA_STATE, 0);
+        builder.define(DATA_TARGETING, false);
+    }
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag){
+        super.readAdditionalSaveData(tag);
+        // check contains due to migration to new tag names
+        if(tag.contains("RandomTripCooldown")) this.randomTripCooldown = tag.getInt("RandomTripCooldown");
+        if(tag.contains("TripwireTripCooldown")) this.tripwireTripCooldown = tag.getInt("TripwireTripCooldown");
+    }
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag){
+        super.addAdditionalSaveData(tag);
+        tag.putInt("RandomTripCooldown", this.randomTripCooldown);
+        tag.putInt("TripwireTripCooldown", this.tripwireTripCooldown);
+    }
+    private int genRandomTripTime(){ return 1200 + this.random.nextInt(0, 200); }
 
-        if (!this.level().isClientSide()) {
-            int trippedCooldown = this.entityData.get(DATA_TRIP_COOLDOWN);
-            int tripTick = this.entityData.get(DATA_TRIPPED_TICK);
+    @Override public Animatable.Holder<LithyEntity,State> animations(){ return animations; }
+    @Override public EntityDataAccessor<Integer> getStateData(){ return DATA_STATE; }
 
-            if (this.entityData.get(DATA_TRIPPED) && tripTick < 5) {
-                Vec3 startPos = this.position();
-                Vec3 lookAng = this.getLookAngle().normalize();
-                Vec3 endPos = startPos.add(lookAng.scale(2.0));
 
-                AABB rayBox = new AABB(startPos, endPos).inflate(1.0); // Inflating to 1 block radius
 
-                List<LivingEntity> livingEntities = this.level().getEntitiesOfClass(LivingEntity.class, rayBox, e ->
-                        e != this && e.isAlive() && e.getBoundingBox().intersects(rayBox) && !(e instanceof LithyEntity));
-
-                for (LivingEntity living : livingEntities) {
-                    living.hurt(this.damageSources().cramming(), 30);
-                }
-
-            }
-
-            if (this.entityData.get(DATA_JUMP_UP)) {
-                this.entityData.set(DATA_JUMP_UP, false);
-                this.push(new Vec3(0.0, 0.4, 0.0));
-            }
-            if (!this.entityData.get(DATA_TRIPPED)) {
-                this.entityData.set(DATA_TRIPWIRE_TRIP_COOLDOWN, this.entityData.get(DATA_TRIPWIRE_TRIP_COOLDOWN) - 1);
-                if (this.getDeltaMovement().horizontalDistanceSqr() > 2.5000003E-7F) {
-                    this.entityData.set(DATA_TRIP_COOLDOWN, trippedCooldown - 1);
-
-                    BlockPos onPos = this.getOnPos().above();
-                    BlockState state = this.level().getBlockState(onPos);
-
-                    if (state.is(Blocks.TRIPWIRE) && state.getValue(TripWireBlock.ATTACHED) && this.entityData.get(DATA_TRIPWIRE_TRIP_COOLDOWN) <= 0) {
-                        this.push(this.getDeltaMovement().add(0.0, 0.2, 0.0));
-                        this.entityData.set(DATA_TRIPPED, true);
-                        this.entityData.set(DATA_TRIP_COOLDOWN, 1200 + this.random.nextInt(0, 200));
-                        this.tripwireTrip = true;
-                        this.playTripEffects();
-                    } else if (this.entityData.get(DATA_TRIP_COOLDOWN) <= 0 && this.random.nextFloat() < 0.1) {
-                        this.push(this.getDeltaMovement().add(0.0, 0.2, 0.0));
-                        this.entityData.set(DATA_TRIPPED, true);
-                        this.entityData.set(DATA_TRIP_COOLDOWN, 1200 + this.random.nextInt(0, 200));
-                        this.playTripEffects();
-                        if (this.level().getServer() != null) {
-                            LootTable loottable = this.level().getServer().reloadableRegistries().getLootTable(JamiesModLootTables.LITHY_TRIP_LOOT_TABLE);
-                            List<ItemStack> list = loottable.getRandomItems(
-                                    new LootParams.Builder((ServerLevel) this.level())
-                                            .create(LootContextParamSets.EMPTY)
-                            );
-
-                            for (ItemStack stack : list) {
-                                this.spawnAtLocation(stack);
-                            }
-                        }
-                    }
-                }
-            } else {
-                this.entityData.set(DATA_TRIPPED_TICK, tripTick + 1);
-
-                if (tripTick > 60 && this.random.nextFloat() < 0.01) {
-                    this.entityData.set(DATA_TRIPPED, false);
-                    this.entityData.set(DATA_TRIPPED_TICK, 0);
-                    this.entityData.set(DATA_JUMP_UP, true);
-                    if (this.tripwireTrip) {
-                        this.entityData.set(DATA_TRIPWIRE_TRIP_COOLDOWN, 600);
-                        this.tripwireTrip = false;
-                    }
-
-                    if (this.onGround()) {
-                        this.setDeltaMovement(0.0, 0.1, 0.0);
-                        this.setPose(Pose.STANDING);
-                    }
-
-                }
-            }
-        }
-
+    @Override
+    public void tick(){
         super.tick();
+        if(this.tripwireTripCooldown > 0) this.tripwireTripCooldown--;
+        if(this.randomTripCooldown > 0) this.randomTripCooldown--;
+
+        // don't check equality beforehand, set() does that for us
+        if(!this.level().isClientSide) this.getEntityData().set(DATA_TARGETING, this.getTarget() != null);
     }
 
     @Override
-    protected float tickHeadTurn(float yRot, float animStep) {
-        if (this.entityData.get(DATA_TRIPPED)) {
-            return 0.0F;
-        }
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key){
+        super.onSyncedDataUpdated(key);
+        if(this.animations != null) this.animations.onSyncedDataUpdated(key);
 
-        return super.tickHeadTurn(yRot, animStep);
+        // funky trip effects
+        if(DATA_STATE.equals(key) && this.getState() == State.TRIPPED){
+            this.playSound(BGSoundEvents.LITHY_TRIP_ADDITIONS_EVENT, 0.7F, 1.2F + this.random.nextFloat() * 0.2F);
+            if (this.level().isClientSide()) {
+                double x = this.getX();
+                double y = this.getY();
+                double z = this.getZ();
+
+                for (int i = 0; i < 15; i++) {
+                    double offsetX = (this.random.nextDouble() - 0.5) * 0.8;
+                    double offsetY = this.random.nextDouble() * 0.3;
+                    double offsetZ = (this.random.nextDouble() - 0.5) * 0.8;
+
+                    double velocityX = (this.random.nextDouble() - 0.5) * 0.2;
+                    double velocityY = this.random.nextDouble() * 0.15 + 0.05;
+                    double velocityZ = (this.random.nextDouble() - 0.5) * 0.2;
+
+                    this.level().addParticle(ParticleTypes.POOF,
+                            x + offsetX, y + offsetY, z + offsetZ,
+                            velocityX, velocityY, velocityZ);
+                }
+
+                BlockState groundState = this.level().getBlockState(this.getOnPos());
+                if (!groundState.isAir()) {
+                    for (int i = 0; i < 10; i++) {
+                        double offsetX = (this.random.nextDouble() - 0.5) * 0.6;
+                        double offsetZ = (this.random.nextDouble() - 0.5) * 0.6;
+
+                        this.level().addParticle(ParticleTypes.SMOKE,
+                                x + offsetX, y + 0.1, z + offsetZ,
+                                0.0, 0.05, 0.0);
+                    }
+                }
+            }
+        }
     }
 
+    private boolean isMoving(){
+        if(this.isPassenger()) return false;
+        return this.getDeltaMovement().horizontalDistanceSqr() > Mth.EPSILON * Mth.EPSILON;
+    }
+
+
+
+    @Override protected SoundEvent getAmbientSound() { return BGSoundEvents.LITHY_AMBIENT_ADDITIONS_EVENT; }
+    @Override protected SoundEvent getHurtSound(DamageSource damageSource) { return BGSoundEvents.LITHY_HURT_ADDITIONS_EVENT; }
+    @Override protected SoundEvent getDeathSound() { return BGSoundEvents.LITHY_DEATH_ADDITIONS_EVENT; }
+    @Override protected int decreaseAirSupply(int air){ return air; }
+    @Override public boolean canHoldItem(ItemStack stack){ return false; }
     @Override
-    public void aiStep() {
-        Vec3 delta = this.getDeltaMovement();
-        if (this.entityData.get(DATA_TRIPPED) && this.onGround()) {
-            this.setDeltaMovement(0.0, delta.y - 0.1, 0.0);
-        } else {
-            super.aiStep();
-        }
+    public boolean canSpawnSprintParticle(){
+        return this.isMoving() && this.onGround() && this.getEntityData().get(DATA_TARGETING) && this.random.nextInt(5) == 0;
     }
-
     @Override
-    public void travel(Vec3 travelVector) {
-        Vec3 delta = this.getDeltaMovement();
-        if (this.entityData.get(DATA_TRIPPED) && this.onGround()) {
-            this.setDeltaMovement(0.0, delta.y - 0.1, 0.0);
-        } else {
-            super.travel(travelVector);
-        }
+    public EntityDimensions getDefaultDimensions(Pose pose){
+        if(pose == Pose.FALL_FLYING) return TRIPPED_DIMENSIONS;
+        else return super.getDefaultDimensions(pose);
     }
 
-    public boolean getTripped() {
-        return this.entityData.get(DATA_TRIPPED);
+
+
+    public static enum State implements Animatable.State<LithyEntity>{
+        IDLE, TRIPPED, RISING;
     }
 
-    public int getTrippedTick() {
-        return this.entityData.get(DATA_TRIPPED_TICK);
-    }
 
-    protected int decreaseAirSupply(int air) {
-        return air;
-    }
 
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return BGSoundEvents.LITHY_AMBIENT_ADDITIONS_EVENT;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return BGSoundEvents.LITHY_HURT_ADDITIONS_EVENT;
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return BGSoundEvents.LITHY_DEATH_ADDITIONS_EVENT;
-    }
-
-    protected void doPush(Entity entity) {
-        if (entity instanceof Enemy && !(entity instanceof Creeper) && this.getRandom().nextInt(20) == 0) {
-            this.setTarget((LivingEntity) entity);
+    private class LithyTripGoal extends Goal{
+        private int ticks = 0;
+        private int threshold = 0;
+        private boolean tripwire = false;
+        private LithyTripGoal(){
+            this.setFlags(EnumSet.allOf(Goal.Flag.class));
         }
 
-        super.doPush(entity);
-    }
-
-    public boolean canSpawnSprintParticle() {
-        return this.getDeltaMovement().horizontalDistanceSqr() > (double) 2.5000003E-7F && this.random.nextInt(5) == 0;
-    }
-
-    public Crackiness.Level getCrackiness() {
-        return Crackiness.GOLEM.byFraction(this.getHealth() / this.getMaxHealth());
-    }
-
-    private void playTripEffects() {
-        this.playSound(BGSoundEvents.LITHY_TRIP_ADDITIONS_EVENT, 0.7F, 1.2F + this.random.nextFloat() * 0.2F);
-
-        if (this.level().isClientSide()) {
-            double x = this.getX();
-            double y = this.getY();
-            double z = this.getZ();
-
-            for (int i = 0; i < 15; i++) {
-                double offsetX = (this.random.nextDouble() - 0.5) * 0.8;
-                double offsetY = this.random.nextDouble() * 0.3;
-                double offsetZ = (this.random.nextDouble() - 0.5) * 0.8;
-
-                double velocityX = (this.random.nextDouble() - 0.5) * 0.2;
-                double velocityY = this.random.nextDouble() * 0.15 + 0.05;
-                double velocityZ = (this.random.nextDouble() - 0.5) * 0.2;
-
-                this.level().addParticle(ParticleTypes.POOF,
-                        x + offsetX, y + offsetY, z + offsetZ,
-                        velocityX, velocityY, velocityZ);
-            }
-
-            BlockState groundState = this.level().getBlockState(this.getOnPos());
-            if (!groundState.isAir()) {
-                for (int i = 0; i < 10; i++) {
-                    double offsetX = (this.random.nextDouble() - 0.5) * 0.6;
-                    double offsetZ = (this.random.nextDouble() - 0.5) * 0.6;
-
-                    this.level().addParticle(ParticleTypes.SMOKE,
-                            x + offsetX, y + 0.1, z + offsetZ,
-                            0.0, 0.05, 0.0);
-                }
-            }
+        private void progress(State state, int threshold){
+            this.ticks = 0;
+            this.threshold = this.adjustedTickDelay(threshold);
+            LithyEntity.this.setState(state);
         }
-    }
-
-    public boolean hurt(DamageSource source, float amount) {
-        Crackiness.Level crackiness$level = this.getCrackiness();
-        boolean flag = super.hurt(source, amount);
-        if (flag && this.getCrackiness() != crackiness$level) {
-            this.playSound(SoundEvents.DEEPSLATE_BRICKS_BREAK, 1.0F, 1.0F);
+        private boolean completed(State state){
+            return ticks >= threshold && state == LithyEntity.this.getState();
         }
 
-        return flag;
-    }
 
-    static class LithyMeleeAttackGoal extends Goal {
-        private static final long COOLDOWN_BETWEEN_CAN_USE_CHECKS = 20L;
-        protected final LithyEntity lithy;
-        private final double speedModifier;
-        private final boolean followingTargetEvenIfNotSeen;
-        private final int attackInterval = 20;
-        private Path path;
-        private double pathedTargetX;
-        private double pathedTargetY;
-        private double pathedTargetZ;
-        private int ticksUntilNextPathRecalculation;
-        private int ticksUntilNextAttack;
-        private long lastCanUseCheck;
-
-        public LithyMeleeAttackGoal(LithyEntity lithy, double speedModifier, boolean followingTargetEvenIfNotSeen) {
-            this.lithy = lithy;
-            this.speedModifier = speedModifier;
-            this.followingTargetEvenIfNotSeen = followingTargetEvenIfNotSeen;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-        }
 
         @Override
-        public boolean canUse() {
-            if (!this.lithy.entityData.get(DATA_TRIPPED)) {
-                long i = this.lithy.level().getGameTime();
-                if (i - this.lastCanUseCheck < 20L) {
-                    return false;
-                } else {
-                    this.lastCanUseCheck = i;
-                    LivingEntity livingentity = this.lithy.getTarget();
-                    if (livingentity == null) {
-                        return false;
-                    } else if (!livingentity.isAlive()) {
-                        return false;
-                    } else {
-                        this.path = this.lithy.getNavigation().createPath(livingentity, 0);
-                        return this.path != null || this.lithy.isWithinMeleeAttackRange(livingentity);
+        public void start(){
+            this.progress(State.TRIPPED, 60);
+            LithyEntity.this.setPose(Pose.FALL_FLYING); // idk it's the closest
+            LithyEntity.this.getLookControl().setLookAt(LithyEntity.this.getEyePosition().add(LithyEntity.this.getDeltaMovement()));
+            LithyEntity.this.setTarget(null);
+            LithyEntity.this.push(LithyEntity.this.getDeltaMovement().multiply(0.5, 0.25, 0.5));
+
+            if(LithyEntity.this.level() instanceof ServerLevel server){
+                Vec3 expansion = LithyEntity.this.getDeltaMovement().scale(8);
+                AABB aabb = LithyEntity.this.getBoundingBox().expandTowards(expansion);
+                for(Entity entity : LithyEntity.this.level().getEntities(LithyEntity.this, aabb, Entity::canBeHitByProjectile)){
+                    if(!(entity instanceof LithyEntity)){
+                        double damage = LithyEntity.this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+                        entity.hurt(LithyEntity.this.damageSources().cramming(), (float)(damage * 2));
+                    }
+                    if(entity instanceof LivingEntity living){
+                        Vec3 knockback = LithyEntity.this.getDeltaMovement().multiply(-1, 0, -1).normalize();
+                        living.knockback(LithyEntity.this.getDeltaMovement().length(), knockback.x, knockback.z);
                     }
                 }
-            }
-            return false;
-        }
 
-        @Override
-        public boolean canContinueToUse() {
-            if (!this.lithy.entityData.get(DATA_TRIPPED)) {
-                LivingEntity livingentity = this.lithy.getTarget();
-                if (livingentity == null) {
-                    return false;
-                } else if (!livingentity.isAlive()) {
-                    return false;
-                } else if (!this.followingTargetEvenIfNotSeen) {
-                    return !this.lithy.getNavigation().isDone();
-                } else {
-                    return this.lithy.isWithinRestriction(livingentity.blockPosition()) && (!(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative());
+                LootTable table = server.getServer().reloadableRegistries().getLootTable(JamiesModLootTables.LITHY_TRIP_LOOT_TABLE);
+                LootParams params = new LootParams.Builder(server)
+                        .withParameter(LootContextParams.ORIGIN, LithyEntity.this.position())
+                        .withParameter(LootContextParams.THIS_ENTITY, LithyEntity.this)
+                        .create(LootContextParamSets.GIFT);
+                for(ItemStack stack : table.getRandomItems(params)){
+                    LithyEntity.this.spawnAtLocation(stack, LithyEntity.this.getEyeHeight()).push(LithyEntity.this.getDeltaMovement());
                 }
             }
-            return false;
         }
-
         @Override
-        public void start() {
-            this.lithy.getNavigation().moveTo(this.path, this.speedModifier);
-            this.lithy.setAggressive(true);
-            this.ticksUntilNextPathRecalculation = 0;
-            this.ticksUntilNextAttack = 0;
-        }
-
-        @Override
-        public void stop() {
-            LivingEntity livingentity = this.lithy.getTarget();
-            if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                this.lithy.setTarget(null);
-            }
-
-            this.lithy.setAggressive(false);
-            this.lithy.getNavigation().stop();
-        }
-
-        @Override
-        public boolean requiresUpdateEveryTick() {
-            return true;
-        }
-
-        @Override
-        public void tick() {
-            LivingEntity livingentity = this.lithy.getTarget();
-            if (livingentity != null) {
-                this.lithy.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
-                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                if ((this.followingTargetEvenIfNotSeen || this.lithy.getSensing().hasLineOfSight(livingentity))
-                        && this.ticksUntilNextPathRecalculation <= 0
-                        && (
-                        this.pathedTargetX == 0.0 && this.pathedTargetY == 0.0 && this.pathedTargetZ == 0.0
-                                || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0
-                                || this.lithy.getRandom().nextFloat() < 0.05F
-                )) {
-                    this.pathedTargetX = livingentity.getX();
-                    this.pathedTargetY = livingentity.getY();
-                    this.pathedTargetZ = livingentity.getZ();
-                    this.ticksUntilNextPathRecalculation = 4 + this.lithy.getRandom().nextInt(7);
-                    double d0 = this.lithy.distanceToSqr(livingentity);
-                    if (d0 > 1024.0) {
-                        this.ticksUntilNextPathRecalculation += 10;
-                    } else if (d0 > 256.0) {
-                        this.ticksUntilNextPathRecalculation += 5;
-                    }
-
-                    if (!this.lithy.getNavigation().moveTo(livingentity, this.speedModifier)) {
-                        this.ticksUntilNextPathRecalculation += 15;
-                    }
-
-                    this.ticksUntilNextPathRecalculation = this.adjustedTickDelay(this.ticksUntilNextPathRecalculation);
-                }
-
-                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
-                this.checkAndPerformAttack(livingentity);
+        public void tick(){
+            this.ticks++;
+            if(this.completed(State.TRIPPED) && LithyEntity.this.random.nextFloat() < 0.02){
+                this.progress(State.RISING, 25);
             }
         }
-
-        protected void checkAndPerformAttack(LivingEntity target) {
-            if (this.canPerformAttack(target)) {
-                this.resetAttackCooldown();
-                this.lithy.swing(InteractionHand.MAIN_HAND);
-                this.lithy.doHurtTarget(target);
-            }
+        @Override
+        public void stop(){
+            LithyEntity.this.setState(State.IDLE);
+            LithyEntity.this.setPose(Pose.STANDING);
+            if(tripwire) LithyEntity.this.tripwireTripCooldown = 600;
+            else LithyEntity.this.randomTripCooldown = LithyEntity.this.genRandomTripTime();
         }
 
-        protected void resetAttackCooldown() {
-            this.ticksUntilNextAttack = this.adjustedTickDelay(20);
-        }
 
-        protected boolean isTimeToAttack() {
-            return this.ticksUntilNextAttack <= 0;
-        }
 
-        protected boolean canPerformAttack(LivingEntity entity) {
-            return this.isTimeToAttack() && this.lithy.isWithinMeleeAttackRange(entity) && this.lithy.getSensing().hasLineOfSight(entity);
+        @Override
+        public boolean canUse(){
+            if(!LithyEntity.this.isMoving()) return false;
+            BlockState state = LithyEntity.this.level().getBlockState(LithyEntity.this.getOnPos().above());
+            tripwire = (state.is(Blocks.TRIPWIRE) || state.is(Blocks.TRIPWIRE_HOOK)) && state.getValue(BlockStateProperties.ATTACHED);
+            if(tripwire) return LithyEntity.this.tripwireTripCooldown <= 0;
+            else return LithyEntity.this.randomTripCooldown <= 0 && !LithyEntity.this.onGround();
         }
-
-        protected int getTicksUntilNextAttack() {
-            return this.ticksUntilNextAttack;
-        }
-
-        protected int getAttackInterval() {
-            return this.adjustedTickDelay(20);
-        }
+        @Override public boolean canContinueToUse(){ return !this.completed(State.RISING); }
+        @Override public boolean isInterruptable(){ return false; }
     }
-
-    static class LithyFollowMobGoal extends Goal {
-        private final LithyEntity lithy;
-        private final Predicate<Mob> followPredicate;
-        private final double speedModifier;
-        private final PathNavigation navigation;
-        private final float stopDistance;
-        private final float areaSize;
-        @org.jetbrains.annotations.Nullable
-        private Mob followingMob;
-        private int timeToRecalcPath;
-        private float oldWaterCost;
-
-        /**
-         * Constructs a goal allowing a mob to follow others. The mob must have Ground or Flying navigation.
-         */
-        public LithyFollowMobGoal(LithyEntity mob, double speedModifier, float stopDistance, float areaSize) {
-            this.lithy = mob;
-            this.followPredicate = p_25278_ -> p_25278_ != null && mob.getClass() != p_25278_.getClass();
-            this.speedModifier = speedModifier;
-            this.navigation = mob.getNavigation();
-            this.stopDistance = stopDistance;
-            this.areaSize = areaSize;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-            if (!(mob.getNavigation() instanceof GroundPathNavigation) && !(mob.getNavigation() instanceof FlyingPathNavigation)) {
-                throw new IllegalArgumentException("Unsupported mob type for FollowMobGoal");
-            }
-        }
-
-        @Override
-        public boolean canUse() {
-            if (!this.lithy.entityData.get(DATA_TRIPPED)) {
-                List<Mob> list = this.lithy.level().getEntitiesOfClass(Mob.class, this.lithy.getBoundingBox().inflate(this.areaSize), this.followPredicate);
-                if (!list.isEmpty()) {
-                    for (Mob mob : list) {
-                        if (!mob.isInvisible()) {
-                            this.followingMob = mob;
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return this.followingMob != null
-                    && !this.lithy.entityData.get(DATA_TRIPPED)
-                    && !this.navigation.isDone()
-                    && this.lithy.distanceToSqr(this.followingMob) > (double) (this.stopDistance * this.stopDistance);
-        }
-
-        @Override
-        public void start() {
-            this.timeToRecalcPath = 0;
-            this.oldWaterCost = this.lithy.getPathfindingMalus(PathType.WATER);
-            this.lithy.setPathfindingMalus(PathType.WATER, 0.0F);
-        }
-
-        @Override
-        public void stop() {
-            this.followingMob = null;
-            this.navigation.stop();
-            this.lithy.setPathfindingMalus(PathType.WATER, this.oldWaterCost);
-        }
-
-        @Override
-        public void tick() {
-            if (this.followingMob != null && !this.lithy.isLeashed()) {
-                this.lithy.getLookControl().setLookAt(this.followingMob, 10.0F, (float) this.lithy.getMaxHeadXRot());
-                if (--this.timeToRecalcPath <= 0) {
-                    this.timeToRecalcPath = this.adjustedTickDelay(10);
-                    double d0 = this.lithy.getX() - this.followingMob.getX();
-                    double d1 = this.lithy.getY() - this.followingMob.getY();
-                    double d2 = this.lithy.getZ() - this.followingMob.getZ();
-                    double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-                    if (!(d3 <= (double) (this.stopDistance * this.stopDistance))) {
-                        this.navigation.moveTo(this.followingMob, this.speedModifier);
-                    } else {
-                        this.navigation.stop();
-                        LookControl lookcontrol = this.followingMob.getLookControl();
-                        if (d3 <= (double) this.stopDistance
-                                || lookcontrol.getWantedX() == this.lithy.getX()
-                                && lookcontrol.getWantedY() == this.lithy.getY()
-                                && lookcontrol.getWantedZ() == this.lithy.getZ()) {
-                            double d4 = this.followingMob.getX() - this.lithy.getX();
-                            double d5 = this.followingMob.getZ() - this.lithy.getZ();
-                            this.navigation.moveTo(this.lithy.getX() - d4, this.lithy.getY(), this.lithy.getZ() - d5, this.speedModifier);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    static class LithyFollowPlayerGoal extends Goal {
-        private final LithyEntity mob;
-        private final Predicate<Player> followPredicate;
-        private final double speedModifier;
-        private final PathNavigation navigation;
-        private final float stopDistance;
-        private final float areaSize;
-        @org.jetbrains.annotations.Nullable
-        private Player followingMob;
-        private int timeToRecalcPath;
-        private float oldWaterCost;
-
-        public LithyFollowPlayerGoal(LithyEntity mob, double speedModifier, float stopDistance, float areaSize) {
-            this.mob = mob;
-            this.followPredicate = Objects::nonNull;
-            this.speedModifier = speedModifier;
-            this.navigation = mob.getNavigation();
-            this.stopDistance = stopDistance;
-            this.areaSize = areaSize;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
-            if (!(mob.getNavigation() instanceof GroundPathNavigation) && !(mob.getNavigation() instanceof FlyingPathNavigation)) {
-                throw new IllegalArgumentException("Unsupported mob type for FollowPlayerGoal");
-            }
-        }
-
-        public boolean canUse() {
-            if (!this.mob.entityData.get(DATA_TRIPPED)) {
-                List<Player> list = this.mob.level().getEntitiesOfClass(Player.class, this.mob.getBoundingBox().inflate(this.areaSize), this.followPredicate);
-                if (!list.isEmpty()) {
-                    for (Player mob : list) {
-                        if (!mob.isInvisible()) {
-                            this.followingMob = mob;
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        public boolean canContinueToUse() {
-            return this.followingMob != null && !this.mob.entityData.get(DATA_TRIPPED) && !this.navigation.isDone() && this.mob.distanceToSqr(this.followingMob) > (double) (this.stopDistance * this.stopDistance);
-        }
-
-        public void start() {
-            this.timeToRecalcPath = 0;
-            this.oldWaterCost = this.mob.getPathfindingMalus(PathType.WATER);
-            this.mob.setPathfindingMalus(PathType.WATER, 0.0F);
-        }
-
-        public void stop() {
-            this.followingMob = null;
-            this.navigation.stop();
-            this.mob.setPathfindingMalus(PathType.WATER, this.oldWaterCost);
-        }
-
-        public void tick() {
-            if (this.followingMob != null && !this.mob.isLeashed()) {
-                this.mob.getLookControl().setLookAt(this.followingMob, 10.0F, (float) this.mob.getMaxHeadXRot());
-                if (--this.timeToRecalcPath <= 0) {
-                    this.timeToRecalcPath = this.adjustedTickDelay(10);
-                    double d0 = this.mob.getX() - this.followingMob.getX();
-                    double d1 = this.mob.getY() - this.followingMob.getY();
-                    double d2 = this.mob.getZ() - this.followingMob.getZ();
-                    double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-                    if (!(d3 <= (double) (this.stopDistance * this.stopDistance))) {
-                        this.navigation.moveTo(this.followingMob, this.speedModifier);
-                    } else {
-                        this.navigation.stop();
-
-                    }
-                }
-            }
-
-        }
-    }
-
 }

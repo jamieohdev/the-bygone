@@ -1235,7 +1235,7 @@ public class BGBlocks {
     );
     public static final Supplier<Block> BLUE_ALGAE = registerBlock(
             "blue_algae", () -> new BlueAlgueBlock(
-                    (SimpleParticleType) BGParticleTypes.ALGAE_BLOOM,
+                    BGParticleTypes.ALGAE_BLOOM,
                     BlockBehaviour.Properties.of()
                             .mapColor(MapColor.GLOW_LICHEN)
                             .noCollission()
