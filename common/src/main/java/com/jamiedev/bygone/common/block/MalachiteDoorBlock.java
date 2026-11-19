@@ -1,5 +1,6 @@
 package com.jamiedev.bygone.common.block;
 
+import com.jamiedev.bygone.core.mixin.StateDefinitionBuilderAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -72,7 +73,9 @@ public class MalachiteDoorBlock extends DoorBlock implements SimpleWaterloggedBl
     @Override
     protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(WATERLOGGED);
+        if (!((StateDefinitionBuilderAccessor) builder).getStateProperties().containsKey(WATERLOGGED.getName())) {
+            builder.add(WATERLOGGED);
+        }
     }
 
     @Override

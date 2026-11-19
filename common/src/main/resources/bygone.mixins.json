@@ -21,6 +21,7 @@
     "PlayerMixin",
     "PortalProcessorAccessor",
     "ServerLevelMixin",
+    "StateDefinitionBuilderAccessor",
     "VexMixin"
   ],
   "client": [
