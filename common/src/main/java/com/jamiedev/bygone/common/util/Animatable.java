@@ -30,17 +30,16 @@ public interface Animatable<T extends Entity & Animatable<T,S>, S extends Animat
       * so we will NOT BE DOING THAT.
       **/
     EntityDataAccessor<Integer> getStateData();
-    /** no overriding necessary **/
-    SynchedEntityData getEntityData();
+    SynchedEntityData getAnimationEntityData();
 
     /** main user-facing function for getting current state **/
     default S getState(){
-        int i = this.getEntityData().get(this.getStateData());
+        int i = this.getAnimationEntityData().get(this.getStateData());
         return this.animations().values[i < this.animations().values.length ? i : 0];
     }
     /** main user-facing function for setting current state **/
     default void setState(S s){
-        this.getEntityData().set(this.getStateData(), s.ordinal());
+        this.getAnimationEntityData().set(this.getStateData(), s.ordinal());
     }
 
 
