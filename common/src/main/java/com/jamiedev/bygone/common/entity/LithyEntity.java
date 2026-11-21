@@ -3,7 +3,6 @@ package com.jamiedev.bygone.common.entity;
 import com.jamiedev.bygone.common.util.Animatable;
 import com.jamiedev.bygone.core.init.JamiesModLootTables;
 import com.jamiedev.bygone.core.init.JamiesModTag;
-import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 
 import net.minecraft.core.BlockPos;
@@ -14,7 +13,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -25,7 +23,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -40,9 +37,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Predicate;
 
 public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity,LithyEntity.State>{
     private static final EntityDataAccessor<Integer> DATA_STATE = SynchedEntityData.defineId(LithyEntity.class, EntityDataSerializers.INT);
@@ -57,6 +51,7 @@ public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity
     public LithyEntity(EntityType<? extends PathfinderMob> entityType, Level level){
         super(entityType, level);
     }
+
     public static AttributeSupplier.Builder createAttributes(){
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 5.0F)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
@@ -64,6 +59,7 @@ public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity
                 .add(Attributes.ATTACK_DAMAGE, 4.0F)
                 .add(Attributes.STEP_HEIGHT, 1.0F);
     }
+
     public static boolean canSpawn(EntityType<LithyEntity> type, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random){
         return level.getBlockState(pos.below()).is(JamiesModTag.LITHY_SPAWNABLE_ON);
     }
@@ -84,8 +80,6 @@ public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
     }
 
-
-
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder){
         super.defineSynchedData(builder);
@@ -105,12 +99,22 @@ public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity
         tag.putInt("RandomTripCooldown", this.randomTripCooldown);
         tag.putInt("TripwireTripCooldown", this.tripwireTripCooldown);
     }
-    private int genRandomTripTime(){ return 1200 + this.random.nextInt(0, 200); }
 
-    @Override public Animatable.Holder<LithyEntity,State> animations(){ return animations; }
-    @Override public EntityDataAccessor<Integer> getStateData(){ return DATA_STATE; }
+    private int genRandomTripTime() {
+        return 1200 + this.random.nextInt(0, 200);
+    }
 
+    @Override public Animatable.Holder<LithyEntity,State> animations() {
+        return animations;
+    }
 
+    @Override public EntityDataAccessor<Integer> getStateData() {
+        return DATA_STATE;
+    }
+
+    @Override public SynchedEntityData getAnimationEntityData() {
+        return this.getEntityData();
+    }
 
     @Override
     public void tick(){
@@ -125,7 +129,7 @@ public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> key){
         super.onSyncedDataUpdated(key);
-        if(this.animations != null) this.animations.onSyncedDataUpdated(key);
+        this.animations.onSyncedDataUpdated(key);
 
         // funky trip effects
         if(DATA_STATE.equals(key) && this.getState() == State.TRIPPED){
@@ -169,13 +173,26 @@ public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity
         return this.getDeltaMovement().horizontalDistanceSqr() > Mth.EPSILON * Mth.EPSILON;
     }
 
+    @Override protected SoundEvent getAmbientSound() {
+        return BGSoundEvents.LITHY_AMBIENT_ADDITIONS_EVENT;
+    }
 
+    @Override protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return BGSoundEvents.LITHY_HURT_ADDITIONS_EVENT;
+    }
 
-    @Override protected SoundEvent getAmbientSound() { return BGSoundEvents.LITHY_AMBIENT_ADDITIONS_EVENT; }
-    @Override protected SoundEvent getHurtSound(DamageSource damageSource) { return BGSoundEvents.LITHY_HURT_ADDITIONS_EVENT; }
-    @Override protected SoundEvent getDeathSound() { return BGSoundEvents.LITHY_DEATH_ADDITIONS_EVENT; }
-    @Override protected int decreaseAirSupply(int air){ return air; }
-    @Override public boolean canHoldItem(ItemStack stack){ return false; }
+    @Override protected SoundEvent getDeathSound() {
+        return BGSoundEvents.LITHY_DEATH_ADDITIONS_EVENT;
+    }
+
+    @Override protected int decreaseAirSupply(int air) {
+        return air;
+    }
+
+    @Override public boolean canHoldItem(ItemStack stack) {
+        return false;
+    }
+
     @Override
     public boolean canSpawnSprintParticle(){
         return this.isMoving() && this.onGround() && this.getEntityData().get(DATA_TARGETING) && this.random.nextInt(5) == 0;
@@ -186,13 +203,9 @@ public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity
         else return super.getDefaultDimensions(pose);
     }
 
-
-
-    public static enum State implements Animatable.State<LithyEntity>{
+    public enum State implements Animatable.State<LithyEntity>{
         IDLE, TRIPPED, RISING;
     }
-
-
 
     private class LithyTripGoal extends Goal{
         private int ticks = 0;
@@ -210,8 +223,6 @@ public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity
         private boolean completed(State state){
             return ticks >= threshold && state == LithyEntity.this.getState();
         }
-
-
 
         @Override
         public void start(){
@@ -245,6 +256,7 @@ public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity
                 }
             }
         }
+
         @Override
         public void tick(){
             this.ticks++;
@@ -252,6 +264,7 @@ public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity
                 this.progress(State.RISING, 25);
             }
         }
+
         @Override
         public void stop(){
             LithyEntity.this.setState(State.IDLE);
@@ -259,8 +272,6 @@ public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity
             if(tripwire) LithyEntity.this.tripwireTripCooldown = 600;
             else LithyEntity.this.randomTripCooldown = LithyEntity.this.genRandomTripTime();
         }
-
-
 
         @Override
         public boolean canUse(){
@@ -270,7 +281,13 @@ public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity
             if(tripwire) return LithyEntity.this.tripwireTripCooldown <= 0;
             else return LithyEntity.this.randomTripCooldown <= 0 && !LithyEntity.this.onGround();
         }
-        @Override public boolean canContinueToUse(){ return !this.completed(State.RISING); }
-        @Override public boolean isInterruptable(){ return false; }
+
+        @Override public boolean canContinueToUse() {
+            return !this.completed(State.RISING);
+        }
+
+        @Override public boolean isInterruptable() {
+            return false;
+        }
     }
 }

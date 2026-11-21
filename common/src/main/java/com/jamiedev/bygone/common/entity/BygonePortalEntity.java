@@ -62,8 +62,6 @@ public class BygonePortalEntity extends Entity implements Animatable<BygonePorta
         this.setNoGravity(true);
     }
 
-
-
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         builder.define(DATA_STATE, 0);
@@ -77,14 +75,30 @@ public class BygonePortalEntity extends Entity implements Animatable<BygonePorta
     protected void addAdditionalSaveData(CompoundTag compound) {
         compound.putLong("Expiry", getExpiry());
     }
-    public long getExpiry(){ return this.getEntityData().get(DATA_EXPIRY); }
-    public void setExpiry(long expiry){ this.getEntityData().set(DATA_EXPIRY, expiry); }
-    public boolean isExpired(){ return this.getExpiry() != 0 && this.getExpiry() < this.level().getGameTime(); }
 
-    @Override public Animatable.Holder<BygonePortalEntity,State> animations(){ return animations; }
-    @Override public EntityDataAccessor<Integer> getStateData(){ return DATA_STATE; }
+    public long getExpiry() {
+        return this.getEntityData().get(DATA_EXPIRY);
+    }
 
+    public void setExpiry(long expiry) {
+        this.getEntityData().set(DATA_EXPIRY, expiry);
+    }
 
+    public boolean isExpired() {
+        return this.getExpiry() != 0 && this.getExpiry() < this.level().getGameTime();
+    }
+
+    @Override public Animatable.Holder<BygonePortalEntity,State> animations() {
+        return animations;
+    }
+
+    @Override public EntityDataAccessor<Integer> getStateData() {
+        return DATA_STATE;
+    }
+
+    @Override public SynchedEntityData getAnimationEntityData() {
+        return this.getEntityData();
+    }
 
     @Override
     public void tick(){
@@ -148,18 +162,44 @@ public class BygonePortalEntity extends Entity implements Animatable<BygonePorta
         }
     }
 
+    @Override protected double getDefaultGravity() {
+        return 0;
+    }
 
+    @Override public boolean isPushable() {
+        return false;
+    }
 
-    @Override protected double getDefaultGravity() { return 0; }
-    @Override public boolean isPushable(){ return false; }
-    @Override public boolean isPushedByFluid(){ return false; }
-    @Override public void push(Entity entity){}
-    @Override public boolean canBeCollidedWith(){ return true; }
-    @Override public boolean canUsePortal(boolean allowPassengers){ return false; }
-    @Override public boolean isPickable(){ return true; }
-    @Override public ItemStack getPickResult(){ return new ItemStack(BGItems.ARCANE_MECHANISM.get()); }
-    @Override public ProjectileDeflection deflection(Projectile projectile){ return ProjectileDeflection.REVERSE; }
-    @Override public boolean isCurrentlyGlowing(){ return this.getState() == State.ACTIVE || super.isCurrentlyGlowing(); }
+    @Override public boolean isPushedByFluid() {
+        return false;
+    }
+
+    @Override public void push(Entity entity) {
+    }
+
+    @Override public boolean canBeCollidedWith() {
+        return true;
+    }
+
+    @Override public boolean canUsePortal(boolean allowPassengers) {
+        return false;
+    }
+
+    @Override public boolean isPickable() {
+        return true;
+    }
+
+    @Override public ItemStack getPickResult() {
+        return new ItemStack(BGItems.ARCANE_MECHANISM.get());
+    }
+
+    @Override public ProjectileDeflection deflection(Projectile projectile) {
+        return ProjectileDeflection.REVERSE;
+    }
+
+    @Override public boolean isCurrentlyGlowing() {
+        return this.getState() == State.ACTIVE || super.isCurrentlyGlowing();
+    }
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
@@ -167,8 +207,6 @@ public class BygonePortalEntity extends Entity implements Animatable<BygonePorta
         if (!this.level().isClientSide) this.playSound(BGSoundEvents.ENTITY_ARCANE_MECHANISM_IDLE_EVENT, 0.5F, 1.2F);
         return false;
     }
-
-
 
     @Override @Nullable
     public DimensionTransition getPortalDestination(ServerLevel origin, Entity entity, BlockPos ignored){
@@ -259,9 +297,7 @@ public class BygonePortalEntity extends Entity implements Animatable<BygonePorta
         return 80;
     }
 
-
-
-    public static enum State implements Animatable.State<BygonePortalEntity>{
+    public enum State implements Animatable.State<BygonePortalEntity>{
         IDLE, TRIGGERED, ACTIVE;
     }
 }
