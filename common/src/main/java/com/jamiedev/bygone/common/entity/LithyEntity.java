@@ -129,7 +129,9 @@ public class LithyEntity extends PathfinderMob implements Animatable<LithyEntity
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> key){
         super.onSyncedDataUpdated(key);
-        this.animations.onSyncedDataUpdated(key);
+        if(this.animations != null) {
+            this.animations.onSyncedDataUpdated(key);
+        }
 
         // funky trip effects
         if(DATA_STATE.equals(key) && this.getState() == State.TRIPPED){

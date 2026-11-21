@@ -2,5 +2,5 @@
 
 
 ## 
-A Minecraft mod adding a new dimension set in a prehistoric realm where everything- including you, winds up.
-### 
+A Minecraft mod adding a new dimension set in a prehistoric realm where everything-including you, winds up.
+###
