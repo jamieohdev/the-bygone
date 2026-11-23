@@ -2,9 +2,9 @@ package com.jamiedev.bygone.common.entity;
 
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.common.util.Animatable;
+import com.jamiedev.bygone.core.registry.BGAttachmentTypes;
 import com.jamiedev.bygone.core.registry.BGBlocks;
 import com.jamiedev.bygone.core.registry.BGEntityTypes;
-import com.jamiedev.bygone.core.registry.BGInterAttachmentTypes;
 import com.jamiedev.bygone.core.registry.BGItems;
 import com.jamiedev.bygone.core.registry.BGSoundEvents;
 import it.unimi.dsi.fastutil.longs.Long2ByteOpenHashMap;
@@ -141,7 +141,7 @@ public class BygonePortalEntity extends Entity implements Animatable<BygonePorta
                 // ENSURE that the destination is loaded, cause otherwise we get duplicate portals during lag
                 if(this.tickCount % 5 == 0) loaded = this.getDestinationDimension(origin).isLoaded(this.blockPosition());
             } else this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2F)).forEach(e -> {
-                if(this.level().isClientSide) e.set(BGInterAttachmentTypes.LAST_TICK_IN_PORTAL, e.tickCount);
+                if(this.level().isClientSide) e.set(BGAttachmentTypes.LAST_TICK_IN_PORTAL, e.tickCount);
                 else{
                     if(this.isOnPortalCooldown() && !e.isOnPortalCooldown()) e.setPortalCooldown(this.getPortalCooldown() + 1); // idk man. sometimes this gets reset on tp to newly-loaded chunks
                     if((e.portalProcess == null || !e.portalProcess.isInsidePortalThisTick()) && e.canUsePortal(false)){

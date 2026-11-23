@@ -8,8 +8,9 @@ import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.core.platform.InterAttachmentType;
 
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.entity.player.Player;
 
-public class BGInterAttachmentTypes{
+public class BGAttachmentTypes{
     public static final InterAttachmentType<Integer> LAST_TICK_IN_PORTAL =
             new InterAttachmentType.Builder(Bygone.id("last_tick_in_portal")).withDefault(0).build();
 

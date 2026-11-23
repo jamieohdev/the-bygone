@@ -3,8 +3,7 @@ package com.jamiedev.bygone.client.screen;
 import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.BygoneClient;
 import com.jamiedev.bygone.common.entity.BygonePortalEntity;
-import com.jamiedev.bygone.core.mixin.PortalProcessorAccessor;
-import com.jamiedev.bygone.core.registry.BGInterAttachmentTypes;
+import com.jamiedev.bygone.core.registry.BGAttachmentTypes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -29,9 +28,9 @@ public class PortalOverlay implements LayeredDraw.Layer {
         int screenHeight = guiGraphics.guiHeight();
 
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.options.hideGui || !mc.player.has(BGInterAttachmentTypes.LAST_TICK_IN_PORTAL)) return;
+        if (mc.player == null || mc.options.hideGui || !mc.player.has(BGAttachmentTypes.LAST_TICK_IN_PORTAL)) return;
 
-        boolean entering = mc.player.get(BGInterAttachmentTypes.LAST_TICK_IN_PORTAL) == mc.player.tickCount;
+        boolean entering = mc.player.get(BGAttachmentTypes.LAST_TICK_IN_PORTAL) == mc.player.tickCount;
         if (entering || alpha > 0) {
             if(entering) alpha = alpha * 0.97F + 0.03F;
             else alpha = (alpha - 0.06F) / 0.97F;
