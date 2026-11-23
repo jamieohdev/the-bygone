@@ -65,14 +65,6 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
         }
     }
 
-    @Unique
-    private void the_bygone$carapaceLeggingsTick() {
-        ItemStack itemstack = this.getItemBySlot(EquipmentSlot.LEGS);
-        if (itemstack.is(BGItems.CARAPACE_GREAVES.get()) && this.isEyeInFluid(FluidTags.WATER)) {
-            this.addEffect(new MobEffectInstance(BGMobEffects.CARAPACE.get(), 200, 0));
-        }
-    }
-
     @Override
     public void bygone$setHook(@Nullable HookEntity pHook) {
         boolean changed = this.hook != pHook;
@@ -97,11 +89,6 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerWithHook
         if (nbt.hasUUID("HookUUID")) {
             this.hookUUID = nbt.getUUID("HookUUID");
         }
-    }
-
-    @Inject(at = @At("RETURN"), method = "tick()V")
-    public void tick(CallbackInfo ci) {
-        this.the_bygone$carapaceLeggingsTick();
     }
 
     /*todo use forge event

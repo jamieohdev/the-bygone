@@ -608,12 +608,10 @@ public class BGItems {
     );
 
     public static final Supplier<Item> CARAPACE_GREAVES = registerItem(
-            "carapace_greaves", () ->
-                    new ArmorItem(
-                            BGArmorMaterials.CARAPACE, ArmorItem.Type.LEGGINGS,
-                            new Item.Properties().fireResistant().durability(ArmorItem.Type.LEGGINGS.getDurability(15)
-                            )
-                    )
+            "carapace_greaves", () -> new CarapaceArmorItem(
+                    ArmorItem.Type.LEGGINGS,
+                    new Item.Properties().fireResistant().durability(ArmorItem.Type.LEGGINGS.getDurability(15))
+            )
     );
 
     public static FoodProperties AMARANTH_LOAF_COMP = (new FoodProperties.Builder()).nutrition(0)
