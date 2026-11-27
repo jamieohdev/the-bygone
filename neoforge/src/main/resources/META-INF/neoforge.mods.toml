@@ -46,3 +46,7 @@ versionRange = "[1.7.0,)"
 [[dependencies.${modid}]]
 modId = "moredensityfunctions"
 versionRange = "[2.3.0,)"
+
+[[dependencies.${modid}]]
+modId = "sablecompanion"
+versionRange = "[1.6.0,)"

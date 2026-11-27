@@ -1,6 +1,7 @@
 plugins{ alias libs.plugins.neoforge.moddev }
 repositories{
     maven{ url = 'https://api.modrinth.com/maven' }
+    maven{ url = 'https://maven.ryanhcode.dev/releases' }
 }
 
 base{ archivesName = "${project.modid}-${project.name}-${libs.versions.minecraft.get()}" }
@@ -50,12 +51,15 @@ dependencies{
     implementation libs.neoforge.jinxedlib
     implementation libs.neoforge.lithostitched
     implementation libs.neoforge.moredfs
+    implementation libs.neoforge.sable.companion
 
     jarJar libs.neoforge.moredfs
+    jarJar libs.neoforge.sable.companion
 }
 
 def properties = providers.gradlePropertiesPrefixedBy('').get()
 processResources{
+    inputs.properties properties
     filesMatching(['META-INF/neoforge.mods.toml']){
         expand properties
     }

@@ -18,7 +18,8 @@
     "fabric-api": ">=0.115.6",
     "jinxedlib": ">=1.0.3",
     "lithostitched": ">=1.7.0",
-    "moredensityfunctions": ">=2.3.0"
+    "moredensityfunctions": ">=2.3.0",
+    "sablecompanion": ">=1.6.0"
   },
 
   "name": "${modname}",

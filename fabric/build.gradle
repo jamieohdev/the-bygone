@@ -2,6 +2,7 @@ plugins{ alias libs.plugins.fabric.loom }
 repositories{
     maven{ url = 'https://api.modrinth.com/maven' }
     maven{ url = 'https://maven.parchmentmc.org' }
+    maven{ url = 'https://maven.ryanhcode.dev/releases' }
 }
 
 base{ archivesName = "${project.modid}-${project.name}-${libs.versions.minecraft.get()}" }
@@ -49,13 +50,16 @@ dependencies{
     modImplementation libs.fabric.jinxedlib
     modImplementation libs.fabric.lithostitched
     modImplementation libs.fabric.moredfs
+    modImplementation libs.fabric.sable.companion
 
     include libs.fabric.moredfs
+    include libs.fabric.sable.companion
 }
 
 
 def properties = providers.gradlePropertiesPrefixedBy('').get()
 processResources{
+    inputs.properties properties
     filesMatching(['fabric.mod.json']){
         expand properties
     }

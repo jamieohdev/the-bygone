@@ -22,6 +22,8 @@ fabric_jinxedlib = "7lUkgdzX" # 1.0.3
 fabric_lithostitched = "1.7.0-fabric-21.1" # can't do later or else runClient complains about JiJ'd apollib
 fabric_moredfs = "ZtCCIg0D" # 2.3.0; this is JiJ'd, so we always want latest
 
+sable_companion = "1.6.0"
+
 [plugins]
 neoforge_moddev = { id = "net.neoforged.moddev", version.ref = "neoforge_moddev" }
 fabric_loom = { id = "net.fabricmc.fabric-loom-remap", version.ref = "fabric_loom" }
@@ -35,9 +37,11 @@ mixin_extras = { module = "io.github.llamalad7:mixinextras-common", version.ref 
 neoforge_jinxedlib = { module = "maven.modrinth:jinxedlib", version.ref = "neoforge_jinxedlib" }
 neoforge_lithostitched = { module = "maven.modrinth:lithostitched", version.ref = "neoforge_lithostitched" }
 neoforge_moredfs = { module = "maven.modrinth:more-density-functions", version.ref = "neoforge_moredfs" }
+neoforge_sable_companion = { module = "dev.ryanhcode.sable-companion:sable-companion-common-1.21.1", version.ref = "sable_companion" }
 
 fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
 fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }
 fabric_jinxedlib = { module = "maven.modrinth:jinxedlib", version.ref = "fabric_jinxedlib" }
 fabric_lithostitched = { module = "maven.modrinth:lithostitched", version.ref = "fabric_lithostitched" }
 fabric_moredfs = { module = "maven.modrinth:more-density-functions", version.ref = "fabric_moredfs" }
+fabric_sable_companion = { module = "dev.ryanhcode.sable-companion:sable-companion-fabric-1.21.1", version.ref = "sable_companion" }
