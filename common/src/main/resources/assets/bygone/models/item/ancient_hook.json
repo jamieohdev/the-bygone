@@ -1,14 +1,8 @@
 {
   "parent": "item/handheld_rod",
-  "textures": {
-    "layer0": "bygone:item/ancient_hook_cast"
-  },
-  "overrides": [
-    {
-      "predicate": {
-        "cast": 1
-      },
-      "model": "bygone:item/ancient_hook_cast"
-    }
-  ]
+  "textures": { "layer0": "bygone:item/ancient_hook" },
+  "overrides": [ {
+    "predicate": { "bygone:cast": 1 },
+    "model": "bygone:item/ancient_hook_cast"
+  } ]
 }
