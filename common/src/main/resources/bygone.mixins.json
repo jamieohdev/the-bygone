@@ -18,8 +18,7 @@
     "MapItemMixin",
     "MobBucketItemMixin",
     "NaturalSpawnerMixin",
-    "PlayerMixin",
-    "PortalProcessorAccessor",
+    "ServerGamePacketListenerImplMixin",
     "ServerLevelMixin",
     "StateDefinitionBuilderAccessor",
     "VexMixin"

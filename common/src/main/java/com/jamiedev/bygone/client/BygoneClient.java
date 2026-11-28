@@ -4,9 +4,9 @@ import com.jamiedev.bygone.Bygone;
 import com.jamiedev.bygone.client.models.*;
 import com.jamiedev.bygone.client.particles.*;
 import com.jamiedev.bygone.client.renderer.entity.*;
+import com.jamiedev.bygone.common.component.entity.HookData;
 import com.jamiedev.bygone.common.component.item.GearBagData;
 import com.jamiedev.bygone.common.item.VerdigrisBladeItem;
-import com.jamiedev.bygone.common.util.PlayerWithHook;
 import com.jamiedev.bygone.core.registry.*;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -304,23 +304,10 @@ public class BygoneClient {
 
     public static void registerModelPredicateProviders() {
         ItemProperties.register(
-                BGItems.ANCIENT_HOOK.get(), Bygone.id("deployed"), (itemStack, clientWorld, livingEntity, seed) -> {
-                    if (livingEntity instanceof Player) {
-                        for (InteractionHand value : InteractionHand.values()) {
-                            ItemStack heldStack = livingEntity.getItemInHand(value);
-
-                            if (heldStack == itemStack && (((PlayerWithHook) livingEntity).bygone$getHook() != null && !Objects.requireNonNull(
-                                            ((PlayerWithHook) livingEntity).bygone$getHook())
-                                    .isRemoved())) {
-                                return 1;
-                            }
-                        }
-                    }
-
-                    if (livingEntity == null) {
-                        return 0.0F;
-                    }
-                    return 0;
+                BGItems.ANCIENT_HOOK.get(), Bygone.id("cast"), (itemStack, clientWorld, livingEntity, seed) -> {
+                    if(livingEntity == null) return 0F;
+                    // use has instead of HookData#getHook to know if the server thinks we should have a hook
+                    return livingEntity.isHolding(x -> x == itemStack) && livingEntity.has(BGAttachmentTypes.HOOK) ? 1F : 0F;
                 }
         );
 

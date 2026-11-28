@@ -34,9 +34,8 @@ public class BGEntityTypes {
     public static final Supplier<EntityType<HookEntity>> HOOK = registerEntityType(
             "hook", () ->
                     EntityType.Builder.<HookEntity>of(HookEntity::new, MobCategory.MISC)
-                            .sized(0.25F, 0.25F)
-                            .clientTrackingRange(4)
-                            .updateInterval(5)
+                            .sized(0.25F, 0.25F).eyeHeight(0.125F)
+                            .clientTrackingRange((int)Math.ceil(HookEntity.MAX_RANGE / 16)).updateInterval(1)
                             .build("")
     );
 

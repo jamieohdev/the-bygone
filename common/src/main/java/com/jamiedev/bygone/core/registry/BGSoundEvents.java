@@ -167,10 +167,8 @@ public class BGSoundEvents {
     public static final ResourceLocation ITEM_WAR_HORN_USE_ID = id("item.war_horn.use");
     public static final ResourceLocation HOOK_RETRIEVE = id("entity.hook.retrieve");
     public static final ResourceLocation HOOK_HIT = id("entity.hook.hit");
-    public static final ResourceLocation HOOK_THROW = id("entity.hook.throw");
     public static final SoundEvent HOOK_RETRIEVE_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_RETRIEVE);
     public static final SoundEvent HOOK_HIT_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_HIT);
-    public static final SoundEvent HOOK_THROW_ADDITIONS_EVENT = SoundEvent.createVariableRangeEvent(HOOK_THROW);
     public static final ResourceLocation ITEM_ARCANE_CORE_USE_ID = id("item.arcane_core.use");
     public static final SoundEvent ITEM_ARCANE_CORE_USE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_ARCANE_CORE_USE_ID);
     public static final SoundEvent WAR_HORN_USE_EVENT = SoundEvent.createVariableRangeEvent(ITEM_WAR_HORN_USE_ID);
@@ -377,7 +375,6 @@ public class BGSoundEvents {
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_RETRIEVE, HOOK_RETRIEVE_ADDITIONS_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_HIT, HOOK_HIT_ADDITIONS_EVENT);
-        Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.HOOK_THROW, HOOK_THROW_ADDITIONS_EVENT);
 
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ITEM_WAR_HORN_USE_ID, WAR_HORN_USE_EVENT);
         Registry.register(BuiltInRegistries.SOUND_EVENT, BGSoundEvents.ITEM_ECHO_GONG_USE_ID, ECHO_GONG_USE_EVENT);
